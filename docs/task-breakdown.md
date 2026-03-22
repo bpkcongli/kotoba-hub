@@ -10,7 +10,7 @@
 ### 1. System Architecture
 - [x] `ARCH-01` Finalisasi daftar bounded context modular monolith: `auth`, `users`, `syllabus`, `flashcards`, `practice`, `progress`, `personalization`, `shared`. Lihat [architecture-foundation.md](./architecture-foundation.md).
 - [x] `ARCH-02` Tetapkan struktur folder final untuk Next.js App Router agar pemisahan frontend, backend adapter, dan domain modules jelas. Lihat [architecture-foundation.md](./architecture-foundation.md).
-- [ ] `ARCH-03` Definisikan alur data utama antar module, terutama relasi `syllabus -> progress -> personalization -> practice`.
+- [x] `ARCH-03` Definisikan alur data utama antar module, terutama relasi `syllabus -> progress -> personalization -> practice`. Lihat [architecture-foundation.md](./architecture-foundation.md).
 - [ ] `ARCH-04` Buat sequence diagram untuk `Login with Google + first-time onboarding personalization`.
 - [ ] `ARCH-05` Buat sequence diagram untuk `Flashcard answer -> progress event -> mastery snapshot update`.
 - [ ] `ARCH-06` Buat sequence diagram untuk `Generate random questions -> answer submission -> grading -> progress update`.

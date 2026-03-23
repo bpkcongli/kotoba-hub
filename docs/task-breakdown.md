@@ -11,10 +11,10 @@
 - [x] `ARCH-01` Finalisasi daftar bounded context modular monolith: `auth`, `users`, `syllabus`, `flashcards`, `practice`, `progress`, `personalization`, `shared`. Lihat [architecture-foundation.md](./architecture-foundation.md).
 - [x] `ARCH-02` Tetapkan struktur folder final untuk Next.js App Router agar pemisahan frontend, backend adapter, dan domain modules jelas. Lihat [architecture-foundation.md](./architecture-foundation.md).
 - [x] `ARCH-03` Definisikan alur data utama antar module, terutama relasi `syllabus -> progress -> personalization -> practice`. Lihat [architecture-foundation.md](./architecture-foundation.md).
-- [ ] `ARCH-04` Buat sequence diagram untuk `Login with Google + first-time onboarding personalization`.
-- [ ] `ARCH-05` Buat sequence diagram untuk `Flashcard answer -> progress event -> mastery snapshot update`.
-- [ ] `ARCH-06` Buat sequence diagram untuk `Generate random questions -> answer submission -> grading -> progress update`.
-- [ ] `ARCH-07` Buat sequence diagram untuk `Personalization assessment -> AI normalization -> user confirmation -> learner profile update`.
+- [x] `ARCH-04` Buat sequence diagram untuk `Login with Google + first-time onboarding personalization`. Lihat [sequence-diagram/login-session-established.md](./sequence-diagram/login-session-established.md) dan [sequence-diagram/onboarding-personalization.md](./sequence-diagram/onboarding-personalization.md).
+- [x] `ARCH-05` Buat sequence diagram untuk `Flashcard answer -> progress event -> mastery snapshot update`. Lihat [sequence-diagram/flashcard-and-answer-evaluation.md](./sequence-diagram/flashcard-and-answer-evaluation.md) dan [sequence-diagram/update-progress-snapshot.md](./sequence-diagram/update-progress-snapshot.md).
+- [x] `ARCH-06` Buat sequence diagram untuk `Generate random questions -> answer submission -> grading -> progress update`. Lihat [sequence-diagram/random-question-generator-and-answer-evaluation.md](./sequence-diagram/random-question-generator-and-answer-evaluation.md) dan [sequence-diagram/update-progress-snapshot.md](./sequence-diagram/update-progress-snapshot.md).
+- [x] `ARCH-07` Buat sequence diagram untuk `Personalization assessment -> AI normalization -> user confirmation -> learner profile update`. Lihat [sequence-diagram/personalization-assessment-ai-normalization-user-confirmation-learner-profile-update.md](./sequence-diagram/personalization-assessment-ai-normalization-user-confirmation-learner-profile-update.md).
 - [ ] `ARCH-08` Susun ERD untuk auth dan user profile: `users`, `accounts`, `sessions`, `learner_profiles`.
 - [ ] `ARCH-09` Susun ERD untuk syllabus domain: `tracks`, `units`, `lessons`, `skills`, `unit_skill_mappings`.
 - [ ] `ARCH-10` Susun ERD untuk learning activity: `flashcard_decks`, `flashcard_items`, `practice_sessions`, `practice_questions`, `practice_answers`, `progress_events`, `skill_mastery_snapshots`.

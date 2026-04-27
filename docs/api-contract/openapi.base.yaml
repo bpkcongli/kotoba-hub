@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: KotobaFlow API
+  title: KotobaHub API
   version: 0.1.0
   description: |
     Base contract untuk task ARCH-12. Dokumen ini hanya memuat metadata,
@@ -10,7 +10,7 @@ info:
 servers:
   - url: http://localhost:3000
     description: Local development server
-  - url: https://kotobaflow.example.com
+  - url: https://kotobahub.example.com
     description: Placeholder production server
 tags:
   - name: Base

@@ -2,11 +2,11 @@
 
 ## Scope
 - Dokumen ini menyelesaikan task `ARCH-12`.
-- Fokusnya adalah fondasi kontrak API untuk `KotobaFlow`: metadata OpenAPI, auth scheme, response envelope, error response format, dan pagination/query convention.
+- Fokusnya adalah fondasi kontrak API untuk `KotobaHub`: metadata OpenAPI, auth scheme, response envelope, error response format, dan pagination/query convention.
 - Endpoint detail per feature belum didefinisikan di dokumen ini; itu menjadi lanjutan untuk `ARCH-13`, `ARCH-14`, dan `ARCH-15`.
 
 ## Core Decisions
-- Format kontrak memakai `OpenAPI 3.1.0`.
+- Format kontrak memakai `OpenAPI 3.0.3`.
 - Default prefix endpoint harus memakai versioning, yaitu `/api/v1/...`.
 - Semua response memakai envelope yang konsisten melalui root field `status`, dan bila relevan ditambah `metadata` serta `data`.
 - List response wajib membungkus array di bawah nama entity collection yang eksplisit, misalnya `flashcardItems`, bukan array anonim di root `data`.

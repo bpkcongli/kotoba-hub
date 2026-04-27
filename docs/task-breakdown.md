@@ -1,4 +1,4 @@
-# KotobaFlow Task Breakdown
+# KotobaHub Task Breakdown
 
 ## Summary
 - Format task breakdown menggunakan checklist agar mudah ditandai `done` atau `not done` di file ini.
@@ -14,7 +14,7 @@
 - [x] `ARCH-04` Buat sequence diagram untuk `Login with Google + first-time onboarding personalization`. Lihat [sequence-diagram/login-session-established.md](./sequence-diagram/login-session-established.md) dan [sequence-diagram/onboarding-personalization.md](./sequence-diagram/onboarding-personalization.md).
 - [x] `ARCH-05` Buat sequence diagram untuk `Flashcard answer -> progress event -> mastery snapshot update`. Lihat [sequence-diagram/flashcard-and-answer-evaluation.md](./sequence-diagram/flashcard-and-answer-evaluation.md) dan [sequence-diagram/update-progress-snapshot.md](./sequence-diagram/update-progress-snapshot.md).
 - [x] `ARCH-06` Buat sequence diagram untuk `Generate random questions -> answer submission -> grading -> progress update`. Lihat [sequence-diagram/random-question-generator-and-answer-evaluation.md](./sequence-diagram/random-question-generator-and-answer-evaluation.md) dan [sequence-diagram/update-progress-snapshot.md](./sequence-diagram/update-progress-snapshot.md).
-- [x] `ARCH-07` Buat sequence diagram untuk `Personalization assessment -> AI normalization -> user confirmation -> learner profile update`. Lihat [sequence-diagram/personalization-assessment-ai-normalization-user-confirmation-learner-profile-update.md](./sequence-diagram/personalization-assessment-ai-normalization-user-confirmation-learner-profile-update.md).
+- [x] `ARCH-07` Buat sequence diagram untuk `Personalization assessment -> AI normalization -> user confirmation -> learner profile update`. Lihat [sequence-diagram/onboarding-personalization-with-ai-normalization.md](./sequence-diagram/onboarding-personalization-with-ai-normalization.md).
 - [x] `ARCH-08` Susun ERD untuk auth dan user profile: `users`, `accounts`, `sessions`, `learner_profiles`. Lihat [erd/auth-and-user-profile.md](./erd/auth-and-user-profile.md).
 - [x] `ARCH-09` Susun ERD untuk syllabus domain: `tracks`, `units`, `lessons`, `skills`, `unit_skill_mappings`. Lihat [erd/syllabus-domain.md](./erd/syllabus-domain.md).
 - [x] `ARCH-10` Susun ERD untuk learning activity: `flashcard_decks`, `flashcard_items`, `practice_sessions`, `practice_questions`, `practice_answers`, `progress_events`, `skill_mastery_snapshots`. Lihat [erd/learning-activity.md](./erd/learning-activity.md).
@@ -23,23 +23,23 @@
 - [x] `ARCH-13` Definisikan Swagger contract untuk authentication dan authorization. Lihat [api-contract/auth-and-authorization.md](./api-contract/auth-and-authorization.md) dan [api-contract/openapi.auth.yaml](./api-contract/openapi.auth.yaml).
 - [x] `ARCH-14` Definisikan Swagger contract untuk endpoint syllabus dan personalization. Lihat [api-contract/user-profile-and-personalization.md](./api-contract/user-profile-and-personalization.md), [api-contract/openapi.user-profile-and-personalization.yaml](./api-contract/openapi.user-profile-and-personalization.yaml), [api-contract/syllabus.md](./api-contract/syllabus.md), dan [api-contract/openapi.syllabus.yaml](./api-contract/openapi.syllabus.yaml).
 - [x] `ARCH-15` Definisikan Swagger contract untuk endpoint flashcard, practice, dan progress tracking. Lihat [api-contract/flashcards.md](./api-contract/flashcards.md), [api-contract/openapi.flashcards.yaml](./api-contract/openapi.flashcards.yaml), [api-contract/practice.md](./api-contract/practice.md), [api-contract/openapi.practice.yaml](./api-contract/openapi.practice.yaml), [api-contract/progress.md](./api-contract/progress.md), dan [api-contract/openapi.progress.yaml](./api-contract/openapi.progress.yaml).
-- [ ] `ARCH-16` Review konsistensi antara sequence diagram, ERD, dan Swagger agar tidak ada mismatch field atau flow.
+- [x] `ARCH-16` Review konsistensi antara sequence diagram, ERD, dan Swagger agar tidak ada mismatch field atau flow. Lihat [arch-16-consistency-review.md](./arch-16-consistency-review.md).
 
 ### 2. UI System Design
-- [ ] `DS-01` Kumpulkan brief brand identity KotobaFlow dari stakeholder sebelum masuk ke visual system final.
+- [ ] `DS-01` Kumpulkan brief brand identity KotobaHub dari stakeholder sebelum masuk ke visual system final.
 - [ ] `DS-02` Buat design direction board: tone, keywords, visual references, dan learning-product personality.
 - [ ] `DS-03` Definisikan design tokens awal: color roles, typography, spacing, radius, shadow, focus state, motion principles.
 - [ ] `DS-04` Definisikan responsive layout rules untuk mobile dan desktop, termasuk pattern bottom nav dan sidebar/topbar.
 - [ ] `DS-05` Buat information architecture dan page inventory untuk landing, auth, onboarding, dashboard, syllabus, flashcard, practice, progress, settings.
 - [ ] `DS-06` Buat low-fidelity wireframe untuk flow inti: onboarding, syllabus map, flashcard session, practice session, progress dashboard.
-- [ ] `DS-07` Buat component inventory berbasis shadcn yang perlu di-custom untuk KotobaFlow.
+- [ ] `DS-07` Buat component inventory berbasis shadcn yang perlu di-custom untuk KotobaHub.
 - [ ] `DS-08` Finalisasi high-fidelity system design setelah brief brand diterima dan validasi konsistensi antar screen.
 
 ### 3. Online Syllabus
 - [ ] `SYL-01` Finalisasi struktur syllabus `track -> unit -> lesson -> skill` berbasis JLPT.
 - [ ] `SYL-02` Tetapkan coverage scope seed awal: detail konten N5 sampai N4, dengan skeleton extensible untuk N3 sampai N2.
 - [ ] `SYL-03` Definisikan schema seed content agar mudah diimport ke database atau dibaca langsung dari repo.
-- [ ] `SYL-04` Susun daftar unit per level JLPT dan urutan belajar yang masuk akal untuk learner journey KotobaFlow.
+- [ ] `SYL-04` Susun daftar unit per level JLPT dan urutan belajar yang masuk akal untuk learner journey KotobaHub.
 - [ ] `SYL-05` Turunkan setiap unit menjadi lesson dan daftar skill yang bisa di-track oleh sistem.
 - [ ] `SYL-06` Tandai skill yang dipakai oleh flashcard, skill yang dipakai oleh random questions, dan skill yang dipakai keduanya.
 - [ ] `SYL-07` Review syllabus supaya align dengan personalization rules dan mastery tracking.

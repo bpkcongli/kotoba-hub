@@ -222,7 +222,8 @@ Behavior:
 - Menilai jawaban secara deterministik terhadap `answer_text` dan `accepted_answers`.
 - Mengubah bucket `NEW -> LEARNING -> MASTERED` sesuai hasil grading.
 - Menyimpan update internal `flashcards` terlebih dahulu.
-- Menjalankan handoff ke `progress` dan mengembalikan ringkasan efek snapshot terbaru.
+- Jika item punya mapping `skill_id` resmi, endpoint menjalankan handoff ke `progress` dan mengembalikan ringkasan efek snapshot terbaru.
+- Jika item belum punya mapping `skill_id` resmi, endpoint tetap sukses untuk update internal `flashcards`, tetapi `progressImpact` bernilai `null`.
 
 Success response:
 

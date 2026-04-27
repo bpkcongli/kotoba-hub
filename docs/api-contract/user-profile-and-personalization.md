@@ -53,14 +53,14 @@ Success response:
     "displayName": "John Doe",
     "avatarUrl": "https://example.com/avatar.png",
     "onboardingCompleted": false,
-    "accessState": "ONBOARDING_REQUIRED",
+    "appAccess": "ONBOARDING_REQUIRED",
     "learnerProfile": null
   }
 }
 ```
 
 Response notes:
-- `accessState` mengikuti rule auth/authz: `ONBOARDING_REQUIRED` atau `APP_READY`.
+- `appAccess` mengikuti enum yang sama dengan `authorization.appAccess` di endpoint auth session: `ONBOARDING_REQUIRED` atau `APP_READY`.
 - `learnerProfile` bernilai `null` bila onboarding belum pernah dikonfirmasi.
 
 ### `POST /api/v1/personalization/assessment`
@@ -167,7 +167,7 @@ Success response:
       "displayName": "John Doe",
       "avatarUrl": "https://example.com/avatar.png",
       "onboardingCompleted": true,
-      "accessState": "APP_READY",
+      "appAccess": "APP_READY",
       "learnerProfile": {
         "currentLevel": "JLPT_N5",
         "targetLevel": "JLPT_N4",

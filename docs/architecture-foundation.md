@@ -1,12 +1,12 @@
-# KotobaFlow Architecture Foundation
+# KotobaHub Architecture Foundation
 
 ## Scope
 - Dokumen ini mengunci hasil task `ARCH-01`, `ARCH-02`, dan `ARCH-03`.
-- Fokusnya adalah tiga hal: bounded context final untuk modular monolith `KotobaFlow`, struktur folder final yang cocok untuk Next.js App Router, dan alur data utama antar module.
+- Fokusnya adalah tiga hal: bounded context final untuk modular monolith `KotobaHub`, struktur folder final yang cocok untuk Next.js App Router, dan alur data utama antar module.
 - Keputusan di dokumen ini menggantikan usulan struktur yang masih kasar di `mvp-plan.md`.
 
 ## Decision Summary
-- KotobaFlow tetap dibuat sebagai satu aplikasi Next.js fullstack, bukan monorepo.
+- KotobaHub tetap dibuat sebagai satu aplikasi Next.js fullstack, bukan monorepo.
 - App Router tetap tinggal di `src/app` sebagai lapisan routing, layout, dan transport adapter tipis.
 - Backend dipisahkan ke `src/backend` dengan struktur per bounded context dan layering `domain -> application -> interface -> infrastructure`.
 - Frontend dipisahkan ke `src/frontend` dengan folder `shared` yang sejajar langsung dengan folder domain-specific.
@@ -172,7 +172,7 @@ src/backend/<module>/
 
 ### Backend Notes
 - `domain` memuat pure business rules dan tidak tahu detail framework.
-- `application` memuat use case orchestration. Tambahan folder `queries/` sengaja ditambahkan karena KotobaFlow punya read-heavy flow seperti syllabus map dan progress overview.
+- `application` memuat use case orchestration. Tambahan folder `queries/` sengaja ditambahkan karena KotobaHub punya read-heavy flow seperti syllabus map dan progress overview.
 - `interface/primary/rest` berisi controller/handler/mapping request-response. File `src/app/api/**/route.ts` hanya menjadi adapter Next.js yang mendelegasikan kerja ke lapisan ini.
 - `interface/secondary` berisi implementasi port keluar seperti repository database, AI provider adapter, event publisher, atau cache adapter.
 - `infrastructure` memuat detail teknis yang spesifik ke runtime/project seperti DI container, database bootstrap, logging config, dan module wiring.
@@ -222,7 +222,7 @@ src/frontend/shared/
 ```
 
 ### Frontend Notes
-- Pola repo referensi tetap dipakai idenya: domain UI dipisah dari shared/general layer. Untuk KotobaFlow, nama `shared` dipilih agar lebih umum dan mudah dibedakan dari `backend/shared`.
+- Pola repo referensi tetap dipakai idenya: domain UI dipisah dari shared/general layer. Untuk KotobaHub, nama `shared` dipilih agar lebih umum dan mudah dibedakan dari `backend/shared`.
 - Folder seperti `frontend/auth`, `frontend/onboarding`, `frontend/syllabus`, dan seterusnya dipakai untuk kode yang dekat dengan fitur produk, misalnya onboarding wizard, flashcard flow, progress chart, dan syllabus map.
 - `frontend/shared` dipakai untuk UI primitives, app shell, provider global, reusable hooks, adapter HTTP, dan util lintas domain.
 - Struktur `atoms/molecules/organisms` tidak wajib diisi semua. Jika satu domain kecil, cukup gunakan `components/` biasa atau hanya `features/`.
@@ -252,9 +252,9 @@ src/frontend/shared/
 
 ### Syllabus Source Of Truth Terms
 
-Istilah `track -> unit -> lesson -> skill` adalah model konten inti KotobaFlow. Artinya bukan sekadar struktur halaman, tetapi struktur kurikulum yang menjadi referensi resmi untuk navigation, progress attribution, personalization, dan practice generation.
+Istilah `track -> unit -> lesson -> skill` adalah model konten inti KotobaHub. Artinya bukan sekadar struktur halaman, tetapi struktur kurikulum yang menjadi referensi resmi untuk navigation, progress attribution, personalization, dan practice generation.
 
-| Term | Arti di KotobaFlow | Ukuran scope | Contoh |
+| Term | Arti di KotobaHub | Ukuran scope | Contoh |
 | --- | --- | --- | --- |
 | `track` | Jalur belajar besar yang mewakili satu ladder atau fase utama belajar | Paling besar | `jlpt-n5-foundation`, `jlpt-n4-expansion` |
 | `unit` | Kelompok materi dalam satu track yang menyatukan tema/topik belajar | Menengah | `n5-kana-and-sound-system`, `n5-core-particles` |

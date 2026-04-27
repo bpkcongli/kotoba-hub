@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: KotobaFlow User Profile And Personalization API
+  title: KotobaHub User Profile And Personalization API
   version: 0.1.0
   description: |
     Dokumen ini menyelesaikan bagian user profile dan personalization dari
@@ -9,7 +9,7 @@ info:
 servers:
   - url: http://localhost:3000/api/v1
     description: Local development server
-  - url: https://kotobaflow.example.com/api/v1
+  - url: https://kotobahub.example.com/api/v1
     description: Placeholder production server
 tags:
   - name: User Profile
@@ -45,7 +45,7 @@ paths:
                   displayName: John Doe
                   avatarUrl: https://example.com/avatar.png
                   onboardingCompleted: false
-                  accessState: ONBOARDING_REQUIRED
+                  appAccess: ONBOARDING_REQUIRED
                   learnerProfile: null
         '401':
           description: Session tidak ada atau tidak valid.
@@ -184,7 +184,7 @@ paths:
                     displayName: John Doe
                     avatarUrl: https://example.com/avatar.png
                     onboardingCompleted: true
-                    accessState: APP_READY
+                    appAccess: APP_READY
                     learnerProfile:
                       currentLevel: JLPT_N5
                       targetLevel: JLPT_N4
@@ -336,7 +336,7 @@ components:
         - displayName
         - avatarUrl
         - onboardingCompleted
-        - accessState
+        - appAccess
         - learnerProfile
       properties:
         userId:
@@ -353,7 +353,7 @@ components:
           format: uri
         onboardingCompleted:
           type: boolean
-        accessState:
+        appAccess:
           type: string
           enum:
             - ONBOARDING_REQUIRED

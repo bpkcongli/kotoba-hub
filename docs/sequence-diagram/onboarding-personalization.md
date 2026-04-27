@@ -37,7 +37,7 @@ sequenceDiagram
 
         Learner->>App: Submit onboarding form
         App->>Personalization: Submit assessment input
-        Note over App,Personalization: Input utama: current level, target JLPT, daily goal, script familiarity, weak areas, optional free-text note
+        Note over App,Personalization: Input utama: current level, target JLPT, daily goal, preferred script, weak skill focuses, optional free-text note
 
         Personalization->>Progress: Get baseline mastery snapshot
         Progress->>DB: Read progress_events / skill_mastery_snapshots
@@ -65,4 +65,4 @@ sequenceDiagram
 ## Expected Outcome
 - User yang sudah onboarding langsung masuk ke area belajar.
 - User yang belum onboarding diarahkan ke wizard, lalu disimpan sebagai `learner_profile` yang siap dipakai untuk recommendation awal.
-- Untuk detail tahap draft/confirmation hasil normalisasi AI, lihat [personalization-assessment-ai-normalization-user-confirmation-learner-profile-update.md](./personalization-assessment-ai-normalization-user-confirmation-learner-profile-update.md).
+- Untuk detail tahap draft/confirmation hasil normalisasi AI, lihat [onboarding-personalization-with-ai-normalization.md](./onboarding-personalization-with-ai-normalization.md).

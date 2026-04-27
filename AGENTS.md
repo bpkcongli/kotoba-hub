@@ -1,7 +1,7 @@
 # AGENTS.md
 
 ## Purpose
-- File ini adalah panduan kerja untuk agent yang berkontribusi di repository `kotoba-flow`.
+- File ini adalah panduan kerja untuk agent yang berkontribusi di repository `kotoba-hub`.
 - Kondisi project saat ini masih berada pada tahap awal planning dan dokumentasi.
 - Karena itu, `docs/` adalah source of truth utama sebelum agent melakukan analisis, implementasi, revisi, atau review.
 

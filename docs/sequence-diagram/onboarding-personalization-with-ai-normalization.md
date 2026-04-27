@@ -20,7 +20,7 @@ sequenceDiagram
     participant DB as MySQL
 
     Learner->>App: Submit structured onboarding assessment
-    Note over Learner,App: current level, target JLPT, daily goal, script familiarity, <br> weak areas, optional free-text note
+    Note over Learner,App: current level, target JLPT, daily goal, preferred script, <br> weak skill focuses, optional free-text note
     App->>Personalization: Submit assessment input
 
     Personalization->>Progress: Get baseline mastery snapshot

@@ -1,7 +1,7 @@
-# KotobaFlow MVP Plan
+# KotobaHub MVP Plan
 
 ## Summary
-- Dokumentasi ini berisi arsitektur, design system, roadmap implementasi, API contract, data model, dan strategi testing untuk `KotobaFlow`.
+- Dokumentasi ini berisi arsitektur, design system, roadmap implementasi, API contract, data model, dan strategi testing untuk `KotobaHub`.
 - Target stack dikunci ke Next.js App Router `16.1.1` pada Bun, dengan React `19.2.1+`, karena Next.js 15/16 App Router sempat terkena advisory besar pada Desember 2025 dan rilis patch aman berada di line `16.0.10+`; gunakan patch terbaru di line `16.1.x` saat bootstrap.
 - Scope v1 adalah `Core MVP`: Google login, onboarding personalization, online syllabus read-only, flashcard, AI random questions, realtime progress tracking berbasis event, responsive web untuk mobile dan desktop, Docker image, dan baseline CI/quality gates.
 - Arah produk yang dikunci: UI language `English`, syllabus `JLPT ladder` dengan progression ala Duolingo namun bukan cloning konten/struktur proprietary, database production tetap `MySQL`, dan AI architecture `provider-agnostic` dengan adapter default OpenAI saat implementasi AI dimulai.
@@ -21,7 +21,7 @@
 - Jangan menyerahkan semua evaluasi ke AI. Untuk kana, vocab match, multiple choice, dan sentence slot-fill yang deterministik, nilai dengan rules biasa. AI hanya dipakai untuk generate set, grade free-response, normalize personalization input, dan memberi feedback singkat.
 - Realtime progress tracking di MVP diartikan sebagai write-through per interaction, bukan websocket. Setelah setiap flashcard answer atau practice answer, simpan `progress_event` langsung, recompute `skill_mastery_snapshot`, dan refresh UI secara optimistik + revalidation.
 - Mastery model v1: hitung dari 20 attempt terakhir per skill dengan bobot `accuracy 70%`, `recency 20%`, `speed/confidence proxy 10%`; naikkan difficulty jika mastery `>= 80` selama 2 session, turunkan/remediate jika `<= 50` selama 2 session.
-- Personalization onboarding jangan pure chat. Gabungkan structured wizard dan optional AI note. User memilih current level, script familiarity, weak areas, target JLPT, dan daily goal; optional free-text seperti “I already know N5 grammar” dinormalisasi AI menjadi daftar skill yang harus dikonfirmasi user sebelum disimpan.
+- Personalization onboarding jangan pure chat. Gabungkan structured wizard dan optional AI note. User memilih current level, preferred script, weak skill focuses, target JLPT, dan daily goal; optional free-text seperti “I already know N5 grammar” dinormalisasi AI menjadi daftar skill yang harus dikonfirmasi user sebelum disimpan.
 - Public API contracts yang perlu dikunci: `GET /api/syllabus`, `GET /api/syllabus/units/:slug`, `GET /api/flashcards/decks`, `POST /api/flashcards/sessions`, `POST /api/flashcards/sessions/:id/answer`, `POST /api/practice/sessions/generate`, `POST /api/practice/sessions/:id/answer`, `GET /api/progress/overview`, `GET /api/progress/timeline`, `POST /api/personalization/assessment`.
 - Interface AI provider yang perlu dibekukan sejak awal: `generatePracticeSession(input)`, `gradePracticeAnswer(input)`, `summarizePlacement(input)`, `generateStudyRecommendation(input)`. Semua output wajib structured JSON schema agar provider bisa diganti tanpa menyentuh UI.
 - Default AI adapter saat implementasi: OpenAI Responses API dengan structured outputs. Default cost profile: `gpt-5-mini` untuk generation/grading yang butuh reasoning, `gpt-5-nano` untuk classification/summarization ringan, Batch/Flex untuk recalculation async dan offline content tagging.

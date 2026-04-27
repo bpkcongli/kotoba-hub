@@ -42,6 +42,7 @@ sequenceDiagram
 - Producer activity seperti `flashcards` dan `practice` tidak menulis langsung ke storage milik `progress`.
 - `syllabus` dipakai sebagai validator resmi untuk memastikan attribution skill selalu sah sebelum event disimpan.
 - Recompute snapshot terjadi segera setelah event baru masuk, sehingga feedback loop ke UI dan recommendation berikutnya tetap write-through.
+- Flow ini hanya berlaku untuk hasil activity yang punya `skill_id` valid terhadap katalog `syllabus`. Jika item flashcard tidak punya mapping skill resmi, processing berhenti di boundary `flashcards` dan tidak membuat `progress_event`.
 
 ## Expected Outcome
 - Baik flashcard maupun random question mengikuti jalur update progress yang sama setelah result internal mereka tersimpan.

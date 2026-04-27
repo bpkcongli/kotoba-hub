@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: KotobaFlow Progress API
+  title: KotobaHub Progress API
   version: 0.1.0
   description: |
     Dokumen ini menyelesaikan bagian progress dari task ARCH-15. Endpoint di
@@ -9,7 +9,7 @@ info:
 servers:
   - url: http://localhost:3000/api/v1
     description: Local development server
-  - url: https://kotobaflow.example.com/api/v1
+  - url: https://kotobahub.example.com/api/v1
     description: Placeholder production server
 tags:
   - name: Progress

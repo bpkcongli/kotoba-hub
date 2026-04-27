@@ -1,7 +1,7 @@
 # Enum-Like String Reference
 
 ## Purpose
-- Dokumen ini menjadi referensi untuk field string enum-like yang muncul di ERD dan kontrak domain KotobaFlow.
+- Dokumen ini menjadi referensi untuk field string enum-like yang muncul di ERD dan kontrak domain KotobaHub.
 - Konvensi penulisannya adalah `UPPER_CASE` dengan separator underscore `_` bila nilai terdiri dari lebih dari satu kata.
 - Nilai yang berasal dari provider eksternal atau identifier bebas seperti `model`, `operation_name`, `scope`, dan `token_type` tidak dipaksa mengikuti konvensi ini karena bukan enum internal aplikasi.
 

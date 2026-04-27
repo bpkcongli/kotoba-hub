@@ -1,0 +1,612 @@
+openapi: 3.0.3
+info:
+  title: KotobaFlow Progress API
+  version: 0.1.0
+  description: |
+    Dokumen ini menyelesaikan bagian progress dari task ARCH-15. Endpoint di
+    sini mencakup dashboard overview, session activity feed, dan paginated
+    timeline activity.
+servers:
+  - url: http://localhost:3000/api/v1
+    description: Local development server
+  - url: https://kotobaflow.example.com/api/v1
+    description: Placeholder production server
+tags:
+  - name: Progress
+    description: Progress overview, session feed, and timeline read models
+paths:
+  /progress/overview:
+    get:
+      tags:
+        - Progress
+      summary: Get progress overview
+      description: Mengambil ringkasan progress dashboard current user.
+      operationId: getProgressOverview
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: trackSlug
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Progress overview berhasil diambil.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProgressOverviewResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 120007000
+                  message: Success!
+                  errorDetails: []
+                data:
+                  trackedSkillsCount: 18
+                  masteredSkillsCount: 4
+                  developingSkillsCount: 9
+                  weakSkillsCount: 5
+                  averageMasteryScore: 56.8
+                  recommendedDifficultyBand: standard
+                  lastActivityAt: '2026-04-04T10:20:00Z'
+                  trackSummaries:
+                    - trackSlug: jlpt-n5-foundation
+                      trackTitle: JLPT N5 Foundation
+                      trackedSkillsCount: 18
+                      masteredSkillsCount: 4
+                      averageMasteryScore: 56.8
+                      lastActivityAt: '2026-04-04T10:20:00Z'
+        '401':
+          description: Session tidak ada atau tidak valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140107001
+                  message: Unauthorized.
+                  errorDetails: []
+        '403':
+          description: Onboarding belum selesai.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140307001
+                  message: Forbidden.
+                  errorDetails: []
+  /progress/sessions:
+    get:
+      tags:
+        - Progress
+      summary: Get progress session feed
+      description: Mengambil feed aktivitas belajar current user yang diringkas per session.
+      operationId: getProgressSessions
+      security:
+        - cookieAuth: []
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - name: sourceTypes
+          in: query
+          required: false
+          description: Filter multi-value dengan separated commas, mis. flashcard,practice.
+          schema:
+            type: string
+            example: flashcard,practice
+        - name: trackSlug
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Progress session feed berhasil diambil.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProgressSessionFeedResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 120007000
+                  message: Success!
+                  errorDetails: []
+                metadata:
+                  pagination:
+                    pageNumber: 1
+                    pageSize: 10
+                    totalRecords: 2
+                data:
+                  progressSessions:
+                    - sourceType: flashcard
+                      sourceSessionId: 770e8400-e29b-41d4-a716-446655440222
+                      sessionStatus: completed
+                      sessionTitle: N5 Kana Foundation
+                      trackSlug: jlpt-n5-foundation
+                      unitSlug: n5-kana-basics
+                      startedAt: '2026-04-04T10:00:00Z'
+                      completedAt: '2026-04-04T10:12:00Z'
+                      lastActivityAt: '2026-04-04T10:12:00Z'
+                      totalInteractions: 10
+                      correctCount: 8
+                      incorrectCount: 2
+                      averageScore: 80
+        '401':
+          description: Session tidak ada atau tidak valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140107001
+                  message: Unauthorized.
+                  errorDetails: []
+        '403':
+          description: Onboarding belum selesai.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140307001
+                  message: Forbidden.
+                  errorDetails: []
+        '422':
+          description: Query progress session feed tidak valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 142207001
+                  message: Validation error.
+                  errorDetails:
+                    - field: sourceTypes
+                      message: sourceTypes must use comma-separated values.
+  /progress/timeline:
+    get:
+      tags:
+        - Progress
+      summary: Get progress timeline
+      description: Mengambil timeline paginated dari progress events current user.
+      operationId: getProgressTimeline
+      security:
+        - cookieAuth: []
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - name: sourceTypes
+          in: query
+          required: false
+          description: Filter multi-value dengan separated commas, mis. flashcard,practice.
+          schema:
+            type: string
+            example: flashcard,practice
+        - name: skillCodes
+          in: query
+          required: false
+          schema:
+            type: string
+            example: hiragana_basic,n5_particles_wa_ga_o
+        - name: trackSlug
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Progress timeline berhasil diambil.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProgressTimelineResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 120007000
+                  message: Success!
+                  errorDetails: []
+                metadata:
+                  pagination:
+                    pageNumber: 1
+                    pageSize: 10
+                    totalRecords: 2
+                data:
+                  progressEvents:
+                    - id: 770e8400-e29b-41d4-a716-446655440222
+                      sourceType: flashcard
+                      sourceSessionId: 880e8400-e29b-41d4-a716-446655440333
+                      sourceEntityId: 990e8400-e29b-41d4-a716-446655440444
+                      questionType: hiragana_character
+                      skillCode: hiragana_basic
+                      skillTitle: Hiragana Basics
+                      trackSlug: jlpt-n5-foundation
+                      unitSlug: n5-kana-basics
+                      lessonSlug: hiragana-row-a
+                      isCorrect: true
+                      numericScore: 100
+                      confidenceWeight: 0.8
+                      responseTimeMs: 1800
+                      answeredAt: '2026-04-04T10:20:00Z'
+        '401':
+          description: Session tidak ada atau tidak valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140107001
+                  message: Unauthorized.
+                  errorDetails: []
+        '403':
+          description: Onboarding belum selesai.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140307001
+                  message: Forbidden.
+                  errorDetails: []
+        '422':
+          description: Query progress tidak valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 142207001
+                  message: Validation error.
+                  errorDetails:
+                    - field: sourceTypes
+                      message: sourceTypes must use comma-separated values.
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: authjs.session-token
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      required: false
+      description: Zero-based jumlah record yang dilewati.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      example: 0
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Jumlah maksimal record yang diambil.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+      example: 10
+  schemas:
+    ErrorDetail:
+      type: object
+      additionalProperties: false
+      required:
+        - field
+        - message
+      properties:
+        field:
+          type: string
+        message:
+          type: string
+    Status:
+      type: object
+      additionalProperties: false
+      required:
+        - traceId
+        - code
+        - message
+        - errorDetails
+      properties:
+        traceId:
+          type: string
+          format: uuid
+        code:
+          type: integer
+        message:
+          type: string
+        errorDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          default: []
+    Pagination:
+      type: object
+      additionalProperties: false
+      required:
+        - pageNumber
+        - pageSize
+        - totalRecords
+      properties:
+        pageNumber:
+          type: integer
+          minimum: 1
+        pageSize:
+          type: integer
+          minimum: 1
+        totalRecords:
+          type: integer
+          minimum: 0
+    Metadata:
+      type: object
+      additionalProperties: false
+      required:
+        - pagination
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+    TrackSummary:
+      type: object
+      additionalProperties: false
+      required:
+        - trackSlug
+        - trackTitle
+        - trackedSkillsCount
+        - masteredSkillsCount
+        - averageMasteryScore
+        - lastActivityAt
+      properties:
+        trackSlug:
+          type: string
+        trackTitle:
+          type: string
+        trackedSkillsCount:
+          type: integer
+        masteredSkillsCount:
+          type: integer
+        averageMasteryScore:
+          type: number
+        lastActivityAt:
+          type: string
+          nullable: true
+          format: date-time
+    ProgressOverview:
+      type: object
+      additionalProperties: false
+      required:
+        - trackedSkillsCount
+        - masteredSkillsCount
+        - developingSkillsCount
+        - weakSkillsCount
+        - averageMasteryScore
+        - recommendedDifficultyBand
+        - lastActivityAt
+        - trackSummaries
+      properties:
+        trackedSkillsCount:
+          type: integer
+        masteredSkillsCount:
+          type: integer
+        developingSkillsCount:
+          type: integer
+        weakSkillsCount:
+          type: integer
+        averageMasteryScore:
+          type: number
+        recommendedDifficultyBand:
+          type: string
+        lastActivityAt:
+          type: string
+          nullable: true
+          format: date-time
+        trackSummaries:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackSummary'
+    ProgressOverviewResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+        - data
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+        data:
+          $ref: '#/components/schemas/ProgressOverview'
+    ProgressSessionFeedItem:
+      type: object
+      additionalProperties: false
+      required:
+        - sourceType
+        - sourceSessionId
+        - sessionStatus
+        - sessionTitle
+        - trackSlug
+        - unitSlug
+        - startedAt
+        - completedAt
+        - lastActivityAt
+        - totalInteractions
+        - correctCount
+        - incorrectCount
+        - averageScore
+      properties:
+        sourceType:
+          type: string
+          enum:
+            - flashcard
+            - practice
+        sourceSessionId:
+          type: string
+          format: uuid
+        sessionStatus:
+          type: string
+        sessionTitle:
+          type: string
+        trackSlug:
+          type: string
+          nullable: true
+        unitSlug:
+          type: string
+          nullable: true
+        startedAt:
+          type: string
+          nullable: true
+          format: date-time
+        completedAt:
+          type: string
+          nullable: true
+          format: date-time
+        lastActivityAt:
+          type: string
+          nullable: true
+          format: date-time
+        totalInteractions:
+          type: integer
+          minimum: 0
+        correctCount:
+          type: integer
+          minimum: 0
+        incorrectCount:
+          type: integer
+          minimum: 0
+        averageScore:
+          type: number
+          nullable: true
+    ProgressSessionFeedData:
+      type: object
+      additionalProperties: false
+      required:
+        - progressSessions
+      properties:
+        progressSessions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProgressSessionFeedItem'
+    ProgressSessionFeedResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+        - metadata
+        - data
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        data:
+          $ref: '#/components/schemas/ProgressSessionFeedData'
+    ProgressTimelineItem:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - sourceType
+        - sourceSessionId
+        - sourceEntityId
+        - questionType
+        - skillCode
+        - skillTitle
+        - trackSlug
+        - unitSlug
+        - lessonSlug
+        - isCorrect
+        - numericScore
+        - confidenceWeight
+        - responseTimeMs
+        - answeredAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        sourceType:
+          type: string
+          enum:
+            - flashcard
+            - practice
+        sourceSessionId:
+          type: string
+          format: uuid
+        sourceEntityId:
+          type: string
+          format: uuid
+        questionType:
+          type: string
+        skillCode:
+          type: string
+        skillTitle:
+          type: string
+        trackSlug:
+          type: string
+        unitSlug:
+          type: string
+        lessonSlug:
+          type: string
+        isCorrect:
+          type: boolean
+        numericScore:
+          type: number
+        confidenceWeight:
+          type: number
+          nullable: true
+        responseTimeMs:
+          type: integer
+          nullable: true
+        answeredAt:
+          type: string
+          format: date-time
+    ProgressTimelineData:
+      type: object
+      additionalProperties: false
+      required:
+        - progressEvents
+      properties:
+        progressEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProgressTimelineItem'
+    ProgressTimelineResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+        - metadata
+        - data
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        data:
+          $ref: '#/components/schemas/ProgressTimelineData'

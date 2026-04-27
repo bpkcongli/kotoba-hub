@@ -1,0 +1,515 @@
+openapi: 3.0.3
+info:
+  title: KotobaFlow Syllabus API
+  version: 0.1.0
+  description: |
+    Dokumen ini menyelesaikan bagian syllabus dari task ARCH-14. Endpoint di
+    sini dipakai untuk onboarding reference data dan eksplorasi unit syllabus.
+servers:
+  - url: http://localhost:3000/api/v1
+    description: Local development server
+  - url: https://kotobaflow.example.com/api/v1
+    description: Placeholder production server
+tags:
+  - name: Syllabus
+    description: Read-only syllabus catalog and unit detail
+paths:
+  /syllabus:
+    get:
+      tags:
+        - Syllabus
+      summary: Get published syllabus tracks
+      description: |
+        Mengambil daftar track syllabus yang dipublikasikan. Endpoint ini boleh
+        dipakai selama onboarding untuk reference data awal.
+      operationId: listSyllabusTracks
+      security:
+        - cookieAuth: []
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - name: curriculumLevels
+          in: query
+          required: false
+          description: Filter multi-value dengan separated commas, mis. N5,N4.
+          schema:
+            type: string
+            example: N5,N4
+      responses:
+        '200':
+          description: Daftar track syllabus berhasil diambil.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyllabusTrackListResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 120004000
+                  message: Success!
+                  errorDetails: []
+                metadata:
+                  pagination:
+                    pageNumber: 1
+                    pageSize: 10
+                    totalRecords: 2
+                data:
+                  tracks:
+                    - id: 770e8400-e29b-41d4-a716-446655440222
+                      slug: jlpt-n5-foundation
+                      curriculumLevel: N5
+                      title: JLPT N5 Foundation
+                      description: Core beginner syllabus.
+                      sortOrder: 1
+                      unitCount: 12
+                      foundationUnitSlug: n5-kana-basics
+        '401':
+          description: Session tidak ada atau tidak valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140104001
+                  message: Unauthorized.
+                  errorDetails: []
+        '422':
+          description: Query syllabus tidak valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 142204001
+                  message: Invalid syllabus filter.
+                  errorDetails:
+                    - field: curriculumLevels
+                      message: curriculumLevels must use comma-separated published levels.
+  /syllabus/units/{unitSlug}:
+    get:
+      tags:
+        - Syllabus
+      summary: Get syllabus unit detail
+      description: Mengambil detail satu unit lengkap dengan lesson dan skill.
+      operationId: getSyllabusUnitDetail
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: unitSlug
+          in: path
+          required: true
+          description: Slug unit yang stabil dan unik.
+          schema:
+            type: string
+        - name: includeLessons
+          in: query
+          required: false
+          description: Apakah menampilkan list lesson.
+          schema:
+            type: boolean
+            default: true
+        - name: includeSkills
+          in: query
+          required: false
+          description: Apakah menampilkan list skill.
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: Detail unit berhasil diambil.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyllabusUnitResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 120004000
+                  message: Success!
+                  errorDetails: []
+                data:
+                  id: 770e8400-e29b-41d4-a716-446655440222
+                  slug: n5-kana-basics
+                  title: Kana Basics
+                  description: Learn hiragana and katakana fundamentals.
+                  sortOrder: 1
+                  isFoundationUnit: true
+                  track:
+                    id: 880e8400-e29b-41d4-a716-446655440333
+                    slug: jlpt-n5-foundation
+                    curriculumLevel: N5
+                    title: JLPT N5 Foundation
+                  lessons:
+                    - id: 990e8400-e29b-41d4-a716-446655440444
+                      slug: hiragana-row-a
+                      title: Hiragana Row A
+                      learningObjective: Recognize and read the first hiragana row.
+                      sortOrder: 1
+                      estimatedMinutes: 10
+                      skills:
+                        - id: aa0e8400-e29b-41d4-a716-446655440555
+                          code: hiragana_basic
+                          slug: hiragana-basic
+                          curriculumLevel: N5
+                          title: Hiragana Basics
+                          description: Recognize and read basic hiragana.
+                          skillType: kana
+                          supportsFlashcards: true
+                          supportsPracticeObjective: true
+                          supportsPracticeFreeResponse: false
+                          prerequisiteSkillCodes: []
+                  unitSkills:
+                    - skillCode: hiragana_basic
+                      lessonSlug: hiragana-row-a
+                      isPrimary: true
+                      sortOrder: 1
+        '401':
+          description: Session tidak ada atau tidak valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140104001
+                  message: Unauthorized.
+                  errorDetails: []
+        '403':
+          description: Onboarding belum selesai.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140304001
+                  message: Forbidden.
+                  errorDetails: []
+        '404':
+          description: Unit tidak ditemukan.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140404001
+                  message: Syllabus unit not found.
+                  errorDetails: []
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: authjs.session-token
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      required: false
+      description: Zero-based jumlah record yang dilewati.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      example: 0
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Jumlah maksimal record yang diambil.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+      example: 10
+  schemas:
+    ErrorDetail:
+      type: object
+      additionalProperties: false
+      required:
+        - field
+        - message
+      properties:
+        field:
+          type: string
+        message:
+          type: string
+    Status:
+      type: object
+      additionalProperties: false
+      required:
+        - traceId
+        - code
+        - message
+        - errorDetails
+      properties:
+        traceId:
+          type: string
+          format: uuid
+        code:
+          type: integer
+        message:
+          type: string
+        errorDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          default: []
+    Pagination:
+      type: object
+      additionalProperties: false
+      required:
+        - pageNumber
+        - pageSize
+        - totalRecords
+      properties:
+        pageNumber:
+          type: integer
+          minimum: 1
+        pageSize:
+          type: integer
+          minimum: 1
+        totalRecords:
+          type: integer
+          minimum: 0
+    Metadata:
+      type: object
+      additionalProperties: false
+      required:
+        - pagination
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+    SyllabusTrack:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - slug
+        - curriculumLevel
+        - title
+        - description
+        - sortOrder
+        - unitCount
+        - foundationUnitSlug
+      properties:
+        id:
+          type: string
+          format: uuid
+        slug:
+          type: string
+        curriculumLevel:
+          type: string
+          example: N5
+        title:
+          type: string
+        description:
+          type: string
+          nullable: true
+        sortOrder:
+          type: integer
+        unitCount:
+          type: integer
+          minimum: 0
+        foundationUnitSlug:
+          type: string
+          nullable: true
+    SyllabusTrackListData:
+      type: object
+      additionalProperties: false
+      required:
+        - tracks
+      properties:
+        tracks:
+          type: array
+          items:
+            $ref: '#/components/schemas/SyllabusTrack'
+    SyllabusTrackListResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+        - metadata
+        - data
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        data:
+          $ref: '#/components/schemas/SyllabusTrackListData'
+    SyllabusTrackSummary:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - slug
+        - curriculumLevel
+        - title
+      properties:
+        id:
+          type: string
+          format: uuid
+        slug:
+          type: string
+        curriculumLevel:
+          type: string
+        title:
+          type: string
+    SyllabusSkill:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - code
+        - slug
+        - curriculumLevel
+        - title
+        - description
+        - skillType
+        - supportsFlashcards
+        - supportsPracticeObjective
+        - supportsPracticeFreeResponse
+        - prerequisiteSkillCodes
+      properties:
+        id:
+          type: string
+          format: uuid
+        code:
+          type: string
+        slug:
+          type: string
+        curriculumLevel:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+          nullable: true
+        skillType:
+          type: string
+        supportsFlashcards:
+          type: boolean
+        supportsPracticeObjective:
+          type: boolean
+        supportsPracticeFreeResponse:
+          type: boolean
+        prerequisiteSkillCodes:
+          type: array
+          items:
+            type: string
+    SyllabusLesson:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - slug
+        - title
+        - learningObjective
+        - sortOrder
+        - estimatedMinutes
+        - skills
+      properties:
+        id:
+          type: string
+          format: uuid
+        slug:
+          type: string
+        title:
+          type: string
+        learningObjective:
+          type: string
+          nullable: true
+        sortOrder:
+          type: integer
+        estimatedMinutes:
+          type: integer
+          nullable: true
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/SyllabusSkill'
+    UnitSkillSummary:
+      type: object
+      additionalProperties: false
+      required:
+        - skillCode
+        - lessonSlug
+        - isPrimary
+        - sortOrder
+      properties:
+        skillCode:
+          type: string
+        lessonSlug:
+          type: string
+        isPrimary:
+          type: boolean
+        sortOrder:
+          type: integer
+    SyllabusUnit:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - slug
+        - title
+        - description
+        - sortOrder
+        - isFoundationUnit
+        - track
+        - lessons
+        - unitSkills
+      properties:
+        id:
+          type: string
+          format: uuid
+        slug:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+          nullable: true
+        sortOrder:
+          type: integer
+        isFoundationUnit:
+          type: boolean
+        track:
+          $ref: '#/components/schemas/SyllabusTrackSummary'
+        lessons:
+          type: array
+          items:
+            $ref: '#/components/schemas/SyllabusLesson'
+        unitSkills:
+          type: array
+          items:
+            $ref: '#/components/schemas/UnitSkillSummary'
+    SyllabusUnitResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+        - data
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+        data:
+          $ref: '#/components/schemas/SyllabusUnit'

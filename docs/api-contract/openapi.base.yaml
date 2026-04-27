@@ -1,0 +1,257 @@
+openapi: 3.0.3
+info:
+  title: KotobaFlow API
+  version: 0.1.0
+  description: |
+    Base contract untuk task ARCH-12. Dokumen ini hanya memuat metadata,
+    security scheme, response envelope, error format, dan convention reusable
+    untuk pagination/query. Endpoint detail akan ditambahkan pada task ARCH-13,
+    ARCH-14, dan ARCH-15.
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+  - url: https://kotobaflow.example.com
+    description: Placeholder production server
+tags:
+  - name: Base
+    description: Reusable components and conventions
+paths: {}
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: authjs.session-token
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      description: Zero-based jumlah record yang dilewati.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      example: 0
+    Limit:
+      name: limit
+      in: query
+      description: Jumlah maksimal record yang diambil.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+      example: 10
+  schemas:
+    ErrorDetail:
+      type: object
+      additionalProperties: false
+      required:
+        - field
+        - message
+      properties:
+        field:
+          type: string
+          example: email
+        message:
+          type: string
+          example: Email is required.
+    Status:
+      type: object
+      additionalProperties: false
+      required:
+        - traceId
+        - code
+        - message
+        - errorDetails
+      properties:
+        traceId:
+          type: string
+          format: uuid
+          description: Correlation id per request untuk debugging.
+          example: 550e8400-e29b-41d4-a716-446655440000
+        code:
+          type: integer
+          description: |
+            Application-specific code. Harus bisa membedakan HTTP status dan
+            specific error code.
+          example: 120000000
+        message:
+          type: string
+          example: Success!
+        errorDetails:
+          type: array
+          description: Biasanya diisi untuk validation error 422.
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          default: []
+    Pagination:
+      type: object
+      additionalProperties: false
+      required:
+        - pageNumber
+        - pageSize
+        - totalRecords
+      properties:
+        pageNumber:
+          type: integer
+          minimum: 1
+          example: 1
+        pageSize:
+          type: integer
+          minimum: 1
+          example: 10
+        totalRecords:
+          type: integer
+          minimum: 0
+          example: 2
+    Metadata:
+      type: object
+      additionalProperties: false
+      required:
+        - pagination
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    ObjectData:
+      type: object
+      description: Container object untuk response non-list.
+      minProperties: 1
+      additionalProperties: true
+    ListData:
+      type: object
+      description: |
+        Container object untuk list response. Property di dalamnya harus
+        memakai nama entity collection eksplisit seperti flashcardItems.
+      minProperties: 1
+      additionalProperties:
+        type: array
+        items: {}
+    SuccessEmptyResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+    SuccessObjectResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+        - data
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+        data:
+          $ref: '#/components/schemas/ObjectData'
+    SuccessListResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+        - metadata
+        - data
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        data:
+          $ref: '#/components/schemas/ListData'
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+  responses:
+    SuccessEmpty:
+      description: Success response tanpa return value.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessEmptyResponse'
+          example:
+            status:
+              traceId: 550e8400-e29b-41d4-a716-446655440000
+              code: 120000000
+              message: Success!
+              errorDetails: []
+    SuccessObject:
+      description: Success response untuk object tunggal.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessObjectResponse'
+          example:
+            status:
+              traceId: 550e8400-e29b-41d4-a716-446655440000
+              code: 120000000
+              message: Success!
+              errorDetails: []
+            data:
+              email: example@gmail.com
+              fullName: John Doe
+    SuccessList:
+      description: Success response untuk list dengan pagination metadata.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessListResponse'
+          example:
+            status:
+              traceId: 550e8400-e29b-41d4-a716-446655440000
+              code: 120000000
+              message: Success!
+              errorDetails: []
+            metadata:
+              pagination:
+                pageNumber: 1
+                pageSize: 10
+                totalRecords: 2
+            data:
+              flashcardItems: []
+    ValidationError:
+      description: Validation error response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            status:
+              traceId: 550e8400-e29b-41d4-a716-446655440000
+              code: 142200001
+              message: Validation error.
+              errorDetails:
+                - field: email
+                  message: Email is required.
+    UnauthorizedError:
+      description: Authentication required or invalid session.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            status:
+              traceId: 550e8400-e29b-41d4-a716-446655440000
+              code: 140100001
+              message: Unauthorized.
+              errorDetails: []
+    ForbiddenError:
+      description: Session valid tetapi rule authorization tidak terpenuhi.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            status:
+              traceId: 550e8400-e29b-41d4-a716-446655440000
+              code: 140300001
+              message: Forbidden.
+              errorDetails: []

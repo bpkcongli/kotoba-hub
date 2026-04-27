@@ -1,0 +1,535 @@
+openapi: 3.0.3
+info:
+  title: KotobaFlow User Profile And Personalization API
+  version: 0.1.0
+  description: |
+    Dokumen ini menyelesaikan bagian user profile dan personalization dari
+    task ARCH-14. Endpoint di sini dipakai untuk route guard, assessment draft,
+    dan final learner profile persistence.
+servers:
+  - url: http://localhost:3000/api/v1
+    description: Local development server
+  - url: https://kotobaflow.example.com/api/v1
+    description: Placeholder production server
+tags:
+  - name: User Profile
+    description: Current learner profile and onboarding state
+  - name: Personalization
+    description: Onboarding assessment and confirmation flow
+paths:
+  /user-profile/me:
+    get:
+      tags:
+        - User Profile
+      summary: Get current user profile summary
+      description: Mengambil ringkasan user dan learner profile untuk current user.
+      operationId: getCurrentUserProfile
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: User profile summary berhasil diambil.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 120002000
+                  message: Success!
+                  errorDetails: []
+                data:
+                  userId: 770e8400-e29b-41d4-a716-446655440222
+                  email: example@gmail.com
+                  displayName: John Doe
+                  avatarUrl: https://example.com/avatar.png
+                  onboardingCompleted: false
+                  accessState: ONBOARDING_REQUIRED
+                  learnerProfile: null
+        '401':
+          description: Session tidak ada atau tidak valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140102001
+                  message: Unauthorized.
+                  errorDetails: []
+  /personalization/assessment:
+    post:
+      tags:
+        - Personalization
+      summary: Build onboarding personalization draft
+      description: |
+        Membuat draft personalization dari structured form dan optional note
+        tanpa langsung menyimpan learner profile final.
+      operationId: createPersonalizationAssessment
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonalizationAssessmentRequest'
+      responses:
+        '200':
+          description: Draft personalization berhasil dibuat.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalizationAssessmentResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 120003000
+                  message: Success!
+                  errorDetails: []
+                data:
+                  draftProfile:
+                    currentLevel: jlpt_n5
+                    targetLevel: jlpt_n4
+                    dailyGoalMinutes: 20
+                    preferredScript: mixed
+                    weakSkillFocuses:
+                      - particles
+                      - listening
+                  suggestedKnownSkillClaims:
+                    - skillCode: hiragana_basic
+                      title: Hiragana Basics
+                      source: ai_note
+                      confidence: 0.91
+                  recommendation:
+                    recommendedTrackSlug: jlpt-n5-foundation
+                    recommendedUnitSlug: n5-kana-basics
+                    nextLessonSlug: hiragana-row-a
+                  aiNormalizationUsed: true
+        '401':
+          description: Session tidak ada atau tidak valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140103001
+                  message: Unauthorized.
+                  errorDetails: []
+        '422':
+          description: Request assessment tidak valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 142203001
+                  message: Invalid personalization assessment payload.
+                  errorDetails:
+                    - field: targetLevel
+                      message: Target level is not valid in the syllabus catalog.
+  /personalization/assessment/confirm:
+    post:
+      tags:
+        - Personalization
+      summary: Confirm onboarding assessment and persist learner profile
+      description: |
+        Menyimpan learner profile final yang sudah dikonfirmasi user dan
+        mengembalikan recommendation awal.
+      operationId: confirmPersonalizationAssessment
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonalizationConfirmRequest'
+      responses:
+        '200':
+          description: Learner profile final berhasil disimpan.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OnboardingConfirmationResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 120003000
+                  message: Success!
+                  errorDetails: []
+                data:
+                  userProfile:
+                    userId: 770e8400-e29b-41d4-a716-446655440222
+                    email: example@gmail.com
+                    displayName: John Doe
+                    avatarUrl: https://example.com/avatar.png
+                    onboardingCompleted: true
+                    accessState: APP_READY
+                    learnerProfile:
+                      currentLevel: jlpt_n5
+                      targetLevel: jlpt_n4
+                      dailyGoalMinutes: 20
+                      preferredScript: mixed
+                      weakSkillFocuses:
+                        - particles
+                        - listening
+                      knownSkillClaims:
+                        - hiragana_basic
+                      onboardingCompletedAt: '2026-04-04T10:00:00Z'
+                  recommendation:
+                    recommendedTrackSlug: jlpt-n5-foundation
+                    recommendedUnitSlug: n5-kana-basics
+                    nextLessonSlug: hiragana-row-a
+        '401':
+          description: Session tidak ada atau tidak valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140103001
+                  message: Unauthorized.
+                  errorDetails: []
+        '422':
+          description: Payload konfirmasi tidak valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 142203001
+                  message: Invalid personalization confirmation payload.
+                  errorDetails:
+                    - field: knownSkillClaims
+                      message: Known skill claims must be an array of valid skill codes.
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: authjs.session-token
+  schemas:
+    ErrorDetail:
+      type: object
+      additionalProperties: false
+      required:
+        - field
+        - message
+      properties:
+        field:
+          type: string
+        message:
+          type: string
+    Status:
+      type: object
+      additionalProperties: false
+      required:
+        - traceId
+        - code
+        - message
+        - errorDetails
+      properties:
+        traceId:
+          type: string
+          format: uuid
+        code:
+          type: integer
+        message:
+          type: string
+        errorDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          default: []
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+    LearnerProfileSummary:
+      type: object
+      additionalProperties: false
+      required:
+        - currentLevel
+        - targetLevel
+        - dailyGoalMinutes
+        - preferredScript
+        - weakSkillFocuses
+        - knownSkillClaims
+        - onboardingCompletedAt
+      properties:
+        currentLevel:
+          type: string
+          nullable: true
+          example: jlpt_n5
+        targetLevel:
+          type: string
+          example: jlpt_n4
+        dailyGoalMinutes:
+          type: integer
+          minimum: 1
+          example: 20
+        preferredScript:
+          type: string
+          enum:
+            - romaji
+            - kana
+            - mixed
+        weakSkillFocuses:
+          type: array
+          items:
+            type: string
+        knownSkillClaims:
+          type: array
+          items:
+            type: string
+        onboardingCompletedAt:
+          type: string
+          nullable: true
+          format: date-time
+    UserProfile:
+      type: object
+      additionalProperties: false
+      required:
+        - userId
+        - email
+        - displayName
+        - avatarUrl
+        - onboardingCompleted
+        - accessState
+        - learnerProfile
+      properties:
+        userId:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        displayName:
+          type: string
+        avatarUrl:
+          type: string
+          nullable: true
+          format: uri
+        onboardingCompleted:
+          type: boolean
+        accessState:
+          type: string
+          enum:
+            - ONBOARDING_REQUIRED
+            - APP_READY
+        learnerProfile:
+          allOf:
+            - $ref: '#/components/schemas/LearnerProfileSummary'
+          nullable: true
+    UserProfileResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+        - data
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+        data:
+          $ref: '#/components/schemas/UserProfile'
+    PersonalizationAssessmentRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - targetLevel
+        - dailyGoalMinutes
+        - preferredScript
+        - weakSkillFocuses
+      properties:
+        currentLevel:
+          type: string
+          nullable: true
+          example: jlpt_n5
+        targetLevel:
+          type: string
+          example: jlpt_n4
+        dailyGoalMinutes:
+          type: integer
+          minimum: 1
+          example: 20
+        preferredScript:
+          type: string
+          enum:
+            - romaji
+            - kana
+            - mixed
+          example: mixed
+        weakSkillFocuses:
+          type: array
+          items:
+            type: string
+          example: ["particles", "listening"]
+        note:
+          type: string
+          nullable: true
+          maxLength: 2000
+          example: "I already know most hiragana and some basic grammar."
+    DraftProfile:
+      type: object
+      additionalProperties: false
+      required:
+        - currentLevel
+        - targetLevel
+        - dailyGoalMinutes
+        - preferredScript
+        - weakSkillFocuses
+      properties:
+        currentLevel:
+          type: string
+          nullable: true
+        targetLevel:
+          type: string
+        dailyGoalMinutes:
+          type: integer
+        preferredScript:
+          type: string
+        weakSkillFocuses:
+          type: array
+          items:
+            type: string
+    SuggestedKnownSkillClaim:
+      type: object
+      additionalProperties: false
+      required:
+        - skillCode
+        - title
+        - source
+        - confidence
+      properties:
+        skillCode:
+          type: string
+        title:
+          type: string
+        source:
+          type: string
+          enum:
+            - ai_note
+            - structured_input
+        confidence:
+          type: number
+          minimum: 0
+          maximum: 1
+    Recommendation:
+      type: object
+      additionalProperties: false
+      required:
+        - recommendedTrackSlug
+        - recommendedUnitSlug
+        - nextLessonSlug
+      properties:
+        recommendedTrackSlug:
+          type: string
+        recommendedUnitSlug:
+          type: string
+        nextLessonSlug:
+          type: string
+    PersonalizationAssessment:
+      type: object
+      additionalProperties: false
+      required:
+        - draftProfile
+        - suggestedKnownSkillClaims
+        - recommendation
+        - aiNormalizationUsed
+      properties:
+        draftProfile:
+          $ref: '#/components/schemas/DraftProfile'
+        suggestedKnownSkillClaims:
+          type: array
+          items:
+            $ref: '#/components/schemas/SuggestedKnownSkillClaim'
+        recommendation:
+          $ref: '#/components/schemas/Recommendation'
+        aiNormalizationUsed:
+          type: boolean
+    PersonalizationAssessmentResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+        - data
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+        data:
+          $ref: '#/components/schemas/PersonalizationAssessment'
+    PersonalizationConfirmRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - targetLevel
+        - dailyGoalMinutes
+        - preferredScript
+        - weakSkillFocuses
+        - knownSkillClaims
+      properties:
+        currentLevel:
+          type: string
+          nullable: true
+          example: jlpt_n5
+        targetLevel:
+          type: string
+          example: jlpt_n4
+        dailyGoalMinutes:
+          type: integer
+          minimum: 1
+          example: 20
+        preferredScript:
+          type: string
+          enum:
+            - romaji
+            - kana
+            - mixed
+          example: mixed
+        weakSkillFocuses:
+          type: array
+          items:
+            type: string
+          example: ["particles", "listening"]
+        knownSkillClaims:
+          type: array
+          items:
+            type: string
+          example: ["hiragana_basic"]
+    OnboardingResult:
+      type: object
+      additionalProperties: false
+      required:
+        - userProfile
+        - recommendation
+      properties:
+        userProfile:
+          $ref: '#/components/schemas/UserProfile'
+        recommendation:
+          $ref: '#/components/schemas/Recommendation'
+    OnboardingConfirmationResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+        - data
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+        data:
+          $ref: '#/components/schemas/OnboardingResult'

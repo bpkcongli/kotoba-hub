@@ -1,0 +1,488 @@
+openapi: 3.0.3
+info:
+  title: KotobaFlow Practice API
+  version: 0.1.0
+  description: |
+    Dokumen ini menyelesaikan bagian practice dari task ARCH-15. Endpoint di
+    sini mencakup session generation dan answer submission berikut ringkasan
+    progress impact.
+servers:
+  - url: http://localhost:3000/api/v1
+    description: Local development server
+  - url: https://kotobaflow.example.com/api/v1
+    description: Placeholder production server
+tags:
+  - name: Practice
+    description: Practice session generation and answer grading
+paths:
+  /practice/sessions/generate:
+    post:
+      tags:
+        - Practice
+      summary: Generate random practice session
+      description: Menghasilkan practice session berbasis recommendation spec user.
+      operationId: generatePracticeSession
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GeneratePracticeSessionRequest'
+      responses:
+        '200':
+          description: Practice session berhasil digenerate.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PracticeSessionResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 120006000
+                  message: Success!
+                  errorDetails: []
+                data:
+                  id: 770e8400-e29b-41d4-a716-446655440222
+                  status: generated
+                  difficultyBand: standard
+                  questionMix:
+                    weak: 0.6
+                    reinforcement: 0.3
+                    stretch: 0.1
+                  totalQuestions: 5
+                  answeredQuestionsCount: 0
+                  startedAt: '2026-04-04T10:00:00Z'
+                  questions:
+                    - id: 880e8400-e29b-41d4-a716-446655440333
+                      skillCode: n5_particles_wa_ga_o
+                      questionType: multiple_choice
+                      gradingStrategy: deterministic
+                      difficultyBand: standard
+                      promptText: Choose the correct particle.
+                      promptPayload:
+                        options:
+                          - wa
+                          - ga
+                          - o
+                          - ni
+                      sortOrder: 1
+        '401':
+          description: Session tidak ada atau tidak valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140106001
+                  message: Unauthorized.
+                  errorDetails: []
+        '403':
+          description: Onboarding belum selesai.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140306001
+                  message: Forbidden.
+                  errorDetails: []
+        '422':
+          description: Payload generate tidak valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 142206001
+                  message: Invalid practice generation payload.
+                  errorDetails:
+                    - field: questionCount
+                      message: questionCount must be between 1 and 10.
+  /practice/sessions/{sessionId}/answer:
+    post:
+      tags:
+        - Practice
+      summary: Submit practice answer
+      description: Menilai jawaban practice dan mengembalikan feedback serta progress impact.
+      operationId: submitPracticeAnswer
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PracticeAnswerRequest'
+      responses:
+        '200':
+          description: Jawaban practice berhasil diproses.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PracticeAnswerResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 120006000
+                  message: Success!
+                  errorDetails: []
+                data:
+                  sessionId: 770e8400-e29b-41d4-a716-446655440222
+                  questionId: 880e8400-e29b-41d4-a716-446655440333
+                  answerId: 990e8400-e29b-41d4-a716-446655440444
+                  isCorrect: true
+                  numericScore: 100
+                  feedbackText: Correct particle choice.
+                  gradingSource: rule_engine
+                  gradingMetadata:
+                    gradingStrategy: deterministic
+                    matchedAnswerKeys:
+                      - selectedOption
+                    accepted: true
+                  sessionProgress:
+                    answeredQuestionsCount: 1
+                    totalQuestions: 5
+                    isCompleted: false
+                  nextQuestionId: aa0e8400-e29b-41d4-a716-446655440555
+                  progressImpact:
+                    progressEventId: bb0e8400-e29b-41d4-a716-446655440666
+                    skillCode: n5_particles_wa_ga_o
+                    masteryScore: 58.4
+                    masteryState: developing
+                    recommendedDifficultyBand: standard
+        '401':
+          description: Session tidak ada atau tidak valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140106001
+                  message: Unauthorized.
+                  errorDetails: []
+        '403':
+          description: Onboarding belum selesai.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140306001
+                  message: Forbidden.
+                  errorDetails: []
+        '404':
+          description: Practice session atau question tidak ditemukan.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140406001
+                  message: Practice session not found.
+                  errorDetails: []
+        '422':
+          description: Payload answer tidak valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 142206002
+                  message: Invalid practice answer payload.
+                  errorDetails:
+                    - field: questionId
+                      message: questionId does not belong to the session.
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: authjs.session-token
+  schemas:
+    ErrorDetail:
+      type: object
+      additionalProperties: false
+      required:
+        - field
+        - message
+      properties:
+        field:
+          type: string
+        message:
+          type: string
+    Status:
+      type: object
+      additionalProperties: false
+      required:
+        - traceId
+        - code
+        - message
+        - errorDetails
+      properties:
+        traceId:
+          type: string
+          format: uuid
+        code:
+          type: integer
+          default: 120006000
+        message:
+          type: string
+          default: "Success!"
+        errorDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          default: []
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+    GeneratePracticeSessionRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        questionCount:
+          type: integer
+          minimum: 1
+          maximum: 10
+          default: 5
+    QuestionMix:
+      type: object
+      additionalProperties: false
+      required:
+        - weak
+        - reinforcement
+        - stretch
+      properties:
+        weak:
+          type: number
+        reinforcement:
+          type: number
+        stretch:
+          type: number
+    PracticeQuestion:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - skillCode
+        - questionType
+        - gradingStrategy
+        - difficultyBand
+        - promptText
+        - promptPayload
+        - sortOrder
+      properties:
+        id:
+          type: string
+          format: uuid
+        skillCode:
+          type: string
+        questionType:
+          type: string
+        gradingStrategy:
+          type: string
+          enum:
+            - deterministic
+            - ai
+        difficultyBand:
+          type: string
+        promptText:
+          type: string
+        promptPayload:
+          type: object
+          additionalProperties: true
+        sortOrder:
+          type: integer
+    PracticeSession:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - status
+        - difficultyBand
+        - questionMix
+        - totalQuestions
+        - answeredQuestionsCount
+        - startedAt
+        - questions
+      properties:
+        id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum:
+            - generated
+            - in_progress
+            - completed
+            - expired
+        difficultyBand:
+          type: string
+        questionMix:
+          $ref: '#/components/schemas/QuestionMix'
+        totalQuestions:
+          type: integer
+        answeredQuestionsCount:
+          type: integer
+        startedAt:
+          type: string
+          format: date-time
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PracticeQuestion'
+    PracticeSessionResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+        - data
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+        data:
+          $ref: '#/components/schemas/PracticeSession'
+    PracticeAnswerRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - questionId
+        - userAnswer
+      properties:
+        questionId:
+          type: string
+          format: uuid
+        userAnswer:
+          type: object
+          additionalProperties: true
+        responseTimeMs:
+          type: integer
+          nullable: true
+          minimum: 0
+    PracticeAnswerSessionProgress:
+      type: object
+      additionalProperties: false
+      required:
+        - answeredQuestionsCount
+        - totalQuestions
+        - isCompleted
+      properties:
+        answeredQuestionsCount:
+          type: integer
+        totalQuestions:
+          type: integer
+        isCompleted:
+          type: boolean
+    PracticeGradingMetadata:
+      type: object
+      additionalProperties: true
+      description: Ringkasan metadata grading untuk UI dan audit ringan.
+    PracticeProgressImpact:
+      type: object
+      additionalProperties: false
+      required:
+        - progressEventId
+        - skillCode
+        - masteryScore
+        - masteryState
+        - recommendedDifficultyBand
+      properties:
+        progressEventId:
+          type: string
+          format: uuid
+        skillCode:
+          type: string
+        masteryScore:
+          type: number
+        masteryState:
+          type: string
+        recommendedDifficultyBand:
+          type: string
+    PracticeAnswerResult:
+      type: object
+      additionalProperties: false
+      required:
+        - sessionId
+        - questionId
+        - answerId
+        - isCorrect
+        - numericScore
+        - feedbackText
+        - gradingSource
+        - gradingMetadata
+        - sessionProgress
+        - nextQuestionId
+        - progressImpact
+      properties:
+        sessionId:
+          type: string
+          format: uuid
+        questionId:
+          type: string
+          format: uuid
+        answerId:
+          type: string
+          format: uuid
+        isCorrect:
+          type: boolean
+        numericScore:
+          type: number
+        feedbackText:
+          type: string
+          nullable: true
+        gradingSource:
+          type: string
+          enum:
+            - rule_engine
+            - ai_provider
+        gradingMetadata:
+          $ref: '#/components/schemas/PracticeGradingMetadata'
+        sessionProgress:
+          $ref: '#/components/schemas/PracticeAnswerSessionProgress'
+        nextQuestionId:
+          type: string
+          nullable: true
+          format: uuid
+        progressImpact:
+          allOf:
+            - $ref: '#/components/schemas/PracticeProgressImpact'
+          nullable: true
+    PracticeAnswerResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+        - data
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+        data:
+          $ref: '#/components/schemas/PracticeAnswerResult'

@@ -19,10 +19,11 @@
 - [x] `ARCH-09` Susun ERD untuk syllabus domain: `tracks`, `units`, `lessons`, `skills`, `unit_skill_mappings`. Lihat [erd/syllabus-domain.md](./erd/syllabus-domain.md).
 - [x] `ARCH-10` Susun ERD untuk learning activity: `flashcard_decks`, `flashcard_items`, `practice_sessions`, `practice_questions`, `practice_answers`, `progress_events`, `skill_mastery_snapshots`. Lihat [erd/learning-activity.md](./erd/learning-activity.md).
 - [x] `ARCH-11` Susun ERD untuk AI support dan observability minimum bila diperlukan: `ai_request_logs` atau tabel/log sink setara. Lihat [erd/ai-support-and-observability.md](./erd/ai-support-and-observability.md).
-- [ ] `ARCH-12` Draft OpenAPI/Swagger base document: metadata, auth scheme, error response format, pagination/query convention.
-- [ ] `ARCH-13` Definisikan Swagger contract untuk endpoint syllabus dan personalization.
-- [ ] `ARCH-14` Definisikan Swagger contract untuk endpoint flashcard, practice, dan progress tracking.
-- [ ] `ARCH-15` Review konsistensi antara sequence diagram, ERD, dan Swagger agar tidak ada mismatch field atau flow.
+- [x] `ARCH-12` Draft OpenAPI/Swagger base document: metadata, auth scheme, error response format, pagination/query convention. Lihat [api-contract/README.md](./api-contract/README.md) dan [api-contract/openapi.base.yaml](./api-contract/openapi.base.yaml).
+- [x] `ARCH-13` Definisikan Swagger contract untuk authentication dan authorization. Lihat [api-contract/auth-and-authorization.md](./api-contract/auth-and-authorization.md) dan [api-contract/openapi.auth.yaml](./api-contract/openapi.auth.yaml).
+- [x] `ARCH-14` Definisikan Swagger contract untuk endpoint syllabus dan personalization. Lihat [api-contract/user-profile-and-personalization.md](./api-contract/user-profile-and-personalization.md), [api-contract/openapi.user-profile-and-personalization.yaml](./api-contract/openapi.user-profile-and-personalization.yaml), [api-contract/syllabus.md](./api-contract/syllabus.md), dan [api-contract/openapi.syllabus.yaml](./api-contract/openapi.syllabus.yaml).
+- [x] `ARCH-15` Definisikan Swagger contract untuk endpoint flashcard, practice, dan progress tracking. Lihat [api-contract/flashcards.md](./api-contract/flashcards.md), [api-contract/openapi.flashcards.yaml](./api-contract/openapi.flashcards.yaml), [api-contract/practice.md](./api-contract/practice.md), [api-contract/openapi.practice.yaml](./api-contract/openapi.practice.yaml), [api-contract/progress.md](./api-contract/progress.md), dan [api-contract/openapi.progress.yaml](./api-contract/openapi.progress.yaml).
+- [ ] `ARCH-16` Review konsistensi antara sequence diagram, ERD, dan Swagger agar tidak ada mismatch field atau flow.
 
 ### 2. UI System Design
 - [ ] `DS-01` Kumpulkan brief brand identity KotobaFlow dari stakeholder sebelum masuk ke visual system final.

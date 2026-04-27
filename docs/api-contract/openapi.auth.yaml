@@ -1,0 +1,337 @@
+openapi: 3.0.3
+info:
+  title: KotobaFlow Authentication And Authorization API
+  version: 0.1.0
+  description: |
+    Dokumen ini menyelesaikan task ARCH-13. Endpoint di sini mencakup login
+    Google, OAuth callback, session lookup, dan sign-out, serta mendokumentasikan
+    authorization state MVP berbasis session validity dan onboarding completion.
+servers:
+  - url: http://localhost:3000/api/v1
+    description: Local development server
+  - url: https://kotobaflow.example.com/api/v1
+    description: Placeholder production server
+tags:
+  - name: Authentication
+    description: Google login and session lifecycle
+  - name: Authorization
+    description: Session-based access state for route and API guards
+paths:
+  /auth/google/start:
+    post:
+      tags:
+        - Authentication
+      summary: Start Google OAuth sign-in
+      description: Membuat OAuth state lalu redirect visitor ke Google OAuth authorization URL.
+      operationId: startGoogleSignIn
+      security: []
+      parameters:
+        - name: redirectTo
+          in: query
+          required: false
+          description: Relative path tujuan setelah login berhasil.
+          schema:
+            type: string
+            example: /dashboard
+      responses:
+        '302':
+          description: Found. Redirect ke Google OAuth authorization URL.
+          headers:
+            Location:
+              description: URL OAuth Google tujuan redirect.
+              schema:
+                type: string
+                format: uri
+        '422':
+          description: Validation error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 142201002
+                  message: Validation error.
+                  errorDetails:
+                    - field: redirectTo
+                      message: redirectTo must be a safe relative path.
+  /auth/callback/google:
+    get:
+      tags:
+        - Authentication
+      summary: Handle Google OAuth callback
+      description: |
+        Menyelesaikan callback OAuth, melakukan provisioning user bila
+        diperlukan, membuat session, lalu redirect ke route aplikasi.
+      operationId: handleGoogleCallback
+      security: []
+      parameters:
+        - name: code
+          in: query
+          required: false
+          description: Authorization code dari Google saat callback sukses.
+          schema:
+            type: string
+        - name: state
+          in: query
+          required: false
+          description: OAuth state verifier.
+          schema:
+            type: string
+        - name: error
+          in: query
+          required: false
+          description: Error code dari provider bila login gagal atau dibatalkan.
+          schema:
+            type: string
+      responses:
+        '302':
+          description: Session berhasil dibuat dan user diarahkan ke app route tujuan.
+          headers:
+            Set-Cookie:
+              description: Session cookie aplikasi yang baru dibuat.
+              schema:
+                type: string
+            Location:
+              description: Route aplikasi setelah login.
+              schema:
+                type: string
+        '401':
+          description: Identity dari callback tidak bisa diverifikasi.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140101002
+                  message: Google authentication failed.
+                  errorDetails: []
+        '422':
+          description: OAuth callback tidak valid atau state mismatch.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 142201003
+                  message: Invalid OAuth callback payload.
+                  errorDetails:
+                    - field: state
+                      message: OAuth state is invalid or expired.
+  /auth/session:
+    get:
+      tags:
+        - Authentication
+        - Authorization
+      summary: Get current session and authorization state
+      description: |
+        Mengembalikan session snapshot untuk current visitor. Endpoint ini public
+        agar UI bisa mengecek status auth tanpa memaksa 401 saat page load.
+      operationId: getCurrentAuthSession
+      security: []
+      responses:
+        '200':
+          description: Session snapshot berhasil diambil, baik untuk visitor anonymous maupun authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthSessionLookupResponse'
+              examples:
+                authenticated:
+                  summary: Authenticated user with full app access
+                  value:
+                    status:
+                      traceId: 550e8400-e29b-41d4-a716-446655440000
+                      code: 120001000
+                      message: Success!
+                      errorDetails: []
+                    data:
+                      isAuthenticated: true
+                      sessionId: 660e8400-e29b-41d4-a716-446655440111
+                      expiresAt: '2026-04-04T10:00:00Z'
+                      user:
+                        id: 770e8400-e29b-41d4-a716-446655440222
+                        email: example@gmail.com
+                        displayName: John Doe
+                        avatarUrl: https://example.com/avatar.png
+                        emailVerified: true
+                      authorization:
+                        appAccess: APP_READY
+                        onboardingCompleted: true
+                anonymous:
+                  summary: Anonymous visitor
+                  value:
+                    status:
+                      traceId: 550e8400-e29b-41d4-a716-446655440000
+                      code: 120001000
+                      message: Success!
+                      errorDetails: []
+                    data:
+                      isAuthenticated: false
+                      sessionId: null
+                      expiresAt: null
+                      user: null
+                      authorization:
+                        appAccess: ANONYMOUS
+                        onboardingCompleted: null
+  /auth/sign-out:
+    post:
+      tags:
+        - Authentication
+      summary: Sign out current session
+      description: |
+        Mengakhiri session aktif jika ada. Endpoint ini idempotent agar frontend
+        bisa memanggil sign-out tanpa perlu pre-check session lebih dulu.
+      operationId: signOut
+      security: []
+      responses:
+        '200':
+          description: Session dibersihkan atau memang sudah tidak ada.
+          headers:
+            Set-Cookie:
+              description: Cookie session di-expire/dikosongkan.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEmptyResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 120001000
+                  message: Success!
+                  errorDetails: []
+components:
+  schemas:
+    ErrorDetail:
+      type: object
+      additionalProperties: false
+      required:
+        - field
+        - message
+      properties:
+        field:
+          type: string
+        message:
+          type: string
+    Status:
+      type: object
+      additionalProperties: false
+      required:
+        - traceId
+        - code
+        - message
+        - errorDetails
+      properties:
+        traceId:
+          type: string
+          format: uuid
+        code:
+          type: integer
+          example: 120001000
+        message:
+          type: string
+        errorDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          default: []
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+    SuccessEmptyResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+    AuthenticatedUser:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - email
+        - displayName
+        - avatarUrl
+        - emailVerified
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        displayName:
+          type: string
+        avatarUrl:
+          type: string
+          nullable: true
+          format: uri
+        emailVerified:
+          type: boolean
+    AuthorizationSummary:
+      type: object
+      additionalProperties: false
+      required:
+        - appAccess
+        - onboardingCompleted
+      properties:
+        appAccess:
+          type: string
+          enum:
+            - ANONYMOUS
+            - ONBOARDING_REQUIRED
+            - APP_READY
+        onboardingCompleted:
+          type: boolean
+          nullable: true
+    AuthSession:
+      type: object
+      additionalProperties: false
+      required:
+        - isAuthenticated
+        - sessionId
+        - expiresAt
+        - user
+        - authorization
+      properties:
+        isAuthenticated:
+          type: boolean
+        sessionId:
+          type: string
+          nullable: true
+          format: uuid
+        expiresAt:
+          type: string
+          nullable: true
+          format: date-time
+        user:
+          allOf:
+            - $ref: '#/components/schemas/AuthenticatedUser'
+          nullable: true
+        authorization:
+          $ref: '#/components/schemas/AuthorizationSummary'
+    AuthSessionLookupResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+        - data
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+        data:
+          $ref: '#/components/schemas/AuthSession'

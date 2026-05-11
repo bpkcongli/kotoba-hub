@@ -32,8 +32,8 @@
 - [x] `DS-04` Definisikan responsive layout rules untuk mobile dan desktop, termasuk pattern bottom nav dan sidebar/topbar. Lihat [system-design/responsive-layout-rules.md](./system-design/responsive-layout-rules.md).
 - [x] `DS-05` Buat information architecture dan page inventory untuk landing, auth, onboarding, dashboard, syllabus, flashcard, practice, progress, settings. Lihat [system-design/information-architecture-and-page-inventory.md](./system-design/information-architecture-and-page-inventory.md).
 - [x] `DS-06` Buat low-fidelity wireframe untuk flow inti: onboarding, syllabus map, flashcard session, practice session, progress dashboard. Lihat [system-design/low-fidelity-wireframes-core-flows.md](./system-design/low-fidelity-wireframes-core-flows.md).
-- [ ] `DS-07` Buat component inventory berbasis shadcn yang perlu di-custom untuk KotobaHub.
-- [ ] `DS-08` Finalisasi high-fidelity system design setelah brief brand diterima dan validasi konsistensi antar screen.
+- [x] `DS-07` Buat component inventory berbasis shadcn yang perlu di-custom untuk KotobaHub. Lihat [system-design/shadcn-component-inventory.md](./system-design/shadcn-component-inventory.md).
+- [x] `DS-08` Finalisasi high-fidelity system design setelah brief brand diterima dan validasi konsistensi antar screen. Lihat [system-design/high-fidelity-system-design.md](./system-design/high-fidelity-system-design.md).
 
 ### 3. Online Syllabus
 - [ ] `SYL-01` Finalisasi struktur syllabus `track -> unit -> lesson -> skill` berbasis JLPT.

@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-05-15",
+  "track": {
+    "id": "8c0f3b89-3e35-56e8-a633-dfbd889e31f6",
+    "slug": "jlpt-n5-foundation",
+    "curriculumLevel": "N5",
+    "title": "JLPT N5 Foundation",
+    "description": "Core beginner syllabus for first-contact learners.",
+    "sortOrder": 1,
+    "isPublished": true,
+    "units": [
+      {
+        "id": "9235a323-b2f0-59ea-b7db-5686f09c9480",
+        "slug": "n5-kana-basics",
+        "title": "Kana Basics",
+        "description": "Foundational unit for early kana literacy.",
+        "sortOrder": 1,
+        "isFoundationUnit": true,
+        "isPublished": true,
+        "lessons": [
+          {
+            "id": "5fbefadc-b8ae-5130-8b42-160a6cb730ff",
+            "slug": "hiragana-row-a",
+            "title": "Hiragana Row A",
+            "learningObjective": "Recognize, read, and recall the first hiragana row.",
+            "sortOrder": 1,
+            "estimatedMinutes": 10,
+            "isPublished": true,
+            "skills": [
+              {
+                "id": "6237fd21-bbef-589a-bdbf-ef094354d598",
+                "code": "hiragana_a_row",
+                "slug": "hiragana-a-row",
+                "curriculumLevel": "N5",
+                "title": "Hiragana A Row",
+                "description": "Read and identify the core hiragana A-row characters.",
+                "skillType": "KANA",
+                "supportsFlashcards": true,
+                "supportsPracticeObjective": true,
+                "supportsPracticeFreeResponse": false,
+                "prerequisiteSkillCodes": [],
+                "sortOrder": 1,
+                "isPublished": true,
+                "curriculumSignals": {
+                  "jlpt": {
+                    "resolvedLevel": "N5",
+                    "candidates": [
+                      {
+                        "provider": "KOTOBAHUB_INTERNAL",
+                        "level": "N5",
+                        "scope": "KANA",
+                        "confidence": "CURATED"
+                      }
+                    ],
+                    "resolutionNotes": "Kana placement is fully curated internally."
+                  }
+                },
+                "sourceRefs": [],
+                "content": {
+                  "kana": {
+                    "scriptFamily": "HIRAGANA",
+                    "characters": [
+                      {
+                        "char": "あ",
+                        "romanization": "a"
+                      },
+                      {
+                        "char": "い",
+                        "romanization": "i"
+                      },
+                      {
+                        "char": "う",
+                        "romanization": "u"
+                      },
+                      {
+                        "char": "え",
+                        "romanization": "e"
+                      },
+                      {
+                        "char": "お",
+                        "romanization": "o"
+                      }
+                    ]
+                  },
+                  "exampleSentences": [
+                    {
+                      "provider": "TATOEBA",
+                      "sentenceId": 123456,
+                      "japaneseText": "あさです。",
+                      "englishText": "It is morning.",
+                      "transcription": "あさ です。",
+                      "audioRefs": [],
+                      "license": "CC BY 2.0 FR"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

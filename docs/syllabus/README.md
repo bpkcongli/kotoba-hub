@@ -8,17 +8,23 @@
 ## Related Tasks
 - `SYL-00` Dokumentasi source-of-truth, ingestion, dan seed schema.
 - `SYL-01` Finalisasi struktur `track -> unit -> lesson -> skill` berbasis JLPT.
-- `SYL-02` Penetapan scope seed awal `N5 -> N4`, dengan skeleton `N3 -> N2`.
+- `SYL-02` Penetapan scope seed awal `N5 -> N4`, dengan skeleton `N3 -> N2`. Lihat [seed-coverage-scope.md](./seed-coverage-scope.md).
 - `SYL-03` Definisi schema seed content.
 - `SYL-04` sampai `SYL-07` turunan unit, lesson, skill, support flags, dan review alignment ke personalization/progress.
 
 ## Documents In This Folder
 - [jlpt-syllabus-structure.md](./jlpt-syllabus-structure.md)
   Mengunci struktur resmi `track -> unit -> lesson -> skill`, taxonomy `curriculumLevel`, taxonomy `skillType`, serta policy support flags untuk task `SYL-01`.
+- [seed-coverage-scope.md](./seed-coverage-scope.md)
+  Menetapkan batas coverage seed awal: `N5 -> N4` harus detail dan boleh dipublish, sementara `N3 -> N2` hadir sebagai skeleton extensible untuk task `SYL-02`.
 - [source-of-truth-and-ingestion-plan.md](./source-of-truth-and-ingestion-plan.md)
   Menjelaskan prioritas sumber referensi, cara mengambil dataset, limitasi lisensi/format, dan aturan normalisasi sebelum data masuk ke seed content.
 - [seed-content-schema.md](./seed-content-schema.md)
   Menjelaskan bentuk seed content yang disarankan untuk repo dan bagaimana field seed dipetakan ke tabel `tracks`, `units`, `lessons`, `skills`, dan `unit_skill_mappings`.
+- [schema/](./schema/)
+  Berisi JSON Schema machine-readable untuk `manifest.json` dan file track seed agar bentuk payload dapat divalidasi otomatis.
+- [examples/](./examples/)
+  Berisi contoh payload minimal yang mengikuti schema final `SYL-03` tanpa mengklaim bahwa coverage syllabus final `N5 -> N4` sudah lengkap.
 
 ## Source Priority
 

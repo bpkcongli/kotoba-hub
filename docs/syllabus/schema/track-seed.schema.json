@@ -1,0 +1,830 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kotobahub.local/docs/syllabus/schema/track-seed.schema.json",
+  "title": "KotobaHub Syllabus Track Seed",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "generatedAt",
+    "track"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "track": {
+      "$ref": "#/$defs/track"
+    }
+  },
+  "$defs": {
+    "uuid": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "curriculumLevel": {
+      "type": "string",
+      "enum": [
+        "N5",
+        "N4",
+        "N3",
+        "N2"
+      ]
+    },
+    "skillType": {
+      "type": "string",
+      "enum": [
+        "KANA",
+        "KANJI",
+        "VOCABULARY",
+        "GRAMMAR",
+        "READING"
+      ]
+    },
+    "sourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "category",
+        "externalId",
+        "sourceUrl"
+      ],
+      "properties": {
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1
+        },
+        "externalId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "licenseNote": {
+          "type": "string"
+        },
+        "retrievedFrom": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "jlptCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "level"
+      ],
+      "properties": {
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "level": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "string"
+        },
+        "confidence": {
+          "type": "string"
+        },
+        "mappedBy": {
+          "type": "string"
+        }
+      }
+    },
+    "curriculumSignals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "jlpt"
+      ],
+      "properties": {
+        "jlpt": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "resolvedLevel",
+            "candidates"
+          ],
+          "properties": {
+            "resolvedLevel": {
+              "$ref": "#/$defs/curriculumLevel"
+            },
+            "candidates": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/jlptCandidate"
+              }
+            },
+            "resolutionNotes": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "exampleSentence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "sentenceId",
+        "japaneseText",
+        "englishText",
+        "license"
+      ],
+      "properties": {
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sentenceId": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string",
+              "minLength": 1
+            }
+          ]
+        },
+        "japaneseText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "englishText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "transcription": {
+          "type": "string"
+        },
+        "audioRefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "content": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kana": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "scriptFamily",
+            "characters"
+          ],
+          "properties": {
+            "scriptFamily": {
+              "type": "string",
+              "enum": [
+                "HIRAGANA",
+                "KATAKANA"
+              ]
+            },
+            "characters": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "char",
+                  "romanization"
+                ],
+                "properties": {
+                  "char": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "romanization": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "kanji": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "literal",
+            "meaningsEn",
+            "onyomi",
+            "kunyomi",
+            "strokeCount"
+          ],
+          "properties": {
+            "literal": {
+              "type": "string",
+              "minLength": 1
+            },
+            "meaningsEn": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "onyomi": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "kunyomi": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "strokeCount": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "frequencyRank": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "legacyJlptLevel": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "jlptSignalCandidates": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/jlptCandidate"
+              }
+            }
+          }
+        },
+        "grammar": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "pattern",
+            "meaning",
+            "register",
+            "structureLines",
+            "bunproLevel"
+          ],
+          "properties": {
+            "pattern": {
+              "type": "string",
+              "minLength": 1
+            },
+            "meaning": {
+              "type": "string",
+              "minLength": 1
+            },
+            "register": {
+              "type": "string",
+              "minLength": 1
+            },
+            "structureLines": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "bunproLevel": {
+              "$ref": "#/$defs/curriculumLevel"
+            },
+            "secondaryRefs": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "provider",
+                  "topic"
+                ],
+                "properties": {
+                  "provider": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "topic": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "vocabulary": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "primarySpelling",
+            "alternateSpellings",
+            "readings",
+            "glossesEn",
+            "partsOfSpeech",
+            "priorityTags"
+          ],
+          "properties": {
+            "primarySpelling": {
+              "type": "string",
+              "minLength": 1
+            },
+            "alternateSpellings": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "readings": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "glossesEn": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "partsOfSpeech": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "priorityTags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "commonnessRankBucket": {
+              "type": "string"
+            },
+            "jlptSignalCandidates": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/jlptCandidate"
+              }
+            },
+            "frequency": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "coreList",
+                "rank",
+                "band"
+              ],
+              "properties": {
+                "coreList": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "rank": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "band": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        },
+        "reading": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "title",
+            "passageText",
+            "translationEn",
+            "focus",
+            "targetSkillCodes"
+          ],
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1
+            },
+            "passageText": {
+              "type": "string",
+              "minLength": 1
+            },
+            "translationEn": {
+              "type": "string",
+              "minLength": 1
+            },
+            "focus": {
+              "type": "string",
+              "minLength": 1
+            },
+            "targetSkillCodes": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "comprehensionChecks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "prompt",
+                  "expectedAnswerEn"
+                ],
+                "properties": {
+                  "prompt": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "expectedAnswerEn": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "exampleSentences": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/exampleSentence"
+          }
+        }
+      }
+    },
+    "skill": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "code",
+        "slug",
+        "curriculumLevel",
+        "title",
+        "description",
+        "skillType",
+        "supportsFlashcards",
+        "supportsPracticeObjective",
+        "supportsPracticeFreeResponse",
+        "prerequisiteSkillCodes",
+        "sortOrder",
+        "isPublished",
+        "curriculumSignals",
+        "sourceRefs",
+        "content"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/uuid"
+        },
+        "code": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:_[a-z0-9]+)*$"
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "curriculumLevel": {
+          "$ref": "#/$defs/curriculumLevel"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "skillType": {
+          "$ref": "#/$defs/skillType"
+        },
+        "supportsFlashcards": {
+          "type": "boolean"
+        },
+        "supportsPracticeObjective": {
+          "type": "boolean"
+        },
+        "supportsPracticeFreeResponse": {
+          "type": "boolean"
+        },
+        "prerequisiteSkillCodes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:_[a-z0-9]+)*$"
+          }
+        },
+        "sortOrder": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "isPublished": {
+          "type": "boolean"
+        },
+        "curriculumSignals": {
+          "$ref": "#/$defs/curriculumSignals"
+        },
+        "sourceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          }
+        },
+        "content": {
+          "$ref": "#/$defs/content"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "skillType": {
+                "const": "KANA"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "content": {
+                "required": [
+                  "kana"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "skillType": {
+                "const": "KANJI"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "content": {
+                "required": [
+                  "kanji"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "skillType": {
+                "const": "VOCABULARY"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "content": {
+                "required": [
+                  "vocabulary"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "skillType": {
+                "const": "GRAMMAR"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "content": {
+                "required": [
+                  "grammar"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "skillType": {
+                "const": "READING"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "content": {
+                "required": [
+                  "reading"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "lesson": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "slug",
+        "title",
+        "learningObjective",
+        "sortOrder",
+        "estimatedMinutes",
+        "isPublished",
+        "skills"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/uuid"
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "learningObjective": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sortOrder": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "estimatedMinutes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "isPublished": {
+          "type": "boolean"
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/skill"
+          }
+        }
+      }
+    },
+    "unit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "slug",
+        "title",
+        "description",
+        "sortOrder",
+        "isFoundationUnit",
+        "isPublished",
+        "lessons"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/uuid"
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sortOrder": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "isFoundationUnit": {
+          "type": "boolean"
+        },
+        "isPublished": {
+          "type": "boolean"
+        },
+        "lessons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/lesson"
+          }
+        }
+      }
+    },
+    "track": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "slug",
+        "curriculumLevel",
+        "title",
+        "description",
+        "sortOrder",
+        "isPublished",
+        "units"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/uuid"
+        },
+        "slug": {
+          "type": "string",
+          "enum": [
+            "jlpt-n5-foundation",
+            "jlpt-n4-expansion",
+            "jlpt-n3-bridge",
+            "jlpt-n2-advanced"
+          ]
+        },
+        "curriculumLevel": {
+          "$ref": "#/$defs/curriculumLevel"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sortOrder": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "isPublished": {
+          "type": "boolean"
+        },
+        "units": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/unit"
+          }
+        }
+      }
+    }
+  }
+}

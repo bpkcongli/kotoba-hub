@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-05-15",
+  "tracks": [
+    {
+      "slug": "jlpt-n5-foundation",
+      "curriculumLevel": "N5",
+      "file": "tracks/jlpt-n5-foundation.json",
+      "sortOrder": 1,
+      "isPublished": true
+    },
+    {
+      "slug": "jlpt-n4-expansion",
+      "curriculumLevel": "N4",
+      "file": "tracks/jlpt-n4-expansion.json",
+      "sortOrder": 2,
+      "isPublished": true
+    },
+    {
+      "slug": "jlpt-n3-bridge",
+      "curriculumLevel": "N3",
+      "file": "tracks/jlpt-n3-bridge.json",
+      "sortOrder": 3,
+      "isPublished": false
+    },
+    {
+      "slug": "jlpt-n2-advanced",
+      "curriculumLevel": "N2",
+      "file": "tracks/jlpt-n2-advanced.json",
+      "sortOrder": 4,
+      "isPublished": false
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kotobahub.local/docs/syllabus/schema/seed-manifest.schema.json",
+  "title": "KotobaHub Syllabus Seed Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "generatedAt",
+    "tracks"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "tracks": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "slug",
+          "curriculumLevel",
+          "file",
+          "sortOrder",
+          "isPublished"
+        ],
+        "properties": {
+          "slug": {
+            "type": "string",
+            "enum": [
+              "jlpt-n5-foundation",
+              "jlpt-n4-expansion",
+              "jlpt-n3-bridge",
+              "jlpt-n2-advanced"
+            ]
+          },
+          "curriculumLevel": {
+            "type": "string",
+            "enum": [
+              "N5",
+              "N4",
+              "N3",
+              "N2"
+            ]
+          },
+          "file": {
+            "type": "string",
+            "pattern": "^tracks\\/[a-z0-9-]+\\.json$"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "isPublished": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}

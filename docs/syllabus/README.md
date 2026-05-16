@@ -10,7 +10,8 @@
 - `SYL-01` Finalisasi struktur `track -> unit -> lesson -> skill` berbasis JLPT.
 - `SYL-02` Penetapan scope seed awal `N5 -> N4`, dengan skeleton `N3 -> N2`. Lihat [seed-coverage-scope.md](./seed-coverage-scope.md).
 - `SYL-03` Definisi schema seed content.
-- `SYL-04` sampai `SYL-07` turunan unit, lesson, skill, support flags, dan review alignment ke personalization/progress.
+- `SYL-04` Finalisasi daftar unit per level dan urutan belajar utama. Lihat [jlpt-unit-sequencing.md](./jlpt-unit-sequencing.md).
+- `SYL-05` sampai `SYL-07` turunan lesson, skill, support flags, dan review alignment ke personalization/progress.
 
 ## Documents In This Folder
 - [jlpt-syllabus-structure.md](./jlpt-syllabus-structure.md)
@@ -21,6 +22,8 @@
   Menjelaskan prioritas sumber referensi, cara mengambil dataset, limitasi lisensi/format, dan aturan normalisasi sebelum data masuk ke seed content.
 - [seed-content-schema.md](./seed-content-schema.md)
   Menjelaskan bentuk seed content yang disarankan untuk repo dan bagaimana field seed dipetakan ke tabel `tracks`, `units`, `lessons`, `lesson_content_blocks`, `skills`, dan `unit_skill_mappings`.
+- [jlpt-unit-sequencing.md](./jlpt-unit-sequencing.md)
+  Mengunci daftar unit published `N5` dan `N4`, urutan learner journey utamanya, serta batas scope `N3/N2` pada task `SYL-04`.
 - [raw-source-acquisition.md](./raw-source-acquisition.md)
   Mencatat hasil task `SYL-03A`, termasuk provider mana yang sudah tersnapshot di `content/syllabus/sources/`, mana yang masih partial, dan konvensi provenance/checksum yang dipakai.
 - [schema/](./schema/)

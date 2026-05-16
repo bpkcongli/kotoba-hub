@@ -30,6 +30,8 @@
   Menurunkan unit published `N5` dan `N4` menjadi lesson map canonical beserta bentuk skill trackable per lesson untuk task `SYL-05`.
 - [skill-activity-support-matrix.md](./skill-activity-support-matrix.md)
   Mengunci support flags final seluruh skill published `N5` dan `N4`, termasuk terjemahan istilah produk "random questions" ke `supportsPracticeObjective` dan `supportsPracticeFreeResponse` untuk task `SYL-06`.
+- [flashcard-deck-mapping.md](./flashcard-deck-mapping.md)
+  Mengunci aturan normalisasi bundle `KANJI`/`VOCABULARY`, grouping deck system bawaan, dan relasi `skill -> flashcard item -> flashcard deck` untuk task `SYL-06A`.
 - [raw-source-acquisition.md](./raw-source-acquisition.md)
   Mencatat hasil task `SYL-03A`, termasuk provider mana yang sudah tersnapshot di `content/syllabus/sources/`, mana yang masih partial, dan konvensi provenance/checksum yang dipakai.
 - [schema/](./schema/)

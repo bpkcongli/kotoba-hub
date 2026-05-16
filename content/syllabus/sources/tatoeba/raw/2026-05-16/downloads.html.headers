@@ -1,0 +1,70 @@
+HTTP/2 200 
+server: nginx/1.22.1
+date: Sat, 16 May 2026 03:41:02 GMT
+content-type: text/html; charset=UTF-8
+set-cookie: CAKEPHP=3f51vbh72vpqif5ednkosvojfe; path=/; secure; HttpOnly
+expires: Thu, 19 Nov 1981 08:52:00 GMT
+cache-control: no-store, no-cache, must-revalidate
+pragma: no-cache
+set-cookie: interface_language=en; expires=Tue, 16-Jun-2026 03:41:01 GMT; Max-Age=2678399; path=/
+set-cookie: csrfToken=124578278a371359db76b8d8593f8ee576cd4854a02632a2439bed01f16b9a99ff23ff872ab58ba14ad89b704419bcc34d06535a8bd3196ae9d72d2346118716; path=/
+strict-transport-security: max-age=15768000; includeSubdomains
+x-frame-options: Deny
+x-content-type-options: nosniff
+
+HTTP/2 200 
+server: nginx/1.22.1
+date: Sat, 16 May 2026 03:41:06 GMT
+content-type: text/html; charset=UTF-8
+set-cookie: CAKEPHP=r3ub8ojl7iieqdt9vlj2u1uuea; path=/; secure; HttpOnly
+expires: Thu, 19 Nov 1981 08:52:00 GMT
+cache-control: no-store, no-cache, must-revalidate
+pragma: no-cache
+set-cookie: interface_language=en; expires=Tue, 16-Jun-2026 03:41:06 GMT; Max-Age=2678400; path=/
+set-cookie: csrfToken=989e5d9aabb9fa43f5babdfb78e45701ddb3f73e2939ef3467ad9e284e5cb6e194473bab7d90dcfbddaa23379ad9bb76266dae062cb7a307b911ed3d982b87ed; path=/
+strict-transport-security: max-age=15768000; includeSubdomains
+x-frame-options: Deny
+x-content-type-options: nosniff
+
+HTTP/2 200 
+server: nginx/1.22.1
+date: Sat, 16 May 2026 03:41:17 GMT
+content-type: text/html; charset=UTF-8
+set-cookie: CAKEPHP=jdvhl82ceqj4s1tu5mfcjlba4k; path=/; secure; HttpOnly
+expires: Thu, 19 Nov 1981 08:52:00 GMT
+cache-control: no-store, no-cache, must-revalidate
+pragma: no-cache
+set-cookie: interface_language=en; expires=Tue, 16-Jun-2026 03:41:16 GMT; Max-Age=2678399; path=/
+set-cookie: csrfToken=98cf29258e4ec2cb061294cf16c336c2fa0161842677904a83cf66d32ac878b8d1dd6201de87b2eb5ec2fa06b2db5026326e2532214519e890bccf803c64ccbd; path=/
+strict-transport-security: max-age=15768000; includeSubdomains
+x-frame-options: Deny
+x-content-type-options: nosniff
+
+HTTP/2 200 
+server: nginx/1.22.1
+date: Sat, 16 May 2026 03:41:25 GMT
+content-type: text/html; charset=UTF-8
+set-cookie: CAKEPHP=ubb03ossl1edaf4kbp6nfp5hpr; path=/; secure; HttpOnly
+expires: Thu, 19 Nov 1981 08:52:00 GMT
+cache-control: no-store, no-cache, must-revalidate
+pragma: no-cache
+set-cookie: interface_language=en; expires=Tue, 16-Jun-2026 03:41:24 GMT; Max-Age=2678399; path=/
+set-cookie: csrfToken=2a3c61007ad1f2a16be875dab165acd3d6b81910c8e7a33c9feae067e4a99a8762390e31479d2fe9f48843eebd8845814d51a0fbf32803889f8faa5c188e1301; path=/
+strict-transport-security: max-age=15768000; includeSubdomains
+x-frame-options: Deny
+x-content-type-options: nosniff
+
+HTTP/2 200 
+server: nginx/1.22.1
+date: Sat, 16 May 2026 03:41:28 GMT
+content-type: text/html; charset=UTF-8
+set-cookie: CAKEPHP=iumaqd63oa2mcfmdg3r66206km; path=/; secure; HttpOnly
+expires: Thu, 19 Nov 1981 08:52:00 GMT
+cache-control: no-store, no-cache, must-revalidate
+pragma: no-cache
+set-cookie: interface_language=en; expires=Tue, 16-Jun-2026 03:41:28 GMT; Max-Age=2678400; path=/
+set-cookie: csrfToken=6121691b36f928f5728e829186b0c534e39ceda6ee5e67454169b8d07e65613c042eda290cc76efad907721b9c7363a8005b1e794da802f88cfb4ff55928da1a; path=/
+strict-transport-security: max-age=15768000; includeSubdomains
+x-frame-options: Deny
+x-content-type-options: nosniff
+

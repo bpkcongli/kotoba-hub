@@ -1,0 +1,15 @@
+HTTP/2 200 
+access-control-allow-origin: https://render.githubusercontent.com
+content-disposition: attachment; filename=yomitan-jlpt-vocab-main.zip
+content-security-policy: default-src 'none'; style-src 'unsafe-inline'; sandbox
+content-type: application/zip
+cross-origin-resource-policy: cross-origin
+etag: "5d018125e403e170b5549d32582e0228ffc05b12b3551a0d2cde5de948a2daa3"
+strict-transport-security: max-age=31536000
+vary: Authorization,Accept-Encoding
+x-content-type-options: nosniff
+x-frame-options: deny
+x-xss-protection: 1; mode=block
+date: Sat, 16 May 2026 04:00:05 GMT
+x-github-request-id: C8EE:2727E0:5623A:B4F43:6A07EBC5
+

@@ -21,6 +21,8 @@
   Menjelaskan prioritas sumber referensi, cara mengambil dataset, limitasi lisensi/format, dan aturan normalisasi sebelum data masuk ke seed content.
 - [seed-content-schema.md](./seed-content-schema.md)
   Menjelaskan bentuk seed content yang disarankan untuk repo dan bagaimana field seed dipetakan ke tabel `tracks`, `units`, `lessons`, `lesson_content_blocks`, `skills`, dan `unit_skill_mappings`.
+- [raw-source-acquisition.md](./raw-source-acquisition.md)
+  Mencatat hasil task `SYL-03A`, termasuk provider mana yang sudah tersnapshot di `content/syllabus/sources/`, mana yang masih partial, dan konvensi provenance/checksum yang dipakai.
 - [schema/](./schema/)
   Berisi JSON Schema machine-readable untuk `manifest.json` dan file track seed agar bentuk payload dapat divalidasi otomatis.
 - [examples/](./examples/)

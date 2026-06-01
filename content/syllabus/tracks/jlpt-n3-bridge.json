@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-05-18",
+  "track": {
+    "id": "fdcb3cde-8438-513f-8632-d6671b2cfd4c",
+    "slug": "jlpt-n3-bridge",
+    "curriculumLevel": "N3",
+    "title": "JLPT N3 Bridge",
+    "description": "Unpublished bridge shell reserved for future expansion beyond the MVP detailed seed.",
+    "sortOrder": 3,
+    "isPublished": false,
+    "units": []
+  }
+}

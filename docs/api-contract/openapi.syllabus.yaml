@@ -211,7 +211,8 @@ paths:
       summary: Get syllabus lesson detail
       description: |
         Mengambil detail satu lesson lengkap dengan parent unit, parent track,
-        paragraf penjelasan materi, dan skill yang diperkenalkan lesson tersebut.
+        paragraf penjelasan materi, skill yang diperkenalkan lesson tersebut,
+        dan metadata untuk memulai post-study quiz.
       operationId: getSyllabusLessonDetail
       security:
         - cookieAuth: []
@@ -272,6 +273,17 @@ paths:
                       title: Core Sound Pattern
                       body: The A-row introduces the five core vowel sounds used throughout later lessons.
                       sortOrder: 1
+                  postStudyQuiz:
+                    isRequired: true
+                    practiceMode: DIRECT_LESSON_POST_STUDY
+                    deliveryMode: DETERMINISTIC_CURATED
+                    questionType: SLOT_FILL
+                    questionCountPerAttempt: 1
+                    bankQuestionCount: 10
+                    difficultyLevelStart: 1
+                    difficultyLevelEnd: 10
+                    initialUnderstandingLevel: 0
+                    maxUnderstandingLevel: 10
                   skills:
                     - id: aa0e8400-e29b-41d4-a716-446655440555
                       code: hiragana_a_row
@@ -586,6 +598,56 @@ components:
           type: string
         sortOrder:
           type: integer
+    SyllabusLessonPostStudyQuiz:
+      type: object
+      additionalProperties: false
+      required:
+        - isRequired
+        - practiceMode
+        - deliveryMode
+        - questionType
+        - questionCountPerAttempt
+        - bankQuestionCount
+        - difficultyLevelStart
+        - difficultyLevelEnd
+        - initialUnderstandingLevel
+        - maxUnderstandingLevel
+      properties:
+        isRequired:
+          type: boolean
+        practiceMode:
+          type: string
+          enum:
+            - DIRECT_LESSON_POST_STUDY
+        deliveryMode:
+          type: string
+          enum:
+            - DETERMINISTIC_CURATED
+        questionType:
+          type: string
+          enum:
+            - SLOT_FILL
+        questionCountPerAttempt:
+          type: integer
+          minimum: 1
+          maximum: 1
+        bankQuestionCount:
+          type: integer
+          minimum: 1
+        difficultyLevelStart:
+          type: integer
+          minimum: 1
+        difficultyLevelEnd:
+          type: integer
+          minimum: 1
+        initialUnderstandingLevel:
+          type: integer
+          minimum: 0
+          maximum: 10
+        maxUnderstandingLevel:
+          type: integer
+          minimum: 10
+          maximum: 10
     SyllabusUnitSummary:
       type: object
       additionalProperties: false
@@ -617,6 +679,7 @@ components:
         - track
         - unit
         - contentBlocks
+        - postStudyQuiz
         - skills
       properties:
         id:
@@ -642,6 +705,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SyllabusLessonContentBlock'
+        postStudyQuiz:
+          $ref: '#/components/schemas/SyllabusLessonPostStudyQuiz'
         skills:
           type: array
           items:

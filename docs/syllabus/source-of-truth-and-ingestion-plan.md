@@ -22,6 +22,7 @@
 | Vocabulary | JMdict | Download current JMdict XML dari EDRDG | Headword, reading, gloss, POS, field, commonness/frequency-like priority tags | Tidak punya field JLPT native |
 | Vocabulary JLPT overlay | [`yomitan-jlpt-vocab`](https://github.com/stephenmk/yomitan-jlpt-vocab) | Cross-reference ke `JMdict` entry id yang sudah disediakan repo | Sinyal JLPT level untuk entry vocabulary | Berbasis list Jonathan Waller yang bersifat heuristic |
 | Example sentences | Tatoeba | Weekly exports atau custom sentence-pair export | Sentence pairs JP-EN, links, indices, transcriptions, audio refs | Perlu filter kualitas dan lisensi |
+| Lesson post-study question bank | Tatoeba + Bunpro grammar point examples | Kurasi manual dari candidate sentence yang relevan per lesson | `10` soal `SLOT_FILL` canonical per lesson dengan difficulty ladder `1..10` | Perlu editorial curation, provenance, dan normalisasi opsi jawaban |
 | Vocabulary frequency | Japanese Core 2k/6k | Referensi seri/course listing, lalu kurasi manual bila dipakai | Sinyal kata umum untuk ranking/ordering | Belum dijadikan field ERD dan jalur bulk export resmi belum dikunci |
 
 ## Source Details
@@ -102,6 +103,7 @@
   - `related_points[]`
   - `tae_kim_refs[]`
   - `source_url`
+- Contoh Bunpro juga relevan sebagai candidate untuk bank soal lesson `post-study quiz`, terutama pada lesson grammar yang membutuhkan kalimat pendek dengan slot yang jelas.
 
 ### 4. Vocabulary from JMdict
 - JMdict adalah source primer untuk lexical entries. EDRDG menyediakan current version yang di-generate dari source database hampir setiap hari.
@@ -172,6 +174,10 @@
   - prioritaskan sentence yang punya transcription
   - audio diperlakukan opsional karena lisensinya bisa berbeda per contributor
   - hindari sentence yang terlalu kompleks untuk level target
+- Tatoeba juga cocok menjadi source primer candidate sentence untuk `post-study quiz` lesson selama:
+  - kalimat bisa dipetakan jelas ke skill/lesson yang diuji
+  - jawaban slot-fill dapat dibuat deterministik dengan tepat empat opsi
+  - tingkat kompleksitasnya bisa diurutkan ke ladder `difficultyLevel` `1..10`
 - Rekomendasi field normalisasi sentence:
   - `sentence_id`
   - `japanese_text`
@@ -220,6 +226,7 @@
 | `units` | Internal syllabus curation | Disusun dari grouping pedagogis, bukan grouping source mentah |
 | `lessons` | Internal syllabus curation | Menjadi objective terfokus di dalam unit |
 | `skills` | Mixed: source metadata + internal curation | Item paling atomik yang di-track mastery-nya |
+| `lesson_post_study_questions` | Mixed: Tatoeba/Bunpro candidates + internal curation | Bank soal canonical `10` slot-fill per lesson |
 | `unit_skill_mappings` | Internal syllabus curation | Menentukan scope per unit dan urutan render |
 
 ### Skill Type Recommendations
@@ -249,12 +256,12 @@ Catatan finalisasi:
 
 ## Known Mismatches Against Current ERD
 - ERD `syllabus` belum memiliki tabel dedicated untuk:
-  - example sentences
   - vocabulary frequency
   - external source attribution
   - raw JLPT overlay signals
-- Untuk fase sekarang, keempat area itu disimpan di seed content sebagai metadata/support objects, bukan row tabel inti.
+- Untuk fase sekarang, tiga area itu disimpan di seed content sebagai metadata/support objects, bukan row tabel inti.
 - Paragraf penjelasan lesson tidak lagi masuk daftar mismatch ini karena kini sudah dimodelkan langsung melalui tabel `lesson_content_blocks`.
+- Candidate sentence dan provenance detail untuk `lesson_post_study_questions` masih boleh tetap tinggal di seed metadata walau canonical question bank-nya sendiri sudah dimodelkan di ERD.
 - Jika nanti produk ingin query sentence/frequency secara langsung dari database, perlu task arsitektur lanjutan untuk menambah tabel baru atau read model turunan.
 
 ## Recommended Next Steps

@@ -51,6 +51,11 @@ paths:
                   averageMasteryScore: 56.8
                   recommendedDifficultyBand: STANDARD
                   lastActivityAt: '2026-04-04T10:20:00Z'
+                  lessonUnderstandingSummary:
+                    trackedLessonsCount: 12
+                    completedLessonsCount: 4
+                    averageUnderstandingLevel: 3.5
+                    maxUnderstandingLevel: 10
                   trackSummaries:
                     - trackSlug: jlpt-n5-foundation
                       trackTitle: JLPT N5 Foundation
@@ -97,10 +102,10 @@ paths:
         - name: sourceTypes
           in: query
           required: false
-          description: Filter multi-value dengan separated commas, mis. FLASHCARD,PRACTICE.
+          description: Filter multi-value dengan separated commas, mis. FLASHCARD,PRACTICE,LESSON_POST_STUDY.
           schema:
             type: string
-            example: FLASHCARD,PRACTICE
+            example: FLASHCARD,PRACTICE,LESSON_POST_STUDY
         - name: trackSlug
           in: query
           required: false
@@ -192,10 +197,10 @@ paths:
         - name: sourceTypes
           in: query
           required: false
-          description: Filter multi-value dengan separated commas, mis. FLASHCARD,PRACTICE.
+          description: Filter multi-value dengan separated commas, mis. FLASHCARD,PRACTICE,LESSON_POST_STUDY.
           schema:
             type: string
-            example: FLASHCARD,PRACTICE
+            example: FLASHCARD,PRACTICE,LESSON_POST_STUDY
         - name: skillCodes
           in: query
           required: false
@@ -399,6 +404,29 @@ components:
           type: string
           nullable: true
           format: date-time
+    LessonUnderstandingSummary:
+      type: object
+      additionalProperties: false
+      required:
+        - trackedLessonsCount
+        - completedLessonsCount
+        - averageUnderstandingLevel
+        - maxUnderstandingLevel
+      properties:
+        trackedLessonsCount:
+          type: integer
+          minimum: 0
+        completedLessonsCount:
+          type: integer
+          minimum: 0
+        averageUnderstandingLevel:
+          type: number
+          minimum: 0
+          maximum: 10
+        maxUnderstandingLevel:
+          type: integer
+          minimum: 10
+          maximum: 10
     ProgressOverview:
       type: object
       additionalProperties: false
@@ -410,6 +438,7 @@ components:
         - averageMasteryScore
         - recommendedDifficultyBand
         - lastActivityAt
+        - lessonUnderstandingSummary
         - trackSummaries
       properties:
         trackedSkillsCount:
@@ -428,6 +457,8 @@ components:
           type: string
           nullable: true
           format: date-time
+        lessonUnderstandingSummary:
+          $ref: '#/components/schemas/LessonUnderstandingSummary'
         trackSummaries:
           type: array
           items:
@@ -466,9 +497,11 @@ components:
           enum:
             - FLASHCARD
             - PRACTICE
+            - LESSON_POST_STUDY
         sourceSessionId:
           type: string
           format: uuid
+          nullable: true
         sessionStatus:
           type: string
         sessionTitle:
@@ -555,9 +588,11 @@ components:
           enum:
             - FLASHCARD
             - PRACTICE
+            - LESSON_POST_STUDY
         sourceSessionId:
           type: string
           format: uuid
+          nullable: true
         sourceEntityId:
           type: string
           format: uuid

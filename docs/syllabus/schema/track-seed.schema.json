@@ -691,6 +691,7 @@
         "estimatedMinutes",
         "isPublished",
         "contentBlocks",
+        "postStudyQuestions",
         "skills"
       ],
       "properties": {
@@ -724,6 +725,12 @@
           "type": "array",
           "items": {
             "$ref": "#/$defs/lessonContentBlock"
+          }
+        },
+        "postStudyQuestions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/postStudyQuestion"
           }
         },
         "skills": {
@@ -767,6 +774,127 @@
         },
         "isPublished": {
           "type": "boolean"
+        }
+      }
+    },
+    "postStudyQuestion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "skillCode",
+        "difficultyLevel",
+        "questionType",
+        "promptText",
+        "promptPayload",
+        "expectedAnswer",
+        "sortOrder",
+        "isPublished",
+        "sourceRefs"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/uuid"
+        },
+        "skillCode": {
+          "type": "string",
+          "minLength": 1
+        },
+        "difficultyLevel": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "questionType": {
+          "type": "string",
+          "enum": [
+            "SLOT_FILL"
+          ]
+        },
+        "promptText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "promptPayload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "schemaVersion",
+            "sentenceTemplate",
+            "promptLanguage",
+            "optionLanguage",
+            "options"
+          ],
+          "properties": {
+            "schemaVersion": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "sentenceTemplate": {
+              "type": "string",
+              "minLength": 1
+            },
+            "promptLanguage": {
+              "type": "string",
+              "const": "JA"
+            },
+            "optionLanguage": {
+              "type": "string",
+              "const": "JA"
+            },
+            "options": {
+              "type": "array",
+              "minItems": 4,
+              "maxItems": 4,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "label"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "expectedAnswer": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "correctOptionId"
+          ],
+          "properties": {
+            "correctOptionId": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "explanation": {
+          "type": "string"
+        },
+        "sortOrder": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "isPublished": {
+          "type": "boolean"
+        },
+        "sourceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          }
         }
       }
     },

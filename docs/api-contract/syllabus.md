@@ -18,6 +18,7 @@
 - Menjaga `GET /api/v1/syllabus` tetap ringan dan mudah dipaginasi.
 - Menjaga `GET /api/v1/syllabus/units/{unitSlug}` tetap menjadi detail tree utama untuk unit, lesson summary, dan skill mapping.
 - Menyediakan endpoint lesson detail yang khusus memuat paragraf penjelasan materi tanpa membebani response unit detail.
+- Menyediakan metadata lesson yang cukup untuk memulai `post-study quiz` sesudah learner selesai membaca materi, sambil tetap menempatkan bank soal canonical di source-of-truth `syllabus`.
 
 ## Endpoint Summary
 
@@ -190,6 +191,7 @@ Behavior:
 - Menyertakan ringkasan parent unit dan parent track.
 - Jika `includeContentBlocks=true`, `contentBlocks` diurutkan berdasarkan `sort_order`.
 - Jika `includeSkills=true`, response tetap menyertakan skill introduksi utama lesson.
+- Response juga menyertakan metadata `postStudyQuiz` agar UI tahu bahwa lesson wajib dilanjutkan ke quiz lesson deterministik berisi tepat `1` soal dari bank `10` tingkat kesulitan. Pengambilan soal dan submit jawaban dilakukan melalui endpoint direct `practice/lesson-post-study/*`, bukan melalui practice session.
 
 Success response:
 
@@ -229,6 +231,18 @@ Success response:
         "sortOrder": 1
       }
     ],
+    "postStudyQuiz": {
+      "isRequired": true,
+      "practiceMode": "DIRECT_LESSON_POST_STUDY",
+      "deliveryMode": "DETERMINISTIC_CURATED",
+      "questionType": "SLOT_FILL",
+      "questionCountPerAttempt": 1,
+      "bankQuestionCount": 10,
+      "difficultyLevelStart": 1,
+      "difficultyLevelEnd": 10,
+      "initialUnderstandingLevel": 0,
+      "maxUnderstandingLevel": 10
+    },
     "skills": [
       {
         "id": "uuid",
@@ -267,3 +281,5 @@ Success response:
 - Contract progress/flashcard/practice nanti harus memakai `skill.code` dan mapping `skill -> lesson -> unit -> track` yang konsisten dengan payload syllabus ini.
 - Jika nanti onboarding membutuhkan reference data yang lebih sempit, sebaiknya cukup ditambah query/filter pada endpoint ini, bukan membuat katalog duplikat di domain lain.
 - Surface belajar yang benar-benar menampilkan paragraf materi sebaiknya membaca `GET /api/v1/syllabus/lessons/{lessonSlug}`, bukan memaksa `GET /api/v1/syllabus/units/{unitSlug}` membawa seluruh blok konten sekaligus.
+- Lesson detail tetap read-only. Status completion lesson dan hasil `post-study quiz` tidak dihasilkan di endpoint ini; keduanya diturunkan dari boundary `practice` dan `progress.lesson_understanding_snapshots`.
+- Endpoint ini tidak perlu mengembalikan seluruh bank soal canonical. Client cukup menerima metadata policy, lalu meminta session aktual ke endpoint `practice`.

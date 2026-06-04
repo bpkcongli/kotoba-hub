@@ -2,7 +2,7 @@
 
 ## Scope
 - Diagram ini memodelkan handoff setelah hasil jawaban sudah tersimpan di module producer, baik dari `flashcards` maupun `practice`.
-- Fokus utamanya adalah proses `record learning event -> validate attribution -> recompute mastery -> upsert snapshot`.
+- Fokus utamanya adalah proses `record learning event -> validate attribution -> recompute skill mastery -> upsert skill/lesson snapshot`.
 - Diagram ini menjadi flow bersama untuk update progress setelah practice activity apa pun.
 
 ## Sequence Diagram
@@ -18,7 +18,7 @@ sequenceDiagram
     Note over Activity,Progress: Handoff dimulai setelah hasil jawaban sudah tersimpan <br> di database module producer
 
     Activity->>Progress: Record structured learning event
-    Note over Activity,Progress: Payload minimal: user_id, skill_id, session_id, activity_type, question_type, <br> score/is_correct, answered_at, grading metadata
+    Note over Activity,Progress: Payload minimal: user_id, skill_id, optional session_id, activity_type, question_type, <br> score/is_correct, answered_at, grading metadata, optional lesson understanding metadata
 
     Progress->>Syllabus: Validate skill_id and resolve attribution
     Syllabus->>DB: Read skill -> lesson -> unit -> track mapping
@@ -29,6 +29,12 @@ sequenceDiagram
     DB-->>Progress: Recent attempts history
     Progress->>Progress: Recompute skill mastery snapshot
     Progress->>DB: Upsert skill_mastery_snapshot and rollup summary
+
+    alt Activity is lesson post-study quiz
+        Progress->>DB: Read lesson_understanding_snapshot
+        Progress->>Progress: Increase understanding level by 1 when answer is correct
+        Progress->>DB: Upsert lesson_understanding_snapshot
+    end
 
     alt Producer is Flashcards
         Progress-->>Activity: Updated mastery snapshot + flashcard progress delta
@@ -43,6 +49,7 @@ sequenceDiagram
 - `syllabus` dipakai sebagai validator resmi untuk memastikan attribution skill selalu sah sebelum event disimpan.
 - Recompute snapshot terjadi segera setelah event baru masuk, sehingga feedback loop ke UI dan recommendation berikutnya tetap write-through.
 - Flow ini hanya berlaku untuk hasil activity yang punya `skill_id` valid terhadap katalog `syllabus`. Jika item flashcard tidak punya mapping skill resmi, processing berhenti di boundary `flashcards` dan tidak membuat `progress_event`.
+- Untuk lesson post-study quiz, `source_session_id` boleh `null`; `source_entity_id` merujuk ke `lesson_post_study_questions.id`, dan jawaban benar menaikkan `lesson_understanding_snapshots.current_understanding_level` satu langkah sampai maksimum `10`.
 
 ## Expected Outcome
 - Baik flashcard maupun random question mengikuti jalur update progress yang sama setelah result internal mereka tersimpan.

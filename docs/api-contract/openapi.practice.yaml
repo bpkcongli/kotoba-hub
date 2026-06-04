@@ -4,8 +4,8 @@ info:
   version: 0.1.0
   description: |
     Dokumen ini menyelesaikan bagian practice dari task ARCH-15. Endpoint di
-    sini mencakup session generation dan answer submission berikut ringkasan
-    progress impact.
+    sini mencakup random session generation, direct lesson post-study quiz,
+    dan answer submission berikut ringkasan progress impact.
 servers:
   - url: http://localhost:3000/api/v1
     description: Local development server
@@ -13,14 +13,16 @@ servers:
     description: Placeholder production server
 tags:
   - name: Practice
-    description: Practice session generation and answer grading
+    description: Practice generation, lesson post-study quiz, and answer grading
 paths:
   /practice/sessions/generate:
     post:
       tags:
         - Practice
       summary: Generate random practice session
-      description: Menghasilkan practice session berbasis recommendation spec user.
+      description: |
+        Menghasilkan practice session berbasis recommendation spec user untuk
+        random practice umum.
       operationId: generatePracticeSession
       security:
         - cookieAuth: []
@@ -115,6 +117,187 @@ paths:
                   errorDetails:
                     - field: questionCount
                       message: questionCount must be between 1 and 10.
+  /practice/lesson-post-study/next:
+    post:
+      tags:
+        - Practice
+      summary: Get next lesson post-study question
+      description: |
+        Mengambil tepat satu pertanyaan post-study quiz atau review lesson
+        berdasarkan current understanding level user terhadap lesson tersebut.
+        Endpoint ini tidak membuat practice session.
+      operationId: getNextLessonPostStudyQuestion
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LessonPostStudyNextRequest'
+      responses:
+        '200':
+          description: Pertanyaan post-study quiz berhasil diambil.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LessonPostStudyNextResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 120006000
+                  message: Success!
+                  errorDetails: []
+                data:
+                  lessonSlug: hiragana-row-a
+                  currentUnderstandingLevel: 0
+                  targetUnderstandingLevel: 1
+                  targetDifficultyLevel: 1
+                  isReview: false
+                  question:
+                    id: 880e8400-e29b-41d4-a716-446655440333
+                    skillCode: hiragana_a_row
+                    questionType: SLOT_FILL
+                    gradingStrategy: DETERMINISTIC
+                    difficultyLevel: 1
+                    promptText: ___いうえお
+                    promptPayload:
+                      schemaVersion: 1
+                      promptLanguage: JA
+                      optionLanguage: JA
+                      slotCount: 1
+                      sentenceTemplate: ___いうえお
+                      options:
+                        - id: a
+                          label: あ
+                        - id: b
+                          label: か
+                        - id: c
+                          label: さ
+                        - id: d
+                          label: た
+        '401':
+          description: Session tidak ada atau tidak valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Onboarding belum selesai.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Lesson atau bank soal post-study tidak ditemukan.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140406002
+                  message: Lesson post-study target not found.
+                  errorDetails:
+                    - field: lessonSlug
+                      message: lessonSlug was not found or is not published.
+        '422':
+          description: Payload post-study next tidak valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /practice/lesson-post-study/answer:
+    post:
+      tags:
+        - Practice
+      summary: Submit lesson post-study answer
+      description: |
+        Menilai jawaban post-study quiz atau review lesson, lalu meng-update
+        progress event, skill mastery, dan lesson understanding snapshot.
+      operationId: submitLessonPostStudyAnswer
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LessonPostStudyAnswerRequest'
+      responses:
+        '200':
+          description: Jawaban post-study quiz berhasil diproses.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LessonPostStudyAnswerResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 120006000
+                  message: Success!
+                  errorDetails: []
+                data:
+                  lessonSlug: hiragana-row-a
+                  questionId: 880e8400-e29b-41d4-a716-446655440333
+                  isCorrect: true
+                  numericScore: 100
+                  feedbackText: Correct choice.
+                  gradingSource: RULE_ENGINE
+                  understandingProgress:
+                    currentUnderstandingLevelBefore: 0
+                    currentUnderstandingLevelAfter: 1
+                    targetDifficultyLevel: 1
+                    maxUnderstandingLevel: 10
+                    postStudyQuizCompleted: true
+                    nextReviewDifficultyLevel: 2
+                  progressImpact:
+                    progressEventId: aa0e8400-e29b-41d4-a716-446655440555
+                    skillCode: hiragana_a_row
+                    masteryScore: 58.4
+                    masteryState: DEVELOPING
+                    recommendedDifficultyBand: STANDARD
+        '401':
+          description: Session tidak ada atau tidak valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Onboarding belum selesai.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Lesson atau question post-study tidak ditemukan.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140406002
+                  message: Lesson post-study target not found.
+                  errorDetails:
+                    - field: lessonSlug
+                      message: lessonSlug was not found or is not published.
+        '422':
+          description: Payload post-study answer tidak valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 142206002
+                  message: Invalid lesson post-study answer payload.
+                  errorDetails:
+                    - field: questionId
+                      message: questionId does not match the active lesson post-study target.
   /practice/sessions/{sessionId}/answer:
     post:
       tags:
@@ -164,10 +347,10 @@ paths:
                       - selectedOptionId
                     accepted: true
                   sessionProgress:
-                    answeredQuestionsCount: 1
-                    totalQuestions: 5
-                    isCompleted: false
-                  nextQuestionId: aa0e8400-e29b-41d4-a716-446655440555
+                    answeredQuestionsCount: 2
+                    totalQuestions: 2
+                    isCompleted: true
+                  nextQuestionId: null
                   progressImpact:
                     progressEventId: bb0e8400-e29b-41d4-a716-446655440666
                     skillCode: n5_particles_wa_ga_o
@@ -282,6 +465,9 @@ components:
           minimum: 1
           maximum: 10
           default: 5
+          description: >
+            Jumlah soal random practice yang ingin digenerate. Pada MVP,
+            nilainya boleh 1-10 dengan default 5.
     QuestionMix:
       type: object
       additionalProperties: false
@@ -302,13 +488,14 @@ components:
       description: >
         Practice question untuk MVP hanya boleh bertipe SLOT_FILL,
         SHORT_FREE_RESPONSE, atau ARRANGE_TOKEN. MULTIPLE_CHOICE tidak dipakai
-        di practice karena pattern itu dicakup flashcards.
+        di practice karena pattern itu dicakup flashcards. Schema ini hanya
+        untuk question yang dipersist di `practice_questions`; direct lesson
+        post-study quiz memakai schema `LessonPostStudyQuestion`.
       required:
         - id
         - skillCode
         - questionType
         - gradingStrategy
-        - difficultyBand
         - promptText
         - promptPayload
         - sortOrder
@@ -335,6 +522,7 @@ components:
             - AI
         difficultyBand:
           type: string
+          nullable: true
         promptText:
           type: string
         promptPayload:
@@ -351,11 +539,12 @@ components:
     PracticeSession:
       type: object
       additionalProperties: false
+      description: >
+        Lesson post-study quiz tidak memakai PracticeSession karena berjalan
+        sebagai direct one-question quiz.
       required:
         - id
         - status
-        - difficultyBand
-        - questionMix
         - totalQuestions
         - answeredQuestionsCount
         - startedAt
@@ -373,8 +562,10 @@ components:
             - EXPIRED
         difficultyBand:
           type: string
+          nullable: true
         questionMix:
           $ref: '#/components/schemas/QuestionMix'
+          nullable: true
         totalQuestions:
           type: integer
         answeredQuestionsCount:
@@ -397,6 +588,97 @@ components:
           $ref: '#/components/schemas/Status'
         data:
           $ref: '#/components/schemas/PracticeSession'
+    LessonPostStudyNextRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - lessonSlug
+      properties:
+        lessonSlug:
+          type: string
+          description: Slug lesson yang akan diambil post-study quiz/review-nya.
+    LessonPostStudyNextResult:
+      type: object
+      additionalProperties: false
+      required:
+        - lessonSlug
+        - currentUnderstandingLevel
+        - targetUnderstandingLevel
+        - targetDifficultyLevel
+        - isReview
+        - question
+      properties:
+        lessonSlug:
+          type: string
+        currentUnderstandingLevel:
+          type: integer
+          minimum: 0
+          maximum: 10
+        targetUnderstandingLevel:
+          type: integer
+          minimum: 1
+          maximum: 10
+        targetDifficultyLevel:
+          type: integer
+          minimum: 1
+          maximum: 10
+        isReview:
+          type: boolean
+          description: true bila currentUnderstandingLevel sudah minimal 1.
+        question:
+          $ref: '#/components/schemas/LessonPostStudyQuestion'
+    LessonPostStudyQuestion:
+      type: object
+      additionalProperties: false
+      description: >
+        Direct post-study quiz question yang dibaca dari
+        `lesson_post_study_questions`. Object ini tidak dipersist sebagai
+        `practice_questions`.
+      required:
+        - id
+        - skillCode
+        - questionType
+        - gradingStrategy
+        - difficultyLevel
+        - promptText
+        - promptPayload
+      properties:
+        id:
+          type: string
+          format: uuid
+        skillCode:
+          type: string
+        questionType:
+          type: string
+          enum:
+            - SLOT_FILL
+        gradingStrategy:
+          type: string
+          enum:
+            - DETERMINISTIC
+        difficultyLevel:
+          type: integer
+          minimum: 1
+          maximum: 10
+        promptText:
+          type: string
+        promptPayload:
+          type: object
+          additionalProperties: true
+          description: >
+            Payload render SLOT_FILL dari bank soal lesson, termasuk empat opsi
+            jawaban dan template kalimat Jepang dengan satu slot kosong.
+    LessonPostStudyNextResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+        - data
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+        data:
+          $ref: '#/components/schemas/LessonPostStudyNextResult'
     PracticeUserAnswerSlotFill:
       type: object
       additionalProperties: false
@@ -460,6 +742,25 @@ components:
           type: integer
           nullable: true
           minimum: 0
+    LessonPostStudyAnswerRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - lessonSlug
+        - questionId
+        - userAnswer
+      properties:
+        lessonSlug:
+          type: string
+        questionId:
+          type: string
+          format: uuid
+        userAnswer:
+          $ref: '#/components/schemas/PracticeUserAnswerSlotFill'
+        responseTimeMs:
+          type: integer
+          nullable: true
+          minimum: 0
     PracticeAnswerSessionProgress:
       type: object
       additionalProperties: false
@@ -499,6 +800,85 @@ components:
           type: string
         recommendedDifficultyBand:
           type: string
+    LessonUnderstandingProgress:
+      type: object
+      additionalProperties: false
+      required:
+        - currentUnderstandingLevelBefore
+        - currentUnderstandingLevelAfter
+        - targetDifficultyLevel
+        - maxUnderstandingLevel
+        - postStudyQuizCompleted
+      properties:
+        currentUnderstandingLevelBefore:
+          type: integer
+          minimum: 0
+          maximum: 10
+        currentUnderstandingLevelAfter:
+          type: integer
+          minimum: 0
+          maximum: 10
+        targetDifficultyLevel:
+          type: integer
+          minimum: 1
+          maximum: 10
+        maxUnderstandingLevel:
+          type: integer
+          minimum: 10
+          maximum: 10
+        postStudyQuizCompleted:
+          type: boolean
+        nextReviewDifficultyLevel:
+          type: integer
+          nullable: true
+          minimum: 1
+          maximum: 10
+    LessonPostStudyAnswerResult:
+      type: object
+      additionalProperties: false
+      required:
+        - lessonSlug
+        - questionId
+        - isCorrect
+        - numericScore
+        - feedbackText
+        - gradingSource
+        - understandingProgress
+        - progressImpact
+      properties:
+        lessonSlug:
+          type: string
+        questionId:
+          type: string
+          format: uuid
+        isCorrect:
+          type: boolean
+        numericScore:
+          type: number
+        feedbackText:
+          type: string
+          nullable: true
+        gradingSource:
+          type: string
+          enum:
+            - RULE_ENGINE
+        understandingProgress:
+          $ref: '#/components/schemas/LessonUnderstandingProgress'
+        progressImpact:
+          allOf:
+            - $ref: '#/components/schemas/PracticeProgressImpact'
+          nullable: true
+    LessonPostStudyAnswerResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+        - data
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+        data:
+          $ref: '#/components/schemas/LessonPostStudyAnswerResult'
     PracticeAnswerResult:
       type: object
       additionalProperties: false

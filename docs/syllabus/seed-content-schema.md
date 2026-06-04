@@ -49,6 +49,7 @@ Notes:
 - Satu file manifest menjadi entrypoint discovery untuk seluruh track seed.
 - Satu file track berisi tree `track -> units -> lessons -> skills`.
 - Paragraf penjelasan materi diletakkan di `lesson.contentBlocks` agar narasi belajar berada di level objective lesson, bukan dicampur ke `skills.description`.
+- Bank soal `post-study quiz` diletakkan di `lesson.postStudyQuestions` agar canonical question bank tetap menempel ke lesson yang menjadi owner pedagogisnya.
 - Setiap `skill` boleh membawa metadata support di luar ERD inti selama masih relevan untuk import stage.
 - Semua reference ke source eksternal harus berada di bawah field eksplisit agar attribution dan auditing mudah.
 - Example sentences dan frequency metadata ditempatkan di `skill.content`, bukan dipaksa menjadi kolom tabel inti saat ini.
@@ -165,6 +166,7 @@ Rules:
   "estimatedMinutes": 10,
   "isPublished": true,
   "contentBlocks": [],
+  "postStudyQuestions": [],
   "skills": []
 }
 ```
@@ -206,6 +208,58 @@ Rules:
 | `body` | `lesson_content_blocks.body` |
 | `sortOrder` | `lesson_content_blocks.sort_order` |
 | `isPublished` | `lesson_content_blocks.is_published` |
+
+## `postStudyQuestions` Schema
+
+```json
+[
+  {
+    "id": "uuid",
+    "skillCode": "n5_topic_particle_wa",
+    "difficultyLevel": 1,
+    "questionType": "SLOT_FILL",
+    "promptText": "わたし___がくせいです。",
+    "promptPayload": {
+      "schemaVersion": 1,
+      "sentenceTemplate": "わたし___がくせいです。",
+      "promptLanguage": "JA",
+      "optionLanguage": "JA",
+      "options": [
+        { "id": "a", "label": "は" },
+        { "id": "b", "label": "が" },
+        { "id": "c", "label": "を" },
+        { "id": "d", "label": "に" }
+      ]
+    },
+    "expectedAnswer": {
+      "correctOptionId": "a"
+    },
+    "explanation": "Topic marker `は` is the correct choice for this simple identification sentence.",
+    "sourceRefs": []
+  }
+]
+```
+
+### Maps To ERD
+
+| Seed field | ERD target |
+| --- | --- |
+| `id` | `lesson_post_study_questions.id` |
+| `skillCode` | Resolve ke `lesson_post_study_questions.skill_id` lewat `skills.code` |
+| `difficultyLevel` | `lesson_post_study_questions.difficulty_level` |
+| `questionType` | `lesson_post_study_questions.question_type` |
+| `promptText` | `lesson_post_study_questions.prompt_text` |
+| `promptPayload` | `lesson_post_study_questions.prompt_payload` |
+| `expectedAnswer` | `lesson_post_study_questions.expected_answer_payload` |
+| `explanation` | `lesson_post_study_questions.explanation_text` |
+| `sourceRefs` | importer menurunkan `source_provider` + `source_ref_payload` |
+
+Rules:
+- Baseline MVP mengunci `postStudyQuestions.length = 10` untuk lesson yang dipublish penuh ke learner.
+- `difficultyLevel` harus membentuk ladder `1..10` tanpa duplikasi di dalam satu lesson.
+- `questionType` saat ini harus `SLOT_FILL`.
+- Setiap soal harus punya tepat empat opsi jawaban pada `promptPayload.options`.
+- Tingkat kesulitan ditafsirkan terutama sebagai panjang dan kompleksitas kalimat/prompt, bukan adaptasi mastery user.
 
 ## Skill Schema
 
@@ -465,6 +519,9 @@ Rules:
 - `unit.sortOrder`, `lesson.sortOrder`, dan `skill.sortOrder` harus unik di parent scope masing-masing.
 - `contentBlocks.sortOrder` harus unik di dalam scope satu lesson.
 - `contentBlocks.blockType` saat ini harus `PARAGRAPH`.
+- `postStudyQuestions.questionType` saat ini harus `SLOT_FILL`.
+- `postStudyQuestions.difficultyLevel` harus unik di dalam scope satu lesson dan berada pada range `1..10`.
+- `postStudyQuestions.promptPayload.options` harus berisi tepat empat opsi.
 - `skill.code` harus stabil dan tidak boleh bergantung pada ID source eksternal.
 - `sourceRefs` wajib ada untuk skill yang berasal dari source eksternal.
 - `curriculumSignals.jlpt.candidates` boleh berisi lebih dari satu level bila source overlay konflik.

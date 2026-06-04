@@ -43,6 +43,10 @@ Hasil verifikasi saat snapshot awal ini diambil:
 
 Tidak ada mismatch baru yang memaksa perubahan asumsi dokumen `SYL-00` sampai `SYL-03`.
 
+Catatan lanjutan:
+- Snapshot `Tatoeba` dan `Bunpro N5/N4` yang sudah ada cukup untuk memulai tahap kurasi candidate sentence bagi bank soal deterministik `post-study quiz` per lesson.
+- Tahap itu belum dikerjakan pada baseline ini; ia tetap menjadi follow-up curation task, bukan bagian dari snapshot acquisition itu sendiri.
+
 ## Current Snapshot State
 
 | Provider | State | Notes |

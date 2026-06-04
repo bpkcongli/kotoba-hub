@@ -43,7 +43,7 @@
 - `users` adalah pemilik data profile. `personalization` boleh menghitung rekomendasi atau normalized assessment, tetapi penyimpanan profile final tetap lewat use case di `users`.
 - `syllabus` adalah source of truth untuk struktur `track -> unit -> lesson -> skill`. Module lain hanya membaca katalog ini, bukan mengubahnya langsung.
 - `flashcards` dan `practice` adalah producer aktivitas belajar. Keduanya tidak boleh menyimpan mastery langsung ke tabel milik `progress`; mereka menulis lewat port/use case `progress`.
-- `progress` adalah source of truth untuk state perkembangan belajar. Ia menerima event dari `flashcards` dan `practice`, lalu menghasilkan snapshot yang dibaca modul lain.
+- `progress` adalah source of truth untuk state perkembangan belajar. Ia menerima event dari `flashcards`, `practice`, dan direct lesson post-study quiz, lalu menghasilkan snapshot yang dibaca modul lain.
 - `personalization` membaca `users`, `syllabus`, dan `progress` untuk menyesuaikan rekomendasi, tetapi tidak boleh mengambil alih ownership data dari ketiga context itu.
 - `shared` diperlakukan sebagai common kernel, bukan dumping ground. Jika logic hanya relevan untuk satu context, logic itu harus tetap tinggal di context tersebut.
 
@@ -297,10 +297,10 @@ track: jlpt-n4-expansion
 | Step | Producer | Main output | Primary consumer | Purpose |
 | --- | --- | --- | --- | --- |
 | 1 | `syllabus` | Catalog `track/unit/lesson/skill` + metadata | `progress`, `personalization`, `practice`, `flashcards` | Memberi struktur resmi materi dan daftar skill valid |
-| 2 | `flashcards` / `practice` | Jawaban user dan hasil evaluasi per skill | `progress` | Menghasilkan fakta belajar mentah dalam bentuk event |
-| 3 | `progress` | `progress_events`, `skill_mastery_snapshots`, rollup lesson/unit/track | `personalization`, `practice`, UI progress | Mengubah event mentah menjadi state perkembangan yang stabil |
+| 2 | `flashcards` / `practice` / lesson `post-study quiz` | Jawaban user dan hasil evaluasi per skill/lesson | `progress` | Menghasilkan fakta belajar mentah dalam bentuk event |
+| 3 | `progress` | `progress_events`, `skill_mastery_snapshots`, `lesson_understanding_snapshots`, rollup lesson/unit/track | `personalization`, `practice`, UI progress | Mengubah event mentah menjadi state perkembangan yang stabil |
 | 4 | `personalization` | Recommendation spec, weak-skill focus, difficulty band, next-best lesson/unit hints | `practice`, onboarding/dashboard UI | Menentukan adaptasi belajar berdasar profile dan mastery terbaru |
-| 5 | `practice` | Practice session yang disusun dari recommendation + syllabus constraints | User, lalu kembali ke `progress` | Menyajikan soal yang relevan dan menulis feedback loop baru |
+| 5 | `practice` | Random practice session dari recommendation atau direct post-study quiz question dari bank syllabus | User, lalu kembali ke `progress` | Menyajikan soal yang relevan, baik sebagai random practice maupun `post-study quiz` lesson, lalu menulis feedback loop baru |
 
 ### Main Handoffs Between Modules
 
@@ -310,18 +310,20 @@ track: jlpt-n4-expansion
 - `progress` boleh membuat agregasi lesson/unit/track, tetapi agregasi itu selalu hasil turunan dari katalog `syllabus`.
 
 #### `progress -> personalization`
-- `personalization` membaca mastery snapshot per skill, recent mistakes, weak skills, completed skills, dan tanda stagnasi.
+- `personalization` membaca mastery snapshot per skill, lesson understanding level `0-10`, recent mistakes, weak skills, completed skills, dan tanda stagnasi.
 - Input ini digabung dengan data dari `users`, misalnya target JLPT, daily goal, dan preferensi learner.
 - Hasilnya bukan update mastery baru, melainkan policy output seperti prioritas remedial, reinforcement, atau stretch.
 
 #### `personalization -> practice`
 - `practice` menerima recommendation spec seperti `target_skill_ids`, `difficulty_band`, `question_mix`, `allowed_question_types`, dan candidate lesson/unit.
+- Untuk lesson `post-study quiz`, `practice` tidak membuat `practice_session` dan tidak meminta komposisi soal dari `personalization`; ia memilih tepat `1` soal dari bank soal lesson resmi di `syllabus`. Difficulty yang dipilih adalah `current_understanding_level + 1`, dibatasi maksimum `10`.
 - `practice` tetap membaca `syllabus` untuk memastikan soal hanya diambil dari skill dan lesson yang sah.
 - `practice` boleh membaca `progress` juga untuk guard tambahan yang sifatnya near-realtime, misalnya menghindari skill yang baru saja ditanya beberapa menit lalu.
 
 #### `practice -> progress`
 - Setelah jawaban dinilai, `practice` menulis structured event ke `progress`, bukan mengubah mastery snapshot secara langsung.
 - Payload minimal perlu mengandung `user_id`, `skill_id`, `session_id`, `question_type`, `score/is_correct`, `answered_at`, dan metadata yang relevan untuk mastery calculation.
+- Jika event berasal dari lesson `post-study quiz`, metadata handoff juga perlu menjaga relasi ke lesson source, question template, difficulty ladder question, dan `understanding_level_before/after` agar `progress` bisa meng-upsert `lesson_understanding_snapshots`.
 - `progress` lalu menghitung ulang `skill_mastery_snapshot` dan menyediakan state baru untuk loop berikutnya.
 
 ### Practical Rule For Future Implementation

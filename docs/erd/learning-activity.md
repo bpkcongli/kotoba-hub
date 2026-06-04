@@ -3,13 +3,15 @@
 ## Scope
 - Dokumen ini menyelesaikan task `ARCH-10`.
 - Fokus utamanya mencakup tabel inti yang diminta oleh task: `flashcard_decks`, `flashcard_items`, `practice_sessions`, `practice_questions`, `practice_answers`, `progress_events`, dan `skill_mastery_snapshots`.
+- Dokumen ini juga menetapkan `lesson_understanding_snapshots` sebagai tabel progress first-class untuk mencatat level pemahaman terakhir user per lesson setelah post-study quiz/review.
 - Dokumen ini juga menambahkan empat supporting entity, `flashcard_deck_items`, `flashcard_sessions`, `flashcard_session_answers`, dan `flashcard_item_states`, karena custom deck by reference membutuhkan relasi many-to-many deck-item, sementara flashcard multiple-choice yang membentuk opsi jawaban saat session dibuat, lalu menyimpan snapshot opsi yang benar-benar ditampilkan, tidak bisa dimodelkan dengan aman tanpa state per session, answer log per turn, dan state per user-per-item.
-- Relasi ke `users` dan `skills` diperlakukan sebagai external references dari ERD `ARCH-08` dan `ARCH-09`.
+- Relasi ke `users`, `skills`, `lessons`, `units`, `tracks`, dan `lesson_post_study_questions` diperlakukan sebagai external references dari ERD `ARCH-08` dan `ARCH-09`.
 
 ## Design Goals
 - Menjaga ownership data tetap sesuai boundary module: `flashcards` dan `practice` menyimpan hasil internalnya sendiri lebih dulu, lalu `progress` menerima handoff event terstruktur.
-- Menyediakan model persistence yang cukup untuk deterministic flashcard grading, AI-assisted practice grading, dan recompute mastery snapshot secara write-through.
+- Menyediakan model persistence yang cukup untuk deterministic flashcard grading, AI-assisted random practice grading, direct lesson post-study quiz grading, dan recompute mastery snapshot secara write-through.
 - Menjaga atribusi `user -> skill -> learning event -> mastery snapshot` tetap stabil untuk dashboard, recommendation, dan future analytics.
+- Menjaga random practice tetap berbasis `practice_sessions`, sementara lesson `post-study quiz` deterministik tidak membuat `practice_session`/`practice_question`; quiz ini memilih tepat `1` soal dari bank lesson setelah learner selesai membaca materi.
 - Mendukung deck bawaan sistem sekaligus custom deck milik user tanpa memaksa keduanya memakai perilaku katalog yang sama.
 - Memungkinkan satu `flashcard_item` direuse oleh banyak deck, termasuk custom deck yang dibentuk user dari item bank yang sudah ada.
 - Mengunci scope MVP flashcard ke `KANJI`, `KANA`, dan `VOCABULARY`, sehingga model data tetap cukup spesifik untuk karakter tunggal maupun kosakata pendek tanpa keluar dari evaluasi deterministic multiple-choice.
@@ -25,6 +27,7 @@ erDiagram
     USERS ||--o{ PRACTICE_SESSIONS : starts
     USERS ||--o{ PROGRESS_EVENTS : produces
     USERS ||--o{ SKILL_MASTERY_SNAPSHOTS : owns
+    USERS ||--o{ LESSON_UNDERSTANDING_SNAPSHOTS : owns
 
     SKILLS ||--o{ FLASHCARD_ITEMS : targets
     SKILLS ||--o{ PRACTICE_QUESTIONS : targets
@@ -44,6 +47,7 @@ erDiagram
     PRACTICE_SESSIONS ||--o{ PRACTICE_ANSWERS : records
     PRACTICE_ANSWERS ||--o{ PROGRESS_EVENTS : emits
     PROGRESS_EVENTS ||--o{ SKILL_MASTERY_SNAPSHOTS : refreshes
+    PROGRESS_EVENTS ||--o{ LESSON_UNDERSTANDING_SNAPSHOTS : refreshes
 
     USERS {
         char(36) id PK
@@ -231,6 +235,23 @@ erDiagram
         timestamp created_at
         timestamp updated_at
     }
+
+    LESSON_UNDERSTANDING_SNAPSHOTS {
+        char(36) id PK
+        char(36) user_id FK
+        char(36) lesson_id FK
+        char(36) last_progress_event_id FK
+        char(36) last_question_id FK
+        int current_understanding_level
+        int last_attempted_difficulty_level
+        int last_correct_difficulty_level
+        int total_correct_count
+        int total_attempt_count
+        timestamp last_attempted_at
+        timestamp last_correct_at
+        timestamp created_at
+        timestamp updated_at
+    }
 ```
 
 ## Relationship Notes
@@ -239,9 +260,10 @@ erDiagram
 - `flashcard_decks 1 -> N flashcard_sessions`: satu user bisa membuka banyak session untuk deck yang sama di waktu berbeda.
 - `flashcard_sessions 1 -> N flashcard_session_answers`: setiap jawaban item di session dicatat sebagai turn terpisah agar opsi yang ditampilkan, pilihan user, dan hasil bucket update dapat diaudit ulang.
 - `flashcard_items 1 -> N flashcard_item_states`: state Leitner disimpan per `user + item`, bukan di tabel item global.
-- `practice_sessions 1 -> N practice_questions`: satu session practice menghasilkan satu set pertanyaan.
+- `practice_sessions 1 -> N practice_questions`: satu session practice menghasilkan satu set pertanyaan untuk random practice. Lesson `post-study quiz` tidak memakai relasi ini pada baseline MVP.
 - `practice_questions 1 -> N practice_answers`: MVP bisa memakai satu answer per question, tetapi relasi dibuat `1 -> N` agar retry/future replay tidak mematahkan schema.
 - `practice_answers 1 -> N progress_events`: satu jawaban practice minimal menghasilkan satu event, tetapi model ini tetap aman bila nanti ada pemecahan event granular.
+- `progress_events 1 -> N lesson_understanding_snapshots`: event benar/salah dari lesson `post-study quiz` mengubah snapshot pemahaman terakhir per `user + lesson`.
 - `users 1 -> N progress_events` dan `users 1 -> N skill_mastery_snapshots`: progress selalu dihitung per user.
 - `skills 1 -> N progress_events` dan `skills 1 -> N skill_mastery_snapshots`: skill adalah level terkecil yang diatribusikan dan diringkas oleh domain `progress`.
 - `users 1 -> N flashcard_decks`: satu user bisa memiliki banyak custom deck; deck bawaan sistem memakai `owner_user_id = null`.
@@ -403,16 +425,16 @@ Recommended constraints:
 - index `flashcard_item_states_user_due_idx` pada `user_id, next_due_at`
 
 ### `practice_sessions`
-Representasi satu sesi random question generation untuk satu user.
+Representasi satu sesi practice generation untuk satu user.
 
 | Column | Type | Constraint | Notes |
 | --- | --- | --- | --- |
 | `id` | `char(36)` | PK | Internal practice session id. |
 | `user_id` | `char(36)` | FK -> `users.id`, not null | Owner session. |
 | `status` | `varchar(50)` | not null | Mis. `GENERATED`, `IN_PROGRESS`, `COMPLETED`, `EXPIRED`. |
-| `difficulty_band` | `varchar(50)` | not null | Band kategorikal default untuk session, disarankan berupa enum-like string seperti `REMEDIAL`, `STANDARD`, `STRETCH`, bukan rentang angka. |
-| `question_mix` | `json` | not null | Komposisi session dalam bentuk distribution JSON, mis. `{\"WEAK\":0.6,\"REINFORCEMENT\":0.3,\"STRETCH\":0.1}`. Ini mengatur porsi jenis question set, bukan score numeric. |
-| `recommendation_spec` | `json` | not null | Snapshot input rekomendasi saat session dibuat. |
+| `difficulty_band` | `varchar(50)` | null | Band kategorikal default untuk random practice, disarankan berupa enum-like string seperti `REMEDIAL`, `STANDARD`, `STRETCH`. |
+| `question_mix` | `json` | null | Komposisi session dalam bentuk distribution JSON, mis. `{\"WEAK\":0.6,\"REINFORCEMENT\":0.3,\"STRETCH\":0.1}`. Relevan untuk random practice. |
+| `recommendation_spec` | `json` | null | Snapshot input rekomendasi saat session dibuat. Relevan untuk random practice dan harus boleh membawa `lesson_understanding_levels` sebagai faktor tambahan. |
 | `total_questions` | `int` | not null | Default MVP: `5`. |
 | `answered_questions_count` | `int` | not null default `0` | Counter progress session. |
 | `started_at` | `timestamp` | not null | Waktu session dimulai/digenerate. |
@@ -434,7 +456,7 @@ Kumpulan soal yang tergenerate di dalam satu practice session.
 | `skill_id` | `char(36)` | FK -> `skills.id`, not null | Skill utama yang diukur question ini. |
 | `question_type` | `varchar(50)` | not null | Mis. `SLOT_FILL`, `SHORT_FREE_RESPONSE`, `ARRANGE_TOKEN`. |
 | `grading_strategy` | `varchar(50)` | not null | Mis. `DETERMINISTIC`, `AI`. Untuk `SHORT_FREE_RESPONSE`, default MVP adalah `AI`. |
-| `difficulty_band` | `varchar(50)` | not null | Band kategorikal final per soal. Nilainya biasanya diturunkan dari `practice_sessions.difficulty_band` lalu bisa dinaikkan/diturunkan sesuai bucket pada `question_mix`. |
+| `difficulty_band` | `varchar(50)` | null | Band kategorikal final per soal random practice. |
 | `prompt_text` | `text` | not null | Prompt utama yang dirender ke UI. |
 | `prompt_payload` | `json` | null | Payload terstruktur untuk opsi, stimulus, atau media. |
 | `expected_answer_payload` | `json` | null | Kunci jawaban atau grading rubric minimum. |
@@ -451,6 +473,7 @@ Recommended constraints:
 - Untuk question type yang deterministik seperti `SLOT_FILL` dan `ARRANGE_TOKEN`, default strategy adalah `DETERMINISTIC`.
 - Untuk `question_type = SHORT_FREE_RESPONSE`, default MVP dikunci ke `grading_strategy = AI`.
 - Artinya pada MVP, jawaban free-response pendek dinilai penuh oleh AI provider, lalu hasil terstrukturnya disimpan ke `practice_answers` dan diteruskan ke `progress`.
+- Lesson `post-study quiz` tidak membuat `practice_question`; grading deterministiknya berjalan langsung dari template `lesson_post_study_questions`.
 - Jika nanti ada rubric deterministic untuk sebagian free-response tertentu, itu dianggap evolusi setelah MVP, bukan baseline desain saat ini.
 
 ### Practice Question Type Clarification
@@ -458,6 +481,7 @@ Recommended constraints:
 - `SLOT_FILL` dipakai untuk soal kalimat dengan satu slot hilang yang harus diisi dari tepat empat opsi jawaban.
 - Pada `SLOT_FILL`, prompt utama berbentuk kalimat bahasa Jepang dengan satu slot kosong, dan seluruh opsi jawaban juga dalam bahasa Jepang.
 - `SHORT_FREE_RESPONSE` selalu memakai prompt bahasa Inggris dan jawaban bahasa Jepang.
+- Lesson `post-study quiz` bukan bagian dari `practice_questions`; bank soal baseline dikurasi di `syllabus.lesson_post_study_questions` sebagai `10` soal `SLOT_FILL` dengan difficulty `1..10`.
 - Pada `SHORT_FREE_RESPONSE`, UI menerima input romaji user lalu menjalankan transform ke kana atau kanji sebelum jawaban final disubmit ke backend.
 - `ARRANGE_TOKEN` dipakai untuk soal menyusun token/kata menjadi jawaban akhir yang benar.
 - `ARRANGE_TOKEN` boleh dipakai untuk arah `EN_TO_JA` maupun `JA_TO_EN`.
@@ -605,9 +629,9 @@ Fakta belajar mentah yang diterima `progress` dari `flashcards` atau `practice`.
 | `id` | `char(36)` | PK | Internal progress event id. |
 | `user_id` | `char(36)` | FK -> `users.id`, not null | Owner event. |
 | `skill_id` | `char(36)` | FK -> `skills.id`, not null | Skill yang sudah divalidasi oleh `syllabus`. |
-| `source_type` | `varchar(50)` | not null | Mis. `FLASHCARD`, `PRACTICE`. |
-| `source_session_id` | `char(36)` | not null | Logical reference ke session producer: `practice_sessions.id` bila `source_type = PRACTICE`, atau `flashcard_sessions.id` bila `source_type = FLASHCARD`. |
-| `source_entity_id` | `char(36)` | not null | Logical reference ke entity hasil producer, mis. `practice_answers.id` atau `flashcard_session_answers.id`. |
+| `source_type` | `varchar(50)` | not null | Mis. `FLASHCARD`, `PRACTICE`, `LESSON_POST_STUDY`. |
+| `source_session_id` | `char(36)` | null | Logical reference ke session producer: `practice_sessions.id` bila `source_type = PRACTICE`, atau `flashcard_sessions.id` bila `source_type = FLASHCARD`. Untuk direct `LESSON_POST_STUDY`, nilai ini `null`. |
+| `source_entity_id` | `char(36)` | not null | Logical reference ke entity hasil producer, mis. `practice_answers.id`, `flashcard_session_answers.id`, atau `lesson_post_study_questions.id` untuk direct quiz lesson. |
 | `question_type` | `varchar(50)` | not null | Menjaga konteks evaluasi di downstream analytics. |
 | `is_correct` | `boolean` | not null | Outcome boolean untuk agregasi cepat. |
 | `numeric_score` | `decimal(5,2)` | not null | Score normalized untuk mastery engine. |
@@ -652,6 +676,45 @@ Recommended constraints:
 - index `skill_mastery_snapshots_user_state_idx` pada `user_id, mastery_state`
 - index `skill_mastery_snapshots_difficulty_idx` pada `user_id, recommended_difficulty_band`
 
+### `lesson_understanding_snapshots`
+Ringkasan state pemahaman terbaru per `user + lesson` yang khusus berasal dari post-study quiz dan review lesson.
+
+| Column | Type | Constraint | Notes |
+| --- | --- | --- | --- |
+| `id` | `char(36)` | PK | Internal lesson-understanding snapshot id. |
+| `user_id` | `char(36)` | FK -> `users.id`, not null | Owner snapshot. |
+| `lesson_id` | `char(36)` | FK -> `lessons.id`, not null | Lesson yang diukur pemahamannya. |
+| `last_progress_event_id` | `char(36)` | FK -> `progress_events.id`, null | Event terakhir yang memicu update snapshot. |
+| `last_question_id` | `char(36)` | FK logical -> `lesson_post_study_questions.id`, null | Soal bank lesson terakhir yang dijawab. |
+| `current_understanding_level` | `int` | not null default `0` | Level pemahaman terakhir `0..10`. `0` berarti belum pernah menjawab benar post-study quiz lesson tersebut. |
+| `last_attempted_difficulty_level` | `int` | null | Difficulty `1..10` dari attempt terakhir. |
+| `last_correct_difficulty_level` | `int` | null | Difficulty `1..10` terakhir yang berhasil dijawab benar. |
+| `total_correct_count` | `int` | not null default `0` | Counter benar untuk audit ringan dan UI review. |
+| `total_attempt_count` | `int` | not null default `0` | Counter total attempt untuk audit ringan dan UI review. |
+| `last_attempted_at` | `timestamp` | null | Waktu attempt terakhir, benar maupun salah. |
+| `last_correct_at` | `timestamp` | null | Waktu jawaban benar terakhir. |
+| `created_at` | `timestamp` | not null | Audit create time. |
+| `updated_at` | `timestamp` | not null | Audit update time. |
+
+Recommended constraints:
+- unique composite `(`user_id`, `lesson_id`)`
+- index `lesson_understanding_snapshots_user_level_idx` pada `user_id, current_understanding_level`
+- index `lesson_understanding_snapshots_lesson_idx` pada `lesson_id`
+- check constraint `lesson_understanding_snapshots_level_ck` untuk range `0..10`
+- check constraint `lesson_understanding_snapshots_last_attempted_difficulty_ck` untuk range `1..10` bila terisi
+- check constraint `lesson_understanding_snapshots_last_correct_difficulty_ck` untuk range `1..10` bila terisi
+
+### Lesson Understanding Rule
+- Initial state pemahaman user terhadap lesson adalah `0`; row boleh dibuat lazy saat quiz pertama diambil atau saat answer pertama diproses.
+- Saat learner selesai membaca lesson, UI wajib mengarahkan learner ke post-study quiz dengan tepat `1` pertanyaan.
+- Target difficulty untuk attempt berikutnya adalah `min(current_understanding_level + 1, 10)`.
+- Jika jawaban benar, `current_understanding_level` naik satu level sampai maksimum `10`.
+- Jika jawaban salah, `current_understanding_level` tidak berubah; learner boleh mencoba review lagi pada target difficulty yang sama.
+- Lesson dianggap selesai untuk baseline course flow bila `current_understanding_level >= 1`.
+- Review lesson tetap memakai flow yang sama setelah lesson selesai; setiap jawaban benar berikutnya menaikkan pemahaman sampai level `10`.
+- `lesson_understanding_snapshots` adalah source of truth untuk ukuran pemahaman lesson, sedangkan `skill_mastery_snapshots` tetap source of truth untuk mastery per skill.
+- AI random practice generation dan personalization harus menerima `lesson_understanding_snapshots` sebagai salah satu faktor konteks, terutama untuk memilih lesson reinforcement dan target difficulty yang cocok.
+
 ### Mastery Window Clarification
 - `attempts_window_size` dan `correct_attempts_count` adalah ringkasan statistik dari window attempt yang dipakai saat snapshot dihitung.
 - Keduanya bukan counter seumur hidup, melainkan counter untuk window aktif yang sedang dipakai mastery engine.
@@ -674,6 +737,7 @@ Recommended constraints:
 - Untuk MVP, format paling aman adalah string enum-like seperti `REMEDIAL`, `STANDARD`, dan `STRETCH`.
 - Nilai numerik tetap berada di `skill_mastery_snapshots.mastery_score`; `difficulty_band` adalah interpretasi orchestration yang diturunkan dari mastery, recent performance, dan recommendation context.
 - `practice_sessions.difficulty_band` mewakili band default sesi saat question set digenerate.
+- Pada lesson `post-study quiz`, challenge utama tidak datang dari `difficulty_band`, tetapi dari `lesson_post_study_questions.difficulty_level` yang mengikuti ladder editorial `1..10` dan level pemahaman user saat ini.
 - `practice_questions.difficulty_band` mewakili band final per soal, sehingga satu session masih bisa berisi campuran soal bila komposisi `question_mix` memang meminta variasi.
 - `skill_mastery_snapshots.recommended_difficulty_band` adalah output ringkas dari engine progress/personalization yang dipakai ulang oleh practice generator.
 - Untuk session berikutnya, `skill_mastery_snapshots.recommended_difficulty_band` adalah acuan utama dalam membentuk `practice_sessions.difficulty_band`, terutama saat generator mengambil target skill dari snapshot mastery terbaru.
@@ -689,39 +753,44 @@ Recommended constraints:
   - `question_mix` adalah aturan komposisi yang boleh membuat sebagian `practice_questions` tetap di baseline, sebagian turun ke band yang lebih ringan, atau sebagian naik ke band yang lebih menantang
 - Jadi keduanya saling terkait, tetapi tidak duplikatif: `difficulty_band` adalah baseline challenge, `question_mix` adalah session composition.
 - Jika input awal tidak mengirim `question_mix`, maka pada saat row `practice_sessions` dipersist, sistem sebaiknya tetap menyimpan default mix yang sudah di-resolve; jadi di database idealnya tidak ada session "tanpa question_mix".
+- Lesson `post-study quiz` tidak memakai `question_mix`, karena pemilihan soal berasal langsung dari `lesson_post_study_questions` dan `lesson_understanding_snapshots`.
 - Contoh interpretasi:
   - jika `practice_sessions.difficulty_band = STANDARD` dan resolved `question_mix` efektif netral, maka mayoritas atau seluruh `practice_questions` bisa tetap `STANDARD`
   - jika `practice_sessions.difficulty_band = STANDARD` dan `question_mix = {\"REINFORCEMENT\":0.7,\"STRETCH\":0.3}`, maka sebagian besar `practice_questions` biasanya tetap di `STANDARD` atau sedikit lebih ringan, sementara porsi `STRETCH` bisa naik ke `STRETCH`
 - Bucket `STRETCH` pada `question_mix` adalah label komposisi/recommendation, bukan berarti semua slot dengan bucket itu harus selalu memakai label `difficulty_band = STRETCH`; tetapi dalam praktik MVP, korelasi itu wajar dan boleh dipakai sebagai default generator rule.
 
 ### Progress Source Reference Clarification
-- `progress_events.source_session_id` memang merujuk ke id session producer.
+- `progress_events.source_session_id` merujuk ke id session producer bila activity memang berbasis session.
 - Jika `source_type = PRACTICE`, maka `source_session_id` merujuk ke `practice_sessions.id`.
 - Jika `source_type = FLASHCARD`, maka `source_session_id` merujuk ke `flashcard_sessions.id`.
+- Jika `source_type = LESSON_POST_STUDY`, maka `source_session_id` bernilai `null` dan `source_entity_id` merujuk ke `lesson_post_study_questions.id`.
 - `source_entity_id` merujuk ke entity hasil paling dekat yang memicu event tersebut:
   - untuk practice biasanya `practice_answers.id`
   - untuk flashcard bisa berupa state/result entity yang dipilih implementasi `flashcards`
+  - untuk lesson post-study quiz berupa `lesson_post_study_questions.id`
 - Karena model ini lintas module, kedua field tersebut diperlakukan sebagai logical producer references, bukan FK polymorphic database penuh.
 
 ## Ownership And Flow Mapping
 - `flashcards` memiliki `flashcard_decks`, `flashcard_items`, `flashcard_sessions`, dan `flashcard_item_states`.
 - `practice` memiliki `practice_sessions`, `practice_questions`, dan `practice_answers`.
-- `progress` memiliki `progress_events` dan `skill_mastery_snapshots`.
+- `progress` memiliki `progress_events`, `skill_mastery_snapshots`, dan `lesson_understanding_snapshots`.
 - `flashcards` dan `practice` tidak menyimpan mastery langsung; keduanya hanya menulis hasil internal lalu mengirim handoff event ke `progress`.
 - `flashcards` tidak menyimpan opsi final yang selalu sama di `flashcard_items`; item hanya menyimpan seed canonical answer dan distractor pool, sementara opsi final dibentuk di boundary session lalu disnapshot untuk grading.
 - `progress_events` menyimpan attribution `lesson_id`, `unit_id`, dan `track_id` agar timeline, rollup, dan audit tidak perlu selalu resolve ulang tree syllabus saat query read-heavy.
+- Baseline MVP belum membutuhkan tabel `lesson_completions` terpisah; status completion lesson diturunkan dari `lesson_understanding_snapshots.current_understanding_level >= 1`.
+- Audit balik post-study quiz ke canonical question bank dilakukan lewat `progress_events.source_entity_id = lesson_post_study_questions.id`, bukan lewat `practice_questions`.
 - Deck bawaan sistem dan custom deck user tetap berada di boundary `flashcards`; pembedanya ada pada `deck_source` dan `owner_user_id`.
 - Item flashcard yang memiliki `skill_id` bisa ikut jalur handoff resmi ke `progress`.
 - Item flashcard custom tanpa `skill_id` tetap sah untuk latihan pribadi, tetapi sebaiknya tidak dipakai untuk update mastery resmi sampai ada pemetaan ke skill katalog.
 
 ## Constraints And Assumptions
 - Task checklist `ARCH-10` hanya menyebut tujuh tabel inti, tetapi `flashcard_sessions` dan `flashcard_item_states` ditambahkan karena rule Leitner bucket membutuhkan persistence internal di boundary `flashcards`.
-- `source_session_id` dan `source_entity_id` pada `progress_events` diperlakukan sebagai logical producer references, bukan polymorphic FK database penuh, agar satu tabel event tetap bisa menerima producer dari `flashcards` maupun `practice`.
+- `source_session_id` dan `source_entity_id` pada `progress_events` diperlakukan sebagai logical producer references, bukan polymorphic FK database penuh, agar satu tabel event tetap bisa menerima producer dari `flashcards`, `practice`, maupun direct lesson post-study quiz.
 - `practice_answers` dibuat multi-attempt friendly melalui `attempt_number`, walau MVP kemungkinan besar memakai satu jawaban final per soal.
 - `flashcard_item_states.current_bucket` menggunakan bucket MVP `NEW`, `LEARNING`, `MASTERED`; bila nanti spacing rule makin kompleks, detail tambahan bisa ditambah tanpa mengubah relasi utama.
 - `flashcard_items` sengaja dibuat generic agar bisa menampung karakter tunggal, kosakata, frasa, sampai pola kalimat pendek selama format evaluasinya masih cocok untuk flashcard.
 - Custom flashcard deck dianggap masuk scope desain data; sharing atau marketplace custom deck belum dimodelkan sebagai requirement inti.
-- Rollup summary per lesson/unit/track belum dibuat sebagai tabel source of truth terpisah; untuk MVP, ringkasan itu dianggap turunan dari `progress_events` dan `skill_mastery_snapshots`.
+- Rollup summary per unit/track belum dibuat sebagai tabel source of truth terpisah; untuk MVP, completion lesson diturunkan dari `lesson_understanding_snapshots`, sementara ringkasan mastery tetap diturunkan dari `progress_events` dan `skill_mastery_snapshots`.
 
 ## Out Of Scope For This ERD
 - AI observability log seperti request id, model, token usage, dan failure reason; itu masuk task `ARCH-11`.

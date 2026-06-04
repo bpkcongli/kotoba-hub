@@ -105,12 +105,13 @@
 | Dashboard | `/dashboard` | authenticated, onboarding complete | memberi titik masuk belajar harian dan recommended next step | recommended action, today progress, weak skills, recent activity, shortcut ke syllabus/flashcards/practice |
 | Syllabus Map | `/syllabus` | authenticated | menampilkan struktur `track -> unit -> lesson` dan progress per area | track selector, unit grouping, completion markers, continue-learning CTA |
 | Unit Detail | `/syllabus/units/[unitSlug]` | authenticated | menjelaskan isi unit, daftar lesson, dan skill focus | unit summary, lesson list, skill tags, progress snapshot |
-| Lesson Overview | `/syllabus/lessons/[lessonSlug]` | authenticated | menunjukkan breakdown lesson dan activity entry points | lesson goals, covered skills, recommended flashcards/practice entry |
+| Lesson Overview | `/syllabus/lessons/[lessonSlug]` | authenticated | menunjukkan breakdown lesson, materi baca, dan langkah lanjut setelah belajar | lesson goals, content blocks, covered skills, required deterministic post-study quiz CTA, recommended flashcards/practice entry |
 | Flashcards Hub | `/flashcards` | authenticated | memilih deck atau melanjutkan sesi flashcard | due cards summary, deck list, continue session/start session CTA |
 | Flashcard Session | `/flashcards/sessions/[sessionId]` | authenticated | menjalankan answering loop flashcard dengan feedback cepat | flashcard canvas, answer action, progress indicator, immediate feedback |
 | Flashcard Summary | `/flashcards/sessions/[sessionId]/summary` | authenticated | menutup sesi dan memberi hasil ringkas + next action | result summary, mastery delta hint, continue/review CTA |
 | Practice Hub | `/practice` | authenticated | memulai random question session berbasis recommendation | generate session CTA, difficulty context, question mix summary |
-| Practice Session | `/practice/sessions/[sessionId]` | authenticated | menjalankan loop answer -> grading -> feedback | question prompt, input area, feedback state, question progress |
+| Practice Session | `/practice/sessions/[sessionId]` | authenticated | menjalankan loop answer -> grading -> feedback untuk random practice | question prompt, input area, feedback state, question progress, source context, selected difficulty cue |
+| Lesson Post-Study Quiz | `/syllabus/lessons/[lessonSlug]/post-study` | authenticated | menjalankan quiz wajib/review lesson direct tanpa membuat `practice_session` | one-question quiz prompt, difficulty level `1-10`, feedback state, understanding level delta, review CTA |
 | Practice Summary | `/practice/sessions/[sessionId]/summary` | authenticated | menampilkan hasil akhir practice dan arahan lanjut | completion summary, weak-skill callout, next study CTA |
 | Progress Overview | `/progress` | authenticated | memperlihatkan perkembangan mastery dan history utama | overview metrics, mastery groups, trends, recent timeline |
 | Settings | `/settings` | authenticated | mengelola profile, preferred script, daily goal, dan account basics | learner profile form, preference controls, account actions |

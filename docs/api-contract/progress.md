@@ -3,7 +3,7 @@
 ## Scope
 - Dokumen ini menyelesaikan bagian `progress` dari task `ARCH-15`.
 - Fokusnya adalah API read model untuk dashboard overview, feed aktivitas belajar per session, dan timeline aktivitas belajar.
-- Dokumen ini diturunkan dari sequence diagram progress handoff dan ERD `progress_events`, `skill_mastery_snapshots`.
+- Dokumen ini diturunkan dari sequence diagram progress handoff dan ERD `progress_events`, `skill_mastery_snapshots`, serta `lesson_understanding_snapshots`.
 
 ## Source References
 - Sequence progress handoff: [update-progress-snapshot.md](../sequence-diagram/update-progress-snapshot.md)
@@ -14,10 +14,11 @@
 - `07` untuk `progress`
 
 ## Design Goals
-- Menjaga `progress` tetap menjadi source of truth untuk learning event dan mastery snapshot.
+- Menjaga `progress` tetap menjadi source of truth untuk learning event, mastery snapshot per skill, dan understanding snapshot per lesson.
 - Menyediakan read model yang cukup untuk dashboard ringkas tanpa membuka detail internal producer.
 - Menyediakan feed per session untuk kebutuhan dashboard recents tanpa membanjiri UI dengan satu item per jawaban.
 - Menyediakan timeline yang bisa dipaginasi dan difilter ringan untuk audit activity user.
+- Menjaga derivation status completion lesson tetap berada di domain `progress`, termasuk saat lesson diselesaikan melalui post-study quiz wajib satu pertanyaan yang menaikkan `lesson_understanding_snapshots.current_understanding_level` dari `0` ke `1`.
 
 ## Endpoint Summary
 
@@ -44,7 +45,7 @@ Query params:
 | `trackSlug` | `string` | no | Jika diisi, overview difilter ke satu track tertentu. |
 
 Behavior:
-- Membaca `skill_mastery_snapshots` sebagai basis utama agregasi.
+- Membaca `skill_mastery_snapshots` sebagai basis utama agregasi skill mastery dan `lesson_understanding_snapshots` untuk lesson completion/understanding.
 - Boleh menyertakan ringkasan track agar dashboard tidak perlu banyak request tambahan.
 - Tidak mengembalikan seluruh timeline event.
 
@@ -66,6 +67,12 @@ Success response:
     "averageMasteryScore": 56.8,
     "recommendedDifficultyBand": "STANDARD",
     "lastActivityAt": "2026-04-04T10:20:00Z",
+    "lessonUnderstandingSummary": {
+      "trackedLessonsCount": 12,
+      "completedLessonsCount": 4,
+      "averageUnderstandingLevel": 3.5,
+      "maxUnderstandingLevel": 10
+    },
     "trackSummaries": [
       {
         "trackSlug": "jlpt-n5-foundation",
@@ -89,7 +96,7 @@ Query params:
 | --- | --- | --- | --- |
 | `offset` | `integer` | no | Zero-based record offset. Default `0`. |
 | `limit` | `integer` | no | Max records per page. Default `10`. |
-| `sourceTypes` | `string` | no | Filter multi-value dengan separated commas, mis. `FLASHCARD,PRACTICE`. |
+| `sourceTypes` | `string` | no | Filter multi-value dengan separated commas, mis. `FLASHCARD,PRACTICE,LESSON_POST_STUDY`. |
 | `skillCodes` | `string` | no | Filter multi-value dengan separated commas. |
 | `trackSlug` | `string` | no | Filter ke satu track tertentu. |
 
@@ -148,13 +155,13 @@ Query params:
 | --- | --- | --- | --- |
 | `offset` | `integer` | no | Zero-based record offset. Default `0`. |
 | `limit` | `integer` | no | Max records per page. Default `10`. |
-| `sourceTypes` | `string` | no | Filter multi-value dengan separated commas, mis. `FLASHCARD,PRACTICE`. |
+| `sourceTypes` | `string` | no | Filter multi-value dengan separated commas, mis. `FLASHCARD,PRACTICE,LESSON_POST_STUDY`. |
 | `trackSlug` | `string` | no | Filter ke satu track tertentu. |
 
 Behavior:
 - Feed diurutkan descending berdasarkan `lastActivityAt`.
 - Satu item feed merepresentasikan ringkasan satu `flashcard_session` atau `practice_session`.
-- Summary dibentuk dari agregasi `progress_events` per `source_type + source_session_id`, ditambah metadata session ringan yang relevan untuk dashboard.
+- Summary dibentuk dari agregasi `progress_events` per `source_type + source_session_id` untuk activity berbasis session. Untuk `LESSON_POST_STUDY`, summary boleh dikelompokkan per `lesson_id + answered_at` atau digabung ke card review lesson karena event ini tidak memiliki session id.
 - Endpoint ini cocok untuk recent activity dashboard, sedangkan `GET /progress/timeline` tetap dipakai bila UI atau tooling membutuhkan jejak per jawaban.
 
 Success response:
@@ -212,3 +219,4 @@ Success response:
 ## Notes For Follow-up Tasks
 - Jika nanti dashboard membutuhkan breakdown lebih kaya, endpoint baru sebaiknya tetap berbasis read model `progress`, bukan langsung membaca domain producer.
 - Timeline tetap berbicara dalam bahasa `progress_event`, bukan detail internal `practice_answer` atau `flashcard_item_state`.
+- Baseline contract publik saat ini belum membuka endpoint lesson completion khusus. Sampai read model itu dibutuhkan, completion lesson diturunkan dari `lesson_understanding_snapshots.current_understanding_level >= 1`, sedangkan review depth lesson ditampilkan dari level pemahaman `0-10`.

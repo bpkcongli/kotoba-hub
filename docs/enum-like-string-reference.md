@@ -39,6 +39,9 @@
 - `GRAMMAR`: skill terkait pola tata bahasa.
 - `READING`: skill terkait pemahaman bacaan.
 
+### `lesson_post_study_questions.difficulty_level`
+- `1` sampai `10`: tangga kesulitan editorial untuk question bank lesson post-study quiz; umumnya merepresentasikan progresi panjang dan kompleksitas kalimat dari paling sederhana ke paling kompleks.
+
 ## Flashcard Domain
 
 ### `flashcard_decks.deck_source`
@@ -107,6 +110,10 @@ Catatan API:
 ### `progress_events.source_type`
 - `FLASHCARD`: event progress berasal dari aktivitas flashcard.
 - `PRACTICE`: event progress berasal dari aktivitas practice.
+- `LESSON_POST_STUDY`: event progress berasal dari post-study quiz/review lesson langsung, tanpa `practice_session`.
+
+### `lesson_understanding_snapshots.current_understanding_level`
+- `0` sampai `10`: level pemahaman user terhadap satu lesson. `0` berarti belum pernah menjawab benar post-study quiz lesson tersebut; `10` berarti user sudah berhasil melewati seluruh ladder difficulty lesson.
 
 ### `skill_mastery_snapshots.mastery_state`
 - `WEAK`: penguasaan skill masih lemah dan butuh perhatian khusus.

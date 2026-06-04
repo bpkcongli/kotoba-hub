@@ -2,14 +2,16 @@
 
 ## Scope
 - Dokumen ini menyelesaikan task `ARCH-09`.
-- Fokus ERD dibatasi ke enam entitas inti domain `syllabus`: `tracks`, `units`, `lessons`, `lesson_content_blocks`, `skills`, dan `unit_skill_mappings`.
-- Model ini mengikuti keputusan arsitektur bahwa `syllabus` adalah source of truth untuk struktur `track -> unit -> lesson -> skill` dan validasi `skill_id` lintas module.
+- Fokus ERD kini mencakup tujuh entitas inti domain `syllabus`: `tracks`, `units`, `lessons`, `lesson_content_blocks`, `lesson_post_study_questions`, `skills`, dan `unit_skill_mappings`.
+- Model ini mengikuti keputusan arsitektur bahwa `syllabus` adalah source of truth untuk struktur `track -> unit -> lesson -> skill`, validasi `skill_id` lintas module, dan bank soal lesson yang dikurasi.
 
 ## Design Goals
 - Menjaga hirarki kurikulum tetap jelas untuk kebutuhan navigation, onboarding, progress attribution, dan practice generation.
 - Mendukung syllabus yang read-only dan seeded from repo pada MVP, tetapi tetap siap diekstensi untuk level `N3 -> N2`.
 - Menyediakan metadata skill yang cukup untuk dipakai oleh `progress`, `personalization`, `flashcards`, dan `practice` tanpa membuat module lain membuat katalog sendiri.
 - Menyediakan tempat first-class untuk paragraf penjelasan materi di level `lesson` tanpa mencampur narasi belajar ke field summary seperti `learning_objective` atau `skills.description`.
+- Menjadikan bank soal `post-study quiz` deterministik sebagai bagian dari kurikulum resmi lesson, bukan hasil generation AI per request.
+- Menjaga `lesson_post_study_questions` tetap sebagai bank soal canonical, bukan histori pemahaman user; histori/latest understanding disimpan di domain `progress` melalui `lesson_understanding_snapshots`.
 
 ## Entity Relationship Diagram
 
@@ -18,7 +20,9 @@ erDiagram
     TRACKS ||--o{ UNITS : contains
     UNITS ||--o{ LESSONS : contains
     LESSONS ||--o{ LESSON_CONTENT_BLOCKS : explains
+    LESSONS ||--o{ LESSON_POST_STUDY_QUESTIONS : drills_with
     LESSONS ||--o{ SKILLS : introduces
+    SKILLS ||--o{ LESSON_POST_STUDY_QUESTIONS : assessed_by
     UNITS ||--o{ UNIT_SKILL_MAPPINGS : maps
     SKILLS ||--o{ UNIT_SKILL_MAPPINGS : catalogs
 
@@ -72,6 +76,22 @@ erDiagram
         timestamp updated_at
     }
 
+    LESSON_POST_STUDY_QUESTIONS {
+        char(36) id PK
+        char(36) lesson_id FK
+        char(36) skill_id FK
+        int difficulty_level
+        varchar(50) question_type
+        text prompt_text
+        json prompt_payload
+        json expected_answer_payload
+        text explanation_text
+        varchar(50) source_provider
+        json source_ref_payload
+        timestamp created_at
+        timestamp updated_at
+    }
+
     SKILLS {
         char(36) id PK
         char(36) lesson_id FK
@@ -107,7 +127,9 @@ erDiagram
 - `tracks 1 -> N units`: satu track mewakili ladder/fase besar belajar, misalnya `jlpt-n5-foundation`.
 - `units 1 -> N lessons`: satu unit mengelompokkan lesson per topik atau objective belajar.
 - `lessons 1 -> N lesson_content_blocks`: satu lesson dapat memiliki beberapa blok penjelasan berurutan untuk membentuk materi baca utama.
+- `lessons 1 -> N lesson_post_study_questions`: satu lesson memiliki bank soal kurasi untuk `post-study quiz`; baseline MVP menargetkan tepat `10` soal `SLOT_FILL` per lesson dengan tepat satu soal untuk setiap difficulty `1 -> 10`.
 - `lessons 1 -> N skills`: pada MVP, skill diintroduksi dari satu lesson utama agar attribution ke lesson tetap sederhana.
+- `skills 1 -> N lesson_post_study_questions`: setiap soal quiz lesson tetap diatribusikan ke satu skill utama agar handoff ke `progress` stabil.
 - `units N <-> N skills` melalui `unit_skill_mappings`: tabel ini menjadi katalog resmi skill per unit, termasuk urutan tampil dan penanda skill utama di unit tersebut.
 
 ## Table Definitions
@@ -193,6 +215,32 @@ Recommended constraints:
 - index `lesson_content_blocks_lesson_id_idx` pada `lesson_id`
 - check constraint `lesson_content_blocks_block_type_ck` untuk baseline value `PARAGRAPH`
 
+### `lesson_post_study_questions`
+Bank soal deterministik yang dikurasi khusus untuk `post-study quiz` setelah learner selesai membaca satu lesson. Tabel ini bukan tabel user progress atau histori review.
+
+| Column | Type | Constraint | Notes |
+| --- | --- | --- | --- |
+| `id` | `char(36)` | PK | Internal question template id. |
+| `lesson_id` | `char(36)` | FK -> `lessons.id`, not null | Lesson owner dari soal ini. |
+| `skill_id` | `char(36)` | FK -> `skills.id`, not null | Skill utama yang diuji oleh soal. |
+| `difficulty_level` | `int` | not null | Tangga kesulitan deterministik lesson, baseline `1` sampai `10`. Difficulty diartikan sebagai panjang dan kompleksitas kalimat/prompt, bukan adaptive band dari personalization. |
+| `question_type` | `varchar(50)` | not null | Baseline MVP dikunci ke `SLOT_FILL`. |
+| `prompt_text` | `text` | not null | Kalimat utama yang akan dirender di quiz lesson. |
+| `prompt_payload` | `json` | not null | Payload render `SLOT_FILL`, termasuk `sentenceTemplate`, empat opsi jawaban, dan metadata bantu lain. |
+| `expected_answer_payload` | `json` | not null | Kunci jawaban deterministik, mis. `correctOptionId` dan accepted option metadata. |
+| `explanation_text` | `text` | null | Penjelasan singkat yang boleh ditampilkan setelah grading. |
+| `source_provider` | `varchar(50)` | not null | Provider utama asal contoh/kalimat, mis. `TATOEBA`, `BUNPRO`, atau `KOTOBAHUB_INTERNAL`. |
+| `source_ref_payload` | `json` | null | Snapshot referensi sumber seperti sentence id, Bunpro grammar point url, atau catatan provenance lain. |
+| `created_at` | `timestamp` | not null | Audit create time. |
+| `updated_at` | `timestamp` | not null | Audit update time. |
+
+Recommended constraints:
+- unique composite `(`lesson_id`, `difficulty_level`)` untuk menjamin tepat satu soal canonical per difficulty level lesson
+- index `lesson_post_study_questions_lesson_id_idx` pada `lesson_id`
+- index `lesson_post_study_questions_skill_id_idx` pada `skill_id`
+- check constraint `lesson_post_study_questions_difficulty_level_ck` untuk range `1..10`
+- check constraint `lesson_post_study_questions_question_type_ck` untuk baseline value `SLOT_FILL`
+
 ### `skills`
 Kemampuan atomik yang benar-benar di-track mastery-nya oleh sistem.
 
@@ -241,22 +289,26 @@ Recommended constraints:
 - index `unit_skill_mappings_lesson_id_idx` pada `lesson_id`
 
 ## Ownership And Flow Mapping
-- `syllabus` adalah owner tunggal untuk seluruh katalog `tracks`, `units`, `lessons`, `lesson_content_blocks`, `skills`, dan `unit_skill_mappings`.
+- `syllabus` adalah owner tunggal untuk seluruh katalog `tracks`, `units`, `lessons`, `lesson_content_blocks`, `lesson_post_study_questions`, `skills`, dan `unit_skill_mappings`.
 - `progress` membaca `skill_id` serta mapping `skill -> lesson -> unit -> track` dari domain ini untuk validasi attribution.
 - `personalization` membaca level, urutan, dan metadata skill untuk membangun recommendation awal dan next-best lesson hint.
 - `practice` dan `flashcards` membaca support flags di `skills` untuk membatasi jenis aktivitas yang valid per skill.
-- UI lesson study surface membaca `lesson_content_blocks` sebagai sumber utama paragraf penjelasan materi yang dibaca user sebelum atau saat menjalankan aktivitas belajar terkait.
+- `practice` membaca `lesson_post_study_questions` saat perlu memilih direct question untuk lesson `post-study quiz`; ia tidak menjadi owner canonical bank soal lesson dan tidak menyimpan histori pemahaman lesson.
+- UI lesson study surface membaca `lesson_content_blocks` sebagai sumber utama paragraf penjelasan materi yang dibaca user sebelum atau saat menjalankan aktivitas belajar terkait, termasuk sebelum memulai `post-study quiz` lesson.
 - `unit_skill_mappings` memberi query path yang stabil saat sistem butuh daftar skill per unit tanpa harus selalu menurunkannya ulang dari tree lesson.
 
 ## Constraints And Assumptions
 - Pada MVP, satu skill diintroduksi oleh satu `lesson` utama. Jika nanti satu skill perlu muncul sebagai objective utama di banyak lesson, skema ini bisa diperluas lewat tabel mapping tambahan tanpa mematahkan relation yang ada.
 - `lesson_content_blocks` sengaja diposisikan di level `lesson`, bukan `skill`, agar satu objective belajar bisa memiliki narasi pengantar yang koheren walau lesson tersebut memperkenalkan lebih dari satu skill.
+- `lesson_post_study_questions` sengaja diposisikan di domain `syllabus`, bukan `practice` atau `progress`, karena bank soal ini adalah bagian dari kurikulum resmi yang dikurasi dan seeded dari repo.
 - `block_type` saat ini dikunci ke `PARAGRAPH` untuk menjaga ruang lingkup MVP tetap sederhana, tetapi nama tabel dibuat generik agar ekspansi ke tipe blok lain tetap memungkinkan tanpa rename arsitektur inti.
 - `unit_skill_mappings` dipertahankan sebagai tabel eksplisit walau sebagian informasinya bisa diturunkan dari `skills.lesson_id`; alasannya adalah kebutuhan query cepat, urutan render, dan kemungkinan reinforcement skill lintas lesson dalam unit yang sama.
 - `prerequisite_skill_codes` disimpan sebagai `json` pada tahap awal agar task `SYL-01` sampai `SYL-07` bisa bergerak lebih cepat sebelum dependency graph skill benar-benar final.
+- Untuk lesson yang dipublish pada MVP, target editorialnya adalah tepat `10` soal `post-study quiz` per lesson dengan difficulty ladder `1..10`, walau enforcement penuh dapat tetap dilakukan di importer/CI pada fase implementasi.
 - Syllabus tetap read-only pada MVP; perubahan isi katalog diasumsikan datang dari seed file atau migration internal, bukan CMS.
 
 ## Out Of Scope For This ERD
 - Konten materi detail selain paragraf penjelasan lesson, seperti audio, media asset, atau interactive embed.
 - Tabel progress turunan seperti lesson completion, unit completion, atau mastery snapshot; itu masuk domain `progress`.
-- Tabel deck flashcard atau bank soal practice; keduanya hanya mengonsumsi metadata skill dari `syllabus`.
+- Tabel deck flashcard; area itu tetap berada di domain `flashcards`.
+- Tabel session/result practice; area itu tetap berada di domain `practice`, walau `practice` mengonsumsi bank soal lesson resmi dari `syllabus`.

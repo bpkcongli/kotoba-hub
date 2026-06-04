@@ -17,7 +17,7 @@
 - [x] `ARCH-07` Buat sequence diagram untuk `Personalization assessment -> AI normalization -> user confirmation -> learner profile update`. Lihat [sequence-diagram/onboarding-personalization-with-ai-normalization.md](./sequence-diagram/onboarding-personalization-with-ai-normalization.md).
 - [x] `ARCH-08` Susun ERD untuk auth dan user profile: `users`, `accounts`, `sessions`, `learner_profiles`. Lihat [erd/auth-and-user-profile.md](./erd/auth-and-user-profile.md).
 - [x] `ARCH-09` Susun ERD untuk syllabus domain: `tracks`, `units`, `lessons`, `skills`, `unit_skill_mappings`. Lihat [erd/syllabus-domain.md](./erd/syllabus-domain.md).
-- [x] `ARCH-10` Susun ERD untuk learning activity: `flashcard_decks`, `flashcard_items`, `practice_sessions`, `practice_questions`, `practice_answers`, `progress_events`, `skill_mastery_snapshots`. Lihat [erd/learning-activity.md](./erd/learning-activity.md).
+- [x] `ARCH-10` Susun ERD untuk learning activity: `flashcard_decks`, `flashcard_items`, `practice_sessions`, `practice_questions`, `practice_answers`, `progress_events`, `skill_mastery_snapshots`, `lesson_understanding_snapshots`. Lihat [erd/learning-activity.md](./erd/learning-activity.md).
 - [x] `ARCH-11` Susun ERD untuk AI support dan observability minimum bila diperlukan: `ai_request_logs` atau tabel/log sink setara. Lihat [erd/ai-support-and-observability.md](./erd/ai-support-and-observability.md).
 - [x] `ARCH-12` Draft OpenAPI/Swagger base document: metadata, auth scheme, error response format, pagination/query convention. Lihat [api-contract/README.md](./api-contract/README.md) dan [api-contract/openapi.base.yaml](./api-contract/openapi.base.yaml).
 - [x] `ARCH-13` Definisikan Swagger contract untuk authentication dan authorization. Lihat [api-contract/auth-and-authorization.md](./api-contract/auth-and-authorization.md) dan [api-contract/openapi.auth.yaml](./api-contract/openapi.auth.yaml).
@@ -53,19 +53,19 @@
 - [ ] `IMP-02` Implement database foundation: koneksi MySQL, migration workflow, env validation, dan base schema auth/user.
 - [ ] `IMP-03` Implement authentication backend dengan Google login dan protected route strategy.
 - [ ] `IMP-04` Implement backend learner profile dan onboarding personalization persistence.
-- [ ] `IMP-05` Implement backend syllabus read model dan endpoint fetch track/unit/lesson.
-- [ ] `IMP-06` Implement backend progress engine: `progress_events`, `skill_mastery_snapshots`, dan summary aggregation.
+- [ ] `IMP-05` Implement backend syllabus read model dan endpoint fetch track/unit/lesson, termasuk metadata dan canonical bank soal `post-study quiz` `10` tingkat kesulitan untuk lesson detail.
+- [ ] `IMP-06` Implement backend progress engine: `progress_events`, `skill_mastery_snapshots`, `lesson_understanding_snapshots`, summary aggregation, dan derivation state completion lesson dari kenaikan pemahaman post-study quiz minimal `0 -> 1`.
 - [ ] `IMP-07` Implement backend flashcard engine: session creation, answer evaluation, Leitner bucket update, progress write-through, serta read/write model untuk system flashcard deck bawaan hasil mapping syllabus `KANA`/`KANJI`/`VOCABULARY`.
 - [ ] `IMP-08` Implement backend AI abstraction layer: provider contract, prompt/template structure, schema validation, observability hooks.
-- [ ] `IMP-09` Implement backend random questions: session generation, answer grading, feedback generation, dan progress integration.
+- [ ] `IMP-09` Implement backend random questions dan lesson `post-study quiz`: random practice generation, direct post-study quiz question selection `1` soal berdasarkan `lesson_understanding_snapshots`, answer grading deterministik, feedback generation, dan progress integration.
 - [ ] `IMP-10` Implement backend personalization assessment endpoint yang bisa menerima structured form + optional AI note normalization.
 - [ ] `IMP-11` Implement UI app shell dan shared layout primitives berdasarkan design system yang sudah final.
 - [ ] `IMP-12` Implement UI auth flow dan onboarding wizard.
-- [ ] `IMP-13` Implement UI syllabus map, unit detail, dan lesson overview.
+- [ ] `IMP-13` Implement UI syllabus map, unit detail, dan lesson overview dengan surface baca materi serta handoff wajib ke `post-study quiz` deterministik `1` soal yang diambil dari bank lesson sesuai target level pemahaman berikutnya.
 - [ ] `IMP-14` Implement UI flashcard game flow dan result/feedback state.
-- [ ] `IMP-15` Implement UI random questions session, answer submission, feedback, dan completion summary.
-- [ ] `IMP-16` Implement UI progress dashboard dan progress indicators yang mengambil data realtime write-through.
-- [ ] `IMP-17` Integrasikan seluruh flow end-to-end dan pastikan state progress benar-benar memengaruhi personalization serta practice generation.
+- [ ] `IMP-15` Implement UI random questions session dan lesson `post-study quiz`, termasuk answer submission, feedback, cue difficulty question terpilih, understanding level `0-10`, review CTA, dan completion summary.
+- [ ] `IMP-16` Implement UI progress dashboard dan progress indicators yang mengambil data realtime write-through, termasuk cue completion lesson dan status quiz lesson.
+- [ ] `IMP-17` Integrasikan seluruh flow end-to-end dan pastikan state progress serta `lesson_understanding_snapshots` benar-benar memengaruhi personalization/random practice, sementara lesson `post-study quiz` tetap memakai bank soal deterministik resmi.
 
 ### 5. Unit Testing
 - [ ] `TEST-01` Buat unit test untuk mastery calculation dan difficulty adjustment rule.

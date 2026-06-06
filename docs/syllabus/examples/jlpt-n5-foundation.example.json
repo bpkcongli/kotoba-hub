@@ -42,34 +42,26 @@
                 "id": "f7144be8-06cc-57bf-ad6d-a380dce9157a",
                 "skillCode": "hiragana_a_row",
                 "difficultyLevel": 1,
-                "questionType": "SLOT_FILL",
+                "questionType": "SHORT_FREE_RESPONSE",
                 "promptText": "___さです。",
                 "promptPayload": {
                   "schemaVersion": 1,
                   "sentenceTemplate": "___さです。",
                   "promptLanguage": "JA",
-                  "optionLanguage": "JA",
-                  "options": [
-                    {
-                      "id": "a",
-                      "label": "あ"
-                    },
-                    {
-                      "id": "b",
-                      "label": "い"
-                    },
-                    {
-                      "id": "c",
-                      "label": "う"
-                    },
-                    {
-                      "id": "d",
-                      "label": "え"
-                    }
-                  ]
+                  "answerLanguage": "JA",
+                  "slotCount": 1,
+                  "blankInputMode": "ROMAJI_TO_KANA",
+                  "placeholder": "Answer here",
+                  "inputMethod": {
+                    "acceptsRomaji": true,
+                    "transformsTo": "KANA"
+                  }
                 },
                 "expectedAnswer": {
-                  "correctOptionId": "a"
+                  "acceptedTextAnswers": [
+                    "あ"
+                  ],
+                  "normalizationProfile": "kana-strict-v1"
                 },
                 "explanation": "Kalimat pendek ini memakai kana `あ` untuk membentuk `あさ`.",
                 "sortOrder": 1,
@@ -80,7 +72,7 @@
                     "category": "SENTENCE",
                     "externalId": "123456",
                     "sourceUrl": "https://tatoeba.org/sentences/show/123456",
-                    "notes": "Adapted into slot-fill format for lesson practice."
+                    "notes": "Adapted into short free-response format for lesson practice."
                   }
                 ]
               }

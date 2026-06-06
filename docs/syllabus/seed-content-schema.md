@@ -217,22 +217,24 @@ Rules:
     "id": "uuid",
     "skillCode": "n5_topic_particle_wa",
     "difficultyLevel": 1,
-    "questionType": "SLOT_FILL",
+    "questionType": "SHORT_FREE_RESPONSE",
     "promptText": "わたし___がくせいです。",
     "promptPayload": {
       "schemaVersion": 1,
       "sentenceTemplate": "わたし___がくせいです。",
       "promptLanguage": "JA",
-      "optionLanguage": "JA",
-      "options": [
-        { "id": "a", "label": "は" },
-        { "id": "b", "label": "が" },
-        { "id": "c", "label": "を" },
-        { "id": "d", "label": "に" }
-      ]
+      "answerLanguage": "JA",
+      "slotCount": 1,
+      "blankInputMode": "ROMAJI_TO_KANA",
+      "placeholder": "Answer here",
+      "inputMethod": {
+        "acceptsRomaji": true,
+        "transformsTo": "KANA"
+      }
     },
     "expectedAnswer": {
-      "correctOptionId": "a"
+      "acceptedTextAnswers": ["は"],
+      "normalizationProfile": "kana-strict-v1"
     },
     "explanation": "Topic marker `は` is the correct choice for this simple identification sentence.",
     "sourceRefs": []
@@ -257,8 +259,8 @@ Rules:
 Rules:
 - Baseline MVP mengunci `postStudyQuestions.length = 10` untuk lesson yang dipublish penuh ke learner.
 - `difficultyLevel` harus membentuk ladder `1..10` tanpa duplikasi di dalam satu lesson.
-- `questionType` saat ini harus `SLOT_FILL`.
-- Setiap soal harus punya tepat empat opsi jawaban pada `promptPayload.options`.
+- `questionType` saat ini harus `SHORT_FREE_RESPONSE`.
+- Setiap soal harus punya tepat satu slot kosong pada `promptPayload.sentenceTemplate` dan input method romaji ke kana yang eksplisit.
 - Tingkat kesulitan ditafsirkan terutama sebagai panjang dan kompleksitas kalimat/prompt, bukan adaptasi mastery user.
 
 ## Skill Schema
@@ -519,9 +521,9 @@ Rules:
 - `unit.sortOrder`, `lesson.sortOrder`, dan `skill.sortOrder` harus unik di parent scope masing-masing.
 - `contentBlocks.sortOrder` harus unik di dalam scope satu lesson.
 - `contentBlocks.blockType` saat ini harus `PARAGRAPH`.
-- `postStudyQuestions.questionType` saat ini harus `SLOT_FILL`.
+- `postStudyQuestions.questionType` saat ini harus `SHORT_FREE_RESPONSE`.
 - `postStudyQuestions.difficultyLevel` harus unik di dalam scope satu lesson dan berada pada range `1..10`.
-- `postStudyQuestions.promptPayload.options` harus berisi tepat empat opsi.
+- `postStudyQuestions.promptPayload.sentenceTemplate` harus mengandung tepat satu slot kosong dan `postStudyQuestions.expectedAnswer.acceptedTextAnswers` harus berisi minimal satu jawaban kana yang valid.
 - `skill.code` harus stabil dan tidak boleh bergantung pada ID source eksternal.
 - `sourceRefs` wajib ada untuk skill yang berasal dari source eksternal.
 - `curriculumSignals.jlpt.candidates` boleh berisi lebih dari satu level bila source overlay konflik.

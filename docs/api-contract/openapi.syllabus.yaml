@@ -277,7 +277,7 @@ paths:
                     isRequired: true
                     practiceMode: DIRECT_LESSON_POST_STUDY
                     deliveryMode: DETERMINISTIC_CURATED
-                    questionType: SLOT_FILL
+                    questionType: SHORT_FREE_RESPONSE
                     questionCountPerAttempt: 1
                     bankQuestionCount: 10
                     difficultyLevelStart: 1
@@ -626,7 +626,7 @@ components:
         questionType:
           type: string
           enum:
-            - SLOT_FILL
+            - SHORT_FREE_RESPONSE
         questionCountPerAttempt:
           type: integer
           minimum: 1

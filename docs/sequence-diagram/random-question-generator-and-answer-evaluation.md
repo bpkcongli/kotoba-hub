@@ -43,7 +43,7 @@ sequenceDiagram
 
         alt Deterministic question type
             Practice->>Practice: Grade with deterministic rules
-        else Free-response / subjective type
+        else `FREE_RESPONSE`
             Practice->>AI: Grade answer + generate short feedback
             AI-->>Practice: Structured grading result
         end
@@ -58,7 +58,7 @@ sequenceDiagram
         Progress-->>Practice: current_understanding_level or empty
         Practice->>Syllabus: Load canonical question for target difficulty
         Syllabus->>DB: Read lesson, skill mapping, and curated question template
-        Syllabus-->>Practice: One `SLOT_FILL` question at difficulty `current + 1`
+        Syllabus-->>Practice: One `SHORT_FREE_RESPONSE` question at difficulty `current + 1`
         Practice-->>App: Return one post-study question
         App-->>Learner: Render required quiz/review question
 
@@ -76,7 +76,7 @@ sequenceDiagram
 - Flow practice punya dua entry utama pada MVP: random practice dari hub sebagai session dan `post-study quiz` setelah learner selesai membaca lesson sebagai direct one-question quiz.
 - Untuk `post-study quiz`, lesson source tetap menjadi batas utama pemilihan skill dan isi soal berasal dari bank soal kurasi resmi `syllabus`.
 - Bank soal lesson berisi `10` tingkat kesulitan, dan satu attempt `post-study quiz` selalu mengambil tepat `1` soal berdasarkan `lesson_understanding_snapshots.current_understanding_level + 1`.
-- AI dipakai untuk generation dan grading yang memang membutuhkannya pada random practice; `post-study quiz` lesson tetap deterministik penuh.
+- AI dipakai untuk generation dan grading yang memang membutuhkannya pada random practice; baseline `FREE_RESPONSE` memakai AI grading, sedangkan `SLOT_FILL`, `SHORT_FREE_RESPONSE`, `ARRANGE_TOKEN`, dan `post-study quiz` lesson tetap deterministik penuh.
 - Flow ini sengaja berhenti sebelum update progress final; penulisan `progress_events`, `skill_mastery_snapshots`, dan `lesson_understanding_snapshots` dipisah ke diagram lain.
 
 ## Expected Outcome

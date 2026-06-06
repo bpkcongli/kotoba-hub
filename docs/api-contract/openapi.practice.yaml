@@ -59,25 +59,21 @@ paths:
                   questions:
                     - id: 880e8400-e29b-41d4-a716-446655440333
                       skillCode: n5_particles_wa_ga_o
-                      questionType: SLOT_FILL
+                      questionType: SHORT_FREE_RESPONSE
                       gradingStrategy: DETERMINISTIC
                       difficultyBand: STANDARD
                       promptText: わたし___がくせいです。
                       promptPayload:
                         schemaVersion: 1
                         promptLanguage: JA
-                        optionLanguage: JA
+                        answerLanguage: JA
                         slotCount: 1
                         sentenceTemplate: わたし___がくせいです。
-                        options:
-                          - id: a
-                            label: は
-                          - id: b
-                            label: が
-                          - id: c
-                            label: を
-                          - id: d
-                            label: に
+                        blankInputMode: ROMAJI_TO_KANA
+                        placeholder: Answer here
+                        inputMethod:
+                          acceptsRomaji: true
+                          transformsTo: KANA
                       sortOrder: 1
         '401':
           description: Session tidak ada atau tidak valid.
@@ -157,25 +153,21 @@ paths:
                   question:
                     id: 880e8400-e29b-41d4-a716-446655440333
                     skillCode: hiragana_a_row
-                    questionType: SLOT_FILL
+                    questionType: SHORT_FREE_RESPONSE
                     gradingStrategy: DETERMINISTIC
                     difficultyLevel: 1
-                    promptText: ___いうえお
+                    promptText: ___さ です。
                     promptPayload:
                       schemaVersion: 1
                       promptLanguage: JA
-                      optionLanguage: JA
+                      answerLanguage: JA
                       slotCount: 1
-                      sentenceTemplate: ___いうえお
-                      options:
-                        - id: a
-                          label: あ
-                        - id: b
-                          label: か
-                        - id: c
-                          label: さ
-                        - id: d
-                          label: た
+                      sentenceTemplate: ___さ です。
+                      blankInputMode: ROMAJI_TO_KANA
+                      placeholder: Answer here
+                      inputMethod:
+                        acceptsRomaji: true
+                        transformsTo: KANA
         '401':
           description: Session tidak ada atau tidak valid.
           content:
@@ -243,7 +235,7 @@ paths:
                   questionId: 880e8400-e29b-41d4-a716-446655440333
                   isCorrect: true
                   numericScore: 100
-                  feedbackText: Correct choice.
+                  feedbackText: Correct kana completion.
                   gradingSource: RULE_ENGINE
                   understandingProgress:
                     currentUnderstandingLevelBefore: 0
@@ -339,12 +331,12 @@ paths:
                   answerId: 990e8400-e29b-41d4-a716-446655440444
                   isCorrect: true
                   numericScore: 100
-                  feedbackText: Correct particle choice.
+                  feedbackText: Correct completion.
                   gradingSource: RULE_ENGINE
                   gradingMetadata:
                     gradingStrategy: DETERMINISTIC
                     matchedAnswerKeys:
-                      - selectedOptionId
+                      - normalizedKana
                     accepted: true
                   sessionProgress:
                     answeredQuestionsCount: 2
@@ -482,15 +474,182 @@ components:
           type: number
         STRETCH:
           type: number
+    KanaInputMethod:
+      type: object
+      additionalProperties: false
+      required:
+        - acceptsRomaji
+        - transformsTo
+      properties:
+        acceptsRomaji:
+          type: boolean
+        transformsTo:
+          type: string
+          enum:
+            - KANA
+    ShortFreeResponsePromptPayload:
+      type: object
+      additionalProperties: false
+      required:
+        - schemaVersion
+        - promptLanguage
+        - answerLanguage
+        - slotCount
+        - sentenceTemplate
+        - blankInputMode
+        - inputMethod
+      properties:
+        schemaVersion:
+          type: integer
+          minimum: 1
+        promptLanguage:
+          type: string
+          enum:
+            - JA
+        answerLanguage:
+          type: string
+          enum:
+            - JA
+        slotCount:
+          type: integer
+          enum:
+            - 1
+        sentenceTemplate:
+          type: string
+        blankInputMode:
+          type: string
+          enum:
+            - ROMAJI_TO_KANA
+        placeholder:
+          type: string
+          nullable: true
+        inputMethod:
+          $ref: '#/components/schemas/KanaInputMethod'
+    SlotFillPromptPayload:
+      type: object
+      additionalProperties: false
+      required:
+        - schemaVersion
+        - promptLanguage
+        - optionLanguage
+        - slotCount
+        - sentenceTemplate
+        - options
+      properties:
+        schemaVersion:
+          type: integer
+          minimum: 1
+        promptLanguage:
+          type: string
+          enum:
+            - JA
+        optionLanguage:
+          type: string
+          enum:
+            - JA
+        slotCount:
+          type: integer
+          enum:
+            - 1
+        sentenceTemplate:
+          type: string
+        options:
+          type: array
+          minItems: 4
+          maxItems: 4
+          items:
+            type: object
+            additionalProperties: false
+            required:
+              - id
+              - label
+            properties:
+              id:
+                type: string
+              label:
+                type: string
+    ArrangeTokenPromptPayload:
+      type: object
+      additionalProperties: false
+      required:
+        - schemaVersion
+        - promptLanguage
+        - answerLanguage
+        - direction
+        - sourceSentence
+        - arrangeTokens
+      properties:
+        schemaVersion:
+          type: integer
+          minimum: 1
+        promptLanguage:
+          type: string
+          enum:
+            - EN
+            - JA
+        answerLanguage:
+          type: string
+          enum:
+            - EN
+            - JA
+        direction:
+          type: string
+          enum:
+            - EN_TO_JA
+            - JA_TO_EN
+        sourceSentence:
+          type: string
+        arrangeTokens:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            additionalProperties: false
+            required:
+              - id
+              - label
+            properties:
+              id:
+                type: string
+              label:
+                type: string
+    FreeResponsePromptPayload:
+      type: object
+      additionalProperties: false
+      required:
+        - schemaVersion
+        - promptLanguage
+        - answerLanguage
+        - sourceSentence
+        - inputMethod
+      properties:
+        schemaVersion:
+          type: integer
+          minimum: 1
+        promptLanguage:
+          type: string
+          enum:
+            - EN
+        answerLanguage:
+          type: string
+          enum:
+            - JA
+        sourceSentence:
+          type: string
+        inputMethod:
+          $ref: '#/components/schemas/KanaInputMethod'
     PracticeQuestion:
       type: object
       additionalProperties: false
       description: >
-        Practice question untuk MVP hanya boleh bertipe SLOT_FILL,
-        SHORT_FREE_RESPONSE, atau ARRANGE_TOKEN. MULTIPLE_CHOICE tidak dipakai
-        di practice karena pattern itu dicakup flashcards. Schema ini hanya
-        untuk question yang dipersist di `practice_questions`; direct lesson
-        post-study quiz memakai schema `LessonPostStudyQuestion`.
+        Practice question untuk MVP hanya boleh bertipe
+        SHORT_FREE_RESPONSE, SLOT_FILL, ARRANGE_TOKEN, atau FREE_RESPONSE.
+        MULTIPLE_CHOICE tidak dipakai di practice karena pattern itu dicakup
+        flashcards. Jika recommendation spec tidak memberi
+        `allowed_question_types` atau hasilnya kosong, fallback default adalah
+        SHORT_FREE_RESPONSE. Schema ini hanya untuk question yang dipersist di
+        `practice_questions`; direct lesson post-study quiz memakai schema
+        `LessonPostStudyQuestion`.
       required:
         - id
         - skillCode
@@ -508,13 +667,16 @@ components:
         questionType:
           type: string
           enum:
-            - SLOT_FILL
             - SHORT_FREE_RESPONSE
+            - SLOT_FILL
             - ARRANGE_TOKEN
+            - FREE_RESPONSE
           description: >
-            SLOT_FILL memiliki tepat empat opsi dengan prompt dan opsi
-            berbahasa Jepang. SHORT_FREE_RESPONSE selalu English prompt ke
-            Japanese answer. ARRANGE_TOKEN menyusun token menjadi jawaban akhir.
+            SHORT_FREE_RESPONSE adalah slot kosong dengan free response
+            deterministik. SLOT_FILL memiliki tepat empat opsi dengan prompt
+            dan opsi berbahasa Jepang. ARRANGE_TOKEN menyusun token menjadi
+            jawaban akhir. FREE_RESPONSE menerjemahkan satu kalimat English ke
+            Japanese dan default memakai AI grading.
         gradingStrategy:
           type: string
           enum:
@@ -526,14 +688,12 @@ components:
         promptText:
           type: string
         promptPayload:
-          type: object
-          additionalProperties: true
-          description: >
-            Payload render question. Untuk SLOT_FILL, sertakan empat opsi
-            berbahasa Jepang dan template kalimat Jepang dengan satu slot
-            kosong. Untuk SHORT_FREE_RESPONSE, sertakan metadata input method
-            romaji ke kana/kanji. Untuk ARRANGE_TOKEN, sertakan daftar token
-            yang harus disusun user.
+          oneOf:
+            - $ref: '#/components/schemas/ShortFreeResponsePromptPayload'
+            - $ref: '#/components/schemas/SlotFillPromptPayload'
+            - $ref: '#/components/schemas/ArrangeTokenPromptPayload'
+            - $ref: '#/components/schemas/FreeResponsePromptPayload'
+          description: Payload render question sesuai `questionType`.
         sortOrder:
           type: integer
     PracticeSession:
@@ -651,7 +811,7 @@ components:
         questionType:
           type: string
           enum:
-            - SLOT_FILL
+            - SHORT_FREE_RESPONSE
         gradingStrategy:
           type: string
           enum:
@@ -663,11 +823,11 @@ components:
         promptText:
           type: string
         promptPayload:
-          type: object
-          additionalProperties: true
+          $ref: '#/components/schemas/ShortFreeResponsePromptPayload'
           description: >
-            Payload render SLOT_FILL dari bank soal lesson, termasuk empat opsi
-            jawaban dan template kalimat Jepang dengan satu slot kosong.
+            Payload render SHORT_FREE_RESPONSE dari bank soal lesson, termasuk
+            template kalimat dengan satu slot kosong dan metadata input romaji
+            ke kana.
     LessonPostStudyNextResponse:
       type: object
       additionalProperties: false
@@ -705,6 +865,23 @@ components:
           type: string
           nullable: true
           description: Bentuk kanji final bila user atau IME memilih kandidat kanji.
+    PracticeUserAnswerFreeResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - rawInputRomaji
+        - normalizedKana
+      properties:
+        rawInputRomaji:
+          type: string
+          description: Jawaban mentah yang diketik user dalam romaji.
+        normalizedKana:
+          type: string
+          description: Hasil transform input method ke kana sebelum submit final.
+        normalizedKanji:
+          type: string
+          nullable: true
+          description: Bentuk kanji final bila user atau IME memilih kandidat kanji.
     PracticeUserAnswerArrangeToken:
       type: object
       additionalProperties: false
@@ -718,14 +895,16 @@ components:
             type: string
           description: Urutan token final untuk question type ARRANGE_TOKEN.
     PracticeUserAnswer:
-      oneOf:
+      anyOf:
         - $ref: '#/components/schemas/PracticeUserAnswerSlotFill'
         - $ref: '#/components/schemas/PracticeUserAnswerShortFreeResponse'
         - $ref: '#/components/schemas/PracticeUserAnswerArrangeToken'
+        - $ref: '#/components/schemas/PracticeUserAnswerFreeResponse'
       description: >
-        Bentuk jawaban mengikuti questionType. SLOT_FILL memakai
-        selectedOptionId. SHORT_FREE_RESPONSE menyertakan raw romaji dan hasil
-        normalisasi. ARRANGE_TOKEN menyertakan ordered token ids.
+        Bentuk jawaban mengikuti questionType. SHORT_FREE_RESPONSE dan
+        FREE_RESPONSE menyertakan raw romaji dan hasil normalisasi.
+        SLOT_FILL memakai selectedOptionId. ARRANGE_TOKEN menyertakan ordered
+        token ids.
     PracticeAnswerRequest:
       type: object
       additionalProperties: false
@@ -756,7 +935,7 @@ components:
           type: string
           format: uuid
         userAnswer:
-          $ref: '#/components/schemas/PracticeUserAnswerSlotFill'
+          $ref: '#/components/schemas/PracticeUserAnswerShortFreeResponse'
         responseTimeMs:
           type: integer
           nullable: true

@@ -316,7 +316,8 @@ track: jlpt-n4-expansion
 
 #### `personalization -> practice`
 - `practice` menerima recommendation spec seperti `target_skill_ids`, `difficulty_band`, `question_mix`, `allowed_question_types`, dan candidate lesson/unit.
-- Untuk lesson `post-study quiz`, `practice` tidak membuat `practice_session` dan tidak meminta komposisi soal dari `personalization`; ia memilih tepat `1` soal dari bank soal lesson resmi di `syllabus`. Difficulty yang dipilih adalah `current_understanding_level + 1`, dibatasi maksimum `10`.
+- Jika recommendation spec tidak menyuplai `allowed_question_types` atau hasilnya kosong, `practice` memakai fallback default `SHORT_FREE_RESPONSE` untuk random practice session.
+- Untuk lesson `post-study quiz`, `practice` tidak membuat `practice_session` dan tidak meminta komposisi soal dari `personalization`; ia memilih tepat `1` soal `SHORT_FREE_RESPONSE` dari bank soal lesson resmi di `syllabus`. Difficulty yang dipilih adalah `current_understanding_level + 1`, dibatasi maksimum `10`.
 - `practice` tetap membaca `syllabus` untuk memastikan soal hanya diambil dari skill dan lesson yang sah.
 - `practice` boleh membaca `progress` juga untuk guard tambahan yang sifatnya near-realtime, misalnya menghindari skill yang baru saja ditanya beberapa menit lalu.
 

@@ -127,7 +127,7 @@ erDiagram
 - `tracks 1 -> N units`: satu track mewakili ladder/fase besar belajar, misalnya `jlpt-n5-foundation`.
 - `units 1 -> N lessons`: satu unit mengelompokkan lesson per topik atau objective belajar.
 - `lessons 1 -> N lesson_content_blocks`: satu lesson dapat memiliki beberapa blok penjelasan berurutan untuk membentuk materi baca utama.
-- `lessons 1 -> N lesson_post_study_questions`: satu lesson memiliki bank soal kurasi untuk `post-study quiz`; baseline MVP menargetkan tepat `10` soal `SLOT_FILL` per lesson dengan tepat satu soal untuk setiap difficulty `1 -> 10`.
+- `lessons 1 -> N lesson_post_study_questions`: satu lesson memiliki bank soal kurasi untuk `post-study quiz`; baseline MVP menargetkan tepat `10` soal `SHORT_FREE_RESPONSE` per lesson dengan tepat satu soal untuk setiap difficulty `1 -> 10`.
 - `lessons 1 -> N skills`: pada MVP, skill diintroduksi dari satu lesson utama agar attribution ke lesson tetap sederhana.
 - `skills 1 -> N lesson_post_study_questions`: setiap soal quiz lesson tetap diatribusikan ke satu skill utama agar handoff ke `progress` stabil.
 - `units N <-> N skills` melalui `unit_skill_mappings`: tabel ini menjadi katalog resmi skill per unit, termasuk urutan tampil dan penanda skill utama di unit tersebut.
@@ -224,10 +224,10 @@ Bank soal deterministik yang dikurasi khusus untuk `post-study quiz` setelah lea
 | `lesson_id` | `char(36)` | FK -> `lessons.id`, not null | Lesson owner dari soal ini. |
 | `skill_id` | `char(36)` | FK -> `skills.id`, not null | Skill utama yang diuji oleh soal. |
 | `difficulty_level` | `int` | not null | Tangga kesulitan deterministik lesson, baseline `1` sampai `10`. Difficulty diartikan sebagai panjang dan kompleksitas kalimat/prompt, bukan adaptive band dari personalization. |
-| `question_type` | `varchar(50)` | not null | Baseline MVP dikunci ke `SLOT_FILL`. |
+| `question_type` | `varchar(50)` | not null | Baseline MVP dikunci ke `SHORT_FREE_RESPONSE`. |
 | `prompt_text` | `text` | not null | Kalimat utama yang akan dirender di quiz lesson. |
-| `prompt_payload` | `json` | not null | Payload render `SLOT_FILL`, termasuk `sentenceTemplate`, empat opsi jawaban, dan metadata bantu lain. |
-| `expected_answer_payload` | `json` | not null | Kunci jawaban deterministik, mis. `correctOptionId` dan accepted option metadata. |
+| `prompt_payload` | `json` | not null | Payload render `SHORT_FREE_RESPONSE`, termasuk `sentenceTemplate`, metadata slot kosong, dan metadata input romaji ke kana. |
+| `expected_answer_payload` | `json` | not null | Kunci jawaban deterministik, mis. `acceptedTextAnswers`, normalisasi kana, dan metadata rule match lain. |
 | `explanation_text` | `text` | null | Penjelasan singkat yang boleh ditampilkan setelah grading. |
 | `source_provider` | `varchar(50)` | not null | Provider utama asal contoh/kalimat, mis. `TATOEBA`, `BUNPRO`, atau `KOTOBAHUB_INTERNAL`. |
 | `source_ref_payload` | `json` | null | Snapshot referensi sumber seperti sentence id, Bunpro grammar point url, atau catatan provenance lain. |
@@ -239,7 +239,7 @@ Recommended constraints:
 - index `lesson_post_study_questions_lesson_id_idx` pada `lesson_id`
 - index `lesson_post_study_questions_skill_id_idx` pada `skill_id`
 - check constraint `lesson_post_study_questions_difficulty_level_ck` untuk range `1..10`
-- check constraint `lesson_post_study_questions_question_type_ck` untuk baseline value `SLOT_FILL`
+- check constraint `lesson_post_study_questions_question_type_ck` untuk baseline value `SHORT_FREE_RESPONSE`
 
 ### `skills`
 Kemampuan atomik yang benar-benar di-track mastery-nya oleh sistem.
@@ -304,7 +304,7 @@ Recommended constraints:
 - `block_type` saat ini dikunci ke `PARAGRAPH` untuk menjaga ruang lingkup MVP tetap sederhana, tetapi nama tabel dibuat generik agar ekspansi ke tipe blok lain tetap memungkinkan tanpa rename arsitektur inti.
 - `unit_skill_mappings` dipertahankan sebagai tabel eksplisit walau sebagian informasinya bisa diturunkan dari `skills.lesson_id`; alasannya adalah kebutuhan query cepat, urutan render, dan kemungkinan reinforcement skill lintas lesson dalam unit yang sama.
 - `prerequisite_skill_codes` disimpan sebagai `json` pada tahap awal agar task `SYL-01` sampai `SYL-07` bisa bergerak lebih cepat sebelum dependency graph skill benar-benar final.
-- Untuk lesson yang dipublish pada MVP, target editorialnya adalah tepat `10` soal `post-study quiz` per lesson dengan difficulty ladder `1..10`, walau enforcement penuh dapat tetap dilakukan di importer/CI pada fase implementasi.
+- Untuk lesson yang dipublish pada MVP, target editorialnya adalah tepat `10` soal `post-study quiz` `SHORT_FREE_RESPONSE` per lesson dengan difficulty ladder `1..10`, walau enforcement penuh dapat tetap dilakukan di importer/CI pada fase implementasi.
 - Syllabus tetap read-only pada MVP; perubahan isi katalog diasumsikan datang dari seed file atau migration internal, bukan CMS.
 
 ## Out Of Scope For This ERD

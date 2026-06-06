@@ -82,11 +82,11 @@
 - Untuk item kana, feedback state cukup lebih ringkas: correct answer, bucket change, dan progress write-through confirmation.
 
 ### 4. Practice Session
-- Struktur mirip focus mode flashcards, tetapi wireframe practice MVP saat ini harus diturunkan dari `questionType = SLOT_FILL`.
-- Mobile menumpuk prompt, kalimat dengan satu slot kosong, empat opsi jawaban bahasa Jepang, dan feedback dalam satu sumbu utama.
+- Struktur mirip focus mode flashcards, tetapi wireframe practice MVP saat ini harus diturunkan dari `questionType = SHORT_FREE_RESPONSE` sebagai fallback default session.
+- Mobile menumpuk prompt, kalimat dengan satu slot kosong, text input jawaban bahasa Jepang berbasis romaji-to-kana, dan feedback dalam satu sumbu utama.
 - Desktop boleh menambah side rail untuk timer, question index, atau quick session summary, tetapi tidak menjadi layout tiga kolom.
-- Karena `SLOT_FILL` bersifat deterministik, wireframe tidak perlu menampilkan text input bebas pada state utama practice.
-- Wireframe harus merepresentasikan alur `generate session -> render SLOT_FILL -> pilih satu opsi -> grading -> continue`.
+- Karena `SHORT_FREE_RESPONSE` juga bersifat deterministik, wireframe perlu menampilkan text input bebas singkat dengan cue transform romaji ke kana pada state utama practice.
+- Wireframe harus merepresentasikan alur `generate session -> render SHORT_FREE_RESPONSE -> isi slot -> grading -> continue`.
 
 ### 5. Progress Dashboard
 - Mobile menyusun:

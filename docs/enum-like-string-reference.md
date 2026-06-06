@@ -42,6 +42,9 @@
 ### `lesson_post_study_questions.difficulty_level`
 - `1` sampai `10`: tangga kesulitan editorial untuk question bank lesson post-study quiz; umumnya merepresentasikan progresi panjang dan kompleksitas kalimat dari paling sederhana ke paling kompleks.
 
+### `lesson_post_study_questions.question_type`
+- `SHORT_FREE_RESPONSE`: baseline canonical untuk post-study quiz lesson saat ini. Prompt berbentuk kalimat dengan satu slot kosong yang diisi lewat free response bahasa Jepang; input user dimulai dari romaji lalu ditransform UI ke kana sebelum submit final. Grading tetap deterministik.
+
 ## Flashcard Domain
 
 ### `flashcard_decks.deck_source`
@@ -93,9 +96,10 @@ Catatan API:
 - `STRETCH`: porsi soal yang sedikit lebih menantang dari baseline session.
 
 ### `practice_questions.question_type`
-- `SLOT_FILL`: soal isi satu bagian kosong berdasarkan empat opsi jawaban; prompt dan opsi sama-sama dalam bahasa Jepang.
-- `SHORT_FREE_RESPONSE`: soal jawaban bebas singkat, dikunci untuk prompt bahasa Inggris dan jawaban bahasa Jepang; input user boleh dimulai dari romaji lalu ditransform ke kana/kanji.
+- `SHORT_FREE_RESPONSE`: soal kalimat dengan satu slot kosong yang diisi lewat free response bahasa Jepang. Input user dimulai dari romaji lalu ditransform UI ke kana. Grading deterministik.
+- `SLOT_FILL`: soal isi satu bagian kosong berdasarkan empat opsi jawaban; prompt dan opsi sama-sama dalam bahasa Jepang. Grading deterministik.
 - `ARRANGE_TOKEN`: soal menyusun token/kata menjadi jawaban akhir; arah soal boleh `EN_TO_JA` atau `JA_TO_EN`.
+- `FREE_RESPONSE`: soal menerjemahkan satu kalimat bahasa Inggris penuh ke bahasa Jepang lewat free response. Input user dimulai dari romaji lalu ditransform UI ke kana. Grading default memakai AI.
 
 ### `practice_questions.grading_strategy`
 - `DETERMINISTIC`: penilaian dilakukan dengan rules engine atau matching terstruktur tanpa AI.
@@ -123,6 +127,7 @@ Catatan API:
 
 ### `progress_events.question_type`
 - Untuk event dari `PRACTICE`, nilainya mengikuti enum `practice_questions.question_type`.
+- Untuk event dari `LESSON_POST_STUDY`, nilainya mengikuti vocabulary yang sama; baseline canonical lesson quiz saat ini memakai `SHORT_FREE_RESPONSE`.
 - Untuk event dari `FLASHCARD`, nilainya biasanya membawa label tipe item seperti `HIRAGANA_CHARACTER`, `VOCABULARY`, atau label aktivitas sejenis yang relevan.
 
 ## AI Support And Observability

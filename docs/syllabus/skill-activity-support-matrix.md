@@ -164,4 +164,4 @@
   - `RQ-OBJ` -> `false / true / false`
   - `RQ-OBJ+FR` -> `false / true / true`
   - `RQ-FR` -> `false / false / true`
-- Bila nanti ada perubahan format random question di luar `SLOT_FILL`, `ARRANGE_TOKEN`, dan `SHORT_FREE_RESPONSE`, matrix ini boleh diperluas tanpa mengubah lesson map canonical.
+- Bila nanti ada perubahan format random question di luar `SHORT_FREE_RESPONSE`, `SLOT_FILL`, `ARRANGE_TOKEN`, dan `FREE_RESPONSE`, matrix ini boleh diperluas tanpa mengubah lesson map canonical.

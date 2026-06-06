@@ -233,19 +233,19 @@ paths:
                 data:
                   progressEvents:
                     - id: 770e8400-e29b-41d4-a716-446655440222
-                      sourceType: FLASHCARD
-                      sourceSessionId: 880e8400-e29b-41d4-a716-446655440333
+                      sourceType: LESSON_POST_STUDY
+                      sourceSessionId: null
                       sourceEntityId: 990e8400-e29b-41d4-a716-446655440444
-                      questionType: HIRAGANA_CHARACTER
-                      skillCode: hiragana_basic
-                      skillTitle: Hiragana Basics
+                      questionType: SHORT_FREE_RESPONSE
+                      skillCode: hiragana_a_row
+                      skillTitle: Hiragana A Row
                       trackSlug: jlpt-n5-foundation
                       unitSlug: n5-kana-basics
                       lessonSlug: hiragana-row-a
                       isCorrect: true
                       numericScore: 100
                       confidenceWeight: 0.8
-                      responseTimeMs: 1800
+                      responseTimeMs: 2100
                       answeredAt: '2026-04-04T10:20:00Z'
         '401':
           description: Session tidak ada atau tidak valid.
@@ -598,6 +598,10 @@ components:
           format: uuid
         questionType:
           type: string
+          description: >
+            Untuk PRACTICE dan LESSON_POST_STUDY, nilainya mengikuti vocabulary
+            SHORT_FREE_RESPONSE, SLOT_FILL, ARRANGE_TOKEN, atau FREE_RESPONSE.
+            Untuk FLASHCARD, nilainya mengikuti tipe item/aktivitas flashcard.
         skillCode:
           type: string
         skillTitle:

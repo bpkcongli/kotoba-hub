@@ -53,12 +53,14 @@ Behavior:
 - `practice` memuat constraint katalog dari `syllabus`.
 - Recommendation spec untuk random practice boleh membawa `lesson_understanding_levels` dari `progress` sebagai faktor tambahan selain learner profile, weak skills, flashcard result, dan practice history.
 - AI tidak diposisikan sebagai sumber kebenaran untuk semua soal. AI hanya dipakai untuk random practice generation atau grading yang memang memerlukannya.
-- Generator question untuk MVP hanya boleh menghasilkan `SLOT_FILL`, `SHORT_FREE_RESPONSE`, atau `ARRANGE_TOKEN`.
+- Generator question untuk MVP hanya boleh menghasilkan `SHORT_FREE_RESPONSE`, `SLOT_FILL`, `ARRANGE_TOKEN`, atau `FREE_RESPONSE`.
+- Jika recommendation spec tidak menyuplai `allowed_question_types` atau hasilnya kosong, fallback default question type untuk practice session adalah `SHORT_FREE_RESPONSE`.
+- `SHORT_FREE_RESPONSE` memakai prompt kalimat dengan satu slot kosong yang diisi lewat jawaban bebas singkat bahasa Jepang.
 - `SLOT_FILL` selalu memiliki tepat empat opsi jawaban.
 - Pada `SLOT_FILL`, prompt berupa kalimat bahasa Jepang dengan satu slot kosong, dan seluruh opsi jawaban juga dalam bahasa Jepang.
-- `SHORT_FREE_RESPONSE` dikunci ke prompt bahasa Inggris dan jawaban bahasa Jepang.
-- `SHORT_FREE_RESPONSE` mengandalkan input method yang menerima romaji lalu mentransform jawaban ke kana atau kanji sebelum submit final.
+- `SHORT_FREE_RESPONSE`, `FREE_RESPONSE`, dan post-study quiz mengandalkan input method yang menerima romaji lalu mentransform jawaban ke kana sebelum submit final.
 - `ARRANGE_TOKEN` meminta user menyusun token/kata menjadi jawaban akhir dan boleh dipakai untuk arah `EN_TO_JA` maupun `JA_TO_EN`.
+- `FREE_RESPONSE` memakai prompt satu kalimat bahasa Inggris dan user menuliskan versi kalimat tersebut dalam bahasa Jepang.
 - `practice` tidak lagi menghasilkan `MULTIPLE_CHOICE` karena pattern itu sudah dicakup oleh `flashcards`.
 - Response mengembalikan session beserta daftar question yang siap dirender UI.
 
@@ -88,22 +90,22 @@ Success response:
       {
         "id": "uuid",
         "skillCode": "n5_particles_wa_ga_o",
-        "questionType": "SLOT_FILL",
+        "questionType": "SHORT_FREE_RESPONSE",
         "gradingStrategy": "DETERMINISTIC",
         "difficultyBand": "STANDARD",
         "promptText": "わたし___がくせいです。",
         "promptPayload": {
           "schemaVersion": 1,
           "promptLanguage": "JA",
-          "optionLanguage": "JA",
+          "answerLanguage": "JA",
           "slotCount": 1,
           "sentenceTemplate": "わたし___がくせいです。",
-          "options": [
-            { "id": "a", "label": "は" },
-            { "id": "b", "label": "が" },
-            { "id": "c", "label": "を" },
-            { "id": "d", "label": "に" }
-          ]
+          "blankInputMode": "ROMAJI_TO_KANA",
+          "placeholder": "Answer here",
+          "inputMethod": {
+            "acceptsRomaji": true,
+            "transformsTo": "KANA"
+          }
         },
         "sortOrder": 1
       }
@@ -127,7 +129,7 @@ Behavior:
 - Jika snapshot belum ada, level pemahaman dianggap `0`.
 - Target difficulty adalah `min(currentUnderstandingLevel + 1, 10)`.
 - `practice` membaca tepat satu question dari `syllabus.lesson_post_study_questions` untuk lesson dan difficulty tersebut.
-- Response hanya membawa satu pertanyaan `SLOT_FILL` dengan `gradingStrategy = DETERMINISTIC`; object ini berasal dari `lesson_post_study_questions`, bukan row `practice_questions`.
+- Response default membawa satu pertanyaan `SHORT_FREE_RESPONSE` dengan `gradingStrategy = DETERMINISTIC`; object ini berasal dari `lesson_post_study_questions`, bukan row `practice_questions`.
 - Endpoint ini tidak membuat row `practice_sessions` atau `practice_questions`.
 
 Success response:
@@ -149,22 +151,22 @@ Success response:
     "question": {
       "id": "uuid",
       "skillCode": "hiragana_a_row",
-      "questionType": "SLOT_FILL",
+      "questionType": "SHORT_FREE_RESPONSE",
       "gradingStrategy": "DETERMINISTIC",
       "difficultyLevel": 1,
-      "promptText": "___いうえお",
+      "promptText": "___さ です。",
       "promptPayload": {
         "schemaVersion": 1,
         "promptLanguage": "JA",
-        "optionLanguage": "JA",
+        "answerLanguage": "JA",
         "slotCount": 1,
-        "sentenceTemplate": "___いうえお",
-        "options": [
-          { "id": "a", "label": "あ" },
-          { "id": "b", "label": "か" },
-          { "id": "c", "label": "さ" },
-          { "id": "d", "label": "た" }
-        ]
+        "sentenceTemplate": "___さ です。",
+        "blankInputMode": "ROMAJI_TO_KANA",
+        "placeholder": "Answer here",
+        "inputMethod": {
+          "acceptsRomaji": true,
+          "transformsTo": "KANA"
+        }
       }
     }
   }
@@ -186,7 +188,8 @@ Request body:
 {
   "questionId": "uuid",
   "userAnswer": {
-    "selectedOptionId": "a"
+    "rawInputRomaji": "wa",
+    "normalizedKana": "は"
   },
   "responseTimeMs": 4200
 }
@@ -195,9 +198,10 @@ Request body:
 Behavior:
 - Memuat question dan session context.
 - Bentuk `userAnswer` mengikuti `questionType`:
+- `SHORT_FREE_RESPONSE`: kirim `rawInputRomaji`, `normalizedKana`, dan opsional `normalizedKanji`.
   - `SLOT_FILL`: kirim `selectedOptionId`.
   - `ARRANGE_TOKEN`: kirim `arrangedTokenIds` sesuai urutan final.
-  - `SHORT_FREE_RESPONSE`: kirim `rawInputRomaji`, `normalizedKana`, dan opsional `normalizedKanji` bila IME di client berhasil menghasilkan kandidat final.
+  - `FREE_RESPONSE`: kirim `rawInputRomaji`, `normalizedKana`, dan opsional `normalizedKanji` bila IME di client berhasil menghasilkan kandidat final.
 - Jika `gradingStrategy = DETERMINISTIC`, grading dilakukan di module `practice`.
 - Jika `gradingStrategy = AI`, `practice` memanggil AI provider untuk grading dan short feedback.
 - Setelah answer tersimpan, `practice` menjalankan handoff ke `progress`.
@@ -218,11 +222,11 @@ Success response:
     "answerId": "uuid",
     "isCorrect": true,
     "numericScore": 100,
-    "feedbackText": "Correct particle choice.",
+    "feedbackText": "Correct completion.",
     "gradingSource": "RULE_ENGINE",
     "gradingMetadata": {
       "gradingStrategy": "DETERMINISTIC",
-      "matchedAnswerKeys": ["selectedOptionId"],
+      "matchedAnswerKeys": ["normalizedKana"],
       "accepted": true
     },
     "sessionProgress": {
@@ -252,7 +256,8 @@ Request body:
   "lessonSlug": "hiragana-row-a",
   "questionId": "uuid",
   "userAnswer": {
-    "selectedOptionId": "a"
+    "rawInputRomaji": "a",
+    "normalizedKana": "あ"
   },
   "responseTimeMs": 4200
 }
@@ -261,7 +266,7 @@ Request body:
 Behavior:
 - Memuat lesson, question template, dan current `lesson_understanding_snapshots`.
 - Memastikan `questionId` belongs to `lessonSlug` dan difficulty-nya sesuai target difficulty aktif, kecuali implementasi sengaja mengizinkan stale question grace window.
-- Grading selalu `DETERMINISTIC` dengan rules `SLOT_FILL`.
+- Grading default selalu `DETERMINISTIC` dengan rules `SHORT_FREE_RESPONSE`.
 - `practice` tidak membuat `practice_answer`; hasil attempt dikirim sebagai structured event ke `progress`.
 - `progress` membuat `progress_event` dengan `sourceType = LESSON_POST_STUDY`, `sourceSessionId = null`, dan `sourceEntityId = lesson_post_study_questions.id`.
 - Jika jawaban benar, `lesson_understanding_snapshots.current_understanding_level` naik satu level sampai maksimum `10`.
@@ -283,7 +288,7 @@ Success response:
     "questionId": "uuid",
     "isCorrect": true,
     "numericScore": 100,
-    "feedbackText": "Correct choice.",
+    "feedbackText": "Correct kana completion.",
     "gradingSource": "RULE_ENGINE",
     "understandingProgress": {
       "currentUnderstandingLevelBefore": 0,
@@ -306,12 +311,61 @@ Success response:
 
 ## Question Type Contract
 
+### `SHORT_FREE_RESPONSE`
+- Prompt menampilkan satu kalimat dengan tepat satu slot kosong.
+- User mengisi slot tersebut lewat free response bahasa Jepang.
+- Input mentah di client dimulai dari romaji lalu ditransform ke kana sebelum submit final.
+- `gradingStrategy` default: `DETERMINISTIC`.
+- Bentuk minimum `promptPayload`:
+
+```json
+{
+  "schemaVersion": 1,
+  "promptLanguage": "JA",
+  "answerLanguage": "JA",
+  "slotCount": 1,
+  "sentenceTemplate": "わたし___がくせいです。",
+  "blankInputMode": "ROMAJI_TO_KANA",
+  "placeholder": "Answer here",
+  "inputMethod": {
+    "acceptsRomaji": true,
+    "transformsTo": "KANA"
+  }
+}
+```
+
+- Bentuk minimum `userAnswer`:
+
+```json
+{
+  "rawInputRomaji": "wa",
+  "normalizedKana": "は"
+}
+```
+
 ### `SLOT_FILL`
 - Prompt menampilkan kalimat dengan satu slot kosong.
 - User memilih satu jawaban dari tepat empat opsi.
 - Kalimat prompt dan seluruh opsi jawaban sama-sama dalam bahasa Jepang.
 - `gradingStrategy` default: `DETERMINISTIC`.
-- Untuk lesson `post-study quiz`, direct question dari `lesson_post_study_questions` membawa `difficultyLevel` `1..10` yang merepresentasikan progresi panjang dan kompleksitas kalimat di dalam lesson.
+- Bentuk minimum `promptPayload`:
+
+```json
+{
+  "schemaVersion": 1,
+  "promptLanguage": "JA",
+  "optionLanguage": "JA",
+  "slotCount": 1,
+  "sentenceTemplate": "わたし___がくせいです。",
+  "options": [
+    { "id": "a", "label": "は" },
+    { "id": "b", "label": "が" },
+    { "id": "c", "label": "を" },
+    { "id": "d", "label": "に" }
+  ]
+}
+```
+
 - Bentuk minimum `userAnswer`:
 
 ```json
@@ -320,12 +374,57 @@ Success response:
 }
 ```
 
-### `SHORT_FREE_RESPONSE`
-- Prompt selalu berupa kalimat penuh dalam bahasa Inggris.
-- User menjawab dalam bahasa Jepang melalui input field.
-- Client input method menerima romaji lalu mentransform jawaban ke kana atau kanji sebelum final submit.
+### `ARRANGE_TOKEN`
+- Prompt meminta user menyusun token/kata menjadi jawaban akhir.
+- Arah soal boleh `EN_TO_JA` atau `JA_TO_EN`.
+- `gradingStrategy` default: `DETERMINISTIC`.
+- Bentuk minimum `promptPayload`:
+
+```json
+{
+  "schemaVersion": 1,
+  "promptLanguage": "EN",
+  "answerLanguage": "JA",
+  "direction": "EN_TO_JA",
+  "sourceSentence": "I am a student.",
+  "arrangeTokens": [
+    { "id": "t1", "label": "わたし" },
+    { "id": "t2", "label": "は" },
+    { "id": "t3", "label": "がくせい" },
+    { "id": "t4", "label": "です" }
+  ]
+}
+```
+
+- Bentuk minimum `userAnswer`:
+
+```json
+{
+  "arrangedTokenIds": ["t1", "t2", "t3", "t4"]
+}
+```
+
+### `FREE_RESPONSE`
+- Prompt selalu berupa satu kalimat penuh dalam bahasa Inggris.
+- User menjawab versi kalimat tersebut dalam bahasa Jepang melalui input field.
+- Client input method menerima romaji lalu mentransform jawaban ke kana sebelum final submit.
 - Payload jawaban sebaiknya tetap menyertakan bentuk mentah romaji dan hasil normalisasi agar grading AI bisa diaudit.
 - `gradingStrategy` default: `AI`.
+- Bentuk minimum `promptPayload`:
+
+```json
+{
+  "schemaVersion": 1,
+  "promptLanguage": "EN",
+  "answerLanguage": "JA",
+  "sourceSentence": "I am a student.",
+  "inputMethod": {
+    "acceptsRomaji": true,
+    "transformsTo": "KANA"
+  }
+}
+```
+
 - Bentuk minimum `userAnswer`:
 
 ```json
@@ -333,18 +432,6 @@ Success response:
   "rawInputRomaji": "watashi wa gakusei desu",
   "normalizedKana": "わたしはがくせいです",
   "normalizedKanji": "私は学生です"
-}
-```
-
-### `ARRANGE_TOKEN`
-- Prompt meminta user menyusun token/kata menjadi jawaban akhir.
-- Arah soal boleh `EN_TO_JA` atau `JA_TO_EN`.
-- `gradingStrategy` default: `DETERMINISTIC`.
-- Bentuk minimum `userAnswer`:
-
-```json
-{
-  "arrangedTokenIds": ["t1", "t2", "t3", "t4"]
 }
 ```
 

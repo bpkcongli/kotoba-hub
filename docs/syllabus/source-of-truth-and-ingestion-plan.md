@@ -22,7 +22,7 @@
 | Vocabulary | JMdict | Download current JMdict XML dari EDRDG | Headword, reading, gloss, POS, field, commonness/frequency-like priority tags | Tidak punya field JLPT native |
 | Vocabulary JLPT overlay | [`yomitan-jlpt-vocab`](https://github.com/stephenmk/yomitan-jlpt-vocab) | Cross-reference ke `JMdict` entry id yang sudah disediakan repo | Sinyal JLPT level untuk entry vocabulary | Berbasis list Jonathan Waller yang bersifat heuristic |
 | Example sentences | Tatoeba | Weekly exports atau custom sentence-pair export | Sentence pairs JP-EN, links, indices, transcriptions, audio refs | Perlu filter kualitas dan lisensi |
-| Lesson post-study question bank | Tatoeba + Bunpro grammar point examples | Kurasi manual dari candidate sentence yang relevan per lesson | `10` soal `SLOT_FILL` canonical per lesson dengan difficulty ladder `1..10` | Perlu editorial curation, provenance, dan normalisasi opsi jawaban |
+| Lesson post-study question bank | Tatoeba + Bunpro grammar point examples | Kurasi manual dari candidate sentence yang relevan per lesson | `10` soal `SHORT_FREE_RESPONSE` canonical per lesson dengan difficulty ladder `1..10` | Perlu editorial curation, provenance, dan normalisasi jawaban kana deterministik |
 | Vocabulary frequency | Japanese Core 2k/6k | Referensi seri/course listing, lalu kurasi manual bila dipakai | Sinyal kata umum untuk ranking/ordering | Belum dijadikan field ERD dan jalur bulk export resmi belum dikunci |
 
 ## Source Details
@@ -226,7 +226,7 @@
 | `units` | Internal syllabus curation | Disusun dari grouping pedagogis, bukan grouping source mentah |
 | `lessons` | Internal syllabus curation | Menjadi objective terfokus di dalam unit |
 | `skills` | Mixed: source metadata + internal curation | Item paling atomik yang di-track mastery-nya |
-| `lesson_post_study_questions` | Mixed: Tatoeba/Bunpro candidates + internal curation | Bank soal canonical `10` slot-fill per lesson |
+| `lesson_post_study_questions` | Mixed: Tatoeba/Bunpro candidates + internal curation | Bank soal canonical `10` short-free-response per lesson |
 | `unit_skill_mappings` | Internal syllabus curation | Menentukan scope per unit dan urutan render |
 
 ### Skill Type Recommendations

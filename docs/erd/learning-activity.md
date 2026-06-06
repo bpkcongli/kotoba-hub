@@ -454,8 +454,8 @@ Kumpulan soal yang tergenerate di dalam satu practice session.
 | `id` | `char(36)` | PK | Internal question id. |
 | `session_id` | `char(36)` | FK -> `practice_sessions.id`, not null | Parent session. |
 | `skill_id` | `char(36)` | FK -> `skills.id`, not null | Skill utama yang diukur question ini. |
-| `question_type` | `varchar(50)` | not null | Mis. `SLOT_FILL`, `SHORT_FREE_RESPONSE`, `ARRANGE_TOKEN`. |
-| `grading_strategy` | `varchar(50)` | not null | Mis. `DETERMINISTIC`, `AI`. Untuk `SHORT_FREE_RESPONSE`, default MVP adalah `AI`. |
+| `question_type` | `varchar(50)` | not null | Mis. `SHORT_FREE_RESPONSE`, `SLOT_FILL`, `ARRANGE_TOKEN`, `FREE_RESPONSE`. |
+| `grading_strategy` | `varchar(50)` | not null | Mis. `DETERMINISTIC`, `AI`. Untuk `FREE_RESPONSE`, default MVP adalah `AI`. |
 | `difficulty_band` | `varchar(50)` | null | Band kategorikal final per soal random practice. |
 | `prompt_text` | `text` | not null | Prompt utama yang dirender ke UI. |
 | `prompt_payload` | `json` | null | Payload terstruktur untuk opsi, stimulus, atau media. |
@@ -470,24 +470,45 @@ Recommended constraints:
 
 ### Practice Grading Clarification
 - `grading_strategy` bergantung pada `question_type`.
-- Untuk question type yang deterministik seperti `SLOT_FILL` dan `ARRANGE_TOKEN`, default strategy adalah `DETERMINISTIC`.
-- Untuk `question_type = SHORT_FREE_RESPONSE`, default MVP dikunci ke `grading_strategy = AI`.
-- Artinya pada MVP, jawaban free-response pendek dinilai penuh oleh AI provider, lalu hasil terstrukturnya disimpan ke `practice_answers` dan diteruskan ke `progress`.
+- Untuk question type yang deterministik seperti `SHORT_FREE_RESPONSE`, `SLOT_FILL`, dan `ARRANGE_TOKEN`, default strategy adalah `DETERMINISTIC`.
+- Untuk `question_type = FREE_RESPONSE`, default MVP dikunci ke `grading_strategy = AI`.
+- Artinya pada MVP, jawaban free-response penuh dinilai oleh AI provider, lalu hasil terstrukturnya disimpan ke `practice_answers` dan diteruskan ke `progress`.
 - Lesson `post-study quiz` tidak membuat `practice_question`; grading deterministiknya berjalan langsung dari template `lesson_post_study_questions`.
 - Jika nanti ada rubric deterministic untuk sebagian free-response tertentu, itu dianggap evolusi setelah MVP, bukan baseline desain saat ini.
 
 ### Practice Question Type Clarification
 - `practice` MVP tidak lagi memakai `MULTIPLE_CHOICE` karena pola pilihan ganda sudah dicakup oleh activity `flashcards`.
+- Jika recommendation spec tidak menyuplai `allowed_question_types` atau hasilnya kosong, fallback default question type untuk random practice adalah `SHORT_FREE_RESPONSE`.
+- `SHORT_FREE_RESPONSE` dipakai untuk soal kalimat dengan satu slot kosong yang diisi lewat jawaban bebas singkat bahasa Jepang.
+- Pada `SHORT_FREE_RESPONSE`, UI menerima input romaji user lalu menjalankan transform ke kana sebelum jawaban final disubmit ke backend.
 - `SLOT_FILL` dipakai untuk soal kalimat dengan satu slot hilang yang harus diisi dari tepat empat opsi jawaban.
 - Pada `SLOT_FILL`, prompt utama berbentuk kalimat bahasa Jepang dengan satu slot kosong, dan seluruh opsi jawaban juga dalam bahasa Jepang.
-- `SHORT_FREE_RESPONSE` selalu memakai prompt bahasa Inggris dan jawaban bahasa Jepang.
-- Lesson `post-study quiz` bukan bagian dari `practice_questions`; bank soal baseline dikurasi di `syllabus.lesson_post_study_questions` sebagai `10` soal `SLOT_FILL` dengan difficulty `1..10`.
-- Pada `SHORT_FREE_RESPONSE`, UI menerima input romaji user lalu menjalankan transform ke kana atau kanji sebelum jawaban final disubmit ke backend.
 - `ARRANGE_TOKEN` dipakai untuk soal menyusun token/kata menjadi jawaban akhir yang benar.
 - `ARRANGE_TOKEN` boleh dipakai untuk arah `EN_TO_JA` maupun `JA_TO_EN`.
+- `FREE_RESPONSE` dipakai untuk soal menerjemahkan satu kalimat bahasa Inggris penuh ke kalimat bahasa Jepang penuh lewat jawaban bebas.
+- Pada `FREE_RESPONSE`, UI menerima input romaji user lalu menjalankan transform ke kana sebelum jawaban final disubmit ke backend.
+- Lesson `post-study quiz` bukan bagian dari `practice_questions`; bank soal baseline dikurasi di `syllabus.lesson_post_study_questions` sebagai `10` soal `SHORT_FREE_RESPONSE` dengan difficulty `1..10`.
 
-Recommended shape minimum untuk `practice_questions.prompt_payload`:
+Recommended shape minimum untuk `practice_questions.prompt_payload` per question type:
 
+#### `SHORT_FREE_RESPONSE`
+```json
+{
+  "schemaVersion": 1,
+  "promptLanguage": "JA",
+  "answerLanguage": "JA",
+  "slotCount": 1,
+  "sentenceTemplate": "わたし___がくせいです。",
+  "blankInputMode": "ROMAJI_TO_KANA",
+  "placeholder": "Answer here",
+  "inputMethod": {
+    "acceptsRomaji": true,
+    "transformsTo": "KANA"
+  }
+}
+```
+
+#### `SLOT_FILL`
 ```json
 {
   "schemaVersion": 1,
@@ -500,37 +521,86 @@ Recommended shape minimum untuk `practice_questions.prompt_payload`:
     { "id": "b", "label": "が" },
     { "id": "c", "label": "を" },
     { "id": "d", "label": "に" }
-  ],
+  ]
+}
+```
+
+#### `ARRANGE_TOKEN`
+```json
+{
+  "schemaVersion": 1,
+  "promptLanguage": "EN",
+  "answerLanguage": "JA",
+  "direction": "EN_TO_JA",
+  "sourceSentence": "I am a student.",
   "arrangeTokens": [
     { "id": "t1", "label": "わたし" },
     { "id": "t2", "label": "は" },
     { "id": "t3", "label": "がくせい" },
     { "id": "t4", "label": "です" }
-  ],
+  ]
+}
+```
+
+#### `FREE_RESPONSE`
+```json
+{
+  "schemaVersion": 1,
+  "promptLanguage": "EN",
+  "answerLanguage": "JA",
+  "sourceSentence": "I am a student.",
   "inputMethod": {
     "acceptsRomaji": true,
-    "transformsTo": "KANA_OR_KANJI"
+    "transformsTo": "KANA"
   }
 }
 ```
 
-Recommended shape minimum untuk `practice_questions.expected_answer_payload`:
+Recommended shape minimum untuk `practice_questions.expected_answer_payload` per question type:
 
+#### `SHORT_FREE_RESPONSE`
+```json
+{
+  "schemaVersion": 1,
+  "acceptedTextAnswers": ["は"],
+  "normalizationProfile": "kana-strict-v1"
+}
+```
+
+#### `SLOT_FILL`
 ```json
 {
   "schemaVersion": 1,
   "acceptedOptionIds": ["a"],
+  "normalizationProfile": "option-id-exact-v1"
+}
+```
+
+#### `ARRANGE_TOKEN`
+```json
+{
+  "schemaVersion": 1,
   "acceptedTokenSequences": [["t1", "t2", "t3", "t4"]],
+  "normalizationProfile": "token-order-exact-v1"
+}
+```
+
+#### `FREE_RESPONSE`
+```json
+{
+  "schemaVersion": 1,
+  "referenceAnswers": ["わたしはがくせいです。", "私は学生です。"],
   "acceptedTextAnswers": ["わたしはがくせいです", "私は学生です"],
-  "rubricVersion": "practice-short-free-response-v1"
+  "rubricVersion": "practice-free-response-v1"
 }
 ```
 
 Panduan isi field:
+- `acceptedTextAnswers` dipakai untuk `SHORT_FREE_RESPONSE` dan boleh juga dipakai sebagai normalization anchor untuk `FREE_RESPONSE`.
 - `acceptedOptionIds` dipakai untuk `SLOT_FILL`.
 - `acceptedTokenSequences` dipakai untuk `ARRANGE_TOKEN`.
-- `acceptedTextAnswers` adalah daftar jawaban target yang sudah dinormalisasi untuk `SHORT_FREE_RESPONSE`.
-- `rubricVersion` dipakai saat question membutuhkan grading rubric berbasis AI.
+- `referenceAnswers` dipakai untuk `FREE_RESPONSE` sebagai jawaban acuan utama.
+- `rubricVersion` dipakai saat question membutuhkan grading rubric berbasis AI, terutama untuk `FREE_RESPONSE`.
 
 ### `practice_answers`
 Jawaban user terhadap question di `practice`, termasuk hasil grading dan feedback.

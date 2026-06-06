@@ -103,6 +103,7 @@ Query params:
 Behavior:
 - Timeline diurutkan descending berdasarkan `answered_at`.
 - Satu item timeline merepresentasikan satu `progress_event`.
+- Untuk `PRACTICE` dan `LESSON_POST_STUDY`, nilai `questionType` mengikuti vocabulary `SHORT_FREE_RESPONSE`, `SLOT_FILL`, `ARRANGE_TOKEN`, atau `FREE_RESPONSE` sesuai question yang dijawab. Baseline canonical post-study saat ini memakai `SHORT_FREE_RESPONSE`.
 - Endpoint ini cocok untuk activity feed, audit ringan, dan debugging user-facing.
 
 Success response:
@@ -126,19 +127,19 @@ Success response:
     "progressEvents": [
       {
         "id": "uuid",
-        "sourceType": "FLASHCARD",
-        "sourceSessionId": "uuid",
+        "sourceType": "LESSON_POST_STUDY",
+        "sourceSessionId": null,
         "sourceEntityId": "uuid",
-        "questionType": "HIRAGANA_CHARACTER",
-        "skillCode": "hiragana_basic",
-        "skillTitle": "Hiragana Basics",
+        "questionType": "SHORT_FREE_RESPONSE",
+        "skillCode": "hiragana_a_row",
+        "skillTitle": "Hiragana A Row",
         "trackSlug": "jlpt-n5-foundation",
         "unitSlug": "n5-kana-basics",
         "lessonSlug": "hiragana-row-a",
         "isCorrect": true,
         "numericScore": 100,
         "confidenceWeight": 0.8,
-        "responseTimeMs": 1800,
+        "responseTimeMs": 2100,
         "answeredAt": "2026-04-04T10:20:00Z"
       }
     ]

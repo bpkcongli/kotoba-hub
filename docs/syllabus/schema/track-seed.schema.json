@@ -808,7 +808,7 @@
         "questionType": {
           "type": "string",
           "enum": [
-            "SLOT_FILL"
+            "SHORT_FREE_RESPONSE"
           ]
         },
         "promptText": {
@@ -822,8 +822,10 @@
             "schemaVersion",
             "sentenceTemplate",
             "promptLanguage",
-            "optionLanguage",
-            "options"
+            "answerLanguage",
+            "slotCount",
+            "blankInputMode",
+            "inputMethod"
           ],
           "properties": {
             "schemaVersion": {
@@ -838,30 +840,35 @@
               "type": "string",
               "const": "JA"
             },
-            "optionLanguage": {
+            "answerLanguage": {
               "type": "string",
               "const": "JA"
             },
-            "options": {
-              "type": "array",
-              "minItems": 4,
-              "maxItems": 4,
-              "items": {
-                "type": "object",
-                "additionalProperties": false,
-                "required": [
-                  "id",
-                  "label"
-                ],
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "label": {
-                    "type": "string",
-                    "minLength": 1
-                  }
+            "slotCount": {
+              "type": "integer",
+              "const": 1
+            },
+            "blankInputMode": {
+              "type": "string",
+              "const": "ROMAJI_TO_KANA"
+            },
+            "placeholder": {
+              "type": "string"
+            },
+            "inputMethod": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "acceptsRomaji",
+                "transformsTo"
+              ],
+              "properties": {
+                "acceptsRomaji": {
+                  "type": "boolean"
+                },
+                "transformsTo": {
+                  "type": "string",
+                  "const": "KANA"
                 }
               }
             }
@@ -871,10 +878,18 @@
           "type": "object",
           "additionalProperties": false,
           "required": [
-            "correctOptionId"
+            "acceptedTextAnswers"
           ],
           "properties": {
-            "correctOptionId": {
+            "acceptedTextAnswers": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "normalizationProfile": {
               "type": "string",
               "minLength": 1
             }

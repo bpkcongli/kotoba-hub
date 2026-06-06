@@ -47,9 +47,10 @@
 | Onboarding | `HF Onboarding Mobile` | `HF Onboarding Desktop` |
 | Syllabus map | `HF Syllabus Mobile` | `HF Syllabus Desktop` |
 | Flashcards | `HF Flashcards Mobile` | `HF Flashcards Desktop` |
-| Practice `SLOT_FILL` | `HF Practice Slot Fill Mobile` | `HF Practice Slot Fill Desktop` |
 | Practice `SHORT_FREE_RESPONSE` | `HF Practice Short Free Mobile` | `HF Practice Short Free Desktop` |
+| Practice `SLOT_FILL` | `HF Practice Slot Fill Mobile` | `HF Practice Slot Fill Desktop` |
 | Practice `ARRANGE_TOKEN` | `HF Practice Arrange Token Mobile` | `HF Practice Arrange Token Desktop` |
+| Practice `FREE_RESPONSE` | `HF Practice Free Response Mobile` | `HF Practice Free Response Desktop` |
 | Progress | `HF Progress Mobile` | `HF Progress Desktop` |
 
 ## High-Fidelity Direction Locked
@@ -125,6 +126,7 @@
 - Atas permintaan task ini, high-fidelity juga menambahkan eksplorasi visual untuk:
   - `SHORT_FREE_RESPONSE`
   - `ARRANGE_TOKEN`
+  - `FREE_RESPONSE`
 - Ketiga varian ini mengikuti kontrak `practice` yang sudah dikunci di [practice.md](../api-contract/practice.md), [openapi.practice.yaml](../api-contract/openapi.practice.yaml), dan [enum-like-string-reference.md](../enum-like-string-reference.md).
 - Catatan alignment:
   - `DS-06` tetap benar sebagai baseline low-fidelity MVP yang fokus ke `SLOT_FILL`
@@ -149,11 +151,11 @@
 - `IMP-12` mengikuti login dan onboarding hi-fi sebagai baseline auth + wizard UI.
 - `IMP-13` mengikuti syllabus hi-fi untuk lane structure, support panel, dan CTA rhythm.
 - `IMP-14` mengikuti flashcard hi-fi terutama pada setup state, locked script pair, active card, dan inline feedback.
-- `IMP-15` mengikuti practice hi-fi dengan `SLOT_FILL` sebagai baseline utama, lalu mempertimbangkan dua varian tambahan bila implementasi practice scope memang mencakupnya.
+- `IMP-15` mengikuti practice hi-fi dengan `SLOT_FILL` sebagai baseline utama, lalu mempertimbangkan tiga varian tambahan bila implementasi practice scope memang mencakupnya.
 - `IMP-16` mengikuti progress hi-fi untuk metric hierarchy, chart container, dan weak-skill action pattern.
 
 ## Documentation Note
 - Jika nanti `DS-06` ingin ikut mencerminkan seluruh practice question type yang sekarang sudah muncul pada kontrak API, wireframe low-fidelity practice dapat diperluas di task dokumentasi lanjutan.
-- Untuk saat ini, `DS-06` tetap diperlakukan sebagai baseline struktur awal, sementara `DS-08` sudah memvalidasi arah visual untuk tiga question type practice yang paling relevan dengan kontrak MVP.
+- Untuk saat ini, `DS-06` tetap diperlakukan sebagai baseline struktur awal, sementara `DS-08` sudah memvalidasi arah visual untuk empat question type practice yang paling relevan dengan kontrak MVP.
 - Penambahan `lesson_content_blocks` pada domain syllabus belum sepenuhnya divisualisasikan sebagai lesson study surface tersendiri pada hi-fi saat ini.
 - Follow-up alignment design tersebut dilacak di [tech-debt-register.md](../tech-debt-register.md) item `TD-001`.

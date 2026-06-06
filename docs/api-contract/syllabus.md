@@ -191,7 +191,7 @@ Behavior:
 - Menyertakan ringkasan parent unit dan parent track.
 - Jika `includeContentBlocks=true`, `contentBlocks` diurutkan berdasarkan `sort_order`.
 - Jika `includeSkills=true`, response tetap menyertakan skill introduksi utama lesson.
-- Response juga menyertakan metadata `postStudyQuiz` agar UI tahu bahwa lesson wajib dilanjutkan ke quiz lesson deterministik berisi tepat `1` soal dari bank `10` tingkat kesulitan. Pengambilan soal dan submit jawaban dilakukan melalui endpoint direct `practice/lesson-post-study/*`, bukan melalui practice session.
+- Response juga menyertakan metadata `postStudyQuiz` agar UI tahu bahwa lesson wajib dilanjutkan ke quiz lesson deterministik berisi tepat `1` soal `SHORT_FREE_RESPONSE` dari bank `10` tingkat kesulitan. Pengambilan soal dan submit jawaban dilakukan melalui endpoint direct `practice/lesson-post-study/*`, bukan melalui practice session.
 
 Success response:
 
@@ -235,7 +235,7 @@ Success response:
       "isRequired": true,
       "practiceMode": "DIRECT_LESSON_POST_STUDY",
       "deliveryMode": "DETERMINISTIC_CURATED",
-      "questionType": "SLOT_FILL",
+      "questionType": "SHORT_FREE_RESPONSE",
       "questionCountPerAttempt": 1,
       "bankQuestionCount": 10,
       "difficultyLevelStart": 1,

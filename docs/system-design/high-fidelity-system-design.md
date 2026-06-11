@@ -46,11 +46,14 @@
 | Login | `HF Login Mobile` | `HF Login Desktop` |
 | Onboarding | `HF Onboarding Mobile` | `HF Onboarding Desktop` |
 | Syllabus map | `HF Syllabus Mobile` | `HF Syllabus Desktop` |
+| Lesson overview | `HF Lesson Overview Mobile` | `HF Lesson Overview Desktop` |
+| Lesson post-study quiz | `HF Lesson Post-Study Quiz Mobile` | `HF Lesson Post-Study Quiz Desktop` |
 | Flashcards | `HF Flashcards Mobile` | `HF Flashcards Desktop` |
 | Practice `SHORT_FREE_RESPONSE` | `HF Practice Short Free Mobile` | `HF Practice Short Free Desktop` |
 | Practice `SLOT_FILL` | `HF Practice Slot Fill Mobile` | `HF Practice Slot Fill Desktop` |
 | Practice `ARRANGE_TOKEN` | `HF Practice Arrange Token Mobile` | `HF Practice Arrange Token Desktop` |
 | Practice `FREE_RESPONSE` | `HF Practice Free Response Mobile` | `HF Practice Free Response Desktop` |
+| Lesson completion cues | `HF Lesson Completion Mobile` | `HF Lesson Completion Desktop` |
 | Progress | `HF Progress Mobile` | `HF Progress Desktop` |
 
 ## High-Fidelity Direction Locked
@@ -115,6 +118,20 @@
 ### Syllabus
 - High-fidelity tetap mempertahankan `structured learning path`, bukan card feed.
 - Support panel desktop dipakai untuk selected unit context, weak skill signal, dan entry action ke lesson atau activity.
+- Syllabus hi-fi kini juga perlu menunjukkan vocabulary state lesson yang konsisten:
+  - `not started`
+  - `reading`
+  - `quiz required`
+  - `completed`
+
+### Lesson Overview And Post-Study Quiz
+- Lesson overview hi-fi menampilkan `contentBlocks` sebagai reading surface utama, bukan sekadar CTA wrapper menuju activity.
+- CTA `post-study quiz` harus terlihat sebagai langkah wajib setelah reading selesai, dengan cue difficulty target dari bank `1-10`.
+- Screen post-study quiz harus menegaskan bahwa flow ini adalah direct lesson quiz, bukan `practice_session`.
+- State hasil benar perlu menunjukkan:
+  - understanding delta, misalnya `0 -> 1`
+  - completion confirmation saat level menjadi `>= 1`
+  - optional review ladder hingga `10`
 
 ### Flashcards
 - High-fidelity mempertahankan keputusan UX bahwa `questionScriptMode` dan `answerScriptMode` dikunci sebelum session aktif.
@@ -122,20 +139,22 @@
 - Desktop side rail dipakai untuk metadata ringan dan kanji detail, bukan chrome distraktif.
 
 ### Practice
-- Varian utama yang tetap dianggap baseline dari low-fidelity adalah `SLOT_FILL`.
-- Atas permintaan task ini, high-fidelity juga menambahkan eksplorasi visual untuk:
+- High-fidelity practice mengikuti kontrak `practice` terbaru, dengan `SHORT_FREE_RESPONSE` sebagai fallback default random practice session.
+- Screen hi-fi pada Figma mencakup seluruh `questionType` practice MVP saat ini:
   - `SHORT_FREE_RESPONSE`
+  - `SLOT_FILL`
   - `ARRANGE_TOKEN`
   - `FREE_RESPONSE`
-- Ketiga varian ini mengikuti kontrak `practice` yang sudah dikunci di [practice.md](../api-contract/practice.md), [openapi.practice.yaml](../api-contract/openapi.practice.yaml), dan [enum-like-string-reference.md](../enum-like-string-reference.md).
+- Keempat varian ini mengikuti kontrak `practice` yang sudah dikunci di [practice.md](../api-contract/practice.md), [openapi.practice.yaml](../api-contract/openapi.practice.yaml), dan [enum-like-string-reference.md](../enum-like-string-reference.md).
 - Catatan alignment:
-  - `DS-06` tetap benar sebagai baseline low-fidelity MVP yang fokus ke `SLOT_FILL`
-  - `DS-08` memperluas hi-fi practice sebagai validasi visual tambahan berdasarkan kontrak API terbaru
-  - perluasan ini tidak membatalkan posisi `SLOT_FILL` sebagai default varian practice yang paling matang di wireframe awal
+  - `DS-06` sekarang ikut memvisualisasikan empat `questionType` practice yang sedang aktif pada kontrak MVP
+  - `DS-08` menerjemahkan struktur yang sama ke visual final dengan treatment grading deterministic vs AI yang berbeda
+  - lesson `post-study quiz` tetap berada di jalur terpisah dan tidak memakai screen `practice_session`
 
 ### Progress
 - Progress dashboard tetap instructional dan action-oriented.
 - Grafik, summary metric, dan weak-skill CTA dibatasi agar tidak berubah menjadi analytics-heavy admin panel.
+- Progress hi-fi perlu menampilkan completion cue lesson yang sejalan dengan syllabus, termasuk jumlah lesson `completed`, `quiz required`, dan understanding ladder yang paling relevan.
 
 ## Implementation Handoff
 
@@ -150,12 +169,11 @@
 ### For `IMP-12` To `IMP-16`
 - `IMP-12` mengikuti login dan onboarding hi-fi sebagai baseline auth + wizard UI.
 - `IMP-13` mengikuti syllabus hi-fi untuk lane structure, support panel, dan CTA rhythm.
+- `IMP-13` juga mengikuti lesson overview dan lesson post-study quiz hi-fi untuk surface baca, CTA quiz wajib, dan completion confirmation state.
 - `IMP-14` mengikuti flashcard hi-fi terutama pada setup state, locked script pair, active card, dan inline feedback.
-- `IMP-15` mengikuti practice hi-fi dengan `SLOT_FILL` sebagai baseline utama, lalu mempertimbangkan tiga varian tambahan bila implementasi practice scope memang mencakupnya.
-- `IMP-16` mengikuti progress hi-fi untuk metric hierarchy, chart container, dan weak-skill action pattern.
+- `IMP-15` mengikuti practice hi-fi dengan `SHORT_FREE_RESPONSE` sebagai fallback default, lalu tetap mendukung `SLOT_FILL`, `ARRANGE_TOKEN`, dan `FREE_RESPONSE` sesuai `questionType` yang dikirim backend.
+- `IMP-16` mengikuti progress hi-fi untuk metric hierarchy, chart container, weak-skill action pattern, dan lesson completion state summary.
 
 ## Documentation Note
-- Jika nanti `DS-06` ingin ikut mencerminkan seluruh practice question type yang sekarang sudah muncul pada kontrak API, wireframe low-fidelity practice dapat diperluas di task dokumentasi lanjutan.
-- Untuk saat ini, `DS-06` tetap diperlakukan sebagai baseline struktur awal, sementara `DS-08` sudah memvalidasi arah visual untuk empat question type practice yang paling relevan dengan kontrak MVP.
-- Penambahan `lesson_content_blocks` pada domain syllabus belum sepenuhnya divisualisasikan sebagai lesson study surface tersendiri pada hi-fi saat ini.
-- Follow-up alignment design tersebut dilacak di [tech-debt-register.md](../tech-debt-register.md) item `TD-001`.
+- `DS-06` dan `DS-08` sekarang sama-sama merepresentasikan empat `questionType` practice yang aktif pada kontrak MVP.
+- `TD-001` dan `TD-002` kini divisualisasikan pada section Figma `Codex / TD-001 TD-002 Hi-Fi`.

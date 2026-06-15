@@ -17,7 +17,7 @@
 - Menyediakan read model yang cukup untuk dua kebutuhan utama MVP: onboarding reference data dan syllabus exploration.
 - Menjaga `GET /api/v1/syllabus` tetap ringan dan mudah dipaginasi.
 - Menjaga `GET /api/v1/syllabus/units/{unitSlug}` tetap menjadi detail tree utama untuk unit, lesson summary, dan skill mapping.
-- Menyediakan endpoint lesson detail yang khusus memuat paragraf penjelasan materi tanpa membebani response unit detail.
+- Menyediakan endpoint lesson detail yang khusus memuat blok materi lesson tanpa membebani response unit detail.
 - Menyediakan metadata lesson yang cukup untuk memulai `post-study quiz` sesudah learner selesai membaca materi, sambil tetap menempatkan bank soal canonical di source-of-truth `syllabus`.
 
 ## Endpoint Summary
@@ -26,7 +26,7 @@
 | --- | --- | --- | --- |
 | `GET` | `/api/v1/syllabus` | Mengambil daftar track syllabus yang dipublikasikan | Authenticated session |
 | `GET` | `/api/v1/syllabus/units/{unitSlug}` | Mengambil detail satu unit lengkap dengan lesson summary dan skill | Authenticated + onboarding completed |
-| `GET` | `/api/v1/syllabus/lessons/{lessonSlug}` | Mengambil detail satu lesson lengkap dengan paragraf penjelasan materi | Authenticated + onboarding completed |
+| `GET` | `/api/v1/syllabus/lessons/{lessonSlug}` | Mengambil detail satu lesson lengkap dengan blok materi lesson | Authenticated + onboarding completed |
 
 ## Authorization Rules
 - `GET /api/v1/syllabus` boleh diakses oleh user dengan state `ONBOARDING_REQUIRED` maupun `APP_READY`, karena onboarding wizard perlu membaca target level dan reference catalog awal.
@@ -171,7 +171,7 @@ Success response:
 ```
 
 ### `GET /api/v1/syllabus/lessons/{lessonSlug}`
-Mengambil detail satu lesson, lengkap dengan parent unit, parent track, paragraf penjelasan materi, dan skill yang diperkenalkan lesson tersebut.
+Mengambil detail satu lesson, lengkap dengan parent unit, parent track, blok materi lesson, dan skill yang diperkenalkan lesson tersebut.
 
 Path params:
 
@@ -190,6 +190,7 @@ Behavior:
 - Mengembalikan lesson published yang valid.
 - Menyertakan ringkasan parent unit dan parent track.
 - Jika `includeContentBlocks=true`, `contentBlocks` diurutkan berdasarkan `sort_order`.
+- Setiap item `contentBlocks` membawa satu field `content` bertipe JSON; shape payload di dalamnya bergantung pada `blockType`.
 - Jika `includeSkills=true`, response tetap menyertakan skill introduksi utama lesson.
 - Response juga menyertakan metadata `postStudyQuiz` agar UI tahu bahwa lesson wajib dilanjutkan ke quiz lesson deterministik berisi tepat `1` soal `SHORT_FREE_RESPONSE` dari bank `10` tingkat kesulitan. Pengambilan soal dan submit jawaban dilakukan melalui endpoint direct `practice/lesson-post-study/*`, bukan melalui practice session.
 
@@ -226,9 +227,20 @@ Success response:
       {
         "id": "uuid",
         "blockType": "PARAGRAPH",
-        "title": "Core Sound Pattern",
-        "body": "The A-row introduces the five core vowel sounds used throughout later lessons.",
+        "content": {
+          "title": "Core Sound Pattern",
+          "body": "<p>The A-row introduces the five core vowel sounds used throughout later lessons.</p>"
+        },
         "sortOrder": 1
+      },
+      {
+        "id": "uuid",
+        "blockType": "EXAMPLE_SENTENCE",
+        "content": {
+          "japaneseSentence": "<p>あさです。</p>",
+          "englishTranslation": "<p>It is morning.</p>"
+        },
+        "sortOrder": 2
       }
     ],
     "postStudyQuiz": {

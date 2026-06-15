@@ -9,7 +9,7 @@
 - Menjaga hirarki kurikulum tetap jelas untuk kebutuhan navigation, onboarding, progress attribution, dan practice generation.
 - Mendukung syllabus yang read-only dan seeded from repo pada MVP, tetapi tetap siap diekstensi untuk level `N3 -> N2`.
 - Menyediakan metadata skill yang cukup untuk dipakai oleh `progress`, `personalization`, `flashcards`, dan `practice` tanpa membuat module lain membuat katalog sendiri.
-- Menyediakan tempat first-class untuk paragraf penjelasan materi di level `lesson` tanpa mencampur narasi belajar ke field summary seperti `learning_objective` atau `skills.description`.
+- Menyediakan tempat first-class untuk blok materi lesson di level `lesson` tanpa mencampur narasi belajar ke field summary seperti `learning_objective` atau `skills.description`.
 - Menyediakan tempat first-class untuk penjelasan struktur grammar opsional di level `lesson` tanpa memaksa semua lesson membawa row tabel tambahan saat kontennya tidak ada.
 - Menjadikan bank soal `post-study quiz` deterministik sebagai bagian dari kurikulum resmi lesson, bukan hasil generation AI per request.
 - Menjaga `lesson_post_study_questions` tetap sebagai bank soal canonical, bukan histori pemahaman user; histori/latest understanding disimpan di domain `progress` melalui `lesson_understanding_snapshots`.
@@ -70,8 +70,7 @@ erDiagram
         char(36) id PK
         char(36) lesson_id FK
         varchar(50) block_type
-        varchar(255) title
-        text body
+        json content
         int sort_order
         boolean is_published
         timestamp created_at
@@ -84,7 +83,6 @@ erDiagram
         char(36) skill_id FK
         int difficulty_level
         varchar(50) question_type
-        text prompt_text
         json prompt_payload
         json expected_answer_payload
         text explanation_text
@@ -128,7 +126,7 @@ erDiagram
 ## Relationship Notes
 - `tracks 1 -> N units`: satu track mewakili ladder/fase besar belajar, misalnya `jlpt-n5-foundation`.
 - `units 1 -> N lessons`: satu unit mengelompokkan lesson per topik atau objective belajar.
-- `lessons 1 -> N lesson_content_blocks`: satu lesson dapat memiliki beberapa blok penjelasan berurutan untuk membentuk materi baca utama.
+- `lessons 1 -> N lesson_content_blocks`: satu lesson dapat memiliki beberapa blok materi berurutan untuk membentuk reading surface utama.
 - `lessons -> grammar structure payload (0 or 1 payload)`: satu lesson boleh menyimpan satu payload `grammarStructures` opsional langsung pada row `lessons`, berupa object JSON yang dapat memuat `ALL`, `STANDARD`, `POLITE`, atau kombinasi yang relevan; setiap key boleh `null`, tetapi minimal satu key harus berisi HTML.
 - `lessons 1 -> N lesson_post_study_questions`: satu lesson memiliki bank soal kurasi untuk `post-study quiz`; baseline MVP menargetkan tepat `10` soal `SHORT_FREE_RESPONSE` per lesson dengan tepat satu soal untuk setiap difficulty `1 -> 10`.
 - `lessons 1 -> N skills`: pada MVP, skill diintroduksi dari satu lesson utama agar attribution ke lesson tetap sederhana.
@@ -202,15 +200,14 @@ Recommended constraints:
 - check constraint `lessons_grammar_structures_payload_non_empty_ck` agar payload grammar yang tidak `null` memiliki minimal satu key dengan HTML string non-kosong
 
 ### `lesson_content_blocks`
-Blok materi baca yang ditampilkan pada screen belajar lesson. Baseline awalnya dipakai untuk paragraf penjelasan berurutan yang dikurasi internal.
+Blok materi baca yang ditampilkan pada screen belajar lesson. Setiap row menyimpan satu `block_type` dan satu payload `content` JSON agar bentuk kontennya bisa berkembang tanpa menambah kolom tabel baru untuk setiap variasi block.
 
 | Column | Type | Constraint | Notes |
 | --- | --- | --- | --- |
 | `id` | `char(36)` | PK | Internal content block id. |
 | `lesson_id` | `char(36)` | FK -> `lessons.id`, not null | Parent lesson. |
-| `block_type` | `varchar(50)` | not null | Tipe blok konten. Baseline awal dikunci ke `PARAGRAPH`. |
-| `title` | `varchar(255)` | null | Judul blok opsional bila satu paragraf perlu heading kecil. |
-| `body` | `text` | not null | Isi narasi/paragraf utama yang ditampilkan ke learner dalam format HTML. |
+| `block_type` | `varchar(50)` | not null | Tipe blok konten, mis. `PARAGRAPH` atau `EXAMPLE_SENTENCE`. |
+| `content` | `json` | not null | Payload block. Untuk `PARAGRAPH`, object ini dapat memuat `title` opsional dan `body` HTML. Untuk `EXAMPLE_SENTENCE`, object ini memuat `japaneseSentence` dan `englishTranslation` dalam HTML. |
 | `sort_order` | `int` | not null | Urutan render blok di dalam lesson. |
 | `is_published` | `boolean` | not null default `false` | Kontrol visibility block agar draft content bisa disiapkan tanpa langsung tampil. |
 | `created_at` | `timestamp` | not null | Audit create time. |
@@ -219,7 +216,8 @@ Blok materi baca yang ditampilkan pada screen belajar lesson. Baseline awalnya d
 Recommended constraints:
 - unique composite `(`lesson_id`, `sort_order`)`
 - index `lesson_content_blocks_lesson_id_idx` pada `lesson_id`
-- check constraint `lesson_content_blocks_block_type_ck` untuk baseline value `PARAGRAPH`
+- check constraint `lesson_content_blocks_block_type_ck` untuk baseline values `PARAGRAPH` dan `EXAMPLE_SENTENCE`
+- validasi shape `content` berdasarkan `block_type` lebih aman ditegakkan di importer, app schema, atau CI check dibanding DB constraint yang terlalu spesifik vendor
 
 ### `lesson_post_study_questions`
 Bank soal deterministik yang dikurasi khusus untuk `post-study quiz` setelah learner selesai membaca satu lesson. Tabel ini bukan tabel user progress atau histori review.
@@ -231,8 +229,7 @@ Bank soal deterministik yang dikurasi khusus untuk `post-study quiz` setelah lea
 | `skill_id` | `char(36)` | FK -> `skills.id`, not null | Skill utama yang diuji oleh soal. |
 | `difficulty_level` | `int` | not null | Tangga kesulitan deterministik lesson, baseline `1` sampai `10`. Difficulty diartikan sebagai panjang dan kompleksitas kalimat/prompt, bukan adaptive band dari personalization. |
 | `question_type` | `varchar(50)` | not null | Baseline MVP dikunci ke `SHORT_FREE_RESPONSE`. |
-| `prompt_text` | `text` | not null | Kalimat utama yang akan dirender di quiz lesson. |
-| `prompt_payload` | `json` | not null | Payload render `SHORT_FREE_RESPONSE`, termasuk `sentenceTemplate`, metadata slot kosong, dan metadata input romaji ke kana. |
+| `prompt_payload` | `json` | not null | Payload render `SHORT_FREE_RESPONSE`, termasuk `sentenceTemplate` plain-text, `sentenceTemplateHtml` untuk UI, metadata slot kosong, dan metadata input romaji ke kana. |
 | `expected_answer_payload` | `json` | not null | Kunci jawaban deterministik, mis. `acceptedTextAnswers`, normalisasi kana, dan metadata rule match lain. |
 | `explanation_text` | `text` | null | Penjelasan singkat dalam format HTML yang boleh ditampilkan setelah grading. |
 | `source_provider` | `varchar(50)` | not null | Provider utama asal contoh/kalimat, mis. `TATOEBA`, `BUNPRO`, atau `KOTOBAHUB_INTERNAL`. |
@@ -300,23 +297,24 @@ Recommended constraints:
 - `personalization` membaca level, urutan, dan metadata skill untuk membangun recommendation awal dan next-best lesson hint.
 - `practice` dan `flashcards` membaca support flags di `skills` untuk membatasi jenis aktivitas yang valid per skill.
 - `practice` membaca `lesson_post_study_questions` saat perlu memilih direct question untuk lesson `post-study quiz`; ia tidak menjadi owner canonical bank soal lesson dan tidak menyimpan histori pemahaman lesson.
-- UI lesson study surface membaca `lesson_content_blocks` sebagai sumber utama paragraf penjelasan materi yang dibaca user sebelum atau saat menjalankan aktivitas belajar terkait, termasuk sebelum memulai `post-study quiz` lesson.
+- UI lesson study surface membaca `lesson_content_blocks` sebagai sumber utama blok materi yang dibaca user sebelum atau saat menjalankan aktivitas belajar terkait, termasuk sebelum memulai `post-study quiz` lesson.
 - UI lesson study surface juga membaca `lessons.grammar_structures_payload` bila lesson memiliki penjelasan struktur grammar khusus yang perlu dirender terpisah dari `content_blocks`.
 - `unit_skill_mappings` memberi query path yang stabil saat sistem butuh daftar skill per unit tanpa harus selalu menurunkannya ulang dari tree lesson.
 
 ## Constraints And Assumptions
 - Pada MVP, satu skill diintroduksi oleh satu `lesson` utama. Jika nanti satu skill perlu muncul sebagai objective utama di banyak lesson, skema ini bisa diperluas lewat tabel mapping tambahan tanpa mematahkan relation yang ada.
 - `lesson_content_blocks` sengaja diposisikan di level `lesson`, bukan `skill`, agar satu objective belajar bisa memiliki narasi pengantar yang koheren walau lesson tersebut memperkenalkan lebih dari satu skill.
+- `lesson_content_blocks.content` sengaja dibuat sebagai `json` agar kebutuhan block baru tidak memaksa penambahan kolom seperti `title`, `body`, `japanese_sentence`, atau `english_translation` langsung di tabel relasional.
 - `grammarStructures` saat ini direpresentasikan sebagai satu field JSON nullable di `lessons`, bukan tabel terpisah, karena satu lesson dapat membawa payload `ALL`, `STANDARD`, `POLITE`, atau kombinasinya sekaligus, termasuk kombinasi sebagian `null`, dan belum ada kebutuhan query relasional yang menuntut row terpisah.
 - `lesson_post_study_questions` sengaja diposisikan di domain `syllabus`, bukan `practice` atau `progress`, karena bank soal ini adalah bagian dari kurikulum resmi yang dikurasi dan seeded dari repo.
-- `block_type` saat ini dikunci ke `PARAGRAPH` untuk menjaga ruang lingkup MVP tetap sederhana, tetapi nama tabel dibuat generik agar ekspansi ke tipe blok lain tetap memungkinkan tanpa rename arsitektur inti.
+- `block_type` baseline saat ini mencakup `PARAGRAPH` dan `EXAMPLE_SENTENCE`, sementara variasi field per block ditaruh di payload `content` agar nama tabel dan skema relasi inti tetap stabil saat block baru bertambah.
 - `unit_skill_mappings` dipertahankan sebagai tabel eksplisit walau sebagian informasinya bisa diturunkan dari `skills.lesson_id`; alasannya adalah kebutuhan query cepat, urutan render, dan kemungkinan reinforcement skill lintas lesson dalam unit yang sama.
 - `prerequisite_skill_codes` disimpan sebagai `json` pada tahap awal agar task `SYL-01` sampai `SYL-07` bisa bergerak lebih cepat sebelum dependency graph skill benar-benar final.
 - Untuk lesson yang dipublish pada MVP, target editorialnya adalah tepat `10` soal `post-study quiz` `SHORT_FREE_RESPONSE` per lesson dengan difficulty ladder `1..10`, walau enforcement penuh dapat tetap dilakukan di importer/CI pada fase implementasi.
 - Syllabus tetap read-only pada MVP; perubahan isi katalog diasumsikan datang dari seed file atau migration internal, bukan CMS.
 
 ## Out Of Scope For This ERD
-- Konten materi detail selain paragraf penjelasan lesson, seperti audio, media asset, atau interactive embed.
+- Konten materi detail lain yang memerlukan asset atau tabel pendukung terpisah, seperti audio, media asset, atau interactive embed.
 - Tabel progress turunan seperti lesson completion, unit completion, atau mastery snapshot; itu masuk domain `progress`.
 - Tabel deck flashcard; area itu tetap berada di domain `flashcards`.
 - Tabel session/result practice; area itu tetap berada di domain `practice`, walau `practice` mengonsumsi bank soal lesson resmi dari `syllabus`.

@@ -211,7 +211,7 @@ paths:
       summary: Get syllabus lesson detail
       description: |
         Mengambil detail satu lesson lengkap dengan parent unit, parent track,
-        paragraf penjelasan materi, skill yang diperkenalkan lesson tersebut,
+        blok materi lesson, skill yang diperkenalkan lesson tersebut,
         dan metadata untuk memulai post-study quiz.
       operationId: getSyllabusLessonDetail
       security:
@@ -270,9 +270,16 @@ paths:
                   contentBlocks:
                     - id: bb0e8400-e29b-41d4-a716-446655440666
                       blockType: PARAGRAPH
-                      title: Core Sound Pattern
-                      body: The A-row introduces the five core vowel sounds used throughout later lessons.
+                      content:
+                        title: Core Sound Pattern
+                        body: <p>The A-row introduces the five core vowel sounds used throughout later lessons.</p>
                       sortOrder: 1
+                    - id: cb0e8400-e29b-41d4-a716-446655440667
+                      blockType: EXAMPLE_SENTENCE
+                      content:
+                        japaneseSentence: <p>あさです。</p>
+                        englishTranslation: <p>It is morning.</p>
+                      sortOrder: 2
                   postStudyQuiz:
                     isRequired: true
                     practiceMode: DIRECT_LESSON_POST_STUDY
@@ -576,12 +583,16 @@ components:
           items:
             $ref: '#/components/schemas/SyllabusSkill'
     SyllabusLessonContentBlock:
+      oneOf:
+        - $ref: '#/components/schemas/SyllabusParagraphContentBlock'
+        - $ref: '#/components/schemas/SyllabusExampleSentenceContentBlock'
+    SyllabusParagraphContentBlock:
       type: object
       additionalProperties: false
       required:
         - id
         - blockType
-        - body
+        - content
         - sortOrder
       properties:
         id:
@@ -591,13 +602,55 @@ components:
           type: string
           enum:
             - PARAGRAPH
+        content:
+          $ref: '#/components/schemas/SyllabusParagraphContentBlockPayload'
+        sortOrder:
+          type: integer
+    SyllabusExampleSentenceContentBlock:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - blockType
+        - content
+        - sortOrder
+      properties:
+        id:
+          type: string
+          format: uuid
+        blockType:
+          type: string
+          enum:
+            - EXAMPLE_SENTENCE
+        content:
+          $ref: '#/components/schemas/SyllabusExampleSentenceContentBlockPayload'
+        sortOrder:
+          type: integer
+    SyllabusParagraphContentBlockPayload:
+      type: object
+      additionalProperties: false
+      required:
+        - body
+      properties:
         title:
           type: string
           nullable: true
         body:
           type: string
-        sortOrder:
-          type: integer
+          description: HTML string for paragraph content.
+    SyllabusExampleSentenceContentBlockPayload:
+      type: object
+      additionalProperties: false
+      required:
+        - japaneseSentence
+        - englishTranslation
+      properties:
+        japaneseSentence:
+          type: string
+          description: HTML string for the Japanese sentence.
+        englishTranslation:
+          type: string
+          description: HTML string for the English translation.
     SyllabusLessonPostStudyQuiz:
       type: object
       additionalProperties: false

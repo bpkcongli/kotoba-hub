@@ -93,13 +93,13 @@ Success response:
         "questionType": "SHORT_FREE_RESPONSE",
         "gradingStrategy": "DETERMINISTIC",
         "difficultyBand": "STANDARD",
-        "promptText": "わたし___がくせいです。",
         "promptPayload": {
           "schemaVersion": 1,
           "promptLanguage": "JA",
           "answerLanguage": "JA",
           "slotCount": 1,
           "sentenceTemplate": "わたし___がくせいです。",
+          "sentenceTemplateHtml": "<p>わたし<span class=\"question-blank\">___</span>がくせいです。</p>",
           "blankInputMode": "ROMAJI_TO_KANA",
           "placeholder": "Answer here",
           "inputMethod": {
@@ -154,13 +154,13 @@ Success response:
       "questionType": "SHORT_FREE_RESPONSE",
       "gradingStrategy": "DETERMINISTIC",
       "difficultyLevel": 1,
-      "promptText": "___さ です。",
       "promptPayload": {
         "schemaVersion": 1,
         "promptLanguage": "JA",
         "answerLanguage": "JA",
         "slotCount": 1,
         "sentenceTemplate": "___さ です。",
+        "sentenceTemplateHtml": "<p><span class=\"question-blank\">___</span>さ です。</p>",
         "blankInputMode": "ROMAJI_TO_KANA",
         "placeholder": "Answer here",
         "inputMethod": {
@@ -325,6 +325,7 @@ Success response:
   "answerLanguage": "JA",
   "slotCount": 1,
   "sentenceTemplate": "わたし___がくせいです。",
+  "sentenceTemplateHtml": "<p>わたし<span class=\"question-blank\">___</span>がくせいです。</p>",
   "blankInputMode": "ROMAJI_TO_KANA",
   "placeholder": "Answer here",
   "inputMethod": {
@@ -333,6 +334,10 @@ Success response:
   }
 }
 ```
+
+Notes:
+- `sentenceTemplate` tetap plain text dan menjadi source of truth untuk logic question.
+- `sentenceTemplateHtml` adalah versi render HTML untuk UI dan harus merepresentasikan prompt yang sama.
 
 - Bentuk minimum `userAnswer`:
 

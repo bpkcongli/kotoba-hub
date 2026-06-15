@@ -31,9 +31,21 @@
               {
                 "id": "ad926543-e6ee-5b36-b0ac-c81aa6e91cc0",
                 "blockType": "PARAGRAPH",
-                "title": "Core Sound Pattern",
-                "body": "<p>Baris <span class=\"text-emphasis\">あ</span> memperkenalkan lima bunyi vokal dasar yang akan sering muncul kembali pada kata, partikel, dan pola bunyi berikutnya.</p>",
+                "content": {
+                  "title": "Core Sound Pattern",
+                  "body": "<p>Baris <span class=\"text-emphasis\">あ</span> memperkenalkan lima bunyi vokal dasar yang akan sering muncul kembali pada kata, partikel, dan pola bunyi berikutnya.</p>"
+                },
                 "sortOrder": 1,
+                "isPublished": true
+              },
+              {
+                "id": "0fe0c4c2-8f7e-51be-b6bb-8ee940e1e61f",
+                "blockType": "EXAMPLE_SENTENCE",
+                "content": {
+                  "japaneseSentence": "<p>あさです。</p>",
+                  "englishTranslation": "<p>It is morning.</p>"
+                },
+                "sortOrder": 2,
                 "isPublished": true
               }
             ],
@@ -48,10 +60,10 @@
                 "skillCode": "hiragana_a_row",
                 "difficultyLevel": 1,
                 "questionType": "SHORT_FREE_RESPONSE",
-                "promptText": "___さです。",
                 "promptPayload": {
                   "schemaVersion": 1,
                   "sentenceTemplate": "___さです。",
+                  "sentenceTemplateHtml": "<p><span class=\"question-blank\">___</span>さです。</p>",
                   "promptLanguage": "JA",
                   "answerLanguage": "JA",
                   "slotCount": 1,

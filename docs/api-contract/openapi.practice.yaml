@@ -62,13 +62,13 @@ paths:
                       questionType: SHORT_FREE_RESPONSE
                       gradingStrategy: DETERMINISTIC
                       difficultyBand: STANDARD
-                      promptText: わたし___がくせいです。
                       promptPayload:
                         schemaVersion: 1
                         promptLanguage: JA
                         answerLanguage: JA
                         slotCount: 1
                         sentenceTemplate: わたし___がくせいです。
+                        sentenceTemplateHtml: <p>わたし<span class="question-blank">___</span>がくせいです。</p>
                         blankInputMode: ROMAJI_TO_KANA
                         placeholder: Answer here
                         inputMethod:
@@ -156,13 +156,13 @@ paths:
                     questionType: SHORT_FREE_RESPONSE
                     gradingStrategy: DETERMINISTIC
                     difficultyLevel: 1
-                    promptText: ___さ です。
                     promptPayload:
                       schemaVersion: 1
                       promptLanguage: JA
                       answerLanguage: JA
                       slotCount: 1
                       sentenceTemplate: ___さ です。
+                      sentenceTemplateHtml: <p><span class="question-blank">___</span>さ です。</p>
                       blankInputMode: ROMAJI_TO_KANA
                       placeholder: Answer here
                       inputMethod:
@@ -496,6 +496,7 @@ components:
         - answerLanguage
         - slotCount
         - sentenceTemplate
+        - sentenceTemplateHtml
         - blankInputMode
         - inputMethod
       properties:
@@ -516,6 +517,9 @@ components:
             - 1
         sentenceTemplate:
           type: string
+        sentenceTemplateHtml:
+          type: string
+          description: HTML render string for the same prompt as sentenceTemplate.
         blankInputMode:
           type: string
           enum:
@@ -655,7 +659,6 @@ components:
         - skillCode
         - questionType
         - gradingStrategy
-        - promptText
         - promptPayload
         - sortOrder
       properties:
@@ -685,8 +688,6 @@ components:
         difficultyBand:
           type: string
           nullable: true
-        promptText:
-          type: string
         promptPayload:
           oneOf:
             - $ref: '#/components/schemas/ShortFreeResponsePromptPayload'
@@ -800,7 +801,6 @@ components:
         - questionType
         - gradingStrategy
         - difficultyLevel
-        - promptText
         - promptPayload
       properties:
         id:
@@ -820,14 +820,12 @@ components:
           type: integer
           minimum: 1
           maximum: 10
-        promptText:
-          type: string
         promptPayload:
           $ref: '#/components/schemas/ShortFreeResponsePromptPayload'
           description: >
             Payload render SHORT_FREE_RESPONSE dari bank soal lesson, termasuk
-            template kalimat dengan satu slot kosong dan metadata input romaji
-            ke kana.
+            template kalimat plain-text, versi HTML untuk UI, satu slot kosong,
+            dan metadata input romaji ke kana.
     LessonPostStudyNextResponse:
       type: object
       additionalProperties: false

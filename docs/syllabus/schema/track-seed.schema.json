@@ -745,12 +745,22 @@
       }
     },
     "lessonContentBlock": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/paragraphLessonContentBlock"
+        },
+        {
+          "$ref": "#/$defs/exampleSentenceLessonContentBlock"
+        }
+      ]
+    },
+    "paragraphLessonContentBlock": {
       "type": "object",
       "additionalProperties": false,
       "required": [
         "id",
         "blockType",
-        "body",
+        "content",
         "sortOrder",
         "isPublished"
       ],
@@ -759,18 +769,10 @@
           "$ref": "#/$defs/uuid"
         },
         "blockType": {
-          "type": "string",
-          "enum": [
-            "PARAGRAPH"
-          ]
+          "const": "PARAGRAPH"
         },
-        "title": {
-          "type": "string"
-        },
-        "body": {
-          "type": "string",
-          "minLength": 1,
-          "description": "HTML string for lesson reading content."
+        "content": {
+          "$ref": "#/$defs/paragraphLessonContentBlockContent"
         },
         "sortOrder": {
           "type": "integer",
@@ -778,6 +780,72 @@
         },
         "isPublished": {
           "type": "boolean"
+        }
+      }
+    },
+    "exampleSentenceLessonContentBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "blockType",
+        "content",
+        "sortOrder",
+        "isPublished"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/uuid"
+        },
+        "blockType": {
+          "const": "EXAMPLE_SENTENCE"
+        },
+        "content": {
+          "$ref": "#/$defs/exampleSentenceLessonContentBlockContent"
+        },
+        "sortOrder": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "isPublished": {
+          "type": "boolean"
+        }
+      }
+    },
+    "paragraphLessonContentBlockContent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "body"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string",
+          "minLength": 1,
+          "description": "HTML string for lesson reading paragraph content."
+        }
+      }
+    },
+    "exampleSentenceLessonContentBlockContent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "japaneseSentence",
+        "englishTranslation"
+      ],
+      "properties": {
+        "japaneseSentence": {
+          "type": "string",
+          "minLength": 1,
+          "description": "HTML string for the Japanese sentence shown as a compact lesson example."
+        },
+        "englishTranslation": {
+          "type": "string",
+          "minLength": 1,
+          "description": "HTML string for the English translation of the Japanese example sentence."
         }
       }
     },
@@ -854,7 +922,6 @@
         "skillCode",
         "difficultyLevel",
         "questionType",
-        "promptText",
         "promptPayload",
         "expectedAnswer",
         "sortOrder",
@@ -880,16 +947,13 @@
             "SHORT_FREE_RESPONSE"
           ]
         },
-        "promptText": {
-          "type": "string",
-          "minLength": 1
-        },
         "promptPayload": {
           "type": "object",
           "additionalProperties": false,
           "required": [
             "schemaVersion",
             "sentenceTemplate",
+            "sentenceTemplateHtml",
             "promptLanguage",
             "answerLanguage",
             "slotCount",
@@ -904,6 +968,11 @@
             "sentenceTemplate": {
               "type": "string",
               "minLength": 1
+            },
+            "sentenceTemplateHtml": {
+              "type": "string",
+              "minLength": 1,
+              "description": "HTML string rendered in the UI for the sentence template."
             },
             "promptLanguage": {
               "type": "string",

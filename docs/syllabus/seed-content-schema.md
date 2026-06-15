@@ -48,8 +48,8 @@ Notes:
 ## Seed Design Rules
 - Satu file manifest menjadi entrypoint discovery untuk seluruh track seed.
 - Satu file track berisi tree `track -> units -> lessons -> skills`.
-- Paragraf penjelasan materi diletakkan di `lesson.contentBlocks` agar narasi belajar berada di level objective lesson, bukan dicampur ke `skills.description`.
-- `lesson.contentBlocks[].body` harus disimpan sebagai HTML agar editorial emphasis, ruby-like markup fallback, dan formatting ringan bisa dipertahankan saat render.
+- Paragraf penjelasan materi dan contoh kalimat ringkas diletakkan di `lesson.contentBlocks` agar narasi belajar berada di level objective lesson, bukan dicampur ke `skills.description`.
+- `lesson.contentBlocks` memakai satu field `content` bertipe object JSON; shape object ini bergantung pada `blockType`.
 - Bank soal `post-study quiz` diletakkan di `lesson.postStudyQuestions` agar canonical question bank tetap menempel ke lesson yang menjadi owner pedagogisnya.
 - `lesson.postStudyQuestions[].promptPayload.hintTexts` dipakai untuk teks bantuan di luar input field, berbeda dari `placeholder` yang hanya hidup di dalam input field.
 - `lesson.grammarStructures` dipakai sebagai surface tambahan untuk materi grammar yang perlu penjelasan struktur bentuk standard atau polite tanpa memaksa semua lesson membawa blok grammar.
@@ -194,9 +194,21 @@ Rules:
   {
     "id": "uuid",
     "blockType": "PARAGRAPH",
-    "title": "What This Row Sounds Like",
-    "body": "<p>Baris <span class=\"text-emphasis\">あ</span> memperkenalkan lima bunyi vokal dasar yang akan terus muncul di materi berikutnya.</p>",
+    "content": {
+      "title": "What This Row Sounds Like",
+      "body": "<p>Baris <span class=\"text-emphasis\">あ</span> memperkenalkan lima bunyi vokal dasar yang akan terus muncul di materi berikutnya.</p>"
+    },
     "sortOrder": 1,
+    "isPublished": true
+  },
+  {
+    "id": "uuid",
+    "blockType": "EXAMPLE_SENTENCE",
+    "content": {
+      "japaneseSentence": "<p>あしたは にほんごを べんきょうします。</p>",
+      "englishTranslation": "<p>Tomorrow, I will study Japanese.</p>"
+    },
+    "sortOrder": 2,
     "isPublished": true
   }
 ]
@@ -208,15 +220,22 @@ Rules:
 | --- | --- |
 | `id` | `lesson_content_blocks.id` |
 | `blockType` | `lesson_content_blocks.block_type` |
-| `title` | `lesson_content_blocks.title` |
-| `body` | `lesson_content_blocks.body` |
+| `content` | `lesson_content_blocks.content` |
 | `sortOrder` | `lesson_content_blocks.sort_order` |
 | `isPublished` | `lesson_content_blocks.is_published` |
 
 Rules:
-- `contentBlocks[].body` harus berupa string HTML yang siap dirender.
-- `contentBlocks[].title` tetap plain string agar bisa dipakai sebagai heading UI atau anchor label tanpa parsing HTML tambahan.
-- Untuk emphasis visual, prefer wrapper ber-class seperti `<span class="text-emphasis">...</span>` dibanding `<strong>` bila tujuannya styling accent, bukan semantic strong importance.
+- Semua block wajib memiliki `id`, `blockType`, `sortOrder`, dan `isPublished`.
+- Semua block wajib memiliki `content` berupa object JSON non-kosong.
+- `PARAGRAPH.content.body` wajib berupa string HTML yang siap dirender.
+- `PARAGRAPH.content.title` tetap plain string opsional agar bisa dipakai sebagai heading UI atau anchor label tanpa parsing HTML tambahan.
+- Untuk emphasis visual pada `PARAGRAPH.content.body`, prefer wrapper ber-class seperti `<span class="text-emphasis">...</span>` dibanding `<strong>` bila tujuannya styling accent, bukan semantic strong importance.
+- `EXAMPLE_SENTENCE.content.japaneseSentence` dan `EXAMPLE_SENTENCE.content.englishTranslation` wajib berupa HTML string non-kosong yang siap dirender.
+- `EXAMPLE_SENTENCE.content` sebaiknya tidak membawa key di luar kebutuhan sentence pair minimal kecuali memang ada keputusan schema baru yang eksplisit.
+
+Mapping notes:
+- `contentBlocks[].content` menjadi representasi langsung untuk row `lesson_content_blocks.content`.
+- `blockType` dan `content` harus selalu dibaca sebagai pasangan; jangan mengasumsikan semua block punya key `title` dan `body` di level top-level block.
 
 ## `grammarStructures` Schema
 
@@ -261,10 +280,10 @@ Notes:
     "skillCode": "n5_topic_particle_wa",
     "difficultyLevel": 1,
     "questionType": "SHORT_FREE_RESPONSE",
-    "promptText": "わたし___がくせいです。",
     "promptPayload": {
       "schemaVersion": 1,
       "sentenceTemplate": "わたし___がくせいです。",
+      "sentenceTemplateHtml": "<p>わたし<span class=\"question-blank\">___</span>がくせいです。</p>",
       "promptLanguage": "JA",
       "answerLanguage": "JA",
       "slotCount": 1,
@@ -296,7 +315,6 @@ Notes:
 | `skillCode` | Resolve ke `lesson_post_study_questions.skill_id` lewat `skills.code` |
 | `difficultyLevel` | `lesson_post_study_questions.difficulty_level` |
 | `questionType` | `lesson_post_study_questions.question_type` |
-| `promptText` | `lesson_post_study_questions.prompt_text` |
 | `promptPayload` | `lesson_post_study_questions.prompt_payload` |
 | `expectedAnswer` | `lesson_post_study_questions.expected_answer_payload` |
 | `explanation` | `lesson_post_study_questions.explanation_text` |
@@ -307,6 +325,9 @@ Rules:
 - `difficultyLevel` harus membentuk ladder `1..10` tanpa duplikasi di dalam satu lesson.
 - `questionType` saat ini harus `SHORT_FREE_RESPONSE`.
 - Setiap soal harus punya tepat satu slot kosong pada `promptPayload.sentenceTemplate` dan input method romaji ke kana yang eksplisit.
+- `promptPayload.sentenceTemplate` adalah source of truth plain-text untuk validasi logic dan evaluasi jawaban.
+- `promptPayload.sentenceTemplateHtml` adalah source of truth presentational untuk UI dan harus merepresentasikan prompt yang sama dengan `sentenceTemplate`.
+- `promptPayload.sentenceTemplateHtml` harus berupa string HTML yang siap dirender.
 - `promptPayload.placeholder` tetap dipakai untuk helper text di dalam input field.
 - `promptPayload.hintTexts` dipakai untuk helper text di luar input field dan setiap entry harus berupa string HTML.
 - `explanation` bila diisi harus berupa string HTML yang siap dirender.
@@ -569,13 +590,17 @@ Rules:
 - `id` semua entity harus valid UUID string dan stabil antar-regenerasi seed.
 - `unit.sortOrder`, `lesson.sortOrder`, dan `skill.sortOrder` harus unik di parent scope masing-masing.
 - `contentBlocks.sortOrder` harus unik di dalam scope satu lesson.
-- `contentBlocks.blockType` saat ini harus `PARAGRAPH`.
-- `contentBlocks.body` harus berupa HTML string yang valid secara editorial.
+- `contentBlocks.blockType` saat ini boleh `PARAGRAPH` atau `EXAMPLE_SENTENCE`.
+- `contentBlocks.content` harus berupa object JSON non-kosong.
+- Block `PARAGRAPH` harus membawa `content.body` berupa HTML string yang valid secara editorial.
+- Block `EXAMPLE_SENTENCE` harus membawa `content.japaneseSentence` dan `content.englishTranslation` sebagai HTML string non-kosong.
+- Block `EXAMPLE_SENTENCE` tidak boleh dipakai sebagai pengganti paragraf penjelasan utama ketika lesson masih membutuhkan narasi editorial yang lebih panjang.
 - `grammarStructures` boleh `null`, tetapi bila terisi harus berupa object JSON dengan minimal satu key `ALL`, `STANDARD`, atau `POLITE` yang bernilai HTML string non-kosong.
 - Key lain di dalam `grammarStructures` boleh `null`.
 - `postStudyQuestions.questionType` saat ini harus `SHORT_FREE_RESPONSE`.
 - `postStudyQuestions.difficultyLevel` harus unik di dalam scope satu lesson dan berada pada range `1..10`.
 - `postStudyQuestions.promptPayload.sentenceTemplate` harus mengandung tepat satu slot kosong dan `postStudyQuestions.expectedAnswer.acceptedTextAnswers` harus berisi minimal satu jawaban kana yang valid.
+- `postStudyQuestions.promptPayload.sentenceTemplateHtml` harus berupa HTML string dan merepresentasikan prompt yang sama dengan `sentenceTemplate`.
 - `postStudyQuestions.promptPayload.hintTexts` bila diisi harus berupa array string HTML non-kosong.
 - `postStudyQuestions.explanation` bila diisi harus berupa HTML string.
 - `skill.code` harus stabil dan tidak boleh bergantung pada ID source eksternal.

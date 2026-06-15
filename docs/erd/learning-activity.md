@@ -499,6 +499,7 @@ Recommended shape minimum untuk `practice_questions.prompt_payload` per question
   "answerLanguage": "JA",
   "slotCount": 1,
   "sentenceTemplate": "わたし___がくせいです。",
+  "sentenceTemplateHtml": "<p>わたし<span class=\"question-blank\">___</span>がくせいです。</p>",
   "blankInputMode": "ROMAJI_TO_KANA",
   "placeholder": "Answer here",
   "inputMethod": {

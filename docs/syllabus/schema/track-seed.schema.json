@@ -727,6 +727,9 @@
             "$ref": "#/$defs/lessonContentBlock"
           }
         },
+        "grammarStructures": {
+          "$ref": "#/$defs/lessonGrammarStructure"
+        },
         "postStudyQuestions": {
           "type": "array",
           "items": {
@@ -766,7 +769,8 @@
         },
         "body": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "description": "HTML string for lesson reading content."
         },
         "sortOrder": {
           "type": "integer",
@@ -776,6 +780,71 @@
           "type": "boolean"
         }
       }
+    },
+    "lessonGrammarStructure": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "ALL": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "HTML string for grammar structure content that applies to both standard and polite forms."
+        },
+        "STANDARD": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "HTML string for standard grammar structure content."
+        },
+        "POLITE": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "HTML string for polite grammar structure content."
+        }
+      },
+      "anyOf": [
+        {
+          "properties": {
+            "ALL": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "ALL"
+          ]
+        },
+        {
+          "properties": {
+            "STANDARD": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "STANDARD"
+          ]
+        },
+        {
+          "properties": {
+            "POLITE": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "POLITE"
+          ]
+        }
+      ]
     },
     "postStudyQuestion": {
       "type": "object",
@@ -853,7 +922,16 @@
               "const": "ROMAJI_TO_KANA"
             },
             "placeholder": {
-              "type": "string"
+              "type": "string",
+              "description": "Inline helper text rendered inside the answer input."
+            },
+            "hintTexts": {
+              "type": "array",
+              "description": "HTML helper texts rendered outside the answer input.",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
             },
             "inputMethod": {
               "type": "object",
@@ -896,7 +974,8 @@
           }
         },
         "explanation": {
-          "type": "string"
+          "type": "string",
+          "description": "HTML string for feedback/explanation content shown after grading."
         },
         "sortOrder": {
           "type": "integer",

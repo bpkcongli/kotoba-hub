@@ -32,11 +32,16 @@
                 "id": "ad926543-e6ee-5b36-b0ac-c81aa6e91cc0",
                 "blockType": "PARAGRAPH",
                 "title": "Core Sound Pattern",
-                "body": "Baris あ memperkenalkan lima bunyi vokal dasar yang akan sering muncul kembali pada kata, partikel, dan pola bunyi berikutnya.",
+                "body": "<p>Baris <span class=\"text-emphasis\">あ</span> memperkenalkan lima bunyi vokal dasar yang akan sering muncul kembali pada kata, partikel, dan pola bunyi berikutnya.</p>",
                 "sortOrder": 1,
                 "isPublished": true
               }
             ],
+            "grammarStructures": {
+              "ALL": "<p><span class=\"text-emphasis\">です</span> / <span class=\"text-emphasis\">ます</span> dipakai bila penjelasan yang sama berlaku untuk bentuk standar maupun polite.</p>",
+              "STANDARD": null,
+              "POLITE": null
+            },
             "postStudyQuestions": [
               {
                 "id": "f7144be8-06cc-57bf-ad6d-a380dce9157a",
@@ -52,6 +57,9 @@
                   "slotCount": 1,
                   "blankInputMode": "ROMAJI_TO_KANA",
                   "placeholder": "Answer here",
+                  "hintTexts": [
+                    "<p><span class=\"text-emphasis\">Morning.</span></p>"
+                  ],
                   "inputMethod": {
                     "acceptsRomaji": true,
                     "transformsTo": "KANA"

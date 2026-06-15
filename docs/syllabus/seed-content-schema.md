@@ -49,7 +49,10 @@ Notes:
 - Satu file manifest menjadi entrypoint discovery untuk seluruh track seed.
 - Satu file track berisi tree `track -> units -> lessons -> skills`.
 - Paragraf penjelasan materi diletakkan di `lesson.contentBlocks` agar narasi belajar berada di level objective lesson, bukan dicampur ke `skills.description`.
+- `lesson.contentBlocks[].body` harus disimpan sebagai HTML agar editorial emphasis, ruby-like markup fallback, dan formatting ringan bisa dipertahankan saat render.
 - Bank soal `post-study quiz` diletakkan di `lesson.postStudyQuestions` agar canonical question bank tetap menempel ke lesson yang menjadi owner pedagogisnya.
+- `lesson.postStudyQuestions[].promptPayload.hintTexts` dipakai untuk teks bantuan di luar input field, berbeda dari `placeholder` yang hanya hidup di dalam input field.
+- `lesson.grammarStructures` dipakai sebagai surface tambahan untuk materi grammar yang perlu penjelasan struktur bentuk standard atau polite tanpa memaksa semua lesson membawa blok grammar.
 - Setiap `skill` boleh membawa metadata support di luar ERD inti selama masih relevan untuk import stage.
 - Semua reference ke source eksternal harus berada di bawah field eksplisit agar attribution dan auditing mudah.
 - Example sentences dan frequency metadata ditempatkan di `skill.content`, bukan dipaksa menjadi kolom tabel inti saat ini.
@@ -166,6 +169,7 @@ Rules:
   "estimatedMinutes": 10,
   "isPublished": true,
   "contentBlocks": [],
+  "grammarStructures": null,
   "postStudyQuestions": [],
   "skills": []
 }
@@ -191,7 +195,7 @@ Rules:
     "id": "uuid",
     "blockType": "PARAGRAPH",
     "title": "What This Row Sounds Like",
-    "body": "Baris あ memperkenalkan lima bunyi vokal dasar yang akan terus muncul di materi berikutnya.",
+    "body": "<p>Baris <span class=\"text-emphasis\">あ</span> memperkenalkan lima bunyi vokal dasar yang akan terus muncul di materi berikutnya.</p>",
     "sortOrder": 1,
     "isPublished": true
   }
@@ -208,6 +212,45 @@ Rules:
 | `body` | `lesson_content_blocks.body` |
 | `sortOrder` | `lesson_content_blocks.sort_order` |
 | `isPublished` | `lesson_content_blocks.is_published` |
+
+Rules:
+- `contentBlocks[].body` harus berupa string HTML yang siap dirender.
+- `contentBlocks[].title` tetap plain string agar bisa dipakai sebagai heading UI atau anchor label tanpa parsing HTML tambahan.
+- Untuk emphasis visual, prefer wrapper ber-class seperti `<span class="text-emphasis">...</span>` dibanding `<strong>` bila tujuannya styling accent, bukan semantic strong importance.
+
+## `grammarStructures` Schema
+
+```json
+{
+  "ALL": "<p><span class=\"text-emphasis\">です</span> / <span class=\"text-emphasis\">ます</span> dipakai bila penjelasan yang sama berlaku untuk bentuk standar maupun polite.</p>",
+  "STANDARD": null,
+  "POLITE": null
+}
+```
+
+Atau `null` bila lesson tidak membutuhkan penjelasan grammar structure khusus.
+
+Contoh lain yang juga valid:
+
+```json
+{
+  "ALL": null,
+  "STANDARD": "<p><span class=\"text-emphasis\">です</span> dipakai untuk bentuk standar yang netral.</p>",
+  "POLITE": "<p><span class=\"text-emphasis\">ます</span> dipakai saat lesson juga perlu menjelaskan bentuk yang lebih sopan.</p>"
+}
+```
+
+### Maps To ERD
+
+| Seed field | ERD target |
+| --- | --- |
+| `grammarStructures` | `lessons.grammar_structures_payload` |
+
+Notes:
+- `grammarStructures` harus berupa object JSON dengan minimal satu key dari `ALL`, `STANDARD`, atau `POLITE` yang terisi HTML string non-kosong.
+- `ALL` dipakai untuk penjelasan yang berlaku baik untuk bentuk standard maupun polite.
+- Setiap key di dalam `grammarStructures` boleh di-omit atau diisi `null`, tetapi minimal satu key harus berisi string HTML yang siap dirender.
+- Bila `grammarStructures = null`, importer menurunkan `lessons.grammar_structures_payload = null`.
 
 ## `postStudyQuestions` Schema
 
@@ -227,6 +270,9 @@ Rules:
       "slotCount": 1,
       "blankInputMode": "ROMAJI_TO_KANA",
       "placeholder": "Answer here",
+      "hintTexts": [
+        "<p><span class=\"text-emphasis\">I</span> am a student.</p>"
+      ],
       "inputMethod": {
         "acceptsRomaji": true,
         "transformsTo": "KANA"
@@ -236,7 +282,7 @@ Rules:
       "acceptedTextAnswers": ["は"],
       "normalizationProfile": "kana-strict-v1"
     },
-    "explanation": "Topic marker `は` is the correct choice for this simple identification sentence.",
+    "explanation": "<p>Topic marker <span class=\"text-emphasis\">は</span> is the correct choice for this simple identification sentence.</p>",
     "sourceRefs": []
   }
 ]
@@ -261,6 +307,9 @@ Rules:
 - `difficultyLevel` harus membentuk ladder `1..10` tanpa duplikasi di dalam satu lesson.
 - `questionType` saat ini harus `SHORT_FREE_RESPONSE`.
 - Setiap soal harus punya tepat satu slot kosong pada `promptPayload.sentenceTemplate` dan input method romaji ke kana yang eksplisit.
+- `promptPayload.placeholder` tetap dipakai untuk helper text di dalam input field.
+- `promptPayload.hintTexts` dipakai untuk helper text di luar input field dan setiap entry harus berupa string HTML.
+- `explanation` bila diisi harus berupa string HTML yang siap dirender.
 - Tingkat kesulitan ditafsirkan terutama sebagai panjang dan kompleksitas kalimat/prompt, bukan adaptasi mastery user.
 
 ## Skill Schema
@@ -521,9 +570,14 @@ Rules:
 - `unit.sortOrder`, `lesson.sortOrder`, dan `skill.sortOrder` harus unik di parent scope masing-masing.
 - `contentBlocks.sortOrder` harus unik di dalam scope satu lesson.
 - `contentBlocks.blockType` saat ini harus `PARAGRAPH`.
+- `contentBlocks.body` harus berupa HTML string yang valid secara editorial.
+- `grammarStructures` boleh `null`, tetapi bila terisi harus berupa object JSON dengan minimal satu key `ALL`, `STANDARD`, atau `POLITE` yang bernilai HTML string non-kosong.
+- Key lain di dalam `grammarStructures` boleh `null`.
 - `postStudyQuestions.questionType` saat ini harus `SHORT_FREE_RESPONSE`.
 - `postStudyQuestions.difficultyLevel` harus unik di dalam scope satu lesson dan berada pada range `1..10`.
 - `postStudyQuestions.promptPayload.sentenceTemplate` harus mengandung tepat satu slot kosong dan `postStudyQuestions.expectedAnswer.acceptedTextAnswers` harus berisi minimal satu jawaban kana yang valid.
+- `postStudyQuestions.promptPayload.hintTexts` bila diisi harus berupa array string HTML non-kosong.
+- `postStudyQuestions.explanation` bila diisi harus berupa HTML string.
 - `skill.code` harus stabil dan tidak boleh bergantung pada ID source eksternal.
 - `sourceRefs` wajib ada untuk skill yang berasal dari source eksternal.
 - `curriculumSignals.jlpt.candidates` boleh berisi lebih dari satu level bila source overlay konflik.

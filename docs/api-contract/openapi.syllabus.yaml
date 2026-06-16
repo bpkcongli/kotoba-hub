@@ -280,6 +280,14 @@ paths:
                         japaneseSentence: <p>あさです。</p>
                         englishTranslation: <p>It is morning.</p>
                       sortOrder: 2
+                    - id: db0e8400-e29b-41d4-a716-446655440668
+                      blockType: GRAMMAR_STRUCTURE
+                      content:
+                        skillCode: n5_particle_mo
+                        ALL: <p><span class="text-emphasis">も</span> dipakai untuk menyatakan "juga" pada noun phrase sederhana.</p>
+                        STANDARD: null
+                        POLITE: null
+                      sortOrder: 3
                   postStudyQuiz:
                     isRequired: true
                     practiceMode: DIRECT_LESSON_POST_STUDY
@@ -586,6 +594,7 @@ components:
       oneOf:
         - $ref: '#/components/schemas/SyllabusParagraphContentBlock'
         - $ref: '#/components/schemas/SyllabusExampleSentenceContentBlock'
+        - $ref: '#/components/schemas/SyllabusGrammarStructureContentBlock'
     SyllabusParagraphContentBlock:
       type: object
       additionalProperties: false
@@ -626,6 +635,26 @@ components:
           $ref: '#/components/schemas/SyllabusExampleSentenceContentBlockPayload'
         sortOrder:
           type: integer
+    SyllabusGrammarStructureContentBlock:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - blockType
+        - content
+        - sortOrder
+      properties:
+        id:
+          type: string
+          format: uuid
+        blockType:
+          type: string
+          enum:
+            - GRAMMAR_STRUCTURE
+        content:
+          $ref: '#/components/schemas/SyllabusGrammarStructureContentBlockPayload'
+        sortOrder:
+          type: integer
     SyllabusParagraphContentBlockPayload:
       type: object
       additionalProperties: false
@@ -651,6 +680,34 @@ components:
         englishTranslation:
           type: string
           description: HTML string for the English translation.
+    SyllabusGrammarStructureContentBlockPayload:
+      type: object
+      additionalProperties: false
+      required:
+        - skillCode
+      properties:
+        skillCode:
+          type: string
+          description: Skill code of the canonical grammar skill explained by this content block.
+        ALL:
+          type: string
+          nullable: true
+          description: HTML string for grammar structure content that applies to both standard and polite forms.
+        STANDARD:
+          type: string
+          nullable: true
+          description: HTML string for standard grammar structure content.
+        POLITE:
+          type: string
+          nullable: true
+          description: HTML string for polite grammar structure content.
+      anyOf:
+        - required:
+            - ALL
+        - required:
+            - STANDARD
+        - required:
+            - POLITE
     SyllabusLessonPostStudyQuiz:
       type: object
       additionalProperties: false

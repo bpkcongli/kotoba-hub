@@ -727,9 +727,6 @@
             "$ref": "#/$defs/lessonContentBlock"
           }
         },
-        "grammarStructures": {
-          "$ref": "#/$defs/lessonGrammarStructure"
-        },
         "postStudyQuestions": {
           "type": "array",
           "items": {
@@ -751,6 +748,9 @@
         },
         {
           "$ref": "#/$defs/exampleSentenceLessonContentBlock"
+        },
+        {
+          "$ref": "#/$defs/grammarStructureLessonContentBlock"
         }
       ]
     },
@@ -812,6 +812,35 @@
         }
       }
     },
+    "grammarStructureLessonContentBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "blockType",
+        "content",
+        "sortOrder",
+        "isPublished"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/uuid"
+        },
+        "blockType": {
+          "const": "GRAMMAR_STRUCTURE"
+        },
+        "content": {
+          "$ref": "#/$defs/grammarStructureLessonContentBlockContent"
+        },
+        "sortOrder": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "isPublished": {
+          "type": "boolean"
+        }
+      }
+    },
     "paragraphLessonContentBlockContent": {
       "type": "object",
       "additionalProperties": false,
@@ -849,13 +878,18 @@
         }
       }
     },
-    "lessonGrammarStructure": {
-      "type": [
-        "object",
-        "null"
-      ],
+    "grammarStructureLessonContentBlockContent": {
+      "type": "object",
       "additionalProperties": false,
+      "required": [
+        "skillCode"
+      ],
       "properties": {
+        "skillCode": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Skill code of the canonical grammar skill explained by this content block."
+        },
         "ALL": {
           "type": [
             "string",

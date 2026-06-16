@@ -52,7 +52,7 @@ Notes:
 - `lesson.contentBlocks` memakai satu field `content` bertipe object JSON; shape object ini bergantung pada `blockType`.
 - Bank soal `post-study quiz` diletakkan di `lesson.postStudyQuestions` agar canonical question bank tetap menempel ke lesson yang menjadi owner pedagogisnya.
 - `lesson.postStudyQuestions[].promptPayload.hintTexts` dipakai untuk teks bantuan di luar input field, berbeda dari `placeholder` yang hanya hidup di dalam input field.
-- `lesson.grammarStructures` dipakai sebagai surface tambahan untuk materi grammar yang perlu penjelasan struktur bentuk standard atau polite tanpa memaksa semua lesson membawa blok grammar.
+- Materi grammar yang perlu penjelasan bentuk standard atau polite diletakkan di `lesson.contentBlocks` dengan `blockType = GRAMMAR_STRUCTURE` agar satu lesson dapat membawa beberapa grammar point canonical secara berurutan.
 - Setiap `skill` boleh membawa metadata support di luar ERD inti selama masih relevan untuk import stage.
 - Semua reference ke source eksternal harus berada di bawah field eksplisit agar attribution dan auditing mudah.
 - Example sentences dan frequency metadata ditempatkan di `skill.content`, bukan dipaksa menjadi kolom tabel inti saat ini.
@@ -169,7 +169,6 @@ Rules:
   "estimatedMinutes": 10,
   "isPublished": true,
   "contentBlocks": [],
-  "grammarStructures": null,
   "postStudyQuestions": [],
   "skills": []
 }
@@ -210,6 +209,18 @@ Rules:
     },
     "sortOrder": 2,
     "isPublished": true
+  },
+  {
+    "id": "uuid",
+    "blockType": "GRAMMAR_STRUCTURE",
+    "content": {
+      "skillCode": "n5_particle_mo",
+      "ALL": "<p><span class=\"text-emphasis\">も</span> dipakai untuk menyatakan \"juga\" pada noun phrase sederhana.</p>",
+      "STANDARD": null,
+      "POLITE": null
+    },
+    "sortOrder": 3,
+    "isPublished": true
   }
 ]
 ```
@@ -232,44 +243,14 @@ Rules:
 - Untuk emphasis visual pada `PARAGRAPH.content.body`, prefer wrapper ber-class seperti `<span class="text-emphasis">...</span>` dibanding `<strong>` bila tujuannya styling accent, bukan semantic strong importance.
 - `EXAMPLE_SENTENCE.content.japaneseSentence` dan `EXAMPLE_SENTENCE.content.englishTranslation` wajib berupa HTML string non-kosong yang siap dirender.
 - `EXAMPLE_SENTENCE.content` sebaiknya tidak membawa key di luar kebutuhan sentence pair minimal kecuali memang ada keputusan schema baru yang eksplisit.
+- `GRAMMAR_STRUCTURE.content.skillCode` wajib berisi `skills.code` yang menjadi owner grammar point canonical untuk block tersebut, mis. `n5_particle_mo`.
+- `GRAMMAR_STRUCTURE.content` harus memuat minimal satu key dari `ALL`, `STANDARD`, atau `POLITE` yang berisi HTML string non-kosong.
+- `GRAMMAR_STRUCTURE.content.ALL` dipakai untuk penjelasan yang berlaku baik untuk bentuk standard maupun polite.
+- `GRAMMAR_STRUCTURE.content.STANDARD` dan `GRAMMAR_STRUCTURE.content.POLITE` boleh `null`, tetapi block grammar tetap harus memiliki minimal satu varian yang terisi.
 
 Mapping notes:
 - `contentBlocks[].content` menjadi representasi langsung untuk row `lesson_content_blocks.content`.
 - `blockType` dan `content` harus selalu dibaca sebagai pasangan; jangan mengasumsikan semua block punya key `title` dan `body` di level top-level block.
-
-## `grammarStructures` Schema
-
-```json
-{
-  "ALL": "<p><span class=\"text-emphasis\">です</span> / <span class=\"text-emphasis\">ます</span> dipakai bila penjelasan yang sama berlaku untuk bentuk standar maupun polite.</p>",
-  "STANDARD": null,
-  "POLITE": null
-}
-```
-
-Atau `null` bila lesson tidak membutuhkan penjelasan grammar structure khusus.
-
-Contoh lain yang juga valid:
-
-```json
-{
-  "ALL": null,
-  "STANDARD": "<p><span class=\"text-emphasis\">です</span> dipakai untuk bentuk standar yang netral.</p>",
-  "POLITE": "<p><span class=\"text-emphasis\">ます</span> dipakai saat lesson juga perlu menjelaskan bentuk yang lebih sopan.</p>"
-}
-```
-
-### Maps To ERD
-
-| Seed field | ERD target |
-| --- | --- |
-| `grammarStructures` | `lessons.grammar_structures_payload` |
-
-Notes:
-- `grammarStructures` harus berupa object JSON dengan minimal satu key dari `ALL`, `STANDARD`, atau `POLITE` yang terisi HTML string non-kosong.
-- `ALL` dipakai untuk penjelasan yang berlaku baik untuk bentuk standard maupun polite.
-- Setiap key di dalam `grammarStructures` boleh di-omit atau diisi `null`, tetapi minimal satu key harus berisi string HTML yang siap dirender.
-- Bila `grammarStructures = null`, importer menurunkan `lessons.grammar_structures_payload = null`.
 
 ## `postStudyQuestions` Schema
 
@@ -590,13 +571,14 @@ Rules:
 - `id` semua entity harus valid UUID string dan stabil antar-regenerasi seed.
 - `unit.sortOrder`, `lesson.sortOrder`, dan `skill.sortOrder` harus unik di parent scope masing-masing.
 - `contentBlocks.sortOrder` harus unik di dalam scope satu lesson.
-- `contentBlocks.blockType` saat ini boleh `PARAGRAPH` atau `EXAMPLE_SENTENCE`.
+- `contentBlocks.blockType` saat ini boleh `PARAGRAPH`, `EXAMPLE_SENTENCE`, atau `GRAMMAR_STRUCTURE`.
 - `contentBlocks.content` harus berupa object JSON non-kosong.
 - Block `PARAGRAPH` harus membawa `content.body` berupa HTML string yang valid secara editorial.
 - Block `EXAMPLE_SENTENCE` harus membawa `content.japaneseSentence` dan `content.englishTranslation` sebagai HTML string non-kosong.
 - Block `EXAMPLE_SENTENCE` tidak boleh dipakai sebagai pengganti paragraf penjelasan utama ketika lesson masih membutuhkan narasi editorial yang lebih panjang.
-- `grammarStructures` boleh `null`, tetapi bila terisi harus berupa object JSON dengan minimal satu key `ALL`, `STANDARD`, atau `POLITE` yang bernilai HTML string non-kosong.
-- Key lain di dalam `grammarStructures` boleh `null`.
+- Block `GRAMMAR_STRUCTURE` harus membawa `content.skillCode` yang resolve ke `skills.code` grammar yang relevan di lesson tersebut.
+- Block `GRAMMAR_STRUCTURE` harus membawa minimal satu key `ALL`, `STANDARD`, atau `POLITE` yang bernilai HTML string non-kosong.
+- Key grammar lain di dalam `GRAMMAR_STRUCTURE.content` boleh `null`.
 - `postStudyQuestions.questionType` saat ini harus `SHORT_FREE_RESPONSE`.
 - `postStudyQuestions.difficultyLevel` harus unik di dalam scope satu lesson dan berada pada range `1..10`.
 - `postStudyQuestions.promptPayload.sentenceTemplate` harus mengandung tepat satu slot kosong dan `postStudyQuestions.expectedAnswer.acceptedTextAnswers` harus berisi minimal satu jawaban kana yang valid.

@@ -1,0 +1,426 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kotobahub.local/docs/syllabus/schema/kana-flashcard-seed.schema.json",
+  "title": "KotobaHub Kana Flashcard Seed",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "generatedAt",
+    "deckSource",
+    "deckType",
+    "contentType",
+    "decks",
+    "items",
+    "deckItems"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "deckSource": {
+      "type": "string",
+      "const": "SYSTEM"
+    },
+    "deckType": {
+      "type": "string",
+      "const": "FOUNDATION"
+    },
+    "contentType": {
+      "type": "string",
+      "const": "KANA"
+    },
+    "decks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/deck"
+      }
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/item"
+      }
+    },
+    "deckItems": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/deckItem"
+      }
+    }
+  },
+  "$defs": {
+    "uuid": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "sourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "category",
+        "externalId",
+        "sourceUrl"
+      ],
+      "properties": {
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1
+        },
+        "externalId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "licenseNote": {
+          "type": "string"
+        },
+        "retrievedFrom": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "jlptCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "level"
+      ],
+      "properties": {
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "level": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "string"
+        },
+        "confidence": {
+          "type": "string"
+        }
+      }
+    },
+    "curriculumSignals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "jlpt"
+      ],
+      "properties": {
+        "jlpt": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "resolvedLevel",
+            "candidates"
+          ],
+          "properties": {
+            "resolvedLevel": {
+              "type": "string",
+              "enum": [
+                "N5",
+                "N4",
+                "N3",
+                "N2"
+              ]
+            },
+            "candidates": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/jlptCandidate"
+              }
+            },
+            "resolutionNotes": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "deck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "slug",
+        "trackSlug",
+        "unitSlug",
+        "lessonSlug",
+        "title",
+        "description",
+        "sortOrder",
+        "isPublished",
+        "sourceSkillCodes",
+        "mappingStatus",
+        "segmentIndex",
+        "segmentCount",
+        "itemCount"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/uuid"
+        },
+        "slug": {
+          "$ref": "#/$defs/slug"
+        },
+        "trackSlug": {
+          "$ref": "#/$defs/slug"
+        },
+        "unitSlug": {
+          "$ref": "#/$defs/slug"
+        },
+        "lessonSlug": {
+          "$ref": "#/$defs/slug"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sortOrder": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "isPublished": {
+          "type": "boolean"
+        },
+        "sourceSkillCodes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          }
+        },
+        "mappingStatus": {
+          "type": "string",
+          "const": "SYLLABUS_MAPPED"
+        },
+        "segmentIndex": {
+          "type": "integer",
+          "const": 1
+        },
+        "segmentCount": {
+          "type": "integer",
+          "const": 1
+        },
+        "itemCount": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "canonicalAnswers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "KANA",
+        "ROMAJI"
+      ],
+      "properties": {
+        "KANA": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "ROMAJI": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "answerOptionPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "canonicalAnswers",
+        "distractorPoolItemIds"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "canonicalAnswers": {
+          "$ref": "#/$defs/canonicalAnswers"
+        },
+        "distractorPoolItemIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/uuid"
+          }
+        }
+      }
+    },
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "skillId",
+        "skillCode",
+        "trackSlug",
+        "unitSlug",
+        "lessonSlug",
+        "itemType",
+        "surfaceFormText",
+        "kanaDisplayText",
+        "romajiText",
+        "englishMeaning",
+        "curriculumSignals",
+        "sourceRefs",
+        "answerOptionPayload",
+        "mappingStatus",
+        "explanationText",
+        "isActive"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/uuid"
+        },
+        "skillId": {
+          "$ref": "#/$defs/uuid"
+        },
+        "skillCode": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$"
+        },
+        "trackSlug": {
+          "$ref": "#/$defs/slug"
+        },
+        "unitSlug": {
+          "$ref": "#/$defs/slug"
+        },
+        "lessonSlug": {
+          "$ref": "#/$defs/slug"
+        },
+        "itemType": {
+          "type": "string",
+          "enum": [
+            "HIRAGANA_CHARACTER",
+            "KATAKANA_CHARACTER"
+          ]
+        },
+        "surfaceFormText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kanaDisplayText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "romajiText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "englishMeaning": {
+          "type": "null"
+        },
+        "curriculumSignals": {
+          "$ref": "#/$defs/curriculumSignals"
+        },
+        "sourceRefs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          }
+        },
+        "answerOptionPayload": {
+          "$ref": "#/$defs/answerOptionPayload"
+        },
+        "mappingStatus": {
+          "type": "string",
+          "const": "SYLLABUS_MAPPED"
+        },
+        "explanationText": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "isActive": {
+          "type": "boolean"
+        }
+      }
+    },
+    "deckItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "deckId",
+        "itemId",
+        "sortOrder",
+        "trackSlug",
+        "unitSlug",
+        "lessonSlug",
+        "skillCode",
+        "mappingStatus"
+      ],
+      "properties": {
+        "deckId": {
+          "$ref": "#/$defs/uuid"
+        },
+        "itemId": {
+          "$ref": "#/$defs/uuid"
+        },
+        "sortOrder": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "trackSlug": {
+          "$ref": "#/$defs/slug"
+        },
+        "unitSlug": {
+          "$ref": "#/$defs/slug"
+        },
+        "lessonSlug": {
+          "$ref": "#/$defs/slug"
+        },
+        "skillCode": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$"
+        },
+        "mappingStatus": {
+          "type": "string",
+          "const": "SYLLABUS_MAPPED"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,508 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kotobahub.local/docs/syllabus/schema/vocabulary-flashcard-seed.schema.json",
+  "title": "KotobaHub Vocabulary Flashcard Seed",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "generatedAt",
+    "deckSource",
+    "deckType",
+    "contentType",
+    "decks",
+    "items",
+    "deckItems"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "deckSource": {
+      "type": "string",
+      "const": "SYSTEM"
+    },
+    "deckType": {
+      "type": "string",
+      "const": "FOUNDATION"
+    },
+    "contentType": {
+      "type": "string",
+      "const": "VOCABULARY"
+    },
+    "decks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/deck"
+      }
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/item"
+      }
+    },
+    "deckItems": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/deckItem"
+      }
+    }
+  },
+  "$defs": {
+    "uuid": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "nullableSlug": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "mappingStatus": {
+      "type": "string",
+      "enum": [
+        "SYLLABUS_MAPPED",
+        "PENDING_LESSON_MAPPING"
+      ]
+    },
+    "sourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "category",
+        "externalId",
+        "sourceUrl"
+      ],
+      "properties": {
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1
+        },
+        "externalId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "licenseNote": {
+          "type": "string"
+        },
+        "retrievedFrom": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "jlptCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "level"
+      ],
+      "properties": {
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "level": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "string"
+        },
+        "confidence": {
+          "type": "string"
+        },
+        "mappedBy": {
+          "type": "string"
+        }
+      }
+    },
+    "curriculumSignals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "jlpt"
+      ],
+      "properties": {
+        "jlpt": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "resolvedLevel",
+            "candidates"
+          ],
+          "properties": {
+            "resolvedLevel": {
+              "type": "string",
+              "enum": [
+                "N5",
+                "N4",
+                "N3",
+                "N2"
+              ]
+            },
+            "candidates": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/jlptCandidate"
+              }
+            },
+            "resolutionNotes": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "deck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "slug",
+        "trackSlug",
+        "unitSlug",
+        "title",
+        "description",
+        "sortOrder",
+        "isPublished",
+        "sourceSkillCodes",
+        "mappingStatus",
+        "segmentIndex",
+        "segmentCount",
+        "itemCount"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/uuid"
+        },
+        "slug": {
+          "$ref": "#/$defs/slug"
+        },
+        "trackSlug": {
+          "$ref": "#/$defs/slug"
+        },
+        "unitSlug": {
+          "$ref": "#/$defs/nullableSlug"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sortOrder": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "isPublished": {
+          "type": "boolean"
+        },
+        "sourceSkillCodes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          }
+        },
+        "mappingStatus": {
+          "$ref": "#/$defs/mappingStatus"
+        },
+        "segmentIndex": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "segmentCount": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "itemCount": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        }
+      }
+    },
+    "canonicalAnswers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "JAPANESE",
+        "KANA",
+        "ENGLISH"
+      ],
+      "properties": {
+        "JAPANESE": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "KANA": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "ENGLISH": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "answerOptionPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "canonicalAnswers",
+        "distractorPoolItemIds"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "type": "integer",
+          "const": 1
+        },
+        "canonicalAnswers": {
+          "$ref": "#/$defs/canonicalAnswers"
+        },
+        "distractorPoolItemIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/uuid"
+          }
+        }
+      }
+    },
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "skillId",
+        "skillCode",
+        "trackSlug",
+        "unitSlug",
+        "lessonSlug",
+        "itemType",
+        "surfaceFormText",
+        "kanaDisplayText",
+        "romajiText",
+        "englishMeaning",
+        "alternateSpellings",
+        "readings",
+        "glossesEn",
+        "partsOfSpeech",
+        "priorityTags",
+        "fields",
+        "commonnessRankBucket",
+        "curriculumSignals",
+        "sourceRefs",
+        "answerOptionPayload",
+        "mappingStatus",
+        "explanationText",
+        "isActive"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/uuid"
+        },
+        "skillId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "skillCode": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$"
+        },
+        "trackSlug": {
+          "$ref": "#/$defs/slug"
+        },
+        "unitSlug": {
+          "$ref": "#/$defs/nullableSlug"
+        },
+        "lessonSlug": {
+          "$ref": "#/$defs/nullableSlug"
+        },
+        "itemType": {
+          "type": "string",
+          "const": "VOCABULARY"
+        },
+        "surfaceFormText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kanaDisplayText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "romajiText": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "englishMeaning": {
+          "type": "string",
+          "minLength": 1
+        },
+        "alternateSpellings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "readings": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "glossesEn": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "partsOfSpeech": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "priorityTags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "commonnessRankBucket": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "curriculumSignals": {
+          "$ref": "#/$defs/curriculumSignals"
+        },
+        "sourceRefs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          }
+        },
+        "answerOptionPayload": {
+          "$ref": "#/$defs/answerOptionPayload"
+        },
+        "mappingStatus": {
+          "$ref": "#/$defs/mappingStatus"
+        },
+        "explanationText": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "isActive": {
+          "type": "boolean"
+        }
+      }
+    },
+    "deckItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "deckId",
+        "itemId",
+        "sortOrder",
+        "trackSlug",
+        "unitSlug",
+        "lessonSlug",
+        "skillCode",
+        "mappingStatus"
+      ],
+      "properties": {
+        "deckId": {
+          "$ref": "#/$defs/uuid"
+        },
+        "itemId": {
+          "$ref": "#/$defs/uuid"
+        },
+        "sortOrder": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "trackSlug": {
+          "$ref": "#/$defs/slug"
+        },
+        "unitSlug": {
+          "$ref": "#/$defs/nullableSlug"
+        },
+        "lessonSlug": {
+          "$ref": "#/$defs/nullableSlug"
+        },
+        "skillCode": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$"
+        },
+        "mappingStatus": {
+          "$ref": "#/$defs/mappingStatus"
+        }
+      }
+    }
+  }
+}

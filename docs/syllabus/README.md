@@ -31,7 +31,11 @@
 - [skill-activity-support-matrix.md](./skill-activity-support-matrix.md)
   Mengunci support flags final seluruh skill published `N5` dan `N4`, termasuk terjemahan istilah produk "random questions" ke `supportsPracticeObjective` dan `supportsPracticeFreeResponse` untuk task `SYL-06`.
 - [flashcard-deck-mapping.md](./flashcard-deck-mapping.md)
-  Mengunci aturan normalisasi bundle `KANJI`/`VOCABULARY`, grouping deck system bawaan, dan relasi `skill -> flashcard item -> flashcard deck` untuk task `SYL-06A`.
+  Mengunci aturan normalisasi `KANA`/`KANJI`/`VOCABULARY`, grouping deck system bawaan, dan relasi `skill -> flashcard item -> flashcard deck` untuk task `SYL-06A`.
+- [kana-flashcard-seeder-schema.md](./kana-flashcard-seeder-schema.md)
+  Mendefinisikan kontrak planning untuk script dan artifact seed system flashcard deck `KANA`, termasuk deck lesson-scoped hiragana/katakana dan schema output machine-readable.
+- [vocabulary-flashcard-seeder-schema.md](./vocabulary-flashcard-seeder-schema.md)
+  Mendefinisikan kontrak planning untuk script dan artifact seed system flashcard deck `VOCABULARY`, termasuk schema `decks`, `items`, dan membership ordering.
 - [raw-source-acquisition.md](./raw-source-acquisition.md)
   Mencatat hasil task `SYL-03A`, termasuk provider mana yang sudah tersnapshot di `content/syllabus/sources/`, mana yang masih partial, dan konvensi provenance/checksum yang dipakai.
 - [schema/](./schema/)

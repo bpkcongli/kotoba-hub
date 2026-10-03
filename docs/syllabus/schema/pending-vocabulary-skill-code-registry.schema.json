@@ -1,0 +1,253 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kotobahub.local/docs/syllabus/schema/pending-vocabulary-skill-code-registry.schema.json",
+  "title": "KotobaHub Pending Vocabulary Skill Code Registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "generatedAt",
+    "trackSlug",
+    "curriculumLevel",
+    "sourceProviders",
+    "items"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "trackSlug": {
+      "type": "string",
+      "const": "jlpt-n5-foundation"
+    },
+    "curriculumLevel": {
+      "type": "string",
+      "const": "N5"
+    },
+    "sourceProviders": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/registryItem"
+      }
+    }
+  },
+  "$defs": {
+    "sourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "category",
+        "externalId",
+        "sourceUrl"
+      ],
+      "properties": {
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1
+        },
+        "externalId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "licenseNote": {
+          "type": "string"
+        },
+        "retrievedFrom": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "jlptCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "level"
+      ],
+      "properties": {
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "level": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "string"
+        },
+        "confidence": {
+          "type": "string"
+        },
+        "mappedBy": {
+          "type": "string"
+        }
+      }
+    },
+    "curriculumSignals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "jlpt"
+      ],
+      "properties": {
+        "jlpt": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "resolvedLevel",
+            "candidates"
+          ],
+          "properties": {
+            "resolvedLevel": {
+              "type": "string",
+              "const": "N5"
+            },
+            "candidates": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/jlptCandidate"
+              }
+            },
+            "resolutionNotes": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "registryItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "skillCode",
+        "trackSlug",
+        "primarySpelling",
+        "kanaDisplayText",
+        "englishMeaning",
+        "alternateSpellings",
+        "readings",
+        "glossesEn",
+        "partsOfSpeech",
+        "priorityTags",
+        "fields",
+        "commonnessRankBucket",
+        "curriculumSignals",
+        "sourceRefs",
+        "mappingStatus"
+      ],
+      "properties": {
+        "skillCode": {
+          "type": "string",
+          "pattern": "^n5_vocab_jmdict_[0-9]+$"
+        },
+        "trackSlug": {
+          "type": "string",
+          "const": "jlpt-n5-foundation"
+        },
+        "primarySpelling": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kanaDisplayText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "englishMeaning": {
+          "type": "string",
+          "minLength": 1
+        },
+        "alternateSpellings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "readings": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "glossesEn": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "partsOfSpeech": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "priorityTags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "commonnessRankBucket": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "curriculumSignals": {
+          "$ref": "#/$defs/curriculumSignals"
+        },
+        "sourceRefs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          }
+        },
+        "mappingStatus": {
+          "type": "string",
+          "const": "PENDING_LESSON_MAPPING"
+        }
+      }
+    }
+  }
+}

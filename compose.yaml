@@ -1,0 +1,40 @@
+name: kotoba-hub
+
+services:
+  app:
+    build: .
+    ports:
+      - '127.0.0.1:3000:3000'
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_MOCKING: 'false'
+      DATABASE_URL: 'mysql://${MYSQL_USER:-kotoba}:${MYSQL_PASSWORD:-kotoba_local}@mysql:3306/${MYSQL_DATABASE:-kotoba_hub}'
+    depends_on:
+      mysql:
+        condition: service_healthy
+    init: true
+
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-kotoba_hub}
+      MYSQL_USER: ${MYSQL_USER:-kotoba}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-kotoba_local}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-kotoba_root_local}
+    ports:
+      - '127.0.0.1:3306:3306'
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          "MYSQL_PWD=$$MYSQL_PASSWORD mysql --protocol=TCP -h 127.0.0.1 -u$$MYSQL_USER -D $$MYSQL_DATABASE -e 'SELECT 1' > /dev/null",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+volumes:
+  mysql-data:

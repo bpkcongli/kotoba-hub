@@ -1,2 +1,15 @@
 __pycache__/
 *.py[cod]
+
+node_modules/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+.husky/_/

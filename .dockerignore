@@ -1,0 +1,12 @@
+# Keep credentials, source acquisitions, and unrelated workspace files out of builds.
+*
+!package.json
+!bun.lock
+!next.config.ts
+!tsconfig.json
+!next-env.d.ts
+!postcss.config.mjs
+!src/
+!src/**
+!public/
+!public/**

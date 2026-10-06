@@ -1,0 +1,4 @@
+bunx --no-install lint-staged
+bun run lint
+bun run typecheck
+bun run test:changed --runInBand

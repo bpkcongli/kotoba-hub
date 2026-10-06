@@ -1,0 +1,20 @@
+node_modules/
+.next/
+out/
+coverage/
+bun.lock
+next-env.d.ts
+public/mockServiceWorker.js
+drizzle/meta/
+# Existing planning documents and canonical datasets have their own workflows.
+content/
+docs/
+AGENTS.md
+ARCHITECTURE.md
+DESIGN_SYSTEM.md
+PRD.md
+.agents/
+.codex/
+.qodo/
+.aws/
+.husky/_/

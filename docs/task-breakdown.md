@@ -49,7 +49,7 @@
 - [ ] `SYL-07` Review syllabus supaya align dengan personalization rules dan mastery tracking.
 
 ### 4. Code Implementation
-- [ ] `IMP-01` Bootstrap project foundation: Next.js App Router, Bun, TypeScript strict, ESLint, Prettier, Husky, Tailwind, shadcn, MobX, mobx-react-lite, Inversify, MSW untuk mock API FE, Jest, RTL, Drizzle, Docker. Lihat [ARCHITECTURE.md](../ARCHITECTURE.md).
+- [x] `IMP-01` Bootstrap project foundation: Next.js App Router, Bun, TypeScript strict, ESLint, Prettier, Husky, Tailwind, shadcn, MobX, mobx-react-lite, Inversify, MSW untuk mock API FE, Jest, RTL, Drizzle, Docker. Lihat [ARCHITECTURE.md](../ARCHITECTURE.md).
 - [ ] `IMP-02` Implement database foundation: koneksi MySQL, migration workflow, env validation, dan base schema auth/user.
 - [ ] `IMP-03` Implement authentication backend dengan Google login dan protected route strategy.
 - [ ] `IMP-04` Implement backend learner profile dan onboarding personalization persistence.

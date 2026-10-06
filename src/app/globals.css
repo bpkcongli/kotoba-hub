@@ -1,0 +1,168 @@
+@import 'tailwindcss';
+
+/* Light-mode baseline from docs/system-design/design-token-foundation.md. */
+:root {
+  color-scheme: light;
+  --background: #f7f8fc;
+  --foreground: #1f2340;
+  --card: #ffffff;
+  --card-foreground: var(--foreground);
+  --popover: #fbfcfe;
+  --popover-foreground: var(--foreground);
+  --primary: #1d1d36;
+  --primary-foreground: #ffffff;
+  --secondary: #eff2f8;
+  --secondary-foreground: var(--foreground);
+  --muted: #eff2f8;
+  /* Use text.secondary for readable helper copy on light backgrounds. */
+  --muted-foreground: #54607c;
+  --accent: #eff2f8;
+  --accent-foreground: var(--foreground);
+  --destructive: #963a3a;
+  --destructive-foreground: #ffffff;
+  --border: #cdd4e4;
+  --input: #cdd4e4;
+  --ring: #ff7a59;
+  --brand-secondary: #6f7fa6;
+  --brand-accent: #ff7a59;
+  --surface-strong: #232743;
+  --border-subtle: #e2e6f0;
+  --border-strong: #a7b2c8;
+  --text-muted: #7a86a3;
+  --text-accent: #d95f41;
+  --success: #4e8b6f;
+  --success-bg: #e8f4ed;
+  --success-hover: #447b61;
+  --success-active: #396853;
+  --warning: #d89a3d;
+  --warning-bg: #fff5e6;
+  --warning-hover: #c28723;
+  --warning-active: #a96f11;
+  --error: #c95a5a;
+  --error-bg: #fbecec;
+  --error-hover: #b54a4a;
+  --error-active: #963a3a;
+  --info: #4d78c9;
+  --info-bg: #ecf2ff;
+  --info-hover: #3e68b8;
+  --info-active: #31559d;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-brand-secondary: var(--brand-secondary);
+  --color-brand-accent: var(--brand-accent);
+  --color-surface-strong: var(--surface-strong);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+  --color-text-muted: var(--text-muted);
+  --color-text-accent: var(--text-accent);
+  --color-success: var(--success);
+  --color-success-bg: var(--success-bg);
+  --color-success-hover: var(--success-hover);
+  --color-success-active: var(--success-active);
+  --color-warning: var(--warning);
+  --color-warning-bg: var(--warning-bg);
+  --color-warning-hover: var(--warning-hover);
+  --color-warning-active: var(--warning-active);
+  --color-error: var(--error);
+  --color-error-bg: var(--error-bg);
+  --color-error-hover: var(--error-hover);
+  --color-error-active: var(--error-active);
+  --color-info: var(--info);
+  --color-info-bg: var(--info-bg);
+  --color-info-hover: var(--info-hover);
+  --color-info-active: var(--info-active);
+
+  --font-sans: 'Plus Jakarta Sans Variable', 'Noto Sans JP Variable', sans-serif;
+  --font-japanese: 'Noto Sans JP Variable', sans-serif;
+  --text-display: 2.5rem;
+  --text-display--line-height: 3rem;
+  --text-h1: 2rem;
+  --text-h1--line-height: 2.5rem;
+  --text-h2: 1.5rem;
+  --text-h2--line-height: 2rem;
+  --text-h3: 1.25rem;
+  --text-h3--line-height: 1.75rem;
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.75rem;
+  --text-body: 1rem;
+  --text-body--line-height: 1.5rem;
+  --text-body-sm: 0.875rem;
+  --text-body-sm--line-height: 1.25rem;
+  --text-label: 0.8125rem;
+  --text-label--line-height: 1.125rem;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 999px;
+  --shadow-sm: 0 1px 2px rgb(20 27 45 / 8%);
+  --shadow-md: 0 8px 24px rgb(29 35 64 / 8%);
+  --shadow-lg: 0 16px 40px rgb(29 35 64 / 12%);
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --container-public: 75rem;
+  --container-reading: 47.5rem;
+}
+
+@utility duration-fast {
+  transition-duration: 120ms;
+}
+
+@utility focus-ring {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  /* A navy outer stroke keeps the coral focus cue visible on light surfaces. */
+  box-shadow:
+    0 0 0 4px var(--background),
+    0 0 0 6px var(--primary);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  body {
+    margin: 0;
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  :lang(ja) {
+    font-family: var(--font-japanese);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

@@ -2,14 +2,14 @@
 
 ## Summary
 - Format task breakdown menggunakan checklist agar mudah ditandai `done` atau `not done` di file ini.
-- Urutan kerja dikunci sesuai arahan: architecture dulu, lalu UI system design, lalu syllabus, lalu implementasi backend/database per fitur, baru UI, dan terakhir unit testing untuk area yang paling penting.
+- Urutan kerja dikunci sesuai arahan: architecture dulu, lalu UI system design, lalu syllabus, lalu implementasi backend/database per fitur, baru UI, dan terakhir testing untuk area yang paling penting.
 - Khusus system design, task awal menunggu brief brand identity final; task lain tetap bisa jalan paralel selama tidak bergantung pada visual identity final.
 
 ## Development Tasks
 
 ### 1. System Architecture
 - [x] `ARCH-01` Finalisasi daftar bounded context modular monolith: `auth`, `users`, `syllabus`, `flashcards`, `practice`, `progress`, `personalization`, `shared`. Lihat [architecture-foundation.md](./architecture-foundation.md).
-- [x] `ARCH-02` Tetapkan struktur folder final untuk Next.js App Router agar pemisahan frontend, backend adapter, dan domain modules jelas. Lihat [architecture-foundation.md](./architecture-foundation.md).
+- [x] `ARCH-02` Tetapkan struktur folder final untuk Next.js App Router agar pemisahan frontend, backend adapter, dan domain modules jelas, termasuk frontend store MobX dan DI Inversify. Lihat [ARCHITECTURE.md](../ARCHITECTURE.md).
 - [x] `ARCH-03` Definisikan alur data utama antar module, terutama relasi `syllabus -> progress -> personalization -> practice`. Lihat [architecture-foundation.md](./architecture-foundation.md).
 - [x] `ARCH-04` Buat sequence diagram untuk `Login with Google + first-time onboarding personalization`. Lihat [sequence-diagram/login-session-established.md](./sequence-diagram/login-session-established.md) dan [sequence-diagram/onboarding-personalization.md](./sequence-diagram/onboarding-personalization.md).
 - [x] `ARCH-05` Buat sequence diagram untuk `Flashcard answer -> progress event -> mastery snapshot update`. Lihat [sequence-diagram/flashcard-and-answer-evaluation.md](./sequence-diagram/flashcard-and-answer-evaluation.md) dan [sequence-diagram/update-progress-snapshot.md](./sequence-diagram/update-progress-snapshot.md).
@@ -23,7 +23,7 @@
 - [x] `ARCH-13` Definisikan Swagger contract untuk authentication dan authorization. Lihat [api-contract/auth-and-authorization.md](./api-contract/auth-and-authorization.md) dan [api-contract/openapi.auth.yaml](./api-contract/openapi.auth.yaml).
 - [x] `ARCH-14` Definisikan Swagger contract untuk endpoint syllabus dan personalization. Lihat [api-contract/user-profile-and-personalization.md](./api-contract/user-profile-and-personalization.md), [api-contract/openapi.user-profile-and-personalization.yaml](./api-contract/openapi.user-profile-and-personalization.yaml), [api-contract/syllabus.md](./api-contract/syllabus.md), dan [api-contract/openapi.syllabus.yaml](./api-contract/openapi.syllabus.yaml).
 - [x] `ARCH-15` Definisikan Swagger contract untuk endpoint flashcard, practice, dan progress tracking. Lihat [api-contract/flashcards.md](./api-contract/flashcards.md), [api-contract/openapi.flashcards.yaml](./api-contract/openapi.flashcards.yaml), [api-contract/practice.md](./api-contract/practice.md), [api-contract/openapi.practice.yaml](./api-contract/openapi.practice.yaml), [api-contract/progress.md](./api-contract/progress.md), dan [api-contract/openapi.progress.yaml](./api-contract/openapi.progress.yaml).
-- [x] `ARCH-16` Review konsistensi antara sequence diagram, ERD, dan Swagger agar tidak ada mismatch field atau flow. Lihat [arch-16-consistency-review.md](./arch-16-consistency-review.md).
+- [x] `ARCH-16` Review konsistensi antara sequence diagram, ERD, dan Swagger agar tidak ada mismatch field atau flow.
 
 ### 2. UI System Design
 - [x] `DS-01` Kumpulkan brief brand identity KotobaHub dari stakeholder sebelum masuk ke visual system final. Untuk self-project, brief diperlakukan sebagai arahan resmi dari project owner. Lihat [system-design/brand-identity-brief.md](./system-design/brand-identity-brief.md).
@@ -49,7 +49,7 @@
 - [ ] `SYL-07` Review syllabus supaya align dengan personalization rules dan mastery tracking.
 
 ### 4. Code Implementation
-- [ ] `IMP-01` Bootstrap project foundation: Next.js App Router, Bun, TypeScript strict, ESLint, Prettier, Husky, Tailwind, shadcn, Jest, RTL, Drizzle, Docker.
+- [ ] `IMP-01` Bootstrap project foundation: Next.js App Router, Bun, TypeScript strict, ESLint, Prettier, Husky, Tailwind, shadcn, MobX, mobx-react-lite, Inversify, MSW untuk mock API FE, Jest, RTL, Drizzle, Docker. Lihat [ARCHITECTURE.md](../ARCHITECTURE.md).
 - [ ] `IMP-02` Implement database foundation: koneksi MySQL, migration workflow, env validation, dan base schema auth/user.
 - [ ] `IMP-03` Implement authentication backend dengan Google login dan protected route strategy.
 - [ ] `IMP-04` Implement backend learner profile dan onboarding personalization persistence.
@@ -59,7 +59,7 @@
 - [ ] `IMP-08` Implement backend AI abstraction layer: provider contract, prompt/template structure, schema validation, observability hooks.
 - [ ] `IMP-09` Implement backend random questions dan lesson `post-study quiz`: random practice generation, direct post-study quiz question selection `1` soal berdasarkan `lesson_understanding_snapshots`, answer grading deterministik, feedback generation, dan progress integration.
 - [ ] `IMP-10` Implement backend personalization assessment endpoint yang bisa menerima structured form + optional AI note normalization.
-- [ ] `IMP-11` Implement UI app shell dan shared layout primitives berdasarkan design system yang sudah final.
+- [ ] `IMP-11` Implement UI app shell dan shared layout primitives berdasarkan design system yang sudah final, termasuk frontend container/provider Inversify, shared session store MobX, MockProvider untuk startup MSW di development, serta pola container/store per fitur sesuai [ARCHITECTURE.md](../ARCHITECTURE.md).
 - [ ] `IMP-12` Implement UI auth flow dan onboarding wizard.
 - [ ] `IMP-13` Implement UI syllabus map, unit detail, dan lesson overview dengan surface baca materi serta handoff wajib ke `post-study quiz` deterministik `1` soal yang diambil dari bank lesson sesuai target level pemahaman berikutnya.
 - [ ] `IMP-14` Implement UI flashcard game flow dan result/feedback state.
@@ -67,7 +67,7 @@
 - [ ] `IMP-16` Implement UI progress dashboard dan progress indicators yang mengambil data realtime write-through, termasuk cue completion lesson dan status quiz lesson.
 - [ ] `IMP-17` Integrasikan seluruh flow end-to-end dan pastikan state progress serta `lesson_understanding_snapshots` benar-benar memengaruhi personalization/random practice, sementara lesson `post-study quiz` tetap memakai bank soal deterministik resmi.
 
-### 5. Unit Testing
+### 5. Testing
 - [ ] `TEST-01` Buat unit test untuk mastery calculation dan difficulty adjustment rule.
 - [ ] `TEST-02` Buat unit test untuk flashcard scheduling/Leitner bucket update.
 - [ ] `TEST-03` Buat unit test untuk deterministic answer evaluator pada flashcard dan objective practice question.
@@ -76,8 +76,9 @@
 - [ ] `TEST-06` Buat component test untuk onboarding wizard pada path kritikal.
 - [ ] `TEST-07` Buat component test untuk flashcard session UI dan feedback state.
 - [ ] `TEST-08` Buat component test untuk practice question UI dan completion summary.
-- [ ] `TEST-09` Buat integration test ringan untuk endpoint paling kritikal: `POST /api/flashcards/sessions/:id/answer`, `POST /api/practice/sessions/:id/answer`, dan `GET /api/progress/overview`.
+- [ ] `TEST-09` Buat integration test ringan untuk endpoint paling kritikal: `POST /api/v1/flashcards/sessions/{sessionId}/answer`, `POST /api/v1/practice/sessions/{sessionId}/answer`, dan `GET /api/v1/progress/overview`.
 - [ ] `TEST-10` Review coverage agar hanya area inti yang ter-cover tanpa membuat test suite terlalu luas.
+- [ ] `TEST-11` Tambahkan Playwright E2E smoke test untuk login stub/onboarding, lesson post-study quiz sampai completion, flashcard/practice answer, dan progress refresh; gunakan provider OAuth/AI test double serta data test yang terisolasi. Lihat [mvp-plan.md](./mvp-plan.md) untuk rekomendasi E2E.
 
 ## Assumptions And Tracking Rules
 - Gunakan status checklist sederhana `[ ]` untuk `todo` dan `[x]` untuk `done`; jika perlu blocker, tulis suffix singkat seperti `(blocked: waiting brand brief)`.

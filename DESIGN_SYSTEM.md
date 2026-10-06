@@ -111,7 +111,7 @@ Satu area scroll utama per halaman adalah default. Gunakan sheet/drawer untuk se
 
 ## 4. Komponen dan ownership
 
-Basis komponen adalah `shadcn/ui` yang diberi token KotobaHub. Gunakan wrapper untuk pola reusable, serta komposisi feature untuk state bisnis. Penempatan mengikuti [component inventory](docs/system-design/shadcn-component-inventory.md) dan [architecture](docs/architecture-foundation.md).
+Basis komponen adalah `shadcn/ui` yang diberi token KotobaHub. Gunakan wrapper untuk pola reusable, serta komposisi feature untuk state bisnis. Penempatan mengikuti [component inventory](docs/system-design/shadcn-component-inventory.md) dan [ARCHITECTURE.md](ARCHITECTURE.md).
 
 | Tingkat | Komponen inti | Lokasi yang disarankan |
 | --- | --- | --- |
@@ -120,7 +120,7 @@ Basis komponen adalah `shadcn/ui` yang diberi token KotobaHub. Gunakan wrapper u
 | Shell | `PublicHeader`, `AppSidebar`, `MobileBottomNav`, `ContextTopbar`, `FocusModeShell`, loading/empty/error panels | `src/frontend/shared/components/layouts` dan shared compositions |
 | Feature | `OnboardingStepper`, `UnitLaneCard`, `FlashcardCanvas`, `PracticeQuestionPanel`, `WeakSkillActionPanel`, dan peer components | `src/frontend/<feature>/components` |
 
-P0 untuk `IMP-11`: button/card/badge/progress, app sidebar, bottom nav, contextual topbar, focus shell, loading dan empty state. P0 komponen per fitur tetap mengikuti daftar di [component inventory](docs/system-design/shadcn-component-inventory.md). Business rule atau repository backend tidak ditempatkan di komponen.
+P0 untuk `IMP-11`: button/card/badge/progress, app sidebar, bottom nav, contextual topbar, focus shell, loading dan empty state. P0 komponen per fitur tetap mengikuti daftar di [component inventory](docs/system-design/shadcn-component-inventory.md). Business rule atau repository backend tidak ditempatkan di komponen. Feature UI memakai store MobX dari `services/internal` melalui provider/container Inversify dan hook domain; komponen client yang membaca observable memakai `observer`. Lifetime store dan hydration mengikuti [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ### 4.1 Pola state lintas fitur
 

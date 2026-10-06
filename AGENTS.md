@@ -3,7 +3,7 @@
 ## Purpose
 - File ini adalah panduan kerja untuk agent yang berkontribusi di repository `kotoba-hub`.
 - Kondisi project saat ini masih berada pada tahap awal planning dan dokumentasi.
-- Karena itu, `docs/` adalah source of truth utama sebelum agent melakukan analisis, implementasi, revisi, atau review.
+- Karena itu, `docs/` adalah source of truth utama sebelum agent melakukan analisis, implementasi, revisi, atau review. [ARCHITECTURE.md](ARCHITECTURE.md) menjadi acuan final struktur folder BE/FE, frontend store MobX, dan DI Inversify.
 
 ## Mandatory Reading Order
 Sebelum mengerjakan task apa pun, agent wajib membaca dokumen berikut dalam urutan ini:
@@ -38,7 +38,8 @@ Untuk setiap task yang diambil dari [docs/task-breakdown.md](docs/task-breakdown
 Gunakan panduan prioritas berikut saat mencari referensi:
 
 - Breakdown dan urutan kerja: [docs/task-breakdown.md](docs/task-breakdown.md)
-- Fondasi arsitektur: [docs/architecture-foundation.md](docs/architecture-foundation.md)
+- Struktur folder, store, dan DI: [ARCHITECTURE.md](ARCHITECTURE.md)
+- Bounded context dan alur bisnis: [docs/architecture-foundation.md](docs/architecture-foundation.md)
 - Rencana MVP dan scope: [docs/mvp-plan.md](docs/mvp-plan.md)
 - ERD domain: [docs/erd/](docs/erd/)
 - Sequence diagram: [docs/sequence-diagram/](docs/sequence-diagram/)
@@ -51,3 +52,10 @@ Gunakan panduan prioritas berikut saat mencari referensi:
 
 ## Non-Negotiable Rule
 Sebelum mengerjakan task yang didefinisikan di [docs/task-breakdown.md](docs/task-breakdown.md), agent harus selalu refer ke folder [docs/](docs/) terlebih dahulu.
+
+## Project Subagents And Skills
+- Konfigurasi subagent proyek berada di [.codex/agents/](.codex/agents/) dan skill proyek di [.agents/skills/](.agents/skills/). Aturan pembacaan `docs/` di atas tetap berlaku untuk semua subagent.
+- `backend-coder` menangani implementasi backend/database `IMP-02`–`IMP-10`; `frontend-coder` menangani UI `IMP-11`–`IMP-16` setelah prasyarat backend fiturnya siap.
+- `code-reviewer` melakukan review read-only terhadap perubahan yang sudah konkret; `sdet` menangani `TEST-01`–`TEST-11`, termasuk E2E smoke test yang direncanakan.
+- Koordinasikan perubahan kontrak lintas BE/FE melalui agent utama. Jangan menugaskan dua agent mengedit file atau migration yang sama secara bersamaan.
+- Untuk struktur BE/FE, store MobX, dan container Inversify, semua agent mengacu ke [ARCHITECTURE.md](ARCHITECTURE.md).

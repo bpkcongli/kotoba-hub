@@ -4,7 +4,7 @@
 
 - Status: **handoff produk untuk fase Code Implementation** (`IMP-01`–`IMP-17`), disusun dari keputusan yang sudah ada di `docs/`.
 - Bahasa dokumen: Indonesia. Bahasa antarmuka produk: **English**. Materi bahasa Jepang tetap ditampilkan dalam aksara yang sesuai konteks belajar.
-- Dokumen ini merangkum kebutuhan produk dan kriteria penerimaan. Bila rincian di sini berbeda dengan sumber yang lebih khusus, ikuti [task breakdown](docs/task-breakdown.md), [arsitektur](docs/architecture-foundation.md), [ERD](docs/erd/), [kontrak API](docs/api-contract/), [syllabus](docs/syllabus/), dan [system design](docs/system-design/) sesuai area yang dikerjakan. Catat dan selaraskan mismatch sebelum implementasi area itu.
+- Dokumen ini merangkum kebutuhan produk dan kriteria penerimaan. Bila rincian di sini berbeda dengan sumber yang lebih khusus, ikuti [task breakdown](docs/task-breakdown.md), [struktur folder/store/DI](ARCHITECTURE.md), [bounded context](docs/architecture-foundation.md), [ERD](docs/erd/), [kontrak API](docs/api-contract/), [syllabus](docs/syllabus/), dan [system design](docs/system-design/) sesuai area yang dikerjakan. Catat dan selaraskan mismatch sebelum implementasi area itu.
 - Checklist task tetap berada di [docs/task-breakdown.md](docs/task-breakdown.md); membuat PRD ini tidak mengubah status `IMP-*` atau `SYL-07`.
 
 ## 1. Ringkasan produk
@@ -97,8 +97,8 @@ Mobile/tablet memakai topbar dan bottom nav lima tujuan utama. Desktop mulai `10
 | Integritas belajar | Tidak ada lesson completed tanpa jawaban post-study benar; soal quiz berasal dari bank lesson dan difficulty yang cocok; attribution skill berasal dari katalog. |
 | AI | Output provider lolos schema validation; kegagalan tercatat dengan trace/request id, model, latency, usage, retry, dan failure reason; objective grading tetap berjalan tanpa AI. |
 | Pengalaman | Flow inti dapat dipakai mobile dan desktop, state loading/error/empty/feedback jelas, interaksi keyboard dan target sentuh mengikuti design system. |
-| Engineering | Bun, TypeScript strict, lint/format/typecheck, MySQL migration/env validation, Docker, dan baseline CI mengikuti [MVP plan](docs/mvp-plan.md). |
-| Verifikasi | Unit test aturan mastery, Leitner, evaluator deterministik, parser AI, dan normalizer; component test flow kritikal; integration test endpoint jawaban serta progress overview sesuai `TEST-01`–`TEST-10` di [task breakdown](docs/task-breakdown.md). |
+| Engineering | Bun, TypeScript strict, lint/format/typecheck, MySQL migration/env validation, Docker, dan baseline CI mengikuti [MVP plan](docs/mvp-plan.md). FE menggunakan MobX + mobx-react-lite, container Inversify, dan MSW untuk mock API pada development/testing sesuai [ARCHITECTURE.md](ARCHITECTURE.md). |
+| Verifikasi | Unit test aturan mastery, Leitner, evaluator deterministik, parser AI, dan normalizer; component test flow kritikal; integration test endpoint jawaban serta progress overview; Playwright E2E smoke untuk journey inti sesuai `TEST-01`–`TEST-11` di [task breakdown](docs/task-breakdown.md). |
 
 Belum ada target angka untuk retensi, completion rate, latency, atau AI cost per learner yang dikunci di repo. Jangan memperlakukan angka eksperimen sebagai acceptance gate resmi tanpa keputusan produk baru.
 
@@ -108,13 +108,12 @@ Ikuti urutan `IMP-01`–`IMP-17` dan ketentuan bahwa backend/database setiap fit
 
 1. **`SYL-07` masih `[ ]`.** Review alignment syllabus terhadap personalization dan mastery tracking belum ditandai selesai.
 2. **Bank quiz seed belum memenuhi kontrak published lesson.** Pada snapshot repo saat PRD dibuat, ada **82** lesson published (42 N5, 40 N4); **16** lesson memiliki sepuluh `postStudyQuestions`, sedangkan **66** lesson belum memiliki bank. Requirement published lesson pada [seed schema](docs/syllabus/seed-content-schema.md) dan [Practice API](docs/api-contract/practice.md) meminta bank `1..10`. Lengkapi/kurasi seed atau selaraskan publish gate sebelum `IMP-05`, `IMP-09`, dan UI lesson/quiz `IMP-13`/`IMP-15` mengandalkan seluruh katalog published.
-3. **Referensi review `ARCH-16` tidak ditemukan.** [Task breakdown](docs/task-breakdown.md) menandai `ARCH-16` selesai dan menautkan `docs/arch-16-consistency-review.md`, tetapi file itu tidak ada di repo saat PRD dibuat. Pulihkan artefak review atau lakukan review ulang atas sequence diagram, ERD, dan OpenAPI sebelum menganggap konsistensi kontrak terverifikasi.
-4. **Copy seed perlu ditinjau terhadap bahasa UI English.** Beberapa `description`, `learningObjective`, dan blok materi pada [seed track](content/syllabus/tracks/) masih berbahasa Indonesia. Tentukan translasi konten yang tampil pada UI sebelum `IMP-13`; jangan mengubah bahasa UI berdasarkan copy seed yang belum dirapikan.
+3. **Copy seed perlu ditinjau terhadap bahasa UI English.** Beberapa `description`, `learningObjective`, dan blok materi pada [seed track](content/syllabus/tracks/) masih berbahasa Indonesia. Tentukan translasi konten yang tampil pada UI sebelum `IMP-13`; jangan mengubah bahasa UI berdasarkan copy seed yang belum dirapikan.
 
 ## 8. Peta referensi implementasi
 
 - Scope dan task: [task breakdown](docs/task-breakdown.md), [MVP plan](docs/mvp-plan.md).
-- Batas module dan folder: [architecture foundation](docs/architecture-foundation.md).
+- Struktur folder BE/FE, store, dan DI: [ARCHITECTURE.md](ARCHITECTURE.md). Batas module serta alur bisnis: [architecture foundation](docs/architecture-foundation.md).
 - Persistence: [auth/user ERD](docs/erd/auth-and-user-profile.md), [syllabus ERD](docs/erd/syllabus-domain.md), [learning activity ERD](docs/erd/learning-activity.md), [AI observability ERD](docs/erd/ai-support-and-observability.md).
 - Kontrak transport: [API base](docs/api-contract/README.md) dan file naratif/OpenAPI per context di [docs/api-contract/](docs/api-contract/).
 - Content: [syllabus README](docs/syllabus/README.md), [seed schema](docs/syllabus/seed-content-schema.md), [deck mapping](docs/syllabus/flashcard-deck-mapping.md), [published seed](content/syllabus/manifest.json).

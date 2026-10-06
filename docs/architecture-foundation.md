@@ -3,13 +3,13 @@
 ## Scope
 - Dokumen ini mengunci hasil task `ARCH-01`, `ARCH-02`, dan `ARCH-03`.
 - Fokusnya adalah tiga hal: bounded context final untuk modular monolith `KotobaHub`, struktur folder final yang cocok untuk Next.js App Router, dan alur data utama antar module.
-- Keputusan di dokumen ini menggantikan usulan struktur yang masih kasar di `mvp-plan.md`.
+- Ownership dan alur bisnis mengikuti dokumen ini; struktur folder serta frontend store/DI mengikuti [ARCHITECTURE.md](../ARCHITECTURE.md).
 
 ## Decision Summary
 - KotobaHub tetap dibuat sebagai satu aplikasi Next.js fullstack, bukan monorepo.
 - App Router tetap tinggal di `src/app` sebagai lapisan routing, layout, dan transport adapter tipis.
 - Backend dipisahkan ke `src/backend` dengan struktur per bounded context dan layering `domain -> application -> interface -> infrastructure`.
-- Frontend dipisahkan ke `src/frontend` dengan folder `shared` yang sejajar langsung dengan folder domain-specific.
+- Frontend dipisahkan ke `src/frontend` dengan folder `shared` sejajar domain-specific; store memakai MobX dan dependency injection memakai Inversify sesuai [ARCHITECTURE.md](../ARCHITECTURE.md).
 - Cross-cutting code tidak ditaruh di satu folder umum besar; gunakan `src/backend/shared` untuk common kernel backend dan `src/frontend/shared` untuk shared UI/application client concerns.
 - Alur bisnis utama dikunci sebagai `syllabus -> progress -> personalization -> practice`, dengan `flashcards` sebagai activity producer paralel yang juga memberi input ke `progress`.
 
@@ -63,183 +63,11 @@
 
 ## ARCH-02 Final Folder Structure
 
-### Design Principles
-- Ikuti konvensi Next.js App Router dengan tetap menjaga pemisahan concern yang tegas.
-- Jangan menaruh business logic di `page.tsx`, `layout.tsx`, `route.ts`, atau server action file.
-- Struktur folder harus feature-first, bukan layer-first di level teratas.
-- Atomic design tidak dipaksakan ke semua area. `atoms/molecules/organisms` dipakai hanya untuk shared UI atau domain UI yang memang besar.
-
-### Final High-Level Structure
-
-```text
-src/
-  app/
-    (public)/
-    (auth)/
-    (app)/
-      dashboard/
-      syllabus/
-      flashcards/
-      practice/
-      progress/
-      settings/
-    api/
-      auth/
-      syllabus/
-      flashcards/
-      practice/
-      progress/
-      personalization/
-    layout.tsx
-    globals.css
-
-  backend/
-    shared/
-      domain/
-      application/
-      interface/
-      infrastructure/
-    auth/
-    users/
-    syllabus/
-    flashcards/
-    practice/
-    progress/
-    personalization/
-
-  frontend/
-    shared/
-      adapters/
-      components/
-      helpers/
-      hooks/
-      interfaces/
-      providers/
-      services/
-    auth/
-    onboarding/
-    dashboard/
-    syllabus/
-    flashcards/
-    practice/
-    progress/
-    settings/
-
-  content/
-    syllabus/
-    flashcards/
-
-tests/
-  unit/
-  integration/
-  component/
-```
-
-### Backend Module Template
-
-```text
-src/backend/<module>/
-  domain/
-    aggregates/
-    entities/
-    value-objects/
-    exceptions/
-    repositories/        # interface only
-    services/
-    events/
-  application/
-    commands/
-    queries/
-    ports/
-    services/
-      requests/
-      responses/
-  interface/
-    primary/
-      rest/
-      graphql/
-      jobs/
-    secondary/
-      persistence/
-      ai/
-      events/
-  infrastructure/
-    config/
-    database/
-    di/
-    logging/
-```
-
-### Backend Notes
-- `domain` memuat pure business rules dan tidak tahu detail framework.
-- `application` memuat use case orchestration. Tambahan folder `queries/` sengaja ditambahkan karena KotobaHub punya read-heavy flow seperti syllabus map dan progress overview.
-- `interface/primary/rest` berisi controller/handler/mapping request-response. File `src/app/api/**/route.ts` hanya menjadi adapter Next.js yang mendelegasikan kerja ke lapisan ini.
-- `interface/secondary` berisi implementasi port keluar seperti repository database, AI provider adapter, event publisher, atau cache adapter.
-- `infrastructure` memuat detail teknis yang spesifik ke runtime/project seperti DI container, database bootstrap, logging config, dan module wiring.
-
-### Frontend Module Template
-
-```text
-src/frontend/<domain>/
-  components/
-    atoms/
-    molecules/
-    organisms/
-  features/
-  helpers/
-  hooks/
-  interfaces/
-    entities/
-      enums/
-    requests/
-    responses/
-  services/
-    api/
-    state/
-```
-
-### Frontend Shared Template
-
-```text
-src/frontend/shared/
-  adapters/
-    cookie-manager/
-    http-client/
-      impl/
-        AxiosHttpClient/
-          index.ts
-      HttpClient.ts
-  components/
-    atoms/
-    molecules/
-    organisms/
-    layouts/
-  helpers/
-  hooks/
-  interfaces/
-  providers/
-  services/
-```
-
-### Frontend Notes
-- Pola repo referensi tetap dipakai idenya: domain UI dipisah dari shared/general layer. Untuk KotobaHub, nama `shared` dipilih agar lebih umum dan mudah dibedakan dari `backend/shared`.
-- Folder seperti `frontend/auth`, `frontend/onboarding`, `frontend/syllabus`, dan seterusnya dipakai untuk kode yang dekat dengan fitur produk, misalnya onboarding wizard, flashcard flow, progress chart, dan syllabus map.
-- `frontend/shared` dipakai untuk UI primitives, app shell, provider global, reusable hooks, adapter HTTP, dan util lintas domain.
-- Struktur `atoms/molecules/organisms` tidak wajib diisi semua. Jika satu domain kecil, cukup gunakan `components/` biasa atau hanya `features/`.
-- Folder `services/api` dipakai untuk wrapper pemanggilan endpoint dari browser/client component. Folder `services/state` dipakai untuk store internal atau cache orchestration bila nanti dibutuhkan.
-
-### How App Router Maps To Modules
-- `src/app/**/page.tsx` merender screen dan melakukan composition, tetapi business rule tetap di `src/frontend` atau `src/backend`.
-- `src/app/api/**/route.ts` adalah transport adapter tipis untuk HTTP. Validasi request boleh dilakukan di sini atau di controller, tetapi use case tetap dipanggil dari `src/backend`.
-- Server component boleh memanggil query/use case backend langsung bila aman dijalankan di server.
-- Client component tidak boleh import repository atau service backend secara langsung; gunakan props dari server component, server action, atau wrapper API di `frontend/*/services/api`.
-
-### Example Placement
-- Syllabus page container: `src/app/(app)/syllabus/page.tsx`
-- Syllabus feature UI: `src/frontend/syllabus/features/SyllabusOverview.tsx`
-- Syllabus query use case: `src/backend/syllabus/application/queries/get-syllabus-overview.ts`
-- Syllabus controller for HTTP API: `src/backend/syllabus/interface/primary/rest/get-syllabus.controller.ts`
-- Syllabus route handler: `src/app/api/syllabus/route.ts`
+- Struktur folder final BE dan FE, tanggung jawab setiap layer, serta contoh penempatan kode ditetapkan di [ARCHITECTURE.md](../ARCHITECTURE.md).
+- Frontend menggunakan MobX untuk store dan Inversify untuk dependency injection. Interface, external API service, internal store, container, provider, dan hook mengikuti template pada dokumen tersebut.
+- `src/app` tetap lapisan route/transport tipis, `src/backend` memuat bounded context, dan `src/frontend` memuat domain UI serta `shared`.
+- Canonical seed tetap berada di root `content/`; loader/importer berada di backend.
+- Dokumen ini tetap menjadi sumber ownership bounded context dan alur bisnis pada `ARCH-01` serta `ARCH-03`. Definisi folder, store, dan DI mengikuti `ARCHITECTURE.md`.
 
 ## ARCH-03 Main Data Flow
 
@@ -335,6 +163,6 @@ track: jlpt-n4-expansion
 
 ## Result
 - `ARCH-01` dianggap selesai dengan daftar bounded context dan boundary rule di dokumen ini.
-- `ARCH-02` dianggap selesai dengan struktur folder final yang menyesuaikan Next.js App Router sekaligus mengikuti semangat proposal `backend/` dan `frontend/`.
+- `ARCH-02` mengacu pada struktur folder final, frontend store, dan DI di [ARCHITECTURE.md](../ARCHITECTURE.md).
 - `ARCH-03` dianggap selesai dengan definisi source of truth syllabus dan alur data utama antar module, terutama relasi `syllabus -> progress -> personalization -> practice`.
 - Task implementasi berikutnya bisa memakai dokumen ini sebagai baseline untuk bootstrap project di `IMP-01`.

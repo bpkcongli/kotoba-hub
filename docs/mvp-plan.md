@@ -7,8 +7,8 @@
 - Arah produk yang dikunci: UI language `English`, syllabus `JLPT ladder` dengan progression ala Duolingo namun bukan cloning konten/struktur proprietary, database production tetap `MySQL`, dan AI architecture `provider-agnostic` dengan adapter default OpenAI saat implementasi AI dimulai.
 
 ## Key Changes
-- Buat satu Next.js fullstack app, bukan monorepo. Struktur utama: `src/app` untuk App Router pages/layouts dan thin API entrypoints, `src/backend` untuk modular monolith backend per bounded context, `src/frontend` untuk `shared` UI/app-shell concerns dan folder domain-specific sejajar, `src/content` untuk syllabus/deck seed data, dan `tests` untuk unit/integration/component.
-- Gunakan modular monolith per feature: `auth`, `users`, `syllabus`, `flashcards`, `practice`, `progress`, `personalization`, `shared`. Tiap backend module punya batas jelas `domain`, `application`, `interface`, dan `infrastructure`, sementara frontend dipecah ke `src/frontend/shared` plus folder feature seperti `src/frontend/auth`, `src/frontend/syllabus`, dan `src/frontend/progress`.
+- Buat satu Next.js fullstack app, bukan monorepo. Struktur utama: `src/app` untuk App Router pages/layouts dan thin API entrypoints, `src/backend` untuk modular monolith backend per bounded context, `src/frontend` untuk `shared` UI/app-shell concerns dan folder domain-specific sejajar, root `content/` untuk canonical syllabus/deck seed data, dan `tests` untuk unit/integration/component.
+- Gunakan modular monolith per feature: `auth`, `users`, `syllabus`, `flashcards`, `practice`, `progress`, `personalization`, `shared`. Tiap backend module punya batas jelas `domain`, `application`, `interface`, dan `infrastructure`, sementara frontend dipecah ke `src/frontend/shared` plus folder feature seperti `src/frontend/auth`, `src/frontend/syllabus`, dan `src/frontend/progress`. Struktur folder serta store/DI mengikuti [ARCHITECTURE.md](../ARCHITECTURE.md); frontend memakai MobX + mobx-react-lite untuk observable state dan Inversify untuk injection service/store melalui container serta provider. Mock API FE memakai MSW pada layer HTTP dengan implementasi service API yang sama; handler dan fixture berada di `src/mocks`, tanpa class external service versi mock.
 - Kunci fondasi engineering: Bun, TypeScript strict, ESLint flat config, Prettier, Husky + lint-staged, commit hooks untuk `lint`, `typecheck`, dan `test --changed`. Karena `next lint` sudah deprecated sejak Next 15.5, linting dijalankan via ESLint CLI.
 - Data layer: MySQL + Drizzle + `mysql2` + `drizzle-kit`; validasi DTO/API pakai Zod. Tambahkan env validation di startup dan secret separation untuk local/dev/prod.
 - Auth pakai Auth.js dengan Google provider dan adapter Drizzle. Simpan `users`, `accounts`, `sessions`/session metadata, lalu tambah `learner_profiles` untuk level target, daily goal, preferred script support, dan onboarding completion.
@@ -34,7 +34,7 @@
 - Git baseline: inisialisasi repo, `.gitignore`, branch strategy sederhana (`main` + feature branches), dan GitHub Actions untuk `lint`, `typecheck`, `unit/integration test`, dan `docker build`.
 
 ## Implementation Sequence
-1. Bootstrap project dengan Next.js 16.1.1, Bun, TypeScript, Tailwind, shadcn, ESLint, Prettier, Husky, Jest, Testing Library, Drizzle, Auth.js, Docker, dan CI skeleton.
+1. Bootstrap project dengan Next.js 16.1.1, Bun, TypeScript, Tailwind, shadcn, MobX, mobx-react-lite, Inversify, MSW untuk development/testing FE, ESLint, Prettier, Husky, Jest, Testing Library, Drizzle, Auth.js, Docker, dan CI skeleton.
 2. Bangun design system dan app shell lebih dulu: tokens, typography, layout primitives, navigation, form patterns, feedback states, empty/loading/error states.
 3. Implement auth + onboarding personalization + learner profile schema + protected dashboard shell.
 4. Seed syllabus/read-only content model, unit pages, lesson pages, canonical post-study question bank, dan progress-aware course map.

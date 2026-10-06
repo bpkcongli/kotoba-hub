@@ -16,4 +16,6 @@ For MobX/Inversify FE work, check stable provider instances, per-session store s
 
 For FE API mocking, check MSW handlers against `/api/v1` contracts, unchanged real-service DI bindings, awaited browser startup, and per-test handler/fixture reset. Mock external service classes conflict with the architecture. Persistence integration/E2E must reach the real test backend.
 
+For UI diffs, apply [kotoba-anti-slop-ui](../kotoba-anti-slop-ui/SKILL.md) and [kotoba-anti-slop-copy](../kotoba-anti-slop-copy/SKILL.md) to the changed screens and copy. Report unsupported metrics or claims, dead controls, missing interaction states, or demonstrable responsive/accessibility failures with file and scenario evidence. For changed code comments, use [kotoba-anti-slop-comments](../kotoba-anti-slop-comments/SKILL.md) when a comment hides or misstates a material rule; avoid subjective style findings.
+
 Known audit points: published lesson bank coverage; custom `/api/v1/auth/...` contract versus Auth.js handler conventions; backend-before-UI order in [task breakdown](../../../docs/task-breakdown.md). Do not treat an existing documented gap as a new defect unless the change relies on it incorrectly.

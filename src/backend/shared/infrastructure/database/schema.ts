@@ -1,3 +1,3 @@
-// Migration registry. Export schemas from their owning bounded context here
-// starting with auth/users in IMP-02; importing this file must not open a connection.
-export {};
+// The migration registry only imports table definitions; importing it never opens a connection.
+export { accounts, sessions } from '@/backend/auth/infrastructure/database/schema';
+export { learnerProfiles, users } from '@/backend/users/infrastructure/database/schema';

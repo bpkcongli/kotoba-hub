@@ -18,8 +18,10 @@ cp .env.example .env
 bun run dev
 ```
 
-Open <http://localhost:3000>. The starter page does not need MySQL, Google, or an AI
-API key. Fonts are installed locally, so builds do not fetch Google Fonts.
+Start local MySQL with `docker compose up -d mysql` before running the app. Open
+<http://localhost:3000>. Server startup validates `DATABASE_URL`; the public page
+does not query MySQL. Google and AI keys are not required yet. Fonts are installed
+locally, so builds do not fetch Google Fonts.
 `bun install` configures Husky for this checkout; the pre-commit hook formats/lints
 staged code and runs lint, typecheck, and changed Jest tests.
 
@@ -80,17 +82,18 @@ and an unprivileged runtime user. Source acquisitions and local secrets are outs
 the Docker build context. The image excludes the development service worker.
 
 Drizzle ORM, `mysql2`, Drizzle Kit, and a migration registry/config are installed.
-The registry is empty until **IMP-02**, which adds connection/env validation,
-auth/user tables, and migrations; no database connection happens on startup yet.
-The prepared workflow is `bun run db:generate`, review SQL, then
-`bun run db:migrate`. See [migration notes](drizzle/README.md).
+**IMP-02** adds the auth/user schema, versioned migration, and MySQL connection.
+Startup validates the database URL without opening a connection. Run
+`bun run db:generate`, review SQL, then `bun run db:migrate` against the intended
+database. See [migration notes](drizzle/README.md).
 
 ## Architecture and next tasks
 
 - `src/app`: routes, layout, and provider composition.
 - `src/frontend`: shared primitives and feature UI; MobX, `mobx-react-lite`, and
   Inversify are installed for the provider/store implementation in **IMP-11**.
-- `src/backend`: backend context ownership; only the migration registry exists now.
+- `src/backend`: backend context ownership; auth/user schemas and shared database
+  bootstrap are available.
 - `src/mocks`: shared browser/Node HTTP mock foundation.
 - `content`: the existing canonical syllabus and flashcard data.
 
@@ -98,7 +101,7 @@ Read [AGENTS.md](AGENTS.md), [ARCHITECTURE.md](ARCHITECTURE.md), and the task's 
 documents before changing a feature. New module folders are created when needed.
 **SYL-07 remains pending by the owner's instruction**; IMP-01 does not rely on its
 personalization/mastery review or on the unfinished published lesson quiz banks.
-Feature API/auth/database behavior belongs to IMP-02–IMP-10, and the complete app
+Feature API/auth behavior belongs to IMP-03–IMP-10, and the complete app
 shell/session store belongs to IMP-11. Minimal tokens and MockProvider are bootstrapped
 here so styling and mock startup can be verified before those features exist.
 

@@ -14,3 +14,5 @@ Use for `IMP-05`–`IMP-07`, `IMP-09`, or integration of their learning state.
 - Random practice defaults to five questions and the documented `WEAK`/`REINFORCEMENT`/`STRETCH` mix. Objective grading stays deterministic; AI is reserved for supported generation/grading cases.
 - Producers write through the progress use case after each answer. Recompute skill mastery from at most the latest 20 relevant attempts and make the updated snapshot available to the next recommendation.
 - Check the published seed gap recorded in [PRD](../../../PRD.md) before assuming every lesson has a complete question bank. Prefer a documented content/publish fix over inventing questions during a request.
+- Follow the DDD class and port conventions in [backend boundaries](../kotoba-backend-boundaries/SKILL.md) for activity aggregates, progress entities, scheduling value objects, services, and repository implementations.
+- Use the request/response DTO mapping in [backend boundaries](../kotoba-backend-boundaries/SKILL.md) for learning endpoints, especially answer submissions and progress snapshots.

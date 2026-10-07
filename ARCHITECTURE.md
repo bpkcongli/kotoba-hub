@@ -121,6 +121,8 @@ src/backend/<context>/
 ### Layer dan ownership
 
 - `domain` menjaga aturan bisnis murni. Domain bergantung pada interface dan value object, serta dapat diuji tanpa Next.js, MySQL, atau provider AI.
+- Model DDD yang memiliki identitas atau invariant memakai class untuk entity, aggregate, dan value object. Domain service, application service, serta implementasi repository juga memakai class; repository contract dan application port tetap berupa interface. DTO HTTP, schema Drizzle, dan data serializable lintas batas server/client tetap plain type/object.
+- Endpoint API dengan payload body, path/query/header yang perlu dipetakan, atau data response harus memiliki request/response DTO yang eksplisit pada `interface/primary/rest`. Validasi input dilakukan sebelum nilai masuk ke use case; mapper response hanya mengeluarkan field yang dijanjikan OpenAPI. Redirect dan response tanpa `data` tidak memerlukan DTO payload kosong. Request/response internal use case ditempatkan di `application/services/requests` atau `responses` bila diperlukan, terpisah dari DTO HTTP.
 - `application` mengorkestrasi use case dan memanggil port. `interface/primary/rest` memetakan HTTP ke use case; `interface/secondary` menyediakan implementasi port.
 - `infrastructure` merangkai dependency dan konfigurasi runtime. Shared connection/env bootstrap berada di `src/backend/shared/infrastructure`; schema domain tetap di context pemiliknya dan dihimpun untuk workflow migration.
 - `auth` memiliki session lifecycle; `users` memiliki learner profile; `syllabus` memiliki katalog dan canonical question bank; `flashcards`/`practice` memiliki aktivitas; `progress` memiliki event/snapshot; `personalization` memiliki recommendation policy.

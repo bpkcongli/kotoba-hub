@@ -3,4 +3,7 @@ export async function register() {
 
   const { readDatabaseEnv } = await import('@/backend/shared/infrastructure/config/database-env');
   readDatabaseEnv();
+
+  const { readAuthEnv } = await import('@/backend/auth/infrastructure/config/auth-env');
+  readAuthEnv();
 }

@@ -4,6 +4,9 @@ Run `bun run test` for the Jest unit (Node) and component (jsdom) projects. The
 Next.js transformer handles TypeScript, JSX, path aliases, styles, and assets.
 Node supplies native fetch APIs to jsdom before MSW loads.
 
+Place unit tests under `tests/unit/<domain>/`. Use `shared` for API response,
+database bootstrap, and test infrastructure that crosses domain boundaries.
+
 `tests/setup/msw.ts` starts and closes the Node interceptor, resets runtime
 handlers and registered scenario state after each test, and fails unhandled
 `/api/v1` requests even when application code catches the request error. Assets

@@ -42,6 +42,18 @@ paths:
               schema:
                 type: string
                 format: uri
+        '403':
+          description: Origin request tidak sama dengan origin aplikasi.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140301001
+                  message: Request origin is not allowed.
+                  errorDetails: []
         '422':
           description: Validation error response.
           content:
@@ -52,7 +64,7 @@ paths:
                 status:
                   traceId: 550e8400-e29b-41d4-a716-446655440000
                   code: 142201002
-                  message: Validation error.
+                  message: Invalid redirectTo.
                   errorDetails:
                     - field: redirectTo
                       message: redirectTo must be a safe relative path.
@@ -98,7 +110,7 @@ paths:
               schema:
                 type: string
         '401':
-          description: Identity dari callback tidak bisa diverifikasi.
+          description: Identity, state, atau PKCE dari callback tidak bisa diverifikasi.
           content:
             application/json:
               schema:
@@ -110,7 +122,7 @@ paths:
                   message: Google authentication failed.
                   errorDetails: []
         '422':
-          description: OAuth callback tidak valid atau state mismatch.
+          description: Parameter code atau state OAuth callback tidak lengkap.
           content:
             application/json:
               schema:
@@ -122,7 +134,7 @@ paths:
                   message: Invalid OAuth callback payload.
                   errorDetails:
                     - field: state
-                      message: OAuth state is invalid or expired.
+                      message: Required callback value is missing.
   /auth/session:
     get:
       tags:
@@ -207,6 +219,30 @@ paths:
                   code: 120001000
                   message: Success!
                   errorDetails: []
+        '403':
+          description: Origin request tidak sama dengan origin aplikasi.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140301001
+                  message: Request origin is not allowed.
+                  errorDetails: []
+        '500':
+          description: Terjadi exception auth yang tidak tertangani; sign-out belum berhasil.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 150001999
+                  message: Unhandled auth exception.
+                  errorDetails: []
 components:
   schemas:
     ErrorDetail:
@@ -234,7 +270,7 @@ components:
           format: uuid
         code:
           type: integer
-          example: 120001000
+          description: Kode aplikasi 9 digit sesuai status HTTP dan domain endpoint.
         message:
           type: string
         errorDetails:

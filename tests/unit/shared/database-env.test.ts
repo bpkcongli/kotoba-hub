@@ -3,6 +3,7 @@ import { readDatabaseEnv } from '@/backend/shared/infrastructure/config/database
 describe('database environment', () => {
   it('accepts a complete MySQL URL without changing it', () => {
     const databaseUrl = 'mysql://learner:secret@localhost:3306/kotoba_test';
+
     expect(readDatabaseEnv({ DATABASE_URL: databaseUrl })).toEqual({ databaseUrl });
   });
 

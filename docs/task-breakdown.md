@@ -51,7 +51,7 @@
 ### 4. Code Implementation
 - [x] `IMP-01` Bootstrap project foundation: Next.js App Router, Bun, TypeScript strict, ESLint, Prettier, Husky, Tailwind, shadcn, MobX, mobx-react-lite, Inversify, MSW untuk mock API FE, Jest, RTL, Drizzle, Docker. Lihat [ARCHITECTURE.md](../ARCHITECTURE.md).
 - [x] `IMP-02` Implement database foundation: koneksi MySQL, migration workflow, env validation, dan base schema auth/user.
-- [ ] `IMP-03` Implement authentication backend dengan Google login dan protected route strategy.
+- [x] `IMP-03` Implement authentication backend dengan Google login dan protected route strategy.
 - [ ] `IMP-04` Implement backend learner profile dan onboarding personalization persistence.
 - [ ] `IMP-05` Implement backend syllabus read model dan endpoint fetch track/unit/lesson, termasuk metadata dan canonical bank soal `post-study quiz` `10` tingkat kesulitan untuk lesson detail.
 - [ ] `IMP-06` Implement backend progress engine: `progress_events`, `skill_mastery_snapshots`, `lesson_understanding_snapshots`, summary aggregation, dan derivation state completion lesson dari kenaikan pemahaman post-study quiz minimal `0 -> 1`.

@@ -54,6 +54,7 @@ Query params:
 Success response:
 - HTTP `302 Found`
 - Header `Location` berisi Google authorization URL
+- Request POST wajib membawa `Origin` yang sama dengan origin aplikasi; bila tidak, respons `403` untuk mencegah CSRF pada adapter start.
 
 Validation error:
 - HTTP `422` bila `redirectTo` tidak valid atau bukan relative path aman
@@ -83,7 +84,8 @@ Success response:
 
 Failure response:
 - HTTP `401` bila identity provider gagal diverifikasi atau callback tidak bisa menghasilkan session valid
-- HTTP `422` bila parameter callback tidak lengkap atau state mismatch terdeteksi sebagai request invalid
+- HTTP `401` bila validasi state/PKCE di Auth.js gagal; adapter tidak menerima alasan terstruktur untuk memisahkan kegagalan ini dari kegagalan verifikasi provider
+- HTTP `422` bila parameter `code` atau `state` tidak lengkap
 
 ### `GET /api/v1/auth/session`
 Mengembalikan snapshot session untuk visitor saat ini. Endpoint ini sengaja `public` agar UI bisa memeriksa status auth tanpa memaksa error `401` pada page load.
@@ -133,11 +135,13 @@ Mengakhiri session aktif.
 Behavior:
 - Jika ada session aktif, invalidate record session dan hapus cookie.
 - Jika session tidak ada, endpoint tetap merespons sukses agar sign-out bersifat idempotent.
+- Jika penghapusan record session gagal, endpoint mengembalikan `500` dan tidak mengklaim logout berhasil; cookie tetap aktif sehingga client bisa mencoba ulang.
 
 Success response:
 - HTTP `200 OK`
 - Menggunakan success envelope tanpa `data`
 - Cookie session dikosongkan/expired
+- Request POST wajib membawa `Origin` yang sama dengan origin aplikasi; origin lain atau yang tidak ada mendapat `403`.
 
 ## Authorization Model
 
@@ -171,7 +175,8 @@ Success response:
 | `403` | `140301002` | Onboarding belum selesai untuk endpoint yang memerlukan app access penuh |
 | `422` | `142201001` | Validation error generic |
 | `422` | `142201002` | Query `redirectTo` tidak valid |
-| `422` | `142201003` | OAuth callback parameter tidak lengkap atau state mismatch |
+| `422` | `142201003` | Parameter `code` atau `state` OAuth callback tidak lengkap |
+| `500` | `150001999` | Unhandled auth exception |
 
 ## OpenAPI Artifact
 - Swagger/OpenAPI contract untuk area ini disimpan di `docs/api-contract/openapi.auth.yaml`.

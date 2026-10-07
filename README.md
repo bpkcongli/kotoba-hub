@@ -1,9 +1,8 @@
 # KotobaHub
 
 A Japanese learning app built as a Next.js modular monolith. The repository now
-contains the **IMP-01 foundation**: a public starter page, strict TypeScript,
-Tailwind/shadcn setup, development API mocking, test tooling, and a Docker build.
-Learning features and authentication follow the [task breakdown](docs/task-breakdown.md).
+contains the project foundation, MySQL auth/user schema, and Google authentication
+backend. Learning features follow the [task breakdown](docs/task-breakdown.md).
 
 ## Local development
 
@@ -19,8 +18,8 @@ bun run dev
 ```
 
 Start local MySQL with `docker compose up -d mysql` before running the app. Open
-<http://localhost:3000>. Server startup validates `DATABASE_URL`; the public page
-does not query MySQL. Google and AI keys are not required yet. Fonts are installed
+<http://localhost:3000>. Server startup validates `DATABASE_URL` and auth settings;
+the public page does not query MySQL. AI keys are not required yet. Fonts are installed
 locally, so builds do not fetch Google Fonts.
 `bun install` configures Husky for this checkout; the pre-commit hook formats/lints
 staged code and runs lint, typecheck, and changed Jest tests.
@@ -61,6 +60,38 @@ Services keep their real HTTP implementation in both modes. Node tests reset
 handlers and registered scenario state after each test. Browser MSW does not
 intercept Server Component queries or establish a real authenticated session.
 
+## Google authentication
+
+Set `AUTH_SECRET` to a private random value of at least 32 characters, then set
+`AUTH_GOOGLE_ID` and `AUTH_GOOGLE_SECRET` to a Google OAuth web client's credentials.
+Register `http://localhost:3000/api/v1/auth/callback/google` as an authorized
+redirect URI in Google Cloud for local development. Use the deployed origin with
+the same path in production. Never commit the values to the repository.
+
+`POST /api/v1/auth/google/start` starts Google OAuth, `GET
+/api/v1/auth/callback/google` completes it, `GET /api/v1/auth/session` reads the
+session snapshot, and `POST /api/v1/auth/sign-out` ends the current session. Both
+POST routes require a same-origin `Origin` header. Use `redirectTo` on the start
+route only with a local absolute path such as `/dashboard`. Auth.js stores an
+HTTP-only, same-site database session cookie (`authjs.session-token`, Secure in
+production). API responses expose the session record UUID, never the bearer
+cookie token. A first Google login creates the user and linked account before
+the session; later logins reuse the linkage.
+
+The `(app)` server layout requires a session. Future onboarding pages belong under
+that layout and allow `ONBOARDING_REQUIRED`. Future learning pages belong under
+`(app)/(ready)` and redirect incomplete learners to `/onboarding`. No protected
+page or onboarding form ships in IMP-03; those arrive with the UI tasks. Backend
+routes should call `requireApiAccess(request, 'AUTHENTICATED' | 'APP_READY')` for
+their documented access level. The auth session endpoint stays public.
+Anonymous page requests currently redirect to the public `/` starter page; the
+`/login` entry and visible sign-in action belong to IMP-12.
+
+For a disposable migrated MySQL database whose name ends in `_test`, run
+`AUTH_TEST_DATABASE_URL=mysql://.../kotoba_auth_test bun run test:auth-adapter`.
+This checks the adapter's user, account, session, and sign-out round trip and
+removes its records afterward.
+
 ## Docker and MySQL
 
 ```sh
@@ -82,8 +113,8 @@ and an unprivileged runtime user. Source acquisitions and local secrets are outs
 the Docker build context. The image excludes the development service worker.
 
 Drizzle ORM, `mysql2`, Drizzle Kit, and a migration registry/config are installed.
-**IMP-02** adds the auth/user schema, versioned migration, and MySQL connection.
-Startup validates the database URL without opening a connection. Run
+**IMP-02** added the auth/user schema, versioned migration, and MySQL connection.
+Startup validates the database URL and auth settings without opening a connection. Run
 `bun run db:generate`, review SQL, then `bun run db:migrate` against the intended
 database. See [migration notes](drizzle/README.md).
 
@@ -92,8 +123,8 @@ database. See [migration notes](drizzle/README.md).
 - `src/app`: routes, layout, and provider composition.
 - `src/frontend`: shared primitives and feature UI; MobX, `mobx-react-lite`, and
   Inversify are installed for the provider/store implementation in **IMP-11**.
-- `src/backend`: backend context ownership; auth/user schemas and shared database
-  bootstrap are available.
+- `src/backend`: backend context ownership; auth/user schemas, Google Auth.js
+  adapter, and shared database bootstrap are available.
 - `src/mocks`: shared browser/Node HTTP mock foundation.
 - `content`: the existing canonical syllabus and flashcard data.
 
@@ -101,7 +132,7 @@ Read [AGENTS.md](AGENTS.md), [ARCHITECTURE.md](ARCHITECTURE.md), and the task's 
 documents before changing a feature. New module folders are created when needed.
 **SYL-07 remains pending by the owner's instruction**; IMP-01 does not rely on its
 personalization/mastery review or on the unfinished published lesson quiz banks.
-Feature API/auth behavior belongs to IMP-03–IMP-10, and the complete app
+Remaining feature API behavior belongs to IMP-04–IMP-10, and the complete app
 shell/session store belongs to IMP-11. Minimal tokens and MockProvider are bootstrapped
 here so styling and mock startup can be verified before those features exist.
 

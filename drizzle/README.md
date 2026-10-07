@@ -17,7 +17,8 @@ For each schema change, run `bun run db:generate`, review the generated SQL and
 snapshot against the ERD, then run `bun run db:migrate` against the intended
 database. Application startup does not run migrations automatically.
 
-Auth.js adapter mapping belongs to IMP-03. This ERD requires UUID `id` columns
-on `accounts` and `sessions`, `users.display_name`, and boolean
-`users.email_verified`; these differ from Auth.js adapter defaults and need an
-explicit adapter strategy before login routes are implemented.
+IMP-03 uses a Drizzle-backed Auth.js adapter that maps this ERD explicitly. The
+adapter generates internal UUIDs for users, accounts, and sessions and maps
+Google's verified email to `users.email_verified` after a successful sign-in.
+OAuth access, refresh, and ID tokens are not persisted because IMP-03 only needs
+the verified identity and provider account link. No schema migration is needed.

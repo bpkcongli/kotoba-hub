@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw';
 import { server } from '@/mocks/msw.node';
 import { registerMockStateReset, resetMockState } from '@/mocks/states/reset';
-import { anonymousSessionResponse } from '../fixtures/anonymous-session';
+import { anonymousSessionResponse } from '../../fixtures/anonymous-session';
 
 const sessionUrl = 'http://localhost:3000/api/v1/auth/session';
 

@@ -106,8 +106,8 @@ Success response:
     },
     "suggestedKnownSkillClaims": [
       {
-        "skillCode": "hiragana_basic",
-        "title": "Hiragana Basics",
+        "skillCode": "hiragana_a_row",
+        "title": "Hiragana A Row",
         "source": "ai_note",
         "confidence": 0.91
       }
@@ -115,7 +115,7 @@ Success response:
     "recommendation": {
       "recommendedTrackSlug": "jlpt-n5-foundation",
       "recommendedUnitSlug": "n5-kana-basics",
-      "nextLessonSlug": "hiragana-row-a"
+      "nextLessonSlug": "hiragana-vowels-and-k-row"
     },
     "aiNormalizationUsed": true
   }
@@ -124,10 +124,12 @@ Success response:
 
 Validation notes:
 - `targetLevel`, `dailyGoalMinutes`, dan `preferredScript` wajib diisi.
-- `weakSkillFocuses` boleh kosong tetapi harus berbentuk array bila dikirim.
+- `weakSkillFocuses` wajib dikirim sebagai array dan boleh kosong. Item dapat berupa label area belajar yang dipilih user, seperti `particles` atau `listening`; nilainya tidak diperlakukan sebagai `skill.code` syllabus.
+- `knownSkillClaims` pada konfirmasi juga harus berisi `skill.code` dari syllabus yang dipublikasikan; jangan menyimpan label bebas atau suggestion AI yang belum dikonfirmasi.
+- `targetLevel` harus memiliki track syllabus yang dipublikasikan sehingga recommendation menunjuk ke lesson yang nyata. Pada seed saat ini, `JLPT_N5` dan `JLPT_N4` tersedia; track `N3` dan `N2` masih skeleton belum dipublikasikan.
 - `note` opsional dan tidak boleh langsung menjadi source of truth tanpa confirmation user.
 - Gunakan `142203001` untuk payload validation generic, mis. field wajib hilang atau tipe data tidak sesuai.
-- Gunakan `142203002` bila payload secara bentuk valid tetapi referensi personalization tidak cocok dengan katalog syllabus, mis. `targetLevel` tidak ditemukan.
+- Gunakan `142203002` bila payload secara bentuk valid tetapi referensi personalization tidak cocok dengan katalog syllabus, mis. `targetLevel` belum dipublikasikan atau `knownSkillClaims` berisi `skill.code` yang tidak ditemukan.
 
 ### `POST /api/v1/personalization/assessment/confirm`
 Menyimpan learner profile final setelah user mereview hasil draft.
@@ -136,6 +138,7 @@ Behavior:
 - Menerima payload final yang sudah diedit/dikonfirmasi user.
 - `personalization` boleh menghitung ulang recommendation final.
 - Write final tetap masuk ke `users` untuk upsert `learner_profiles` dan `onboarding_completed = true`.
+- Request POST wajib membawa `Origin` yang sama dengan origin aplikasi; jika tidak, respons `403` dikirim sebelum pemeriksaan session.
 
 Request body:
 
@@ -146,7 +149,7 @@ Request body:
   "dailyGoalMinutes": 20,
   "preferredScript": "MIXED",
   "weakSkillFocuses": ["particles", "listening"],
-  "knownSkillClaims": ["hiragana_basic"]
+  "knownSkillClaims": ["hiragana_a_row"]
 }
 ```
 
@@ -174,14 +177,14 @@ Success response:
         "dailyGoalMinutes": 20,
         "preferredScript": "MIXED",
         "weakSkillFocuses": ["particles", "listening"],
-        "knownSkillClaims": ["hiragana_basic"],
+        "knownSkillClaims": ["hiragana_a_row"],
         "onboardingCompletedAt": "2026-04-04T10:00:00Z"
       }
     },
     "recommendation": {
       "recommendedTrackSlug": "jlpt-n5-foundation",
       "recommendedUnitSlug": "n5-kana-basics",
-      "nextLessonSlug": "hiragana-row-a"
+      "nextLessonSlug": "hiragana-vowels-and-k-row"
     }
   }
 }
@@ -208,6 +211,7 @@ Success response:
 | --- | --- | --- |
 | `200` | `120003000` | Personalization success |
 | `401` | `140103001` | Session tidak ada atau tidak valid untuk personalization API |
+| `403` | `140301001` | Origin request konfirmasi tidak sama dengan origin aplikasi |
 | `422` | `142203001` | Validation error generic untuk payload/schema |
 | `422` | `142203002` | Referensi personalization tidak valid terhadap katalog syllabus |
 | `500` | `150003999` | Unhandled personalization exception |

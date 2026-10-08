@@ -145,8 +145,8 @@ State profile belajar final milik context `users`, diisi setelah onboarding diko
 | `target_level` | `varchar(50)` | not null | Target utama learner. |
 | `daily_goal_minutes` | `int` | not null | Target belajar harian dalam menit. |
 | `preferred_script` | `varchar(50)` | not null | Preferensi script utama, mis. `ROMAJI`, `KANA`, `MIXED`. |
-| `weak_skill_focuses` | `json` | not null | Daftar weak area/skill focus yang dipilih user atau hasil konfirmasi. |
-| `known_skill_claims` | `json` | not null | Klaim skill yang sudah dikuasai hasil structured form + AI draft yang sudah dikonfirmasi. |
+| `weak_skill_focuses` | `json` | not null | Daftar label area belajar yang dipilih user, mis. `particles` atau `listening`; bukan foreign key atau `skill.code` syllabus. |
+| `known_skill_claims` | `json` | not null | Daftar `skill.code` syllabus yang dipublikasikan dan sudah dikonfirmasi user setelah structured form atau AI draft. |
 | `onboarding_completed` | `boolean` | not null default `false` | Gate utama untuk akses route app setelah onboarding. |
 | `onboarding_completed_at` | `timestamp` | null | Waktu final konfirmasi onboarding. |
 | `created_at` | `timestamp` | not null | Audit create time. |

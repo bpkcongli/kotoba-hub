@@ -99,14 +99,14 @@ paths:
                       - particles
                       - listening
                   suggestedKnownSkillClaims:
-                    - skillCode: hiragana_basic
-                      title: Hiragana Basics
+                    - skillCode: hiragana_a_row
+                      title: Hiragana A Row
                       source: ai_note
                       confidence: 0.91
                   recommendation:
                     recommendedTrackSlug: jlpt-n5-foundation
                     recommendedUnitSlug: n5-kana-basics
-                    nextLessonSlug: hiragana-row-a
+                    nextLessonSlug: hiragana-vowels-and-k-row
                   aiNormalizationUsed: true
         '401':
           description: Session tidak ada atau tidak valid.
@@ -194,12 +194,12 @@ paths:
                         - particles
                         - listening
                       knownSkillClaims:
-                        - hiragana_basic
+                        - hiragana_a_row
                       onboardingCompletedAt: '2026-04-04T10:00:00Z'
                   recommendation:
                     recommendedTrackSlug: jlpt-n5-foundation
                     recommendedUnitSlug: n5-kana-basics
-                    nextLessonSlug: hiragana-row-a
+                    nextLessonSlug: hiragana-vowels-and-k-row
         '401':
           description: Session tidak ada atau tidak valid.
           content:
@@ -211,6 +211,18 @@ paths:
                   traceId: 550e8400-e29b-41d4-a716-446655440000
                   code: 140103001
                   message: Unauthorized.
+                  errorDetails: []
+        '403':
+          description: Origin request konfirmasi tidak sama dengan origin aplikasi.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140301001
+                  message: Request origin is not allowed.
                   errorDetails: []
         '422':
           description: Payload konfirmasi tidak valid.
@@ -388,6 +400,7 @@ components:
           example: JLPT_N5
         targetLevel:
           type: string
+          description: JLPT level with a published syllabus track.
           example: JLPT_N4
         dailyGoalMinutes:
           type: integer
@@ -402,6 +415,7 @@ components:
           example: MIXED
         weakSkillFocuses:
           type: array
+          description: Learner-selected weak-area labels; may be empty and are not syllabus skill codes.
           items:
             type: string
           example: ["particles", "listening"]
@@ -515,6 +529,7 @@ components:
           example: JLPT_N5
         targetLevel:
           type: string
+          description: JLPT level with a published syllabus track.
           example: JLPT_N4
         dailyGoalMinutes:
           type: integer
@@ -529,14 +544,16 @@ components:
           example: MIXED
         weakSkillFocuses:
           type: array
+          description: Learner-selected weak-area labels; may be empty and are not syllabus skill codes.
           items:
             type: string
           example: ["particles", "listening"]
         knownSkillClaims:
           type: array
+          description: Published syllabus skill codes confirmed by the learner.
           items:
             type: string
-          example: ["hiragana_basic"]
+          example: ["hiragana_a_row"]
     OnboardingResult:
       type: object
       additionalProperties: false

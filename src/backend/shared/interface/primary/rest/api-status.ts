@@ -16,6 +16,14 @@ export enum ApplicationStatusCode {
   INVALID_REDIRECT_TO = 142201002,
   INVALID_OAUTH_CALLBACK = 142201003,
   UNHANDLED_AUTH_EXCEPTION = 150001999,
+  USER_PROFILE_SUCCESS = 120002000,
+  USER_PROFILE_UNAUTHORIZED = 140102001,
+  UNHANDLED_USER_PROFILE_EXCEPTION = 150002999,
+  PERSONALIZATION_SUCCESS = 120003000,
+  PERSONALIZATION_UNAUTHORIZED = 140103001,
+  PERSONALIZATION_VALIDATION_ERROR = 142203001,
+  PERSONALIZATION_INVALID_REFERENCE = 142203002,
+  UNHANDLED_PERSONALIZATION_EXCEPTION = 150003999,
 }
 
 export const applicationStatus = {
@@ -50,6 +58,38 @@ export const applicationStatus = {
   [ApplicationStatusCode.UNHANDLED_AUTH_EXCEPTION]: {
     httpStatus: HttpStatusCode.INTERNAL_SERVER_ERROR,
     message: 'Unhandled auth exception.',
+  },
+  [ApplicationStatusCode.USER_PROFILE_SUCCESS]: {
+    httpStatus: HttpStatusCode.OK,
+    message: 'Success!',
+  },
+  [ApplicationStatusCode.USER_PROFILE_UNAUTHORIZED]: {
+    httpStatus: HttpStatusCode.UNAUTHORIZED,
+    message: 'Unauthorized.',
+  },
+  [ApplicationStatusCode.UNHANDLED_USER_PROFILE_EXCEPTION]: {
+    httpStatus: HttpStatusCode.INTERNAL_SERVER_ERROR,
+    message: 'Unhandled user profile exception.',
+  },
+  [ApplicationStatusCode.PERSONALIZATION_SUCCESS]: {
+    httpStatus: HttpStatusCode.OK,
+    message: 'Success!',
+  },
+  [ApplicationStatusCode.PERSONALIZATION_UNAUTHORIZED]: {
+    httpStatus: HttpStatusCode.UNAUTHORIZED,
+    message: 'Unauthorized.',
+  },
+  [ApplicationStatusCode.PERSONALIZATION_VALIDATION_ERROR]: {
+    httpStatus: HttpStatusCode.UNPROCESSABLE_ENTITY,
+    message: 'Validation error.',
+  },
+  [ApplicationStatusCode.PERSONALIZATION_INVALID_REFERENCE]: {
+    httpStatus: HttpStatusCode.UNPROCESSABLE_ENTITY,
+    message: 'Invalid personalization confirmation payload.',
+  },
+  [ApplicationStatusCode.UNHANDLED_PERSONALIZATION_EXCEPTION]: {
+    httpStatus: HttpStatusCode.INTERNAL_SERVER_ERROR,
+    message: 'Unhandled personalization exception.',
   },
 } satisfies Record<ApplicationStatusCode, { httpStatus: HttpStatusCode; message: string }>;
 

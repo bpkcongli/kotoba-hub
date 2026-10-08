@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
   const callback = readGoogleCallbackRequest(request.nextUrl.searchParams);
 
   if (callback.error !== null) {
-    return apiResponse(ApplicationStatusCode.GOOGLE_AUTHENTICATION_FAILED);
+    return apiResponse(ApplicationStatusCode.GOOGLE_AUTH_FAILED);
   }
 
   if (!callback.code || !callback.state) {
@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
   const location = response.headers.get('location');
 
   if (location && /[?&]error=/.test(location)) {
-    const errorResponse = apiResponse(ApplicationStatusCode.GOOGLE_AUTHENTICATION_FAILED);
+    const errorResponse = apiResponse(ApplicationStatusCode.GOOGLE_AUTH_FAILED);
 
     for (const cookie of response.headers.getSetCookie()) {
       errorResponse.headers.append('set-cookie', cookie);

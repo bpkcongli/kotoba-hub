@@ -8,9 +8,9 @@ export enum HttpStatusCode {
 }
 
 export enum ApplicationStatusCode {
-  SUCCESS = 120001000,
-  AUTHENTICATION_REQUIRED = 140101001,
-  GOOGLE_AUTHENTICATION_FAILED = 140101002,
+  AUTH_SUCCESS = 120001000,
+  AUTH_REQUIRED = 140101001,
+  GOOGLE_AUTH_FAILED = 140101002,
   ORIGIN_NOT_ALLOWED = 140301001,
   ONBOARDING_REQUIRED = 140301002,
   INVALID_REDIRECT_TO = 142201002,
@@ -19,12 +19,15 @@ export enum ApplicationStatusCode {
 }
 
 export const applicationStatus = {
-  [ApplicationStatusCode.SUCCESS]: { httpStatus: HttpStatusCode.OK, message: 'Success!' },
-  [ApplicationStatusCode.AUTHENTICATION_REQUIRED]: {
+  [ApplicationStatusCode.AUTH_SUCCESS]: {
+    httpStatus: HttpStatusCode.OK,
+    message: 'Success!',
+  },
+  [ApplicationStatusCode.AUTH_REQUIRED]: {
     httpStatus: HttpStatusCode.UNAUTHORIZED,
     message: 'Authentication required.',
   },
-  [ApplicationStatusCode.GOOGLE_AUTHENTICATION_FAILED]: {
+  [ApplicationStatusCode.GOOGLE_AUTH_FAILED]: {
     httpStatus: HttpStatusCode.UNAUTHORIZED,
     message: 'Google authentication failed.',
   },

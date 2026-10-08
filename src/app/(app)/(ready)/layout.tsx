@@ -1,7 +1,7 @@
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import type { ReactNode } from 'react';
-import { getSessionSnapshot } from '@/backend/auth/infrastructure/di/session';
+import { getSessionSnapshot } from '@/backend/auth/infrastructure/di';
 
 export default async function AppReadyLayout({ children }: { children: ReactNode }) {
   const requestHeaders = await headers();

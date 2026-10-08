@@ -2,7 +2,7 @@ import NextAuth from 'next-auth';
 import Google from 'next-auth/providers/google';
 import { RedirectPath } from '@/backend/auth/domain/value-objects/redirect-path';
 import { createAuthJsAdapter } from '@/backend/auth/interface/secondary/persistence/authjs-adapter';
-import { authUserService } from '@/backend/users/infrastructure/di/auth-user';
+import { authUserService } from '@/backend/users/infrastructure/di';
 import { SESSION_COOKIE_NAME } from './auth-cookie';
 
 export const { handlers, signIn, signOut } = NextAuth({

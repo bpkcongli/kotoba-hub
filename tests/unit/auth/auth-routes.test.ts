@@ -4,14 +4,14 @@ import { GET as getSession } from '@/app/api/v1/auth/session/route';
 import { POST as signOutRoute } from '@/app/api/v1/auth/sign-out/route';
 import { anonymousSession } from '@/backend/auth/application/services/session';
 import { signIn, signOut } from '@/backend/auth/infrastructure/config/auth';
-import { getSessionSnapshot, revokeSession } from '@/backend/auth/infrastructure/di/session';
+import { getSessionSnapshot, revokeSession } from '@/backend/auth/infrastructure/di';
 import { requireApiAccess } from '@/backend/auth/interface/primary/rest/guard';
 
 jest.mock('@/backend/auth/infrastructure/config/auth', () => ({
   signIn: jest.fn(),
   signOut: jest.fn(),
 }));
-jest.mock('@/backend/auth/infrastructure/di/session', () => ({
+jest.mock('@/backend/auth/infrastructure/di', () => ({
   getSessionSnapshot: jest.fn(async () => ({
     isAuthenticated: false,
     sessionId: null,

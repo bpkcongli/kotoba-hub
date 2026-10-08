@@ -3,7 +3,7 @@ import { readSessionToken } from '@/backend/auth/application/services/session';
 import { signOut } from '@/backend/auth/infrastructure/config/auth';
 import { SESSION_COOKIE_NAME } from '@/backend/auth/infrastructure/config/auth-cookie';
 import { readAuthEnv } from '@/backend/auth/infrastructure/config/auth-env';
-import { revokeSession } from '@/backend/auth/infrastructure/di/session';
+import { revokeSession } from '@/backend/auth/infrastructure/di';
 import { requireSameOrigin } from '@/backend/auth/interface/primary/rest/origin';
 import { ApplicationStatusCode } from '@/backend/shared/interface/primary/rest/api-status';
 import { apiResponse } from '@/backend/shared/interface/primary/rest/response';
@@ -32,5 +32,5 @@ export async function POST(request: Request) {
     return apiResponse(ApplicationStatusCode.UNHANDLED_AUTH_EXCEPTION);
   }
 
-  return apiResponse(ApplicationStatusCode.SUCCESS);
+  return apiResponse(ApplicationStatusCode.AUTH_SUCCESS);
 }

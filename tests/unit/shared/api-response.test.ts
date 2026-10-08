@@ -6,14 +6,10 @@ import { apiResponse } from '@/backend/shared/interface/primary/rest/response';
 
 describe('shared API response', () => {
   it.each([
-    [ApplicationStatusCode.SUCCESS, HttpStatusCode.OK, 'Success!'],
+    [ApplicationStatusCode.AUTH_SUCCESS, HttpStatusCode.OK, 'Success!'],
+    [ApplicationStatusCode.AUTH_REQUIRED, HttpStatusCode.UNAUTHORIZED, 'Authentication required.'],
     [
-      ApplicationStatusCode.AUTHENTICATION_REQUIRED,
-      HttpStatusCode.UNAUTHORIZED,
-      'Authentication required.',
-    ],
-    [
-      ApplicationStatusCode.GOOGLE_AUTHENTICATION_FAILED,
+      ApplicationStatusCode.GOOGLE_AUTH_FAILED,
       HttpStatusCode.UNAUTHORIZED,
       'Google authentication failed.',
     ],

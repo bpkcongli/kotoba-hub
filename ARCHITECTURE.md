@@ -114,7 +114,8 @@ src/backend/<context>/
   infrastructure/
     config/
     database/              # schema milik context
-    di/                    # composition/wiring use case dan adapter
+    di/
+      index.ts             # composition/wiring use case dan adapter
     logging/
 ```
 
@@ -126,6 +127,7 @@ src/backend/<context>/
 - Endpoint API dengan payload body, path/query/header yang perlu dipetakan, atau data response harus memiliki request/response DTO yang eksplisit pada `interface/primary/rest`. Validasi input dilakukan sebelum nilai masuk ke use case; mapper response hanya mengeluarkan field yang dijanjikan OpenAPI. Redirect dan response tanpa `data` tidak memerlukan DTO payload kosong. Request/response internal use case ditempatkan di `application/services/requests` atau `responses` bila diperlukan, terpisah dari DTO HTTP.
 - `application` mengorkestrasi use case dan memanggil port. `interface/primary/rest` memetakan HTTP ke use case; `interface/secondary` menyediakan implementasi port.
 - `infrastructure` merangkai dependency dan konfigurasi runtime. Shared connection/env bootstrap berada di `src/backend/shared/infrastructure`; schema domain tetap di context pemiliknya dan dihimpun untuk workflow migration.
+- Setiap context memiliki satu file composition di `infrastructure/di/index.ts` yang merangkai seluruh service dan adapter context tersebut. Consumer mengimpor wiring dari `infrastructure/di`.
 - `auth` memiliki session lifecycle; `users` memiliki learner profile; `syllabus` memiliki katalog dan canonical question bank; `flashcards`/`practice` memiliki aktivitas; `progress` memiliki event/snapshot; `personalization` memiliki recommendation policy.
 - Akses lintas context melalui application port/facade. Producer aktivitas memanggil use case progress. Adapter persistence suatu context mengakses tabel yang dimiliki context itu.
 

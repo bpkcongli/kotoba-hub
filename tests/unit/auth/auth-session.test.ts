@@ -1,10 +1,13 @@
-import type { AuthSessionPort } from '@/backend/auth/application/ports/auth-session.port';
 import { SessionService } from '@/backend/auth/application/services/session';
 import { AuthSession } from '@/backend/auth/domain/entities/auth-session';
+import type { AuthSessionRepository } from '@/backend/auth/domain/repositories/auth-session.repository';
 import type { AuthUserPort } from '@/backend/users/application/ports/auth-user.port';
 import { AuthUser } from '@/backend/users/domain/entities/auth-user';
 
-const sessionPort: AuthSessionPort = { findByToken: jest.fn(), deleteByToken: jest.fn() };
+const sessionRepository: AuthSessionRepository = {
+  findByToken: jest.fn(),
+  deleteByToken: jest.fn(),
+};
 const userPort: AuthUserPort = {
   create: jest.fn(),
   findById: jest.fn(),
@@ -13,7 +16,7 @@ const userPort: AuthUserPort = {
   recordLogin: jest.fn(),
   isOnboardingComplete: jest.fn(),
 };
-const sessionService = new SessionService(sessionPort, userPort);
+const sessionService = new SessionService(sessionRepository, userPort);
 
 describe('auth session entity', () => {
   it('expires at the exact boundary and keeps its expiration immutable', () => {
@@ -30,7 +33,7 @@ describe('auth session entity', () => {
 });
 
 beforeEach(() => {
-  jest.mocked(sessionPort.findByToken).mockResolvedValue(
+  jest.mocked(sessionRepository.findByToken).mockResolvedValue(
     new AuthSession({
       id: 'session-uuid',
       userId: 'user-uuid',
@@ -55,13 +58,13 @@ describe('database session snapshot', () => {
     const snapshot = await sessionService.getSnapshot('other=value');
 
     expect(snapshot.authorization.appAccess).toBe('ANONYMOUS');
-    expect(sessionPort.findByToken).not.toHaveBeenCalled();
+    expect(sessionRepository.findByToken).not.toHaveBeenCalled();
   });
 
   it('returns the record UUID and users-owned onboarding state without exposing bearer token', async () => {
     const snapshot = await sessionService.getSnapshot('authjs.session-token=private-bearer-token');
 
-    expect(sessionPort.findByToken).toHaveBeenCalledWith('private-bearer-token');
+    expect(sessionRepository.findByToken).toHaveBeenCalledWith('private-bearer-token');
     expect(snapshot.sessionId).toBe('session-uuid');
     expect(snapshot.authorization).toEqual({
       appAccess: 'ONBOARDING_REQUIRED',
@@ -78,7 +81,7 @@ describe('database session snapshot', () => {
   });
 
   it('treats an expired database session as anonymous', async () => {
-    jest.mocked(sessionPort.findByToken).mockResolvedValueOnce(
+    jest.mocked(sessionRepository.findByToken).mockResolvedValueOnce(
       new AuthSession({
         id: 'session-uuid',
         userId: 'user-uuid',

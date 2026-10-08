@@ -1,10 +1,10 @@
 import { eq } from 'drizzle-orm';
-import type { AuthSessionPort } from '@/backend/auth/application/ports/auth-session.port';
 import { AuthSession } from '@/backend/auth/domain/entities/auth-session';
+import type { AuthSessionRepository } from '@/backend/auth/domain/repositories/auth-session.repository';
 import { sessions } from '@/backend/auth/infrastructure/database/schema';
 import { getDatabase } from '@/backend/shared/infrastructure/database/connection';
 
-export class AuthSessionRepository implements AuthSessionPort {
+export class DrizzleAuthSessionRepository implements AuthSessionRepository {
   async findByToken(token: string): Promise<AuthSession | null> {
     const [row] = await getDatabase()
       .select({ id: sessions.id, userId: sessions.userId, expiresAt: sessions.expiresAt })
@@ -20,4 +20,4 @@ export class AuthSessionRepository implements AuthSessionPort {
   }
 }
 
-export const authSessionRepository = new AuthSessionRepository();
+export const authSessionRepository = new DrizzleAuthSessionRepository();

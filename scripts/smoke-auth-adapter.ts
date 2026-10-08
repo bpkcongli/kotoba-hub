@@ -9,7 +9,7 @@ process.env.DATABASE_URL = testUrl;
 const [
   { eq },
   { createAuthJsAdapter },
-  { authUserRepository },
+  { authUserService },
   { getSessionSnapshot, revokeSession },
   { getDatabase },
   { accounts },
@@ -17,14 +17,14 @@ const [
 ] = await Promise.all([
   import('drizzle-orm'),
   import('@/backend/auth/interface/secondary/persistence/authjs-adapter'),
-  import('@/backend/users/interface/secondary/persistence/auth-user.repository'),
+  import('@/backend/users/infrastructure/di/auth-user'),
   import('@/backend/auth/infrastructure/di/session'),
   import('@/backend/shared/infrastructure/database/connection'),
   import('@/backend/auth/infrastructure/database/schema'),
   import('@/backend/users/infrastructure/database/schema'),
 ]);
 
-const adapter = createAuthJsAdapter(authUserRepository);
+const adapter = createAuthJsAdapter(authUserService);
 const identity = randomUUID();
 const accountId = randomUUID();
 const token = randomUUID();

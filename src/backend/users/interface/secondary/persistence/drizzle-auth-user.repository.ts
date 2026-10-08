@@ -1,11 +1,11 @@
 import { eq } from 'drizzle-orm';
 import { getDatabase } from '@/backend/shared/infrastructure/database/connection';
+import { AuthUser } from '@/backend/users/domain/entities/auth-user';
 import type {
-  AuthUserPort,
+  AuthUserRepository,
   CreateAuthUser,
   UpdateAuthUser,
-} from '@/backend/users/application/ports/auth-user.port';
-import { AuthUser } from '@/backend/users/domain/entities/auth-user';
+} from '@/backend/users/domain/repositories/auth-user.repository';
 import { learnerProfiles, users } from '@/backend/users/infrastructure/database/schema';
 
 function toAuthUser(row: typeof users.$inferSelect): AuthUser {
@@ -19,7 +19,7 @@ function toAuthUser(row: typeof users.$inferSelect): AuthUser {
   });
 }
 
-export class AuthUserRepository implements AuthUserPort {
+export class DrizzleAuthUserRepository implements AuthUserRepository {
   async create(input: CreateAuthUser): Promise<AuthUser> {
     await getDatabase().insert(users).values(input);
 
@@ -69,4 +69,4 @@ export class AuthUserRepository implements AuthUserPort {
   }
 }
 
-export const authUserRepository = new AuthUserRepository();
+export const authUserRepository = new DrizzleAuthUserRepository();

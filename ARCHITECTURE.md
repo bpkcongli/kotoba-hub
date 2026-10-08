@@ -122,6 +122,7 @@ src/backend/<context>/
 
 - `domain` menjaga aturan bisnis murni. Domain bergantung pada interface dan value object, serta dapat diuji tanpa Next.js, MySQL, atau provider AI.
 - Model DDD yang memiliki identitas atau invariant memakai class untuk entity, aggregate, dan value object. Domain service, application service, serta implementasi repository juga memakai class; repository contract dan application port tetap berupa interface. DTO HTTP, schema Drizzle, dan data serializable lintas batas server/client tetap plain type/object.
+- Kontrak persistence bernama `<Entity>Repository` dan berada di `domain/repositories/<entity>.repository.ts`, tanpa suffix `Port`. Implementasi Drizzle bernama `Drizzle<Entity>Repository` dan berada di `interface/secondary/persistence/drizzle-<entity>.repository.ts`. Suffix `Port` digunakan untuk kontrak application service, akses lintas context, atau dependency non-persistence di `application/ports`; repository diakses lintas context melalui application service/facade milik context pemilik data.
 - Endpoint API dengan payload body, path/query/header yang perlu dipetakan, atau data response harus memiliki request/response DTO yang eksplisit pada `interface/primary/rest`. Validasi input dilakukan sebelum nilai masuk ke use case; mapper response hanya mengeluarkan field yang dijanjikan OpenAPI. Redirect dan response tanpa `data` tidak memerlukan DTO payload kosong. Request/response internal use case ditempatkan di `application/services/requests` atau `responses` bila diperlukan, terpisah dari DTO HTTP.
 - `application` mengorkestrasi use case dan memanggil port. `interface/primary/rest` memetakan HTTP ke use case; `interface/secondary` menyediakan implementasi port.
 - `infrastructure` merangkai dependency dan konfigurasi runtime. Shared connection/env bootstrap berada di `src/backend/shared/infrastructure`; schema domain tetap di context pemiliknya dan dihimpun untuk workflow migration.
@@ -135,7 +136,8 @@ Contoh penempatan:
 | Progress domain rule | `src/backend/progress/domain/services/mastery-calculator.ts` |
 | Syllabus query | `src/backend/syllabus/application/queries/get-lesson.ts` |
 | Flashcard answer controller | `src/backend/flashcards/interface/primary/rest/submit-answer.controller.ts` |
-| Progress repository adapter | `src/backend/progress/interface/secondary/persistence/progress.repository.ts` |
+| Progress repository contract | `src/backend/progress/domain/repositories/progress.repository.ts` |
+| Progress repository adapter | `src/backend/progress/interface/secondary/persistence/drizzle-progress.repository.ts` |
 | API route | `src/app/api/v1/flashcards/sessions/[sessionId]/answer/route.ts` |
 
 Stack BE: MySQL, Drizzle, `mysql2`, Zod, Auth.js Google provider, dan provider abstraction AI sesuai [MVP plan](docs/mvp-plan.md). MobX digunakan di FE; state authoritative seperti mastery dan lesson understanding dihitung serta disimpan oleh BE.

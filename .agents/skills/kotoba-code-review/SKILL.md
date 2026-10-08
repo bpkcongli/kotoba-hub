@@ -12,6 +12,8 @@ Use for a requested review or as the independent review stage of an implementati
 3. Focus on user-visible bugs, auth/session leakage, cross-context data access, invalid seed assumptions, deterministic grading/mastery mistakes, stale progress, inaccessible UI states, and missing tests for high-risk behavior.
 4. Report only actionable findings. Include severity, file/line, failing scenario, and expected behavior. Put open questions separately and say explicitly when no findings were found.
 
+For backend contracts, check the repository naming/placement rules in [backend boundaries](../kotoba-backend-boundaries/SKILL.md): persistence interfaces use `<Entity>Repository` in `domain/repositories`, Drizzle implementations use `Drizzle<Entity>Repository`, and application `Port` contracts expose services/facades or non-persistence dependencies. Context crossings must not bypass the owning application service to access its repository.
+
 For MobX/Inversify FE work, check stable provider instances, per-session store scope, async action updates, observer boundaries, plain DTO hydration, and user-state isolation during server rendering/sign out against `ARCHITECTURE.md`.
 
 For FE API mocking, check MSW handlers against `/api/v1` contracts, unchanged real-service DI bindings, awaited browser startup, and per-test handler/fixture reset. Mock external service classes conflict with the architecture. Persistence integration/E2E must reach the real test backend.

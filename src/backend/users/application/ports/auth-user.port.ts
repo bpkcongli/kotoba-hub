@@ -1,7 +1,8 @@
-import type { AuthUser, AuthUserAttributes } from '@/backend/users/domain/entities/auth-user';
-
-export type CreateAuthUser = Omit<AuthUserAttributes, 'createdAt'>;
-export type UpdateAuthUser = Partial<Omit<CreateAuthUser, 'id'>> & Pick<CreateAuthUser, 'id'>;
+import type { AuthUser } from '@/backend/users/domain/entities/auth-user';
+import type {
+  CreateAuthUser,
+  UpdateAuthUser,
+} from '@/backend/users/domain/repositories/auth-user.repository';
 
 export interface AuthUserPort {
   create(input: CreateAuthUser): Promise<AuthUser>;

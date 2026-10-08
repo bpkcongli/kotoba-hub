@@ -1,8 +1,8 @@
 import { SessionService } from '@/backend/auth/application/services/session';
-import { authSessionRepository } from '@/backend/auth/interface/secondary/persistence/auth-session.repository';
-import { authUserRepository } from '@/backend/users/interface/secondary/persistence/auth-user.repository';
+import { authSessionRepository } from '@/backend/auth/interface/secondary/persistence/drizzle-auth-session.repository';
+import { authUserService } from '@/backend/users/infrastructure/di/auth-user';
 
-const sessionService = new SessionService(authSessionRepository, authUserRepository);
+const sessionService = new SessionService(authSessionRepository, authUserService);
 
 export const getSessionSnapshot = (cookieHeader: string | null) =>
   sessionService.getSnapshot(cookieHeader);

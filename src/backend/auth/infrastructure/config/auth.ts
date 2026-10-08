@@ -2,14 +2,14 @@ import NextAuth from 'next-auth';
 import Google from 'next-auth/providers/google';
 import { RedirectPath } from '@/backend/auth/domain/value-objects/redirect-path';
 import { createAuthJsAdapter } from '@/backend/auth/interface/secondary/persistence/authjs-adapter';
-import { authUserRepository } from '@/backend/users/interface/secondary/persistence/auth-user.repository';
+import { authUserService } from '@/backend/users/infrastructure/di/auth-user';
 import { SESSION_COOKIE_NAME } from './auth-cookie';
 
 export const { handlers, signIn, signOut } = NextAuth({
   basePath: '/api/v1/auth',
   secret: process.env.AUTH_SECRET || 'build-only-placeholder-not-valid-for-runtime',
   trustHost: true,
-  adapter: createAuthJsAdapter(authUserRepository),
+  adapter: createAuthJsAdapter(authUserService),
   session: { strategy: 'database' },
   cookies: {
     sessionToken: {
@@ -52,7 +52,7 @@ export const { handlers, signIn, signOut } = NextAuth({
   events: {
     async signIn({ user, profile }) {
       if (profile?.email_verified === true && user.id) {
-        await authUserRepository.update({ id: user.id, emailVerified: true });
+        await authUserService.update({ id: user.id, emailVerified: true });
       }
     },
   },

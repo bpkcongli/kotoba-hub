@@ -1,4 +1,4 @@
-import type { AuthSessionPort } from '@/backend/auth/application/ports/auth-session.port';
+import type { AuthSessionRepository } from '@/backend/auth/domain/repositories/auth-session.repository';
 import { SESSION_COOKIE_NAME } from '@/backend/auth/infrastructure/config/auth-cookie';
 import type { AuthUserPort } from '@/backend/users/application/ports/auth-user.port';
 
@@ -45,7 +45,7 @@ export function readSessionToken(cookieHeader: string | null): string | null {
 
 export class SessionService {
   constructor(
-    private readonly sessionPort: AuthSessionPort,
+    private readonly sessionRepository: AuthSessionRepository,
     private readonly userPort: AuthUserPort,
   ) {}
 
@@ -53,7 +53,7 @@ export class SessionService {
     const token = readSessionToken(cookieHeader);
     if (!token) return anonymousSession;
 
-    const session = await this.sessionPort.findByToken(token);
+    const session = await this.sessionRepository.findByToken(token);
     if (!session || session.isExpired()) return anonymousSession;
 
     const user = await this.userPort.findById(session.userId);
@@ -80,6 +80,6 @@ export class SessionService {
   }
 
   async revoke(token: string): Promise<void> {
-    await this.sessionPort.deleteByToken(token);
+    await this.sessionRepository.deleteByToken(token);
   }
 }

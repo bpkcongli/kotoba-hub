@@ -1,3 +1,5 @@
-import { getUserProfile } from '@/backend/users/interface/primary/rest/get-user-profile.controller';
+import { userProfileController } from '@/backend/users/interface/primary/rest/user-profile.controller';
 
-export const GET = getUserProfile;
+export function GET(request: Request): Promise<Response> {
+  return userProfileController.getUserProfile(request);
+}

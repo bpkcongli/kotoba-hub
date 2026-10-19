@@ -21,6 +21,7 @@
     "test:ci": "jest --ci --runInBand",
     "test:auth-adapter": "bun scripts/smoke-auth-adapter.ts",
     "test:syllabus-importer": "bun scripts/smoke-syllabus-importer.ts",
+    "test:progress": "bun scripts/smoke-progress.ts",
     "check": "bun run lint && bun run typecheck && bun run format:check && bun run test:ci",
     "prepare": "husky",
     "mocks:init": "msw init public --save",

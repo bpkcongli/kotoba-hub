@@ -34,7 +34,7 @@
 | `syllabus` | Kurikulum `track -> unit -> lesson -> skill`, mapping skill antar level | `tracks`, `units`, `lessons`, `skills`, `unit_skill_mappings` |
 | `flashcards` | Deck, card session, Leitner bucket, answer evaluation yang deterministik | `flashcard_decks`, `flashcard_items`, flashcard sessions |
 | `practice` | Session random questions, komposisi soal, grading orchestration, feedback | `practice_sessions`, `practice_questions`, `practice_answers` |
-| `progress` | Event belajar, mastery snapshot, overview/timeline progress | `progress_events`, `skill_mastery_snapshots` |
+| `progress` | Event belajar, mastery dan lesson understanding snapshot, overview/timeline progress | `progress_events`, `skill_mastery_snapshots`, `lesson_understanding_snapshots` |
 | `personalization` | Onboarding assessment, AI normalization, recommendation policy, learner adaptation rules | assessment models, recommendation policy, optional assessment logs |
 | `shared` | Shared kernel dan technical abstractions lintas module | base error/result, ids, time abstractions, pagination, observability contracts |
 

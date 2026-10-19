@@ -15,6 +15,13 @@
       "when": 1791491625517,
       "tag": "0001_syllabus_catalog",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1792392959834,
+      "tag": "0002_progress_engine",
+      "breakpoints": true
     }
   ]
 }

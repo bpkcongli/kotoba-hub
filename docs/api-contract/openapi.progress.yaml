@@ -30,6 +30,8 @@ paths:
           required: false
           schema:
             type: string
+            maxLength: 100
+            pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
       responses:
         '200':
           description: Progress overview berhasil diambil.
@@ -87,6 +89,10 @@ paths:
                   code: 140307001
                   message: Forbidden.
                   errorDetails: []
+        '422':
+          $ref: '#/components/responses/ProgressValidationError'
+        '500':
+          $ref: '#/components/responses/ProgressServerError'
   /progress/sessions:
     get:
       tags:
@@ -182,6 +188,8 @@ paths:
                   errorDetails:
                     - field: sourceTypes
                       message: sourceTypes must use comma-separated values.
+        '500':
+          $ref: '#/components/responses/ProgressServerError'
   /progress/timeline:
     get:
       tags:
@@ -285,7 +293,36 @@ paths:
                   errorDetails:
                     - field: sourceTypes
                       message: sourceTypes must use comma-separated values.
+        '500':
+          $ref: '#/components/responses/ProgressServerError'
 components:
+  responses:
+    ProgressValidationError:
+      description: Query progress tidak valid; parameter berulang, nilai kosong, dan filter malformed ditolak.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            status:
+              traceId: 550e8400-e29b-41d4-a716-446655440000
+              code: 142207001
+              message: Validation error.
+              errorDetails:
+                - field: trackSlug
+                  message: Invalid track slug.
+    ProgressServerError:
+      description: Progress read gagal karena internal error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            status:
+              traceId: 550e8400-e29b-41d4-a716-446655440000
+              code: 150007999
+              message: Unhandled progress exception.
+              errorDetails: []
   securitySchemes:
     cookieAuth:
       type: apiKey
@@ -504,6 +541,7 @@ components:
           nullable: true
         sessionStatus:
           type: string
+          description: Status authoritative producer; UNKNOWN bila metadata belum tersedia. Post-study adalah COMPLETED per attempt.
         sessionTitle:
           type: string
         trackSlug:

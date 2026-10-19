@@ -26,3 +26,11 @@ Persistence integration tests and E2E belong in `tests/integration/` and
 `tests/e2e/` when those implementation tasks land. They must run against the
 real isolated test backend with FE API mocking disabled, without this global
 MSW setup. External OAuth and AI providers still need isolated test doubles.
+
+IMP-06 progress unit tests cover mastery windows, recency/confidence weighting,
+two-session difficulty evidence, lesson understanding, filtered aggregation,
+and protected REST contracts. Run real MySQL write-through verification with
+`bun run test:progress --allow-test-db-write`, using the isolated database setup
+in [drizzle/README.md](../drizzle/README.md). The smoke covers migrations,
+rollback, concurrency, idempotency after catalog changes, and user isolation;
+it keeps frontend API mocking disabled.

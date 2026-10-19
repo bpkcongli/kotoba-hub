@@ -32,6 +32,11 @@ export enum ApplicationStatusCode {
   SYLLABUS_LESSON_NOT_FOUND = 140404002,
   SYLLABUS_INVALID_FILTER = 142204001,
   UNHANDLED_SYLLABUS_EXCEPTION = 150004999,
+  PROGRESS_SUCCESS = 120007000,
+  PROGRESS_UNAUTHORIZED = 140107001,
+  PROGRESS_ONBOARDING_REQUIRED = 140307001,
+  PROGRESS_VALIDATION_ERROR = 142207001,
+  UNHANDLED_PROGRESS_EXCEPTION = 150007999,
 }
 
 export const applicationStatus = {
@@ -126,6 +131,26 @@ export const applicationStatus = {
   [ApplicationStatusCode.UNHANDLED_SYLLABUS_EXCEPTION]: {
     httpStatus: HttpStatusCode.INTERNAL_SERVER_ERROR,
     message: 'Unhandled syllabus exception.',
+  },
+  [ApplicationStatusCode.PROGRESS_SUCCESS]: {
+    httpStatus: HttpStatusCode.OK,
+    message: 'Success!',
+  },
+  [ApplicationStatusCode.PROGRESS_UNAUTHORIZED]: {
+    httpStatus: HttpStatusCode.UNAUTHORIZED,
+    message: 'Unauthorized.',
+  },
+  [ApplicationStatusCode.PROGRESS_ONBOARDING_REQUIRED]: {
+    httpStatus: HttpStatusCode.FORBIDDEN,
+    message: 'Forbidden.',
+  },
+  [ApplicationStatusCode.PROGRESS_VALIDATION_ERROR]: {
+    httpStatus: HttpStatusCode.UNPROCESSABLE_ENTITY,
+    message: 'Validation error.',
+  },
+  [ApplicationStatusCode.UNHANDLED_PROGRESS_EXCEPTION]: {
+    httpStatus: HttpStatusCode.INTERNAL_SERVER_ERROR,
+    message: 'Unhandled progress exception.',
   },
 } satisfies Record<ApplicationStatusCode, { httpStatus: HttpStatusCode; message: string }>;
 

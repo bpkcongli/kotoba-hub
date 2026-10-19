@@ -48,6 +48,7 @@ sequenceDiagram
 - Producer activity seperti `flashcards` dan `practice` tidak menulis langsung ke storage milik `progress`.
 - `syllabus` dipakai sebagai validator resmi untuk memastikan attribution skill selalu sah sebelum event disimpan.
 - Recompute snapshot terjadi segera setelah event baru masuk, sehingga feedback loop ke UI dan recommendation berikutnya tetap write-through.
+- Insert event dan upsert kedua snapshot berada dalam satu transaksi dengan lock snapshot per user/skill dan, untuk post-study, per user/lesson. Producer memakai UUID event stabil untuk retry idempotent. Detail formula, evidence dua session, dan metadata projection session mengikuti [Progress Engine v1](../erd/learning-activity.md#progress-engine-v1-imp-06).
 - Flow ini hanya berlaku untuk hasil activity yang punya `skill_id` valid terhadap katalog `syllabus`. Jika item flashcard tidak punya mapping skill resmi, processing berhenti di boundary `flashcards` dan tidak membuat `progress_event`.
 - Untuk lesson post-study quiz, `source_session_id` boleh `null`; `source_entity_id` merujuk ke `lesson_post_study_questions.id`, dan jawaban benar menaikkan `lesson_understanding_snapshots.current_understanding_level` satu langkah sampai maksimum `10`.
 

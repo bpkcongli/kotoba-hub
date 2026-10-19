@@ -48,6 +48,8 @@ Behavior:
 - Membaca `skill_mastery_snapshots` sebagai basis utama agregasi skill mastery dan `lesson_understanding_snapshots` untuk lesson completion/understanding.
 - Boleh menyertakan ringkasan track agar dashboard tidak perlu banyak request tambahan.
 - Tidak mengembalikan seluruh timeline event.
+- Counter hanya mencakup snapshot yang telah terisi attempt. `developingSkillsCount` mencakup state internal `DEVELOPING` dan `STABLE`. Rata-rata tanpa data adalah `0`, `lastActivityAt` adalah `null`, dan difficulty default adalah `STANDARD`; aggregate band mengambil band paling konservatif dari snapshot terkait.
+- Track yang tidak ditemukan mengembalikan overview kosong. History untuk katalog yang kemudian di-unpublish tetap dapat dibaca menggunakan attribution snapshot saat event dicatat.
 
 Success response:
 
@@ -102,6 +104,7 @@ Query params:
 
 Behavior:
 - Timeline diurutkan descending berdasarkan `answered_at`.
+- ID event descending menjadi tie-breaker saat timestamp sama. Filter diterapkan sebelum menghitung `totalRecords` dan pagination.
 - Satu item timeline merepresentasikan satu `progress_event`.
 - Untuk `PRACTICE` dan `LESSON_POST_STUDY`, nilai `questionType` mengikuti vocabulary `SHORT_FREE_RESPONSE`, `SLOT_FILL`, `ARRANGE_TOKEN`, atau `FREE_RESPONSE` sesuai question yang dijawab. Baseline canonical post-study saat ini memakai `SHORT_FREE_RESPONSE`.
 - Endpoint ini cocok untuk activity feed, audit ringan, dan debugging user-facing.
@@ -163,6 +166,7 @@ Behavior:
 - Feed diurutkan descending berdasarkan `lastActivityAt`.
 - Satu item feed merepresentasikan ringkasan satu `flashcard_session` atau `practice_session`.
 - Summary dibentuk dari agregasi `progress_events` per `source_type + source_session_id` untuk activity berbasis session. Untuk `LESSON_POST_STUDY`, summary boleh dikelompokkan per `lesson_id + answered_at` atau digabung ke card review lesson karena event ini tidak memiliki session id.
+- Implementasi `IMP-06` merangkum post-study per ID event/attempt. Untuk aktivitas berbasis session, metadata status/title/waktu diambil dari projection authoritative producer pada event terbaru yang menyertakannya. Tanpa metadata, status adalah `UNKNOWN`, title memakai jenis aktivitas, dan `startedAt`/`completedAt` adalah `null`. Satu jawaban tidak menyiratkan session sudah selesai. Jika session melintasi track/unit, field terkait bernilai `null`; filter track membatasi interaksi yang diagregasi.
 - Endpoint ini cocok untuk recent activity dashboard, sedangkan `GET /progress/timeline` tetap dipakai bila UI atau tooling membutuhkan jejak per jawaban.
 
 Success response:
@@ -205,6 +209,8 @@ Success response:
 ```
 
 ## Suggested Error Code Seeds
+
+Query feed/timeline memakai pagination integer desimal (`offset >=0`, `1 <= limit <=100`). Semua endpoint menolak parameter yang didukung bila dikirim berulang, serta menolak daftar filter kosong/tidak valid. Track slug memakai huruf kecil, angka, dan hyphen; skill code memakai huruf kecil, angka, dan underscore. Filter valid yang tidak cocok menghasilkan data kosong. Validasi gagal memakai `422`; kegagalan internal memakai `500` tanpa membocorkan pesan database.
 
 | HTTP Status | Application Code | Meaning |
 | --- | --- | --- |

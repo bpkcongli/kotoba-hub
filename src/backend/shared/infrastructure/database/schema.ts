@@ -2,6 +2,11 @@
 export { accounts, sessions } from '@/backend/auth/infrastructure/database/schema';
 export { learnerProfiles, users } from '@/backend/users/infrastructure/database/schema';
 export {
+  progressEvents,
+  skillMasterySnapshots,
+  lessonUnderstandingSnapshots,
+} from '@/backend/progress/infrastructure/database/schema';
+export {
   lessonContentBlocks,
   lessonPostStudyQuestions,
   lessons,

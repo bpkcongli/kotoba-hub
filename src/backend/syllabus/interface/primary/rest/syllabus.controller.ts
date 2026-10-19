@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto';
 import type { AuthorizationService } from '@/backend/auth/application/services/authorization.service';
 import { authorizationService, getSessionSnapshot } from '@/backend/auth/infrastructure/di';
 import { ApplicationStatusCode } from '@/backend/shared/interface/primary/rest/api-status';
+import { queryValue } from '@/backend/shared/interface/primary/rest/query-value';
 import { apiResponse } from '@/backend/shared/interface/primary/rest/response';
 import type { SyllabusCatalogService } from '@/backend/syllabus/application/services/syllabus-catalog.service';
 import { syllabusCatalogService } from '@/backend/syllabus/infrastructure/di';
@@ -9,7 +10,6 @@ import {
   getLessonRequestSchema,
   getUnitRequestSchema,
   listTracksRequestSchema,
-  queryValue,
 } from './dto/syllabus.request.dto';
 import { toLessonDto, toTrackSummaryDto, toUnitDto } from './dto/syllabus.response.dto';
 

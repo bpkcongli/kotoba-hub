@@ -4,10 +4,10 @@ import { authorizationService, getSessionSnapshot } from '@/backend/auth/infrast
 import type { ProgressService } from '@/backend/progress/application/services/progress.service';
 import { progressService } from '@/backend/progress/infrastructure/di';
 import { ApplicationStatusCode } from '@/backend/shared/interface/primary/rest/api-status';
+import { queryValue } from '@/backend/shared/interface/primary/rest/query-value';
 import { apiResponse } from '@/backend/shared/interface/primary/rest/response';
 import {
   progressOverviewRequestSchema,
-  progressQueryValue,
   progressSessionsRequestSchema,
   progressTimelineRequestSchema,
 } from './dto/progress.request.dto';
@@ -53,7 +53,7 @@ export class ProgressController {
       }
 
       const url = new URL(request.url);
-      const trackSlug = progressQueryValue(url, 'trackSlug');
+      const trackSlug = queryValue(url, 'trackSlug');
       if (kind === 'overview') {
         const parsed = progressOverviewRequestSchema.safeParse({ trackSlug });
         if (!parsed.success) return invalidQuery(parsed.error.issues);
@@ -66,14 +66,14 @@ export class ProgressController {
 
       const query = {
         trackSlug,
-        offset: progressQueryValue(url, 'offset'),
-        limit: progressQueryValue(url, 'limit'),
-        sourceTypes: progressQueryValue(url, 'sourceTypes'),
+        offset: queryValue(url, 'offset'),
+        limit: queryValue(url, 'limit'),
+        sourceTypes: queryValue(url, 'sourceTypes'),
       };
       if (kind === 'timeline') {
         const parsed = progressTimelineRequestSchema.safeParse({
           ...query,
-          skillCodes: progressQueryValue(url, 'skillCodes'),
+          skillCodes: queryValue(url, 'skillCodes'),
         });
         if (!parsed.success) return invalidQuery(parsed.error.issues);
 

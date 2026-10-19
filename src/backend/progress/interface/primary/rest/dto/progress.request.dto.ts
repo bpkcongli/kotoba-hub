@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { paginationRequestSchema } from '@/backend/shared/interface/primary/rest/dto/pagination.request.dto';
 
 const trackSlug = z
   .string()
@@ -13,25 +14,9 @@ const sourceTypes = z
 
 type ProgressSourceType = 'FLASHCARD' | 'PRACTICE' | 'LESSON_POST_STUDY';
 
-const pagination = {
-  offset: z
-    .string()
-    .regex(/^\d+$/)
-    .transform(Number)
-    .pipe(z.number().int().min(0).max(Number.MAX_SAFE_INTEGER))
-    .default(0),
-  limit: z
-    .string()
-    .regex(/^\d+$/)
-    .transform(Number)
-    .pipe(z.number().int().min(1).max(100))
-    .default(10),
-};
-
 export const progressOverviewRequestSchema = z.object({ trackSlug });
 
-export const progressSessionsRequestSchema = z.object({
-  ...pagination,
+export const progressSessionsRequestSchema = paginationRequestSchema.extend({
   sourceTypes,
   trackSlug,
 });
@@ -48,8 +33,3 @@ export const progressTimelineRequestSchema = progressSessionsRequestSchema.exten
 export type ProgressOverviewRequestDto = z.infer<typeof progressOverviewRequestSchema>;
 export type ProgressSessionsRequestDto = z.infer<typeof progressSessionsRequestSchema>;
 export type ProgressTimelineRequestDto = z.infer<typeof progressTimelineRequestSchema>;
-
-export function progressQueryValue(url: URL, name: string): string | undefined {
-  const values = url.searchParams.getAll(name);
-  return values.length > 1 ? '\u0000' : values[0];
-}

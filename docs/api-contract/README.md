@@ -156,6 +156,8 @@ Rules:
 ### Standard pagination query
 - `offset`: zero-based jumlah record yang dilewati sebelum mengambil data.
 - `limit`: jumlah maksimal record yang diambil.
+- Schema request pagination bersama berada di `src/backend/shared/interface/primary/rest/dto/pagination.request.dto.ts`; DTO domain menambah filter melalui `.extend()`. Default `offset=0` dan `limit=10`, dengan `offset <= Number.MAX_SAFE_INTEGER` serta `1 <= limit <=100`.
+- Query pagination menerima string digit desimal saja. Nilai kosong, negatif, pecahan, notasi eksponen, dan hexadecimal ditolak dengan `422`, bukan dikonversi secara implisit.
 
 Example:
 
@@ -172,6 +174,7 @@ GET /api/v1/flashcards/decks?offset=0&limit=10
 - Gunakan `camelCase` untuk nama query parameter, misalnya `unitSlug`, `skillId`, `includeArchived`.
 - Boolean query memakai nilai literal `true` atau `false`.
 - Jika endpoint butuh filter multi-value, gunakan separated commas, misalnya `?skillIds=a,b`.
+- Controller memakai helper bersama `queryValue` di `src/backend/shared/interface/primary/rest/query-value.ts` sebelum validasi schema DTO. Parameter yang tidak ada menghasilkan `undefined`; parameter berulang tetap ditolak oleh validasi DTO progress/syllabus.
 - Query params pagination disimpan konsisten sebagai `offset` dan `limit`; jangan campur dengan `page`, `pageSize`, atau `cursor` di MVP kecuali memang ada keputusan arsitektur baru.
 
 ## Deliverables

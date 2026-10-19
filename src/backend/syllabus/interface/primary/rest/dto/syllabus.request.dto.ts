@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { paginationRequestSchema } from '@/backend/shared/interface/primary/rest/dto/pagination.request.dto';
 
 const slug = z
   .string()
@@ -6,9 +7,7 @@ const slug = z
   .max(100);
 const booleanQuery = z.enum(['true', 'false']).transform((value) => value === 'true');
 
-export const listTracksRequestSchema = z.object({
-  offset: z.coerce.number().int().min(0).default(0),
-  limit: z.coerce.number().int().min(1).max(100).default(10),
+export const listTracksRequestSchema = paginationRequestSchema.extend({
   curriculumLevels: z
     .string()
     .regex(/^N[2-5](,N[2-5])*$/)
@@ -26,10 +25,3 @@ export const getLessonRequestSchema = z.object({
   includeContentBlocks: booleanQuery.default(true),
   includeSkills: booleanQuery.default(true),
 });
-
-export function queryValue(url: URL, name: string): string | undefined {
-  const values = url.searchParams.getAll(name);
-  if (values.length > 1) return '\u0000';
-
-  return values[0] ?? undefined;
-}

@@ -13,6 +13,6 @@ export interface PublishedOnboardingTrack {
   }[];
 }
 
-export interface OnboardingCatalogPort {
-  getPublishedTracks(): PublishedOnboardingTrack[];
+export interface SyllabusCatalogPort {
+  getPublishedOnboardingTracks(): Promise<PublishedOnboardingTrack[]>;
 }

@@ -3,6 +3,7 @@ export enum HttpStatusCode {
   FOUND = 302,
   UNAUTHORIZED = 401,
   FORBIDDEN = 403,
+  NOT_FOUND = 404,
   UNPROCESSABLE_ENTITY = 422,
   INTERNAL_SERVER_ERROR = 500,
 }
@@ -24,6 +25,13 @@ export enum ApplicationStatusCode {
   PERSONALIZATION_VALIDATION_ERROR = 142203001,
   PERSONALIZATION_INVALID_REFERENCE = 142203002,
   UNHANDLED_PERSONALIZATION_EXCEPTION = 150003999,
+  SYLLABUS_SUCCESS = 120004000,
+  SYLLABUS_UNAUTHORIZED = 140104001,
+  SYLLABUS_ONBOARDING_REQUIRED = 140304001,
+  SYLLABUS_UNIT_NOT_FOUND = 140404001,
+  SYLLABUS_LESSON_NOT_FOUND = 140404002,
+  SYLLABUS_INVALID_FILTER = 142204001,
+  UNHANDLED_SYLLABUS_EXCEPTION = 150004999,
 }
 
 export const applicationStatus = {
@@ -90,6 +98,34 @@ export const applicationStatus = {
   [ApplicationStatusCode.UNHANDLED_PERSONALIZATION_EXCEPTION]: {
     httpStatus: HttpStatusCode.INTERNAL_SERVER_ERROR,
     message: 'Unhandled personalization exception.',
+  },
+  [ApplicationStatusCode.SYLLABUS_SUCCESS]: {
+    httpStatus: HttpStatusCode.OK,
+    message: 'Success!',
+  },
+  [ApplicationStatusCode.SYLLABUS_UNAUTHORIZED]: {
+    httpStatus: HttpStatusCode.UNAUTHORIZED,
+    message: 'Unauthorized.',
+  },
+  [ApplicationStatusCode.SYLLABUS_ONBOARDING_REQUIRED]: {
+    httpStatus: HttpStatusCode.FORBIDDEN,
+    message: 'Forbidden.',
+  },
+  [ApplicationStatusCode.SYLLABUS_UNIT_NOT_FOUND]: {
+    httpStatus: HttpStatusCode.NOT_FOUND,
+    message: 'Syllabus unit not found.',
+  },
+  [ApplicationStatusCode.SYLLABUS_LESSON_NOT_FOUND]: {
+    httpStatus: HttpStatusCode.NOT_FOUND,
+    message: 'Syllabus lesson not found.',
+  },
+  [ApplicationStatusCode.SYLLABUS_INVALID_FILTER]: {
+    httpStatus: HttpStatusCode.UNPROCESSABLE_ENTITY,
+    message: 'Invalid syllabus filter.',
+  },
+  [ApplicationStatusCode.UNHANDLED_SYLLABUS_EXCEPTION]: {
+    httpStatus: HttpStatusCode.INTERNAL_SERVER_ERROR,
+    message: 'Unhandled syllabus exception.',
   },
 } satisfies Record<ApplicationStatusCode, { httpStatus: HttpStatusCode; message: string }>;
 

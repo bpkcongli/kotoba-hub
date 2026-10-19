@@ -37,6 +37,8 @@
 
 ## Endpoint Details
 
+Contoh payload di bawah menjelaskan bentuk response, bukan snapshot katalog saat ini. Sebuah slug pada contoh baru tersedia jika subtree lesson-nya lolos validasi dan sudah diimport ke database.
+
 ### `GET /api/v1/syllabus`
 Mengambil daftar track syllabus yang dipublikasikan.
 
@@ -49,7 +51,7 @@ Query params:
 | `curriculumLevels` | `string` | no | Filter multi-value dengan separated commas, mis. `N5,N4`. |
 
 Behavior:
-- Hanya mengembalikan track yang `is_published = true`.
+- Hanya mengembalikan track database yang `is_published = true` dan memiliki setidaknya satu unit dengan lesson yang lolos validasi bank quiz saat import. Flag `isPublished` pada seed mentah saja belum cukup untuk membuat track tampil.
 - Tiap track membawa summary yang cukup untuk course map dan onboarding.
 - Endpoint ini tidak mengembalikan tree lesson/skill penuh agar response tetap ringan.
 
@@ -104,7 +106,7 @@ Query params:
 | `includeSkills` | `boolean` | no | Default `true`. Jika `false`, skill list tidak dirender detail. |
 
 Behavior:
-- Mengembalikan unit published yang valid.
+- Mengembalikan unit database published yang memiliki setidaknya satu lesson dengan bank quiz valid.
 - Menyertakan ringkasan parent track.
 - Jika `includeLessons=true`, lesson diurutkan berdasarkan `sort_order`.
 - Jika `includeSkills=true`, setiap lesson memuat daftar skill yang relevan dan unit juga memuat `unitSkills` untuk query cepat di client.
@@ -187,7 +189,7 @@ Query params:
 | `includeSkills` | `boolean` | no | Default `true`. Jika `false`, skill list tidak dirender detail. |
 
 Behavior:
-- Mengembalikan lesson published yang valid.
+- Mengembalikan lesson database published yang sudah lolos validasi bank quiz `1..10` saat import. Lesson seed mentah yang belum lolos validasi tidak tersedia dan menghasilkan `404`.
 - Menyertakan ringkasan parent unit dan parent track.
 - Jika `includeContentBlocks=true`, `contentBlocks` diurutkan berdasarkan `sort_order`.
 - Setiap item `contentBlocks` membawa satu field `content` bertipe JSON; shape payload di dalamnya bergantung pada `blockType`.
@@ -295,3 +297,4 @@ Success response:
 - Surface belajar yang benar-benar menampilkan paragraf materi sebaiknya membaca `GET /api/v1/syllabus/lessons/{lessonSlug}`, bukan memaksa `GET /api/v1/syllabus/units/{unitSlug}` membawa seluruh blok konten sekaligus.
 - Lesson detail tetap read-only. Status completion lesson dan hasil `post-study quiz` tidak dihasilkan di endpoint ini; keduanya diturunkan dari boundary `practice` dan `progress.lesson_understanding_snapshots`.
 - Endpoint ini tidak perlu mengembalikan seluruh bank soal canonical. Client cukup menerima metadata policy, lalu meminta session aktual ke endpoint `practice`.
+- Seeder syllabus dapat dijalankan ulang setelah kurasi bank quiz. Read model API dan onboarding membaca katalog database hasil import yang sama; track/unit tanpa lesson siap tidak tampil.

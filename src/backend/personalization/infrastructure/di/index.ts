@@ -1,8 +1,12 @@
-import { ConfirmAssessmentService } from '@/backend/personalization/application/services/confirm-assessment';
-import { onboardingCatalog } from '@/backend/syllabus/interface/secondary/seed/onboarding-catalog';
+import type { ConfirmAssessmentService } from '@/backend/personalization/application/services/confirm-assessment.service';
+import { ConfirmAssessmentServiceImpl } from '@/backend/personalization/application/services/impl/confirm-assessment.service.impl';
+import { SyllabusCatalogAdapter } from '@/backend/personalization/interface/secondary/syllabus/syllabus-catalog.adapter';
+import { syllabusCatalogService } from '@/backend/syllabus/infrastructure/di';
 import { learnerProfileService } from '@/backend/users/infrastructure/di';
 
-export const confirmAssessmentService = new ConfirmAssessmentService(
-  onboardingCatalog,
+const syllabusCatalogAdapter = new SyllabusCatalogAdapter(syllabusCatalogService);
+
+export const confirmAssessmentService: ConfirmAssessmentService = new ConfirmAssessmentServiceImpl(
+  syllabusCatalogAdapter,
   learnerProfileService,
 );

@@ -304,7 +304,7 @@ Recommended constraints:
 - `block_type` baseline saat ini mencakup `PARAGRAPH`, `EXAMPLE_SENTENCE`, dan `GRAMMAR_STRUCTURE`, sementara variasi field per block ditaruh di payload `content` agar nama tabel dan skema relasi inti tetap stabil saat block baru bertambah.
 - `unit_skill_mappings` dipertahankan sebagai tabel eksplisit walau sebagian informasinya bisa diturunkan dari `skills.lesson_id`; alasannya adalah kebutuhan query cepat, urutan render, dan kemungkinan reinforcement skill lintas lesson dalam unit yang sama.
 - `prerequisite_skill_codes` disimpan sebagai `json` pada tahap awal agar task `SYL-01` sampai `SYL-07` bisa bergerak lebih cepat sebelum dependency graph skill benar-benar final.
-- Untuk lesson yang dipublish pada MVP, target editorialnya adalah tepat `10` soal `post-study quiz` `SHORT_FREE_RESPONSE` per lesson dengan difficulty ladder `1..10`, walau enforcement penuh dapat tetap dilakukan di importer/CI pada fase implementasi.
+- Lesson yang masuk katalog database published wajib memiliki tepat `10` soal `post-study quiz` `SHORT_FREE_RESPONSE` dengan difficulty ladder `1..10` dan atribusi skill lesson yang valid. Importer menyaring kandidat published pada seed mentah sebelum upsert; track/unit tanpa lesson lolos tidak tersedia sebagai katalog learner. Seeder dapat dijalankan ulang setelah kurasi untuk menambah lesson baru tanpa mengganti ID canonical.
 - Syllabus tetap read-only pada MVP; perubahan isi katalog diasumsikan datang dari seed file atau migration internal, bukan CMS.
 
 ## Out Of Scope For This ERD

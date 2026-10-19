@@ -1,7 +1,7 @@
 import { AuthorizationService } from '@/backend/auth/application/services/guard';
 import { getSessionSnapshot } from '@/backend/auth/infrastructure/di';
 import { requireSameOrigin } from '@/backend/auth/interface/primary/rest/origin';
-import type { ConfirmAssessmentService } from '@/backend/personalization/application/services/confirm-assessment';
+import type { ConfirmAssessmentService } from '@/backend/personalization/application/services/confirm-assessment.service';
 import { InvalidOnboardingCatalogReference } from '@/backend/personalization/domain/exceptions/invalid-onboarding-catalog-reference';
 import { confirmAssessmentService } from '@/backend/personalization/infrastructure/di';
 import { ApplicationStatusCode } from '@/backend/shared/interface/primary/rest/api-status';

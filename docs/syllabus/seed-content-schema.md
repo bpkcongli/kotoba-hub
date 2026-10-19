@@ -380,6 +380,8 @@ Rules:
 
 ## `sourceRefs` Schema
 
+Setiap referensi wajib menyimpan `provider`, `category`, dan `externalId`. Referensi provider eksternal juga wajib memiliki `sourceUrl` URI. Konten yang ditulis sendiri memakai `provider = KOTOBAHUB_INTERNAL`; `externalId` adalah identifier authoring internal dan `sourceUrl` boleh tidak ada karena tidak ada halaman sumber eksternal. Importer tetap menyimpan provenance tersebut tanpa membuat URL pengganti.
+
 ```json
 [
   {
@@ -612,10 +614,12 @@ Rules:
 1. Parse `manifest.json`.
 2. Resolve daftar file track dari manifest.
 3. Parse seed file per track.
-4. Upsert `tracks`.
-5. Upsert `units`.
-6. Upsert `lessons`.
-7. Upsert `lesson_content_blocks`.
-8. Upsert `skills`.
-9. Derive dan upsert `unit_skill_mappings`.
-10. Simpan metadata non-ERD ke artifact build, JSON cache, atau future table terpisah jika nanti dibutuhkan.
+4. Validasi setiap kandidat lesson published: tepat sepuluh soal `SHORT_FREE_RESPONSE`, difficulty unik `1..10`, prompt dan jawaban sesuai schema, dan `skillCode` soal resolve ke skill published pada lesson tersebut.
+5. Pilih hanya lesson yang lolos; unit dan track hanya ikut bila mempunyai descendant lesson yang lolos. Flag `isPublished` pada seed mentah adalah syarat awal, bukan jaminan bahwa konten siap tampil.
+6. Dalam transaksi database, upsert `tracks`, `units`, `lessons`, `lesson_content_blocks`, `skills`, `unit_skill_mappings`, dan `lesson_post_study_questions` dengan ID canonical yang stabil. Perbarui metadata yang berubah pada run berikutnya tanpa membuat duplikat.
+7. Pastikan row dari run sebelumnya yang tidak lagi lolos tidak terlihat oleh read model; jangan menghapus row yang sudah mungkin direferensikan progress pengguna tanpa strategi integritas data.
+8. Simpan metadata non-ERD ke artifact build, JSON cache, atau future table terpisah jika nanti dibutuhkan.
+
+Hasil validasi yang kosong tetap direkonsiliasi ke database agar katalog lama tidak terus tampil. Kegagalan parse atau mismatch manifest menghentikan import sebelum transaksi. Reseed juga mendukung perubahan urutan dan regenerasi mapping unit dari subtree valid saat ini dengan ID canonical tetap.
+
+Import ini dapat dijalankan ulang setelah kurasi. Pada snapshot awal `IMP-05`, hanya 9 dari 82 lesson bertanda published pada seed mentah yang lolos validasi bank backend; N4 belum mempunyai lesson yang lolos. Katalog database dan onboarding memakai hasil import, bukan membaca flag seed mentah langsung.

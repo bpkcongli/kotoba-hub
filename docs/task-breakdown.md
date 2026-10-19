@@ -53,7 +53,7 @@
 - [x] `IMP-02` Implement database foundation: koneksi MySQL, migration workflow, env validation, dan base schema auth/user.
 - [x] `IMP-03` Implement authentication backend dengan Google login dan protected route strategy.
 - [x] `IMP-04` Implement backend learner profile dan onboarding personalization persistence.
-- [ ] `IMP-05` Implement backend syllabus read model dan endpoint fetch track/unit/lesson, termasuk metadata dan canonical bank soal `post-study quiz` `10` tingkat kesulitan untuk lesson detail.
+- [x] `IMP-05` Implement backend syllabus read model dan endpoint fetch track/unit/lesson, termasuk metadata dan canonical bank soal `post-study quiz` `10` tingkat kesulitan untuk lesson detail. Migrasi dan seed database hanya memuat subtree lesson yang lolos validasi bank quiz; seed dapat dijalankan ulang setelah kurasi. Lihat [ERD syllabus](./erd/syllabus-domain.md), [kontrak syllabus](./api-contract/syllabus.md), [aturan seed](./syllabus/seed-content-schema.md), dan [workflow migration/seeding](../drizzle/README.md).
 - [ ] `IMP-06` Implement backend progress engine: `progress_events`, `skill_mastery_snapshots`, `lesson_understanding_snapshots`, summary aggregation, dan derivation state completion lesson dari kenaikan pemahaman post-study quiz minimal `0 -> 1`.
 - [ ] `IMP-07` Implement backend flashcard engine: session creation, answer evaluation, Leitner bucket update, progress write-through, serta read/write model untuk system flashcard deck bawaan hasil mapping syllabus `KANA`/`KANJI`/`VOCABULARY`.
 - [ ] `IMP-08` Implement backend AI abstraction layer: provider contract, prompt/template structure, schema validation, observability hooks.

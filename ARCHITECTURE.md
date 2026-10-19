@@ -100,7 +100,9 @@ src/backend/<context>/
     commands/
     queries/
     ports/                 # kontrak dependency keluar/lintas context
-    services/
+    helpers/               # fungsi murni pendukung use case
+    services/              # interface application service
+      impl/                # class implementasi <Name>ServiceImpl
       requests/
       responses/
   interface/
@@ -123,15 +125,20 @@ src/backend/<context>/
 
 - `domain` menjaga aturan bisnis murni. Domain bergantung pada interface dan value object, serta dapat diuji tanpa Next.js, MySQL, atau provider AI.
 - Custom exception milik suatu context beserta tipe detailnya berada di `domain/exceptions`. Use case dan transport adapter mengimpor definisi exception dari domain pemiliknya.
-- Model DDD yang memiliki identitas atau invariant memakai class untuk entity, aggregate, dan value object. Domain service, application service, serta implementasi repository juga memakai class; repository contract dan application port tetap berupa interface. DTO HTTP, schema Drizzle, dan data serializable lintas batas server/client tetap plain type/object.
-- Kontrak persistence bernama `<Entity>Repository` dan berada di `domain/repositories/<entity>.repository.ts`, tanpa suffix `Port`. Implementasi Drizzle bernama `Drizzle<Entity>Repository` dan berada di `interface/secondary/persistence/drizzle-<entity>.repository.ts`. Suffix `Port` digunakan untuk kontrak application service, akses lintas context, atau dependency non-persistence di `application/ports`; repository diakses lintas context melalui application service/facade milik context pemilik data.
+- Model DDD yang memiliki identitas atau invariant memakai class untuk entity, aggregate, dan value object. Domain service, implementasi application service, serta implementasi repository juga memakai class; kontrak application service, repository, dan application port berupa interface. DTO HTTP, schema Drizzle, dan data serializable lintas batas server/client tetap plain type/object.
+- Kontrak application service bernama `<Name>Service` pada `application/services/<name>.service.ts`. Implementasinya bernama `<Name>ServiceImpl`, secara eksplisit `implements <Name>Service`, dan berada di `application/services/impl/<name>.service.impl.ts`. Controller, adapter, dan service lain menerima tipe interface; DI menginstansiasi implementasi dan mengekspor instance bertipe interface. Tes implementasi boleh mengimpor class `Impl` secara langsung. Private method tetap menjadi detail implementasi.
+- Kontrak persistence bernama `<Entity>Repository` dan berada di `domain/repositories/<entity>.repository.ts`, tanpa suffix `Port`. Implementasi Drizzle bernama `Drizzle<Entity>Repository` dan berada di `interface/secondary/persistence/drizzle-<entity>.repository.ts`. Suffix `Port` digunakan untuk kontrak dependency keluar, termasuk akses service/facade lintas context dan dependency non-persistence di `application/ports`; kontrak API application service sendiri mengikuti penamaan `<Name>Service`. Repository diakses lintas context melalui application service/facade milik context pemilik data.
 - Endpoint API dengan payload body, path/query/header yang perlu dipetakan, atau data response harus memiliki request/response DTO yang eksplisit pada `interface/primary/rest`. Validasi input dilakukan sebelum nilai masuk ke use case; mapper response hanya mengeluarkan field yang dijanjikan OpenAPI. Redirect dan response tanpa `data` tidak memerlukan DTO payload kosong. Request/response internal use case ditempatkan di `application/services/requests` atau `responses` bila diperlukan, terpisah dari DTO HTTP.
 - Controller REST di setiap context memakai class dengan operasi endpoint sebagai method dan dependency use case melalui constructor. Instance controller dapat diekspor dari file controller. Route Next.js mendelegasikan request ke method melalui wrapper atau binding eksplisit agar konteks `this` terjaga; data request tidak disimpan sebagai state instance.
 - `application` mengorkestrasi use case dan memanggil port. `interface/primary/rest` memetakan HTTP ke use case; `interface/secondary` menyediakan implementasi port.
+- `application/helpers` memuat fungsi murni khusus context untuk transformasi atau validasi data pendukung use case. Helper menerima data secara eksplisit; akses repository dan orkestrasi use case tetap menjadi tanggung jawab application service.
 - `infrastructure` merangkai dependency dan konfigurasi runtime. Shared connection/env bootstrap berada di `src/backend/shared/infrastructure`; schema domain tetap di context pemiliknya dan dihimpun untuk workflow migration.
 - Setiap context memiliki satu file composition di `infrastructure/di/index.ts` yang merangkai seluruh service dan adapter context tersebut. Consumer mengimpor wiring dari `infrastructure/di`.
 - `auth` memiliki session lifecycle; `users` memiliki learner profile; `syllabus` memiliki katalog dan canonical question bank; `flashcards`/`practice` memiliki aktivitas; `progress` memiliki event/snapshot; `personalization` memiliki recommendation policy.
 - Akses lintas context melalui application port/facade. Producer aktivitas memanggil use case progress. Adapter persistence suatu context mengakses tabel yang dimiliki context itu.
+- Jika outbound port dimiliki consumer, letakkan kontrak di `<consumer>/application/ports` dan class adapter yang secara eksplisit `implements` port tersebut di `<consumer>/interface/secondary/<provider>`. Adapter memanggil application service/facade provider dan memetakan data bila bentuk kontraknya berbeda. DI consumer menghubungkan facade provider ke adapter, lalu adapter ke use case consumer; jangan menginjeksi facade langsung dengan hanya mengandalkan structural typing untuk memenuhi port consumer. Provider tidak mengimpor port consumer. Kontrak facade yang dimiliki provider tetap dapat diimplementasikan di context provider.
+
+Contoh: `personalization/application/ports/syllabus-catalog.port.ts` diimplementasikan oleh `personalization/interface/secondary/syllabus/syllabus-catalog.adapter.ts`. Adapter menerima interface `SyllabusCatalogService`, sedangkan `ConfirmAssessmentServiceImpl` menerima `SyllabusCatalogPort` dan mengimplementasikan interface `ConfirmAssessmentService`. Wiring berada di `personalization/infrastructure/di/index.ts`.
 
 Contoh penempatan:
 

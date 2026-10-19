@@ -1,37 +1,29 @@
+import type { SyllabusCatalogPort } from '@/backend/personalization/application/ports/syllabus-catalog.port';
+import type {
+  ConfirmAssessmentInput,
+  ConfirmAssessmentResult,
+  ConfirmAssessmentService,
+  OnboardingRecommendation,
+} from '@/backend/personalization/application/services/confirm-assessment.service';
 import {
   type InvalidCatalogReference,
   InvalidOnboardingCatalogReference,
 } from '@/backend/personalization/domain/exceptions/invalid-onboarding-catalog-reference';
-import type { OnboardingCatalogPort } from '@/backend/syllabus/application/ports/onboarding-catalog.port';
 import type {
   LearnerProfilePort,
   UserProfileSnapshot,
 } from '@/backend/users/application/ports/learner-profile.port';
 
-export interface ConfirmAssessmentInput {
-  userId: string;
-  currentLevel: string | null;
-  targetLevel: string;
-  dailyGoalMinutes: number;
-  preferredScript: 'ROMAJI' | 'KANA' | 'MIXED';
-  weakSkillFocuses: string[];
-  knownSkillClaims: string[];
-}
-
-export interface OnboardingRecommendation {
-  recommendedTrackSlug: string;
-  recommendedUnitSlug: string;
-  nextLessonSlug: string;
-}
-
-export class ConfirmAssessmentService {
+export class ConfirmAssessmentServiceImpl implements ConfirmAssessmentService {
   constructor(
-    private readonly catalog: OnboardingCatalogPort,
+    private readonly catalog: SyllabusCatalogPort,
     private readonly profiles: LearnerProfilePort,
   ) {}
 
-  async confirm(input: ConfirmAssessmentInput) {
-    const tracks = this.catalog.getPublishedTracks().sort((a, b) => a.sortOrder - b.sortOrder);
+  async confirm(input: ConfirmAssessmentInput): Promise<ConfirmAssessmentResult> {
+    const tracks = (await this.catalog.getPublishedOnboardingTracks()).sort(
+      (a, b) => a.sortOrder - b.sortOrder,
+    );
     const levels = new Set(tracks.map((track) => `JLPT_${track.curriculumLevel}`));
     const skillCodes = new Set(
       tracks.flatMap((track) =>

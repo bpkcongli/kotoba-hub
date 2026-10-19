@@ -79,7 +79,7 @@ Minimal outcome yang dimaksud:
 - Skeleton `N3` dan `N2` tidak mewajibkan unit list final pada tahap `SYL-02`; pengisian unit tetap menjadi scope `SYL-04`.
 
 ## Publish And Visibility Rules
-- Hanya `N5` dan `N4` yang dianggap published syllabus catalog pada seed awal.
+- Hanya `N5` dan `N4` yang menjadi kandidat published pada seed mentah awal. Katalog database learner hanya memuat subtree lesson yang lolos validasi bank quiz; track/unit tanpa lesson siap tidak tampil meskipun `isPublished = true` pada seed. Pada snapshot `IMP-05`, N4 belum mempunyai lesson yang lolos validasi.
 - Child entity tidak boleh `isPublished = true` bila parent track atau parent unit-nya masih `false`.
 - Jika nanti dibutuhkan locked teaser untuk `N3` atau `N2`, tampilannya harus berasal dari layer product/UI, bukan dengan mengubah aturan data bahwa track tersebut sudah published.
 - Onboarding, recommendation awal, dan public syllabus read model harus menganggap published catalog awal hanya terdiri dari level yang benar-benar siap dipelajari.

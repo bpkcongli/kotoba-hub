@@ -20,11 +20,14 @@
     "test:changed": "jest --onlyChanged --passWithNoTests",
     "test:ci": "jest --ci --runInBand",
     "test:auth-adapter": "bun scripts/smoke-auth-adapter.ts",
+    "test:syllabus-importer": "bun scripts/smoke-syllabus-importer.ts",
     "check": "bun run lint && bun run typecheck && bun run format:check && bun run test:ci",
     "prepare": "husky",
     "mocks:init": "msw init public --save",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed:syllabus": "bun scripts/seed-syllabus.ts",
+    "db:seed:syllabus:dry-run": "bun scripts/seed-syllabus.ts --dry-run"
   },
   "msw": {
     "workerDirectory": [

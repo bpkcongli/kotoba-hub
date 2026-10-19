@@ -1,4 +1,4 @@
-import type { OnboardingRecommendation } from '@/backend/personalization/application/services/confirm-assessment';
+import type { OnboardingRecommendation } from '@/backend/personalization/application/services/confirm-assessment.service';
 import type { UserProfileSnapshot } from '@/backend/users/application/ports/learner-profile.port';
 import {
   toUserProfileResponseDto,

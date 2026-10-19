@@ -17,6 +17,26 @@ For each schema change, run `bun run db:generate`, review the generated SQL and
 snapshot against the ERD, then run `bun run db:migrate` against the intended
 database. Application startup does not run migrations automatically.
 
+Migration `0001_syllabus_catalog.sql` adds the seven syllabus tables. After
+`bun run db:migrate`, run `bun run db:seed:syllabus:dry-run` to inspect the
+validated catalog and rejected lessons, then `bun run db:seed:syllabus` to
+import it. The importer is transactional and can be rerun after curating
+`content/syllabus` without duplicating rows. It deactivates rows that no longer
+belong to a complete published lesson subtree, preserving IDs for future
+progress references. API and onboarding reads use MySQL; repository JSON is
+the canonical import input.
+
+Verify migrations and syllabus reseeding against real MySQL with
+`bun run test:syllabus-importer --allow-test-db-write`. Set `DATABASE_URL` to
+the regular database and `SYLLABUS_TEST_DATABASE_URL` to a separately provisioned,
+empty database whose name ends in `_test` and differs from `DATABASE_URL`.
+The explicit flag authorizes migrations and fixture writes in that test database.
+The script rejects a test database that already contains syllabus rows, checks
+stable IDs and duplicate-free reseeding, ordering changes, skill moves, newly
+curated lessons, unpublished/empty catalogs, and transaction rollback. It restores
+the published canonical catalog in `finally`; unpublished fixture rows remain
+in the isolated test database. Drop and recreate that database before another run.
+
 IMP-03 uses a Drizzle-backed Auth.js adapter that maps this ERD explicitly. The
 adapter generates internal UUIDs for users, accounts, and sessions and maps
 Google's verified email to `users.email_verified` after a successful sign-in.

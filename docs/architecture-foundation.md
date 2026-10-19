@@ -59,6 +59,7 @@
 - Akses lintas module harus lewat `application` port/facade atau domain event, bukan import langsung ke repository implementation module lain.
 - Tidak ada module yang boleh mengakses tabel module lain secara langsung dari adapter persistence-nya.
 - Jika butuh read model lintas context, sediakan query port atau dedicated read service di module pemilik data.
+- Untuk outbound port milik consumer, use case consumer menerima port tersebut melalui constructor. Adapter milik consumer secara eksplisit mengimplementasikan port dan memanggil facade provider; DI consumer merangkai keduanya sesuai [ARCHITECTURE.md](../ARCHITECTURE.md). Provider tidak bergantung pada kontrak milik consumer. Contoh: `personalization` mengakses katalog melalui `SyllabusCatalogAdapter` yang mengimplementasikan `SyllabusCatalogPort`.
 - Relasi utama `syllabus -> progress -> personalization -> practice` dikunci sebagai arah bisnis utama dan dirinci di section `ARCH-03` di bawah.
 
 ## ARCH-02 Final Folder Structure

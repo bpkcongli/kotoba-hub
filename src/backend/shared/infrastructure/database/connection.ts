@@ -25,3 +25,13 @@ function getPool(): Pool {
 export function getDatabase() {
   return drizzle(getPool(), { schema, mode: 'default' });
 }
+
+export async function closeDatabase(): Promise<void> {
+  const pool =
+    process.env.NODE_ENV === 'production' ? productionPool : globalDatabase.kotobaDatabasePool;
+  if (!pool) return;
+
+  if (process.env.NODE_ENV === 'production') productionPool = undefined;
+  else globalDatabase.kotobaDatabasePool = undefined;
+  await pool.end();
+}

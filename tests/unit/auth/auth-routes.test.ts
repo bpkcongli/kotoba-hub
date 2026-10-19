@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 import { POST as startGoogle } from '@/app/api/v1/auth/google/start/route';
 import { GET as getSession } from '@/app/api/v1/auth/session/route';
 import { POST as signOutRoute } from '@/app/api/v1/auth/sign-out/route';
-import { anonymousSession } from '@/backend/auth/application/services/session';
+import { anonymousSession } from '@/backend/auth/application/services/session.service';
 import { signIn, signOut } from '@/backend/auth/infrastructure/config/auth';
 import { getSessionSnapshot, revokeSession } from '@/backend/auth/infrastructure/di';
 import { requireApiAccess } from '@/backend/auth/interface/primary/rest/guard';
@@ -12,6 +12,9 @@ jest.mock('@/backend/auth/infrastructure/config/auth', () => ({
   signOut: jest.fn(),
 }));
 jest.mock('@/backend/auth/infrastructure/di', () => ({
+  authorizationService: new (jest.requireActual(
+    '@/backend/auth/application/services/impl/authorization.service.impl',
+  ).AuthorizationServiceImpl)(),
   getSessionSnapshot: jest.fn(async () => ({
     isAuthenticated: false,
     sessionId: null,

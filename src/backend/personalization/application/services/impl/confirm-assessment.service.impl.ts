@@ -1,3 +1,7 @@
+import type {
+  LearnerProfilePort,
+  UserProfileSnapshot,
+} from '@/backend/personalization/application/ports/learner-profile.port';
 import type { SyllabusCatalogPort } from '@/backend/personalization/application/ports/syllabus-catalog.port';
 import type {
   ConfirmAssessmentInput,
@@ -9,10 +13,6 @@ import {
   type InvalidCatalogReference,
   InvalidOnboardingCatalogReference,
 } from '@/backend/personalization/domain/exceptions/invalid-onboarding-catalog-reference';
-import type {
-  LearnerProfilePort,
-  UserProfileSnapshot,
-} from '@/backend/users/application/ports/learner-profile.port';
 
 export class ConfirmAssessmentServiceImpl implements ConfirmAssessmentService {
   constructor(

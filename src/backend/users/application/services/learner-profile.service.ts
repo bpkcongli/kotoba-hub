@@ -18,8 +18,10 @@ export interface UserProfileSnapshot {
   } | null;
 }
 
-export interface LearnerProfilePort {
+export interface LearnerProfileService {
   get(userId: string): Promise<UserProfileSnapshot | null>;
 
   confirm(input: LearnerProfileInput): Promise<UserProfileSnapshot>;
 }
+
+export type { LearnerProfileInput } from '@/backend/users/domain/repositories/learner-profile.repository';

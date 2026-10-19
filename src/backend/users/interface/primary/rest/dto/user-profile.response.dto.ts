@@ -1,4 +1,4 @@
-import type { UserProfileSnapshot } from '@/backend/users/application/ports/learner-profile.port';
+import type { UserProfileSnapshot } from '@/backend/users/application/services/learner-profile.service';
 
 export interface UserProfileResponseDto {
   userId: string;

@@ -4,7 +4,7 @@ import type {
   UpdateAuthUser,
 } from '@/backend/users/domain/repositories/auth-user.repository';
 
-export interface AuthUserPort {
+export interface AuthUserService {
   create(input: CreateAuthUser): Promise<AuthUser>;
 
   findById(id: string): Promise<AuthUser | null>;
@@ -17,3 +17,8 @@ export interface AuthUserPort {
 
   isOnboardingComplete(id: string): Promise<boolean>;
 }
+
+export type {
+  CreateAuthUser,
+  UpdateAuthUser,
+} from '@/backend/users/domain/repositories/auth-user.repository';

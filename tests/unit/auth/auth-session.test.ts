@@ -1,7 +1,7 @@
-import { SessionService } from '@/backend/auth/application/services/session';
+import type { AuthUserPort } from '@/backend/auth/application/ports/auth-user.port';
+import { SessionServiceImpl } from '@/backend/auth/application/services/impl/session.service.impl';
 import { AuthSession } from '@/backend/auth/domain/entities/auth-session';
 import type { AuthSessionRepository } from '@/backend/auth/domain/repositories/auth-session.repository';
-import type { AuthUserPort } from '@/backend/users/application/ports/auth-user.port';
 import { AuthUser } from '@/backend/users/domain/entities/auth-user';
 
 const sessionRepository: AuthSessionRepository = {
@@ -16,7 +16,7 @@ const userPort: AuthUserPort = {
   recordLogin: jest.fn(),
   isOnboardingComplete: jest.fn(),
 };
-const sessionService = new SessionService(sessionRepository, userPort);
+const sessionService = new SessionServiceImpl(sessionRepository, userPort);
 
 describe('auth session entity', () => {
   it('expires at the exact boundary and keeps its expiration immutable', () => {

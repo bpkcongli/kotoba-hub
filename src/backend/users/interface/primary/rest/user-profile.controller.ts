@@ -1,15 +1,16 @@
-import { AuthorizationService } from '@/backend/auth/application/services/guard';
-import { getSessionSnapshot } from '@/backend/auth/infrastructure/di';
+import type { AuthorizationService } from '@/backend/auth/application/services/authorization.service';
+import { authorizationService, getSessionSnapshot } from '@/backend/auth/infrastructure/di';
 import { ApplicationStatusCode } from '@/backend/shared/interface/primary/rest/api-status';
 import { apiResponse } from '@/backend/shared/interface/primary/rest/response';
-import type { LearnerProfilePort } from '@/backend/users/application/ports/learner-profile.port';
+import type { LearnerProfileService } from '@/backend/users/application/services/learner-profile.service';
 import { learnerProfileService } from '@/backend/users/infrastructure/di';
 import { toUserProfileResponseDto } from './dto/user-profile.response.dto';
 
 export class UserProfileController {
-  private readonly authorization = new AuthorizationService();
-
-  constructor(private readonly profiles: LearnerProfilePort) {}
+  constructor(
+    private readonly profiles: LearnerProfileService,
+    private readonly authorization: AuthorizationService,
+  ) {}
 
   async getUserProfile(request: Request): Promise<Response> {
     try {
@@ -31,4 +32,7 @@ export class UserProfileController {
   }
 }
 
-export const userProfileController = new UserProfileController(learnerProfileService);
+export const userProfileController = new UserProfileController(
+  learnerProfileService,
+  authorizationService,
+);

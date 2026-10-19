@@ -1,5 +1,5 @@
+import type { UserProfileSnapshot } from '@/backend/personalization/application/ports/learner-profile.port';
 import type { OnboardingRecommendation } from '@/backend/personalization/application/services/confirm-assessment.service';
-import type { UserProfileSnapshot } from '@/backend/users/application/ports/learner-profile.port';
 import {
   toUserProfileResponseDto,
   type UserProfileResponseDto,

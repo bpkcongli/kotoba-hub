@@ -1,9 +1,9 @@
-import { AuthorizationService } from '@/backend/auth/application/services/guard';
+import { readSessionToken } from '@/backend/auth/application/helpers/read-session-token';
+import { AuthorizationServiceImpl } from '@/backend/auth/application/services/impl/authorization.service.impl';
 import {
   anonymousSession,
-  readSessionToken,
   type SessionSnapshot,
-} from '@/backend/auth/application/services/session';
+} from '@/backend/auth/application/services/session.service';
 import { RedirectPath } from '@/backend/auth/domain/value-objects/redirect-path';
 import { readAuthEnv } from '@/backend/auth/infrastructure/config/auth-env';
 
@@ -21,7 +21,7 @@ const onboardingSession: SessionSnapshot = {
   authorization: { appAccess: 'ONBOARDING_REQUIRED', onboardingCompleted: false },
 };
 
-const authorizationService = new AuthorizationService();
+const authorizationService = new AuthorizationServiceImpl();
 
 describe('auth access rules', () => {
   it('denies an anonymous protected request', () => {

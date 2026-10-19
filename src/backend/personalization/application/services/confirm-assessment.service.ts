@@ -1,4 +1,4 @@
-import type { UserProfileSnapshot } from '@/backend/users/application/ports/learner-profile.port';
+import type { UserProfileSnapshot } from '@/backend/personalization/application/ports/learner-profile.port';
 
 export interface ConfirmAssessmentInput {
   userId: string;

@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
-import { AuthorizationService } from '@/backend/auth/application/services/guard';
-import { getSessionSnapshot } from '@/backend/auth/infrastructure/di';
+import type { AuthorizationService } from '@/backend/auth/application/services/authorization.service';
+import { authorizationService, getSessionSnapshot } from '@/backend/auth/infrastructure/di';
 import { ApplicationStatusCode } from '@/backend/shared/interface/primary/rest/api-status';
 import { apiResponse } from '@/backend/shared/interface/primary/rest/response';
 import type { SyllabusCatalogService } from '@/backend/syllabus/application/services/syllabus-catalog.service';
@@ -14,9 +14,10 @@ import {
 import { toLessonDto, toTrackSummaryDto, toUnitDto } from './dto/syllabus.response.dto';
 
 export class SyllabusController {
-  private readonly authorization = new AuthorizationService();
-
-  constructor(private readonly catalog: SyllabusCatalogService) {}
+  constructor(
+    private readonly catalog: SyllabusCatalogService,
+    private readonly authorization: AuthorizationService,
+  ) {}
 
   async listTracks(request: Request): Promise<Response> {
     try {
@@ -161,4 +162,7 @@ function invalidQuery(issues: { path: PropertyKey[]; message: string }[]): Respo
   );
 }
 
-export const syllabusController = new SyllabusController(syllabusCatalogService);
+export const syllabusController = new SyllabusController(
+  syllabusCatalogService,
+  authorizationService,
+);

@@ -1,5 +1,5 @@
-import { AuthorizationService } from '@/backend/auth/application/services/guard';
-import { getSessionSnapshot } from '@/backend/auth/infrastructure/di';
+import type { AuthorizationService } from '@/backend/auth/application/services/authorization.service';
+import { authorizationService, getSessionSnapshot } from '@/backend/auth/infrastructure/di';
 import { requireSameOrigin } from '@/backend/auth/interface/primary/rest/origin';
 import type { ConfirmAssessmentService } from '@/backend/personalization/application/services/confirm-assessment.service';
 import { InvalidOnboardingCatalogReference } from '@/backend/personalization/domain/exceptions/invalid-onboarding-catalog-reference';
@@ -10,9 +10,10 @@ import { confirmAssessmentRequestSchema } from './dto/confirm-assessment.request
 import { toConfirmAssessmentResponseDto } from './dto/confirm-assessment.response.dto';
 
 export class PersonalizationController {
-  private readonly authorization = new AuthorizationService();
-
-  constructor(private readonly assessments: ConfirmAssessmentService) {}
+  constructor(
+    private readonly assessments: ConfirmAssessmentService,
+    private readonly authorization: AuthorizationService,
+  ) {}
 
   async confirmAssessment(request: Request): Promise<Response> {
     const originError = requireSameOrigin(request);
@@ -73,4 +74,7 @@ export class PersonalizationController {
   }
 }
 
-export const personalizationController = new PersonalizationController(confirmAssessmentService);
+export const personalizationController = new PersonalizationController(
+  confirmAssessmentService,
+  authorizationService,
+);

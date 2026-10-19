@@ -1,4 +1,7 @@
-import type { AppAccess, SessionSnapshot } from '@/backend/auth/application/services/session';
+import type {
+  AppAccess,
+  SessionSnapshot,
+} from '@/backend/auth/application/services/session.service';
 
 export interface SessionResponseDto {
   isAuthenticated: boolean;

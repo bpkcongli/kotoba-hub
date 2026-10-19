@@ -4,7 +4,12 @@ import { getSessionSnapshot } from '@/backend/auth/infrastructure/di';
 import { confirmAssessmentService } from '@/backend/personalization/infrastructure/di';
 import { learnerProfileService } from '@/backend/users/infrastructure/di';
 
-jest.mock('@/backend/auth/infrastructure/di', () => ({ getSessionSnapshot: jest.fn() }));
+jest.mock('@/backend/auth/infrastructure/di', () => ({
+  authorizationService: new (jest.requireActual(
+    '@/backend/auth/application/services/impl/authorization.service.impl',
+  ).AuthorizationServiceImpl)(),
+  getSessionSnapshot: jest.fn(),
+}));
 jest.mock('@/backend/personalization/infrastructure/di', () => ({
   confirmAssessmentService: { confirm: jest.fn() },
 }));

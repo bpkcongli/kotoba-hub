@@ -1,4 +1,4 @@
-import type { AuthUserPort } from '@/backend/users/application/ports/auth-user.port';
+import type { AuthUserService } from '@/backend/users/application/services/auth-user.service';
 import type { AuthUser } from '@/backend/users/domain/entities/auth-user';
 import type {
   AuthUserRepository,
@@ -6,7 +6,7 @@ import type {
   UpdateAuthUser,
 } from '@/backend/users/domain/repositories/auth-user.repository';
 
-export class AuthUserService implements AuthUserPort {
+export class AuthUserServiceImpl implements AuthUserService {
   constructor(private readonly repository: AuthUserRepository) {}
 
   create(input: CreateAuthUser): Promise<AuthUser> {

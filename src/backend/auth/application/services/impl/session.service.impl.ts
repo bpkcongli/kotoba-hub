@@ -1,49 +1,13 @@
+import { readSessionToken } from '@/backend/auth/application/helpers/read-session-token';
+import type { AuthUserPort } from '@/backend/auth/application/ports/auth-user.port';
+import {
+  anonymousSession,
+  type SessionService,
+  type SessionSnapshot,
+} from '@/backend/auth/application/services/session.service';
 import type { AuthSessionRepository } from '@/backend/auth/domain/repositories/auth-session.repository';
-import { SESSION_COOKIE_NAME } from '@/backend/auth/infrastructure/config/auth-cookie';
-import type { AuthUserPort } from '@/backend/users/application/ports/auth-user.port';
 
-export type AppAccess = 'ANONYMOUS' | 'ONBOARDING_REQUIRED' | 'APP_READY';
-
-export interface SessionSnapshot {
-  isAuthenticated: boolean;
-  sessionId: string | null;
-  expiresAt: string | null;
-  user: {
-    id: string;
-    email: string;
-    displayName: string;
-    avatarUrl: string | null;
-    emailVerified: boolean;
-  } | null;
-  authorization: { appAccess: AppAccess; onboardingCompleted: boolean | null };
-}
-
-export const anonymousSession: SessionSnapshot = {
-  isAuthenticated: false,
-  sessionId: null,
-  expiresAt: null,
-  user: null,
-  authorization: { appAccess: 'ANONYMOUS', onboardingCompleted: null },
-};
-
-export function readSessionToken(cookieHeader: string | null): string | null {
-  if (!cookieHeader) return null;
-
-  for (const item of cookieHeader.split(';')) {
-    const separator = item.indexOf('=');
-    if (separator < 0 || item.slice(0, separator).trim() !== SESSION_COOKIE_NAME) continue;
-
-    try {
-      return decodeURIComponent(item.slice(separator + 1).trim());
-    } catch {
-      return null;
-    }
-  }
-
-  return null;
-}
-
-export class SessionService {
+export class SessionServiceImpl implements SessionService {
   constructor(
     private readonly sessionRepository: AuthSessionRepository,
     private readonly userPort: AuthUserPort,

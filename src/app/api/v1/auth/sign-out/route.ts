@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers';
-import { readSessionToken } from '@/backend/auth/application/services/session';
+import { readSessionToken } from '@/backend/auth/application/helpers/read-session-token';
 import { signOut } from '@/backend/auth/infrastructure/config/auth';
 import { SESSION_COOKIE_NAME } from '@/backend/auth/infrastructure/config/auth-cookie';
 import { readAuthEnv } from '@/backend/auth/infrastructure/config/auth-env';

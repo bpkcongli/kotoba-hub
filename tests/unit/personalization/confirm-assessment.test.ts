@@ -1,9 +1,9 @@
-import type { SyllabusCatalogPort } from '@/backend/personalization/application/ports/syllabus-catalog.port';
-import { ConfirmAssessmentServiceImpl } from '@/backend/personalization/application/services/impl/confirm-assessment.service.impl';
 import type {
   LearnerProfilePort,
   UserProfileSnapshot,
-} from '@/backend/users/application/ports/learner-profile.port';
+} from '@/backend/personalization/application/ports/learner-profile.port';
+import type { SyllabusCatalogPort } from '@/backend/personalization/application/ports/syllabus-catalog.port';
+import { ConfirmAssessmentServiceImpl } from '@/backend/personalization/application/services/impl/confirm-assessment.service.impl';
 
 const input = {
   userId: 'user-id',
@@ -74,7 +74,6 @@ describe('confirmed onboarding catalog rules', () => {
     ]),
   };
   const profiles: LearnerProfilePort = {
-    get: jest.fn(),
     confirm: jest.fn(async () => profile),
   };
   const service = new ConfirmAssessmentServiceImpl(catalog, profiles);

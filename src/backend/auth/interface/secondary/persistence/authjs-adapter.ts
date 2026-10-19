@@ -1,12 +1,14 @@
 import { randomUUID } from 'node:crypto';
 import { and, eq } from 'drizzle-orm';
 import type { Adapter, AdapterAccount, AdapterSession, AdapterUser } from 'next-auth/adapters';
+import type {
+  AuthUserPort,
+  AuthUserSnapshot,
+} from '@/backend/auth/application/ports/auth-user.port';
 import { accounts, sessions } from '@/backend/auth/infrastructure/database/schema';
 import { getDatabase } from '@/backend/shared/infrastructure/database/connection';
-import type { AuthUserPort } from '@/backend/users/application/ports/auth-user.port';
-import type { AuthUser } from '@/backend/users/domain/entities/auth-user';
 
-function toAdapterUser(user: AuthUser): AdapterUser {
+function toAdapterUser(user: AuthUserSnapshot): AdapterUser {
   return {
     id: user.id,
     email: user.email,

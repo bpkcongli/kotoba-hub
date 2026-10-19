@@ -1,7 +1,7 @@
 import type {
-  LearnerProfilePort,
+  LearnerProfileService,
   UserProfileSnapshot,
-} from '@/backend/users/application/ports/learner-profile.port';
+} from '@/backend/users/application/services/learner-profile.service';
 import type { AuthUser } from '@/backend/users/domain/entities/auth-user';
 import type { LearnerProfile } from '@/backend/users/domain/entities/learner-profile';
 import type { AuthUserRepository } from '@/backend/users/domain/repositories/auth-user.repository';
@@ -34,7 +34,7 @@ function snapshot(user: AuthUser, profile: LearnerProfile | null): UserProfileSn
   };
 }
 
-export class LearnerProfileService implements LearnerProfilePort {
+export class LearnerProfileServiceImpl implements LearnerProfileService {
   constructor(
     private readonly profileRepository: LearnerProfileRepository,
     private readonly userRepository: AuthUserRepository,

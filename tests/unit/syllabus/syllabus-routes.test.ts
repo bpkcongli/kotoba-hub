@@ -3,7 +3,12 @@ import { GET as listTracks } from '@/app/api/v1/syllabus/route';
 import { GET as getUnit } from '@/app/api/v1/syllabus/units/[unitSlug]/route';
 import { getSessionSnapshot } from '@/backend/auth/infrastructure/di';
 
-jest.mock('@/backend/auth/infrastructure/di', () => ({ getSessionSnapshot: jest.fn() }));
+jest.mock('@/backend/auth/infrastructure/di', () => ({
+  authorizationService: new (jest.requireActual(
+    '@/backend/auth/application/services/impl/authorization.service.impl',
+  ).AuthorizationServiceImpl)(),
+  getSessionSnapshot: jest.fn(),
+}));
 jest.mock('@/backend/syllabus/infrastructure/di', () => {
   const { SyllabusCatalogServiceImpl } = jest.requireActual(
     '@/backend/syllabus/application/services/impl/syllabus-catalog.service.impl',

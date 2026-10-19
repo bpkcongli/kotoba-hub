@@ -1,13 +1,8 @@
-import {
-  AuthorizationService,
-  type AccessRequirement,
-} from '@/backend/auth/application/services/guard';
-import type { SessionSnapshot } from '@/backend/auth/application/services/session';
-import { getSessionSnapshot } from '@/backend/auth/infrastructure/di';
+import type { AccessRequirement } from '@/backend/auth/application/services/authorization.service';
+import type { SessionSnapshot } from '@/backend/auth/application/services/session.service';
+import { authorizationService, getSessionSnapshot } from '@/backend/auth/infrastructure/di';
 import { ApplicationStatusCode } from '@/backend/shared/interface/primary/rest/api-status';
 import { apiResponse } from '@/backend/shared/interface/primary/rest/response';
-
-const authorizationService = new AuthorizationService();
 
 export async function requireApiAccess(
   request: Request,

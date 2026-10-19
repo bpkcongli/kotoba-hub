@@ -140,6 +140,12 @@ src/backend/<context>/
 
 Contoh: `personalization/application/ports/syllabus-catalog.port.ts` diimplementasikan oleh `personalization/interface/secondary/syllabus/syllabus-catalog.adapter.ts`. Adapter menerima interface `SyllabusCatalogService`, sedangkan `ConfirmAssessmentServiceImpl` menerima `SyllabusCatalogPort` dan mengimplementasikan interface `ConfirmAssessmentService`. Wiring berada di `personalization/infrastructure/di/index.ts`.
 
+Pola yang sama berlaku untuk akses ke `users`:
+
+- `auth/application/ports/auth-user.port.ts` dimiliki auth dan diimplementasikan oleh `auth/interface/secondary/users/auth-user.adapter.ts`. Adapter menerima `AuthUserService` milik users, lalu dipakai oleh `SessionServiceImpl`, adapter Auth.js, dan callback login melalui wiring auth.
+- `personalization/application/ports/learner-profile.port.ts` memuat operasi konfirmasi profil yang dibutuhkan personalization. `personalization/interface/secondary/users/learner-profile.adapter.ts` memanggil `LearnerProfileService` milik users; `ConfirmAssessmentServiceImpl` menerima adapter melalui port consumer tersebut.
+- Users menyediakan `AuthUserService` dan `LearnerProfileService` sebagai kontrak pada `application/services`, dengan implementasi `Impl` pada `application/services/impl`. Users tidak mengimplementasikan atau mengimpor port consumer. Controller profil users menerima `LearnerProfileService` karena memanggil service di context yang sama.
+
 Contoh penempatan:
 
 | Artefak | Path |

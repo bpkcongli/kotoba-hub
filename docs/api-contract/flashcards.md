@@ -212,6 +212,7 @@ Behavior:
 - Menentukan item awal yang akan dirender berdasarkan urutan deck dan due state user.
 - Membentuk opsi jawaban final untuk item-item session dari canonical answer dan distractor pool yang relevan dengan script pair terpilih.
 - Mengembalikan session snapshot beserta current item pertama dan opsi jawaban multiple-choice yang sudah dibentuk backend.
+- Semua membership aktif dan eligible dibawa sekali; item baru/sudah due didahulukan sebelum item belum due, lalu urutan deck. Deck kosong atau item tanpa distractor unik ditolak dengan `142205001`.
 - Script mode pada session dianggap locked. Perubahan mode dilakukan dengan membuat session baru.
 - Untuk deck `VOCABULARY`, `prompt.value` biasanya berisi surface form Jepang atau arti bahasa Inggris sesuai `questionScriptMode`, sementara opsi jawaban mengikuti bentuk pasangan canonical yang sudah disiapkan item.
 
@@ -310,6 +311,8 @@ Behavior:
 - Menyimpan update internal `flashcards` terlebih dahulu, termasuk log di `flashcard_session_answers`.
 - Jika item punya mapping `skill_id` resmi, endpoint menjalankan handoff ke `progress` dan mengembalikan ringkasan efek snapshot terbaru.
 - Jika item belum punya mapping `skill_id` resmi, endpoint tetap sukses untuk update internal `flashcards`, tetapi `progressImpact` bernilai `null`.
+- Replay payload jawaban identik (`itemId`, `selectedOptionId`, `responseTimeMs`, termasuk nilai `null`/tidak dikirim yang dinormalisasi ke `null`) memakai hasil tersimpan; tidak menambah turn, bucket, atau event. Jika progress handoff sebelumnya gagal setelah jawaban tersimpan, replay melanjutkan handoff dengan UUID event yang sama. Replay berbeda untuk item yang sudah dijawab ditolak `142205005`.
+- Jadwal bucket: benar pertama `LEARNING` +2 jam; benar kedua/berikutnya `MASTERED` +24 jam; salah `LEARNING`, streak nol, +10 menit. Detail persistence mengikuti [Flashcard Engine v1](../erd/learning-activity.md#flashcard-engine-v1-imp-07).
 - Feedback response dibedakan menurut tipe item:
   - untuk `KANJI_CHARACTER`, kirim penjelasan lengkap: kanji, English meaning, kunyomi, onyomi, dan contoh kata
   - untuk `VOCABULARY`, kirim penjelasan ringkas: term Jepang, reading kana bila ada, dan English meaning utama

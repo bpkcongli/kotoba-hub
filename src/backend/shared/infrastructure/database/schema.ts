@@ -15,3 +15,11 @@ export {
   units,
   unitSkillMappings,
 } from '@/backend/syllabus/infrastructure/database/schema';
+export {
+  flashcardDecks,
+  flashcardItems,
+  flashcardDeckItems,
+  flashcardSessions,
+  flashcardSessionAnswers,
+  flashcardItemStates,
+} from '@/backend/flashcards/infrastructure/database/schema';

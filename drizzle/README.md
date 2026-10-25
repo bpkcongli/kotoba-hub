@@ -56,3 +56,24 @@ retry idempotency, canonical question validation, rollback, concurrent writes,
 lesson completion, mastery windows, user isolation, and progress reads. Provision
 a fresh empty test database before another run. It does not migrate the regular
 application database.
+
+IMP-07 adds migration `0003_flashcard_engine.sql` for the flashcard deck/item,
+membership, session, answer log, and per-user Leitner state tables. Session JSON
+snapshots lock prompts/options/feedback; stable event IDs in the answer log allow
+progress handoff recovery after a failed request.
+
+After migrating and seeding syllabus, run `bun run db:seed:flashcards:dry-run`
+against that database to inspect eligible counts, then `bun run db:seed:flashcards`.
+The dry run reads the published MySQL syllabus catalog and writes nothing. The
+importer preserves canonical artifact IDs, derives stable KANJI IDs, and reconciles
+system memberships transactionally without deleting historical answers or custom
+decks. Rerun flashcard seeding after syllabus publication changes. Mapped items
+from unpublished lesson subtrees are excluded; pending N5 vocabulary remains
+unmapped and produces no official progress events.
+
+Run `bun run test:flashcards --allow-test-db-write` with `DATABASE_URL` set and
+`FLASHCARDS_TEST_DATABASE_URL` pointing to a separate, empty MySQL database whose
+name ends in `_test` and differs from the regular database. The smoke test applies
+migrations and creates isolated fixtures, then verifies persistence, atomic
+concurrent submissions, ownership, replay and progress recovery. Use a fresh test
+database for each run. It never migrates the regular application database.

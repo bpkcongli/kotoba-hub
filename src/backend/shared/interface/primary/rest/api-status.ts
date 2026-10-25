@@ -32,6 +32,19 @@ export enum ApplicationStatusCode {
   SYLLABUS_LESSON_NOT_FOUND = 140404002,
   SYLLABUS_INVALID_FILTER = 142204001,
   UNHANDLED_SYLLABUS_EXCEPTION = 150004999,
+  FLASHCARDS_SUCCESS = 120005000,
+  FLASHCARDS_UNAUTHORIZED = 140105001,
+  FLASHCARDS_ONBOARDING_REQUIRED = 140305001,
+  FLASHCARDS_DECK_NOT_FOUND = 140405001,
+  FLASHCARDS_SESSION_NOT_FOUND = 140405002,
+  FLASHCARDS_ITEM_NOT_FOUND = 140405003,
+  FLASHCARDS_VALIDATION_ERROR = 142205001,
+  FLASHCARDS_INVALID_ITEM = 142205002,
+  FLASHCARDS_INVALID_CONTENT_TYPE = 142205003,
+  FLASHCARDS_INVALID_SCRIPT_PAIR = 142205004,
+  FLASHCARDS_INVALID_CURRENT_ITEM = 142205005,
+  FLASHCARDS_INVALID_OPTION = 142205006,
+  UNHANDLED_FLASHCARDS_EXCEPTION = 150005999,
   PROGRESS_SUCCESS = 120007000,
   PROGRESS_UNAUTHORIZED = 140107001,
   PROGRESS_ONBOARDING_REQUIRED = 140307001,
@@ -40,6 +53,59 @@ export enum ApplicationStatusCode {
 }
 
 export const applicationStatus = {
+  [ApplicationStatusCode.FLASHCARDS_SUCCESS]: {
+    httpStatus: HttpStatusCode.OK,
+    message: 'Success!',
+  },
+  [ApplicationStatusCode.FLASHCARDS_UNAUTHORIZED]: {
+    httpStatus: HttpStatusCode.UNAUTHORIZED,
+    message: 'Unauthorized.',
+  },
+  [ApplicationStatusCode.FLASHCARDS_ONBOARDING_REQUIRED]: {
+    httpStatus: HttpStatusCode.FORBIDDEN,
+    message: 'Forbidden.',
+  },
+  [ApplicationStatusCode.FLASHCARDS_DECK_NOT_FOUND]: {
+    httpStatus: HttpStatusCode.NOT_FOUND,
+    message: 'Flashcard deck not found.',
+  },
+  [ApplicationStatusCode.FLASHCARDS_SESSION_NOT_FOUND]: {
+    httpStatus: HttpStatusCode.NOT_FOUND,
+    message: 'Flashcard session not found.',
+  },
+  [ApplicationStatusCode.FLASHCARDS_ITEM_NOT_FOUND]: {
+    httpStatus: HttpStatusCode.NOT_FOUND,
+    message: 'Flashcard item not found.',
+  },
+  [ApplicationStatusCode.FLASHCARDS_VALIDATION_ERROR]: {
+    httpStatus: HttpStatusCode.UNPROCESSABLE_ENTITY,
+    message: 'Invalid flashcard payload.',
+  },
+  [ApplicationStatusCode.FLASHCARDS_INVALID_ITEM]: {
+    httpStatus: HttpStatusCode.UNPROCESSABLE_ENTITY,
+    message: 'Invalid custom flashcard deck item.',
+  },
+  [ApplicationStatusCode.FLASHCARDS_INVALID_CONTENT_TYPE]: {
+    httpStatus: HttpStatusCode.UNPROCESSABLE_ENTITY,
+    message: 'Invalid custom flashcard deck content type.',
+  },
+  [ApplicationStatusCode.FLASHCARDS_INVALID_SCRIPT_PAIR]: {
+    httpStatus: HttpStatusCode.UNPROCESSABLE_ENTITY,
+    message: 'Invalid flashcard session payload.',
+  },
+  [ApplicationStatusCode.FLASHCARDS_INVALID_CURRENT_ITEM]: {
+    httpStatus: HttpStatusCode.UNPROCESSABLE_ENTITY,
+    message: 'Invalid flashcard answer payload.',
+  },
+  [ApplicationStatusCode.FLASHCARDS_INVALID_OPTION]: {
+    httpStatus: HttpStatusCode.UNPROCESSABLE_ENTITY,
+    message: 'Invalid flashcard answer payload.',
+  },
+  [ApplicationStatusCode.UNHANDLED_FLASHCARDS_EXCEPTION]: {
+    httpStatus: HttpStatusCode.INTERNAL_SERVER_ERROR,
+    message: 'Unhandled flashcards exception.',
+  },
+
   [ApplicationStatusCode.AUTH_SUCCESS]: {
     httpStatus: HttpStatusCode.OK,
     message: 'Success!',

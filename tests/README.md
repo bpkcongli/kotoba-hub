@@ -34,3 +34,10 @@ and protected REST contracts. Run real MySQL write-through verification with
 in [drizzle/README.md](../drizzle/README.md). The smoke covers migrations,
 rollback, concurrency, idempotency after catalog changes, and user isolation;
 it keeps frontend API mocking disabled.
+
+IMP-07 flashcard unit tests cover the script-pair matrix, immutable multiple-choice
+snapshots, alias-safe distractors, Leitner transitions, published syllabus mapping,
+private custom decks, and idempotent progress handoff recovery. REST tests cover
+APP_READY, origin protection, validation, and response field filtering. Run real
+MySQL persistence verification with `bun run test:flashcards --allow-test-db-write`
+using the isolated setup in [drizzle/README.md](../drizzle/README.md).

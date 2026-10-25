@@ -179,3 +179,10 @@ Interpretasi per family:
   - di `SYL-05`, beberapa code masih berupa bundle pedagogis
   - di seed final `SYL-06B`, `KANJI` dan `VOCABULARY` harus sudah atomik
 - Perbedaan ini disengaja dan kini dianggap resolved, bukan mismatch, selama transform `SYL-06B` mengikuti aturan atomization di atas.
+
+## Runtime Import (`IMP-07`)
+- `bun run db:seed:flashcards:dry-run` membaca katalog syllabus MySQL yang sudah di-seed; `bun run db:seed:flashcards` menerapkan plan dalam satu transaksi. Detail workflow di [drizzle README](../../drizzle/README.md).
+- KANA/VOCABULARY memakai ID dan urutan dari artifact `content/flashcards/system-decks`; KANJI diturunkan dari `content.kanji` pada canonical track seed dengan ID deterministik per skill/unit.
+- Filter publikasi memakai facade syllabus: item mapped wajib cocok dengan ID skill, lesson, unit, track, dan family published. Candidate pending N5 tetap null skill dan track-scoped; item mapped yang belum eligible tidak diubah menjadi pending.
+- Reseed merekonsiliasi membership system tanpa menghapus histori session/state maupun custom deck. Pool distractor menolak alias jawaban maupun kandidat yang berbagi prompt/alias lintas script, agar jawaban alternatif yang sah tidak dinilai salah.
+- Pada snapshot seed saat `IMP-07`, hanya 59 deck / 586 candidate pending N5 yang eligible. Seluruh mapped KANA/KANJI/VOCABULARY masih menunggu kurasi bank quiz lesson sebelum dapat diimport sebagai attribution resmi.

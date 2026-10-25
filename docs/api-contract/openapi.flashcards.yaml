@@ -377,6 +377,11 @@ paths:
         Menilai jawaban flashcard multiple-choice, memperbarui bucket Leitner
         user, lalu mengembalikan ringkasan progress impact. Grading dilakukan
         terhadap snapshot opsi yang sudah dibentuk saat session dibuat.
+        Replay itemId, selectedOptionId, dan responseTimeMs yang identik memakai
+        hasil tersimpan dan melanjutkan progress pending dengan UUID event stabil.
+        Replay berbeda untuk item yang telah dijawab ditolak dengan 142205005.
+        Benar pertama: LEARNING +2 jam; benar kedua/berikutnya: MASTERED +24 jam;
+        salah: LEARNING dengan streak nol +10 menit.
       operationId: submitFlashcardAnswer
       security:
         - cookieAuth: []

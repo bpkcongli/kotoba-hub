@@ -424,6 +424,21 @@ Recommended constraints:
 - unique composite `(`user_id`, `item_id`)`
 - index `flashcard_item_states_user_due_idx` pada `user_id, next_due_at`
 
+### Flashcard Engine v1 (`IMP-07`)
+
+- Session memuat setiap membership aktif dan eligible tepat satu kali. Item baru atau sudah due didahulukan; dalam masing-masing kelompok urutannya mengikuti `flashcard_deck_items.sort_order`. Item belum due tetap tersedia untuk review manual. Tidak ada cap sepuluh item implisit.
+- Script pair dikunci pada creation. Prompt, opsi, kunci jawaban, konten feedback, dan mapping skill beserta skill code setiap turn disnapshot sebelum response creation dikirim. Kunci dan field internal tidak dikirim pada `currentItem`/`nextItem`.
+- `flashcard_sessions` menambahkan `deck_snapshot` (JSON metadata deck) dan `turns_payload` (JSON snapshot semua turn) agar session tetap stabil ketika konten canonical atau membership berubah.
+- Jawaban benar pertama sejak reset: `LEARNING`, streak `1`, due `answered_at + 2 jam`. Jawaban benar kedua dan berikutnya: `MASTERED`, due `answered_at + 24 jam`. Jawaban salah selalu `LEARNING`, streak `0`, due `answered_at + 10 menit`. Bucket flashcard ini terpisah dari mastery skill milik progress.
+- Answer log, item state, pointer turn, dan counter session ditulis atomik dengan lock session serta state `user + item`. `flashcard_session_answers` juga unik pada `(session_id, item_id)` karena satu item hanya muncul sekali per session.
+- Answer menambahkan `progress_recorded` boolean dan `answer_payload` JSON yang memuat hasil internal, UUID event stabil, payload handoff, dan hasil progress setelah sukses. `answered_at` serta waktu session/state memakai precision milidetik agar retry event persis sama.
+- Handoff progress dimulai sesudah transaksi flashcards commit. Jika progress gagal, endpoint gagal dan client mengulang payload yang sama. Replay `itemId`, `selectedOptionId`, dan `responseTimeMs` yang identik mengembalikan hasil tersimpan dan melanjutkan handoff yang pending; replay dengan pilihan/waktu berbeda ditolak `142205005`. UUID event sama membuat progress idempotent, termasuk ketika commit progress berhasil tetapi penyimpanan response producer gagal.
+- Event mapped memakai `source_type = FLASHCARD`, `source_entity_id = answer.id`, `source_session_id = session.id`, question type `MULTIPLE_CHOICE` dan grading deterministik. Item tanpa mapping tidak menulis event dan mengembalikan `progressImpact = null`.
+- Import system deck membaca artifact canonical `content/flashcards/system-decks` untuk KANA/VOCABULARY dan menurunkan KANJI dari konten skill canonical `content/syllabus/tracks`. ID artifact dipertahankan; ID KANJI diturunkan deterministik dari ID skill/unit. Hanya subtree N5/N4 yang published di katalog database dapat memberi attribution resmi.
+- Candidate vocabulary pending N5 boleh masuk deck track-scoped bila track published; `skill_id` tetap `null`. Item mapped dari lesson yang belum published tidak diubah menjadi item pending.
+- Import menormalisasi canonical answer/alias dan pool referensi menjadi `answer_option_payload = { SCRIPT: { canonicalAnswer, distractors } }`. Alias jawaban benar dikecualikan dari distractor pool; kandidat diambil dari item aktif keluarga sama. Kandidat yang berbagi prompt/alias pada script apa pun dikecualikan agar jawaban alternatif yang sah tidak menjadi distractor. Pool menyimpan kandidat, opsi final baru diacak saat creation. Jika kurang dari satu distractor unik, session ditolak `142205001`.
+- Reseed berlangsung dalam transaksi: upsert dengan ID stabil, rekonsiliasi membership system, nonaktifkan konten lama tanpa menghapus histori jawaban/state, dan pertahankan custom deck. Ketika publikasi syllabus berubah, jalankan ulang seed flashcards; validasi runtime juga menolak event baru dengan attribution yang sudah tidak published. Retry UUID event yang sudah tersimpan tetap dapat menyelesaikan acknowledgement menggunakan snapshot skill code, termasuk setelah skill unpublished.
+
 ### `practice_sessions`
 Representasi satu sesi practice generation untuk satu user.
 

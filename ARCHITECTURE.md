@@ -214,6 +214,9 @@ src/frontend/shared/
   interfaces/
     FrontendContainerOptions.ts
     FrontendBootstrapData.ts
+    FeatureContainerOptions.ts
+    stores/                # form/list/modal dan capability hydration/disposal
+  exceptions/              # exception FE dan presenter plain UI error
   services/
     types.ts
     container.ts           # createFrontendContainer
@@ -241,6 +244,10 @@ src/frontend/shared/
 - `features` memuat screen/flow yang dirender route. `components` memuat unit UI reusable, `providers` memberi scope dependency, dan `helpers` memuat fungsi lokal murni.
 - `frontend/shared` memiliki concern lintas fitur. Komponen dengan semantic lesson, flashcard, practice, atau progress tetap berada di domain terkait. Pembagian atom/molecule/organism dibuat saat diperlukan.
 - Export publik di `index.ts`/`index.tsx` dijaga sesuai perubahan; dependency antar module menggunakan entry point yang jelas. Dependency server/client menggunakan entry point terpisah agar barrel tidak menarik kode server ke client.
+
+### Shared frontend foundations
+
+Pattern persiapan `IMP-11` ditetapkan di [frontend foundation patterns](docs/frontend-foundation-patterns.md), dengan panduan dan snippet pada [kotoba-frontend-foundations](.agents/skills/kotoba-frontend-foundations/SKILL.md). HTTP adapter menggunakan Axios di balik interface transport; external service memvalidasi envelope/DTO API. General exception FE berada di `shared/exceptions`, terpisah dari exception backend. Store form/list/modal memakai interface reusable hanya bila sesuai kebutuhan fitur; answering loop tetap memakai kontrak domain. Konsep root build params menggunakan nama canonical `FrontendContainerOptions`, tanpa generic env map atau pilihan class mock. App chrome dikomposisikan melalui shared `AppShell` beserta header/sidebar/bottom nav/footer opsional; helper shared hanya mengurus presentasi murni. Artefak runtime dibuat pada task FE yang membutuhkannya.
 
 ### Mock API dengan MSW
 

@@ -7,6 +7,8 @@ description: Structure KotobaHub React features with domain components, MobX sto
 
 Use for reusable components, complex flow UI, or frontend folder decisions.
 
+For shared store contracts, typed container options, Axios, frontend exceptions, app shell, and formatters, use [kotoba-frontend-foundations](../kotoba-frontend-foundations/SKILL.md) and its examples. Choose form/list/modal contracts only when the feature needs their capabilities.
+
 - Follow [ARCHITECTURE.md](../../../ARCHITECTURE.md) for domain-local `interfaces`, `services/external`, `services/internal`, `features`, `components`, `providers`, and `hooks`, with shared concerns under `src/frontend/shared` and thin routes under `src/app`.
 - When adding, renaming, or removing a public FE export, create or update the owning folder's `index.ts` (or `index.tsx` for a JSX entry point) in the same change. Follow `src/frontend/shared/components/organisms/index.ts`: re-export the public symbol from its file, and import it through that folder entry point where appropriate. Apply this to populated component, feature, hook, and service folders; do not add empty indexes or expose internal-only modules. Keep server and client entry points separate so a barrel never pulls server code into a client bundle.
 - Define API request/response interfaces at the feature boundary and keep external calls in domain services/adapters. Keep route-facing composition in `features`; extract a component only when it clarifies a real repeated or complex unit. Use shared components for cross-feature behavior, not domain-specific semantics.

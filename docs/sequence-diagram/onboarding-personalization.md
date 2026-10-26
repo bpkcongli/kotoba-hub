@@ -48,6 +48,13 @@ sequenceDiagram
         Syllabus->>DB: Read syllabus metadata
         Syllabus-->>Personalization: Valid catalog references
 
+        opt Nonblank free-text note
+            Personalization->>Personalization: Normalize note through AI abstraction and validate suggestions
+        end
+        Personalization-->>App: Assessment draft + suggestions + next lesson hint
+        App-->>Learner: Review and edit draft
+        Learner->>App: Confirm final assessment
+        App->>Personalization: Submit confirmed structured profile and known skill claims
         Personalization->>Users: Persist final learner profile
         Users->>DB: Upsert learner_profiles + onboarding_completed = true
         Users-->>Personalization: Profile saved
@@ -60,6 +67,7 @@ sequenceDiagram
 ## Key Decisions Locked By This Diagram
 - `users` tetap menjadi owner untuk status `onboarding_completed` dan persistence `learner_profile`.
 - `personalization` mengolah input onboarding, membaca baseline dari `progress`, dan memvalidasi referensi ke `syllabus`.
+- Assessment hanya menghasilkan draft; penyimpanan profile terjadi pada endpoint konfirmasi terpisah setelah review learner. Kedua POST memeriksa same-origin sebelum session. Detail normalisasi dan kegagalan mengikuti [kontrak personalization](../api-contract/user-profile-and-personalization.md).
 - Jika onboarding sudah selesai, flow berhenti cepat di route guard tanpa memanggil ulang proses personalization.
 
 ## Expected Outcome

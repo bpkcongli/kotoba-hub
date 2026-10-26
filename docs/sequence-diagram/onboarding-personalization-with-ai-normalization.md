@@ -32,7 +32,7 @@ sequenceDiagram
     Syllabus->>DB: Read tracks / units / skills metadata
     Syllabus-->>Personalization: Valid target and skill reference data
 
-    alt Optional free-text note provided
+    alt Nonblank optional free-text note provided
         Personalization->>AI: Normalize note into structured claims
         Note over Personalization,AI: AI output harus berbentuk structured JSON agar bisa dipetakan ke candidate skills / profile hints
         AI-->>Personalization: Normalized suggestions + confidence
@@ -68,6 +68,8 @@ sequenceDiagram
 - `syllabus` tetap dipakai untuk memvalidasi target belajar dan skill hasil normalisasi agar tidak ada referensi di luar katalog resmi.
 - `users` tetap menjadi owner untuk persistence `learner_profile`; `personalization` hanya menghitung dan mengirim hasil final yang sudah dikonfirmasi.
 - Structured form tetap menjadi baseline utama. AI normalization bersifat opsional dan hanya memperkaya input saat user memberikan free-text note.
+- Endpoint assessment dan konfirmasi memeriksa same-origin sebelum session. Catatan absent, `null`, kosong, atau whitespace melewati AI sepenuhnya; kegagalan normalisasi mengembalikan error aman tanpa penyimpanan profile. Detail kode respons mengikuti [kontrak personalization](../api-contract/user-profile-and-personalization.md).
+- Log assessment terpisah pada diagram bersifat opsional dan tidak dibuat di `IMP-10`; normalisasi memakai observability request/attempt yang sudah disediakan fondasi AI `IMP-08`.
 
 ## Expected Outcome
 - Assessment onboarding bisa menerima kombinasi structured form dan optional free-text note tanpa membuat AI menjadi source of truth tunggal.

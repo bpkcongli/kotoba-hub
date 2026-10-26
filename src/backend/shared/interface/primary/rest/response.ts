@@ -6,10 +6,11 @@ export function apiResponse<TData = unknown>(
   code: ApplicationStatusCode,
   data?: TData,
   errorDetails: ApiErrorDetailDto[] = [],
+  traceId: string = randomUUID(),
 ): Response {
   const { httpStatus, message } = applicationStatus[code];
   const body: ApiResponseDto<TData> = {
-    status: { traceId: randomUUID(), code, message, errorDetails },
+    status: { traceId, code, message, errorDetails },
     ...(data !== undefined ? { data } : {}),
   };
 

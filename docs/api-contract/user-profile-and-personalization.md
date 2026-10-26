@@ -72,6 +72,13 @@ Behavior:
 - Memakai `syllabus` untuk validasi target level dan skill references.
 - Jika `note` diberikan, `personalization` boleh meminta AI normalization dan mengembalikan suggested known skills.
 - Endpoint ini belum menulis `learner_profiles`.
+- Request POST wajib membawa `Origin` yang sama dengan origin aplikasi; jika tidak, respons `403` dikirim sebelum pemeriksaan session, pembacaan progress, atau panggilan AI.
+- `note` yang tidak dikirim, `null`, kosong, atau hanya whitespace memakai structured form saja: `suggestedKnownSkillClaims = []` dan `aiNormalizationUsed = false`, tanpa membaca konfigurasi atau memanggil provider AI.
+- Catatan nonblank dinormalisasi melalui operasi `summarizePlacement` pada fondasi AI `IMP-08`. Hasil tetap berupa suggestion dengan judul canonical syllabus, `source = ai_note`, dan confidence `0..1`; tidak mengubah field structured form atau state profile/progress.
+- Jika normalisasi AI gagal, endpoint mengembalikan `500 / 150003999` dengan pesan aman. Tidak ada fallback diam-diam yang mengklaim catatan berhasil diproses; learner dapat mengirim assessment kembali tanpa catatan.
+- Recommendation draft mengikuti urutan `sortOrder` track/unit/lesson published, mulai dari current track hingga target; `BEGINNER` atau current level `null` mulai dari track pertama. Jika current lebih tinggi dari target, mulai dari target. Lesson berikutnya adalah kandidat pertama yang belum tercakup progress terukur: understanding lesson `>= 1` atau seluruh skill lesson mempunyai snapshot `MASTERED` dianggap cukup untuk melewati kandidat tersebut. Jika semua kandidat tercakup, lesson pertama menjadi hint review. Policy ini hanya memilih hint, tidak menulis completion atau mastery. Suggestion AI yang belum dikonfirmasi tidak dipakai untuk melewati lesson.
+- Context normalisasi hanya memuat skill published sampai target, baseline progress milik current user, dan note yang dikirim. Referensi progress yang sudah tidak berada di katalog diabaikan. Tidak ada repository context lain yang diakses langsung.
+- `status.traceId` pada respons assessment juga menjadi `request_key` log normalisasi AI, termasuk ketika normalisasi gagal. Note mentah tidak disimpan pada log default. Assessment tanpa note tidak membuat log AI.
 
 Request body:
 
@@ -124,9 +131,10 @@ Success response:
 
 Validation notes:
 - `targetLevel`, `dailyGoalMinutes`, dan `preferredScript` wajib diisi.
+- Payload assessment memakai object strict tanpa field tambahan. `currentLevel`/`targetLevel` berupa string `1..50` karakter (current boleh absent atau `null`); daily goal integer `1..2147483647`; label weak focus `1..100` karakter; note maksimum `2000` karakter.
 - `weakSkillFocuses` wajib dikirim sebagai array dan boleh kosong. Item dapat berupa label area belajar yang dipilih user, seperti `particles` atau `listening`; nilainya tidak diperlakukan sebagai `skill.code` syllabus.
 - `knownSkillClaims` pada konfirmasi juga harus berisi `skill.code` dari syllabus yang dipublikasikan; jangan menyimpan label bebas atau suggestion AI yang belum dikonfirmasi.
-- `targetLevel` harus memiliki track syllabus yang dipublikasikan sehingga recommendation menunjuk ke lesson yang nyata. Pada seed saat ini, `JLPT_N5` dan `JLPT_N4` tersedia; track `N3` dan `N2` masih skeleton belum dipublikasikan.
+- `targetLevel` harus memiliki track syllabus yang dipublikasikan sehingga recommendation menunjuk ke lesson yang nyata. N5/N4 merupakan kandidat publish, tetapi gate bank quiz `IMP-05` hanya mengimpor subtree lesson yang valid. Snapshot seed yang dicatat di [PRD](../../PRD.md#7-urutan-implementasi-dan-prasyarat-yang-masih-perlu-diselaraskan) menyediakan sebagian N5; N4 baru tersedia setelah kurasi dan seed ulang. Track `N3` dan `N2` masih skeleton belum dipublikasikan. Contoh N4 di kontrak mengasumsikan track tersebut sudah tersedia di database tujuan.
 - `note` opsional dan tidak boleh langsung menjadi source of truth tanpa confirmation user.
 - Gunakan `142203001` untuk payload validation generic, mis. field wajib hilang atau tipe data tidak sesuai.
 - Gunakan `142203002` bila payload secara bentuk valid tetapi referensi personalization tidak cocok dengan katalog syllabus, mis. `targetLevel` belum dipublikasikan atau `knownSkillClaims` berisi `skill.code` yang tidak ditemukan.
@@ -211,7 +219,7 @@ Success response:
 | --- | --- | --- |
 | `200` | `120003000` | Personalization success |
 | `401` | `140103001` | Session tidak ada atau tidak valid untuk personalization API |
-| `403` | `140301001` | Origin request konfirmasi tidak sama dengan origin aplikasi |
+| `403` | `140301001` | Origin request assessment atau konfirmasi tidak sama dengan origin aplikasi |
 | `422` | `142203001` | Validation error generic untuk payload/schema |
 | `422` | `142203002` | Referensi personalization tidak valid terhadap katalog syllabus |
 | `500` | `150003999` | Unhandled personalization exception |

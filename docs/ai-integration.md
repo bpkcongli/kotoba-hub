@@ -166,3 +166,28 @@ Verifikasi implementasi selesai pada 26 Oktober 2026:
 `IMP-08` selesai sebagai fondasi backend. Integrasi endpoint consumer tetap milik
 `IMP-09`/`IMP-10`. Pemanggilan model live belum diuji; siapkan akun, billing, key,
 akses model, dan evaluasi seperti langkah di atas sebelum mengaktifkannya.
+
+## Consumer assessment — IMP-10
+
+`POST /api/v1/personalization/assessment` memakai `summarizePlacement` melalui port
+dan adapter milik personalization. Provider service diinisialisasi lazy: structured
+assessment tanpa note nonblank tidak membaca konfigurasi AI, tidak memanggil provider,
+dan tidak membuat log AI. Catatan nonblank memakai katalog published dan baseline
+progress current user; suggestion tidak menulis profile atau mengubah mastery.
+
+`status.traceId` respons assessment menjadi request key operasi normalisasi untuk
+korelasi log request/attempt. Kegagalan provider, output, atau observability mengikuti
+error aman `500 / 150003999`; tidak ada fallback yang mengaku berhasil menormalisasi.
+Lihat [kontrak assessment](./api-contract/user-profile-and-personalization.md) untuk
+Origin guard, batas payload, recommendation policy, dan langkah konfirmasi.
+
+Verifikasi tanpa provider live:
+
+```sh
+bun run test:ci -- tests/unit/personalization
+```
+
+Tes assessment mencakup jalur structured/AI, baseline progress, katalog dan DTO,
+auth/Origin, serta komposisi adapter normalisasi dengan AI service asli dan
+provider/log test doubles. Tidak diperlukan migration baru; persistence final tetap
+menggunakan endpoint konfirmasi melalui context users.

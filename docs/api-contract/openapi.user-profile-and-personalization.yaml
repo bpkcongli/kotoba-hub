@@ -66,7 +66,15 @@ paths:
       summary: Build onboarding personalization draft
       description: |
         Membuat draft personalization dari structured form dan optional note
-        tanpa langsung menyimpan learner profile final.
+        tanpa langsung menyimpan learner profile final. Origin harus sama dengan
+        origin aplikasi dan diperiksa sebelum session. Note yang tidak dikirim,
+        null, kosong, atau hanya whitespace tidak memanggil AI. Note nonblank
+        dinormalisasi sebagai suggestion; kegagalan AI menghasilkan 500 tanpa
+        menyimpan profile atau mengubah structured form. Recommendation memakai
+        urutan published current hingga target dan melewati lesson dengan
+        understanding >= 1 atau semua skill MASTERED. Jika semua tercakup,
+        lesson pertama menjadi hint review. Suggestion AI tidak dipakai untuk
+        melewati lesson sebelum dikonfirmasi learner.
       operationId: createPersonalizationAssessment
       security:
         - cookieAuth: []
@@ -120,6 +128,30 @@ paths:
                   code: 140103001
                   message: Unauthorized.
                   errorDetails: []
+        '403':
+          description: Origin request assessment tidak sama dengan origin aplikasi.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 140301001
+                  message: Request origin is not allowed.
+                  errorDetails: []
+        '500':
+          description: Assessment gagal, termasuk normalisasi AI yang gagal; tidak ada profile final yang disimpan.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status:
+                  traceId: 550e8400-e29b-41d4-a716-446655440000
+                  code: 150003999
+                  message: Unhandled personalization exception.
+                  errorDetails: []
         '422':
           description: Request assessment tidak valid.
           content:
@@ -143,7 +175,7 @@ paths:
                     status:
                       traceId: 550e8400-e29b-41d4-a716-446655440000
                       code: 142203002
-                      message: Invalid personalization assessment payload.
+                      message: Invalid personalization payload.
                       errorDetails:
                         - field: targetLevel
                           message: Target level is not valid in the syllabus catalog.
@@ -247,7 +279,7 @@ paths:
                     status:
                       traceId: 550e8400-e29b-41d4-a716-446655440000
                       code: 142203002
-                      message: Invalid personalization confirmation payload.
+                      message: Invalid personalization payload.
                       errorDetails:
                         - field: knownSkillClaims
                           message: One or more knownSkillClaims values are not valid skill codes.
@@ -396,15 +428,20 @@ components:
       properties:
         currentLevel:
           type: string
+          minLength: 1
+          maxLength: 50
           nullable: true
           example: JLPT_N5
         targetLevel:
           type: string
+          minLength: 1
+          maxLength: 50
           description: JLPT level with a published syllabus track.
           example: JLPT_N4
         dailyGoalMinutes:
           type: integer
           minimum: 1
+          maximum: 2147483647
           example: 20
         preferredScript:
           type: string
@@ -418,11 +455,14 @@ components:
           description: Learner-selected weak-area labels; may be empty and are not syllabus skill codes.
           items:
             type: string
+            minLength: 1
+            maxLength: 100
           example: ["particles", "listening"]
         note:
           type: string
           nullable: true
           maxLength: 2000
+          description: Optional note; null, empty, or whitespace-only skips AI normalization. Nonblank notes produce suggestions requiring user confirmation.
           example: "I already know most hiragana and some basic grammar."
     DraftProfile:
       type: object

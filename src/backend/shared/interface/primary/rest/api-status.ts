@@ -131,7 +131,7 @@ export const applicationStatus = {
   },
   [ApplicationStatusCode.PERSONALIZATION_INVALID_REFERENCE]: {
     httpStatus: HttpStatusCode.UNPROCESSABLE_ENTITY,
-    message: 'Invalid personalization confirmation payload.',
+    message: 'Invalid personalization payload.',
   },
   [ApplicationStatusCode.UNHANDLED_PERSONALIZATION_EXCEPTION]: {
     httpStatus: HttpStatusCode.INTERNAL_SERVER_ERROR,

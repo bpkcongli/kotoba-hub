@@ -146,6 +146,7 @@ Catatan API:
 - `OPENAI`: provider AI yang dipakai pada MVP saat ini.
 
 ### `ai_request_logs.request_status`
+- `STARTED`: request sudah dicatat sebelum pemanggilan provider; belum memiliki hasil final. Pada kegagalan proses/persistence, row ini dapat tertinggal untuk rekonsiliasi operasional.
 - `SUCCEEDED`: request selesai sukses.
 - `FAILED`: request gagal total.
 - `PARTIAL`: request selesai sebagian, misalnya output utama tersedia tetapi ada bagian yang tidak lengkap atau fallback.

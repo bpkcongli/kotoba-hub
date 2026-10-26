@@ -41,3 +41,12 @@ private custom decks, and idempotent progress handoff recovery. REST tests cover
 APP_READY, origin protection, validation, and response field filtering. Run real
 MySQL persistence verification with `bun run test:flashcards --allow-test-db-write`
 using the isolated setup in [drizzle/README.md](../drizzle/README.md).
+
+IMP-08 AI unit tests cover the four service operations, provider replacement,
+strict Structured Outputs schemas, catalog and language constraints, bounded retries,
+timeouts/refusals, sanitized logs, and complete or unavailable usage/cost totals.
+They use injected providers and fetch responses without live OpenAI requests.
+Run `bun run test:ai --allow-test-db-write` against the isolated MySQL database
+described in [drizzle/README.md](../drizzle/README.md) to verify real migrations and
+request/attempt persistence. Account access and language-quality evaluation against
+live models remain separate rollout checks in the [integration guide](../docs/ai-integration.md).

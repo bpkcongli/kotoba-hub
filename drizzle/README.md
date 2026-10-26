@@ -77,3 +77,15 @@ name ends in `_test` and differs from the regular database. The smoke test appli
 migrations and creates isolated fixtures, then verifies persistence, atomic
 concurrent submissions, ownership, replay and progress recovery. Use a fresh test
 database for each run. It never migrates the regular application database.
+
+IMP-08 adds migration `0004_ai_observability.sql` for shared `ai_request_logs`
+and `ai_request_attempts`. Apply it before invoking the AI service. Imports and
+unrelated features do not require an OpenAI key or open an AI connection.
+
+Run `bun run test:ai --allow-test-db-write` with `AI_TEST_DATABASE_URL` pointing
+to a separate, empty database whose name ends in `_test` and differs from
+`DATABASE_URL`. The script applies migrations only there and checks real request/
+attempt persistence, retry accounting, failure logs, duplicate request keys, and
+payload privacy with an injected fake provider. It makes no OpenAI calls and
+needs no API credits. Use a fresh isolated database for another run; migration
+history remains after fixture cleanup. See [OpenAI setup](../docs/ai-integration.md).

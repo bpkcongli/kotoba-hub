@@ -19,7 +19,7 @@ bun run dev
 
 Start local MySQL with `docker compose up -d mysql` before running the app. Open
 <http://localhost:3000>. Server startup validates `DATABASE_URL` and auth settings;
-the public page does not query MySQL. AI keys are not required yet. Fonts are installed
+the public page does not query MySQL. AI keys are required only when invoking an AI operation. Fonts are installed
 locally, so builds do not fetch Google Fonts.
 `bun install` configures Husky for this checkout; the pre-commit hook formats/lints
 staged code and runs lint, typecheck, and changed Jest tests.
@@ -91,6 +91,23 @@ For a disposable migrated MySQL database whose name ends in `_test`, run
 `AUTH_TEST_DATABASE_URL=mysql://.../kotoba_auth_test bun run test:auth-adapter`.
 This checks the adapter's user, account, session, and sign-out round trip and
 removes its records afterward.
+
+## OpenAI integration
+
+IMP-08 supplies a server-only AI service for practice generation, free-response
+grading, onboarding note normalization, and study recommendations. It uses the
+Responses API, validates structured results against the supplied catalog context,
+and records request/attempt metadata in MySQL. Application endpoints will consume
+this service in IMP-09 and IMP-10.
+
+Set `OPENAI_API_KEY` in your local `.env` or deployment secrets, select the two
+models with `OPENAI_GENERATION_MODEL` and `OPENAI_NORMALIZATION_MODEL`, and apply
+the AI observability migration before calling the service. ChatGPT Plus billing
+is separate from this API-key integration. Tests use injected providers and need
+no OpenAI account or credits.
+
+See the [OpenAI setup and validation guide](docs/ai-integration.md) for prerequisites,
+configuration limits, migration steps, isolated smoke testing, and rollout checks.
 
 ## Docker and MySQL
 

@@ -100,7 +100,7 @@ Log utama level request untuk kebutuhan audit, budget guardrail, dan observabili
 | `source_entity_id` | `char(36)` | null | Identifier entity pemicu dari module asal. |
 | `provider` | `varchar(50)` | not null | Provider final yang dipakai, mis. `OPENAI`. |
 | `model` | `varchar(100)` | not null | Model final, mis. `gpt-5-mini`. |
-| `request_status` | `varchar(50)` | not null | Mis. `SUCCEEDED`, `FAILED`, `PARTIAL`, `CANCELLED`. |
+| `request_status` | `varchar(50)` | not null | `STARTED` sebelum provider dipanggil, lalu `SUCCEEDED` atau `FAILED` pada adapter v1; `PARTIAL` dan `CANCELLED` disediakan untuk flow lanjutan. |
 | `schema_name` | `varchar(100)` | null | Nama schema output yang diharapkan. |
 | `schema_parse_success` | `boolean` | not null default `false` | Status parse final setelah seluruh retry selesai. |
 | `retry_count` | `int` | not null default `0` | Jumlah retry setelah attempt pertama. |
@@ -176,3 +176,13 @@ Recommended constraints:
 - Prompt template registry, versioned prompt library, atau evaluation dataset untuk quality benchmarking.
 - Materialized analytics table untuk dashboard BI atau cost aggregation harian.
 - Full raw transcript storage dari semua prompt dan response tanpa redaction.
+
+## Implementasi v1 — IMP-08
+
+- Schema shared menambahkan `ai_request_logs` dan `ai_request_attempts` melalui migration `0004_ai_observability.sql`.
+- Satu `request_key` adalah UUID correlation untuk satu operasi AI. Gunakan key baru untuk operasi lain pada flow yang sama; key yang sudah tersimpan ditolak sebelum provider dipanggil lagi, bukan menjadi cache hasil operasi.
+- Request dicatat sebagai `STARTED` sebelum attempt pertama. Setiap attempt disimpan terpisah; hasil akhir menjadi `SUCCEEDED` atau `FAILED`. Kegagalan observability menghentikan operasi dengan error aman agar request baru tidak berjalan tanpa pencatatan.
+- Default log tidak menyimpan input/output mentah. Kolom `redacted_*` tetap `null`; metadata berisi versi template dan ukuran katalog. Failure reason memakai pesan tetap, tanpa raw error provider.
+- Usage dan estimasi biaya final dijumlahkan lintas attempt bila seluruh attempt memiliki data yang diperlukan. Jika ada data yang tidak tersedia, total terkait `null`; nilai per-attempt yang diketahui tetap tersimpan. `attempt_metadata` mencatat ketersediaan usage dan cached input tokens.
+- `STARTED` dapat tersisa jika proses berhenti atau write log gagal setelah pemanggilan provider. Rekonsiliasi row menggantung dan kebijakan retensi log adalah tanggung jawab operasional; retry otomatis tidak menyamarkan keadaan ini.
+- Pengaturan model dan langkah setup berada di [panduan integrasi](../ai-integration.md). Nilai `gpt-5-mini` pada contoh konseptual awal merupakan ilustrasi schema, bukan default runtime terbaru.

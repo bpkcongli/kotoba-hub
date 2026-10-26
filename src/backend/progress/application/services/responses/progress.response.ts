@@ -73,5 +73,6 @@ export interface RecordLearningEventResponse {
   mastery: SkillMasterySnapshot;
   lessonUnderstanding: LessonUnderstandingSnapshot | null;
   lessonCompleted: boolean;
+  lessonTransition?: { before: number; after: number };
   replayed: boolean;
 }

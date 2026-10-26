@@ -24,6 +24,7 @@
     "test:progress": "bun scripts/smoke-progress.ts",
     "test:flashcards": "bun scripts/smoke-flashcards.ts",
     "test:ai": "bun scripts/smoke-ai.ts",
+    "test:practice": "bun scripts/smoke-practice.ts",
     "check": "bun run lint && bun run typecheck && bun run format:check && bun run test:ci",
     "prepare": "husky",
     "mocks:init": "msw init public --save",

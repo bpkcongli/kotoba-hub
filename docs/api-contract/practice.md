@@ -49,6 +49,7 @@ Request body:
 
 Behavior:
 - `questionCount` opsional dengan default `5`.
+- Nilai yang diterima adalah integer `1..10`; body yang tidak dikirim memakai default.
 - `practice` meminta recommendation spec dari `personalization`.
 - `practice` memuat constraint katalog dari `syllabus`.
 - Recommendation spec untuk random practice boleh membawa `lesson_understanding_levels` dari `progress` sebagai faktor tambahan selain learner profile, weak skills, flashcard result, dan practice history.
@@ -197,6 +198,9 @@ Request body:
 
 Behavior:
 - Memuat question dan session context.
+- Satu question menerima satu answer pada MVP. Pengiriman ulang payload yang sama
+  memakai answer/event yang telah tersimpan; perubahan jawaban untuk question yang
+  sudah dijawab ditolak dengan `142206002`. Session hanya dapat diakses owner.
 - Bentuk `userAnswer` mengikuti `questionType`:
 - `SHORT_FREE_RESPONSE`: kirim `rawInputRomaji`, `normalizedKana`, dan opsional `normalizedKanji`.
   - `SLOT_FILL`: kirim `selectedOptionId`.
@@ -248,6 +252,16 @@ Success response:
 
 ### `POST /api/v1/practice/lesson-post-study/answer`
 Menilai jawaban post-study quiz/review lesson secara deterministik, mengirim event ke `progress`, lalu meng-update `lesson_understanding_snapshots`.
+
+Header opsional `Idempotency-Key` berupa UUID mengidentifikasi satu attempt milik
+current user. Client sebaiknya membuat key saat submit pertama dan menggunakannya
+kembali bila request gagal atau respons hilang. Key dan payload yang sama mengembalikan
+hasil attempt tersimpan tanpa membuat event baru. Menggunakan key yang sama untuk
+payload berbeda ditolak dengan `142206002`. Tanpa header ini, setiap request dianggap
+attempt baru; jawaban pada difficulty yang sudah bukan target aktif tetap ditolak.
+Retry key yang sama diperiksa sebelum validasi target aktif agar jawaban benar
+yang telah menaikkan level tetap dapat dipulihkan. Receipt internal bukan
+`practice_answer`, `practice_question`, atau `practice_session`.
 
 Request body:
 

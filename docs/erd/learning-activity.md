@@ -572,7 +572,11 @@ Recommended shape minimum untuk `practice_questions.prompt_payload` per question
 }
 ```
 
-Recommended shape minimum untuk `practice_questions.expected_answer_payload` per question type:
+Contoh konseptual awal untuk `practice_questions.expected_answer_payload` per question type
+di bawah bersifat rekomendasi. Bentuk persistence v1 mengikuti schema AI `IMP-08`:
+`acceptedTextAnswers` untuk short response, `correctOptionId` untuk slot fill,
+`acceptedTokenOrders` untuk token arrangement, dan `referenceAnswer` untuk free response.
+Metadata schema/normalization/rubric di contoh awal tidak ditambahkan oleh generator v1.
 
 #### `SHORT_FREE_RESPONSE`
 ```json
@@ -828,6 +832,30 @@ Recommended constraints:
 - `skill_mastery_snapshots.recommended_difficulty_band` adalah output ringkas dari engine progress/personalization yang dipakai ulang oleh practice generator.
 - Untuk session berikutnya, `skill_mastery_snapshots.recommended_difficulty_band` adalah acuan utama dalam membentuk `practice_sessions.difficulty_band`, terutama saat generator mengambil target skill dari snapshot mastery terbaru.
 - Meski begitu, nilainya tidak harus disalin mentah 1:1; layer personalization/practice tetap boleh menyesuaikan baseline session berdasarkan kombinasi target skill, recent mistakes, recommendation policy, dan `question_mix` yang ingin dibentuk.
+
+### Practice Engine v1 (`IMP-09`)
+
+- Migration `0005_practice_engine.sql` membuat `practice_sessions`,
+  `practice_questions`, `practice_answers`, dan `practice_post_study_receipts`.
+- Session memakai `GENERATED`, `IN_PROGRESS`, `COMPLETED`, atau `EXPIRED`.
+  Question dan recommendation disnapshot saat generation; `question_snapshot`
+  adalah snapshot internal yang tidak dikirim ke client. `started_at`,
+  `completed_at`, dan `answered_at` practice mempertahankan presisi milidetik.
+- Answer memakai `attempt_number=1` dan unique `(question_id, attempt_number)`.
+  `answer_payload` menyimpan input, stable event ID, waktu, serta producer session
+  metadata; `result_payload` dan `progress_recorded` menyimpan hasil handoff.
+- Tabel receipt internal memiliki `id char(36)` PK, `user_id char(36)` FK users,
+  `idempotency_key char(36)`, `receipt_payload json`, dan audit timestamps.
+  Unique `(user_id, idempotency_key)` mencegah key user saling bertabrakan.
+  Payload memuat fingerprint, stable event ID, waktu, atribusi canonical question,
+  grade, serta hasil. Receipt adalah state retry, bukan histori `practice_answer`
+  atau bank soal; direct quiz tetap tidak membuat session/question/answer practice.
+- Progress menambahkan `progress.lessonTransition = {before, after}` pada metadata
+  event post-study, dihitung di dalam lock lesson. Retry mengembalikan transisi
+  immutable ini walaupun snapshot pemahaman sudah berubah lagi. Tidak diperlukan
+  migration tambahan untuk metadata JSON progress.
+- Aturan recommendation, grading, concurrency, dan verifikasi dijelaskan pada
+  [practice engine](../practice-engine.md); HTTP mengikuti [kontrak practice](../api-contract/practice.md).
 
 ### Progress Engine v1 (`IMP-06`)
 

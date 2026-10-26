@@ -211,6 +211,17 @@ paths:
       operationId: submitLessonPostStudyAnswer
       security:
         - cookieAuth: []
+      parameters:
+        - name: Idempotency-Key
+          in: header
+          required: false
+          description: >
+            UUID untuk satu attempt current user. Key dan payload yang sama
+            mengembalikan hasil tersimpan tanpa event baru; payload berbeda
+            ditolak dengan 142206002. Tanpa header, request adalah attempt baru.
+          schema:
+            type: string
+            format: uuid
       requestBody:
         required: true
         content:

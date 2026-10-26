@@ -54,6 +54,7 @@ export class ProgressServiceImpl implements ProgressService {
           mastery: await transaction.getMastery(),
           lessonUnderstanding,
           lessonCompleted: (lessonUnderstanding?.currentUnderstandingLevel ?? 0) >= 1,
+          lessonTransition: this.lessonTransition(saved),
           replayed: true,
         };
       });
@@ -108,17 +109,26 @@ export class ProgressServiceImpl implements ProgressService {
           mastery: previous,
           lessonUnderstanding,
           lessonCompleted: (lessonUnderstanding?.currentUnderstandingLevel ?? 0) >= 1,
+          lessonTransition: this.lessonTransition(existing),
           replayed: true,
         };
       }
 
       let lessonUnderstanding = null;
-      if (question)
+      let lessonTransition: { before: number; after: number } | undefined;
+
+      if (question) {
+        const previousLesson = await transaction.lockLesson(request.userId, attribution.lessonId);
         lessonUnderstanding = this.understanding.advance(
-          await transaction.lockLesson(request.userId, attribution.lessonId),
+          previousLesson,
           event,
           question.difficultyLevel,
         );
+        lessonTransition = {
+          before: previousLesson.currentUnderstandingLevel,
+          after: lessonUnderstanding.currentUnderstandingLevel,
+        };
+      }
 
       const history = await transaction.getSkillHistory(request.userId, request.skillId);
       const mastery = this.mastery.calculate(
@@ -133,7 +143,7 @@ export class ProgressServiceImpl implements ProgressService {
           attribution: { ...attribution, postStudyQuestions: undefined },
           masteryScoreAfter: mastery.masteryScore,
           ...(request.producerSession ? { producerSession: request.producerSession } : {}),
-          ...(question ? { difficultyLevel: question.difficultyLevel } : {}),
+          ...(question ? { difficultyLevel: question.difficultyLevel, lessonTransition } : {}),
         },
       };
 
@@ -146,6 +156,7 @@ export class ProgressServiceImpl implements ProgressService {
         mastery,
         lessonUnderstanding,
         lessonCompleted: (lessonUnderstanding?.currentUnderstandingLevel ?? 0) >= 1,
+        lessonTransition,
         replayed: false,
       };
     });
@@ -446,6 +457,15 @@ export class ProgressServiceImpl implements ProgressService {
       throw new InvalidProgressEvent(
         'Event id has already been used for a different learning interaction.',
       );
+  }
+
+  private lessonTransition(
+    event: ProgressEventSnapshot,
+  ): { before: number; after: number } | undefined {
+    const metadata = event.gradingMetadata?.progress as
+      { lessonTransition?: { before: number; after: number } } | undefined;
+
+    return metadata?.lessonTransition;
   }
 
   private validateSessionMetadata(metadata: ProducerSessionMetadata | undefined) {

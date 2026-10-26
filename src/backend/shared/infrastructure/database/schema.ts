@@ -24,3 +24,9 @@ export {
   flashcardSessionAnswers,
   flashcardItemStates,
 } from '@/backend/flashcards/infrastructure/database/schema';
+export {
+  practiceSessions,
+  practiceQuestions,
+  practiceAnswers,
+  practicePostStudyReceipts,
+} from '@/backend/practice/infrastructure/database/schema';

@@ -89,3 +89,17 @@ attempt persistence, retry accounting, failure logs, duplicate request keys, and
 payload privacy with an injected fake provider. It makes no OpenAI calls and
 needs no API credits. Use a fresh isolated database for another run; migration
 history remains after fixture cleanup. See [OpenAI setup](../docs/ai-integration.md).
+
+IMP-09 adds migration `0005_practice_engine.sql` for `practice_sessions`,
+`practice_questions`, `practice_answers`, and internal `practice_post_study_receipts`.
+Questions snapshot prompts and expected answers; answers and receipts retain
+stable progress event IDs for retry recovery. Direct lesson quizzes use receipts
+without creating practice sessions/questions/answers.
+
+Run `bun run test:practice --allow-test-db-write` with `PRACTICE_TEST_DATABASE_URL`
+pointing to a separate empty MySQL database ending in `_test`, different from
+`DATABASE_URL`. The script applies migrations and uses AI test doubles to verify
+concurrent submissions, owner isolation, answer replay, progress/receipt recovery,
+canonical quiz selection, understanding level limits, and fresh recommendation.
+It never migrates the regular application database. Provision a fresh test database
+for each run. See [practice engine](../docs/practice-engine.md).

@@ -36,6 +36,13 @@
       "when": 1792968787662,
       "tag": "0004_ai_observability",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1793027793490,
+      "tag": "0005_practice_engine",
+      "breakpoints": true
     }
   ]
 }

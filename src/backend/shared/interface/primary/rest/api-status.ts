@@ -9,6 +9,7 @@ export enum HttpStatusCode {
 }
 
 export enum ApplicationStatusCode {
+  // Auth
   AUTH_SUCCESS = 120001000,
   AUTH_REQUIRED = 140101001,
   GOOGLE_AUTH_FAILED = 140101002,
@@ -17,14 +18,17 @@ export enum ApplicationStatusCode {
   INVALID_REDIRECT_TO = 142201002,
   INVALID_OAUTH_CALLBACK = 142201003,
   UNHANDLED_AUTH_EXCEPTION = 150001999,
+  // User
   USER_PROFILE_SUCCESS = 120002000,
   USER_PROFILE_UNAUTHORIZED = 140102001,
   UNHANDLED_USER_PROFILE_EXCEPTION = 150002999,
+  // Personalization
   PERSONALIZATION_SUCCESS = 120003000,
   PERSONALIZATION_UNAUTHORIZED = 140103001,
   PERSONALIZATION_VALIDATION_ERROR = 142203001,
   PERSONALIZATION_INVALID_REFERENCE = 142203002,
   UNHANDLED_PERSONALIZATION_EXCEPTION = 150003999,
+  // Syllabus
   SYLLABUS_SUCCESS = 120004000,
   SYLLABUS_UNAUTHORIZED = 140104001,
   SYLLABUS_ONBOARDING_REQUIRED = 140304001,
@@ -32,6 +36,7 @@ export enum ApplicationStatusCode {
   SYLLABUS_LESSON_NOT_FOUND = 140404002,
   SYLLABUS_INVALID_FILTER = 142204001,
   UNHANDLED_SYLLABUS_EXCEPTION = 150004999,
+  // Flashcard
   FLASHCARDS_SUCCESS = 120005000,
   FLASHCARDS_UNAUTHORIZED = 140105001,
   FLASHCARDS_ONBOARDING_REQUIRED = 140305001,
@@ -45,6 +50,16 @@ export enum ApplicationStatusCode {
   FLASHCARDS_INVALID_CURRENT_ITEM = 142205005,
   FLASHCARDS_INVALID_OPTION = 142205006,
   UNHANDLED_FLASHCARDS_EXCEPTION = 150005999,
+  // Practice
+  PRACTICE_SUCCESS = 120006000,
+  PRACTICE_UNAUTHORIZED = 140106001,
+  PRACTICE_ONBOARDING_REQUIRED = 140306001,
+  PRACTICE_SESSION_NOT_FOUND = 140406001,
+  PRACTICE_LESSON_NOT_FOUND = 140406002,
+  PRACTICE_VALIDATION_ERROR = 142206001,
+  PRACTICE_INVALID_QUESTION = 142206002,
+  UNHANDLED_PRACTICE_EXCEPTION = 150006999,
+  // Progress
   PROGRESS_SUCCESS = 120007000,
   PROGRESS_UNAUTHORIZED = 140107001,
   PROGRESS_ONBOARDING_REQUIRED = 140307001,
@@ -53,6 +68,107 @@ export enum ApplicationStatusCode {
 }
 
 export const applicationStatus = {
+  // Auth
+  [ApplicationStatusCode.AUTH_SUCCESS]: {
+    httpStatus: HttpStatusCode.OK,
+    message: 'Success!',
+  },
+  [ApplicationStatusCode.AUTH_REQUIRED]: {
+    httpStatus: HttpStatusCode.UNAUTHORIZED,
+    message: 'Authentication required.',
+  },
+  [ApplicationStatusCode.GOOGLE_AUTH_FAILED]: {
+    httpStatus: HttpStatusCode.UNAUTHORIZED,
+    message: 'Google authentication failed.',
+  },
+  [ApplicationStatusCode.ORIGIN_NOT_ALLOWED]: {
+    httpStatus: HttpStatusCode.FORBIDDEN,
+    message: 'Request origin is not allowed.',
+  },
+  [ApplicationStatusCode.ONBOARDING_REQUIRED]: {
+    httpStatus: HttpStatusCode.FORBIDDEN,
+    message: 'Complete onboarding to access this resource.',
+  },
+  [ApplicationStatusCode.INVALID_REDIRECT_TO]: {
+    httpStatus: HttpStatusCode.UNPROCESSABLE_ENTITY,
+    message: 'Invalid redirectTo.',
+  },
+  [ApplicationStatusCode.INVALID_OAUTH_CALLBACK]: {
+    httpStatus: HttpStatusCode.UNPROCESSABLE_ENTITY,
+    message: 'Invalid OAuth callback payload.',
+  },
+  [ApplicationStatusCode.UNHANDLED_AUTH_EXCEPTION]: {
+    httpStatus: HttpStatusCode.INTERNAL_SERVER_ERROR,
+    message: 'Unhandled auth exception.',
+  },
+
+  // User
+  [ApplicationStatusCode.USER_PROFILE_SUCCESS]: {
+    httpStatus: HttpStatusCode.OK,
+    message: 'Success!',
+  },
+  [ApplicationStatusCode.USER_PROFILE_UNAUTHORIZED]: {
+    httpStatus: HttpStatusCode.UNAUTHORIZED,
+    message: 'Unauthorized.',
+  },
+  [ApplicationStatusCode.UNHANDLED_USER_PROFILE_EXCEPTION]: {
+    httpStatus: HttpStatusCode.INTERNAL_SERVER_ERROR,
+    message: 'Unhandled user profile exception.',
+  },
+
+  // Personalization
+  [ApplicationStatusCode.PERSONALIZATION_SUCCESS]: {
+    httpStatus: HttpStatusCode.OK,
+    message: 'Success!',
+  },
+  [ApplicationStatusCode.PERSONALIZATION_UNAUTHORIZED]: {
+    httpStatus: HttpStatusCode.UNAUTHORIZED,
+    message: 'Unauthorized.',
+  },
+  [ApplicationStatusCode.PERSONALIZATION_VALIDATION_ERROR]: {
+    httpStatus: HttpStatusCode.UNPROCESSABLE_ENTITY,
+    message: 'Validation error.',
+  },
+  [ApplicationStatusCode.PERSONALIZATION_INVALID_REFERENCE]: {
+    httpStatus: HttpStatusCode.UNPROCESSABLE_ENTITY,
+    message: 'Invalid personalization confirmation payload.',
+  },
+  [ApplicationStatusCode.UNHANDLED_PERSONALIZATION_EXCEPTION]: {
+    httpStatus: HttpStatusCode.INTERNAL_SERVER_ERROR,
+    message: 'Unhandled personalization exception.',
+  },
+
+  // Syllabus
+  [ApplicationStatusCode.SYLLABUS_SUCCESS]: {
+    httpStatus: HttpStatusCode.OK,
+    message: 'Success!',
+  },
+  [ApplicationStatusCode.SYLLABUS_UNAUTHORIZED]: {
+    httpStatus: HttpStatusCode.UNAUTHORIZED,
+    message: 'Unauthorized.',
+  },
+  [ApplicationStatusCode.SYLLABUS_ONBOARDING_REQUIRED]: {
+    httpStatus: HttpStatusCode.FORBIDDEN,
+    message: 'Forbidden.',
+  },
+  [ApplicationStatusCode.SYLLABUS_UNIT_NOT_FOUND]: {
+    httpStatus: HttpStatusCode.NOT_FOUND,
+    message: 'Syllabus unit not found.',
+  },
+  [ApplicationStatusCode.SYLLABUS_LESSON_NOT_FOUND]: {
+    httpStatus: HttpStatusCode.NOT_FOUND,
+    message: 'Syllabus lesson not found.',
+  },
+  [ApplicationStatusCode.SYLLABUS_INVALID_FILTER]: {
+    httpStatus: HttpStatusCode.UNPROCESSABLE_ENTITY,
+    message: 'Invalid syllabus filter.',
+  },
+  [ApplicationStatusCode.UNHANDLED_SYLLABUS_EXCEPTION]: {
+    httpStatus: HttpStatusCode.INTERNAL_SERVER_ERROR,
+    message: 'Unhandled syllabus exception.',
+  },
+
+  // Flashcard
   [ApplicationStatusCode.FLASHCARDS_SUCCESS]: {
     httpStatus: HttpStatusCode.OK,
     message: 'Success!',
@@ -106,98 +222,41 @@ export const applicationStatus = {
     message: 'Unhandled flashcards exception.',
   },
 
-  [ApplicationStatusCode.AUTH_SUCCESS]: {
+  // Practice
+  [ApplicationStatusCode.PRACTICE_SUCCESS]: {
     httpStatus: HttpStatusCode.OK,
     message: 'Success!',
   },
-  [ApplicationStatusCode.AUTH_REQUIRED]: {
-    httpStatus: HttpStatusCode.UNAUTHORIZED,
-    message: 'Authentication required.',
-  },
-  [ApplicationStatusCode.GOOGLE_AUTH_FAILED]: {
-    httpStatus: HttpStatusCode.UNAUTHORIZED,
-    message: 'Google authentication failed.',
-  },
-  [ApplicationStatusCode.ORIGIN_NOT_ALLOWED]: {
-    httpStatus: HttpStatusCode.FORBIDDEN,
-    message: 'Request origin is not allowed.',
-  },
-  [ApplicationStatusCode.ONBOARDING_REQUIRED]: {
-    httpStatus: HttpStatusCode.FORBIDDEN,
-    message: 'Complete onboarding to access this resource.',
-  },
-  [ApplicationStatusCode.INVALID_REDIRECT_TO]: {
-    httpStatus: HttpStatusCode.UNPROCESSABLE_ENTITY,
-    message: 'Invalid redirectTo.',
-  },
-  [ApplicationStatusCode.INVALID_OAUTH_CALLBACK]: {
-    httpStatus: HttpStatusCode.UNPROCESSABLE_ENTITY,
-    message: 'Invalid OAuth callback payload.',
-  },
-  [ApplicationStatusCode.UNHANDLED_AUTH_EXCEPTION]: {
-    httpStatus: HttpStatusCode.INTERNAL_SERVER_ERROR,
-    message: 'Unhandled auth exception.',
-  },
-  [ApplicationStatusCode.USER_PROFILE_SUCCESS]: {
-    httpStatus: HttpStatusCode.OK,
-    message: 'Success!',
-  },
-  [ApplicationStatusCode.USER_PROFILE_UNAUTHORIZED]: {
+  [ApplicationStatusCode.PRACTICE_UNAUTHORIZED]: {
     httpStatus: HttpStatusCode.UNAUTHORIZED,
     message: 'Unauthorized.',
   },
-  [ApplicationStatusCode.UNHANDLED_USER_PROFILE_EXCEPTION]: {
-    httpStatus: HttpStatusCode.INTERNAL_SERVER_ERROR,
-    message: 'Unhandled user profile exception.',
-  },
-  [ApplicationStatusCode.PERSONALIZATION_SUCCESS]: {
-    httpStatus: HttpStatusCode.OK,
-    message: 'Success!',
-  },
-  [ApplicationStatusCode.PERSONALIZATION_UNAUTHORIZED]: {
-    httpStatus: HttpStatusCode.UNAUTHORIZED,
-    message: 'Unauthorized.',
-  },
-  [ApplicationStatusCode.PERSONALIZATION_VALIDATION_ERROR]: {
-    httpStatus: HttpStatusCode.UNPROCESSABLE_ENTITY,
-    message: 'Validation error.',
-  },
-  [ApplicationStatusCode.PERSONALIZATION_INVALID_REFERENCE]: {
-    httpStatus: HttpStatusCode.UNPROCESSABLE_ENTITY,
-    message: 'Invalid personalization confirmation payload.',
-  },
-  [ApplicationStatusCode.UNHANDLED_PERSONALIZATION_EXCEPTION]: {
-    httpStatus: HttpStatusCode.INTERNAL_SERVER_ERROR,
-    message: 'Unhandled personalization exception.',
-  },
-  [ApplicationStatusCode.SYLLABUS_SUCCESS]: {
-    httpStatus: HttpStatusCode.OK,
-    message: 'Success!',
-  },
-  [ApplicationStatusCode.SYLLABUS_UNAUTHORIZED]: {
-    httpStatus: HttpStatusCode.UNAUTHORIZED,
-    message: 'Unauthorized.',
-  },
-  [ApplicationStatusCode.SYLLABUS_ONBOARDING_REQUIRED]: {
+  [ApplicationStatusCode.PRACTICE_ONBOARDING_REQUIRED]: {
     httpStatus: HttpStatusCode.FORBIDDEN,
-    message: 'Forbidden.',
+    message: 'Complete onboarding to access practice.',
   },
-  [ApplicationStatusCode.SYLLABUS_UNIT_NOT_FOUND]: {
+  [ApplicationStatusCode.PRACTICE_SESSION_NOT_FOUND]: {
     httpStatus: HttpStatusCode.NOT_FOUND,
-    message: 'Syllabus unit not found.',
+    message: 'Practice session not found.',
   },
-  [ApplicationStatusCode.SYLLABUS_LESSON_NOT_FOUND]: {
+  [ApplicationStatusCode.PRACTICE_LESSON_NOT_FOUND]: {
     httpStatus: HttpStatusCode.NOT_FOUND,
-    message: 'Syllabus lesson not found.',
+    message: 'Published lesson not found.',
   },
-  [ApplicationStatusCode.SYLLABUS_INVALID_FILTER]: {
+  [ApplicationStatusCode.PRACTICE_VALIDATION_ERROR]: {
     httpStatus: HttpStatusCode.UNPROCESSABLE_ENTITY,
-    message: 'Invalid syllabus filter.',
+    message: 'Invalid practice payload.',
   },
-  [ApplicationStatusCode.UNHANDLED_SYLLABUS_EXCEPTION]: {
+  [ApplicationStatusCode.PRACTICE_INVALID_QUESTION]: {
+    httpStatus: HttpStatusCode.UNPROCESSABLE_ENTITY,
+    message: 'Question does not match the active practice target.',
+  },
+  [ApplicationStatusCode.UNHANDLED_PRACTICE_EXCEPTION]: {
     httpStatus: HttpStatusCode.INTERNAL_SERVER_ERROR,
-    message: 'Unhandled syllabus exception.',
+    message: 'Unhandled practice exception.',
   },
+
+  // Progress
   [ApplicationStatusCode.PROGRESS_SUCCESS]: {
     httpStatus: HttpStatusCode.OK,
     message: 'Success!',

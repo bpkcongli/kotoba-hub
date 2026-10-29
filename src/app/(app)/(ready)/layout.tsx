@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import { getSessionSnapshot } from '@/backend/auth/infrastructure/di';
 import { toSessionResponseDto } from '@/backend/auth/interface/primary/rest/dto/session.response.dto';
 import { FlashcardRouteScope } from '@/frontend/flashcards/providers';
+import { PracticeRouteScope } from '@/frontend/practice/providers';
 import { AppWorkspace } from '@/frontend/shared/components/layouts';
 import { AppSessionBootstrap } from '@/frontend/shared/providers';
 
@@ -17,7 +18,9 @@ export default async function AppReadyLayout({ children }: { children: ReactNode
   return (
     <AppSessionBootstrap session={toSessionResponseDto(session)}>
       <FlashcardRouteScope>
-        <AppWorkspace>{children}</AppWorkspace>
+        <PracticeRouteScope>
+          <AppWorkspace>{children}</AppWorkspace>
+        </PracticeRouteScope>
       </FlashcardRouteScope>
     </AppSessionBootstrap>
   );

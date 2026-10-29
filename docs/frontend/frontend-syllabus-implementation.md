@@ -16,7 +16,7 @@ Reading state hanya state interaksi lokal. Membaca atau menekan aksi selesai mem
 
 Lesson overview membaca metadata pemahaman melalui `POST /api/v1/practice/lesson-post-study/next`. Difficulty, understanding, dan review memakai response authoritative backend; UI tidak memilih soal dari bank atau menghitung kenaikan level sendiri. Completion hanya ditampilkan jika backend sudah melaporkan understanding minimal satu.
 
-Route `/syllabus/lessons/[lessonSlug]/post-study` menjadi handoff nyata yang mengambil tepat satu pertanyaan `SHORT_FREE_RESPONSE` deterministik dari endpoint direct tersebut. Surface ini menampilkan prompt dan difficulty target. Input jawaban, submit, feedback, dan completion summary tetap cakupan `IMP-15`; selama belum tersedia, layar menjelaskan bahwa pengiriman jawaban belum tersedia. Flow ini tidak membuat random practice session.
+Route `/syllabus/lessons/[lessonSlug]/post-study` menjadi handoff nyata yang mengambil tepat satu pertanyaan `SHORT_FREE_RESPONSE` deterministik dari endpoint direct tersebut. Surface ini menampilkan prompt dan difficulty target. Input jawaban, submit, feedback, completion, dan review kini tersedia melalui [implementasi IMP-15](frontend-practice-implementation.md). Flow ini tidak membuat random practice session.
 
 Kontrak progress saat ini hanya memberi aggregate dan timeline, bukan snapshot per lesson untuk unit/map. Kedua layar itu tidak mengklaim status completion per lesson tanpa data. Penyelarasan indikator lintas layar tetap bagian `IMP-16`/`IMP-17`.
 

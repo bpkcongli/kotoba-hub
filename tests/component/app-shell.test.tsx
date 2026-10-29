@@ -56,9 +56,11 @@ test('provides one main landmark and a working keyboard skip destination', () =>
       '/flashcards',
     );
 
-    for (const label of ['Practice', 'Progress']) {
-      expect(within(navigation).getByText(label).closest('a')).toBeNull();
-    }
+    expect(within(navigation).getByRole('link', { name: 'Practice' })).toHaveAttribute(
+      'href',
+      '/practice',
+    );
+    expect(within(navigation).getByText('Progress').closest('a')).toBeNull();
   }
 
   expect(within(mobileNavigation).queryByText('Settings')).not.toBeInTheDocument();

@@ -2,6 +2,7 @@ import type { RequestHandler } from 'msw';
 import { authHandlers } from './api/auth/auth.routes';
 import { flashcardHandlers } from './api/flashcards/flashcards.routes';
 import { onboardingHandlers } from './api/onboarding/onboarding.routes';
+import { practiceHandlers } from './api/practice/practice.routes';
 import { syllabusHandlers } from './api/syllabus/syllabus.routes';
 
 export const handlers: RequestHandler[] = [
@@ -9,6 +10,7 @@ export const handlers: RequestHandler[] = [
   ...onboardingHandlers,
   ...syllabusHandlers,
   ...flashcardHandlers,
+  ...practiceHandlers,
 ];
 
 export function isApplicationApiRequest(request: Request): boolean {

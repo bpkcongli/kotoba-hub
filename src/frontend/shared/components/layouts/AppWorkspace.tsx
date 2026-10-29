@@ -56,7 +56,12 @@ export const AppWorkspace = observer(function AppWorkspace({ children }: { child
     );
   }
 
-  if (pathname.startsWith('/flashcards/sessions/')) return children;
+  if (
+    pathname.startsWith('/flashcards/sessions/') ||
+    pathname.startsWith('/practice/sessions/') ||
+    /^\/syllabus\/lessons\/[^/]+\/post-study\/?$/.test(pathname)
+  )
+    return children;
 
   const accountMenu = (
     <details className="group relative">

@@ -2,13 +2,9 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { http, HttpResponse } from 'msw';
 import type { ReactNode } from 'react';
+import { LessonPostStudy } from '@/frontend/practice/features';
 import { FrontendContainerProvider } from '@/frontend/shared/providers';
-import {
-  LessonOverview,
-  LessonPostStudy,
-  SyllabusMap,
-  UnitDetail,
-} from '@/frontend/syllabus/features';
+import { LessonOverview, SyllabusMap, UnitDetail } from '@/frontend/syllabus/features';
 import { anonymousSessionFixture, appReadySessionFixture } from '@/mocks/fixtures/session';
 import {
   lessonQuizFixture,
@@ -286,9 +282,8 @@ test('loads one authoritative maximum-level review question without generating a
     'ja',
   );
   expect(screen.getAllByRole('region', { name: 'Lesson question' })).toHaveLength(1);
-  expect(
-    screen.getByRole('heading', { name: 'Answer submission is not available yet' }),
-  ).toBeInTheDocument();
+  expect(screen.getByRole('textbox', { name: 'Romaji or Japanese answer' })).toBeEnabled();
+  expect(screen.getByRole('button', { name: 'Check answer' })).toBeDisabled();
   expect(nextRequested).toHaveBeenCalledTimes(1);
   expect(nextRequested).toHaveBeenCalledWith({ lessonSlug: quiz.lessonSlug });
   expect(generateRequested).not.toHaveBeenCalled();

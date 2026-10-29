@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { LessonPostStudy } from '@/frontend/syllabus/features';
+import { LessonPostStudy } from '@/frontend/practice/features';
 
 export const metadata: Metadata = { title: 'Post-study quiz' };
 

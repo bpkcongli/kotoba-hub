@@ -7,7 +7,7 @@ export default async function AuthenticatedLayout({ children }: { children: Reac
   const requestHeaders = await headers();
   const session = await getSessionSnapshot(requestHeaders.get('cookie'));
 
-  if (!session.isAuthenticated) redirect('/');
+  if (!session.isAuthenticated) redirect('/login');
 
   return children;
 }

@@ -4,7 +4,7 @@
 
 Baseline pattern untuk `IMP-11` dan consumer `IMP-12`–`IMP-17`. Fondasi runtime HTTP/session/DI, shared shell, dan primitive P0 sudah diimplementasikan; panduan penggunaan dan batas cakupan ada di [implementasi fondasi FE](frontend-foundation-implementation.md). Axios ditambahkan melalui Bun beserta lockfile. Snippet skill tetap berupa contoh adaptasi, bukan daftar class yang wajib dibuat: interface form/list/modal dan formatter baru ditambahkan ketika fitur memiliki consumer nyata.
 
-Acuan: [architecture](../ARCHITECTURE.md), [API base](api-contract/README.md), [auth](api-contract/auth-and-authorization.md), [personalization](api-contract/user-profile-and-personalization.md), [progress](api-contract/progress.md), [design system](../DESIGN_SYSTEM.md), [responsive rules](system-design/responsive-layout-rules.md), dan [page inventory](system-design/information-architecture-and-page-inventory.md). Panduan agent: [kotoba-frontend-foundations](../.agents/skills/kotoba-frontend-foundations/SKILL.md).
+Acuan: [architecture](../../ARCHITECTURE.md), [API base](../api-contract/README.md), [auth](../api-contract/auth-and-authorization.md), [personalization](../api-contract/user-profile-and-personalization.md), [progress](../api-contract/progress.md), [design system](../../DESIGN_SYSTEM.md), [responsive rules](../system-design/responsive-layout-rules.md), dan [page inventory](../system-design/information-architecture-and-page-inventory.md). Panduan agent: [kotoba-frontend-foundations](../../.agents/skills/kotoba-frontend-foundations/SKILL.md).
 
 ## Penempatan
 
@@ -38,7 +38,7 @@ Interface menyatakan state/action yang digunakan, bukan superclass wajib. Shared
 | `IHydratableStore<TSnapshot>`       | Store menerima plain bootstrap snapshot                            | `hydrate(snapshot): void`, sinkron dan tanpa HTTP                                                                     |
 | `IDisposableStore`                  | Store memiliki request, reaction, subscription                     | `dispose(): void`, cleanup idempotent                                                                                 |
 
-Contoh masing-masing tersedia di [store patterns](../.agents/skills/kotoba-frontend-foundations/references/store-patterns.md). Dua capability tambahan tersebut tidak wajib untuk semua store. Mode create/view/edit dan step/review/confirmation wizard ditambahkan pada interface domain bila diperlukan. Dialog form dapat mengomposisikan interface modal dan form.
+Contoh masing-masing tersedia di [store patterns](../../.agents/skills/kotoba-frontend-foundations/references/store-patterns.md). Dua capability tambahan tersebut tidak wajib untuk semua store. Mode create/view/edit dan step/review/confirmation wizard ditambahkan pada interface domain bila diperlukan. Dialog form dapat mengomposisikan interface modal dan form.
 
 Dashboard aggregate, syllabus tree, session store global, dan flashcard/practice answering loop biasanya memerlukan interface khusus. Current question bukan pagination. Validasi FE membantu input; backend tetap memvalidasi payload, katalog, akses, dan learning rules. Assessment draft belum berarti profil tersimpan; konfirmasi final adalah operasi terpisah.
 
@@ -48,7 +48,7 @@ Store menggunakan constructor injection, MobX action/computed, dan `runInAction`
 
 ## RootContainerParams dan scope DI
 
-Kebutuhan root params diwujudkan melalui nama canonical `FrontendContainerOptions` dari architecture. Contoh wiring: [container options](../.agents/skills/kotoba-frontend-foundations/references/store-patterns.md#container-options-dan-constructor-injection).
+Kebutuhan root params diwujudkan melalui nama canonical `FrontendContainerOptions` dari architecture. Contoh wiring: [container options](../../.agents/skills/kotoba-frontend-foundations/references/store-patterns.md#container-options-dan-constructor-injection).
 
 - `FrontendContainerOptions`: konfigurasi public HTTP (`apiBasePath` literal `/api/v1`, timeout positif) dan `bootstrap?: FrontendBootstrapData`. Hindari generic env map yang dapat membawa secret.
 - `FrontendBootstrapData`: plain DTO session yang diizinkan API serta display locale/timezone bila diperlukan. Bedakan session belum diketahui dari snapshot `ANONYMOUS`.
@@ -74,19 +74,21 @@ Normalisasi error dilakukan sekali: adapter memetakan transport/HTTP; external s
 
 `normalizeHttpError` dimiliki `shared/adapters/http-client/helpers` karena mengenali Axios dan envelope HTTP. `presentError` dimiliki `shared/helpers` karena memetakan exception FE menjadi UI model tanpa dependency transport. Folder `shared/exceptions` hanya memuat class exception dan tipe pendukung. Export kedua fungsi melalui `index.ts` folder helper masing-masing; consumer tidak mengimpornya dari barrel exception.
 
+External service menggunakan shared `readHttpResponse(response, schema, expectedHttpStatus = 200)` dari `shared/adapters/http-client/helpers` untuk memeriksa status HTTP dan memvalidasi body dengan schema Zod. Helper mengembalikan hasil parse penuh agar metadata pagination tetap tersedia; schema envelope dan pemetaan DTO tetap ditentukan service endpoint. Status yang tidak sesuai atau body invalid menghasilkan `ClientException('contract')` dengan pesan aman. Kegagalan transport/HTTP dari adapter tetap diteruskan tanpa normalisasi ulang.
+
 `422` dipetakan hanya ke field form yang dikenal; detail lintas field masuk inline summary. `401` memicu revalidasi melalui pemilik session flow; `403` diperiksa berdasarkan code/authorization snapshot, tidak selalu onboarding. Adapter tidak redirect/logout/toast. Google start/callback memakai browser navigation/form POST karena endpoint mengembalikan redirect OAuth.
 
 API code sembilan digit adalah identifier terpisah dari HTTP status; success tidak selalu `120000000`. Koleksi diambil dari key endpoint, misalnya `data.progressEvents`, dan metadata tetap tersedia. Success tanpa `data` seperti sign-out tidak dibuatkan payload fiktif. Retry mutation mengikuti kontrak idempotency, terutama jawaban dan direct quiz.
 
-Rincian: [Axios dan exceptions](../.agents/skills/kotoba-frontend-foundations/references/http-and-exceptions.md). Penggunaan instance, error, dan cancellation mengacu pada [Axios instance](https://axios-http.com/docs/instance), [error handling](https://axios-http.com/docs/handling_errors), dan [AbortController](https://axios-http.com/docs/cancellation).
+Rincian: [Axios dan exceptions](../../.agents/skills/kotoba-frontend-foundations/references/http-and-exceptions.md). Penggunaan instance, error, dan cancellation mengacu pada [Axios instance](https://axios-http.com/docs/instance), [error handling](https://axios-http.com/docs/handling_errors), dan [AbortController](https://axios-http.com/docs/cancellation).
 
 ## General layout components
 
 `shared/components/layouts` memiliki `AppHeader`, `AppSidebar`, `AppBottomNav`, `AppFooter`, dan komposisi `AppShell` sebagai padanan fungsi wrapper `AppHOC`. Utamakan composition `children`/slots dan satu wrapper. Route/layout server memilih shell public, onboarding, regular app, atau focus session. Provider DI/MSW bukan tanggung jawab visual shell.
 
-Ikuti [responsive rules](system-design/responsive-layout-rules.md): topbar + bottom nav pada `0–1023px`, sidebar + topbar mulai `1024px`, onboarding tanpa navigasi belajar penuh, dan focus mode yang tetap menyediakan exit. `AppFooter` opsional bila ada konten berguna. Sidebar dan bottom nav memakai konfigurasi typed yang sama; Settings adalah tujuan sekunder.
+Ikuti [responsive rules](../system-design/responsive-layout-rules.md): topbar + bottom nav pada `0–1023px`, sidebar + topbar mulai `1024px`, onboarding tanpa navigasi belajar penuh, dan focus mode yang tetap menyediakan exit. `AppFooter` opsional bila ada konten berguna. Sidebar dan bottom nav memakai konfigurasi typed yang sama; Settings adalah tujuan sekunder.
 
-Shell memegang chrome, slot judul/breadcrumb/action, dan landmark aksesibilitas. Soal, assessment, feedback, mastery, dan session controls dimiliki fitur. Auth guard berlangsung server-side dan di API; wrapper client hanya menyelaraskan tampilan session. Rincian: [shell dan helpers](../.agents/skills/kotoba-frontend-foundations/references/shell-and-helpers.md).
+Shell memegang chrome, slot judul/breadcrumb/action, dan landmark aksesibilitas. Soal, assessment, feedback, mastery, dan session controls dimiliki fitur. Auth guard berlangsung server-side dan di API; wrapper client hanya menyelaraskan tampilan session. Rincian: [shell dan helpers](../../.agents/skills/kotoba-frontend-foundations/references/shell-and-helpers.md).
 
 ## General helpers
 
@@ -94,4 +96,4 @@ Gunakan fungsi murni bernama dengan input/output typed. `cn` yang sudah ada dipe
 
 Prioritas MVP: `formatDate`, `formatDateTime`, `formatNumber`, `formatPercent`, dan `formatDuration` bila ada consumer. Date-only `YYYY-MM-DD` adalah tanggal kalender tanpa pergeseran zona waktu; timestamp mengikuti offset/UTC kontrak dan timezone display eksplisit. Nilai invalid/missing memakai fallback konsisten; angka `0` tetap valid. Unit persen/durasi jelas pada signature. Helper tidak menghitung mastery, completion, atau normalisasi jawaban.
 
-String helper harus aman untuk teks Jepang; jangan menghapus non-ASCII atau mengubah jawaban user demi tampilan. Gunakan CSS untuk truncation visual. Currency belum diperlukan MVP; tambahkan `formatCurrency(value, { locale, currency })` hanya bila ada consumer nyata, dengan ISO currency eksplisit tanpa default IDR. Contoh: [shell dan helpers](../.agents/skills/kotoba-frontend-foundations/references/shell-and-helpers.md).
+String helper harus aman untuk teks Jepang; jangan menghapus non-ASCII atau mengubah jawaban user demi tampilan. Gunakan CSS untuk truncation visual. Currency belum diperlukan MVP; tambahkan `formatCurrency(value, { locale, currency })` hanya bila ada consumer nyata, dengan ISO currency eksplisit tanpa default IDR. Contoh: [shell dan helpers](../../.agents/skills/kotoba-frontend-foundations/references/shell-and-helpers.md).

@@ -1,6 +1,6 @@
 # App shell dan helpers
 
-Sebelum implementasi, baca [design system](../../../../DESIGN_SYSTEM.md), [responsive rules](../../../../docs/system-design/responsive-layout-rules.md), [IA](../../../../docs/system-design/information-architecture-and-page-inventory.md), serta skill UI/copy terkait. Path target mengikuti [baseline](../../../../docs/frontend-foundation-patterns.md).
+Sebelum implementasi, baca [design system](../../../../DESIGN_SYSTEM.md), [responsive rules](../../../../docs/system-design/responsive-layout-rules.md), [IA](../../../../docs/system-design/information-architecture-and-page-inventory.md), serta skill UI/copy terkait. Path target mengikuti [baseline](../../../../docs/frontend/frontend-foundation-patterns.md).
 
 ## Layout components
 

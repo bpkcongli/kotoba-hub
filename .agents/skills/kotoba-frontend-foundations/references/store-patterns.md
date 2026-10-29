@@ -1,6 +1,6 @@
 # Store contracts dan contoh application store
 
-Gunakan bersama [baseline](../../../../docs/frontend-foundation-patterns.md). Ini snippet persiapan, bukan modul runtime yang sudah tersedia. Blok TypeScript di dokumen ini dapat dibaca berurutan sebagai satu contoh; saat implementasi, pisahkan shared contracts, interface domain, implementation store, dan container sesuai architecture. Data API di contoh adalah projection minimal; definisi DTO lengkap tetap mengikuti OpenAPI.
+Gunakan bersama [baseline](../../../../docs/frontend/frontend-foundation-patterns.md). Ini snippet persiapan, bukan modul runtime yang sudah tersedia. Blok TypeScript di dokumen ini dapat dibaca berurutan sebagai satu contoh; saat implementasi, pisahkan shared contracts, interface domain, implementation store, dan container sesuai architecture. Data API di contoh adalah projection minimal; definisi DTO lengkap tetap mengikuti OpenAPI.
 
 ## Kontrak shared
 

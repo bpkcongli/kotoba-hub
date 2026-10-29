@@ -1,11 +1,17 @@
 import { AxiosError } from 'axios';
 import { delay, http, HttpResponse } from 'msw';
+import { z } from 'zod';
 import { anonymousSessionResponse } from '@tests/fixtures/anonymous-session';
+import { OnboardingService } from '@/frontend/onboarding/services/external';
 import { AxiosHttpClient } from '@/frontend/shared/adapters/http-client';
-import { normalizeHttpError } from '@/frontend/shared/adapters/http-client/helpers';
-import { ApiException, ServerException } from '@/frontend/shared/exceptions';
+import {
+  normalizeHttpError,
+  readHttpResponse,
+} from '@/frontend/shared/adapters/http-client/helpers';
+import { ApiException, ClientException, ServerException } from '@/frontend/shared/exceptions';
 import { presentError } from '@/frontend/shared/helpers';
 import { AppSessionService } from '@/frontend/shared/services/external';
+import { onboardingProfileFixture } from '@/mocks/fixtures/onboarding';
 import { server } from '@/mocks/msw.node';
 
 const origin = 'http://localhost:3000/api/v1';
@@ -37,6 +43,44 @@ test('uses the real HTTP adapter and validates the session success envelope', as
   server.use(http.get(`${origin}/auth/session`, () => HttpResponse.json({ data: expected.data })));
 
   await expect(service.getSession()).rejects.toMatchObject({ kind: 'contract' });
+});
+
+test('auth and onboarding reject an unexpected success status even with a valid envelope', async () => {
+  const session = anonymousSessionResponse();
+
+  server.use(
+    http.get(`${origin}/auth/session`, () => HttpResponse.json(session, { status: 201 })),
+    http.post(`${origin}/auth/sign-out`, () =>
+      HttpResponse.json({ status: session.status }, { status: 201 }),
+    ),
+    http.get(`${origin}/user-profile/me`, () =>
+      HttpResponse.json(
+        {
+          status: { ...session.status, code: 120002000 },
+          data: onboardingProfileFixture(),
+        },
+        { status: 201 },
+      ),
+    ),
+  );
+
+  const sessionService = new AppSessionService(createClient());
+  const onboardingService = new OnboardingService(createClient());
+
+  await expect(sessionService.getSession()).rejects.toMatchObject({ kind: 'contract' });
+  await expect(sessionService.signOut()).rejects.toMatchObject({ kind: 'contract' });
+  await expect(onboardingService.getProfile()).rejects.toMatchObject({ kind: 'contract' });
+});
+
+test('the response reader accepts a declared success status and returns the schema output', () => {
+  const schema = z.object({ value: z.coerce.number() });
+  const response = { httpStatus: 201, body: { value: '42' } };
+
+  expect(() => readHttpResponse(response, schema)).toThrow(ClientException);
+  expect(readHttpResponse(response, schema, 201)).toEqual({ value: 42 });
+  expect(() => readHttpResponse({ ...response, body: { value: 'invalid' } }, schema, 201)).toThrow(
+    ClientException,
+  );
 });
 
 test('retains validation details and trace IDs for actionable inline errors', async () => {

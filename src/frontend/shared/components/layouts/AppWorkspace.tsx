@@ -28,7 +28,7 @@ export const AppWorkspace = observer(function AppWorkspace({ children }: { child
     if (!session) return;
 
     if (!session.isAuthenticated) {
-      router.replace('/');
+      router.replace('/login');
       router.refresh();
     } else if (session.authorization.appAccess === 'ONBOARDING_REQUIRED') {
       router.replace('/onboarding');

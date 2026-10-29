@@ -5,7 +5,7 @@ description: Define or implement KotobaHub shared frontend store contracts, Axio
 
 # Frontend foundations
 
-Read `docs/task-breakdown.md` and the task references first. [ARCHITECTURE.md](../../../ARCHITECTURE.md) owns placement, MobX, Inversify, and MSW; [frontend patterns](../../../docs/frontend-foundation-patterns.md) defines the shared contracts and decisions. These patterns guide `IMP-11`–`IMP-17`; they do not mark implementation tasks complete.
+Read `docs/task-breakdown.md` and the task references first. [ARCHITECTURE.md](../../../ARCHITECTURE.md) owns placement, MobX, Inversify, and MSW; [frontend patterns](../../../docs/frontend/frontend-foundation-patterns.md) defines the shared contracts and decisions. These patterns guide `IMP-11`–`IMP-17`; they do not mark implementation tasks complete.
 
 - Before choosing a shared store interface, identify the feature's state and lifecycle. Implement only contracts with meaningful members for that feature; do not add dummy CRUD modes, pagination, modal state, or empty lifecycle methods. Small local interactions can use React state.
 - For forms, paginated lists, dialogs, hydration, or disposal, read [store contracts and examples](references/store-patterns.md). Extend a shared interface in the domain store interface, then explicitly implement that domain interface in its class. Adapt example projections to the endpoint's full DTO.

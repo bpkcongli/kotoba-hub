@@ -10,6 +10,7 @@ export default async function AppReadyLayout({ children }: { children: ReactNode
   const requestHeaders = await headers();
 
   const session = await getSessionSnapshot(requestHeaders.get('cookie'));
+  if (!session.isAuthenticated) redirect('/login');
   if (session.authorization.appAccess === 'ONBOARDING_REQUIRED') redirect('/onboarding');
 
   return (

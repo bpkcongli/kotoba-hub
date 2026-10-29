@@ -1,4 +1,5 @@
 import { ArrowDown } from 'lucide-react';
+import Link from 'next/link';
 import { Button } from '@/frontend/shared/components/atoms';
 import { AppFooter, AppShell, PublicHeader } from '@/frontend/shared/components/layouts';
 
@@ -19,7 +20,18 @@ const learningSteps = [
 
 export function WelcomePanel() {
   return (
-    <AppShell variant="public" header={<PublicHeader />} footer={<AppFooter />}>
+    <AppShell
+      variant="public"
+      header={
+        <PublicHeader
+          actions={
+            <Button asChild variant="ghost">
+              <Link href="/login">Sign in</Link>
+            </Button>
+          }
+        />
+      }
+      footer={<AppFooter />}>
       <div className="py-4 md:py-8">
         <section aria-labelledby="welcome-heading" className="max-w-reading">
           <p className="mb-4 text-body-sm font-semibold text-muted-foreground">
@@ -35,14 +47,16 @@ export function WelcomePanel() {
             together.
           </p>
           <Button asChild className="mt-8">
-            <a href="#learning-approach">
-              Explore the learning approach
-              <ArrowDown aria-hidden="true" />
-            </a>
+            <Link href="/login">Continue with Google</Link>
           </Button>
           <p className="mt-4 text-body-sm text-muted-foreground">
-            KotobaHub is taking shape. Learning features are coming soon.
+            Choose your study preferences after signing in.
           </p>
+          <a
+            href="#learning-approach"
+            className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-md text-body-sm text-muted-foreground focus-visible:focus-ring">
+            See the learning approach <ArrowDown aria-hidden="true" className="size-4" />
+          </a>
         </section>
 
         <section

@@ -60,7 +60,8 @@ Services keep their real HTTP implementation in both modes. Node tests reset
 handlers and registered scenario state after each test. Browser MSW does not
 intercept Server Component queries or establish a real authenticated session.
 
-See [frontend foundation implementation](docs/frontend-foundation-implementation.md)
+See the [frontend documentation index](docs/frontend/README.md) for frontend guides and feature implementations.
+See [frontend foundation implementation](docs/frontend/frontend-foundation-implementation.md)
 for root/feature container setup, server session bootstrap, shell variants, and focused tests.
 
 ## Google authentication

@@ -2,7 +2,7 @@
 
 ## Cakupan
 
-Implementasi mengikuti [architecture](../ARCHITECTURE.md), [pattern fondasi](frontend-foundation-patterns.md), [design system](../DESIGN_SYSTEM.md), serta kontrak [API base](api-contract/README.md) dan [auth](api-contract/auth-and-authorization.md).
+Implementasi mengikuti [architecture](../../ARCHITECTURE.md), [pattern fondasi](frontend-foundation-patterns.md), [design system](../../DESIGN_SYSTEM.md), serta kontrak [API base](../api-contract/README.md) dan [auth](../api-contract/auth-and-authorization.md).
 
 - Shared shell public/onboarding/app/focus, header, sidebar, bottom nav, footer opsional, account disclosure, dan state loading/empty/error.
 - Primitive `Button`, `Card`, `Badge`, `Progress`, dan `Skeleton` dengan semantic token proyek.
@@ -10,7 +10,7 @@ Implementasi mengikuti [architecture](../ARCHITECTURE.md), [pattern fondasi](fro
 - Root dan feature container Inversify, provider/hook, plain server session DTO bootstrap, serta MSW auth handlers dengan state terisolasi.
 - Public entry memakai shared shell. `/dashboard` adalah entry area belajar yang dijaga server dan menunjukkan ketersediaan fitur tanpa membuat angka progress atau recommendation fiktif.
 
-Login/onboarding wizard, syllabus, flashcards, practice, progress dashboard, dan settings belum menjadi flow UI lengkap dalam task ini. Lima tujuan navigasi utama dipertahankan; selain Dashboard, tujuan yang belum tersedia ditandai unavailable dan tidak menjadi link rusak. Settings tersedia sebagai label sekunder yang belum aktif. `/onboarding` tetap menjadi target guard untuk learner yang belum selesai onboarding; halaman tersebut dikerjakan pada `IMP-12`. Visitor anonymous kembali ke `/` sampai login entry tersedia.
+Login/onboarding wizard dikerjakan pada `IMP-12`; cakupan dan batas verifikasinya ada di [implementasi auth/onboarding](frontend-auth-onboarding-implementation.md). Syllabus, flashcards, practice, progress dashboard, dan settings belum menjadi flow UI lengkap. Lima tujuan navigasi utama dipertahankan; selain Dashboard, tujuan yang belum tersedia ditandai unavailable dan tidak menjadi link rusak. Settings tersedia sebagai label sekunder yang belum aktif. Visitor anonymous diarahkan ke `/login`, sedangkan learner yang belum selesai onboarding menuju `/onboarding`.
 
 ## Provider, bootstrap, dan lifetime
 
@@ -22,7 +22,7 @@ Ready layout membaca session melalui backend dan memetakan hasil menjadi `Sessio
 
 Fitur berikutnya memakai `FeatureContainerProvider` dengan `scopeKey` yang mengikuti identitas flow, misalnya session ID. Factory domain menerima `FeatureContainerOptions`, membuat child container, lalu mengikat external service dan internal store domain. Factory diberi referensi stabil, bukan inline function yang berubah setiap render. Scope otomatis berganti ketika user/session identity berubah. Binding store yang memiliki side effect mendaftarkan deactivation `dispose`; effect fitur juga menghentikan resource yang dimilikinya. Cleanup scope memakai `unbindAllAsync()` dan menghindari penghancuran binding selama replay effect Strict Mode.
 
-MobX yang terpasang adalah v7: anotasi eksplisit menggunakan named export `observableRef` dan `actionBound`, sesuai API package yang terpasang. Jangan menyalin namespace annotation versi lama. State hasil async diperbarui melalui action/`runInAction`; service dan abort controller tidak dijadikan observable. Capability yang sudah dikonsumsi session store adalah `IHydratableStore` dan `IDisposableStore`. Kontrak form/list/modal tetap panduan untuk task fitur yang membutuhkannya.
+MobX yang terpasang adalah v7: anotasi eksplisit menggunakan named export `observableRef` dan `actionBound`, sesuai API package yang terpasang. Jangan menyalin namespace annotation versi lama. State hasil async diperbarui melalui action/`runInAction`; service dan abort controller tidak dijadikan observable. Capability yang sudah dikonsumsi session store adalah `IHydratableStore` dan `IDisposableStore`. `IDefaultFormStore` ditambahkan pada `IMP-12` untuk assessment wizard; kontrak list/modal tetap panduan sampai memiliki consumer nyata.
 
 ## HTTP dan MSW
 

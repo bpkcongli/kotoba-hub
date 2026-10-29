@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { getSessionSnapshot } from '@/backend/auth/infrastructure/di';
 import { toSessionResponseDto } from '@/backend/auth/interface/primary/rest/dto/session.response.dto';
+import { FlashcardRouteScope } from '@/frontend/flashcards/providers';
 import { AppWorkspace } from '@/frontend/shared/components/layouts';
 import { AppSessionBootstrap } from '@/frontend/shared/providers';
 
@@ -15,7 +16,9 @@ export default async function AppReadyLayout({ children }: { children: ReactNode
 
   return (
     <AppSessionBootstrap session={toSessionResponseDto(session)}>
-      <AppWorkspace>{children}</AppWorkspace>
+      <FlashcardRouteScope>
+        <AppWorkspace>{children}</AppWorkspace>
+      </FlashcardRouteScope>
     </AppSessionBootstrap>
   );
 }

@@ -56,6 +56,8 @@ export const AppWorkspace = observer(function AppWorkspace({ children }: { child
     );
   }
 
+  if (pathname.startsWith('/flashcards/sessions/')) return children;
+
   const accountMenu = (
     <details className="group relative">
       <summary className="flex min-h-11 max-w-48 cursor-pointer list-none items-center gap-2 rounded-md px-3 py-2 text-body-sm hover:bg-secondary focus-visible:focus-ring [&::-webkit-details-marker]:hidden">

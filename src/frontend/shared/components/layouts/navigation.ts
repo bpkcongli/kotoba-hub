@@ -17,7 +17,7 @@ export interface AppNavigationItem {
 export const APP_NAVIGATION: readonly AppNavigationItem[] = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard, available: true },
   { href: '/syllabus', label: 'Syllabus', icon: BookOpen, available: true },
-  { href: '/flashcards', label: 'Flashcards', icon: Layers, available: false },
+  { href: '/flashcards', label: 'Flashcards', icon: Layers, available: true },
   { href: '/practice', label: 'Practice', icon: PencilLine, available: false },
   { href: '/progress', label: 'Progress', icon: ChartNoAxesCombined, available: false },
 ];

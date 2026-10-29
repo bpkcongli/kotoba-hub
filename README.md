@@ -24,6 +24,48 @@ locally, so builds do not fetch Google Fonts.
 `bun install` configures Husky for this checkout; the pre-commit hook formats/lints
 staged code and runs lint, typecheck, and changed Jest tests.
 
+### Local HTTPS with local-ssl-proxy
+
+The `dev:https` script starts an HTTPS proxy on port **3443** forwarding HTTP and
+WebSocket traffic to the Next.js development server on port **3000**. It uses
+`.cert/kotobahub.local.pem` and `.cert/kotobahub.local-key.pem`. The `.cert/`
+directory is excluded from Git and the Docker build context.
+
+Ensure the certificate's local CA is trusted by your browser, and map the
+certificate hostname in your hosts file (`/etc/hosts` on Linux/macOS):
+
+```text
+127.0.0.1 kotobahub.local
+```
+
+Set the canonical origin in your local `.env` so same-origin API checks and auth
+URLs use the browser-facing HTTPS address:
+
+```dotenv
+AUTH_URL=https://kotobahub.local:3443
+```
+
+Run these commands in two terminals from the repository root:
+
+```sh
+# Terminal 1: Next.js on HTTP port 3000
+bun run dev --port 3000
+
+# Terminal 2: HTTPS proxy (keep both processes running)
+bun run dev:https
+```
+
+Open <https://kotobahub.local:3443>. `local-ssl-proxy` is installed as a project
+development dependency; run `bun install --frozen-lockfile` after pulling these
+changes. CLI options follow the [local-ssl-proxy documentation](https://github.com/cameronhunter/local-ssl-proxy).
+
+For Google OAuth, `.local` does not meet Google's public-suffix redirect URI
+rules. To test Google login over local HTTPS, use a certificate covering
+`localhost`, point the proxy's `--cert` and `--key` options to those files, set
+`AUTH_URL=https://localhost:3443`, and register
+`https://localhost:3443/api/v1/auth/callback/google` in the OAuth client.
+See [Google's redirect URI validation rules](https://developers.google.com/identity/protocols/oauth2/web-server#uri-validation).
+
 ## Quality checks
 
 ```sh

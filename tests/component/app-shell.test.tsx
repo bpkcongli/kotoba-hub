@@ -5,8 +5,20 @@ import {
   AppHeader,
   AppShell,
   AppSidebar,
+  AppWorkspace,
   FocusModeShell,
 } from '@/frontend/shared/components/layouts';
+import { FrontendContainerProvider } from '@/frontend/shared/providers';
+import { appReadySessionFixture, onboardingSessionFixture } from '@/mocks/fixtures/session';
+
+let pathname = '/dashboard';
+const replace = jest.fn();
+const refresh = jest.fn();
+
+jest.mock('next/navigation', () => ({
+  usePathname: () => pathname,
+  useRouter: () => ({ replace, refresh }),
+}));
 
 test('provides one main landmark and a working keyboard skip destination', () => {
   render(
@@ -39,7 +51,12 @@ test('provides one main landmark and a working keyboard skip destination', () =>
       '/syllabus',
     );
 
-    for (const label of ['Flashcards', 'Practice', 'Progress']) {
+    expect(within(navigation).getByRole('link', { name: 'Flashcards' })).toHaveAttribute(
+      'href',
+      '/flashcards',
+    );
+
+    for (const label of ['Practice', 'Progress']) {
       expect(within(navigation).getByText(label).closest('a')).toBeNull();
     }
   }
@@ -81,4 +98,35 @@ test('focus and onboarding shells retain their content without primary navigatio
 
   expect(screen.getByRole('main')).toHaveTextContent('Assessment form');
   expect(screen.queryByRole('navigation')).not.toBeInTheDocument();
+});
+
+test('flashcard session routes retain one focus shell inside the protected workspace', () => {
+  pathname = '/flashcards/sessions/session-123';
+  render(
+    <FrontendContainerProvider bootstrap={{ session: appReadySessionFixture() }}>
+      <AppWorkspace>
+        <FocusModeShell title="Flashcards" exitAction={<button>Exit session</button>}>
+          <p>Current card</p>
+        </FocusModeShell>
+      </AppWorkspace>
+    </FrontendContainerProvider>,
+  );
+
+  expect(screen.getAllByRole('main')).toHaveLength(1);
+  expect(screen.getByRole('main')).toHaveTextContent('Current card');
+  expect(screen.queryByRole('navigation')).not.toBeInTheDocument();
+});
+
+test('focus routes still redirect learners who need onboarding', () => {
+  pathname = '/flashcards/sessions/session-123';
+  render(
+    <FrontendContainerProvider bootstrap={{ session: onboardingSessionFixture() }}>
+      <AppWorkspace>
+        <p>Protected flashcard</p>
+      </AppWorkspace>
+    </FrontendContainerProvider>,
+  );
+
+  expect(replace).toHaveBeenCalledWith('/onboarding');
+  expect(screen.queryByText('Protected flashcard')).not.toBeInTheDocument();
 });

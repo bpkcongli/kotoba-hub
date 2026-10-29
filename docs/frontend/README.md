@@ -9,6 +9,7 @@ Panduan frontend untuk fondasi shared dan implementasi fitur KotobaHub. Urutan t
 | [Frontend foundation patterns](frontend-foundation-patterns.md) | Kontrak store, scope container, adapter Axios, exception, shell, dan helper untuk `IMP-11`–`IMP-17`. |
 | [Implementasi fondasi FE](frontend-foundation-implementation.md) | Hasil `IMP-11`: shared layout, session bootstrap, DI, HTTP adapter, MSW, serta verifikasi dan batas cakupan. |
 | [Auth dan onboarding UI](frontend-auth-onboarding-implementation.md) | Hasil `IMP-12` dan `TEST-06`: login, route guard, assessment, review draft, konfirmasi, dan verifikasi. |
+| [Flashcards UI](frontend-flashcards-implementation.md) | Hasil `IMP-14`: katalog dan setup, sesi pilihan ganda, feedback, summary, retry, dan batas resume. |
 
 ## Referensi pendukung
 

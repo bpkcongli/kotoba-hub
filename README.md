@@ -1,8 +1,8 @@
 # KotobaHub
 
 A Japanese learning app built as a Next.js modular monolith. The repository now
-contains the project foundation, MySQL auth/user schema, and Google authentication
-backend. Learning features follow the [task breakdown](docs/task-breakdown.md).
+contains the learning backend and the shared frontend shell, session store,
+Axios adapter, and provider foundation. Feature UI follows the [task breakdown](docs/task-breakdown.md).
 
 ## Local development
 
@@ -53,12 +53,15 @@ waits for MSW before mounting children; production never starts browser mocking.
 The generated worker is committed in `public/mockServiceWorker.js`. Regenerate it
 with `bun run mocks:init` whenever MSW changes.
 
-`src/mocks/msw.router.ts` starts with an empty handler list. Add feature handlers
-only from the canonical `/api/v1` contracts as their features are implemented.
+`src/mocks/msw.router.ts` includes session/sign-out handlers with resettable auth
+fixtures. Add feature handlers only from the canonical `/api/v1` contracts as their features are implemented.
 Unmatched application API requests fail visibly; other requests can pass through.
 Services keep their real HTTP implementation in both modes. Node tests reset
 handlers and registered scenario state after each test. Browser MSW does not
 intercept Server Component queries or establish a real authenticated session.
+
+See [frontend foundation implementation](docs/frontend-foundation-implementation.md)
+for root/feature container setup, server session bootstrap, shell variants, and focused tests.
 
 ## Google authentication
 
@@ -81,7 +84,8 @@ the session; later logins reuse the linkage.
 The `(app)` server layout requires a session. Future onboarding pages belong under
 that layout and allow `ONBOARDING_REQUIRED`. Future learning pages belong under
 `(app)/(ready)` and redirect incomplete learners to `/onboarding`. No protected
-page or onboarding form ships in IMP-03; those arrive with the UI tasks. Backend
+page or onboarding form shipped in IMP-03. IMP-11 adds the guarded `/dashboard`
+shell entry; login/onboarding and learning flows follow in later UI tasks. Backend
 routes should call `requireApiAccess(request, 'AUTHENTICATED' | 'APP_READY')` for
 their documented access level. The auth session endpoint stays public.
 Anonymous page requests currently redirect to the public `/` starter page; the

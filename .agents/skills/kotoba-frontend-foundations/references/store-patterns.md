@@ -4,7 +4,7 @@ Gunakan bersama [baseline](../../../../docs/frontend-foundation-patterns.md). In
 
 ## Kontrak shared
 
-`StoreError` adalah plain UI model dari presenter exception, bukan error Axios. Presenter diinjeksi agar store tidak bergantung pada transport; implementasinya mengikuti [HTTP dan exceptions](http-and-exceptions.md).
+`StoreError` adalah plain UI model dari presenter exception, bukan error Axios. Presenter `presentError` berada di `shared/helpers` dan dapat diinjeksi seperti pada contoh agar store tidak bergantung pada transport; implementasinya mengikuti [HTTP dan exceptions](http-and-exceptions.md).
 
 ```ts
 import { makeAutoObservable, runInAction } from 'mobx';

@@ -7,7 +7,10 @@ const createJestConfig = nextJest({ dir: './' });
 const shared = {
   clearMocks: true,
   restoreMocks: true,
-  moduleNameMapper: { '^@/(.*)$': '<rootDir>/src/$1' },
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '^@tests/(.*)$': '<rootDir>/tests/$1',
+  },
 };
 
 module.exports = async () => {

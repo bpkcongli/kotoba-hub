@@ -2,25 +2,29 @@
 
 ## Status dan cakupan
 
-Baseline pattern untuk persiapan `IMP-11` dan consumer `IMP-12`–`IMP-17`. Dokumen dan snippet skill mendefinisikan arah implementasi; adapter, store, dan shell runtime dibuat pada task FE terkait. `IMP-11` tetap belum selesai. Axios ditambahkan melalui Bun saat adapter diimplementasikan, beserta lockfile; dependency itu belum ada pada tahap dokumentasi ini.
+Baseline pattern untuk `IMP-11` dan consumer `IMP-12`–`IMP-17`. Fondasi runtime HTTP/session/DI, shared shell, dan primitive P0 sudah diimplementasikan; panduan penggunaan dan batas cakupan ada di [implementasi fondasi FE](frontend-foundation-implementation.md). Axios ditambahkan melalui Bun beserta lockfile. Snippet skill tetap berupa contoh adaptasi, bukan daftar class yang wajib dibuat: interface form/list/modal dan formatter baru ditambahkan ketika fitur memiliki consumer nyata.
 
 Acuan: [architecture](../ARCHITECTURE.md), [API base](api-contract/README.md), [auth](api-contract/auth-and-authorization.md), [personalization](api-contract/user-profile-and-personalization.md), [progress](api-contract/progress.md), [design system](../DESIGN_SYSTEM.md), [responsive rules](system-design/responsive-layout-rules.md), dan [page inventory](system-design/information-architecture-and-page-inventory.md). Panduan agent: [kotoba-frontend-foundations](../.agents/skills/kotoba-frontend-foundations/SKILL.md).
 
 ## Penempatan
 
-| Concern                         | Target path di `src/frontend`                                               |
-| ------------------------------- | --------------------------------------------------------------------------- |
-| Interface store reusable        | `shared/interfaces/stores/`                                                 |
-| Root options dan bootstrap DTO  | `shared/interfaces/FrontendContainerOptions.ts`, `FrontendBootstrapData.ts` |
-| Feature container options       | `shared/interfaces/FeatureContainerOptions.ts`                              |
-| HTTP contract                   | `shared/adapters/http-client/HttpClient.ts`                                 |
-| Axios implementation            | `shared/adapters/http-client/impl/AxiosHttpClient.ts`                       |
-| FE exception dan mapper error   | `shared/exceptions/`                                                        |
-| Shell                           | `shared/components/layouts/`                                                |
-| Formatter lintas fitur          | `shared/helpers/`                                                           |
-| Interface dan class store fitur | `<domain>/services/internal/I<Feature>Store.ts`, `impl/<Feature>Store.ts`   |
+| Concern                               | Target path di `src/frontend`                                               |
+| ------------------------------------- | --------------------------------------------------------------------------- |
+| Interface store reusable              | `shared/interfaces/stores/`                                                 |
+| Root options dan bootstrap DTO        | `shared/interfaces/FrontendContainerOptions.ts`, `FrontendBootstrapData.ts` |
+| Feature container options             | `shared/interfaces/FeatureContainerOptions.ts`                              |
+| HTTP contract                         | `shared/adapters/http-client/HttpClient.ts`                                 |
+| Axios implementation                  | `shared/adapters/http-client/impl/AxiosHttpClient.ts`                       |
+| Class exception FE dan tipe pendukung | `shared/exceptions/`                                                        |
+| Normalisasi error HTTP/Axios          | `shared/adapters/http-client/helpers/normalize-http-error.ts`               |
+| Presenter error untuk store/UI        | `shared/helpers/present-error.ts`                                           |
+| Shell                                 | `shared/components/layouts/`                                                |
+| Formatter lintas fitur                | `shared/helpers/`                                                           |
+| Interface dan class store fitur       | `<domain>/services/internal/I<Feature>Store.ts`, `impl/<Feature>Store.ts`   |
 
 Folder dibuat saat dibutuhkan. Public API folder yang terisi diekspor melalui `index.ts`/`index.tsx`, dengan entry point server/client terpisah. Exception/entity backend tidak diimpor ke client.
+
+Import dan re-export lokal `./...` dipertahankan, misalnya `./providers` atau `./button`. Referensi yang naik folder melalui `../...` menggunakan alias `@/` ke `src/`; tes fondasi menggunakan `@tests/` ke `tests/` untuk fixture/helper tes. Mapping tersedia pada TypeScript dan Jest; barrel export tetap mengarah ke file pemiliknya agar tidak menciptakan self-import atau menggabungkan entry point server/client.
 
 ## General interfaces: pilih berdasarkan capability
 
@@ -67,6 +71,8 @@ Gunakan instance `axios.create` per root container dengan base path `/api/v1`, s
 | `ClientException`                      | Network, timeout, cancelled, konfigurasi, atau response tidak sesuai kontrak; bukan sinonim HTTP `4xx`     |
 
 Normalisasi error dilakukan sekali: adapter memetakan transport/HTTP; external service memvalidasi body sukses dan memetakan DTO. Exception yang sudah ternormalisasi diteruskan. Cancellation saat cleanup/query diganti tidak ditampilkan sebagai kegagalan. Pesan tidak dikenal/non-JSON memakai fallback English yang aman; raw response/stack/config request tidak dirender. Shared presenter menghasilkan plain `StoreError`, mempertahankan code/traceId/detail tanpa menyimpan AxiosError pada observable atau bootstrap props.
+
+`normalizeHttpError` dimiliki `shared/adapters/http-client/helpers` karena mengenali Axios dan envelope HTTP. `presentError` dimiliki `shared/helpers` karena memetakan exception FE menjadi UI model tanpa dependency transport. Folder `shared/exceptions` hanya memuat class exception dan tipe pendukung. Export kedua fungsi melalui `index.ts` folder helper masing-masing; consumer tidak mengimpornya dari barrel exception.
 
 `422` dipetakan hanya ke field form yang dikenal; detail lintas field masuk inline summary. `401` memicu revalidasi melalui pemilik session flow; `403` diperiksa berdasarkan code/authorization snapshot, tidak selalu onboarding. Adapter tidak redirect/logout/toast. Google start/callback memakai browser navigation/form POST karena endpoint mengembalikan redirect OAuth.
 

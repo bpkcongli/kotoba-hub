@@ -1,5 +1,6 @@
-import { ArrowDown, BookOpen } from 'lucide-react';
-import { Button } from '@/frontend/shared/components/atoms/button';
+import { ArrowDown } from 'lucide-react';
+import { Button } from '@/frontend/shared/components/atoms';
+import { AppFooter, AppShell, PublicHeader } from '@/frontend/shared/components/layouts';
 
 const learningSteps = [
   {
@@ -18,13 +19,8 @@ const learningSteps = [
 
 export function WelcomePanel() {
   return (
-    <div className="mx-auto flex min-h-svh max-w-public flex-col px-4 md:px-6 lg:px-8">
-      <header className="flex items-center gap-3 border-b border-border-subtle py-6">
-        <BookOpen aria-hidden="true" className="size-6 text-primary" />
-        <span className="text-h3 font-bold tracking-tight">KotobaHub</span>
-      </header>
-
-      <main id="main-content" className="flex-1 py-12 md:py-16">
+    <AppShell variant="public" header={<PublicHeader />} footer={<AppFooter />}>
+      <div className="py-4 md:py-8">
         <section aria-labelledby="welcome-heading" className="max-w-reading">
           <p className="mb-4 text-body-sm font-semibold text-muted-foreground">
             A calmer way to learn Japanese
@@ -70,11 +66,7 @@ export function WelcomePanel() {
             ))}
           </ol>
         </section>
-      </main>
-
-      <footer className="border-t border-border-subtle py-6 text-body-sm text-muted-foreground">
-        Your Japanese study space, one step at a time.
-      </footer>
-    </div>
+      </div>
+    </AppShell>
   );
 }

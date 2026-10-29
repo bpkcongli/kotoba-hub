@@ -18,6 +18,7 @@ class FetchJsdomEnvironment extends TestEnvironment {
       'WritableStream',
       'TransformStream',
       'BroadcastChannel',
+      'structuredClone',
     ]) {
       this.global[name] = globalThis[name];
     }

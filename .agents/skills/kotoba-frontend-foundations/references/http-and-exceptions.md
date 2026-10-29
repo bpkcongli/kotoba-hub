@@ -1,6 +1,6 @@
 # Axios, envelope, dan exception FE
 
-Ikuti [API base](../../../../docs/api-contract/README.md) serta OpenAPI endpoint. Target penempatan: `shared/adapters/http-client`, `shared/exceptions`, dan domain `services/external`. Snippet adalah contoh persiapan implementasi; tambahkan dependency Axios dengan Bun pada task adapter. Tidak ada perubahan backend contract yang diperlukan untuk pola ini.
+Ikuti [API base](../../../../docs/api-contract/README.md) serta OpenAPI endpoint. Target penempatan: `shared/adapters/http-client`, `shared/exceptions`, `shared/helpers`, dan domain `services/external`. Snippet adalah contoh persiapan implementasi; tambahkan dependency Axios dengan Bun pada task adapter. Tidak ada perubahan backend contract yang diperlukan untuk pola ini.
 
 ## Contract transport
 
@@ -30,7 +30,15 @@ Headers dipakai hanya bila kontrak memerlukannya, misalnya `Idempotency-Key` dir
 
 ## Exception classes dan normalisasi
 
-Blok berikut dapat digabung berurutan dengan contract transport. Saat dipecah menjadi file runtime, gunakan import/export entry point FE yang sesuai. `StoreError` di akhir sama dengan kontrak pada [store patterns](store-patterns.md); hanya ada satu definisi shared saat implementasi.
+Blok berikut dapat digabung berurutan dengan contract transport. Saat dipecah menjadi file runtime, gunakan penempatan berikut:
+
+| Artefak                            | Lokasi                                                        |
+| ---------------------------------- | ------------------------------------------------------------- |
+| Class exception dan tipe pendukung | `shared/exceptions/`                                          |
+| `normalizeHttpError`               | `shared/adapters/http-client/helpers/normalize-http-error.ts` |
+| `presentError`                     | `shared/helpers/present-error.ts`                             |
+
+Normalisasi mengimpor Axios dan class exception; presenter hanya mengimpor class exception dan tipe `StoreError`, tanpa dependency Axios. Export helper melalui `index.ts` folder pemiliknya, bukan barrel exception. Adapter mengimpor normalisasi dari `@/frontend/shared/adapters/http-client/helpers`; store mengimpor presenter dari `@/frontend/shared/helpers`. `StoreError` di akhir sama dengan kontrak pada [store patterns](store-patterns.md); hanya ada satu definisi shared saat implementasi.
 
 ```ts
 import axios from 'axios';

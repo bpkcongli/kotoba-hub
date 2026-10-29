@@ -1,0 +1,1 @@
+export { useSyllabusStore } from './useSyllabusStore';

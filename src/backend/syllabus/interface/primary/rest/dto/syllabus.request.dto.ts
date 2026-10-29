@@ -8,6 +8,7 @@ const slug = z
 const booleanQuery = z.enum(['true', 'false']).transform((value) => value === 'true');
 
 export const listTracksRequestSchema = paginationRequestSchema.extend({
+  includeUnits: booleanQuery.default(false),
   curriculumLevels: z
     .string()
     .regex(/^N[2-5](,N[2-5])*$/)

@@ -10,20 +10,13 @@ import type {
   ConfirmAssessmentRequest,
 } from '@/frontend/onboarding/interfaces/requests';
 import { onboardingSessionFixture } from './session';
+import { syllabusTracksFixture } from './syllabus';
 
 export function onboardingTracksFixture(): SyllabusTrack[] {
-  return [
-    {
-      id: '770e8400-e29b-41d4-a716-446655440222',
-      slug: 'jlpt-n5-foundation',
-      curriculumLevel: 'N5',
-      title: 'JLPT N5 Foundation',
-      description: 'Published beginner lessons.',
-      sortOrder: 1,
-      unitCount: 1,
-      foundationUnitSlug: 'n5-kana-basics',
-    },
-  ];
+  return syllabusTracksFixture().map(({ units, ...track }) => {
+    void units;
+    return track;
+  });
 }
 
 export function onboardingProfileFixture(): UserProfile {

@@ -90,27 +90,6 @@ export const onboardingHandlers = [
     return HttpResponse.json({ status: status(120002000), data: profile });
   }),
 
-  http.get('*/api/v1/syllabus', ({ request }) => {
-    if (!getMockSession().isAuthenticated) return unauthorized(140104001);
-
-    const url = new URL(request.url);
-    const offset = Number(url.searchParams.get('offset') ?? 0);
-    const limit = Number(url.searchParams.get('limit') ?? 10);
-    const tracks = onboardingTracksFixture();
-
-    return HttpResponse.json({
-      status: status(120004000),
-      data: { tracks: tracks.slice(offset, offset + limit) },
-      metadata: {
-        pagination: {
-          pageNumber: Math.floor(offset / limit) + 1,
-          pageSize: limit,
-          totalRecords: tracks.length,
-        },
-      },
-    });
-  }),
-
   http.post('*/api/v1/personalization/assessment', async ({ request }) => {
     if (!getMockSession().isAuthenticated) return unauthorized(140103001);
 

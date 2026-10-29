@@ -9,6 +9,16 @@ import type {
   SyllabusTrackSnapshot,
 } from '@/backend/syllabus/domain/repositories/syllabus-catalog.repository';
 
+export interface UnitMapSummaryDto {
+  id: string;
+  slug: string;
+  title: string;
+  description: string | null;
+  sortOrder: number;
+  isFoundationUnit: boolean;
+  lessonCount: number;
+}
+
 export interface TrackSummaryDto {
   id: string;
   slug: string;
@@ -18,11 +28,13 @@ export interface TrackSummaryDto {
   sortOrder: number;
   unitCount: number;
   foundationUnitSlug: string | null;
+  units?: UnitMapSummaryDto[];
 }
 
 export function toTrackSummaryDto(
   track: SyllabusTrackSnapshot,
   catalog: SyllabusCatalogService,
+  includeUnits = false,
 ): TrackSummaryDto {
   const units = catalog.publishedUnits(track);
 
@@ -35,6 +47,19 @@ export function toTrackSummaryDto(
     sortOrder: track.sortOrder,
     unitCount: units.length,
     foundationUnitSlug: units.find((unit) => unit.isFoundationUnit)?.slug ?? null,
+    ...(includeUnits
+      ? {
+          units: units.map((unit) => ({
+            id: unit.id,
+            slug: unit.slug,
+            title: unit.title,
+            description: unit.description,
+            sortOrder: unit.sortOrder,
+            isFoundationUnit: unit.isFoundationUnit,
+            lessonCount: catalog.publishedLessons(unit).length,
+          })),
+        }
+      : {}),
   };
 }
 
@@ -65,6 +90,7 @@ function toSkillDto(skill: SyllabusSkillSnapshot) {
 
 function toContentBlockDto(block: SyllabusContentBlockSnapshot) {
   if (!block.content) throw new Error(`Published content block ${block.id} has no content.`);
+
   return {
     id: block.id,
     blockType: block.blockType,

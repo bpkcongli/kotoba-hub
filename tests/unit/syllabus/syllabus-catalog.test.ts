@@ -4,6 +4,7 @@ import type { SyllabusSeedPlan } from '@/backend/syllabus/application/services/p
 import type { SyllabusCatalogService } from '@/backend/syllabus/application/services/syllabus-catalog.service';
 import {
   toLessonDto,
+  toTrackSummaryDto,
   toUnitDto,
 } from '@/backend/syllabus/interface/primary/rest/dto/syllabus.response.dto';
 import { SeedSyllabusCatalogRepository } from '@/backend/syllabus/interface/secondary/seed/seed-syllabus-catalog.repository';
@@ -17,6 +18,42 @@ beforeAll(async () => {
 });
 
 describe('syllabus catalog', () => {
+  it('maps ordered unit summaries, excluding unpublished units and lessons', async () => {
+    const [track] = plan.tracks;
+    const [first, second] = track.units;
+    const source = {
+      ...track,
+      units: [
+        { ...second, sortOrder: 2 },
+        { ...first, slug: 'hidden-unit', sortOrder: 0, isPublished: false },
+        {
+          ...first,
+          sortOrder: 1,
+          lessons: [
+            first.lessons[0],
+            { ...first.lessons[0], slug: 'hidden-lesson', isPublished: false },
+          ],
+        },
+      ],
+    };
+
+    const dto = toTrackSummaryDto(source, catalog, true);
+
+    expect(dto.units?.map((unit) => unit.slug)).toEqual([first.slug, second.slug]);
+    expect(dto.units?.[0]).toEqual({
+      id: first.id,
+      slug: first.slug,
+      title: first.title,
+      description: first.description,
+      sortOrder: 1,
+      isFoundationUnit: first.isFoundationUnit,
+      lessonCount: 1,
+    });
+    expect(dto.unitCount).toBe(2);
+    expect(source.units.map((unit) => unit.sortOrder)).toEqual([2, 0, 1]);
+    expect(toTrackSummaryDto(source, catalog)).not.toHaveProperty('units');
+  });
+
   it('exposes only published tracks and descendants in stable order', async () => {
     const tracks = await catalog.getPublishedOnboardingTracks();
 

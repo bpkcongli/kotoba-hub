@@ -49,11 +49,14 @@ Query params:
 | `offset` | `integer` | no | Zero-based record offset. Default `0`. |
 | `limit` | `integer` | no | Max records per page. Default `10`. |
 | `curriculumLevels` | `string` | no | Filter multi-value dengan separated commas, mis. `N5,N4`. |
+| `includeUnits` | `boolean` | no | Default `false`. Hanya nilai query `true` atau `false` diterima. Jika `true`, tiap track memuat ringkasan unit published untuk syllabus map. |
 
 Behavior:
 - Hanya mengembalikan track database yang `is_published = true` dan memiliki setidaknya satu unit dengan lesson yang lolos validasi bank quiz saat import. Flag `isPublished` pada seed mentah saja belum cukup untuk membuat track tampil.
 - Tiap track membawa summary yang cukup untuk course map dan onboarding.
 - Endpoint ini tidak mengembalikan tree lesson/skill penuh agar response tetap ringan.
+- Jika `includeUnits=true`, setiap track juga membawa `units`, diurutkan berdasarkan `sortOrder`, dengan field `id`, `slug`, `title`, `description` nullable, `sortOrder`, `isFoundationUnit`, dan `lessonCount` (jumlah lesson published). Unit unpublished tidak disertakan. Ringkasan tidak memuat lesson tree, materi, skill, atau bank soal.
+- Jika `includeUnits` tidak diberikan atau bernilai `false`, field `units` tidak disertakan sehingga payload onboarding yang sudah ada tetap sama. Authorization tetap authenticated; membaca unit/lesson detail tetap memerlukan `APP_READY`.
 
 Success response:
 

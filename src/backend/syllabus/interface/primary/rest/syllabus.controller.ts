@@ -22,6 +22,7 @@ export class SyllabusController {
   async listTracks(request: Request): Promise<Response> {
     try {
       const session = await getSessionSnapshot(request.headers.get('cookie'));
+
       if (this.authorization.authorize(session, 'AUTHENTICATED')) {
         return apiResponse(ApplicationStatusCode.SYLLABUS_UNAUTHORIZED);
       }
@@ -31,10 +32,12 @@ export class SyllabusController {
         offset: queryValue(url, 'offset'),
         limit: queryValue(url, 'limit'),
         curriculumLevels: queryValue(url, 'curriculumLevels'),
+        includeUnits: queryValue(url, 'includeUnits'),
       });
+
       if (!parsed.success) return invalidQuery(parsed.error.issues);
 
-      const { offset, limit, curriculumLevels } = parsed.data;
+      const { offset, limit, curriculumLevels, includeUnits } = parsed.data;
       const filter = curriculumLevels ? new Set(curriculumLevels.split(',')) : null;
       const publishedTracks = await this.catalog.getPublishedTracks();
 
@@ -58,7 +61,7 @@ export class SyllabusController {
       const data = {
         tracks: tracks
           .slice(offset, offset + limit)
-          .map((track) => toTrackSummaryDto(track, this.catalog)),
+          .map((track) => toTrackSummaryDto(track, this.catalog, includeUnits)),
       };
 
       return Response.json({
@@ -79,6 +82,7 @@ export class SyllabusController {
       });
     } catch (error) {
       console.error('Syllabus track read failed', error);
+
       return apiResponse(ApplicationStatusCode.UNHANDLED_SYLLABUS_EXCEPTION);
     }
   }
@@ -87,6 +91,7 @@ export class SyllabusController {
     try {
       const session = await getSessionSnapshot(request.headers.get('cookie'));
       const denied = this.authorization.authorize(session, 'APP_READY');
+
       if (denied)
         return apiResponse(
           denied === 'UNAUTHENTICATED'
@@ -100,9 +105,11 @@ export class SyllabusController {
         includeLessons: queryValue(url, 'includeLessons'),
         includeSkills: queryValue(url, 'includeSkills'),
       });
+
       if (!parsed.success) return invalidQuery(parsed.error.issues);
 
       const result = await this.catalog.getPublishedUnit(parsed.data.unitSlug);
+
       if (!result) return apiResponse(ApplicationStatusCode.SYLLABUS_UNIT_NOT_FOUND);
 
       return apiResponse(
@@ -111,6 +118,7 @@ export class SyllabusController {
       );
     } catch (error) {
       console.error('Syllabus unit read failed', error);
+
       return apiResponse(ApplicationStatusCode.UNHANDLED_SYLLABUS_EXCEPTION);
     }
   }
@@ -119,6 +127,7 @@ export class SyllabusController {
     try {
       const session = await getSessionSnapshot(request.headers.get('cookie'));
       const denied = this.authorization.authorize(session, 'APP_READY');
+
       if (denied)
         return apiResponse(
           denied === 'UNAUTHENTICATED'
@@ -132,10 +141,13 @@ export class SyllabusController {
         includeContentBlocks: queryValue(url, 'includeContentBlocks'),
         includeSkills: queryValue(url, 'includeSkills'),
       });
+
       if (!parsed.success) return invalidQuery(parsed.error.issues);
 
       const result = await this.catalog.getPublishedLesson(parsed.data.lessonSlug);
+
       if (!result) return apiResponse(ApplicationStatusCode.SYLLABUS_LESSON_NOT_FOUND);
+
       this.catalog.assertPostStudyBank(result.lesson);
 
       return apiResponse(
@@ -149,6 +161,7 @@ export class SyllabusController {
       );
     } catch (error) {
       console.error('Syllabus lesson read failed', error);
+
       return apiResponse(ApplicationStatusCode.UNHANDLED_SYLLABUS_EXCEPTION);
     }
   }

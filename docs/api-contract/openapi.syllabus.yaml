@@ -35,6 +35,13 @@ paths:
           schema:
             type: string
             example: N5,N4
+        - name: includeUnits
+          in: query
+          required: false
+          description: Sertakan ringkasan unit published berurutan untuk syllabus map; field units dihilangkan bila false. Query hanya menerima true atau false.
+          schema:
+            type: boolean
+            default: false
       responses:
         '200':
           description: Daftar track syllabus berhasil diambil.
@@ -441,6 +448,36 @@ components:
       properties:
         status:
           $ref: '#/components/schemas/Status'
+    SyllabusUnitMapSummary:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - slug
+        - title
+        - description
+        - sortOrder
+        - isFoundationUnit
+        - lessonCount
+      properties:
+        id:
+          type: string
+          format: uuid
+        slug:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+          nullable: true
+        sortOrder:
+          type: integer
+        isFoundationUnit:
+          type: boolean
+        lessonCount:
+          type: integer
+          minimum: 0
+          description: Jumlah lesson published dalam unit.
     SyllabusTrack:
       type: object
       additionalProperties: false
@@ -475,6 +512,11 @@ components:
         foundationUnitSlug:
           type: string
           nullable: true
+        units:
+          type: array
+          description: Hanya disertakan jika includeUnits=true. Unit published diurutkan menurut sortOrder; tidak memuat materi atau bank soal.
+          items:
+            $ref: '#/components/schemas/SyllabusUnitMapSummary'
     SyllabusTrackListData:
       type: object
       additionalProperties: false

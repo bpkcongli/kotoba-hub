@@ -34,7 +34,12 @@ test('provides one main landmark and a working keyboard skip destination', () =>
       'page',
     );
 
-    for (const label of ['Syllabus', 'Flashcards', 'Practice', 'Progress']) {
+    expect(within(navigation).getByRole('link', { name: 'Syllabus' })).toHaveAttribute(
+      'href',
+      '/syllabus',
+    );
+
+    for (const label of ['Flashcards', 'Practice', 'Progress']) {
       expect(within(navigation).getByText(label).closest('a')).toBeNull();
     }
   }

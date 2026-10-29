@@ -62,6 +62,39 @@ describe('syllabus routes', () => {
       body.data.tracks.map((track: { curriculumLevel: string }) => track.curriculumLevel),
     ).toEqual(['N5']);
     expect(body.metadata.pagination).toEqual({ pageNumber: 1, pageSize: 1, totalRecords: 1 });
+    expect(body.data.tracks[0]).not.toHaveProperty('units');
+  });
+
+  it('includes all published unit links only when requested, including during onboarding', async () => {
+    jest.mocked(getSessionSnapshot).mockResolvedValueOnce({
+      ...session,
+      authorization: { appAccess: 'ONBOARDING_REQUIRED', onboardingCompleted: false },
+    });
+
+    const response = await listTracks(new Request(`${root}?includeUnits=true`));
+    const body = await response.json();
+    const track = body.data.tracks[0];
+
+    expect(response.status).toBe(200);
+    expect(track.units).toHaveLength(track.unitCount);
+    expect(track.units.map((unit: { slug: string }) => unit.slug)).toEqual([
+      'n5-self-introduction-and-copula',
+      'n5-core-particles-and-sentence-order',
+      'n5-daily-verbs-and-routines',
+    ]);
+    expect(track.units.every((unit: { lessonCount: number }) => unit.lessonCount > 0)).toBe(true);
+    expect(track.units[0]).not.toHaveProperty('lessons');
+    expect(track.units[0]).not.toHaveProperty('unitSkillMappings');
+
+    const withoutUnits = await listTracks(new Request(`${root}?includeUnits=false`));
+    expect((await withoutUnits.json()).data.tracks[0]).not.toHaveProperty('units');
+  });
+
+  it.each(['1', 'yes', 'TRUE', ''])('rejects invalid includeUnits=%s', async (value) => {
+    const response = await listTracks(new Request(`${root}?includeUnits=${value}`));
+
+    expect(response.status).toBe(422);
+    expect((await response.json()).status.errorDetails[0].field).toBe('includeUnits');
   });
 
   it('rejects unpublished level filters and malformed query values', async () => {

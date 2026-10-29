@@ -10,6 +10,7 @@ services:
       NEXT_PUBLIC_API_MOCKING: 'false'
       DATABASE_URL: 'mysql://${MYSQL_USER:-kotoba}:${MYSQL_PASSWORD:-kotoba_local}@mysql:3306/${MYSQL_DATABASE:-kotoba_hub}'
       AUTH_SECRET: ${AUTH_SECRET:-}
+      AUTH_URL: ${AUTH_URL:-http://localhost:3000}
       AUTH_GOOGLE_ID: ${AUTH_GOOGLE_ID:-}
       AUTH_GOOGLE_SECRET: ${AUTH_GOOGLE_SECRET:-}
       AI_PROVIDER: ${AI_PROVIDER:-OPENAI}

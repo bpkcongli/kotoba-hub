@@ -6,4 +6,7 @@ export async function register() {
 
   const { readAuthEnv } = await import('@/backend/auth/infrastructure/config/auth-env');
   readAuthEnv();
+
+  const { readAuthOrigin } = await import('@/backend/auth/infrastructure/config/auth-origin');
+  readAuthOrigin();
 }

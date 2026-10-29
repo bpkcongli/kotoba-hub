@@ -6,6 +6,7 @@ describe('database startup validation', () => {
   const originalSecret = process.env.AUTH_SECRET;
   const originalGoogleId = process.env.AUTH_GOOGLE_ID;
   const originalGoogleSecret = process.env.AUTH_GOOGLE_SECRET;
+  const originalAuthUrl = process.env.AUTH_URL;
 
   afterEach(() => {
     if (originalRuntime === undefined) delete process.env.NEXT_RUNTIME;
@@ -18,6 +19,8 @@ describe('database startup validation', () => {
     else process.env.AUTH_GOOGLE_ID = originalGoogleId;
     if (originalGoogleSecret === undefined) delete process.env.AUTH_GOOGLE_SECRET;
     else process.env.AUTH_GOOGLE_SECRET = originalGoogleSecret;
+    if (originalAuthUrl === undefined) delete process.env.AUTH_URL;
+    else process.env.AUTH_URL = originalAuthUrl;
   });
 
   it('rejects an invalid URL before the Node.js server accepts requests', async () => {
@@ -42,5 +45,16 @@ describe('database startup validation', () => {
     process.env.AUTH_GOOGLE_SECRET = 'secret';
 
     await expect(register()).rejects.toThrow('AUTH_GOOGLE_ID is required.');
+  });
+
+  it('rejects an invalid canonical auth origin during Node.js startup', async () => {
+    process.env.NEXT_RUNTIME = 'nodejs';
+    process.env.DATABASE_URL = 'mysql://learner:secret@localhost:3306/kotoba_test';
+    process.env.AUTH_SECRET = 'a'.repeat(32);
+    process.env.AUTH_GOOGLE_ID = 'google-id';
+    process.env.AUTH_GOOGLE_SECRET = 'google-secret';
+    process.env.AUTH_URL = 'https://learn.example.com/api/v1/auth';
+
+    await expect(register()).rejects.toThrow('AUTH_URL');
   });
 });

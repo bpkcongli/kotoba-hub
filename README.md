@@ -66,6 +66,26 @@ for root/feature container setup, server session bootstrap, shell variants, and 
 
 ## Google authentication
 
+Set the server-only `AUTH_URL` to the application's canonical origin:
+
+```dotenv
+# Development (.env or .env.development.local)
+AUTH_URL=http://localhost:3000
+
+# Production deployment environment
+AUTH_URL=https://your-domain.example
+```
+
+Development defaults to `http://localhost:3000` when omitted; set it explicitly for
+a different port or hostname. Production requires an explicit value at runtime.
+Use the origin only, without credentials, a path, query, or fragment. The auth
+base path remains `/api/v1/auth` in code. Startup rejects invalid configuration.
+`AUTH_URL` is also read by Auth.js for OAuth URLs; register the matching Google
+callback URI. Docker Compose forwards this variable with a localhost default for
+the local container setup. Configure the deployed HTTPS origin before production
+deployment. The variable stays server-only and can change between deployments
+without rebuilding the browser bundle.
+
 Set `AUTH_SECRET` to a private random value of at least 32 characters, then set
 `AUTH_GOOGLE_ID` and `AUTH_GOOGLE_SECRET` to a Google OAuth web client's credentials.
 Register `http://localhost:3000/api/v1/auth/callback/google` as an authorized

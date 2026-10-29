@@ -21,6 +21,12 @@ jest.mock('@/frontend/shared/components/layouts', () => ({ AppWorkspace: () => n
 jest.mock('@/frontend/shared/providers', () => ({ AppSessionBootstrap: () => null }));
 
 beforeEach(() => {
+  jest.replaceProperty(process, 'env', {
+    ...process.env,
+    AUTH_URL: 'http://localhost:3000',
+    NODE_ENV: 'test',
+  });
+  jest.mocked(getSessionSnapshot).mockReset();
   jest.mocked(headers).mockResolvedValue(new Headers({ cookie: 'authjs.session-token=test' }));
   jest.mocked(redirect).mockImplementation((path) => {
     throw new Error(`redirect:${path}`);
@@ -78,4 +84,34 @@ test('login preserves an application return path for an existing completed profi
   await expect(
     LoginPage({ searchParams: Promise.resolve({ redirectTo: '/dashboard?from=login' }) }),
   ).rejects.toThrow('redirect:/dashboard?from=login');
+});
+
+test.each([
+  ['http://localhost:3012', 'development'],
+  ['https://learn.example.com', 'production'],
+] as const)(
+  'login uses configured origin %s while retaining relative redirects',
+  async (authUrl, nodeEnv) => {
+    jest.replaceProperty(process, 'env', { ...process.env, AUTH_URL: authUrl, NODE_ENV: nodeEnv });
+    jest
+      .mocked(headers)
+      .mockResolvedValue(
+        new Headers({ host: 'untrusted.example', 'x-forwarded-host': 'untrusted.example' }),
+      );
+    jest.mocked(getSessionSnapshot).mockResolvedValue(appReadySessionFixture());
+
+    await expect(
+      LoginPage({ searchParams: Promise.resolve({ redirectTo: '/dashboard?from=login' }) }),
+    ).rejects.toThrow('redirect:/dashboard?from=login');
+  },
+);
+
+test('login rejects an invalid configured origin', async () => {
+  jest.replaceProperty(process, 'env', {
+    ...process.env,
+    AUTH_URL: 'https://learn.example.com/path',
+  });
+
+  await expect(LoginPage({ searchParams: Promise.resolve({}) })).rejects.toThrow('AUTH_URL');
+  expect(getSessionSnapshot).not.toHaveBeenCalled();
 });

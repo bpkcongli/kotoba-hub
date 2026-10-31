@@ -11,3 +11,6 @@
 !public/
 !public/**
 .cert/
+!content/flashcards/system-decks/
+!content/syllabus/tracks/
+!content/syllabus/manifest.json

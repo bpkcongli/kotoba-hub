@@ -12,7 +12,8 @@ import type {
   PracticeUserAnswer,
 } from '@/frontend/practice/interfaces/requests';
 import { practiceSessionFixture } from '@/mocks/fixtures/practice';
-import { lessonQuizFixture } from '@/mocks/fixtures/syllabus';
+import { lessonQuizFixture, syllabusLessonFixture } from '@/mocks/fixtures/syllabus';
+import { recordMockProgress, setMockProgressUnderstanding } from './progress';
 import { registerMockStateReset } from './reset';
 
 interface Failure {
@@ -78,7 +79,7 @@ function impact(
     progressEventId: crypto.randomUUID(),
     skillCode,
     masteryScore: isCorrect ? 58.4 : 12.5,
-    masteryState: 'DEVELOPING',
+    masteryState: isCorrect ? 'DEVELOPING' : 'WEAK',
     recommendedDifficultyBand: 'STANDARD',
   };
 }
@@ -152,6 +153,37 @@ export function answerMockPracticeSession(
   state.session.answeredQuestionsCount = answeredQuestionsCount;
   state.session.status = nextQuestionId ? 'IN_PROGRESS' : 'COMPLETED';
 
+  const lesson = syllabusLessonFixture();
+  const answeredAt = new Date().toISOString();
+
+  recordMockProgress({
+    ownerId,
+    event: {
+      id: result.progressImpact!.progressEventId,
+      sourceType: 'PRACTICE',
+      sourceSessionId: sessionId,
+      sourceEntityId: result.answerId,
+      questionType: question.questionType,
+      skillCode: question.skillCode,
+      skillTitle: 'Particles: wa, ga, and o',
+      trackSlug: lesson.track.slug,
+      unitSlug: lesson.unit.slug,
+      lessonSlug: lesson.slug,
+      isCorrect,
+      numericScore: result.numericScore,
+      confidenceWeight: null,
+      responseTimeMs: payload.responseTimeMs,
+      answeredAt,
+    },
+    mastery: result.progressImpact!,
+    session: {
+      sessionStatus: state.session.status,
+      sessionTitle: 'Random practice',
+      startedAt: state.session.startedAt,
+      completedAt: nextQuestionId ? null : answeredAt,
+    },
+  });
+
   return { result: structuredClone(result) };
 }
 
@@ -160,6 +192,7 @@ export function setMockLessonUnderstanding(ownerId: string, slug: string, level:
     throw new Error('Understanding must be 0–10.');
 
   understanding.set(snapshotKey(ownerId, slug), level);
+  setMockProgressUnderstanding(ownerId, slug, level);
 }
 
 export function nextMockLessonQuiz(ownerId: string, slug: string): Result<LessonQuiz> {
@@ -241,6 +274,39 @@ export function answerMockLessonQuiz(
 
   understanding.set(snapshotKey(ownerId, payload.lessonSlug), after);
   receipts.set(key, { fingerprint: print, result: structuredClone(result) });
+
+  const lesson = syllabusLessonFixture();
+  const answeredAt = new Date().toISOString();
+
+  setMockProgressUnderstanding(ownerId, payload.lessonSlug, after);
+
+  recordMockProgress({
+    ownerId,
+    event: {
+      id: result.progressImpact!.progressEventId,
+      sourceType: 'LESSON_POST_STUDY',
+      sourceSessionId: null,
+      sourceEntityId: payload.questionId,
+      questionType: 'SHORT_FREE_RESPONSE',
+      skillCode: quiz.question.skillCode,
+      skillTitle: lesson.skills[0]!.title,
+      trackSlug: lesson.track.slug,
+      unitSlug: lesson.unit.slug,
+      lessonSlug: lesson.slug,
+      isCorrect,
+      numericScore: result.numericScore,
+      confidenceWeight: null,
+      responseTimeMs: payload.responseTimeMs,
+      answeredAt,
+    },
+    mastery: result.progressImpact!,
+    session: {
+      sessionStatus: 'COMPLETED',
+      sessionTitle: lesson.title,
+      startedAt: answeredAt,
+      completedAt: answeredAt,
+    },
+  });
 
   return { result: structuredClone(result) };
 }

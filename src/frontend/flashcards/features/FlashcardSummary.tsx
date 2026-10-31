@@ -77,6 +77,10 @@ export const FlashcardSummaryScreen = observer(function FlashcardSummaryScreen({
             </Button>
 
             <Button asChild variant="secondary">
+              <Link href="/progress">View progress</Link>
+            </Button>
+
+            <Button asChild variant="secondary">
               <Link href="/syllabus">Review a lesson</Link>
             </Button>
           </div>

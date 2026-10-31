@@ -11,6 +11,8 @@ import {
   flashcardTurnsFixture,
   type MockFlashcardTurn,
 } from '@/mocks/fixtures/flashcards';
+import { syllabusLessonFixture } from '@/mocks/fixtures/syllabus';
+import { recordMockProgress } from './progress';
 import { registerMockStateReset } from './reset';
 
 interface MockSession {
@@ -102,7 +104,7 @@ export function answerMockFlashcardSession(
           progressEventId: crypto.randomUUID(),
           skillCode: turn.skillCode,
           masteryScore: isCorrect ? 42.5 : 12.5,
-          masteryState: 'DEVELOPING',
+          masteryState: 'WEAK',
           recommendedDifficultyBand: 'STANDARD',
         }
       : null,
@@ -114,6 +116,39 @@ export function answerMockFlashcardSession(
     payload: structuredClone(payload),
     result: structuredClone(result),
   });
+
+  if (result.progressImpact) {
+    const lesson = syllabusLessonFixture();
+    const answeredAt = new Date().toISOString();
+
+    recordMockProgress({
+      ownerId,
+      event: {
+        id: result.progressImpact.progressEventId,
+        sourceType: 'FLASHCARD',
+        sourceSessionId: sessionId,
+        sourceEntityId: payload.itemId,
+        questionType: turn.item.itemType,
+        skillCode: result.progressImpact.skillCode,
+        skillTitle: lesson.skills[0]!.title,
+        trackSlug: lesson.track.slug,
+        unitSlug: lesson.unit.slug,
+        lessonSlug: lesson.slug,
+        isCorrect,
+        numericScore: isCorrect ? 100 : 0,
+        confidenceWeight: null,
+        responseTimeMs: payload.responseTimeMs,
+        answeredAt,
+      },
+      mastery: result.progressImpact,
+      session: {
+        sessionStatus: session.status,
+        sessionTitle: session.deck.title,
+        startedAt: session.startedAt,
+        completedAt: nextItem ? null : answeredAt,
+      },
+    });
+  }
 
   return { result: structuredClone(result) };
 }

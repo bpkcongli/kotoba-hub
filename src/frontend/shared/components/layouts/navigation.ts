@@ -19,7 +19,7 @@ export const APP_NAVIGATION: readonly AppNavigationItem[] = [
   { href: '/syllabus', label: 'Syllabus', icon: BookOpen, available: true },
   { href: '/flashcards', label: 'Flashcards', icon: Layers, available: true },
   { href: '/practice', label: 'Practice', icon: PencilLine, available: true },
-  { href: '/progress', label: 'Progress', icon: ChartNoAxesCombined, available: false },
+  { href: '/progress', label: 'Progress', icon: ChartNoAxesCombined, available: true },
 ];
 
 export function isNavigationActive(pathname: string, href: string): boolean {

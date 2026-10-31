@@ -121,6 +121,10 @@ export const LessonPostStudyScreen = observer(function LessonPostStudyScreen({
                     <Link href={`/syllabus/lessons/${lessonSlug}`}>Review lesson</Link>
                   </Button>
 
+                  <Button asChild variant="secondary">
+                    <Link href="/progress">View progress</Link>
+                  </Button>
+
                   <Button asChild variant="ghost">
                     <Link href="/syllabus">Back to syllabus</Link>
                   </Button>

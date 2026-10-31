@@ -60,7 +60,11 @@ test('provides one main landmark and a working keyboard skip destination', () =>
       'href',
       '/practice',
     );
-    expect(within(navigation).getByText('Progress').closest('a')).toBeNull();
+
+    expect(within(navigation).getByRole('link', { name: 'Progress' })).toHaveAttribute(
+      'href',
+      '/progress',
+    );
   }
 
   expect(within(mobileNavigation).queryByText('Settings')).not.toBeInTheDocument();

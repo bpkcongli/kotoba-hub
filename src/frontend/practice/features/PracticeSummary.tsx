@@ -107,6 +107,10 @@ export const PracticeSummaryScreen = observer(function PracticeSummaryScreen({
             </Button>
 
             <Button asChild variant="secondary">
+              <Link href="/progress">View progress</Link>
+            </Button>
+
+            <Button asChild variant="secondary">
               <Link href="/syllabus">Review syllabus</Link>
             </Button>
           </div>

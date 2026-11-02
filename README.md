@@ -220,7 +220,14 @@ The plan covers runtime environment injection, migration/seed jobs, TLS/cache se
 backup, and rollback. A separate GitHub Actions deployment workflow is planned with
 manual dispatch, published image digests, and SSH access to the provisioned VPS;
 application secrets stay on the VPS. Aiven is an alternative for a later database separation.
-Publishing and VPS deployment are planned work tracked as `DEP-02`–`DEP-06`;
+CI now publishes app/ops images to Docker Hub only after quality succeeds on a push
+to `main`, using full commit tags and verified digest references. Configure Actions
+variables `DOCKERHUB_USERNAME`, `DOCKERHUB_REPOSITORY`, and secret `DOCKERHUB_TOKEN`
+to enable publishing. The `release-metadata` artifact contains only release identity
+and image references, with 90-day retention. Existing commit tags are never reused;
+see [publishing and recovery](docs/deployment-plan.md#5-build-dan-publish-ke-docker-hub).
+Run `bun run test:release` for offline metadata/registry checks.
+VPS deployment remains planned work tracked as `DEP-04`–`DEP-06`;
 external MySQL TLS support in `DEP-03` is optional for the initial deployment.
 
 - `src/app`: routes, layout, and provider composition.

@@ -4,6 +4,13 @@ Run `bun run test` for the Jest unit (Node) and component (jsdom) projects. The
 Next.js transformer handles TypeScript, JSX, path aliases, styles, and assets.
 Node supplies native fetch APIs to jsdom before MSW loads.
 
+`bun run test:release` runs the separate Node test-runner suite under
+`tests/release/` for deployment tooling. It tests publish input guards, immutable
+tag checks, registry failures, and metadata generation with an injected fetch
+double and temporary files. It makes no network calls and needs no credential.
+`bun run check` runs this suite alongside Jest. This coverage belongs to `DEP-02`,
+not the learner-flow test tasks.
+
 Place unit tests under `tests/unit/<domain>/`. Use `shared` for API response,
 database bootstrap, and test infrastructure that crosses domain boundaries.
 

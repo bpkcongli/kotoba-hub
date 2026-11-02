@@ -8,14 +8,13 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: quality-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   quality:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    concurrency:
+      group: quality-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
     env:
       HUSKY: '0'
       NEXT_TELEMETRY_DISABLED: '1'
@@ -32,3 +31,79 @@ jobs:
       - run: bun run build
       - run: docker compose config --quiet
       - run: bash scripts/verify-docker-artifacts.sh
+
+  publish:
+    needs: quality
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.quality.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    concurrency:
+      group: publish-dockerhub
+      cancel-in-progress: false
+    env:
+      DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
+      DOCKERHUB_REPOSITORY: ${{ vars.DOCKERHUB_REPOSITORY }}
+      QUALITY_RESULT: ${{ needs.quality.result }}
+      DOCKER_BUILD_RECORD_UPLOAD: 'false'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+      - name: Validate release and reject existing commit tags
+        id: release
+        env:
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          node scripts/release-metadata.mjs prepare
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - name: Log in to Docker Hub
+        uses: docker/login-action@81c6f93d4bc991e510b342a00b419b3bb4efc5c6 # v4.7.0
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Publish ops
+        id: ops
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .
+          file: Dockerfile
+          target: ops
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.release.outputs.ops_tag }}
+          labels: |
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+      - name: Publish app
+        id: app
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .
+          file: Dockerfile
+          target: runner
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.release.outputs.app_tag }}
+          labels: |
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+      - name: Verify registry digests and write release metadata
+        env:
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+          APP_DIGEST: ${{ steps.app.outputs.digest }}
+          OPS_DIGEST: ${{ steps.ops.outputs.digest }}
+        run: node scripts/release-metadata.mjs write
+      - name: Upload release metadata
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: release-metadata
+          path: ${{ runner.temp }}/release-metadata.json
+          if-no-files-found: error
+          retention-days: 90
+          compression-level: 0

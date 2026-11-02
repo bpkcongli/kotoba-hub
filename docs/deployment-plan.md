@@ -3,11 +3,12 @@
 ## 1. Status dan keputusan
 
 Dokumen ini menetapkan rencana deployment sesuai arahan pemilik proyek, diperbarui pada
-**2 November 2026**, dengan implementasi artifact `DEP-01` diperbarui pada
-**3 November 2026**. Target image operasional database dan pemeriksaan artifact
-tersedia di repository. Workflow publish, konfigurasi VPS, dan job deploy GitHub
-Actions masih perlu diimplementasikan; contoh konfigurasi VPS adalah target
-implementasi, bukan bukti deployment sudah berjalan.
+**2 November 2026**, dengan implementasi artifact `DEP-01` dan workflow publish
+`DEP-02` diperbarui pada **3 November 2026**. Target image operasional database,
+pemeriksaan artifact, dan job publish tersedia di repository. Konfigurasi VPS dan
+job deploy GitHub Actions masih perlu diimplementasikan. Publish sungguhan
+memerlukan konfigurasi Docker Hub pada GitHub; implementasi ini bukan bukti image
+sudah dipublish atau VPS sudah menjalankan deployment.
 
 Alur yang dipilih:
 
@@ -158,7 +159,7 @@ upgrade yang dapat dipilih. Lihat [panduan upgrade](https://www.tencentcloud.com
 
 ## 5. Build dan publish ke Docker Hub
 
-### Perilaku workflow yang ditargetkan
+### Perilaku workflow
 
 | Pemicu | Quality/build | Publish | Deployment |
 | --- | --- | --- | --- |
@@ -166,13 +167,18 @@ upgrade yang dapat dipilih. Lihat [panduan upgrade](https://www.tencentcloud.com
 | Push ke `main` setelah quality lulus | Build image rilis dari commit yang sama | Ya | Menyiapkan rilis untuk dipilih workflow deploy |
 | `workflow_dispatch` deploy dari `main` | Memvalidasi hasil publish yang dipilih; tanpa rebuild | Tidak | SSH ke VPS yang sudah diprovision, deploy digest terpilih, lalu verifikasi |
 
-[Workflow saat ini](../.github/workflows/ci.yml) sudah memeriksa dan membangun image,
-tetapi belum login/push ke Docker Hub. Tambahkan job publish dengan dependency pada
-job quality dan kondisi khusus push ke `main`; kegagalan quality harus mencegah publish.
+[Workflow Quality](../.github/workflows/ci.yml) memiliki job `quality` dan `publish`.
+Job `publish` memakai `needs: quality` dan hanya berjalan untuk event `push`,
+`refs/heads/main`, serta hasil quality `success`. Pull request, termasuk dari fork,
+tidak menjalankan login atau publish. Tidak ada trigger `pull_request_target` atau
+deployment dalam workflow ini.
 
-Gunakan `docker/login-action`, `docker/setup-buildx-action`, dan
-`docker/build-push-action` dengan versi/commit yang ditinjau saat implementasi.
-Build memakai checkout commit pemicu dan `context: .`. Target awal `linux/amd64`
+Job publish memakai `docker/login-action` `v4.7.0`, `docker/setup-buildx-action`
+`v4.4.1`, `docker/build-push-action` `v7.4.0`, dan `actions/upload-artifact`
+`v7.0.2`, semuanya dikunci ke full commit SHA rilis resmi yang diperiksa pada
+3 November 2026. Checkout dan setup Node job publish juga dikunci ke commit rilis.
+Build memakai checkout commit pemicu (`ref: github.sha`), memeriksa kecocokan
+`git rev-parse HEAD`, dan memakai `context: .`. Target awal `linux/amd64`
 sesuai VPS x86 pada tabel. Tambahkan `linux/arm64` dan verifikasi image bila beralih
 ke VPS ARM. Pola publish merujuk
 [panduan resmi Docker](https://docs.docker.com/build/ci/github-actions/push-multi-registries/).
@@ -187,6 +193,17 @@ Konfigurasi GitHub yang dibutuhkan:
 
 Jangan berikan `DATABASE_URL`, credential Google, atau API key AI ke job build/publish.
 Token registry hanya dipakai untuk autentikasi registry, tidak sebagai build argument.
+Token tersedia hanya pada step login dan pemeriksaan registry; tidak menjadi env
+job atau input secret/build-arg pada BuildKit. Job publish tidak memerlukan Bun
+atau instalasi dependency pada host runner; helper rilis memakai Node dari `.nvmrc`.
+
+Buat repository Docker Hub tujuan, pilih visibility yang sesuai, lalu isi kedua
+Actions variable dan secret di atas. `DOCKERHUB_REPOSITORY` hanya nama repository,
+misalnya `kotoba-hub`, tanpa namespace/hostname/tag. Username dipakai untuk login
+dan namespace image; token harus memberi izin read/write ke repository tersebut.
+Nilai namespace/repository wajib lowercase dan diperiksa sebelum digunakan sebagai
+image reference. Untuk namespace organisasi, gunakan identitas/token organisasi
+yang sesuai dengan login Docker Hub.
 
 Satu commit menghasilkan dua artifact pada **repository Docker Hub yang sama**:
 
@@ -195,15 +212,81 @@ Satu commit menghasilkan dua artifact pada **repository Docker Hub yang sama**:
 | Aplikasi | `<namespace>/kotoba-hub:sha-<commit>` | Target `runner`: Next.js standalone dan asset runtime |
 | Operasional database | `<namespace>/kotoba-hub:ops-sha-<commit>` | Target `ops`: Bun, dependency termasuk Drizzle Kit, source/config, migration, script dan canonical seed |
 
-Simpan digest masing-masing artifact, commit, serta hasil quality sebagai metadata
-rilis. Pada `DEP-02`, publish juga menghasilkan artifact GitHub Actions bernama
-`release-metadata` dengan commit, identitas publish run, dan referensi app/ops
-berbasis digest. Metadata tidak berisi secret, credential, atau digest MySQL yang
-bisa menimpa konfigurasi database VPS. Tetapkan retensi yang mencakup jangka waktu
-deploy/rollback; artifact yang kedaluwarsa harus ditangani sebelum deployment.
+Build berjalan berurutan (`ops` lalu `runner`) dari checkout yang sama, dengan
+label OCI revision/source sesuai commit/repository GitHub. Tidak ada tag `latest`.
+Setelah kedua push sukses, helper memeriksa `Docker-Content-Digest` kedua tag di
+registry terhadap output digest build, baru menulis metadata. Job publish
+mengunggah tepat satu file `release-metadata.json` sebagai artifact GitHub Actions
+bernama `release-metadata`, dengan retensi **90 hari** (sesuaikan batas repository
+dan periode rollback). Upload gagal jika file tidak tersedia. Build record
+otomatis Docker dinonaktifkan; metadata rilis tidak mengambil dump env atau output
+metadata BuildKit. Metadata tidak berisi secret, credential, atau digest MySQL yang
+bisa menimpa konfigurasi database VPS. Artifact yang kedaluwarsa atau run yang gagal
+tidak dapat dipilih oleh workflow deploy mendatang; simpan arsip tepercaya sebelum
+kedaluwarsa jika rollback perlu melebihi periode retensi.
 Perlakukan tag commit sebagai tidak boleh ditimpa; deployment memakai digest
 `@sha256:...`, bukan `latest`. Keduanya harus berasal dari commit yang sama dan
 tersedia sebelum rilis dapat dijalankan. Publikasi artifact tidak mengubah database.
+
+#### Tag commit, concurrency, dan kegagalan publish
+
+Helper [release-metadata.mjs](../scripts/release-metadata.mjs) memeriksa kedua tag
+sebelum build melalui Registry API Docker Hub dengan bearer token berscope `pull`.
+Hanya HTTP `404` dianggap tag belum ada; tag yang sudah ada, error autentikasi,
+rate limit, timeout, dan kegagalan registry menghentikan publish. Helper tidak
+menulis credential ke file, output Actions, metadata, atau summary.
+
+Concurrency berada pada tingkat job: `quality` tetap dapat dibatalkan oleh quality
+run yang lebih baru untuk ref yang sama, sedangkan `publish-dockerhub` memakai
+`cancel-in-progress: false`. Publish dari repository ini berjalan satu per satu
+dan tidak dibatalkan oleh push baru. Pemeriksaan tag bukan reservasi atomik terhadap
+publisher di luar workflow ini; aktifkan Docker Hub immutable tags untuk pola
+`^(ops-)?sha-[a-f0-9]{40}$` bila tersedia, dan gunakan satu jalur publisher. Lihat
+[immutable tags Docker Hub](https://docs.docker.com/docker-hub/repos/manage/hub-images/immutable-tags/).
+
+Jika push kedua, pemeriksaan digest, atau upload artifact gagal, run tidak menjadi
+rilis yang bisa dideploy. Image/tag yang telanjur dipush dapat tetap ada; tidak ada
+rollback/delete tag otomatis. Rerun commit yang sudah mempunyai salah satu tag
+ditolak sebelum build. Periksa kegagalan dan terbitkan rilis dengan commit baru;
+jangan menimpa tag lama atau memakai pasangan digest dari run/commit berbeda.
+
+#### Format `release-metadata.json` versi 1
+
+| Field | Isi |
+| --- | --- |
+| `schemaVersion` | Angka `1` |
+| `commit` | SHA commit Git lengkap, `40` karakter hex lowercase |
+| `repository` | Repository GitHub `owner/name` |
+| `workflow` | `.github/workflows/ci.yml` |
+| `publishRun.id`, `publishRun.attempt` | String angka positif identitas run dan attempt GitHub |
+| `publishRun.url` | URL GitHub run/attempt yang menghasilkan rilis |
+| `quality` | `{ "job": "quality", "result": "success" }` |
+| `platform` | `linux/amd64` |
+| `images.app` | `{ target: "runner", tag, digest, ref }` |
+| `images.ops` | `{ target: "ops", tag, digest, ref }` |
+
+`tag` memakai `docker.io/<namespace>/<repository>:sha-<commit>` atau
+`:ops-sha-<commit>`. `digest` wajib `sha256:` dengan `64` karakter hex lowercase;
+`ref` adalah `docker.io/<namespace>/<repository>@<digest>`. Consumer `DEP-06`
+harus memvalidasi schema, repository/workflow, run/commit, dan allowlist image
+terhadap konfigurasi tepercaya; metadata sendiri tidak menjadi bukti run sukses.
+
+#### Verifikasi lokal `DEP-02`
+
+`bun run test:release` menjalankan tes Node tanpa network/credential untuk guard
+push `main`, quality, tag/digest, schema metadata tanpa secret, registry auth/error,
+tag yang sudah ada, serta publish parsial/digest mismatch yang tidak menghasilkan
+metadata. Tes ini menjadi bagian `bun run check` dan job quality. YAML workflow
+juga diperiksa dengan actionlint saat implementasi. Live login/push/upload pada
+GitHub Actions memerlukan konfigurasi Docker Hub di atas dan belum dijalankan
+dari workspace lokal ini.
+
+Hasil lokal **3 November 2026**: `33` tes rilis lulus; `bun run check` lulus
+(lint, typecheck, format, tes rilis, serta `60` suite / `661` tes Jest).
+Actionlint `v1.7.12` tidak melaporkan error. Build dan pemeriksaan artifact app/ops
+melalui `bash scripts/verify-docker-artifacts.sh` juga lulus dengan frozen lockfile
+dan tanpa secret deployment. Verifikasi lokal ini tidak melakukan push registry
+atau upload artifact GitHub.
 
 Docker Personal menyediakan repository publik dan sampai satu repository privat;
 pull terautentikasi dibatasi 200 per 6 jam. Pilih privat bila konten image tidak
@@ -832,13 +915,15 @@ Untuk eksperimen berikutnya:
 ## 11. Pekerjaan implementasi berikutnya
 
 Task deployment dilacak di [task breakdown](./task-breakdown.md). Dokumen ini
-menetapkan baseline `DEP-00`, dan artifact `DEP-01` sudah tersedia. Status dan
+menetapkan baseline `DEP-00`; artifact `DEP-01` dan workflow publish `DEP-02`
+sudah tersedia. Status dan
 urutan implementasi:
 
 1. `DEP-01`: target image `ops`, allowlist build context, dan script verifikasi
    artifact app/ops tersedia; lihat bagian 6 untuk penggunaan dan batas verifikasi.
-2. `DEP-02`: tambahkan publish Docker Hub setelah quality lulus, tag commit dan
-   artifact `release-metadata` berisi commit/run/digest, tanpa deployment dari pull request.
+2. `DEP-02`: job publish setelah quality lulus, tag commit, dan artifact
+   `release-metadata` berisi commit/run/digest sudah tersedia. Lihat bagian 5 untuk
+   konfigurasi Docker Hub, batas verifikasi lokal, dan recovery publish parsial.
 3. `DEP-04`: finalisasi Compose/env template satu VPS, MySQL 8.4 dengan persistent
    volume, dan Caddy/Nginx pada Tencent Lighthouse Starter 2C4G di region Jakarta. Siapkan Cloudflare
    proxied DNS, TLS Full (strict), cache dinamis, firewall, backup, dan migration/seed awal.

@@ -1,4 +1,5 @@
 # Keep credentials, source acquisitions, and unrelated workspace files out of builds.
+# Exclude children again after opening a parent directory to keep its allowlist narrow.
 *
 !package.json
 !bun.lock
@@ -6,11 +7,31 @@
 !tsconfig.json
 !next-env.d.ts
 !postcss.config.mjs
+!drizzle.config.ts
+!drizzle/
+drizzle/*
+!drizzle/*.sql
+!drizzle/meta/
+drizzle/meta/*
+!drizzle/meta/*.json
+!scripts/
+scripts/*
+!scripts/seed-syllabus.ts
+!scripts/seed-flashcards.ts
 !src/
 !src/**
 !public/
 !public/**
-.cert/
+!content/
+content/*
+!content/flashcards/
+content/flashcards/*
 !content/flashcards/system-decks/
+content/flashcards/system-decks/*
+!content/flashcards/system-decks/*.json
+!content/syllabus/
+content/syllabus/*
 !content/syllabus/tracks/
+content/syllabus/tracks/*
+!content/syllabus/tracks/*.json
 !content/syllabus/manifest.json

@@ -3,8 +3,10 @@
 ## 1. Status dan keputusan
 
 Dokumen ini menetapkan rencana deployment sesuai arahan pemilik proyek, diperbarui pada
-**2 November 2026**. Workflow publish, image operasional database, dan konfigurasi
-VPS dan job deploy GitHub Actions di bawah masih perlu diimplementasikan; contoh konfigurasi adalah target
+**2 November 2026**, dengan implementasi artifact `DEP-01` diperbarui pada
+**3 November 2026**. Target image operasional database dan pemeriksaan artifact
+tersedia di repository. Workflow publish, konfigurasi VPS, dan job deploy GitHub
+Actions masih perlu diimplementasikan; contoh konfigurasi VPS adalah target
 implementasi, bukan bukti deployment sudah berjalan.
 
 Alur yang dipilih:
@@ -191,7 +193,7 @@ Satu commit menghasilkan dua artifact pada **repository Docker Hub yang sama**:
 | Artifact | Tag contoh | Isi |
 | --- | --- | --- |
 | Aplikasi | `<namespace>/kotoba-hub:sha-<commit>` | Target `runner`: Next.js standalone dan asset runtime |
-| Operasional database | `<namespace>/kotoba-hub:ops-sha-<commit>` | Target baru `ops`: Bun, dependency termasuk Drizzle Kit, source/config, migration, script dan canonical seed |
+| Operasional database | `<namespace>/kotoba-hub:ops-sha-<commit>` | Target `ops`: Bun, dependency termasuk Drizzle Kit, source/config, migration, script dan canonical seed |
 
 Simpan digest masing-masing artifact, commit, serta hasil quality sebagai metadata
 rilis. Pada `DEP-02`, publish juga menghasilkan artifact GitHub Actions bernama
@@ -338,10 +340,14 @@ reseed tanpa review, penghapusan volume, atau upgrade MySQL pada deploy rutin.
 
 Image aplikasi saat ini tidak menyediakan script migration/seed maupun Drizzle Kit.
 Menjalankan `bun run db:migrate` melalui `docker exec` pada image aplikasi bukan
-jalur deployment yang tersedia. Tambahkan target `ops` dengan working directory
-`/app`, user non-root, dan kemampuan menjalankan perintah Bun yang sama dengan repo.
+jalur deployment yang tersedia. [Dockerfile](../Dockerfile) menyediakan target
+`ops` dengan working directory `/app`, user non-root `bun`, dan kemampuan
+menjalankan perintah Bun yang sama dengan repo. Target default tetap `runner`.
+Image `ops` memakai entrypoint `bun`; command default `--help` tidak menjalankan
+migration atau seed. Perintah job diberikan secara eksplisit, misalnya
+`run db:migrate` atau `run db:seed:syllabus:dry-run`.
 
-Target `ops` memerlukan:
+Target `ops` memuat:
 
 - `package.json`, `bun.lock`, dependency dari `bun install --frozen-lockfile`, dan
   `tsconfig.json` agar alias script dapat di-resolve.
@@ -351,11 +357,11 @@ Target `ops` memerlukan:
 - `content/syllabus/manifest.json`, `content/syllabus/tracks/*.json`, serta
   `content/flashcards/system-decks/*.json` yang diperlukan importer.
 
-[`.dockerignore`](../.dockerignore) saat ini memakai allowlist. Update allowlist
-untuk file operasional tersebut dan pastikan seluruh parent directory content dapat
-dilalui. Jangan membuka seluruh `content/syllabus/sources/`, `.env*`, sertifikat
-lokal, atau direktori workspace lain. Tambahkan pemeriksaan keberadaan file dalam
-image `ops`; build sukses saja belum membuktikan artifact seed lengkap.
+[`.dockerignore`](../.dockerignore) memakai allowlist untuk file operasional
+tersebut. Setiap parent directory content dibuka lalu child-nya dikecualikan lagi
+sebelum file yang diperlukan diizinkan; negasi directory saja dapat membuka semua
+isinya. Raw acquisition `content/syllabus/sources/`, `.env*`, sertifikat lokal,
+credential workspace, dan script lain tetap di luar context.
 
 Urutan operasi database mengikuti [panduan database](../drizzle/README.md):
 
@@ -376,6 +382,50 @@ atau reseed, buat backup yang bisa direstore dan catat versi schema/content. MyS
 DDL tidak menjamin rollback seluruh migration secara atomik; setelah kegagalan,
 periksa perubahan parsial dan migration journal sebelum mencoba ulang. Jangan
 menyalakan aplikasi baru ketika job database gagal.
+
+### Verifikasi artifact `DEP-01`
+
+Jalankan dari root repository dengan Bun `1.3.9`, Bash/GNU tools, dan Docker
+Engine dengan BuildKit serta local exporter tersedia:
+
+```sh
+bash scripts/verify-docker-artifacts.sh
+```
+
+[Script verifikasi](../scripts/verify-docker-artifacts.sh) dipanggil oleh
+[CI Quality](../.github/workflows/ci.yml) setelah quality gate dan membangun
+`kotoba-hub:ops-ci` serta `kotoba-hub:ci` dari working tree yang sama, tanpa push.
+Dua argumen opsional mengganti tag app lalu ops. Build berjalan berurutan.
+`next.config.ts` membatasi worker page-data Next.js menjadi `2` untuk mengurangi
+lonjakan memori; percobaan sebelumnya terhenti saat memakai `15` worker.
+
+Pemeriksaan mencakup:
+
+- Canary context terpisah: file wajib lolos; env, certificate, credential workspace,
+  raw acquisition, dan script lain tidak lolos. Canary tidak memakai secret lokal.
+- User `bun`, working directory `/app`, dan ketiadaan konfigurasi deployment pada
+  image environment app/ops.
+- SHA-256 seluruh source, config, migration SQL/metadata, script seed, dan JSON
+  canonical dalam image `ops`, dibandingkan dengan working tree.
+- Standalone server, static/public assets, serta ketiadaan worker MSW development,
+  Drizzle Kit, dan script seed pada image app.
+- Syllabus dry-run, parsing artifact flashcard/KANJI melalui adapter file asli,
+  dan penolakan CLI migration ketika `DATABASE_URL` tidak tersedia.
+
+Semua container pemeriksaan memakai `--network none`, tanpa env file, bind mount
+source, atau secret deployment; hanya daftar checksum read-only yang di-mount.
+Ini memverifikasi kelengkapan artifact dan jalur CLI, bukan keberhasilan migration
+atau seed terhadap MySQL. Dry-run flashcards penuh membaca katalog MySQL dan tetap
+menjadi bagian runbook database setelah migration dan seed syllabus.
+
+Verifikasi lokal **3 November 2026**: build `ops` dan `runner`, canary allowlist,
+checksum artifact, dan seluruh pemeriksaan offline di atas lulus. Build Next.js
+menyelesaikan page-data/static generation dengan `2` worker. Syllabus dry-run
+melaporkan `1` track, `3` unit, `9` lesson, `35` skill, `137` content block, dan
+`90` question yang lolos validasi importer; adapter flashcard membaca kedua
+artifact dan `20` skill KANJI. Tidak ada database yang dimigrasi atau di-seed.
+`bun run check` juga lulus: lint, typecheck, format, serta `60` test suite / `661`
+test. `docker compose config --quiet` lulus.
 
 ## 7. Env saat runtime
 
@@ -782,10 +832,11 @@ Untuk eksperimen berikutnya:
 ## 11. Pekerjaan implementasi berikutnya
 
 Task deployment dilacak di [task breakdown](./task-breakdown.md). Dokumen ini
-menyelesaikan `DEP-00`; urutan implementasi berikutnya:
+menetapkan baseline `DEP-00`, dan artifact `DEP-01` sudah tersedia. Status dan
+urutan implementasi:
 
-1. `DEP-01`: tambahkan target image `ops`, allowlist build context, dan verifikasi
-   artifact app/ops dari commit yang sama tanpa secret deployment.
+1. `DEP-01`: target image `ops`, allowlist build context, dan script verifikasi
+   artifact app/ops tersedia; lihat bagian 6 untuk penggunaan dan batas verifikasi.
 2. `DEP-02`: tambahkan publish Docker Hub setelah quality lulus, tag commit dan
    artifact `release-metadata` berisi commit/run/digest, tanpa deployment dari pull request.
 3. `DEP-04`: finalisasi Compose/env template satu VPS, MySQL 8.4 dengan persistent

@@ -196,6 +196,15 @@ named volume. The app image uses a multi-stage Bun build, Next.js standalone out
 and an unprivileged runtime user. Source acquisitions and local secrets are outside
 the Docker build context. The image excludes the development service worker.
 
+The separate `ops` target includes Drizzle Kit, committed migrations, seed scripts,
+and canonical JSON. It runs as `bun` in `/app`; its default command only shows Bun
+help. Build it with `docker build --target ops --tag kotoba-hub:ops .`.
+Run `bash scripts/verify-docker-artifacts.sh` to build and verify both images without
+deployment secrets or database access. CI runs the same check. Next.js page-data
+workers are capped at two to limit build memory. See the
+[artifact verification guide](docs/deployment-plan.md#verifikasi-artifact-dep-01)
+for checks and database verification limits.
+
 Drizzle ORM, `mysql2`, Drizzle Kit, and a migration registry/config are installed.
 **IMP-02** added the auth/user schema, versioned migration, and MySQL connection.
 Startup validates the database URL and auth settings without opening a connection. Run
@@ -211,7 +220,7 @@ The plan covers runtime environment injection, migration/seed jobs, TLS/cache se
 backup, and rollback. A separate GitHub Actions deployment workflow is planned with
 manual dispatch, published image digests, and SSH access to the provisioned VPS;
 application secrets stay on the VPS. Aiven is an alternative for a later database separation.
-Publishing and VPS deployment are planned work tracked as `DEP-01`–`DEP-06`;
+Publishing and VPS deployment are planned work tracked as `DEP-02`–`DEP-06`;
 external MySQL TLS support in `DEP-03` is optional for the initial deployment.
 
 - `src/app`: routes, layout, and provider composition.

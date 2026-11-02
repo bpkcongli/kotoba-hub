@@ -31,4 +31,4 @@ jobs:
       - run: bun run check
       - run: bun run build
       - run: docker compose config --quiet
-      - run: docker build --tag kotoba-hub:ci .
+      - run: bash scripts/verify-docker-artifacts.sh

@@ -8,6 +8,18 @@ ENV HUSKY=0
 COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile
 
+FROM base AS ops
+ENV NODE_ENV=production
+COPY --from=dependencies --chown=bun:bun /app/node_modules ./node_modules
+COPY --chown=bun:bun package.json bun.lock tsconfig.json drizzle.config.ts ./
+COPY --chown=bun:bun src ./src
+COPY --chown=bun:bun drizzle ./drizzle
+COPY --chown=bun:bun scripts/seed-syllabus.ts scripts/seed-flashcards.ts ./scripts/
+COPY --chown=bun:bun content ./content
+USER bun
+ENTRYPOINT ["bun"]
+CMD ["--help"]
+
 FROM base AS builder
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .

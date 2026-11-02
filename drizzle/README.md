@@ -13,6 +13,15 @@ successful requests. The backend connection validates it again when database
 access is first requested.
 Errors do not include the URL or credentials.
 
+The Dockerfile `ops` target packages Drizzle Kit, this migration directory, source,
+config, and canonical seed files. Its entrypoint is `bun`, so pass `run db:migrate`
+or the seed script name explicitly when running a database job. Supply
+`DATABASE_URL` at runtime and use the database container's network; the app image
+does not provide these tools. The default `ops` command only displays help.
+See the [deployment runbook](../docs/deployment-plan.md#6-migration-dan-seed-sebagai-job-terpisah)
+for operation order and `bash scripts/verify-docker-artifacts.sh` for offline
+artifact checks. Those checks do not apply migrations or seed a database.
+
 For each schema change, run `bun run db:generate`, review the generated SQL and
 snapshot against the ERD, then run `bun run db:migrate` against the intended
 database. Application startup does not run migrations automatically.

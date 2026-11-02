@@ -204,6 +204,16 @@ database. See [migration notes](drizzle/README.md).
 
 ## Architecture and next tasks
 
+For the planned GitHub Actions → Docker Hub → Tencent Lighthouse Starter 2C4G deployment in Jakarta,
+see the [deployment plan](docs/deployment-plan.md). Cloudflare fronts Caddy/Nginx on the VPS;
+the same VPS runs KotobaHub and MySQL containers with a persistent database volume.
+The plan covers runtime environment injection, migration/seed jobs, TLS/cache settings,
+backup, and rollback. A separate GitHub Actions deployment workflow is planned with
+manual dispatch, published image digests, and SSH access to the provisioned VPS;
+application secrets stay on the VPS. Aiven is an alternative for a later database separation.
+Publishing and VPS deployment are planned work tracked as `DEP-01`–`DEP-06`;
+external MySQL TLS support in `DEP-03` is optional for the initial deployment.
+
 - `src/app`: routes, layout, and provider composition.
 - `src/frontend`: shared primitives and feature UI; MobX, `mobx-react-lite`, and
   Inversify are installed for the provider/store implementation in **IMP-11**.

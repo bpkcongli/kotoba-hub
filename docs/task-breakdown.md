@@ -80,6 +80,19 @@
 - [ ] `TEST-10` Review coverage agar hanya area inti yang ter-cover tanpa membuat test suite terlalu luas.
 - [ ] `TEST-11` Tambahkan Playwright E2E smoke test untuk login stub/onboarding, lesson post-study quiz sampai completion, flashcard/practice answer, dan progress refresh; gunakan provider OAuth/AI test double serta data test yang terisolasi. Lihat [mvp-plan.md](./mvp-plan.md) untuk rekomendasi E2E.
 
+### 6. Deployment Eksperimen
+
+- [x] `DEP-00` Dokumentasikan rencana GitHub Actions build → Docker Hub → workflow deploy SSH → Tencent Lighthouse Starter 2C4G di region Jakarta, dengan Cloudflare → Caddy/Nginx → container KotobaHub → container MySQL 8.4/persistent volume dalam satu VPS. Cakup konfigurasi GitHub/SSH, env runtime, migration/seed, backup/rollback, dan Aiven sebagai alternatif terpisah. Keputusan diperbarui 2 November 2026. Lihat [deployment plan](./deployment-plan.md).
+- [ ] `DEP-01` Siapkan target image operasional `ops` untuk migration/seed, allowlist Docker context, dan verifikasi artifact tanpa secret deployment. Dependency: `DEP-00`. Lihat [deployment plan](./deployment-plan.md).
+- [ ] `DEP-02` Tambahkan publish app/ops ke Docker Hub setelah quality lulus, dengan tag commit, digest dari commit yang sama, serta artifact `release-metadata` berisi commit/publish run/app dan ops digest tanpa secret. Dependency: `DEP-01`. Lihat [deployment plan](./deployment-plan.md).
+- [ ] `DEP-03` Opsional untuk pemisahan database: implementasikan TLS/CA MySQL untuk app, Drizzle migration, dan seed; verifikasi dengan database uji terpisah. Dependency: `DEP-00`; wajib sebelum memakai Aiven, tidak memblokir MySQL satu VPS. Lihat [deployment plan](./deployment-plan.md) dan [migration workflow](../drizzle/README.md).
+- [ ] `DEP-04` Finalisasi Compose/env template production satu VPS Tencent Lighthouse Starter 2C4G di region Jakarta: MySQL 8.4/persistent volume, app, Caddy/Nginx, serta Cloudflare proxied DNS, Full (strict), bypass cache dinamis, dan firewall. Jalankan backup serta migration/seed awal. Dependency: `DEP-02`. Lihat [deployment plan](./deployment-plan.md).
+- [ ] `DEP-05` Verifikasi workflow deploy sukses/gagal, metadata/digest, concurrency dan recovery SSH, lalu deployment melalui Cloudflare: origin/Google OAuth, flow utama, isolasi cache antar-user, env runtime tanpa rebuild, persistence/restart VPS, rollback image, dan restore database. Dependency: `DEP-04`, `DEP-06`; selaraskan dengan hasil `IMP-17` dan coverage flow inti. Lihat [deployment plan](./deployment-plan.md).
+- [ ] `DEP-06` Implementasikan workflow deploy terpisah dengan `workflow_dispatch` dari `main`, validasi publish run/metadata, SSH host verification, secret/variable deployment, concurrency tanpa membatalkan deployment aktif, serta script VPS berversi dengan lock, backup/migration, penggantian app berdasarkan digest, health check, dan recovery. Seed tetap terpisah dan env aplikasi tetap di VPS. Dependency: `DEP-02`, `DEP-04`; membutuhkan akses VPS. Lihat [deployment plan](./deployment-plan.md).
+
+Urutan deployment awal: `DEP-01 → DEP-02 → DEP-04 → DEP-06 → DEP-05`.
+`DEP-03` tetap opsional sebelum memisahkan database ke Aiven.
+
 ## Assumptions And Tracking Rules
 - Gunakan status checklist sederhana `[ ]` untuk `todo` dan `[x]` untuk `done`; jika perlu blocker, tulis suffix singkat seperti `(blocked: waiting brand brief)`.
 - Task `DS-01` adalah dependency utama untuk visual system final; wireframe dan architecture tetap boleh lanjut sebelum brand brief datang.

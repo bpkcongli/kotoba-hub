@@ -1,0 +1,73 @@
+name: kotoba-hub
+
+services:
+  app:
+    image: ${APP_IMAGE:?Set APP_IMAGE to the release digest}
+    platform: linux/amd64
+    env_file:
+      - path: ./app.env
+        format: raw
+    ports:
+      - '127.0.0.1:3000:3000'
+    depends_on:
+      mysql:
+        condition: service_healthy
+    mem_limit: 1536m
+    restart: unless-stopped
+    init: true
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '3'
+
+  ops:
+    image: ${OPS_IMAGE:?Set OPS_IMAGE to the release digest}
+    platform: linux/amd64
+    profiles: ['ops']
+    env_file:
+      - path: ./ops.env
+        format: raw
+    depends_on:
+      mysql:
+        condition: service_healthy
+    mem_limit: 512m
+    entrypoint: ['bun']
+    command: ['run', 'db:migrate']
+    restart: 'no'
+    init: true
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '3'
+
+  mysql:
+    image: ${MYSQL_IMAGE:?Set MYSQL_IMAGE to the approved MySQL 8.4 digest}
+    platform: linux/amd64
+    env_file:
+      - path: ./mysql.env
+        format: raw
+    command: ['--innodb-buffer-pool-size=512M', '--max-connections=50']
+    volumes:
+      - mysql-data:/var/lib/mysql
+    mem_limit: 1536m
+    restart: unless-stopped
+    stop_grace_period: 1m
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - 'MYSQL_PWD="$$MYSQL_PASSWORD" mysql --protocol=TCP -h 127.0.0.1 -u"$$MYSQL_USER" -D "$$MYSQL_DATABASE" -e "SELECT 1" > /dev/null'
+      interval: 10s
+      timeout: 5s
+      retries: 15
+      start_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '3'
+
+volumes:
+  mysql-data:
+    name: kotoba-hub-mysql-data

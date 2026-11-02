@@ -5,10 +5,16 @@
 Dokumen ini menetapkan rencana deployment sesuai arahan pemilik proyek, diperbarui pada
 **2 November 2026**, dengan implementasi artifact `DEP-01` dan workflow publish
 `DEP-02` diperbarui pada **3 November 2026**. Target image operasional database,
-pemeriksaan artifact, dan job publish tersedia di repository. Konfigurasi VPS dan
-job deploy GitHub Actions masih perlu diimplementasikan. Publish sungguhan
-memerlukan konfigurasi Docker Hub pada GitHub; implementasi ini bukan bukti image
-sudah dipublish atau VPS sudah menjalankan deployment.
+pemeriksaan artifact, dan job publish tersedia di repository. Artifact lokal
+`DEP-04` (Compose production, env, Caddy, backup, dan panduan Ubuntu 24.04) juga
+tersedia. Pada **3 November 2026**, pemilik proyek mengonfirmasi konfigurasi
+Cloudflare/Caddy dan akses aplikasi melalui `https://kotobahub.conglicorp.my.id`,
+serta meminta penutupan `DEP-04`. Konfirmasi ini berasal dari operator; agent
+tidak mengakses VPS atau mengaudit konfigurasi runtime pada pembaruan ini.
+Workflow deploy GitHub Actions masih perlu diimplementasikan pada `DEP-06`;
+verifikasi operasional lanjutan tetap pada `DEP-05`. Publish sungguhan memerlukan
+konfigurasi Docker Hub pada GitHub; tersedianya job publish saja bukan bukti
+publish sudah berhasil.
 
 Alur yang dipilih:
 
@@ -683,12 +689,29 @@ keberhasilannya tidak membuktikan TLS, cache, atau OAuth pada hostname publik be
 
 ## 9. Contoh konfigurasi dan runbook VPS
 
-Contoh ini adalah isi **file yang direncanakan**, `compose.production.yaml`, di
-`/opt/kotoba-hub`. File tersebut belum tersedia di repository. Jalankan runbook hanya
-setelah target image `ops`, bootstrap MySQL, dan konfigurasi proxy/Cloudflare diuji.
-Dukungan TLS/CA MySQL eksternal baru diperlukan jika nanti memakai Aiven.
+Artifact production `DEP-04` tersedia di repository. Ikuti
+[panduan bootstrap Ubuntu 24.04](./deployment-vps-bootstrap.md) untuk persiapan
+tanpa domain, pengisian secret di VPS, backup/migration/seed, dan aktivasi Cloudflare.
+
+| Artifact | Tujuan |
+| --- | --- |
+| [compose.production.yaml](../compose.production.yaml) | App, job `ops`, MySQL 8.4, volume tetap, batas RAM/log, port loopback. |
+| [env templates](../deploy/production/) | Template app, ops, MySQL, dan release, seluruhnya tanpa secret. |
+| [Caddyfile.example](../deploy/production/Caddyfile.example) | Reverse proxy host dengan Origin CA dan forwarded host/proto. |
+| [backup-production-db.sh](../scripts/backup-production-db.sh) | Dump InnoDB, gzip/checksum, izin terbatas, dan lock database. |
+
+Salin Compose dan env ke `/opt/kotoba-hub`. Path env pada file repository relatif
+terhadap Compose; contoh ringkas di bawah memakai path absolut pada lokasi yang
+sama. File repository menjadi sumber konfigurasi, termasuk pin platform dan log
+job ops. Dukungan TLS/CA MySQL eksternal baru diperlukan jika nanti memakai Aiven.
 Gunakan Docker Engine dan Compose plugin **2.30+** agar `env_file.format: raw`
 tersedia dan karakter seperti `$` pada secret tidak diinterpolasi.
+
+Backup script tidak mengunggah backup atau menghapus salinan lama otomatis.
+Operator harus menyiapkan salinan di luar VPS dan retensi/jadwal. Script mengambil
+`.deployment.lock`; migration/seed manual memakai lock yang sama. Urutan ringkas
+di bawah harus dilengkapi backup dan lock sesuai panduan bootstrap sebelum
+mengubah database. Jangan menyimpulkan bootstrap VPS berhasil dari artifact lokal.
 
 ```yaml
 name: kotoba-hub
@@ -738,7 +761,7 @@ services:
     healthcheck:
       test:
         - CMD-SHELL
-        - 'MYSQL_PWD=$$MYSQL_PASSWORD mysql --protocol=TCP -h 127.0.0.1 -u$$MYSQL_USER -D $$MYSQL_DATABASE -e "SELECT 1" > /dev/null'
+        - 'MYSQL_PWD="$$MYSQL_PASSWORD" mysql --protocol=TCP -h 127.0.0.1 -u"$$MYSQL_USER" -D "$$MYSQL_DATABASE" -e "SELECT 1" > /dev/null'
       interval: 10s
       timeout: 5s
       retries: 15
@@ -774,6 +797,48 @@ atau tambah kapasitas jika terjadi OOM, swap berlebihan, atau latency memburuk.
 Default 10 koneksi app ditambah job ops/operator harus masuk batas koneksi MySQL.
 Pertahankan digest MySQL saat rilis aplikasi biasa; upgrade image database memakai
 maintenance dan backup tersendiri. Volume tidak boleh dihapus saat redeploy.
+
+### Verifikasi lokal DEP-04
+
+Pada **3 November 2026**, artifact lokal diverifikasi dengan Docker Engine 29.8.2,
+Compose 5.5.1, official MySQL 8.4, dan image app/ops hasil build lokal `DEP-02`.
+Pengujian menggunakan project/volume database test terpisah serta port app loopback
+acak; tidak membaca env lokal atau mengakses VPS. Nama volume production tidak
+dipakai. Seluruh container/volume uji dibersihkan setelah selesai.
+
+- Enam tes tooling memeriksa Compose tanpa daemon, port dan pemisahan credential,
+  raw env, backup/checksum/izin, kegagalan dump, serta penolakan lock bersamaan.
+- MySQL healthy dengan password uji yang mengandung dollar, quote, dan spasi;
+  nilai runtime tetap utuh. Backup gzip/checksum sebelum migration berhasil.
+- Enam migration, dry-run dan seed syllabus, lalu dry-run dan seed flashcard
+  berhasil. Katalog: 1 track, 3 unit, 9 lesson, 35 skill, 137 content block,
+  90 soal quiz. Flashcard: 59 deck, 586 item/membership, seluruhnya pending dan
+  belum mapped ke progress resmi. Hasil ini bukan klaim seluruh syllabus published.
+- Backup setelah seed dan startup/health app berhasil. Data tetap ada setelah
+  restart MySQL. Restore ke MySQL 8.4 kosong terpisah berhasil; jumlah baris semua
+  27 tabel, termasuk migration journal, cocok dengan sumber.
+- Caddyfile divalidasi memakai image resmi Caddy dan sertifikat uji sementara,
+  tanpa network. Ini bukan pemeriksaan sertifikat origin atau TLS publik nyata.
+- `bun run check` lulus: lint, typecheck, format, tes tooling rilis, serta 60
+  suite/661 tes Jest. Sintaks Bash backup dan `git diff --check` lulus.
+
+Verifikasi lokal ini tidak melakukan publish, provisioning Ubuntu jarak jauh,
+backup ke storage di luar VPS, atau pengujian Cloudflare/OAuth publik.
+
+### Konfirmasi operator DEP-04
+
+Pada **3 November 2026**, pemilik proyek melaporkan bahwa Cloudflare dan Caddy
+sudah dikonfigurasi serta aplikasi berhasil diakses melalui
+`https://kotobahub.conglicorp.my.id`. `DEP-04` ditandai selesai sesuai konfirmasi
+dan arahan tersebut. [Panduan bootstrap](./deployment-vps-bootstrap.md#4-aktifkan-hostname-publik-setelah-domain-tersedia)
+memuat langkah Rumahweb/nameserver, DNS, Universal SSL, Origin CA, Caddy,
+Full (strict), redirect, cache/firewall, serta origin auth untuk hostname ini.
+
+Keberhasilan HTTPS adalah bukti yang dilaporkan operator. Rincian backup di luar
+VPS, migration/seed runtime, aturan cache/firewall, dan login tidak diaudit ulang
+oleh agent. Verifikasi flow publik, isolasi cache antar-user, persistence,
+rollback, serta restore tetap mengikuti `DEP-05`; workflow deploy mengikuti
+`DEP-06`.
 
 ### Deployment pertama
 
@@ -924,9 +989,10 @@ urutan implementasi:
 2. `DEP-02`: job publish setelah quality lulus, tag commit, dan artifact
    `release-metadata` berisi commit/run/digest sudah tersedia. Lihat bagian 5 untuk
    konfigurasi Docker Hub, batas verifikasi lokal, dan recovery publish parsial.
-3. `DEP-04`: finalisasi Compose/env template satu VPS, MySQL 8.4 dengan persistent
-   volume, dan Caddy/Nginx pada Tencent Lighthouse Starter 2C4G di region Jakarta. Siapkan Cloudflare
-   proxied DNS, TLS Full (strict), cache dinamis, firewall, backup, dan migration/seed awal.
+3. `DEP-04`: selesai sesuai konfirmasi dan arahan pemilik proyek pada 3 November
+   2026; Cloudflare/Caddy dikonfigurasi dan aplikasi dapat diakses melalui hostname
+   HTTPS `kotobahub.conglicorp.my.id`. Artifact lokal dan panduan tersedia pada
+   bagian 9. Verifikasi operasional lanjutan tetap pada `DEP-05`.
 4. `DEP-06`: implementasikan workflow deploy terpisah melalui `workflow_dispatch`
    dan SSH, input publish run/metadata tervalidasi, konfigurasi GitHub, lock/concurrency,
    script rilis berversi, migration tanpa seed rutin, health check, dan recovery.

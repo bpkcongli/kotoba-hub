@@ -1,0 +1,4 @@
+kotobahub.conglicorp.my.id {
+	tls /etc/caddy/certs/origin.pem /etc/caddy/certs/origin-key.pem
+	reverse_proxy 127.0.0.1:3000
+}

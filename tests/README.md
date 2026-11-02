@@ -8,8 +8,13 @@ Node supplies native fetch APIs to jsdom before MSW loads.
 `tests/release/` for deployment tooling. It tests publish input guards, immutable
 tag checks, registry failures, and metadata generation with an injected fetch
 double and temporary files. It makes no network calls and needs no credential.
-`bun run check` runs this suite alongside Jest. This coverage belongs to `DEP-02`,
-not the learner-flow test tasks.
+`bun run check` runs this suite alongside Jest. `DEP-04` adds production Compose
+validation (Docker CLI/Compose 2.30+, without a daemon), literal env preservation,
+port/credential isolation, and backup success/failure/lock tests. Backup tests use
+an injected Docker executable, temporary files, Bash, flock, gzip, and GNU tools;
+they never access a database. This deployment coverage belongs to `DEP-02` and
+`DEP-04`, not the learner-flow test tasks. Real MySQL bootstrap/restore and public
+VPS verification follow the [bootstrap guide](../docs/deployment-vps-bootstrap.md).
 
 Place unit tests under `tests/unit/<domain>/`. Use `shared` for API response,
 database bootstrap, and test infrastructure that crosses domain boundaries.

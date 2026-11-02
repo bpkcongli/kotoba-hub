@@ -226,8 +226,15 @@ variables `DOCKERHUB_USERNAME`, `DOCKERHUB_REPOSITORY`, and secret `DOCKERHUB_TO
 to enable publishing. The `release-metadata` artifact contains only release identity
 and image references, with 90-day retention. Existing commit tags are never reused;
 see [publishing and recovery](docs/deployment-plan.md#5-build-dan-publish-ke-docker-hub).
-Run `bun run test:release` for offline metadata/registry checks.
-VPS deployment remains planned work tracked as `DEP-04`–`DEP-06`;
+Run `bun run test:release` for offline metadata/registry, production Compose, and backup checks.
+Production templates are available in [compose.production.yaml](compose.production.yaml)
+and [deploy/production](deploy/production/), with a database backup script and an
+[Ubuntu 24.04 bootstrap guide](docs/deployment-vps-bootstrap.md). Start with the
+guide's SSH, firewall, Docker, and directory preparation while a domain is pending.
+`DEP-04` is marked complete on the owner's confirmation of Cloudflare/Caddy setup
+and HTTPS access at `https://kotobahub.conglicorp.my.id` on 3 November 2026.
+Automated SSH deployment and further operational verification remain tracked as
+`DEP-06` and `DEP-05`;
 external MySQL TLS support in `DEP-03` is optional for the initial deployment.
 
 - `src/app`: routes, layout, and provider composition.

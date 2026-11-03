@@ -13,7 +13,11 @@ validation (Docker CLI/Compose 2.30+, without a daemon), literal env preservatio
 port/credential isolation, and backup success/failure/lock tests. Backup tests use
 an injected Docker executable, temporary files, Bash, flock, gzip, and GNU tools;
 they never access a database. This deployment coverage belongs to `DEP-02` and
-`DEP-04`, not the learner-flow test tasks. Real MySQL bootstrap/restore and public
+`DEP-04`, not the learner-flow test tasks. `DEP-06` adds run/job/artifact validation,
+SSH host verification/credential cleanup, receipt identity checks, and isolated VPS
+worker success/failure/recovery tests with fake Docker/curl/SSH executables. Worker
+tests require Python 3 and GNU timeout; artifact tests require zip/unzip. They never
+connect to GitHub, SSH, or a real database. Real MySQL bootstrap/restore and public
 VPS verification follow the [bootstrap guide](../docs/deployment-vps-bootstrap.md).
 
 Place unit tests under `tests/unit/<domain>/`. Use `shared` for API response,

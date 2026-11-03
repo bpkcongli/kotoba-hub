@@ -217,16 +217,19 @@ For the planned GitHub Actions → Docker Hub → Tencent Lighthouse Starter 2C4
 see the [deployment plan](docs/deployment-plan.md). Cloudflare fronts Caddy/Nginx on the VPS;
 the same VPS runs KotobaHub and MySQL containers with a persistent database volume.
 The plan covers runtime environment injection, migration/seed jobs, TLS/cache settings,
-backup, and rollback. A separate GitHub Actions deployment workflow is planned with
-manual dispatch, published image digests, and SSH access to the provisioned VPS;
-application secrets stay on the VPS. Aiven is an alternative for a later database separation.
+backup, and rollback. A separate [manual deployment workflow](docs/deployment-workflow.md)
+validates a successful publish run, deploys its image digests over verified SSH,
+and records backup/migration/health results under a VPS lock. Configure the documented
+GitHub variables and SSH secrets before dispatch; application secrets stay on the VPS.
+Aiven is an alternative for a later database separation.
 CI now publishes app/ops images to Docker Hub only after quality succeeds on a push
 to `main`, using full commit tags and verified digest references. Configure Actions
 variables `DOCKERHUB_USERNAME`, `DOCKERHUB_REPOSITORY`, and secret `DOCKERHUB_TOKEN`
 to enable publishing. The `release-metadata` artifact contains only release identity
 and image references, with 90-day retention. Existing commit tags are never reused;
 see [publishing and recovery](docs/deployment-plan.md#5-build-dan-publish-ke-docker-hub).
-Run `bun run test:release` for offline metadata/registry, production Compose, and backup checks.
+Run `bun run test:release` for offline metadata/registry, production Compose, backup,
+SSH, deployment failure/recovery, and lock checks.
 Production templates are available in [compose.production.yaml](compose.production.yaml)
 and [deploy/production](deploy/production/), with a database backup script and an
 [Ubuntu 24.04 bootstrap guide](docs/deployment-vps-bootstrap.md). Start with the

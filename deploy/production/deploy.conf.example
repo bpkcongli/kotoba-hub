@@ -1,0 +1,5 @@
+# Provision on the VPS as deploy.conf (0600); do not source this file as shell.
+IMAGE_REPOSITORY=docker.io/andrian8367/kotoba-hub
+APP_URL=https://kotobahub.conglicorp.my.id
+BACKUP_DIR=/var/backups/kotoba-hub
+MIN_FREE_MB=4096

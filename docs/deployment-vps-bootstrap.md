@@ -555,4 +555,7 @@ Simpan catatan operasional berikut untuk rilis dan verifikasi `DEP-05`:
 dan akses HTTPS publik. Rincian backup/migration/seed, cache/firewall, serta login
 VPS tidak diaudit ulang oleh agent pada pembaruan dokumentasi ini. Uji reboot,
 persistence, rollback image, restore production, dan workflow SSH terperinci
-diteruskan ke `DEP-05` setelah `DEP-06` tersedia.
+diteruskan ke `DEP-05`. Workflow `DEP-06` dan script VPS kini tersedia; lanjutkan ke
+[panduan workflow deployment](./deployment-workflow.md) untuk pemasangan script,
+variables/secrets GitHub, preflight, serta diagnosis/retry tanpa mengulang migration
+parsial. Routine deploy tidak menjalankan seed atau memperbarui MySQL.

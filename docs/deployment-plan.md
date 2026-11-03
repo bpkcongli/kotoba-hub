@@ -11,8 +11,10 @@ tersedia. Pada **3 November 2026**, pemilik proyek mengonfirmasi konfigurasi
 Cloudflare/Caddy dan akses aplikasi melalui `https://kotobahub.conglicorp.my.id`,
 serta meminta penutupan `DEP-04`. Konfirmasi ini berasal dari operator; agent
 tidak mengakses VPS atau mengaudit konfigurasi runtime pada pembaruan ini.
-Workflow deploy GitHub Actions masih perlu diimplementasikan pada `DEP-06`;
-verifikasi operasional lanjutan tetap pada `DEP-05`. Publish sungguhan memerlukan
+Workflow deploy `DEP-06`, validasi metadata, worker VPS berversi, dan runbook
+recovery kini tersedia. Script sudah dipasang dan preflight lulus pada VPS;
+pengisian secrets/variables GitHub oleh operator dan verifikasi workflow live
+tetap diperlukan. Verifikasi operasional lanjutan tetap pada `DEP-05`. Publish sungguhan memerlukan
 konfigurasi Docker Hub pada GitHub; tersedianya job publish saja bukan bukti
 publish sudah berhasil.
 
@@ -274,7 +276,7 @@ jangan menimpa tag lama atau memakai pasangan digest dari run/commit berbeda.
 `tag` memakai `docker.io/<namespace>/<repository>:sha-<commit>` atau
 `:ops-sha-<commit>`. `digest` wajib `sha256:` dengan `64` karakter hex lowercase;
 `ref` adalah `docker.io/<namespace>/<repository>@<digest>`. Consumer `DEP-06`
-harus memvalidasi schema, repository/workflow, run/commit, dan allowlist image
+memvalidasi schema, repository/workflow, run/commit, dan allowlist image
 terhadap konfigurasi tepercaya; metadata sendiri tidak menjadi bukti run sukses.
 
 #### Verifikasi lokal `DEP-02`
@@ -301,10 +303,11 @@ push CI. Lihat [batas Docker Hub](https://docs.docker.com/docker-hub/usage/).
 
 ### Job deploy GitHub Actions melalui SSH
 
-Bagian ini adalah rencana implementasi **`DEP-06`**, setelah image publish `DEP-02`
-dan provisioning VPS `DEP-04` siap. Nama `.github/workflows/deploy.yml` dan script
-`/opt/kotoba-hub/deploy.sh` di bawah adalah artifact yang akan dibuat; keduanya
-belum menjadi workflow/script deployment yang tersedia.
+Bagian ini menetapkan baseline **`DEP-06`**. Implementasi tersedia pada
+[deploy.yml](../.github/workflows/deploy.yml), [helper validasi/SSH](../scripts/deploy-release.mjs),
+dan [worker VPS](../scripts/deploy-production.sh), dipasang sebagai
+`/opt/kotoba-hub/deploy.sh`. Detail konfigurasi GitHub, pemasangan, polling,
+receipt, serta diagnosis sebelum retry ada pada [panduan workflow](./deployment-workflow.md).
 
 #### Persiapan satu kali pada VPS
 
@@ -329,11 +332,11 @@ Untuk job deploy, siapkan konfigurasi berikut:
 
 | Nama | Penyimpanan | Isi |
 | --- | --- | --- |
-| `VPS_HOST` | Actions variable atau secret | IP VPS Jakarta atau hostname khusus SSH yang tidak diproxy Cloudflare |
+| `VPS_HOST` | Actions variable | IP VPS Jakarta atau hostname khusus SSH yang tidak diproxy Cloudflare |
 | `VPS_PORT` | Actions variable | Port SSH yang dibuka pada firewall |
 | `VPS_USER` | Actions variable | User deployment di VPS |
 | `VPS_SSH_PRIVATE_KEY` | Actions secret | Private key khusus CI, pasang public key pasangannya di VPS |
-| `VPS_SSH_KNOWN_HOSTS` | Actions variable atau secret yang dijaga integritasnya | Entri `known_hosts` untuk host/port tujuan, diverifikasi lewat jalur operator tepercaya |
+| `VPS_SSH_KNOWN_HOSTS` | Actions secret yang dijaga integritasnya | Entri `known_hosts` untuk host/port tujuan, diverifikasi lewat jalur operator tepercaya |
 | `APP_URL` | Actions variable | Origin HTTPS aplikasi melalui Cloudflare, misalnya `https://kotoba.example.com` |
 
 Jangan menonaktifkan SSH host-key verification. Output `ssh-keyscan` dari koneksi
@@ -424,6 +427,40 @@ status operasi agar percobaan ulang tidak mengulang migration parsial tanpa diag
 sukses dan gagal, pemilihan digest, penolakan metadata salah/PR, concurrency,
 recovery koneksi putus, health publik, dan persistence database. Tidak ada provisioning,
 reseed tanpa review, penghapusan volume, atau upgrade MySQL pada deploy rutin.
+
+#### Implementasi DEP-06
+
+Pada **3 November 2026**, workflow manual dari `main` dan helper validasi
+run/job attempt/artifact/schema/allowlist tersedia. SSH memakai host verification
+wajib; concurrency tidak membatalkan deployment aktif. Worker terpisah dari SSH
+mewarisi lock backup/migration, menyimpan tahap/receipt, pull dua digest,
+backup/checksum, migration tanpa seed, recreate app saja, dan health loopback/publik.
+`release.env` diganti atomik setelah health lolos. Kegagalan/worker hilang menahan
+retry sampai diagnosis dan acknowledgement; tidak ada restore/rollback otomatis.
+
+Script `deploy.sh`, backup script dengan inherited lock, dan `deploy.conf` sudah
+dipasang pada `/opt/kotoba-hub` melalui koneksi SSH yang memakai known_hosts
+operator. `deploy.sh check` lulus: tool/Compose, mode file, MySQL/digest, backup
+directory, disk, identitas/health app aktif, HTTP loopback dan Cloudflare, serta
+envelope anonymous session. Checksum script VPS saat verifikasi awal:
+`61d7c91a95d6fe6eafdd15bce505ff7da1c62593d6fbc72a5b3fdbab4e53498e`.
+Preflight ini tidak menjalankan migration atau mengganti app.
+
+Backup live memakai `--lock-held` juga lulus dengan dump lokal `112.797` byte,
+mode `0600`, `gzip -t`, dan checksum SHA-256 sesuai. Identitas container app/MySQL
+tetap sama sebelum/sesudah pemeriksaan. Ini belum membuktikan salinan off-host
+atau keberhasilan restore; keduanya tetap diverifikasi pada `DEP-05`.
+
+Verifikasi lokal: `bun run check` lulus (lint, typecheck, format, suite rilis,
+serta `60` suite / `661` tes Jest). `34` tes baru DEP-06 juga lulus saat dijalankan
+langsung: `23` tes validasi/SSH dan `11` tes worker VPS. Actionlint `v1.7.12`,
+`bash -n` kedua script, dan `git diff --check` tidak melaporkan error. Tidak ada
+build/push image baru atau migration production dalam verifikasi ini.
+
+Operator menyatakan konfigurasi GitHub deploy belum diisi; langkah UI dan
+key/known_hosts tersedia pada [panduan DEP-06](./deployment-workflow.md#konfigurasi-github).
+Workflow belum dipush atau dipicu dari workspace ini. Pengujian live Actions,
+runner-to-VPS, rilis sukses/gagal, recovery, serta flow learner tetap `DEP-05`.
 
 ## 6. Migration dan seed sebagai job terpisah
 
@@ -918,6 +955,12 @@ menangani proses yang keluar, bukan otomatis memperbaiki container yang hanya un
 
 ### Rilis berikutnya dan rollback
 
+Deploy rutin memakai [workflow DEP-06](./deployment-workflow.md); langkah manual
+berikut untuk maintenance/recovery operator. Pegang `.deployment.lock` selama
+seluruh rangkaian dan periksa worker/container migration sebelum memulihkan app.
+Pada rilis manual, gunakan kandidat env terpisah dan perbarui `release.env`
+secara atomik hanya setelah health berhasil, seperti worker DEP-06.
+
 1. Catat/cadangkan `release.env` sebelumnya sebagai `release.previous.env`, digest,
    versi schema/content, dan backup database sebelum perubahan data.
 2. Isi digest app/ops baru, tarik hanya image tersebut, dan pertahankan digest
@@ -931,10 +974,21 @@ menangani proses yang keluar, bukan otomatis memperbaiki container yang hanya un
    deployment bersamaan; hapus image lama hanya setelah masa rollback selesai.
 5. Jika app baru gagal dan schema masih kompatibel, tarik/start digest sebelumnya:
 
+   Untuk rollback sesudah deployment sukses, gunakan `release.previous.env`
+   global. Untuk deployment yang gagal sebelum commit, gunakan
+   `.deployments/DEPLOY_RUN_ID-ATTEMPT/release.previous.env` milik percobaan itu;
+   file global dapat masih merujuk rilis yang lebih lama. Contoh di bawah untuk
+   rollback sesudah sukses; ganti nilai `rollback_release` pada kasus gagal.
+
    ```sh
-   docker compose --env-file release.previous.env -f compose.production.yaml pull app
-   docker compose --env-file release.previous.env -f compose.production.yaml up -d --no-build --no-deps --force-recreate --wait --wait-timeout 120 app
+   rollback_release=release.previous.env
+   docker compose --env-file "$rollback_release" -f compose.production.yaml pull app
+   docker compose --env-file "$rollback_release" -f compose.production.yaml up -d --no-build --no-deps --force-recreate --wait --wait-timeout 120 app
    ```
+
+   Setelah health dan identitas app sesuai, selaraskan `release.env` dengan snapshot
+   rollback menggunakan file sementara mode `0600` dan rename atomik di dalam lock
+   yang sama. Catat hasil recovery sebelum acknowledge marker deployment gagal.
 
 Rollback image tidak membatalkan migration atau seed. Jika schema sudah tidak
 kompatibel, pilih forward fix atau restore backup dalam maintenance window setelah
@@ -993,10 +1047,11 @@ urutan implementasi:
    2026; Cloudflare/Caddy dikonfigurasi dan aplikasi dapat diakses melalui hostname
    HTTPS `kotobahub.conglicorp.my.id`. Artifact lokal dan panduan tersedia pada
    bagian 9. Verifikasi operasional lanjutan tetap pada `DEP-05`.
-4. `DEP-06`: implementasikan workflow deploy terpisah melalui `workflow_dispatch`
-   dan SSH, input publish run/metadata tervalidasi, konfigurasi GitHub, lock/concurrency,
-   script rilis berversi, migration tanpa seed rutin, health check, dan recovery.
-   Dependency: `DEP-02` dan `DEP-04`; membutuhkan akses VPS.
+4. `DEP-06`: workflow `workflow_dispatch`/SSH dan validasi publish run tersedia,
+   worker berversi sudah dipasang di VPS serta preflight lulus. Panduan konfigurasi
+   GitHub, lock/concurrency, backup/migration, health, dan recovery ada pada
+   [deployment workflow](./deployment-workflow.md). Pengisian variable/secret oleh
+   operator dan verifikasi workflow live masih diperlukan pada `DEP-05`.
 5. `DEP-05`: verifikasi workflow deploy sukses/gagal, concurrency/retry/recovery,
    flow publik melalui Cloudflare, origin/OAuth, isolasi cache
    antar-user, perubahan env tanpa rebuild, persistence/restart VPS, rollback image,

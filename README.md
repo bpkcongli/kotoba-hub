@@ -202,7 +202,7 @@ help. Build it with `docker build --target ops --tag kotoba-hub:ops .`.
 Run `bash scripts/verify-docker-artifacts.sh` to build and verify both images without
 deployment secrets or database access. CI runs the same check. Next.js page-data
 workers are capped at two to limit build memory. See the
-[artifact verification guide](docs/deployment-plan.md#verifikasi-artifact-dep-01)
+[artifact verification guide](docs/cicd/deployment-plan.md#verifikasi-artifact-dep-01)
 for checks and database verification limits.
 
 Drizzle ORM, `mysql2`, Drizzle Kit, and a migration registry/config are installed.
@@ -214,10 +214,10 @@ database. See [migration notes](drizzle/README.md).
 ## Architecture and next tasks
 
 For the planned GitHub Actions → Docker Hub → Tencent Lighthouse Starter 2C4G deployment in Jakarta,
-see the [deployment plan](docs/deployment-plan.md). Cloudflare fronts Caddy/Nginx on the VPS;
+see the [deployment plan](docs/cicd/deployment-plan.md). Cloudflare fronts Caddy/Nginx on the VPS;
 the same VPS runs KotobaHub and MySQL containers with a persistent database volume.
 The plan covers runtime environment injection, migration/seed jobs, TLS/cache settings,
-backup, and rollback. A separate [manual deployment workflow](docs/deployment-workflow.md)
+backup, and rollback. A separate [manual deployment workflow](docs/cicd/deployment-workflow.md)
 validates a successful publish run, deploys its image digests over verified SSH,
 and records backup/migration/health results under a VPS lock. Configure the documented
 GitHub variables and SSH secrets before dispatch; application secrets stay on the VPS.
@@ -227,12 +227,12 @@ to `main`, using full commit tags and verified digest references. Configure Acti
 variables `DOCKERHUB_USERNAME`, `DOCKERHUB_REPOSITORY`, and secret `DOCKERHUB_TOKEN`
 to enable publishing. The `release-metadata` artifact contains only release identity
 and image references, with 90-day retention. Existing commit tags are never reused;
-see [publishing and recovery](docs/deployment-plan.md#5-build-dan-publish-ke-docker-hub).
+see [publishing and recovery](docs/cicd/deployment-plan.md#5-build-dan-publish-ke-docker-hub).
 Run `bun run test:release` for offline metadata/registry, production Compose, backup,
 SSH, deployment failure/recovery, and lock checks.
 Production templates are available in [compose.production.yaml](compose.production.yaml)
 and [deploy/production](deploy/production/), with a database backup script and an
-[Ubuntu 24.04 bootstrap guide](docs/deployment-vps-bootstrap.md). Start with the
+[Ubuntu 24.04 bootstrap guide](docs/cicd/deployment-vps-bootstrap.md). Start with the
 guide's SSH, firewall, Docker, and directory preparation while a domain is pending.
 `DEP-04` is marked complete on the owner's confirmation of Cloudflare/Caddy setup
 and HTTPS access at `https://kotobahub.conglicorp.my.id` on 3 November 2026.

@@ -40,9 +40,9 @@ production dengan Cloudflare dan Google OAuth, siapkan hostname yang DNS-nya dap
 dikelola melalui Cloudflare. **Aiven menjadi alternatif**, hanya jika database
 nanti ingin dipisahkan dari VPS; bukan dependency deployment awal.
 
-Baseline tetap [arsitektur](../ARCHITECTURE.md), [MVP plan](./mvp-plan.md),
-[kontrak auth](./api-contract/auth-and-authorization.md),
-[migration dan seed](../drizzle/README.md), serta [integrasi AI](./ai-integration.md).
+Baseline tetap [arsitektur](../../ARCHITECTURE.md), [MVP plan](../mvp-plan.md),
+[kontrak auth](../api-contract/auth-and-authorization.md),
+[migration dan seed](../../drizzle/README.md), serta [integrasi AI](../ai-integration.md).
 Deployment ini tidak mengubah kontrak
 domain atau menambahkan vector database sebagai dependency wajib.
 
@@ -102,7 +102,7 @@ kerusakan VPS/disk dapat memengaruhi aplikasi dan seluruh data sekaligus.
 
 Kuota dan kebijakan Aiven diperiksa pada 31 Oktober 2026 di
 [dokumentasi free tier](https://aiven.io/docs/products/mysql/concepts/mysql-free-tier).
-Opsi self-host memakai image `mysql:8.4` yang juga dipakai [Compose lokal](../compose.yaml).
+Opsi self-host memakai image `mysql:8.4` yang juga dipakai [Compose lokal](../../compose.yaml).
 Gratis pada pilihan awal berarti tidak ada tagihan managed database tambahan,
 sementara biaya resource tetap masuk tagihan VPS. Database awal memakai nama service
 `mysql`, database `kotoba_hub`, dan named volume `mysql-data` untuk `/var/lib/mysql`.
@@ -175,7 +175,7 @@ upgrade yang dapat dipilih. Lihat [panduan upgrade](https://www.tencentcloud.com
 | Push ke `main` setelah quality lulus | Build image rilis dari commit yang sama | Ya | Menyiapkan rilis untuk dipilih workflow deploy |
 | `workflow_dispatch` deploy dari `main` | Memvalidasi hasil publish yang dipilih; tanpa rebuild | Tidak | SSH ke VPS yang sudah diprovision, deploy digest terpilih, lalu verifikasi |
 
-[Workflow Quality](../.github/workflows/ci.yml) memiliki job `quality` dan `publish`.
+[Workflow Quality](../../.github/workflows/ci.yml) memiliki job `quality` dan `publish`.
 Job `publish` memakai `needs: quality` dan hanya berjalan untuk event `push`,
 `refs/heads/main`, serta hasil quality `success`. Pull request, termasuk dari fork,
 tidak menjalankan login atau publish. Tidak ada trigger `pull_request_target` atau
@@ -238,7 +238,7 @@ tersedia sebelum rilis dapat dijalankan. Publikasi artifact tidak mengubah datab
 
 #### Tag commit, concurrency, dan kegagalan publish
 
-Helper [release-metadata.mjs](../scripts/release-metadata.mjs) memeriksa kedua tag
+Helper [release-metadata.mjs](../../scripts/release-metadata.mjs) memeriksa kedua tag
 sebelum build melalui Registry API Docker Hub dengan bearer token berscope `pull`.
 Hanya HTTP `404` dianggap tag belum ada; tag yang sudah ada, error autentikasi,
 rate limit, timeout, dan kegagalan registry menghentikan publish. Helper tidak
@@ -304,8 +304,8 @@ push CI. Lihat [batas Docker Hub](https://docs.docker.com/docker-hub/usage/).
 ### Job deploy GitHub Actions melalui SSH
 
 Bagian ini menetapkan baseline **`DEP-06`**. Implementasi tersedia pada
-[deploy.yml](../.github/workflows/deploy.yml), [helper validasi/SSH](../scripts/deploy-release.mjs),
-dan [worker VPS](../scripts/deploy-production.sh), dipasang sebagai
+[deploy.yml](../../.github/workflows/deploy.yml), [helper validasi/SSH](../../scripts/deploy-release.mjs),
+dan [worker VPS](../../scripts/deploy-production.sh), dipasang sebagai
 `/opt/kotoba-hub/deploy.sh`. Detail konfigurasi GitHub, pemasangan, polling,
 receipt, serta diagnosis sebelum retry ada pada [panduan workflow](./deployment-workflow.md).
 
@@ -466,7 +466,7 @@ runner-to-VPS, rilis sukses/gagal, recovery, serta flow learner tetap `DEP-05`.
 
 Image aplikasi saat ini tidak menyediakan script migration/seed maupun Drizzle Kit.
 Menjalankan `bun run db:migrate` melalui `docker exec` pada image aplikasi bukan
-jalur deployment yang tersedia. [Dockerfile](../Dockerfile) menyediakan target
+jalur deployment yang tersedia. [Dockerfile](../../Dockerfile) menyediakan target
 `ops` dengan working directory `/app`, user non-root `bun`, dan kemampuan
 menjalankan perintah Bun yang sama dengan repo. Target default tetap `runner`.
 Image `ops` memakai entrypoint `bun`; command default `--help` tidak menjalankan
@@ -483,13 +483,13 @@ Target `ops` memuat:
 - `content/syllabus/manifest.json`, `content/syllabus/tracks/*.json`, serta
   `content/flashcards/system-decks/*.json` yang diperlukan importer.
 
-[`.dockerignore`](../.dockerignore) memakai allowlist untuk file operasional
+[`.dockerignore`](../../.dockerignore) memakai allowlist untuk file operasional
 tersebut. Setiap parent directory content dibuka lalu child-nya dikecualikan lagi
 sebelum file yang diperlukan diizinkan; negasi directory saja dapat membuka semua
 isinya. Raw acquisition `content/syllabus/sources/`, `.env*`, sertifikat lokal,
 credential workspace, dan script lain tetap di luar context.
 
-Urutan operasi database mengikuti [panduan database](../drizzle/README.md):
+Urutan operasi database mengikuti [panduan database](../../drizzle/README.md):
 
 | Kondisi | Operasi |
 | --- | --- |
@@ -518,8 +518,8 @@ Engine dengan BuildKit serta local exporter tersedia:
 bash scripts/verify-docker-artifacts.sh
 ```
 
-[Script verifikasi](../scripts/verify-docker-artifacts.sh) dipanggil oleh
-[CI Quality](../.github/workflows/ci.yml) setelah quality gate dan membangun
+[Script verifikasi](../../scripts/verify-docker-artifacts.sh) dipanggil oleh
+[CI Quality](../../.github/workflows/ci.yml) setelah quality gate dan membangun
 `kotoba-hub:ops-ci` serta `kotoba-hub:ci` dari working tree yang sama, tanpa push.
 Dua argumen opsional mengganti tag app lalu ops. Build berjalan berurutan.
 `next.config.ts` membatasi worker page-data Next.js menjadi `2` untuk mengurangi
@@ -598,7 +598,7 @@ AI_MAX_INPUT_CHARS=40000
 env file berisi nilai literal, bukan perintah shell. Gunakan model yang tersedia
 untuk akun eksperimen; contoh mengikuti konfigurasi repo pada tanggal dokumen.
 Startup tetap memerlukan credential Google meskipun akses awal hanya untuk diagnosis.
-Key AI boleh kosong untuk fitur non-AI, mengikuti [integrasi AI](./ai-integration.md).
+Key AI boleh kosong untuk fitur non-AI, mengikuti [integrasi AI](../ai-integration.md).
 
 Contoh `mysql.env` untuk inisialisasi volume kosong:
 
@@ -732,10 +732,10 @@ tanpa domain, pengisian secret di VPS, backup/migration/seed, dan aktivasi Cloud
 
 | Artifact | Tujuan |
 | --- | --- |
-| [compose.production.yaml](../compose.production.yaml) | App, job `ops`, MySQL 8.4, volume tetap, batas RAM/log, port loopback. |
-| [env templates](../deploy/production/) | Template app, ops, MySQL, dan release, seluruhnya tanpa secret. |
-| [Caddyfile.example](../deploy/production/Caddyfile.example) | Reverse proxy host dengan Origin CA dan forwarded host/proto. |
-| [backup-production-db.sh](../scripts/backup-production-db.sh) | Dump InnoDB, gzip/checksum, izin terbatas, dan lock database. |
+| [compose.production.yaml](../../compose.production.yaml) | App, job `ops`, MySQL 8.4, volume tetap, batas RAM/log, port loopback. |
+| [env templates](../../deploy/production) | Template app, ops, MySQL, dan release, seluruhnya tanpa secret. |
+| [Caddyfile.example](../../deploy/production/Caddyfile.example) | Reverse proxy host dengan Origin CA dan forwarded host/proto. |
+| [backup-production-db.sh](../../scripts/backup-production-db.sh) | Dump InnoDB, gzip/checksum, izin terbatas, dan lock database. |
 
 Salin Compose dan env ke `/opt/kotoba-hub`. Path env pada file repository relatif
 terhadap Compose; contoh ringkas di bawah memakai path absolut pada lokasi yang
@@ -1033,7 +1033,7 @@ Untuk eksperimen berikutnya:
 
 ## 11. Pekerjaan implementasi berikutnya
 
-Task deployment dilacak di [task breakdown](./task-breakdown.md). Dokumen ini
+Task deployment dilacak di [task breakdown](../task-breakdown.md). Dokumen ini
 menetapkan baseline `DEP-00`; artifact `DEP-01` dan workflow publish `DEP-02`
 sudah tersedia. Status dan
 urutan implementasi:

@@ -18,7 +18,7 @@ SSH host verification/credential cleanup, receipt identity checks, and isolated 
 worker success/failure/recovery tests with fake Docker/curl/SSH executables. Worker
 tests require Python 3 and GNU timeout; artifact tests require zip/unzip. They never
 connect to GitHub, SSH, or a real database. Real MySQL bootstrap/restore and public
-VPS verification follow the [bootstrap guide](../docs/deployment-vps-bootstrap.md).
+VPS verification follow the [bootstrap guide](../docs/cicd/deployment-vps-bootstrap.md).
 
 Place unit tests under `tests/unit/<domain>/`. Use `shared` for API response,
 database bootstrap, and test infrastructure that crosses domain boundaries.

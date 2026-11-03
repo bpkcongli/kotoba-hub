@@ -295,7 +295,7 @@ docker stats --no-stream
 Simpan juga backup setelah seed di luar VPS, berikut metadata rilis dan versi
 schema/content. Jika migration gagal, hentikan bootstrap; MySQL DDL dapat parsial.
 Jangan generate migration di VPS, lanjut seed, atau menghapus volume untuk mencoba
-ulang. Ikuti [workflow database](../drizzle/README.md) untuk diagnosis.
+ulang. Ikuti [workflow database](../../drizzle/README.md) untuk diagnosis.
 
 Tanpa domain, buka tunnel dari laptop:
 

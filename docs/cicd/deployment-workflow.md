@@ -1,8 +1,8 @@
 # Workflow deployment `DEP-06`
 
-Workflow [deploy.yml](../.github/workflows/deploy.yml) menerima `publish_run_id`
+Workflow [deploy.yml](../../.github/workflows/deploy.yml) menerima `publish_run_id`
 melalui `workflow_dispatch` dari `main`. Ia tidak membangun image. Helper
-[deploy-release.mjs](../scripts/deploy-release.mjs) membaca GitHub Actions API
+[deploy-release.mjs](../../scripts/deploy-release.mjs) membaca GitHub Actions API
 dengan izin `contents: read` dan `actions: read`, lalu memvalidasi:
 
 - Run berasal dari repository yang sama, `.github/workflows/ci.yml`, event push

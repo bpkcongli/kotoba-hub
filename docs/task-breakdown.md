@@ -93,6 +93,19 @@
 Urutan deployment awal: `DEP-01 → DEP-02 → DEP-04 → DEP-06 → DEP-05`.
 `DEP-03` tetap opsional sebelum memisahkan database ke Aiven.
 
+### 7. Dukungan Bilingual dan Internationalization
+
+Rencana dan batas cakupan: [bilingual support plan](./syllabus/bilingual-support-plan.md). Baseline seed/schema/API saat ini tetap berlaku sampai tahap finalisasi terkait selesai.
+
+- [ ] `BIL-01` Finalisasi schema seed `2.0.0`, schema DB terjemahan, locale/preferensi, fallback, revisi/publikasi terjemahan, allowlist batch awal, dan kontrak transisi v1/v2. Selaraskan ERD, JSON Schema, dan OpenAPI sebelum implementasi.
+- [ ] `BIL-02` Konversi seed v1 untuk 16 lesson N5 yang sudah memiliki materi terkurasi dan bank quiz ke v2; audit baseline Inggris, lengkapi Indonesia, perbaiki atribusi skill soal, dan pertahankan identitas/provenance. Dependency: `BIL-01`.
+- [ ] `BIL-03` Implement migration/backfill, importer v2, preferensi/resolver locale, API dan renderer syllabus bilingual, serta cutover tanpa menonaktifkan konten di luar batch. Dependency: `BIL-02`.
+- [ ] `BIL-04` Generate seed v2 untuk lesson lain setelah subagent dan skill authoring/review siap (ditangguhkan: menunggu tooling pada sesi terpisah). Dependency: `BIL-03` dan kesiapan tooling; tidak memblokir fitur bilingual untuk batch awal.
+- [ ] `BIL-05` Perluas schema/seed/API dan sesi flashcard bilingual, termasuk arti/distractor, kompatibilitas mode lama, snapshot bahasa, dan state Leitner yang tetap sama. Dependency: `BIL-03`.
+- [ ] `BIL-06` Perluas random practice dan AI untuk pasangan Inggris/Indonesia–Jepang, instruksi/feedback, validasi/grading, observability, dan snapshot/retry. Dependency: `BIL-03`.
+- [ ] `BIL-07` Terapkan i18n BE/FE untuk pesan UI/API, error/validasi, formatter, SSR/hydration, serta pemilih bahasa; fondasi locale sudah dimulai pada `BIL-01`/`BIL-03`. Dependency: `BIL-05`, `BIL-06`.
+- [ ] `BIL-08` Verifikasi flow kedua bahasa, kualitas terjemahan, fallback/cache, progress/idempotency dan sesi lama, lalu rollout migration/seed/app dengan backup serta rollback. Dependency: `BIL-07`; checks terkait tetap dilakukan pada tiap tahap.
+
 ## Assumptions And Tracking Rules
 - Gunakan status checklist sederhana `[ ]` untuk `todo` dan `[x]` untuk `done`; jika perlu blocker, tulis suffix singkat seperti `(blocked: waiting brand brief)`.
 - Task `DS-01` adalah dependency utama untuk visual system final; wireframe dan architecture tetap boleh lanjut sebelum brand brief datang.

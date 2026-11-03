@@ -16,6 +16,8 @@
 - `SYL-06A` sampai `SYL-07` mapping deck, seed JSON final, dan review alignment ke personalization/progress.
 
 ## Documents In This Folder
+- [bilingual-support-plan.md](./bilingual-support-plan.md)
+  Rencana bertahap `BIL-01`–`BIL-08` untuk seed v2, schema terjemahan, fallback, integrasi runtime, flashcard/practice bilingual, dan i18n BE/FE. Generasi lesson lain ditangguhkan sampai tooling authoring siap; baseline v1 tetap berlaku selama transisi.
 - [jlpt-syllabus-structure.md](./jlpt-syllabus-structure.md)
   Mengunci struktur resmi `track -> unit -> lesson -> skill`, taxonomy `curriculumLevel`, taxonomy `skillType`, serta policy support flags untuk task `SYL-01`.
 - [seed-coverage-scope.md](./seed-coverage-scope.md)

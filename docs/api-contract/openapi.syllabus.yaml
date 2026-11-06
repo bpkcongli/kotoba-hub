@@ -1,5 +1,7 @@
 openapi: 3.0.3
 info:
+  x-bilingual-contract: ./openapi.bilingual.yaml
+  x-bilingual-implementation: BIL-03; this file describes the legacy representation
   title: KotobaHub Syllabus API
   version: 0.1.0
   description: |

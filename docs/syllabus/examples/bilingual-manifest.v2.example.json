@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "2.0.0",
+  "generatedAt": "2026-11-04",
+  "defaultLocale": "en",
+  "supportedLocales": ["en", "id"],
+  "importMode": "MERGE_LESSONS",
+  "tracks": [
+    {
+      "slug": "jlpt-n5-foundation",
+      "curriculumLevel": "N5",
+      "file": "tracks/jlpt-n5-foundation.json",
+      "sortOrder": 1,
+      "isPublished": false,
+      "lessonIds": ["00000000-0000-5000-8000-000000000003"]
+    }
+  ]
+}

@@ -1,5 +1,34 @@
 # ERD Syllabus Domain
 
+## Perluasan final BIL-01 (implementasi BIL-03)
+
+Diagram dan definisi existing di bawah menggambarkan persistence v1. Target bilingual menambahkan relasi berikut; detail field, tipe, revision gate, backfill, dan proyeksi kompatibilitas ditetapkan pada [kontrak konten bilingual](../syllabus/bilingual-content-contract.md#4-schema-database-target).
+
+```mermaid
+erDiagram
+    TRACKS ||--o{ TRACK_TRANSLATIONS : localizes
+    UNITS ||--o{ UNIT_TRANSLATIONS : localizes
+    LESSONS ||--o{ LESSON_TRANSLATIONS : localizes
+    SKILLS ||--o{ SKILL_TRANSLATIONS : localizes
+    LESSON_CONTENT_BLOCKS ||--o{ LESSON_CONTENT_BLOCK_TRANSLATIONS : localizes
+    LESSON_POST_STUDY_QUESTIONS ||--o{ LESSON_POST_STUDY_QUESTION_TRANSLATIONS : localizes
+```
+
+| Tabel baru | PK composite / FK | Payload |
+| --- | --- | --- |
+| `track_translations` | `(track_id, locale)` / `tracks.id` | title, description |
+| `unit_translations` | `(unit_id, locale)` / `units.id` | title, description |
+| `lesson_translations` | `(lesson_id, locale)` / `lessons.id` | title, learning_objective |
+| `skill_translations` | `(skill_id, locale)` / `skills.id` | title, description, content JSON localized |
+| `lesson_content_block_translations` | `(content_block_id, locale)` / `lesson_content_blocks.id` | content JSON sesuai block_type |
+| `lesson_post_study_question_translations` | `(question_id, locale)` / `lesson_post_study_questions.id` | content JSON paket placeholder/hint/explanation |
+
+- Keenam owner mendapat `content_revision int not null default 1` dan `seed_schema_version varchar(10) not null default '1.0.0'`. `skills.content json null` ditambahkan untuk canonical skill; wajib valid bagi row v2. Locale tidak mengubah ID atau unique constraint canonical.
+- Keenam translation table memakai `locale varchar(2)` CHECK `en/id`, `source_revision int`, `translation_revision int`, `is_published boolean default false`, `source_ref_payload json`, timestamps; field selain description yang ditandai nullable pada kontrak bersifat NOT NULL. Revision positif; FK RESTRICT; index `(locale,is_published)`; JSON/provenance divalidasi aplikasi.
+- Localization current wajib `source_revision = owner.content_revision`. Inggris current menjadi gate published subtree v2; Indonesia boleh draft/stale dan fallback satu paket ke Inggris. Publication dan revision dibandingkan pada aplikasi, bukan FK lintas revision.
+- Translation tables milik `syllabus`. Kolom teks/JSON v1 menjadi proyeksi Inggris yang diperbarui importer satu arah saat row sudah v2. Source metadata seed tetap dipertahankan; arti/check/contoh localized disimpan di `skill_translations.content`.
+- Belum ada migration SQL pada `BIL-01`; urutan migration/import dan proteksi scope parsial diimplementasikan `BIL-03`. Tabel progress, ID bank, dan ladder tetap sama.
+
 ## Scope
 - Dokumen ini menyelesaikan task `ARCH-09`.
 - Fokus ERD kini mencakup tujuh entitas inti domain `syllabus`: `tracks`, `units`, `lessons`, `lesson_content_blocks`, `lesson_post_study_questions`, `skills`, dan `unit_skill_mappings`.

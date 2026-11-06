@@ -1,5 +1,10 @@
 # Seed Content Schema
 
+## Versi kontrak
+- Isi dokumen di bawah dan schema tanpa suffix tetap baseline **v1** untuk seed/runtime aktif.
+- **BIL-01** memfinalkan v2 `2.0.0` pada [kontrak konten bilingual](./bilingual-content-contract.md), [schema manifest v2](./schema/seed-manifest.v2.schema.json), dan [schema track v2](./schema/track-seed.v2.schema.json). Contoh serta [allowlist 16 lesson](./bilingual-batch-01.json) dirujuk oleh kontrak tersebut.
+- V2 memisahkan canonical dan `localizations.en/id`, memakai revisi/publikasi per bahasa dan import `MERGE_LESSONS`. Definisi field v1 di bawah tidak diterapkan pada payload v2. Konversi konten pada `BIL-02`, jalur import/runtime pada `BIL-03`.
+
 ## Scope
 - Dokumen ini menyelesaikan task `SYL-03` dengan mendefinisikan bentuk seed content yang direkomendasikan untuk syllabus KotobaHub.
 - Tujuannya adalah menyediakan format yang:

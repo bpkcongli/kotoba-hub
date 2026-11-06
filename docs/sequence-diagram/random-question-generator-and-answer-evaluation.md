@@ -70,6 +70,42 @@ sequenceDiagram
     end
 ```
 
+## Perluasan direct quiz localized — BIL-01
+
+Target `BIL-03`, belum mengganti jalur legacy di atas. [Kontrak bilingual](../api-contract/bilingual.md) mengunci resolusi locale, snapshot, expiry dan retry; pasangan AI random practice diperluas pada `BIL-06`.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant App
+    participant Practice
+    participant Users
+    participant Syllabus
+    participant Progress
+    participant DB
+    App->>Practice: next(lessonSlug, contentFormat=localized, contentLocale?)
+    Practice->>Practice: Validate origin and APP_READY session
+    Practice->>Users: Read language preference via port
+    Practice->>Progress: Read current lesson understanding
+    Practice->>Syllabus: Select canonical question at min(current+1,10), resolve localization
+    Syllabus-->>Practice: Canonical key plus current published locale package
+    Practice->>DB: Save user delivery snapshot, expiry 24h
+    Practice-->>App: deliveryId, expiresAt, question and localization; no key
+    App->>Practice: answer(deliveryId, questionId, userAnswer), Idempotency-Key
+    Practice->>Practice: Validate origin and APP_READY session
+    Practice->>DB: Read receipt by user and idempotency key
+    alt Same key and payload already recorded
+        DB-->>Practice: Saved result and original language
+    else New attempt
+        Practice->>DB: Load owned delivery; check expiry and question binding
+        Practice->>Progress: Validate current target
+        Practice->>Practice: Grade server snapshot
+        Practice->>DB: Save receipt and consume delivery once
+        Note over Practice,Progress: Continue existing idempotent progress handoff/recovery
+    end
+    Practice-->>App: Original localized result, at most one progress event
+```
+
 ## Key Decisions Locked By This Diagram
 - `practice` menjadi owner untuk session generation, question storage, answer evaluation, dan session-state update.
 - `personalization` hanya menyuplai recommendation spec, bukan question payload final.

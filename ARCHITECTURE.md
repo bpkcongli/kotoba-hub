@@ -329,6 +329,8 @@ Contoh flashcard: `FlashcardSession` feature memanggil action pada `FlashcardSes
 
 ## 7. Pengujian dan referensi
 
+Kontrak bilingual `BIL-01` untuk implementasi bertahap ada pada [bilingual content contract](docs/syllabus/bilingual-content-contract.md) dan [OpenAPI target](docs/api-contract/openapi.bilingual.yaml). `syllabus` memiliki canonical/translation dan resolver kontennya; `users` memiliki `user_preferences`; `practice` memiliki delivery/receipt quiz. Tipe locale dan resolusi preferensi umum berada di shared, dengan dependency melalui port/facade; terjemahan payload tetap pada context pemilik. FE memakai bootstrap locale serializable serta store/provider yang sudah ada. ID/progress tetap canonical lintas bahasa. Runtime aktif masih v1 sampai `BIL-03`; tidak ada service/bounded context baru.
+
 Unit tests mencakup domain BE serta store FE dengan implementasi API service dan handler MSW. Component tests memakai provider/container test baru serta skenario HTTP MSW untuk memeriksa state yang terlihat user. Integration/E2E memeriksa interaksi aktual ke backend, progress write-through, dan isolasi user/session sesuai `TEST-01`–`TEST-11`.
 
 - Ownership dan alur bisnis: [architecture foundation](docs/architecture-foundation.md).

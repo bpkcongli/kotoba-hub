@@ -1,9 +1,36 @@
 # ERD Learning Activity
 
+## Perluasan final BIL-01 (implementasi BIL-03)
+
+Direct quiz localized membutuhkan snapshot delivery agar locale, revisi soal dan kunci yang dinilai sama dengan saat soal diberikan. Kontrak v1/engine di bawah tetap baseline; tambahan target:
+
+```mermaid
+erDiagram
+    USERS ||--o{ PRACTICE_POST_STUDY_DELIVERIES : receives
+    LESSON_POST_STUDY_QUESTIONS ||--o{ PRACTICE_POST_STUDY_DELIVERIES : snapshots
+    PRACTICE_POST_STUDY_RECEIPTS o|--o| PRACTICE_POST_STUDY_DELIVERIES : records_result
+```
+
+| Column `practice_post_study_deliveries` | Tipe / constraint |
+| --- | --- |
+| `id` | `char(36)` PK, UUID opaque |
+| `user_id` | `char(36)` NOT NULL, FK users.id RESTRICT |
+| `question_id` | `char(36)` NOT NULL, FK lesson_post_study_questions.id RESTRICT |
+| `snapshot_payload` | `json` NOT NULL; lesson/skill IDs, canonical prompt/kunci, locale/revisi, paket bantuan/feedback dan target understanding |
+| `created_at`, `expires_at` | `timestamp(3)` NOT NULL; expiry 24 jam, index `(user_id,expires_at)` |
+| `receipt_id` | `char(36)` NULL, UNIQUE, FK practice_post_study_receipts.id RESTRICT |
+
+- Owner adalah `practice`, terjemahan bank tetap `syllabus`, progress tetap `progress`. Tidak membuat practice session/question. Kunci snapshot tidak pernah dikirim pada response next.
+- Localized answer wajib delivery ID dan Idempotency-Key. Delivery maksimal satu hasil; receipt/result, konsumsi delivery dan recovery progress harus tahan concurrency/retry. Receipt menyimpan delivery ID/result localization. Replay sah memakai hasil lama sebelum expiry/stale-target checks; owner/authorization tetap diperiksa.
+- Detail request, snapshot, expiry, conflict dan kompatibilitas: [kontrak konten §7](../syllabus/bilingual-content-contract.md#7-direct-quiz-bahasa-yang-konsisten-sampai-retry), [API bilingual](../api-contract/bilingual.md), serta [OpenAPI target](../api-contract/openapi.bilingual.yaml). Migration belum dijalankan pada `BIL-01`.
+- Locale tidak menjadi key tambahan untuk mastery, understanding, atau Leitner. Schema aktivitas flashcard/random practice bilingual difinalkan `BIL-05/BIL-06`; sesi/receipt lama tidak ditulis ulang.
+- Tabel receipt sudah diimplementasikan pada `IMP-09`; definisi kolom dan payload existing tersedia pada bagian [`practice_post_study_receipts`](#practice_post_study_receipts). Relasi delivery ke receipt di atas masih target `BIL-03`.
+
 ## Scope
 - Dokumen ini menyelesaikan task `ARCH-10`.
 - Fokus utamanya mencakup tabel inti yang diminta oleh task: `flashcard_decks`, `flashcard_items`, `practice_sessions`, `practice_questions`, `practice_answers`, `progress_events`, dan `skill_mastery_snapshots`.
 - Dokumen ini juga menetapkan `lesson_understanding_snapshots` sebagai tabel progress first-class untuk mencatat level pemahaman terakhir user per lesson setelah post-study quiz/review.
+- Tabel `practice_post_study_receipts` dari `IMP-09` menyimpan state retry dan hasil direct lesson post-study quiz berdasarkan `Idempotency-Key` per user.
 - Dokumen ini juga menambahkan empat supporting entity, `flashcard_deck_items`, `flashcard_sessions`, `flashcard_session_answers`, dan `flashcard_item_states`, karena custom deck by reference membutuhkan relasi many-to-many deck-item, sementara flashcard multiple-choice yang membentuk opsi jawaban saat session dibuat, lalu menyimpan snapshot opsi yang benar-benar ditampilkan, tidak bisa dimodelkan dengan aman tanpa state per session, answer log per turn, dan state per user-per-item.
 - Relasi ke `users`, `skills`, `lessons`, `units`, `tracks`, dan `lesson_post_study_questions` diperlakukan sebagai external references dari ERD `ARCH-08` dan `ARCH-09`.
 
@@ -25,6 +52,7 @@ erDiagram
     USERS ||--o{ FLASHCARD_SESSIONS : starts
     USERS ||--o{ FLASHCARD_ITEM_STATES : owns
     USERS ||--o{ PRACTICE_SESSIONS : starts
+    USERS ||--o{ PRACTICE_POST_STUDY_RECEIPTS : owns
     USERS ||--o{ PROGRESS_EVENTS : produces
     USERS ||--o{ SKILL_MASTERY_SNAPSHOTS : owns
     USERS ||--o{ LESSON_UNDERSTANDING_SNAPSHOTS : owns
@@ -197,6 +225,15 @@ erDiagram
         timestamp updated_at
     }
 
+    PRACTICE_POST_STUDY_RECEIPTS {
+        char(36) id PK
+        char(36) user_id FK
+        char(36) idempotency_key
+        json receipt_payload
+        timestamp created_at
+        timestamp updated_at
+    }
+
     PROGRESS_EVENTS {
         char(36) id PK
         char(36) user_id FK
@@ -262,6 +299,7 @@ erDiagram
 - `flashcard_items 1 -> N flashcard_item_states`: state Leitner disimpan per `user + item`, bukan di tabel item global.
 - `practice_sessions 1 -> N practice_questions`: satu session practice menghasilkan satu set pertanyaan untuk random practice. Lesson `post-study quiz` tidak memakai relasi ini pada baseline MVP.
 - `practice_questions 1 -> N practice_answers`: MVP bisa memakai satu answer per question, tetapi relasi dibuat `1 -> N` agar retry/future replay tidak mematahkan schema.
+- `users 1 -> N practice_post_study_receipts`: receipt dimiliki satu user; unique `(user_id, idempotency_key)` mengidentifikasi satu attempt. Referensi question, skill dan progress event berada dalam JSON sebagai referensi logis, bukan FK tambahan pada tabel receipt.
 - `practice_answers 1 -> N progress_events`: satu jawaban practice minimal menghasilkan satu event, tetapi model ini tetap aman bila nanti ada pemecahan event granular.
 - `progress_events 1 -> N lesson_understanding_snapshots`: event benar/salah dari lesson `post-study quiz` mengubah snapshot pemahaman terakhir per `user + lesson`.
 - `users 1 -> N progress_events` dan `users 1 -> N skill_mastery_snapshots`: progress selalu dihitung per user.
@@ -711,6 +749,50 @@ Prinsip pemakaian:
 - `progress_events.grading_metadata` sebaiknya hanya membawa bagian yang relevan untuk mastery engine dan audit.
 - Metadata observability yang lebih detail seperti token usage, latency, retry, atau failure trace tetap berada di `ai_request_logs` dan `ai_request_attempts`, bukan dipadatkan ke `grading_metadata`.
 
+### `practice_post_study_receipts`
+
+State retry direct lesson post-study quiz milik context `practice`, sudah diimplementasikan pada `IMP-09` melalui [migration 0005](../../drizzle/0005_practice_engine.sql) dan [schema Drizzle practice](../../src/backend/practice/infrastructure/database/schema.ts). Receipt dapat dibuat setelah grading sebelum handoff progress selesai, lalu dilengkapi dengan hasil akhir untuk replay. Direct quiz tetap tidak membuat row `practice_sessions`, `practice_questions`, atau `practice_answers`.
+
+| Column | Type | Constraint | Notes |
+| --- | --- | --- | --- |
+| `id` | `char(36)` | PK, not null | UUID internal receipt, berbeda dari key request dan progress event ID. |
+| `user_id` | `char(36)` | FK -> `users.id`, not null | Owner receipt; FK memakai ON DELETE/UPDATE NO ACTION pada migration existing. |
+| `idempotency_key` | `char(36)` | not null | UUID `Idempotency-Key` dari client, atau UUID baru dari server bila header tidak dikirim. |
+| `receipt_payload` | `json` | not null | Snapshot internal bertipe `LessonReceipt`; berisi fingerprint, atribusi attempt, grading, stable event ID, dan hasil yang awalnya boleh null. |
+| `created_at` | `timestamp` | not null, default `now()` | Audit pembuatan row. |
+| `updated_at` | `timestamp` | not null, default `now()`, ON UPDATE CURRENT_TIMESTAMP | Audit perubahan row, termasuk penyimpanan hasil akhir. |
+
+Constraints existing:
+
+- Primary key `practice_post_study_receipts_id` pada `id`.
+- Unique index `practice_post_study_user_key_uk` pada `(user_id, idempotency_key)`; key yang sama boleh digunakan user berbeda. Tidak unik per question karena review question yang sama merupakan attempt baru dengan key baru.
+- FK fisik hanya `user_id`; tidak ada FK dari JSON ke canonical question, skill atau progress event, dan tidak ada kolom session/delivery pada schema v1.
+
+Isi `receipt_payload` mengikuti [tipe `LessonReceipt`](../../src/backend/practice/domain/repositories/practice.repository.ts):
+
+| Field JSON | Isi |
+| --- | --- |
+| `id`, `userId`, `key` | Identitas yang harus sesuai dengan kolom `id`, `user_id`, dan `idempotency_key`. |
+| `fingerprint` | SHA-256 atas `lessonSlug`, `questionId`, bentuk canonical jawaban, dan `responseTimeMs`; mengikat key pada payload submit yang sama. |
+| `eventId` | UUID progress event yang dibuat sekali dan dipakai ulang saat recovery. |
+| `answeredAt`, `responseTimeMs` | Waktu submit ISO dan durasi nullable yang dikunci untuk attempt tersebut. |
+| `lessonSlug`, `questionId`, `skillId`, `skillCode` | Atribusi canonical yang sudah divalidasi ketika receipt dibuat. |
+| `difficultyLevel`, `understandingBefore` | Difficulty soal `1..10` dan level understanding saat attempt dimulai. |
+| `grade` | `isCorrect`, `numericScore`, `feedbackText`, `gradingSource`, serta `gradingMetadata`. Direct quiz memakai grading deterministik. |
+| `result` | `LessonAnswerResult` atau null. Hasil final mencakup transisi understanding authoritative dan `progressImpact`. |
+
+Payload v1 tidak memiliki field `userAnswer` tersendiri; input submit diikat melalui fingerprint. Receipt menyimpan hasil dan state recovery, bukan draft input UI atau tabel histori jawaban random practice.
+
+Lifecycle dan aturan replay:
+
+1. Cari receipt berdasarkan user dan key, lalu cocokkan fingerprint. Key sama dengan payload berbeda ditolak `422 / 142206002`.
+2. Jika `result` sudah terisi, kembalikan hasil lama sebelum mengecek target difficulty terbaru. Ini memungkinkan retry setelah jawaban benar sudah menaikkan understanding, termasuk setelah ada attempt berikutnya.
+3. Jika belum ada receipt, validasi soal/target, grade jawaban, lalu simpan receipt dengan `result=null`. Insert konkuren memakai unique key dan membaca receipt pemenang tanpa menimpa attempt yang sudah ada.
+4. Kirim event ke use case `progress` menggunakan `eventId` tersimpan. Jika proses terputus, retry melanjutkan handoff dengan ID yang sama; progress menolak duplikasi event secara idempotent. `result=null` bukan bukti bahwa progress belum ditulis, karena response atau update receipt dapat gagal setelah event tersimpan.
+5. Simpan hasil akhir dengan row lock; hasil yang sudah ada tidak ditimpa. Retry berikutnya mengembalikan hasil tersebut tanpa grading atau penambahan progress baru.
+
+Tanpa header `Idempotency-Key`, setiap submit mendapatkan key baru sehingga tidak menjadi retry attempt lama. Receipt v1 tidak memiliki `expires_at` atau TTL; expiry 24 jam pada kontrak bilingual berlaku untuk **delivery baru**, bukan receipt. Penambahan binding `deliveryId` dan metadata localization pada payload/result receipt dilakukan `BIL-03`, dengan mempertahankan replay receipt lama. Lihat [kontrak API practice](../api-contract/practice.md#post-apiv1practicelesson-post-studyanswer) dan [kontrak bilingual](../api-contract/bilingual.md#delivery-post-study-quiz).
+
 ### `progress_events`
 Fakta belajar mentah yang diterima `progress` dari `flashcards` atau `practice`.
 
@@ -844,12 +926,9 @@ Recommended constraints:
 - Answer memakai `attempt_number=1` dan unique `(question_id, attempt_number)`.
   `answer_payload` menyimpan input, stable event ID, waktu, serta producer session
   metadata; `result_payload` dan `progress_recorded` menyimpan hasil handoff.
-- Tabel receipt internal memiliki `id char(36)` PK, `user_id char(36)` FK users,
-  `idempotency_key char(36)`, `receipt_payload json`, dan audit timestamps.
-  Unique `(user_id, idempotency_key)` mencegah key user saling bertabrakan.
-  Payload memuat fingerprint, stable event ID, waktu, atribusi canonical question,
-  grade, serta hasil. Receipt adalah state retry, bukan histori `practice_answer`
-  atau bank soal; direct quiz tetap tidak membuat session/question/answer practice.
+- Definisi lengkap tabel receipt, payload dan lifecycle recovery tersedia pada
+  [`practice_post_study_receipts`](#practice_post_study_receipts). Receipt adalah
+  state retry direct quiz, bukan bank soal atau histori `practice_answer`.
 - Progress menambahkan `progress.lessonTransition = {before, after}` pada metadata
   event post-study, dihitung di dalam lock lesson. Retry mengembalikan transisi
   immutable ini walaupun snapshot pemahaman sudah berubah lagi. Tidak diperlukan
@@ -899,7 +978,7 @@ Recommended constraints:
 
 ## Ownership And Flow Mapping
 - `flashcards` memiliki `flashcard_decks`, `flashcard_items`, `flashcard_sessions`, dan `flashcard_item_states`.
-- `practice` memiliki `practice_sessions`, `practice_questions`, dan `practice_answers`.
+- `practice` memiliki `practice_sessions`, `practice_questions`, `practice_answers`, dan `practice_post_study_receipts`. Delivery bilingual menjadi tambahan pada `BIL-03`.
 - `progress` memiliki `progress_events`, `skill_mastery_snapshots`, dan `lesson_understanding_snapshots`.
 - `flashcards` dan `practice` tidak menyimpan mastery langsung; keduanya hanya menulis hasil internal lalu mengirim handoff event ke `progress`.
 - `flashcards` tidak menyimpan opsi final yang selalu sama di `flashcard_items`; item hanya menyimpan seed canonical answer dan distractor pool, sementara opsi final dibentuk di boundary session lalu disnapshot untuk grading.

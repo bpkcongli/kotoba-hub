@@ -178,6 +178,7 @@ GET /api/v1/flashcards/decks?offset=0&limit=10
 - Query params pagination disimpan konsisten sebagai `offset` dan `limit`; jangan campur dengan `page`, `pageSize`, atau `cursor` di MVP kecuali memang ada keputusan arsitektur baru.
 
 ## Deliverables
+- Kontrak bilingual final `BIL-01` untuk implementasi `BIL-03`: [aturan representasi/preferensi/delivery](./bilingual.md) dan [OpenAPI target](./openapi.bilingual.yaml). File OpenAPI fitur existing tetap mendeskripsikan representasi legacy; localized harus diminta eksplisit. Runtime belum mendukung target ini pada tahap finalisasi kontrak.
 - Base OpenAPI document tersedia di `docs/api-contract/openapi.base.yaml`.
 - Dokumen ini menjadi referensi naratif untuk pengisian contract endpoint pada task berikutnya.
 

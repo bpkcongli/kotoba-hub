@@ -2,6 +2,8 @@
 
 ## Status dan cakupan
 
+Target locale `BIL-01` untuk implementasi `BIL-03` mengikuti [kontrak bilingual](../syllabus/bilingual-content-contract.md#5-preferensi-user-dan-i18n): `contentLocale` dan `uiLocale` terpisah, bootstrap SSR/client konsisten, cache/store memakai identity/format/locale, dan hasil request locale lama tidak diterapkan. English tetap default UI sampai i18n `BIL-07`; aturan ini belum mengubah runtime aktif.
+
 Baseline pattern untuk `IMP-11` dan consumer `IMP-12`–`IMP-17`. Fondasi runtime HTTP/session/DI, shared shell, dan primitive P0 sudah diimplementasikan; panduan penggunaan dan batas cakupan ada di [implementasi fondasi FE](frontend-foundation-implementation.md). Axios ditambahkan melalui Bun beserta lockfile. Snippet skill tetap berupa contoh adaptasi, bukan daftar class yang wajib dibuat: interface form/list/modal dan formatter baru ditambahkan ketika fitur memiliki consumer nyata.
 
 Acuan: [architecture](../../ARCHITECTURE.md), [API base](../api-contract/README.md), [auth](../api-contract/auth-and-authorization.md), [personalization](../api-contract/user-profile-and-personalization.md), [progress](../api-contract/progress.md), [design system](../../DESIGN_SYSTEM.md), [responsive rules](../system-design/responsive-layout-rules.md), dan [page inventory](../system-design/information-architecture-and-page-inventory.md). Panduan agent: [kotoba-frontend-foundations](../../.agents/skills/kotoba-frontend-foundations/SKILL.md).

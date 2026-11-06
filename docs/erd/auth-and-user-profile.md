@@ -1,5 +1,26 @@
 # ERD Auth And User Profile
 
+## Perluasan final BIL-01 (implementasi BIL-03)
+
+Preferensi bahasa menjadi scope `users` melalui tabel terpisah agar tersedia sebelum profil onboarding dibuat. Definisi v1 di bawah tetap menggambarkan schema aktif; target tambahan:
+
+```mermaid
+erDiagram
+    USERS ||--o| USER_PREFERENCES : has
+    USER_PREFERENCES {
+        char(36) user_id PK,FK
+        varchar(2) content_locale
+        varchar(2) ui_locale
+        timestamp created_at
+        timestamp updated_at
+    }
+```
+
+- `user_id` FK `users.id` memakai RESTRICT; satu row maksimal per user. Kedua locale NOT NULL DEFAULT `'en'`, CHECK nilai `en/id`; timestamp NOT NULL. Tanpa row, query mengembalikan default tanpa menulis.
+- GET/PATCH `/api/v1/user-profile/preferences` memerlukan session valid, tersedia sebelum/sesudah onboarding. PATCH same-origin, partial nonkosong; tidak membuat `learner_profiles` atau mengubah onboarding/progress.
+- `content_locale` terpisah dari `ui_locale`, `preferred_script`, dan timezone. Cookie UI pra-login tidak otomatis mengubah preferensi akun. Lihat [kontrak bilingual](../syllabus/bilingual-content-contract.md#5-preferensi-user-dan-i18n) dan [OpenAPI target](../api-contract/openapi.bilingual.yaml).
+- Penambahan tabel ini adalah kontrak, migration dikerjakan `BIL-03`. Bahasa tidak ditambahkan ke session/account OAuth atau payload konfirmasi assessment.
+
 ## Scope
 - Dokumen ini menyelesaikan task `ARCH-08`.
 - Fokus ERD dibatasi ke empat entitas inti MVP: `users`, `accounts`, `sessions`, dan `learner_profiles`.
@@ -167,5 +188,5 @@ State profile belajar final milik context `users`, diisi setelah onboarding diko
 
 ## Out Of Scope For This ERD
 - Tabel assessment draft atau log AI normalization. Itu masuk area `ARCH-11` bila nanti diputuskan perlu tabel observability/personalization log.
-- Settings non-onboarding seperti language preference, notification preference, atau billing.
+- Settings non-onboarding selain language preference yang diperluas pada `BIL-01`, misalnya notification preference atau billing.
 - Domain progress, flashcard, practice, dan syllabus yang akan dibahas di task ERD berikutnya.

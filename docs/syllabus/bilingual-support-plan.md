@@ -2,17 +2,17 @@
 
 ## Status dan batas cakupan
 
-- Dokumen planning; schema v1, ERD, kontrak API, dan runtime saat ini tetap berlaku sampai revisi terkait diselesaikan.
+- `BIL-01` selesai: [kontrak konten bilingual](./bilingual-content-contract.md), schema/examples v2, ERD target dan OpenAPI sudah difinalkan. Runtime/seed aktif tetap v1 hingga implementasi `BIL-03`; tahap lain masih planning.
 - Target: materi dan aplikasi berbahasa Inggris (`en`) serta Indonesia (`id`), dengan bahasa Jepang (`ja`) tetap sebagai bahasa yang dipelajari.
 - Identitas track/unit/lesson/skill/soal, slug, urutan, prerequisite, dan progress tetap canonical lintas bahasa. Locale tidak menjadi bagian ID atau kunci mastery/Leitner.
-- Batch awal mencakup **16 lesson N5 yang sudah memiliki materi terkurasi dan bank 10 soal**, beserta metadata parent dan skill terkait. Daftar slug dikunci saat `BIL-01`; paragraf pengantar generik tidak dihitung sebagai materi lengkap.
+- Batch awal mencakup **16 lesson N5 yang sudah memiliki materi terkurasi dan bank 10 soal**, beserta metadata parent dan skill terkait. ID/slug dan checksum sumber dikunci pada [allowlist batch 01](./bilingual-batch-01.json); paragraf pengantar generik tidak dihitung sebagai materi lengkap.
 - Baseline seed: 42 lesson N5, 40 lesson N4; dry-run importer meloloskan 9 lesson. Dari 16 kandidat, 7 bermasalah pada atribusi skill soal. Periksa ulang saat eksekusi.
 
 ## Tahapan
 
 Gunakan `[ ]` untuk belum selesai dan `[x]` untuk selesai. Perbarui status bersama task terkait di [task breakdown](../task-breakdown.md); tahap ditandai selesai setelah seluruh cakupannya terpenuhi.
 
-- [ ] `BIL-01` Finalisasi schema dan kebijakan bahasa.
+- [x] `BIL-01` Finalisasi schema dan kebijakan bahasa. Lihat [kontrak final](./bilingual-content-contract.md).
 - [ ] `BIL-02` Konversi seed untuk lesson yang sudah tersedia.
 - [ ] `BIL-03` Integrasi database, importer, API, dan pembaca syllabus.
 - [ ] `BIL-04` Seed lesson lain (ditangguhkan: menunggu subagent dan skill authoring/review pada sesi terpisah).
@@ -25,11 +25,11 @@ Gunakan `[ ]` untuk belum selesai dan `[x]` untuk selesai. Perbarui status bersa
 
 - Gunakan **`schemaVersion: "2.0.0"`** untuk manifest dan track v2 karena kontrak teks berubah. Versi schema terpisah dari revisi konten, versi API `/api/v1`, dan nomor migration DB.
 - Tetapkan `localizations.en` / `localizations.id`; kalimat Jepang, referensi skill, input mode, dan kunci quiz tetap canonical. Seragamkan block legacy `title`/`body`; sediakan JSON Schema dan contoh minimal v2.
-- Arah DB: tabel `track_translations`, `unit_translations`, `lesson_translations`, `skill_translations`, `lesson_content_block_translations`, dan `lesson_post_study_question_translations`; FK ke owner, unik `(owner_id, locale)`, status publikasi, serta revisi sumber. Payload block berupa JSON sesuai `blockType`.
+- Schema DB final: enam tabel terjemahan per owner, PK composite owner/locale, serta revisi/publikasi; `user_preferences` terpisah dari learner profile dan snapshot delivery quiz milik practice. Detail field/relasi ada pada kontrak final dan ERD target; migration dikerjakan `BIL-03`.
 - Bedakan `contentLocale`, `uiLocale`, bahasa prompt/jawaban, dan `preferredScript`. Simpan preferensi pada context `users`; default awal `en`. Definisikan resolusi sejak awal: pilihan eksplisit yang valid → preferensi tersimpan → default. Untuk UI sebelum login, gunakan cookie locale yang divalidasi.
 - Fallback: locale yang diminta dan published → `en` published. Satu bahasa per entitas/block; hint dan explanation satu soal menjadi satu paket. Jika keduanya tidak tersedia, tahan publikasi konten wajib. Response menunjukkan requested/resolved locale dan fallback; draft tidak ditampilkan.
 - Petakan field lama (`englishTranslation`, `meaningsEn`, `glossesEn`, `translationEn`) ke schema baru; tentukan penyimpanan arti skill karena `skill.content` belum dipersist oleh importer syllabus.
-- Output: revisi [schema seed](./seed-content-schema.md), [JSON Schema](./schema/), ERD [syllabus](../erd/syllabus-domain.md) / [user](../erd/auth-and-user-profile.md), OpenAPI terkait, serta aturan kompatibilitas v1/v2 sebelum implementasi.
+- Output selesai: [schema seed](./seed-content-schema.md), [JSON Schema v2](./schema/track-seed.v2.schema.json) dan contoh, ERD [syllabus](../erd/syllabus-domain.md) / [user](../erd/auth-and-user-profile.md) / [activity](../erd/learning-activity.md), [OpenAPI target](../api-contract/openapi.bilingual.yaml), serta aturan kompatibilitas v1/v2. Verifikasi: `python3 scripts/validate_bilingual_contracts.py`.
 
 ### BIL-02 — Konversi seed untuk lesson yang sudah tersedia
 

@@ -95,9 +95,9 @@ Urutan deployment awal: `DEP-01 → DEP-02 → DEP-04 → DEP-06 → DEP-05`.
 
 ### 7. Dukungan Bilingual dan Internationalization
 
-Rencana dan batas cakupan: [bilingual support plan](./syllabus/bilingual-support-plan.md). Baseline seed/schema/API saat ini tetap berlaku sampai tahap finalisasi terkait selesai.
+Rencana dan batas cakupan: [bilingual support plan](./syllabus/bilingual-support-plan.md). Kontrak target `BIL-01` sudah final; runtime dan seed aktif masih v1 sampai implementasi `BIL-03`.
 
-- [ ] `BIL-01` Finalisasi schema seed `2.0.0`, schema DB terjemahan, locale/preferensi, fallback, revisi/publikasi terjemahan, allowlist batch awal, dan kontrak transisi v1/v2. Selaraskan ERD, JSON Schema, dan OpenAPI sebelum implementasi.
+- [x] `BIL-01` Finalisasi schema seed `2.0.0`, schema DB terjemahan/preferensi/delivery quiz, fallback dan revisi/publikasi, allowlist 16 lesson, serta transisi v1/v2. [Kontrak final](./syllabus/bilingual-content-contract.md), JSON Schema/examples, ERD dan [OpenAPI target](./api-contract/openapi.bilingual.yaml) tersedia. Verifikasi read-only `python3 scripts/validate_bilingual_contracts.py` lulus; migration/runtime dilanjutkan `BIL-03`.
 - [ ] `BIL-02` Konversi seed v1 untuk 16 lesson N5 yang sudah memiliki materi terkurasi dan bank quiz ke v2; audit baseline Inggris, lengkapi Indonesia, perbaiki atribusi skill soal, dan pertahankan identitas/provenance. Dependency: `BIL-01`.
 - [ ] `BIL-03` Implement migration/backfill, importer v2, preferensi/resolver locale, API dan renderer syllabus bilingual, serta cutover tanpa menonaktifkan konten di luar batch. Dependency: `BIL-02`.
 - [ ] `BIL-04` Generate seed v2 untuk lesson lain setelah subagent dan skill authoring/review siap (ditangguhkan: menunggu tooling pada sesi terpisah). Dependency: `BIL-03` dan kesiapan tooling; tidak memblokir fitur bilingual untuk batch awal.

@@ -1,0 +1,391 @@
+{
+  "schemaVersion": "2.0.0",
+  "generatedAt": "2026-11-04",
+  "track": {
+    "id": "00000000-0000-5000-8000-000000000001",
+    "contentRevision": 1,
+    "isPublished": false,
+    "slug": "jlpt-n5-foundation",
+    "curriculumLevel": "N5",
+    "sortOrder": 1,
+    "localizations": {
+      "en": {
+        "sourceRevision": 1,
+        "translationRevision": 1,
+        "isPublished": true,
+        "sourceRefs": [
+          {
+            "provider": "KOTOBAHUB_INTERNAL",
+            "category": "SCHEMA_EXAMPLE",
+            "externalId": "bil-01-example-only"
+          }
+        ],
+        "title": "JLPT N5 Foundation",
+        "description": null
+      },
+      "id": {
+        "sourceRevision": 1,
+        "translationRevision": 1,
+        "isPublished": true,
+        "sourceRefs": [
+          {
+            "provider": "KOTOBAHUB_INTERNAL",
+            "category": "SCHEMA_EXAMPLE",
+            "externalId": "bil-01-example-only"
+          }
+        ],
+        "title": "Dasar JLPT N5",
+        "description": null
+      }
+    },
+    "units": [
+      {
+        "id": "00000000-0000-5000-8000-000000000002",
+        "contentRevision": 1,
+        "isPublished": false,
+        "slug": "example-particles",
+        "sortOrder": 1,
+        "isFoundationUnit": false,
+        "localizations": {
+          "en": {
+            "sourceRevision": 1,
+            "translationRevision": 1,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "SCHEMA_EXAMPLE",
+                "externalId": "bil-01-example-only"
+              }
+            ],
+            "title": "Particles",
+            "description": null
+          },
+          "id": {
+            "sourceRevision": 1,
+            "translationRevision": 1,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "SCHEMA_EXAMPLE",
+                "externalId": "bil-01-example-only"
+              }
+            ],
+            "title": "Partikel",
+            "description": null
+          }
+        },
+        "lessons": [
+          {
+            "id": "00000000-0000-5000-8000-000000000003",
+            "contentRevision": 1,
+            "isPublished": false,
+            "slug": "example-topic-marker",
+            "sortOrder": 1,
+            "estimatedMinutes": 10,
+            "localizations": {
+              "en": {
+                "sourceRevision": 1,
+                "translationRevision": 1,
+                "isPublished": true,
+                "sourceRefs": [
+                  {
+                    "provider": "KOTOBAHUB_INTERNAL",
+                    "category": "SCHEMA_EXAMPLE",
+                    "externalId": "bil-01-example-only"
+                  }
+                ],
+                "title": "Topic marker",
+                "learningObjective": "Use は to introduce a topic."
+              },
+              "id": {
+                "sourceRevision": 1,
+                "translationRevision": 1,
+                "isPublished": true,
+                "sourceRefs": [
+                  {
+                    "provider": "KOTOBAHUB_INTERNAL",
+                    "category": "SCHEMA_EXAMPLE",
+                    "externalId": "bil-01-example-only"
+                  }
+                ],
+                "title": "Penanda topik",
+                "learningObjective": "Menggunakan は untuk memperkenalkan topik."
+              }
+            },
+            "contentBlocks": [
+              {
+                "id": "00000000-0000-5000-8000-000000000005",
+                "contentRevision": 1,
+                "isPublished": false,
+                "blockType": "PARAGRAPH",
+                "sortOrder": 1,
+                "content": {},
+                "localizations": {
+                  "en": {
+                    "sourceRevision": 1,
+                    "translationRevision": 1,
+                    "isPublished": true,
+                    "sourceRefs": [
+                      {
+                        "provider": "KOTOBAHUB_INTERNAL",
+                        "category": "SCHEMA_EXAMPLE",
+                        "externalId": "bil-01-example-only"
+                      }
+                    ],
+                    "title": "Topic",
+                    "body": "<p>Use は to mark the topic.</p>"
+                  },
+                  "id": {
+                    "sourceRevision": 1,
+                    "translationRevision": 1,
+                    "isPublished": true,
+                    "sourceRefs": [
+                      {
+                        "provider": "KOTOBAHUB_INTERNAL",
+                        "category": "SCHEMA_EXAMPLE",
+                        "externalId": "bil-01-example-only"
+                      }
+                    ],
+                    "title": "Topik",
+                    "body": "<p>Gunakan は untuk menandai topik.</p>"
+                  }
+                }
+              },
+              {
+                "id": "00000000-0000-5000-8000-000000000006",
+                "contentRevision": 1,
+                "isPublished": false,
+                "blockType": "EXAMPLE_SENTENCE",
+                "sortOrder": 2,
+                "content": {
+                  "japaneseSentence": "<p>わたしはがくせいです。</p>"
+                },
+                "localizations": {
+                  "en": {
+                    "sourceRevision": 1,
+                    "translationRevision": 1,
+                    "isPublished": true,
+                    "sourceRefs": [
+                      {
+                        "provider": "KOTOBAHUB_INTERNAL",
+                        "category": "SCHEMA_EXAMPLE",
+                        "externalId": "bil-01-example-only"
+                      }
+                    ],
+                    "translation": "<p>I am a student.</p>"
+                  },
+                  "id": {
+                    "sourceRevision": 1,
+                    "translationRevision": 1,
+                    "isPublished": true,
+                    "sourceRefs": [
+                      {
+                        "provider": "KOTOBAHUB_INTERNAL",
+                        "category": "SCHEMA_EXAMPLE",
+                        "externalId": "bil-01-example-only"
+                      }
+                    ],
+                    "translation": "<p>Saya seorang pelajar.</p>"
+                  }
+                }
+              },
+              {
+                "id": "00000000-0000-5000-8000-000000000007",
+                "contentRevision": 1,
+                "isPublished": false,
+                "blockType": "GRAMMAR_STRUCTURE",
+                "sortOrder": 3,
+                "content": {
+                  "skillCode": "n5_example_particle_wa"
+                },
+                "localizations": {
+                  "en": {
+                    "sourceRevision": 1,
+                    "translationRevision": 1,
+                    "isPublished": true,
+                    "sourceRefs": [
+                      {
+                        "provider": "KOTOBAHUB_INTERNAL",
+                        "category": "SCHEMA_EXAMPLE",
+                        "externalId": "bil-01-example-only"
+                      }
+                    ],
+                    "ALL": "<p>は follows the topic.</p>",
+                    "STANDARD": null,
+                    "POLITE": null
+                  },
+                  "id": {
+                    "sourceRevision": 1,
+                    "translationRevision": 1,
+                    "isPublished": true,
+                    "sourceRefs": [
+                      {
+                        "provider": "KOTOBAHUB_INTERNAL",
+                        "category": "SCHEMA_EXAMPLE",
+                        "externalId": "bil-01-example-only"
+                      }
+                    ],
+                    "ALL": "<p>は mengikuti topik.</p>",
+                    "STANDARD": null,
+                    "POLITE": null
+                  }
+                }
+              }
+            ],
+            "postStudyQuestions": [
+              {
+                "id": "00000000-0000-5000-8000-000000000008",
+                "contentRevision": 1,
+                "isPublished": false,
+                "skillCode": "n5_example_particle_wa",
+                "difficultyLevel": 1,
+                "questionType": "SHORT_FREE_RESPONSE",
+                "sortOrder": 1,
+                "promptPayload": {
+                  "schemaVersion": 1,
+                  "sentenceTemplate": "わたし___がくせいです。",
+                  "sentenceTemplateHtml": "<p>わたし<span class=\"question-blank\">___</span>がくせいです。</p>",
+                  "promptLanguage": "JA",
+                  "answerLanguage": "JA",
+                  "slotCount": 1,
+                  "blankInputMode": "ROMAJI_TO_KANA",
+                  "inputMethod": {
+                    "acceptsRomaji": true,
+                    "transformsTo": "KANA"
+                  }
+                },
+                "expectedAnswer": {
+                  "acceptedTextAnswers": ["は"],
+                  "normalizationProfile": "kana-strict-v1"
+                },
+                "sourceRefs": [
+                  {
+                    "provider": "KOTOBAHUB_INTERNAL",
+                    "category": "SCHEMA_EXAMPLE",
+                    "externalId": "bil-01-example-only"
+                  }
+                ],
+                "localizations": {
+                  "en": {
+                    "sourceRevision": 1,
+                    "translationRevision": 1,
+                    "isPublished": true,
+                    "sourceRefs": [
+                      {
+                        "provider": "KOTOBAHUB_INTERNAL",
+                        "category": "SCHEMA_EXAMPLE",
+                        "externalId": "bil-01-example-only"
+                      }
+                    ],
+                    "placeholder": "Topic marker",
+                    "hintTexts": ["<p>I am a student.</p>"],
+                    "explanation": "<p>は marks わたし as the topic.</p>"
+                  },
+                  "id": {
+                    "sourceRevision": 1,
+                    "translationRevision": 1,
+                    "isPublished": true,
+                    "sourceRefs": [
+                      {
+                        "provider": "KOTOBAHUB_INTERNAL",
+                        "category": "SCHEMA_EXAMPLE",
+                        "externalId": "bil-01-example-only"
+                      }
+                    ],
+                    "placeholder": "Penanda topik",
+                    "hintTexts": ["<p>Saya seorang pelajar.</p>"],
+                    "explanation": "<p>は menandai わたし sebagai topik.</p>"
+                  }
+                }
+              }
+            ],
+            "skills": [
+              {
+                "id": "00000000-0000-5000-8000-000000000004",
+                "contentRevision": 1,
+                "isPublished": false,
+                "code": "n5_example_particle_wa",
+                "slug": "n5-example-particle-wa",
+                "curriculumLevel": "N5",
+                "skillType": "GRAMMAR",
+                "supportsFlashcards": false,
+                "supportsPracticeObjective": true,
+                "supportsPracticeFreeResponse": true,
+                "prerequisiteSkillCodes": [],
+                "sortOrder": 1,
+                "curriculumSignals": {
+                  "jlpt": {
+                    "resolvedLevel": "N5",
+                    "candidates": [
+                      {
+                        "provider": "KOTOBAHUB_INTERNAL",
+                        "level": "N5"
+                      }
+                    ]
+                  }
+                },
+                "sourceRefs": [
+                  {
+                    "provider": "KOTOBAHUB_INTERNAL",
+                    "category": "SCHEMA_EXAMPLE",
+                    "externalId": "bil-01-example-only"
+                  }
+                ],
+                "content": {
+                  "grammar": {
+                    "pattern": "Noun + は",
+                    "register": "Standard",
+                    "structureLines": ["Noun + は"],
+                    "bunproLevel": "N5"
+                  }
+                },
+                "localizations": {
+                  "en": {
+                    "sourceRevision": 1,
+                    "translationRevision": 1,
+                    "isPublished": true,
+                    "sourceRefs": [
+                      {
+                        "provider": "KOTOBAHUB_INTERNAL",
+                        "category": "SCHEMA_EXAMPLE",
+                        "externalId": "bil-01-example-only"
+                      }
+                    ],
+                    "title": "Topic marker は",
+                    "description": "Mark the topic of a sentence.",
+                    "content": {
+                      "grammar": {
+                        "meaning": "As for; speaking of"
+                      }
+                    }
+                  },
+                  "id": {
+                    "sourceRevision": 1,
+                    "translationRevision": 1,
+                    "isPublished": true,
+                    "sourceRefs": [
+                      {
+                        "provider": "KOTOBAHUB_INTERNAL",
+                        "category": "SCHEMA_EXAMPLE",
+                        "externalId": "bil-01-example-only"
+                      }
+                    ],
+                    "title": "Penanda topik は",
+                    "description": "Menandai topik kalimat.",
+                    "content": {
+                      "grammar": {
+                        "meaning": "Mengenai; tentang"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

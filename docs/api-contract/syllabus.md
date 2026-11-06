@@ -1,5 +1,8 @@
 # API Contract Syllabus
 
+## Perluasan BIL-01
+- Kontrak legacy di bawah tetap berlaku. Representasi opt-in `contentFormat=localized`, locale/fallback, metadata resolusi per object, dan field `translation` difinalkan untuk `BIL-03` pada [kontrak bilingual](./bilingual.md) serta [OpenAPI target](./openapi.bilingual.yaml). Seed v2 tidak otomatis mengubah response API aktif.
+
 ## Scope
 - Dokumen ini menyelesaikan bagian `syllabus` dari task `ARCH-14`.
 - Fokusnya adalah kontrak API read-only untuk course map, onboarding reference data, unit detail, dan lesson detail.

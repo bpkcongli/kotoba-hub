@@ -1,5 +1,8 @@
 # API Contract Practice
 
+## Perluasan BIL-01
+- Delivery/snapshot bahasa untuk direct quiz `contentFormat=localized` difinalkan pada [kontrak bilingual](./bilingual.md) dan [OpenAPI target](./openapi.bilingual.yaml) untuk `BIL-03`. Quiz tetap canonical Jepang dengan grading deterministik dan tanpa practice session. Kontrak legacy di bawah tetap berlaku; pasangan random practice Indonesia difinalkan terpisah pada `BIL-06`.
+
 ## Scope
 - Dokumen ini menyelesaikan bagian `practice` dari task `ARCH-15`.
 - Fokusnya adalah generate random practice session, direct deterministic lesson post-study quiz, dan submit answer sampai hasil grading serta progress impact siap dipakai UI.

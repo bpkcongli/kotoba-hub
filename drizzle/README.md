@@ -1,5 +1,12 @@
 # Database migrations
 
+The finalized BIL-01 target adds syllabus translation/revision fields,
+`user_preferences`, and localized direct-quiz deliveries. See the
+[bilingual persistence and transition contract](../docs/syllabus/bilingual-content-contract.md).
+SQL migrations, audited backfill and v2 merge-import support belong to BIL-03;
+the commands below still operate on v1. Do not use the current full-catalog
+seeder to import a partial bilingual batch.
+
 Drizzle writes generated SQL and migration metadata here. The registry at
 `src/backend/shared/infrastructure/database/schema.ts` re-exports schemas from
 their owning backend contexts. Migration `0000_auth_user_foundation.sql` creates the

@@ -1,5 +1,8 @@
 # API Contract User Profile And Personalization
 
+## Perluasan BIL-01
+- GET/PATCH `/api/v1/user-profile/preferences` difinalkan pada [kontrak bilingual](./bilingual.md) dan [OpenAPI target](./openapi.bilingual.yaml) untuk implementasi `BIL-03`. Endpoint memakai `user_preferences` milik `users`, dapat digunakan sebelum onboarding, dan tidak mengubah request assessment/confirmation atau response legacy di bawah.
+
 ## Scope
 - Dokumen ini menyelesaikan bagian `user profile` dan `personalization` dari task `ARCH-14`.
 - Fokusnya adalah API yang dipakai oleh protected route guard, onboarding wizard, assessment draft, dan final learner profile persistence.

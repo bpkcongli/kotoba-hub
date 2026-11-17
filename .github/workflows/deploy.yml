@@ -41,9 +41,9 @@ jobs:
       - name: Validate publish run and download verified metadata
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: node scripts/deploy-release.mjs prepare
+        run: node scripts/deployment/deploy-release.mjs prepare
       - name: Deploy over verified SSH and wait for persisted result
         env:
           VPS_SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
           VPS_SSH_KNOWN_HOSTS: ${{ secrets.VPS_SSH_KNOWN_HOSTS }}
-        run: node scripts/deploy-release.mjs deploy
+        run: node scripts/deployment/deploy-release.mjs deploy

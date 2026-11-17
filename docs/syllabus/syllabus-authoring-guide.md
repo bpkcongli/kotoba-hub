@@ -34,7 +34,7 @@ Pengecualian kurasi BIL-02 tanggal 17 November memakai `authoring/batch-01-curat
 
 `content/syllabus/v1/manifest.json` tetap jalur aktif. Jangan mengubah manifest, flag publikasi katalog/overlay existing, lesson title, skills, prerequisites atau support flags sebagai efek samping authoring. Semua owner dan localization dalam **fragment kandidat terisolasi** memakai `isPublished: false`, termasuk jika mempertahankan ID owner lama. Flag draft pada salinan kandidat tidak mengubah flag baseline; publikasi saat integrasi ditangani terpisah. Reviewer mengembalikan laporan tanpa menulis file maker. Saat delegasi paralel, ownership dibagi berdasarkan **file fisik**; dua lesson dalam satu JSON track/overlay tidak boleh diedit dua maker sekaligus. Semua agent menjaga perubahan rekan kerja.
 
-ID owner existing selalu dipertahankan. Untuk block/soal baru, gunakan kebijakan UUID deterministik proyek: `make_uuid` di `scripts/generate_syllabus_seed.py`, dengan key stabil yang ditetapkan dalam penugasan, misalnya `(level, lessonSlug, "content-block", "past-polite-intro")` atau `(level, lessonSlug, "post-study-question", "past-polite-01")`. Cek benturan terhadap seluruh katalog, jangan menyalin UUID contoh, dan jangan mengganti ID ketika wording atau urutan berubah.
+ID owner existing selalu dipertahankan. Untuk block/soal baru, gunakan kebijakan UUID deterministik proyek: `make_uuid` di `scripts/syllabus/generate_syllabus_seed.py`, dengan key stabil yang ditetapkan dalam penugasan, misalnya `(level, lessonSlug, "content-block", "past-polite-intro")` atau `(level, lessonSlug, "post-study-question", "past-polite-01")`. Cek benturan terhadap seluruh katalog, jangan menyalin UUID contoh, dan jangan mengganti ID ketika wording atau urutan berubah.
 
 ## Pemakaian sumber
 
@@ -81,10 +81,10 @@ Kunci tidak diterjemahkan. Minimal satu alternatif kana per soal; varian kanji J
 
 ## Validasi
 
-Untuk fragment baru, gunakan [validator draft](../../scripts/validate_syllabus_authoring.py) dari root repository dengan Python yang menyediakan `jsonschema`. Contoh format yang disertakan memakai skill existing `n5_copula_past_polite` pada lesson `copula-negative-and-past-reference` sebagai konteks, tetapi bukan pengganti isi lesson tersebut:
+Untuk fragment baru, gunakan [validator draft](../../scripts/syllabus/validate_syllabus_authoring.py) dari root repository dengan Python yang menyediakan `jsonschema`. Contoh format yang disertakan memakai skill existing `n5_copula_past_polite` pada lesson `copula-negative-and-past-reference` sebagai konteks, tetapi bukan pengganti isi lesson tersebut:
 
 ```sh
-python3 scripts/validate_syllabus_authoring.py \
+python3 scripts/syllabus/validate_syllabus_authoring.py \
   docs/syllabus/examples/lesson-content-authoring.v2.example.json \
   --track content/syllabus/v1/tracks/jlpt-n5-foundation.json \
   --lesson 86e7168a-ef45-5550-a44e-18574971067a
@@ -97,9 +97,9 @@ Validator memeriksa fragment terhadap `$defs` schema v2, dua locale, revisi curr
 Untuk perubahan **overlay batch-01** saja, jalankan:
 
 ```sh
-python3 scripts/convert_bilingual_batch.py --check
-python3 scripts/test_bilingual_batch.py
-python3 scripts/validate_bilingual_contracts.py
+python3 scripts/syllabus/convert_bilingual_batch.py --check
+python3 scripts/syllabus/test_bilingual_batch.py
+python3 scripts/syllabus/validate_bilingual_contracts.py
 ```
 
 Jika overlay memang diubah dan hasil kompilasi perlu diperbarui, agent utama menjalankan compiler tanpa `--check` sesuai workflow batch, lalu mengulang checks. `--check --require-publishable` kini lulus untuk seluruh batch BIL-02; gate tetap menolak batch dengan hold/referensi invalid. Checks batch/schema examples tersebut tidak membuktikan draft N4 telah tervalidasi dan tidak menggantikan review isi.

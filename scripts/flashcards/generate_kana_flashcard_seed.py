@@ -12,7 +12,7 @@ from typing import Any
 import jsonschema
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 SYLLABUS_CONTENT_DIR = ROOT / "content" / "syllabus" / "v1"
 OUTPUT_DIR = ROOT / "content" / "flashcards" / "system-decks"
 OUTPUT_PATH = OUTPUT_DIR / "kana-foundation.json"

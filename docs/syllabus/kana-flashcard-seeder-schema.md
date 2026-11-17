@@ -30,7 +30,7 @@ Aturan input:
 - `kana_script_switch_basics` tetap diperlakukan sebagai `KATAKANA`, karena script family canonical-nya memang `KATAKANA`.
 
 ## Planned Script Contract
-- Target script path: `scripts/generate_kana_flashcard_seed.py`
+- Target script path: `scripts/flashcards/generate_kana_flashcard_seed.py`
 - Tujuan script:
   - membaca syllabus seed published `N5`
   - memilih skill `KANA` yang eligible untuk flashcards
@@ -40,7 +40,7 @@ Aturan input:
 ### Suggested CLI
 
 ```bash
-python3 scripts/generate_kana_flashcard_seed.py
+python3 scripts/flashcards/generate_kana_flashcard_seed.py
 ```
 
 ## Planned Output Layout

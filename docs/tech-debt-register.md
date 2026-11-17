@@ -70,12 +70,12 @@
   - Tanpa kontrak repo-native untuk `decks`, `items`, dan membership ordering, implementasi script berisiko mencampur ownership syllabus dengan katalog flashcard runtime atau menghasilkan slug/id yang tidak stabil.
   - Area ini penting untuk `IMP-07`, tetapi aman dipisahkan sebagai debt dokumentasi + generator planning agar implementasi nanti tinggal mengikuti kontrak yang sudah dikunci.
 - Expected follow-up:
-  - Tambahkan script `scripts/generate_vocabulary_flashcard_seed.py` yang bisa dijalankan langsung untuk membaca syllabus seed published `N5` dan `N4`, lalu menghasilkan artifact flashcard seed vocabulary bawaan sistem.
+  - Tambahkan script `scripts/flashcards/generate_vocabulary_flashcard_seed.py` yang bisa dijalankan langsung untuk membaca syllabus seed published `N5` dan `N4`, lalu menghasilkan artifact flashcard seed vocabulary bawaan sistem.
   - Pastikan script memakai `JMdict` sebagai lexical base yang sudah dinormalisasi ke skill seed, serta `yomitan-jlpt-vocab` hanya sebagai `jlpt signal`, bukan lexical truth baru.
   - Hasilkan payload repo-native yang eksplisit untuk `flashcard_decks`, `flashcard_items`, dan `flashcard_deck_items` vocabulary beserta provenance dan ordering membership yang stabil.
   - Validasi bahwa hanya skill `VOCABULARY` dengan `supportsFlashcards = true` dan `isPublished = true` yang masuk output.
 - Resolution note:
-  - Repo sekarang memiliki script generator langsung di `scripts/generate_vocabulary_flashcard_seed.py`.
+  - Repo sekarang memiliki script generator langsung di `scripts/flashcards/generate_vocabulary_flashcard_seed.py`.
   - Artifact utama kini ada di `content/flashcards/system-decks/vocabulary-foundation.json`.
   - Candidate `N5` dari `JMdict + yomitan-jlpt-vocab` yang belum punya mapping lesson resmi kini dicatat terpisah di `content/flashcards/system-decks/vocabulary-foundation-pending-n5-skill-codes.json`.
   - Deck vocabulary system kini di-segment per `10` item, dengan segment terakhir boleh menjadi remainder.

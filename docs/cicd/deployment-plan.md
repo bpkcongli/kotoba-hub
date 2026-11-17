@@ -238,7 +238,7 @@ tersedia sebelum rilis dapat dijalankan. Publikasi artifact tidak mengubah datab
 
 #### Tag commit, concurrency, dan kegagalan publish
 
-Helper [release-metadata.mjs](../../scripts/release-metadata.mjs) memeriksa kedua tag
+Helper [release-metadata.mjs](../../scripts/deployment/release-metadata.mjs) memeriksa kedua tag
 sebelum build melalui Registry API Docker Hub dengan bearer token berscope `pull`.
 Hanya HTTP `404` dianggap tag belum ada; tag yang sudah ada, error autentikasi,
 rate limit, timeout, dan kegagalan registry menghentikan publish. Helper tidak
@@ -292,7 +292,7 @@ dari workspace lokal ini.
 Hasil lokal **3 November 2026**: `33` tes rilis lulus; `bun run check` lulus
 (lint, typecheck, format, tes rilis, serta `60` suite / `661` tes Jest).
 Actionlint `v1.7.12` tidak melaporkan error. Build dan pemeriksaan artifact app/ops
-melalui `bash scripts/verify-docker-artifacts.sh` juga lulus dengan frozen lockfile
+melalui `bash scripts/deployment/verify-docker-artifacts.sh` juga lulus dengan frozen lockfile
 dan tanpa secret deployment. Verifikasi lokal ini tidak melakukan push registry
 atau upload artifact GitHub.
 
@@ -304,8 +304,8 @@ push CI. Lihat [batas Docker Hub](https://docs.docker.com/docker-hub/usage/).
 ### Job deploy GitHub Actions melalui SSH
 
 Bagian ini menetapkan baseline **`DEP-06`**. Implementasi tersedia pada
-[deploy.yml](../../.github/workflows/deploy.yml), [helper validasi/SSH](../../scripts/deploy-release.mjs),
-dan [worker VPS](../../scripts/deploy-production.sh), dipasang sebagai
+[deploy.yml](../../.github/workflows/deploy.yml), [helper validasi/SSH](../../scripts/deployment/deploy-release.mjs),
+dan [worker VPS](../../scripts/deployment/deploy-production.sh), dipasang sebagai
 `/opt/kotoba-hub/deploy.sh`. Detail konfigurasi GitHub, pemasangan, polling,
 receipt, serta diagnosis sebelum retry ada pada [panduan workflow](./deployment-workflow.md).
 
@@ -478,7 +478,7 @@ Target `ops` memuat:
 - `package.json`, `bun.lock`, dependency dari `bun install --frozen-lockfile`, dan
   `tsconfig.json` agar alias script dapat di-resolve.
 - `drizzle.config.ts`, seluruh `drizzle/*.sql` dan metadata migration yang dikomit.
-- `src/`, `scripts/seed-syllabus.ts`, `scripts/seed-flashcards.ts` beserta dependency
+- `src/`, `scripts/syllabus/seed-syllabus.ts`, `scripts/flashcards/seed-flashcards.ts` beserta dependency
   lokal yang diimpor.
 - `content/syllabus/v1/manifest.json`, `content/syllabus/v1/tracks/*.json`, serta
   `content/flashcards/system-decks/*.json` yang diperlukan importer.
@@ -515,10 +515,10 @@ Jalankan dari root repository dengan Bun `1.3.9`, Bash/GNU tools, dan Docker
 Engine dengan BuildKit serta local exporter tersedia:
 
 ```sh
-bash scripts/verify-docker-artifacts.sh
+bash scripts/deployment/verify-docker-artifacts.sh
 ```
 
-[Script verifikasi](../../scripts/verify-docker-artifacts.sh) dipanggil oleh
+[Script verifikasi](../../scripts/deployment/verify-docker-artifacts.sh) dipanggil oleh
 [CI Quality](../../.github/workflows/ci.yml) setelah quality gate dan membangun
 `kotoba-hub:ops-ci` serta `kotoba-hub:ci` dari working tree yang sama, tanpa push.
 Dua argumen opsional mengganti tag app lalu ops. Build berjalan berurutan.
@@ -735,7 +735,7 @@ tanpa domain, pengisian secret di VPS, backup/migration/seed, dan aktivasi Cloud
 | [compose.production.yaml](../../compose.production.yaml) | App, job `ops`, MySQL 8.4, volume tetap, batas RAM/log, port loopback. |
 | [env templates](../../deploy/production) | Template app, ops, MySQL, dan release, seluruhnya tanpa secret. |
 | [Caddyfile.example](../../deploy/production/Caddyfile.example) | Reverse proxy host dengan Origin CA dan forwarded host/proto. |
-| [backup-production-db.sh](../../scripts/backup-production-db.sh) | Dump InnoDB, gzip/checksum, izin terbatas, dan lock database. |
+| [backup-production-db.sh](../../scripts/deployment/backup-production-db.sh) | Dump InnoDB, gzip/checksum, izin terbatas, dan lock database. |
 
 Salin Compose dan env ke `/opt/kotoba-hub`. Path env pada file repository relatif
 terhadap Compose; contoh ringkas di bawah memakai path absolut pada lokasi yang

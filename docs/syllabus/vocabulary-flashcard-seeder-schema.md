@@ -46,7 +46,7 @@ Konsekuensi:
 - Untuk candidate pending `N5`, generator boleh membuat `skillCode` baru yang stabil tanpa `skillId`, selama item itu ditandai `PENDING_LESSON_MAPPING` dan tidak berpura-pura punya `unitSlug` atau `lessonSlug`.
 
 ## Planned Script Contract
-- Target script path: `scripts/generate_vocabulary_flashcard_seed.py`
+- Target script path: `scripts/flashcards/generate_vocabulary_flashcard_seed.py`
 - Tujuan script:
   - membaca syllabus seed published `N5` dan `N4`
   - memilih skill vocabulary yang eligible untuk flashcards
@@ -56,7 +56,7 @@ Konsekuensi:
 ### Suggested CLI
 
 ```bash
-python3 scripts/generate_vocabulary_flashcard_seed.py
+python3 scripts/flashcards/generate_vocabulary_flashcard_seed.py
 ```
 
 CLI baseline tidak perlu banyak argumen lebih dulu selama:

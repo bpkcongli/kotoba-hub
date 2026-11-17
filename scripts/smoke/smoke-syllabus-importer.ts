@@ -102,7 +102,7 @@ async function main() {
   console.log(
     'Applying migrations and mutating fixtures in the explicitly isolated test database.',
   );
-  await migrate(db, { migrationsFolder: fileURLToPath(new URL('../drizzle', import.meta.url)) });
+  await migrate(db, { migrationsFolder: fileURLToPath(new URL('../../drizzle', import.meta.url)) });
 
   assert(
     (await snapshot()).every((rows) => rows.length === 0),

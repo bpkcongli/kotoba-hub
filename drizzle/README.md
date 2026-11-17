@@ -26,7 +26,7 @@ or the seed script name explicitly when running a database job. Supply
 `DATABASE_URL` at runtime and use the database container's network; the app image
 does not provide these tools. The default `ops` command only displays help.
 See the [deployment runbook](../docs/cicd/deployment-plan.md#6-migration-dan-seed-sebagai-job-terpisah)
-for operation order and `bash scripts/verify-docker-artifacts.sh` for offline
+for operation order and `bash scripts/deployment/verify-docker-artifacts.sh` for offline
 artifact checks. Those checks do not apply migrations or seed a database.
 
 For each schema change, run `bun run db:generate`, review the generated SQL and

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-cd "$(dirname "${BASH_SOURCE[0]}")/.."
+cd "$(dirname "${BASH_SOURCE[0]}")/../.."
 app_image="${1:-kotoba-hub:ci}"
 ops_image="${2:-kotoba-hub:ops-ci}"
 verify_dir="$(mktemp -d)"
@@ -13,7 +13,7 @@ cp .dockerignore "$verify_dir/fixture/.dockerignore"
 allowed_files=(
   package.json bun.lock next.config.ts tsconfig.json next-env.d.ts postcss.config.mjs
   drizzle.config.ts drizzle/0000_example.sql drizzle/meta/_journal.json
-  scripts/seed-syllabus.ts scripts/seed-flashcards.ts src/example.ts public/example.svg
+  scripts/syllabus/seed-syllabus.ts scripts/flashcards/seed-flashcards.ts src/example.ts public/example.svg
   content/syllabus/v1/manifest.json content/syllabus/v1/tracks/example.json
   content/flashcards/system-decks/example.json
 )
@@ -21,7 +21,8 @@ excluded_files=(
   .env .env.production .env.example app.env ops.env mysql.env release.env
   .cert/origin-key.pem .aws/credentials .git/config .agents/example.md .codex/example.toml
   docs/example.md node_modules/example.js .next/example.js coverage/example.json
-  scripts/smoke-example.ts scripts/other-seed.ts drizzle/README.md
+  scripts/smoke/smoke-example.ts scripts/syllabus/other-seed.ts
+  scripts/flashcards/other-seed.ts scripts/deployment/example.sh drizzle/README.md
   content/syllabus/sources/provider/raw.json content/syllabus/schema/example.json
   content/syllabus/v1/other.json content/syllabus/v1/tracks/nested/private.json
   content/syllabus/v2/manifest.json content/syllabus/v2/tracks/example.json
@@ -59,7 +60,7 @@ bun -e '
 
 mapfile -d '' source_files < <(find src -type f -print0 | LC_ALL=C sort -z)
 sha256sum "${source_files[@]}" package.json bun.lock tsconfig.json drizzle.config.ts \
-  scripts/seed-syllabus.ts scripts/seed-flashcards.ts drizzle/*.sql drizzle/meta/*.json \
+  scripts/syllabus/seed-syllabus.ts scripts/flashcards/seed-flashcards.ts drizzle/*.sql drizzle/meta/*.json \
   content/syllabus/v1/manifest.json content/syllabus/v1/tracks/*.json \
   content/flashcards/system-decks/*.json > "$verify_dir/ops.sha256"
 docker run --rm --network none \
@@ -80,7 +81,7 @@ docker run --rm --network none --entrypoint sh "$app_image" -eu -c '
   test -d public
   test ! -e public/mockServiceWorker.js
   test ! -e node_modules/drizzle-kit
-  test ! -e scripts/seed-syllabus.ts
+  test ! -e scripts/syllabus/seed-syllabus.ts
   test ! -e .env
   test ! -e .cert
   test ! -e content/syllabus/sources

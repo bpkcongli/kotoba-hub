@@ -8,7 +8,7 @@ from pathlib import Path
 from jsonschema import Draft202012Validator, FormatChecker
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 CLASSES = {'text-emphasis', 'text-warning', 'question-blank',
            'question-dialogue', 'question-scenario', 'question-continuation'}
 

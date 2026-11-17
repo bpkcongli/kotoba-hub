@@ -199,7 +199,7 @@ the Docker build context. The image excludes the development service worker.
 The separate `ops` target includes Drizzle Kit, committed migrations, seed scripts,
 and canonical JSON. It runs as `bun` in `/app`; its default command only shows Bun
 help. Build it with `docker build --target ops --tag kotoba-hub:ops .`.
-Run `bash scripts/verify-docker-artifacts.sh` to build and verify both images without
+Run `bash scripts/deployment/verify-docker-artifacts.sh` to build and verify both images without
 deployment secrets or database access. CI runs the same check. Next.js page-data
 workers are capped at two to limit build memory. See the
 [artifact verification guide](docs/cicd/deployment-plan.md#verifikasi-artifact-dep-01)
@@ -210,6 +210,9 @@ Drizzle ORM, `mysql2`, Drizzle Kit, and a migration registry/config are installe
 Startup validates the database URL and auth settings without opening a connection. Run
 `bun run db:generate`, review SQL, then `bun run db:migrate` against the intended
 database. See [migration notes](drizzle/README.md).
+
+See the [scripts guide](scripts/README.md) for syllabus authoring, flashcard seed,
+backend smoke tests, and deployment tooling grouped by responsibility.
 
 ## Architecture and next tasks
 

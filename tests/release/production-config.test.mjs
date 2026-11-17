@@ -18,7 +18,7 @@ import { test } from 'node:test';
 import { gunzipSync } from 'node:zlib';
 
 const root = resolve(import.meta.dirname, '../..');
-const backupScript = join(root, 'scripts/backup-production-db.sh');
+const backupScript = join(root, 'scripts/deployment/backup-production-db.sh');
 const databasePassword = 'test-$literal-${NOT_EXPANDED}-"quote"-space value';
 
 async function fixture(t) {

@@ -8,7 +8,7 @@ import {
   createReleaseMetadata,
   readReleaseContext,
   runReleaseCommand,
-} from '../../scripts/release-metadata.mjs';
+} from '../../scripts/deployment/release-metadata.mjs';
 
 const env = {
   GITHUB_EVENT_NAME: 'push',

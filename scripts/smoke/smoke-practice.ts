@@ -161,7 +161,7 @@ function withProgress(adapter: PracticeProgressPort, storage: PracticeRepository
 }
 
 async function main() {
-  await migrate(db, { migrationsFolder: fileURLToPath(new URL('../drizzle', import.meta.url)) });
+  await migrate(db, { migrationsFolder: fileURLToPath(new URL('../../drizzle', import.meta.url)) });
 
   assert.equal(
     (await db.select().from(users)).length,

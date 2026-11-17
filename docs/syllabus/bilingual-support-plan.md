@@ -29,7 +29,7 @@ Gunakan `[ ]` untuk belum selesai dan `[x]` untuk selesai. Perbarui status bersa
 - Bedakan `contentLocale`, `uiLocale`, bahasa prompt/jawaban, dan `preferredScript`. Simpan preferensi pada context `users`; default awal `en`. Definisikan resolusi sejak awal: pilihan eksplisit yang valid → preferensi tersimpan → default. Untuk UI sebelum login, gunakan cookie locale yang divalidasi.
 - Fallback: locale yang diminta dan published → `en` published. Satu bahasa per entitas/block; hint dan explanation satu soal menjadi satu paket. Jika keduanya tidak tersedia, tahan publikasi konten wajib. Response menunjukkan requested/resolved locale dan fallback; draft tidak ditampilkan.
 - Petakan field lama (`englishTranslation`, `meaningsEn`, `glossesEn`, `translationEn`) ke schema baru; tentukan penyimpanan arti skill karena `skill.content` belum dipersist oleh importer syllabus.
-- Output selesai: [schema seed](./seed-content-schema.md), [JSON Schema v2](./schema/track-seed.v2.schema.json) dan contoh, ERD [syllabus](../erd/syllabus-domain.md) / [user](../erd/auth-and-user-profile.md) / [activity](../erd/learning-activity.md), [OpenAPI target](../api-contract/openapi.bilingual.yaml), serta aturan kompatibilitas v1/v2. Verifikasi: `python3 scripts/validate_bilingual_contracts.py`.
+- Output selesai: [schema seed](./seed-content-schema.md), [JSON Schema v2](./schema/track-seed.v2.schema.json) dan contoh, ERD [syllabus](../erd/syllabus-domain.md) / [user](../erd/auth-and-user-profile.md) / [activity](../erd/learning-activity.md), [OpenAPI target](../api-contract/openapi.bilingual.yaml), serta aturan kompatibilitas v1/v2. Verifikasi: `python3 scripts/syllabus/validate_bilingual_contracts.py`.
 
 ### BIL-02 — Konversi seed untuk lesson yang sudah tersedia
 

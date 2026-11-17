@@ -13,15 +13,15 @@ Untuk melengkapi lesson N5/N4 di luar batch frozen, gunakan [panduan subagent au
 Jalankan dari root repository dengan Python yang menyediakan `jsonschema` dan `PyYAML`:
 
 ```sh
-python3 scripts/convert_bilingual_batch.py --check
-python3 scripts/test_bilingual_batch.py
-python3 scripts/validate_bilingual_contracts.py
+python3 scripts/syllabus/convert_bilingual_batch.py --check
+python3 scripts/syllabus/test_bilingual_batch.py
+python3 scripts/syllabus/validate_bilingual_contracts.py
 ```
 
 Untuk meregenerasi sesudah mengedit sumber kurasi:
 
 ```sh
-python3 scripts/convert_bilingual_batch.py
+python3 scripts/syllabus/convert_bilingual_batch.py
 ```
 
 English/canonical yang berubah membutuhkan `contentRevision` baru; teks/provenance localization yang berubah membutuhkan `translationRevision` baru. Review kedua bahasa dan perbarui `sourceRevision` secara eksplisit. Compiler menolak revisi mundur atau payload baru dengan revisi lama. Kurasi tidak diturunkan ulang dari teks v1 saat regenerasi. Perubahan checksum sumber menghentikan proses; review diff dan inventaris secara sengaja sebelum melanjutkan.
@@ -29,7 +29,7 @@ English/canonical yang berubah membutuhkan `contentRevision` baru; teks/provenan
 Gate kesiapan batch:
 
 ```sh
-python3 scripts/convert_bilingual_batch.py --check --require-publishable
+python3 scripts/syllabus/convert_bilingual_batch.py --check --require-publishable
 ```
 
 Gate ini **lulus untuk seluruh 16 lesson**. Compiler memeriksa scope/evidence kurasi dan graph prerequisite; tes preservasi menjaga identitas/Jepang/kunci/provenance. Review bahasa dan keterbatasan assessment baseline dicatat pada laporan kurasi. Importer BIL-03 tetap harus memvalidasi schema, scope, revisi dan katalog DB tujuan secara mandiri, termasuk seluruh rantai prerequisite eksternal, sebelum transaksi atomik. Manifest ini tidak boleh dipakai oleh importer v1.

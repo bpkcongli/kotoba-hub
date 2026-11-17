@@ -40,9 +40,9 @@ Empat perbaikan hint mengubah `hintTexts[1]` kedua bahasa pada soal `e2428888-83
 ## Gate verifikasi
 
 ```sh
-python3 scripts/validate_bilingual_contracts.py
-python3 scripts/test_bilingual_batch.py
-python3 scripts/convert_bilingual_batch.py --check --require-publishable
+python3 scripts/syllabus/validate_bilingual_contracts.py
+python3 scripts/syllabus/test_bilingual_batch.py
+python3 scripts/syllabus/convert_bilingual_batch.py --check --require-publishable
 ```
 
 Compiler memeriksa scope dan checksum kurasi, keunikan ID/kode/urutan, atribusi same-lesson yang published, tipe owner grammar, bilingual current, revisi monotonic serta graph prerequisite. Tes preservasi memeriksa identitas/Jepang/kunci/provenance dan bank sepuluh soal `1..10`. Gate tidak dapat diloloskan hanya dengan mengosongkan daftar hold: referensi serta resolusi kurasinya harus valid. `READY_FOR_BIL_03` berarti acceptance artefak BIL-02, bukan importer/database/cutover yang telah dijalankan.

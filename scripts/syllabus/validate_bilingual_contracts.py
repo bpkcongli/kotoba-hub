@@ -9,7 +9,7 @@ from jsonschema import Draft202012Validator, FormatChecker
 from bilingual_curation import load_curation, validate_curation
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 SCHEMAS = ROOT / 'docs/syllabus/schema'
 EXAMPLES = ROOT / 'docs/syllabus/examples'
 

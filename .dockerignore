@@ -16,8 +16,12 @@ drizzle/meta/*
 !drizzle/meta/*.json
 !scripts/
 scripts/*
-!scripts/seed-syllabus.ts
-!scripts/seed-flashcards.ts
+!scripts/syllabus/
+scripts/syllabus/*
+!scripts/syllabus/seed-syllabus.ts
+!scripts/flashcards/
+scripts/flashcards/*
+!scripts/flashcards/seed-flashcards.ts
 !src/
 !src/**
 !public/

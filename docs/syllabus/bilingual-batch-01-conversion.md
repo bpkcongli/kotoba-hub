@@ -5,7 +5,7 @@ Konversi awal: **6 November 2026**. Kurasi lanjutan: **17 November 2026**. Statu
 ## Artefak dan hasil
 
 - [Manifest v2](../../content/syllabus/v2/manifest.json) dan [track v2](../../content/syllabus/v2/tracks/jlpt-n5-foundation.json) memuat tepat **16 lesson**, **102 skill**, **209 block** (112 paragraf, 58 contoh, 39 struktur), dan **160 soal**. Bersama satu track dan empat unit, terdapat **492 owner**, semuanya memiliki localization `en/id` lengkap/current dan provenance editorial.
-- [Overlay awal](../../content/syllabus/v2/authoring/batch-01.json) menyimpan teks serta revisi owner existing. [Overlay kurasi canonical](../../content/syllabus/v2/authoring/batch-01-curation.json) menjadi sumber delapan skill baru dan tujuh block pengganti serta dua perbaikan prerequisite. [Compiler](../../scripts/convert_bilingual_batch.py) mempertahankan kedua sumber kurasi; generated track bukan jalur edit. [Petunjuk authoring](../../content/syllabus/v2/README.md) menjelaskan regenerasi dan gate.
+- [Overlay awal](../../content/syllabus/v2/authoring/batch-01.json) menyimpan teks serta revisi owner existing. [Overlay kurasi canonical](../../content/syllabus/v2/authoring/batch-01-curation.json) menjadi sumber delapan skill baru dan tujuh block pengganti serta dua perbaikan prerequisite. [Compiler](../../scripts/syllabus/convert_bilingual_batch.py) mempertahankan kedua sumber kurasi; generated track bukan jalur edit. [Petunjuk authoring](../../content/syllabus/v2/README.md) menjelaskan regenerasi dan gate.
 - [Hasil mesin](./bilingual-batch-01-conversion.json) mencatat **56** atribusi soal yang diperbaiki (41 awal + 15 lanjutan), tujuh konversi block, dua perbaikan prerequisite dan evidence kurasi. **Seluruh 18 hold awal selesai**, ditambah empat struktur existing yang sebelumnya menunjuk vocabulary. Seluruh **16 lesson** siap sebagai input BIL-03 setelah runtime tersedia.
 - Snapshot sumber cocok dengan checksum allowlist `a9815d2b692d0e401f7f1296cf5ab3d083b49c68e13bf01ac614009f91fb9153`. File v1, manifest aktif, database, migration, API, dan renderer tidak diubah.
 
@@ -50,10 +50,10 @@ Kontrak BIL-01 meminta hold ketika tidak ada skill sesuai. Otorisasi kurasi eksp
 ## Verifikasi
 
 ```sh
-python3 scripts/validate_bilingual_contracts.py
-python3 scripts/convert_bilingual_batch.py --check
-python3 scripts/test_bilingual_batch.py
-python3 scripts/convert_bilingual_batch.py --check --require-publishable
+python3 scripts/syllabus/validate_bilingual_contracts.py
+python3 scripts/syllabus/convert_bilingual_batch.py --check
+python3 scripts/syllabus/test_bilingual_batch.py
+python3 scripts/syllabus/convert_bilingual_batch.py --check --require-publishable
 ```
 
 **Seluruh perintah lulus**, termasuk gate `--require-publishable`: schema/examples/OpenAPI struktural dan 23 kasus invalid, checksum/identitas baseline serta kurasi, konsistensi artefak, dan **17 tes preservasi/guard**. Tes mencakup Jepang/kunci/provenance, scope, stale/missing locale, false match `この` ke `九`, retirement, graph prerequisite (target hilang/unpublished/siklus), tipe grammar owner, evidence kurasi, hint leakage pada empat perbaikan, HTML, revisi dan regenerasi. Perintah dengan `--check` tidak menulis artefak atau melakukan import.

@@ -307,7 +307,7 @@ export async function prepareDeploy(env = process.env, fetchImpl = fetch) {
   }
 
   const scriptHash = createHash('sha256')
-    .update(await readFile('scripts/deploy-production.sh'))
+    .update(await readFile('scripts/deployment/deploy-production.sh'))
     .digest('hex');
   const request =
     [

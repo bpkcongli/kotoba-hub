@@ -2,7 +2,7 @@
 
 Workflow [deploy.yml](../../.github/workflows/deploy.yml) menerima `publish_run_id`
 melalui `workflow_dispatch` dari `main`. Ia tidak membangun image. Helper
-[deploy-release.mjs](../../scripts/deploy-release.mjs) membaca GitHub Actions API
+[deploy-release.mjs](../../scripts/deployment/deploy-release.mjs) membaca GitHub Actions API
 dengan izin `contents: read` dan `actions: read`, lalu memvalidasi:
 
 - Run berasal dari repository yang sama, `.github/workflows/ci.yml`, event push
@@ -130,14 +130,14 @@ dari job ini. Sesuaikan `runs-on` jika memilih runner dengan IP tetap. Referensi
 
 Script tidak diunggah oleh deployment rutin. Provision versi yang sudah ditinjau
 dari checkout yang sama dengan workflow `main`. Script di VPS diperiksa terhadap
-SHA-256 file `scripts/deploy-production.sh` pada checkout workflow; bila berbeda,
+SHA-256 file `scripts/deployment/deploy-production.sh` pada checkout workflow; bila berbeda,
 deploy ditolak sebelum Docker dijalankan. `script_version=1` dan checksum dicatat
 pada receipt setiap deployment.
 
 Dari laptop dengan host SSH yang sudah dipercaya:
 
 ```sh
-scp scripts/deploy-production.sh scripts/backup-production-db.sh deploy/production/deploy.conf.example deploy@43.173.39.185:/opt/kotoba-hub/
+scp scripts/deployment/deploy-production.sh scripts/deployment/backup-production-db.sh deploy/production/deploy.conf.example deploy@43.173.39.185:/opt/kotoba-hub/
 ```
 
 Di VPS sebagai `deploy`, hentikan operasi deployment/database lain terlebih

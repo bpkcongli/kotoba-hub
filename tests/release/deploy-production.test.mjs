@@ -8,7 +8,7 @@ import { promisify } from 'node:util';
 import { test } from 'node:test';
 
 const execute = promisify(execFile);
-const script = resolve('scripts/deploy-production.sh');
+const script = resolve('scripts/deployment/deploy-production.sh');
 const image = 'docker.io/example/kotoba-hub';
 const app = `${image}@sha256:${'b'.repeat(64)}`;
 const ops = `${image}@sha256:${'c'.repeat(64)}`;
@@ -32,7 +32,10 @@ async function fixture(t, failure = '', delay = 0) {
     await chmod(join(bin, name), 0o700);
   }
 
-  await copyFile(resolve('scripts/backup-production-db.sh'), join(root, 'backup-production-db.sh'));
+  await copyFile(
+    resolve('scripts/deployment/backup-production-db.sh'),
+    join(root, 'backup-production-db.sh'),
+  );
   await chmod(join(root, 'backup-production-db.sh'), 0o700);
   await writeFile(join(root, 'compose.production.yaml'), 'name: kotoba-hub\n');
 

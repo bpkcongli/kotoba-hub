@@ -16,7 +16,7 @@ import xml.etree.ElementTree as ET
 import jsonschema
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 DOCS_DIR = ROOT / "docs" / "syllabus"
 CONTENT_DIR = ROOT / "content" / "syllabus" / "v1"
 TRACKS_DIR = CONTENT_DIR / "tracks"

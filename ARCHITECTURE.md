@@ -55,6 +55,10 @@ kotoba-hub/
     flashcards/
   drizzle/
   scripts/
+    syllabus/
+    flashcards/
+    smoke/
+    deployment/
   tests/
     unit/
     component/
@@ -76,6 +80,7 @@ kotoba-hub/
 | `src/mocks` | Handler HTTP MSW, fixture, state skenario, serta bootstrap browser dan Node untuk development/testing. |
 | `content` | Seed syllabus/deck canonical yang sudah ada di repo; importer server membaca artefak ini. |
 | `drizzle` | SQL migration dan metadata yang dihasilkan workflow Drizzle. |
+| `scripts` | Tooling syllabus, seed flashcard, smoke test backend, dan deployment; lihat [panduan scripts](scripts/README.md). |
 | `tests` | Pengujian unit, component, integration, E2E dan fixture terisolasi. |
 
 Seed canonical tetap di root `content/`. Kode loader/importer berada di backend; hindari katalog seed kedua di `src/content` yang dapat menyimpang dari artefak canonical.

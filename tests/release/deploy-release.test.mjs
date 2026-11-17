@@ -14,7 +14,10 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
 import { test } from 'node:test';
-import { createReleaseMetadata, readReleaseContext } from '../../scripts/release-metadata.mjs';
+import {
+  createReleaseMetadata,
+  readReleaseContext,
+} from '../../scripts/deployment/release-metadata.mjs';
 import {
   prepareDeploy,
   deployOverSsh,
@@ -23,7 +26,7 @@ import {
   validateDeployMetadata,
   validatePublishJobs,
   validatePublishRun,
-} from '../../scripts/deploy-release.mjs';
+} from '../../scripts/deployment/deploy-release.mjs';
 
 const execute = promisify(execFile);
 const env = {

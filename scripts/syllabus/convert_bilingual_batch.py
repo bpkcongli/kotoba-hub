@@ -14,7 +14,7 @@ from bilingual_curation import load_curation, validate_curation, validate_depend
 from validate_bilingual_contracts import check_inventory, require
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 OUTPUT = ROOT / 'content/syllabus/v2'
 AUTHORING = OUTPUT / 'authoring/batch-01.json'
 REPORT = ROOT / 'docs/syllabus/bilingual-batch-01-conversion.json'

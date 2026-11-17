@@ -149,7 +149,7 @@ Referensi: [paket Caddy untuk Ubuntu](https://caddyserver.com/docs/install#debia
 Dari root repository **di laptop**, salin file tanpa secret:
 
 ```sh
-scp compose.production.yaml deploy/production/*.example scripts/backup-production-db.sh deploy@IP_VPS:/opt/kotoba-hub/
+scp compose.production.yaml deploy/production/*.example scripts/deployment/backup-production-db.sh deploy@IP_VPS:/opt/kotoba-hub/
 ```
 
 Pada VPS sebagai `deploy`, buat file runtime sekali saja. `cp -n` mempertahankan

@@ -56,4 +56,4 @@ Beberapa source pendukung belum ikut diambil pada snapshot awal ini:
 
 ## Reproduction
 
-Gunakan skrip [scripts/fetch_syllabus_sources.sh](/home/user/Testing/kotoba-hub/scripts/fetch_syllabus_sources.sh:1) untuk mengambil ulang snapshot ke tanggal baru.
+Gunakan skrip [scripts/syllabus/fetch_syllabus_sources.sh](/home/user/Testing/kotoba-hub/scripts/syllabus/fetch_syllabus_sources.sh:1) untuk mengambil ulang snapshot ke tanggal baru.

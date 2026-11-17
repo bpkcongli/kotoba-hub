@@ -66,7 +66,7 @@
   - [source-of-truth-and-ingestion-plan.md](./syllabus/source-of-truth-and-ingestion-plan.md)
   - [vocabulary-flashcard-seeder-schema.md](./syllabus/vocabulary-flashcard-seeder-schema.md)
 - Debt summary:
-  - Saat ini raw source dan syllabus seed sudah cukup untuk menurunkan item vocabulary atomik, tetapi belum ada jalur resmi dari `content/syllabus/tracks/*.json` ke artifact flashcard seed yang eksplisit dan bisa diaudit.
+  - Saat ini raw source dan syllabus seed sudah cukup untuk menurunkan item vocabulary atomik, tetapi belum ada jalur resmi dari `content/syllabus/v1/tracks/*.json` ke artifact flashcard seed yang eksplisit dan bisa diaudit.
   - Tanpa kontrak repo-native untuk `decks`, `items`, dan membership ordering, implementasi script berisiko mencampur ownership syllabus dengan katalog flashcard runtime atau menghasilkan slug/id yang tidak stabil.
   - Area ini penting untuk `IMP-07`, tetapi aman dipisahkan sebagai debt dokumentasi + generator planning agar implementasi nanti tinggal mengikuti kontrak yang sudah dikunci.
 - Expected follow-up:

@@ -65,6 +65,9 @@ def check_seed_schemas():
         ('unsupported prompt language', lambda v: lesson(v)['postStudyQuestions'][0]['promptPayload'].update(promptLanguage='ID')),
         ('multiple blanks', lambda v: lesson(v)['postStudyQuestions'][0]['promptPayload'].update(sentenceTemplate='___ は ___')),
         ('romaji key', lambda v: lesson(v)['postStudyQuestions'][0]['expectedAnswer'].update(acceptedTextAnswers=['wa'])),
+        ('punctuation-only key', lambda v: lesson(v)['postStudyQuestions'][0]['expectedAnswer'].update(acceptedTextAnswers=['、'])),
+        ('mixed Latin key', lambda v: lesson(v)['postStudyQuestions'][0]['expectedAnswer'].update(acceptedTextAnswers=['だれ dare'])),
+        ('no kana alternative', lambda v: lesson(v)['postStudyQuestions'][0]['expectedAnswer'].update(acceptedTextAnswers=['誰'])),
         ('published incomplete bank', lambda v: lesson(v).update(isPublished=True)),
         ('published parent with draft English', lambda v: (track(v).update(isPublished=True), track(v)['localizations']['en'].update(isPublished=False))),
     ]
@@ -81,7 +84,15 @@ def check_seed_schemas():
     english_only = copy.deepcopy(examples['track-seed'])
     english_only['track']['localizations'].pop('id')
     validators['track-seed'].validate(english_only)
-    print(f'JSON Schema: 2 examples, English-only authoring, {len(cases) + 4} rejected cases OK.')
+    preserved_answers = copy.deepcopy(examples['track-seed'])
+    lesson(preserved_answers)['postStudyQuestions'][0]['expectedAnswer']['acceptedTextAnswers'] = [
+        'こちらこそよろしくおねがいします',
+        'こちらこそ、よろしくおねがいします',
+        'だれ',
+        '誰',
+    ]
+    validators['track-seed'].validate(preserved_answers)
+    print(f'JSON Schema: 2 examples, English-only authoring, preserved Japanese answer variants, {len(cases) + 4} rejected cases OK.')
 
 
 def check_inventory():

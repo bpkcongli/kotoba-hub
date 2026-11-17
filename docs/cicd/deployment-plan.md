@@ -480,7 +480,7 @@ Target `ops` memuat:
 - `drizzle.config.ts`, seluruh `drizzle/*.sql` dan metadata migration yang dikomit.
 - `src/`, `scripts/seed-syllabus.ts`, `scripts/seed-flashcards.ts` beserta dependency
   lokal yang diimpor.
-- `content/syllabus/manifest.json`, `content/syllabus/tracks/*.json`, serta
+- `content/syllabus/v1/manifest.json`, `content/syllabus/v1/tracks/*.json`, serta
   `content/flashcards/system-decks/*.json` yang diperlukan importer.
 
 [`.dockerignore`](../../.dockerignore) memakai allowlist untuk file operasional

@@ -31,7 +31,9 @@ content/flashcards/system-decks/*
 !content/flashcards/system-decks/*.json
 !content/syllabus/
 content/syllabus/*
-!content/syllabus/tracks/
-content/syllabus/tracks/*
-!content/syllabus/tracks/*.json
-!content/syllabus/manifest.json
+!content/syllabus/v1/
+content/syllabus/v1/*
+!content/syllabus/v1/tracks/
+content/syllabus/v1/tracks/*
+!content/syllabus/v1/tracks/*.json
+!content/syllabus/v1/manifest.json

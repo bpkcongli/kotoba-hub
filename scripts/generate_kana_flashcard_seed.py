@@ -13,7 +13,7 @@ import jsonschema
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SYLLABUS_CONTENT_DIR = ROOT / "content" / "syllabus"
+SYLLABUS_CONTENT_DIR = ROOT / "content" / "syllabus" / "v1"
 OUTPUT_DIR = ROOT / "content" / "flashcards" / "system-decks"
 OUTPUT_PATH = OUTPUT_DIR / "kana-foundation.json"
 DOCS_SCHEMA_DIR = ROOT / "docs" / "syllabus" / "schema"

@@ -33,7 +33,7 @@ export class FileCanonicalFlashcardSource implements CanonicalFlashcardSource {
 
     for (const name of ['jlpt-n5-foundation', 'jlpt-n4-expansion']) {
       const data = JSON.parse(
-        await readFile(`${this.root}/content/syllabus/tracks/${name}.json`, 'utf8'),
+        await readFile(`${this.root}/content/syllabus/v1/tracks/${name}.json`, 'utf8'),
       ) as {
         track: {
           slug: string;

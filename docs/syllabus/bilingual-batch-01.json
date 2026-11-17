@@ -3,7 +3,7 @@
   "recordedAt": "2026-11-04",
   "sourceSchemaVersion": "1.0.0",
   "targetSchemaVersion": "2.0.0",
-  "sourceFile": "content/syllabus/tracks/jlpt-n5-foundation.json",
+  "sourceFile": "content/syllabus/v1/tracks/jlpt-n5-foundation.json",
   "sourceSha256": "a9815d2b692d0e401f7f1296cf5ab3d083b49c68e13bf01ac614009f91fb9153",
   "trackId": "fd542c28-34ff-5ef3-a069-c9b193d38bb1",
   "trackSlug": "jlpt-n5-foundation",

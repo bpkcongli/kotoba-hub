@@ -14,8 +14,8 @@
 ## Source Dependencies
 
 ### Canonical Curriculum Input
-- `content/syllabus/manifest.json`
-- `content/syllabus/tracks/jlpt-n5-foundation.json`
+- `content/syllabus/v1/manifest.json`
+- `content/syllabus/v1/tracks/jlpt-n5-foundation.json`
 
 Aturan input:
 - Hanya track published `jlpt-n5-foundation` yang diproses.
@@ -244,4 +244,4 @@ Catatan:
 ## Non-Goals For This Change
 - Belum mengenerate deck `KANJI`.
 - Belum menentukan strategi distractor final paling pintar lintas lesson `KANA`; baseline ini cukup membawa canonical answers dan boleh menurunkan distractor dari membership deck yang sama.
-- Belum mengubah payload `content/syllabus/tracks/*.json`; artifact ini murni turunan dari seed syllabus yang sudah published.
+- Belum mengubah payload `content/syllabus/v1/tracks/*.json`; artifact ini murni turunan dari seed syllabus yang sudah published.

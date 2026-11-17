@@ -118,5 +118,5 @@ Ikuti urutan `IMP-01`–`IMP-17` dan ketentuan bahwa backend/database setiap fit
 - Struktur folder BE/FE, store, dan DI: [ARCHITECTURE.md](ARCHITECTURE.md). Batas module serta alur bisnis: [architecture foundation](docs/architecture-foundation.md).
 - Persistence: [auth/user ERD](docs/erd/auth-and-user-profile.md), [syllabus ERD](docs/erd/syllabus-domain.md), [learning activity ERD](docs/erd/learning-activity.md), [AI observability ERD](docs/erd/ai-support-and-observability.md).
 - Kontrak transport: [API base](docs/api-contract/README.md) dan file naratif/OpenAPI per context di [docs/api-contract/](docs/api-contract/).
-- Content: [syllabus README](docs/syllabus/README.md), [seed schema](docs/syllabus/seed-content-schema.md), [deck mapping](docs/syllabus/flashcard-deck-mapping.md), [published seed](content/syllabus/manifest.json).
+- Content: [syllabus README](docs/syllabus/README.md), [seed schema](docs/syllabus/seed-content-schema.md), [deck mapping](docs/syllabus/flashcard-deck-mapping.md), [published seed](content/syllabus/v1/manifest.json).
 - UI: [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) dan dokumen rinci di [docs/system-design/](docs/system-design/).

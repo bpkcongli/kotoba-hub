@@ -27,12 +27,17 @@
 ```text
 content/
   syllabus/
-    manifest.json
-    tracks/
-      jlpt-n5-foundation.json
-      jlpt-n4-expansion.json
-      jlpt-n3-bridge.json
-      jlpt-n2-advanced.json
+    v1/
+      manifest.json
+      tracks/
+        jlpt-n5-foundation.json
+        jlpt-n4-expansion.json
+        jlpt-n3-bridge.json
+        jlpt-n2-advanced.json
+    v2/
+      manifest.json
+      tracks/
+      authoring/
     sources/
       kanjidic2/
         README.md
@@ -48,6 +53,7 @@ content/
 
 Notes:
 - `content/syllabus/` sengaja ditempatkan di root repo agar seed bisa dibaca langsung oleh script import, test fixture, atau build step tanpa mengikat lebih dulu ke struktur `src/` yang baru akan ditetapkan saat bootstrap implementasi.
+- Seed aktif v1 berada di `content/syllabus/v1/`; artefak bilingual BIL-02 berada di `v2/` dan belum aktif. UUID namespace tetap memakai identitas semula agar relokasi folder tidak mengganti ID.
 - Folder `sources/` dipakai untuk provenance snapshot dan attribution notes pada task `SYL-03A`, bukan untuk payload seed final yang langsung dibaca product.
 
 ## Seed Design Rules
@@ -104,7 +110,7 @@ Notes:
 
 Rules:
 - Manifest harus menjadi daftar canonical untuk file track yang dianggap aktif di repo.
-- `tracks[].file` harus relatif terhadap folder `content/syllabus/`.
+- `tracks[].file` harus relatif terhadap folder manifest versinya: `content/syllabus/v1/` untuk kontrak v1 ini. Nilai seperti `tracks/jlpt-n5-foundation.json` tetap sama setelah relokasi.
 - Manifest wajib memuat keempat track canonical hasil `SYL-01` dan `SYL-02`, termasuk `N3` dan `N2` yang masih skeleton.
 - `tracks[].isPublished` harus konsisten dengan `track.isPublished` di file track terkait.
 

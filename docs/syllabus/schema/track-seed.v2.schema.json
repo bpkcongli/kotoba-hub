@@ -1367,10 +1367,14 @@
           "properties": {
             "acceptedTextAnswers": {
               "type": "array",
+              "contains": {
+                "type": "string",
+                "pattern": "[ぁ-ゖァ-ヺ]"
+              },
               "items": {
                 "type": "string",
                 "minLength": 1,
-                "pattern": "^[ぁ-ゖァ-ヺー\\s・]+$"
+                "pattern": "^(?=[\\s\\S]*[ぁ-ゖァ-ヺ一-龯々])[ぁ-ゖァ-ヺ一-龯々ー\\s・、]+$"
               },
               "minItems": 1,
               "uniqueItems": true

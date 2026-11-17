@@ -10,14 +10,14 @@
 - `VOCABULARY` tidak wajib muncul sebagai materi bacaan utama di `lesson.contentBlocks`.
 - `VOCABULARY` juga tidak wajib menjadi bagian canonical `lesson.postStudyQuestions`, kecuali ada alasan pedagogis khusus di masa depan.
 - Learning surface utama untuk vocabulary pada baseline ini adalah system flashcard deck bawaan yang mereferensikan `skill` vocabulary tersebut.
-- Candidate vocabulary `N5` yang belum punya owner lesson resmi tidak langsung ditulis ke `content/syllabus/tracks/*.json`; item itu masuk dulu ke registry pending dan backlog deck track-scoped.
+- Candidate vocabulary `N5` yang belum punya owner lesson resmi tidak langsung ditulis ke `content/syllabus/v1/tracks/*.json`; item itu masuk dulu ke registry pending dan backlog deck track-scoped.
 
 ## Source Dependencies
 
 ### Canonical Curriculum Input
-- `content/syllabus/manifest.json`
-- `content/syllabus/tracks/jlpt-n5-foundation.json`
-- `content/syllabus/tracks/jlpt-n4-expansion.json`
+- `content/syllabus/v1/manifest.json`
+- `content/syllabus/v1/tracks/jlpt-n5-foundation.json`
+- `content/syllabus/v1/tracks/jlpt-n4-expansion.json`
 
 Aturan input mapped:
 - Hanya track published yang diproses.
@@ -245,7 +245,7 @@ Rules:
 Rules:
 - Registry ini hanya memuat candidate `N5` yang belum punya mapping lesson resmi di syllabus published.
 - Registry ini menjadi daftar skill code baru yang nanti bisa di-map ke lesson setelah perubahan silabus disetujui.
-- Registry tidak mengubah `content/syllabus/tracks/*.json` secara langsung.
+- Registry tidak mengubah `content/syllabus/v1/tracks/*.json` secara langsung.
 
 ## Mapping To Current ERD
 
@@ -301,5 +301,5 @@ Catatan:
 
 ## Non-Goals For This Change
 - Belum melakukan mapping lesson resmi untuk skill code baru candidate `N5`.
-- Belum mengubah `content/syllabus/tracks/jlpt-n5-foundation.json` agar skill pending masuk ke lesson tertentu.
+- Belum mengubah `content/syllabus/v1/tracks/jlpt-n5-foundation.json` agar skill pending masuk ke lesson tertentu.
 - Belum mengunci strategi distractor final paling pintar lintas deck; baseline ini hanya mengunci shape kontraknya.

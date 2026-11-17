@@ -14,7 +14,7 @@ allowed_files=(
   package.json bun.lock next.config.ts tsconfig.json next-env.d.ts postcss.config.mjs
   drizzle.config.ts drizzle/0000_example.sql drizzle/meta/_journal.json
   scripts/seed-syllabus.ts scripts/seed-flashcards.ts src/example.ts public/example.svg
-  content/syllabus/manifest.json content/syllabus/tracks/example.json
+  content/syllabus/v1/manifest.json content/syllabus/v1/tracks/example.json
   content/flashcards/system-decks/example.json
 )
 excluded_files=(
@@ -23,7 +23,9 @@ excluded_files=(
   docs/example.md node_modules/example.js .next/example.js coverage/example.json
   scripts/smoke-example.ts scripts/other-seed.ts drizzle/README.md
   content/syllabus/sources/provider/raw.json content/syllabus/schema/example.json
-  content/syllabus/tracks/private.pem content/flashcards/system-decks/private.key
+  content/syllabus/v1/other.json content/syllabus/v1/tracks/nested/private.json
+  content/syllabus/v2/manifest.json content/syllabus/v2/tracks/example.json
+  content/syllabus/v1/tracks/private.pem content/flashcards/system-decks/private.key
   content/flashcards/other.json
 )
 for file in "${allowed_files[@]}" "${excluded_files[@]}"; do
@@ -58,7 +60,7 @@ bun -e '
 mapfile -d '' source_files < <(find src -type f -print0 | LC_ALL=C sort -z)
 sha256sum "${source_files[@]}" package.json bun.lock tsconfig.json drizzle.config.ts \
   scripts/seed-syllabus.ts scripts/seed-flashcards.ts drizzle/*.sql drizzle/meta/*.json \
-  content/syllabus/manifest.json content/syllabus/tracks/*.json \
+  content/syllabus/v1/manifest.json content/syllabus/v1/tracks/*.json \
   content/flashcards/system-decks/*.json > "$verify_dir/ops.sha256"
 docker run --rm --network none \
   --mount "type=bind,src=$verify_dir/ops.sha256,dst=/tmp/ops.sha256,readonly" \

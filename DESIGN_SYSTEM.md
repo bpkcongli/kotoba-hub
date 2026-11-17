@@ -180,4 +180,4 @@ Rincian hierarchy per layar ada pada [low-fidelity wireframes](docs/system-desig
 1. `IMP-11`: turunkan token ke CSS/Tailwind, buat primitive dan wrapper P0, lalu shell public/onboarding/app/focus.
 2. `IMP-12`–`IMP-16`: implement flow sesuai pattern di atas dan kontrak backend tiap fitur. Backend/database tiap fitur harus siap lebih dulu sesuai [task breakdown](docs/task-breakdown.md).
 3. `IMP-17`: validasi lintas flow, terutama status lesson, quiz wajib, script pair terkunci, progress write-through, dan rekomendasi yang berubah mengikuti snapshot terbaru.
-4. Saat konten seed ditampilkan, tinjau copy Indonesia yang masih ada pada [published syllabus seed](content/syllabus/manifest.json) agar antarmuka English tidak bercampur bahasa secara tidak sengaja. Gap bank quiz dan status `SYL-07` dicatat di [PRD.md](PRD.md).
+4. Saat konten seed ditampilkan, tinjau copy Indonesia yang masih ada pada [published syllabus seed](content/syllabus/v1/manifest.json) agar antarmuka English tidak bercampur bahasa secara tidak sengaja. Gap bank quiz dan status `SYL-07` dicatat di [PRD.md](PRD.md).

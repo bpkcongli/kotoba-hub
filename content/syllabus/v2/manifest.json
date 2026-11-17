@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "2.0.0",
+  "generatedAt": "2026-11-06",
+  "defaultLocale": "en",
+  "supportedLocales": [
+    "en",
+    "id"
+  ],
+  "importMode": "MERGE_LESSONS",
+  "tracks": [
+    {
+      "slug": "jlpt-n5-foundation",
+      "curriculumLevel": "N5",
+      "sortOrder": 1,
+      "isPublished": true,
+      "file": "tracks/jlpt-n5-foundation.json",
+      "lessonIds": [
+        "4b14c9cc-ca61-5a32-8bf8-bddf625e5266",
+        "a95dfe8b-b59e-5f22-b6df-8bba0be8315c",
+        "86e7168a-ef45-5550-a44e-18574971067a",
+        "c44f7800-6bbc-50d5-8b9c-28430c1d7485",
+        "24009d46-a270-5706-82e0-7c1cdbd920e7",
+        "ae296331-0e1f-5d3b-a590-b751967a3e34",
+        "977e1f71-901a-5f3a-8302-b16a7e0c0f0f",
+        "74ba7e47-177e-56ac-b418-f76f1d707ccb",
+        "7bbfb649-309e-50c2-b7e8-304ddf0bf6b7",
+        "114cf2e3-5ce3-57f4-885c-c11c288337fd",
+        "dbdca014-7aab-5738-81bc-b97b1e0a6a75",
+        "f4f4e241-3feb-5f98-89af-037872a2ac1f",
+        "267a011e-b87b-5252-98bb-121374301385",
+        "72e2ef5e-525f-5661-9da0-fb86987cb972",
+        "ef97d0ae-8847-5506-a417-ce4cd8b5c40e",
+        "6ac70d48-33b4-50c7-a3e4-9dcf3ff9312e"
+      ]
+    }
+  ]
+}

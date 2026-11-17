@@ -18,6 +18,8 @@
 ## Documents In This Folder
 - [bilingual-content-contract.md](./bilingual-content-contract.md)
   Kontrak final `BIL-01`: schema seed v2, revisi/publikasi/fallback, DB terjemahan dan preferensi, serta transisi importer/API. [Allowlist batch 01](./bilingual-batch-01.json) mengunci identitas 16 lesson yang akan dikonversi.
+- [bilingual-batch-01-conversion.md](./bilingual-batch-01-conversion.md)
+  Hasil authoring `BIL-02`: 16 lesson dan 484 owner bilingual, perbaikan atribusi, gate regenerasi, serta blocker tujuh lesson. Artefak v2 masih `HELD`; manifest aktif tetap v1.
 - [bilingual-support-plan.md](./bilingual-support-plan.md)
   Rencana bertahap `BIL-01`–`BIL-08`; kontrak `BIL-01` sudah final, runtime/seed aktif masih v1. Generasi lesson lain ditangguhkan sampai tooling authoring siap.
 - [jlpt-syllabus-structure.md](./jlpt-syllabus-structure.md)

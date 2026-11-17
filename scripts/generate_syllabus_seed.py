@@ -18,7 +18,7 @@ import jsonschema
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS_DIR = ROOT / "docs" / "syllabus"
-CONTENT_DIR = ROOT / "content" / "syllabus"
+CONTENT_DIR = ROOT / "content" / "syllabus" / "v1"
 TRACKS_DIR = CONTENT_DIR / "tracks"
 
 SCHEMA_VERSION = "1.0.0"

@@ -18,7 +18,7 @@ import jsonschema
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SYLLABUS_CONTENT_DIR = ROOT / "content" / "syllabus"
+SYLLABUS_CONTENT_DIR = ROOT / "content" / "syllabus" / "v1"
 OUTPUT_DIR = ROOT / "content" / "flashcards" / "system-decks"
 OUTPUT_PATH = OUTPUT_DIR / "vocabulary-foundation.json"
 PENDING_REGISTRY_OUTPUT_PATH = OUTPUT_DIR / "vocabulary-foundation-pending-n5-skill-codes.json"
@@ -117,7 +117,7 @@ def validate_inputs() -> dict[str, dict[str, Any]]:
         if track["isPublished"] and track["slug"] in SUPPORTED_TRACK_SLUGS
     ]
     if not published_supported:
-        raise ValueError("No published supported tracks found in content/syllabus/manifest.json.")
+        raise ValueError("No published supported tracks found in content/syllabus/v1/manifest.json.")
 
     track_payloads: dict[str, dict[str, Any]] = {}
     for manifest_track in published_supported:

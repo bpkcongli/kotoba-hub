@@ -2,7 +2,7 @@
 
 ## Status dan batas cakupan
 
-- `BIL-01` selesai: [kontrak konten bilingual](./bilingual-content-contract.md), schema/examples v2, ERD target dan OpenAPI sudah difinalkan. Runtime/seed aktif tetap v1 hingga implementasi `BIL-03`; tahap lain masih planning.
+- `BIL-01` selesai: [kontrak konten bilingual](./bilingual-content-contract.md), schema/examples v2, ERD target dan OpenAPI sudah difinalkan. Authoring `BIL-02` sudah menghasilkan seluruh teks `en/id`, tetapi batch masih `HELD` karena atribusi; lihat [hasil konversi](./bilingual-batch-01-conversion.md). Runtime/seed aktif tetap v1 hingga implementasi `BIL-03`.
 - Target: materi dan aplikasi berbahasa Inggris (`en`) serta Indonesia (`id`), dengan bahasa Jepang (`ja`) tetap sebagai bahasa yang dipelajari.
 - Identitas track/unit/lesson/skill/soal, slug, urutan, prerequisite, dan progress tetap canonical lintas bahasa. Locale tidak menjadi bagian ID atau kunci mastery/Leitner.
 - Batch awal mencakup **16 lesson N5 yang sudah memiliki materi terkurasi dan bank 10 soal**, beserta metadata parent dan skill terkait. ID/slug dan checksum sumber dikunci pada [allowlist batch 01](./bilingual-batch-01.json); paragraf pengantar generik tidak dihitung sebagai materi lengkap.
@@ -13,7 +13,7 @@
 Gunakan `[ ]` untuk belum selesai dan `[x]` untuk selesai. Perbarui status bersama task terkait di [task breakdown](../task-breakdown.md); tahap ditandai selesai setelah seluruh cakupannya terpenuhi.
 
 - [x] `BIL-01` Finalisasi schema dan kebijakan bahasa. Lihat [kontrak final](./bilingual-content-contract.md).
-- [ ] `BIL-02` Konversi seed untuk lesson yang sudah tersedia.
+- [ ] `BIL-02` Konversi seed untuk lesson yang sudah tersedia (484 owner bilingual tersedia; blocked: 18 referensi pada 7 lesson memerlukan keputusan kurasi).
 - [ ] `BIL-03` Integrasi database, importer, API, dan pembaca syllabus.
 - [ ] `BIL-04` Seed lesson lain (ditangguhkan: menunggu subagent dan skill authoring/review pada sesi terpisah).
 - [ ] `BIL-05` Flashcard bilingual.
@@ -37,6 +37,7 @@ Gunakan `[ ]` untuk belum selesai dan `[x]` untuk selesai. Perbarui status bersa
 - Cakup metadata, paragraf, contoh, grammar, arti skill yang relevan, serta placeholder/hint/explanation quiz. Review kesetaraan makna dan istilah pedagogis; jangan menambah lesson atau bank soal baru.
 - Perbaiki atribusi skill 7 kandidat tanpa mengganti ID soal; publikasi tetap mensyaratkan bank 10 soal valid dan ladder `1..10`.
 - Siapkan artefak v2 terpisah; regenerasi mempertahankan kurasi/terjemahan. Manifest aktif tetap v1 sampai importer siap; subset batch tidak boleh menggantikan seluruh track aktif.
+- Hasil 6 November 2026: [authoring/artefak v2](../../content/syllabus/v2/README.md) lengkap untuk kedua bahasa; [laporan blocker](./bilingual-batch-01-conversion.md) mencatat 9 lesson siap, 7 ditahan. Pemeriksaan schema/tes authoring lulus, tetapi gate `--require-publishable` wajib gagal sampai semua atribusi selesai. Tahap ini belum selesai; BIL-03 belum dibuka.
 
 ### BIL-03 — Integrasi database, importer, API, dan pembaca syllabus
 

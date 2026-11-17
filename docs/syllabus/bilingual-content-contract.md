@@ -1,6 +1,6 @@
 # Kontrak Konten Bilingual — BIL-01
 
-Status: **final untuk implementasi BIL-02/BIL-03**, 4 November 2026. Runtime, seed aktif, dan migration saat ini masih v1; dokumen ini menetapkan target. [Rencana tahap](./bilingual-support-plan.md) tetap menjadi acuan scope.
+Status: **final untuk implementasi BIL-02/BIL-03**, 4 November 2026; varian kunci Jepang diselaraskan 6 November 2026 sesuai keputusan pemilik proyek pada BIL-02. Runtime, seed aktif, dan migration saat ini masih v1; dokumen ini menetapkan target. [Rencana tahap](./bilingual-support-plan.md) tetap menjadi acuan scope.
 
 ## 1. Artefak dan batch awal
 
@@ -11,8 +11,9 @@ Status: **final untuk implementasi BIL-02/BIL-03**, 4 November 2026. Runtime, se
 | [Contoh manifest](./examples/bilingual-manifest.v2.example.json), [track](./examples/bilingual-track.v2.example.json) | Fixture dokumentasi dengan ID contoh, seluruh owner unpublished dan satu soal draft; bukan input seed production    |
 | [Allowlist batch 01](./bilingual-batch-01.json)                                                                       | **16 lesson N5**, ID/slug lesson dan parent, ID skill/block/soal, checksum file sumber, serta masalah atribusi awal |
 
-- `BIL-02` menulis `content/syllabus/v2/manifest.json` dan `content/syllabus/v2/tracks/*.json` berdasarkan allowlist. Folder itu belum dibaca runtime secara otomatis. File v1 pada `content/syllabus/manifest.json` dan `tracks/` tetap menjadi input aktif hingga `BIL-03`.
+- `BIL-02` menulis `content/syllabus/v2/manifest.json` dan `content/syllabus/v2/tracks/*.json` berdasarkan allowlist. Folder itu belum dibaca runtime secara otomatis. File v1 pada `content/syllabus/v1/manifest.json` dan `tracks/` tetap menjadi input aktif hingga `BIL-03`.
 - Allowlist mengunci identitas 16 lesson yang memiliki materi dan sepuluh soal pada snapshot v1: **9 importable, 7 membutuhkan perbaikan atribusi skill**. Paragraf pengantar lesson lain tidak termasuk batch. Perubahan checksum sumber wajib menghasilkan laporan diff sebelum konversi; jangan memperluas allowlist otomatis.
+- Hasil authoring `BIL-02` dan blocker publikasi tercatat pada [laporan konversi batch](./bilingual-batch-01-conversion.md). Artefak v2 dapat berstatus `HELD` meskipun lolos JSON Schema; status itu tidak mengizinkan import parsial atau cutover `BIL-03`.
 - UUID, slug, kode skill, urutan, prerequisite, dan ID soal dipertahankan. Jangan menambah kode bundle palsu untuk mengatasi atribusi; petakan setiap soal ke skill atomik yang benar dalam lesson pada `BIL-02`. Jika tidak ada skill yang sesuai, tahan publikasi dan laporkan.
 - Versi schema hanya menunjukkan bentuk data. `contentRevision` menunjukkan revisi materi owner; keduanya terpisah dari API `/api/v1`, `promptPayload.schemaVersion=1`, dan urutan migration DB.
 
@@ -57,7 +58,7 @@ Nama lama dipetakan sebagai berikut; field v1 tersebut tidak diterima dalam payl
 - Fallback per paket: localization requested yang layak → Inggris yang layak. Paket adalah seluruh metadata satu owner, seluruh block, atau seluruh placeholder/hint/explanation soal. Tidak melakukan deep merge antarbahasa; `null`/array kosong yang memang valid tidak memicu fallback per field.
 - `localization` pada setiap object terlokalisasi berisi `{requestedLocale,resolvedLocale,isFallback,contentRevision,translationRevision}`. Parent dan block boleh resolve berbeda, dan response menandainya per object. Kalimat Jepang diberi `lang=ja`; bahasa bantuan memakai resolved locale.
 - Publikasi lesson v2 mensyaratkan Inggris yang layak untuk metadata lesson, parent, skill published, block published, dan seluruh sepuluh soal. Draft/stale Inggris pada konten wajib menahan batch import secara atomik. Indonesia draft/stale boleh disimpan dan fallback ke Inggris, tetapi acceptance batch `BIL-02` mensyaratkan kedua bahasa lengkap/current.
-- Publication tetap memerlukan bank tepat 10 soal `SHORT_FREE_RESPONSE` dengan ladder unik `1..10`, attribution skill published dalam lesson, satu blank plain/HTML yang setara, jawaban kana dan normalisasi `kana-strict-v1`. Terjemahan tidak menambah bank kedua atau mengubah target understanding `min(current+1,10)`.
+- Publication tetap memerlukan bank tepat 10 soal `SHORT_FREE_RESPONSE` dengan ladder unik `1..10`, attribution skill published dalam lesson, satu blank plain/HTML yang setara, dan normalisasi `kana-strict-v1`. Setiap soal wajib memiliki setidaknya satu alternatif jawaban kana. Alternatif kanji Jepang dan tanda baca `、` yang sudah terkurasi boleh dipertahankan, misalnya `['だれ','誰']` atau `こちらこそ、よろしくおねがいします`; setiap alternatif memuat kana/kanji, bukan Latin atau tanda baca saja. Kunci tidak diterjemahkan, dibuang, atau dinormalisasi ulang saat konversi. Evaluator tetap mencocokkan literal setelah NFKC/trim; keputusan ini tidak memperkenalkan penghapusan tanda baca. Validator runtime v2 pada `BIL-03` harus menerima varian ini; validator v1 tetap legacy. Terjemahan tidak menambah bank kedua atau mengubah target understanding `min(current+1,10)`.
 
 ## 4. Schema database target
 
@@ -117,7 +118,7 @@ Backfill row v1 harus mengaudit bahasa sebelum membuat localization. Payload yan
 `BIL-01` selesai ketika schema v2 dan contoh tervalidasi; allowlist 16 lesson cocok identitasnya dengan v1; ERD dan kontrak API memiliki mapping yang sama; kasus draft/stale/fallback/legacy/unsupported-locale dan merge parsial memiliki hasil yang jelas. Validasi semantik berikut wajib diimplementasikan pada `BIL-03`, di luar kemampuan JSON Schema standar:
 
 - Identitas global, parent/skill attribution, prerequisite, grammar skill owner, urutan unik, mapping canonical, revisi monotonic dan kesetaraan sourceRevision.
-- Published ancestor/English, bank 10 soal dan ladder, blank plain/HTML setara, minimal satu karakter kana pada jawaban, konsistensi family/check/contoh, sanitasi HTML, serta manifest/file/allowlist scope.
+- Published ancestor/English, bank 10 soal dan ladder, blank plain/HTML setara, setiap alternatif berisi karakter Jepang dan minimal satu alternatif kana per soal, konsistensi family/check/contoh, sanitasi HTML, serta manifest/file/allowlist scope.
 - Contoh valid/invalid untuk schema bukan bukti terjemahan benar; `BIL-02` tetap memerlukan review Inggris/Indonesia terhadap Jepang. Rilis runtime, migration SQL, dan konversi konten production berada pada task berikutnya.
 
-Verifikasi kontrak read-only: `python3 scripts/validate_bilingual_contracts.py` (Python dengan `jsonschema` dan `PyYAML`). Memeriksa schema/examples, 20 kasus invalid, checksum/identitas allowlist, serta struktur/ref internal OpenAPI; bukan validasi penuh implementasi importer atau evaluator. [Sequence direct quiz localized](../sequence-diagram/random-question-generator-and-answer-evaluation.md#perluasan-direct-quiz-localized--bil-01) melengkapi kontrak delivery.
+Verifikasi kontrak read-only: `python3 scripts/validate_bilingual_contracts.py` (Python dengan `jsonschema` dan `PyYAML`). Memeriksa schema/examples, 23 kasus invalid, varian kunci Jepang yang dipertahankan, checksum/identitas allowlist, serta struktur/ref internal OpenAPI; bukan validasi penuh implementasi importer atau evaluator. [Sequence direct quiz localized](../sequence-diagram/random-question-generator-and-answer-evaluation.md#perluasan-direct-quiz-localized--bil-01) melengkapi kontrak delivery.

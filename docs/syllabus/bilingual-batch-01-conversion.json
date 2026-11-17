@@ -1,0 +1,310 @@
+{
+  "batchId": "bilingual-n5-existing-01",
+  "sourceFile": "content/syllabus/v1/tracks/jlpt-n5-foundation.json",
+  "sourceSha256": "a9815d2b692d0e401f7f1296cf5ab3d083b49c68e13bf01ac614009f91fb9153",
+  "status": "HELD",
+  "ownerCount": 484,
+  "localizedOwnerCount": 484,
+  "questionCount": 160,
+  "questionAttributionFixes": {
+    "7d44ad62-010b-5d4e-81bb-5d915fb8d0b9": "n5_vocab_greetings_and_polite_openers_ohayou",
+    "e31340d0-4e22-51cb-85fd-15cd60ecd15a": "n5_vocab_greetings_and_polite_openers_ohayou",
+    "c46a4dbe-2941-5df7-b6dc-15928984ab75": "n5_vocab_greetings_and_polite_openers_konnichiha",
+    "efe1e5c5-5d88-52d4-ab28-f00080eb8ee6": "n5_vocab_greetings_and_polite_openers_konbanha",
+    "e0235943-200b-50d7-b7dc-b40b67bf4d24": "n5_vocab_basic_self_intro_phrases_hajimemashite",
+    "86ff030c-06c5-55b6-b6c7-89e8f49e4f71": "n5_vocab_basic_self_intro_phrases_yoroshiku",
+    "c0c2cea3-fb8b-5673-8e0b-f2df7b0a6bea": "n5_vocab_basic_self_intro_phrases_kochirakoso",
+    "dd844787-68e6-5d18-97e7-d9f6070578a5": "n5_vocab_greetings_and_polite_openers_sumimasen",
+    "6c70e8a3-2df6-55e8-be70-5915aa04238a": "n5_vocab_basic_self_intro_phrases_kochirakoso",
+    "ea738366-4ff0-55bb-bbd3-4eb4746ba974": "n5_vocab_identity_and_roles_sensei",
+    "130f4dd8-acb7-51a4-b26f-6f715886f902": "n5_vocab_identity_and_roles_kaishain",
+    "7918eb56-5d6f-5a00-8adb-6bd5feb0fd05": "n5_kosoado_pronouns_kore",
+    "19dae31e-a39b-5244-8e56-ab715292f93c": "n5_kosoado_pronouns_sore",
+    "88844706-8ac9-5f00-b4a9-b5dfde8d0176": "n5_kosoado_pronouns_are",
+    "59c59b9c-5ed1-511e-a4b2-bc4f1b89b794": "n5_kosoado_pronouns_kore",
+    "745dcf70-a820-5eff-a400-eae03ef141d5": "n5_kosoado_pronouns_kore",
+    "e5bf3d46-61e4-5b5c-8d51-f20fce6caa08": "n5_kosoado_pronouns_sore",
+    "c173896d-5939-55df-933a-62a3d94b41ff": "n5_kosoado_pronouns_are",
+    "1dca1e7b-2713-5b7d-bfa1-7bd65f2491ec": "n5_kosoado_pronouns_kore",
+    "feb056f3-051d-52ba-b3b1-4144134a75a4": "n5_kosoado_modifiers_sono",
+    "ddb91107-1207-5430-b3f3-df00e9dcd861": "n5_kosoado_modifiers_ano",
+    "b1596c02-308d-5a66-97f8-017cfb4f17d2": "n5_kosoado_modifiers_sono",
+    "72e6a30c-c1c3-573a-b3d4-ebace33be5ce": "n5_kosoado_modifiers_ano",
+    "c1473326-e672-5f19-b5cd-58f8a6e22452": "n5_kosoado_modifiers_sono",
+    "4c0328aa-856c-5f91-9882-81ccd1e686e2": "n5_place_reference_words_koko",
+    "82806695-dc84-5ed4-8329-f70be213374e": "n5_place_reference_words_soko",
+    "fac6b4fe-ee57-5209-89e7-5dc846b5623f": "n5_place_reference_words_asoko",
+    "ec135533-a01c-55c0-96fc-cd6117d1a9a6": "n5_where_question_doko_doko",
+    "a465d810-3fab-51f7-add0-a0a8ee36ec72": "n5_place_reference_words_soko",
+    "9f8bdc21-8844-50f3-ad05-20a6b4ccc26b": "n5_where_question_doko_doko",
+    "795a8f2b-c45f-57be-a8bc-dd126be01230": "n5_place_reference_words_asoko",
+    "f47cf803-46d0-5fa9-afaf-56a2e22798df": "n5_where_question_doko_doko",
+    "3a9f64f3-7f64-5cba-93d9-bb6252de71ea": "n5_place_reference_words_asoko",
+    "a1e6be38-ad46-5c98-ad25-2a122eeab0ba": "n5_where_question_doko_doko",
+    "ec257305-a008-5eec-9d11-22b343f03992": "n5_who_dare_dare",
+    "4c1a1e3d-82e7-577a-ada0-6b3c4f136e64": "n5_which_one_dore_dore",
+    "0164ae67-826e-5a56-ae8f-73a0ad18333f": "n5_who_dare_dare",
+    "34edaf6a-3539-5139-8ff8-3e04aa4aa9a4": "n5_which_one_dore_dore",
+    "ba128cdd-6f68-5915-8c5e-d9e036dbbbf8": "n5_who_dare_dare",
+    "27d7e1bb-ef4b-5183-a4dc-55a223fefafe": "n5_which_one_dore_dore",
+    "993d8091-1c6b-55d5-a173-984f8ba21d4e": "n5_vocab_daily_routine_verbs_nomu"
+  },
+  "blockAttributionFixes": {
+    "40a4806b-8415-5f3d-8510-193c10715420": "n5_where_question_doko_doko",
+    "4133f29f-c96b-510c-a9c5-84b777868460": "n5_who_dare_dare",
+    "6a661297-679e-5d65-a9f9-8d2f32f29edf": "n5_who_dare_dare",
+    "87eba7a4-20a5-5b86-88bb-73801a250b09": "n5_which_one_dore_dore"
+  },
+  "unusableSkillCodes": {
+    "n5_kosoado_modifiers_kyuu": "Entry 九 (sembilan), bukan pewatas この; jangan mencocokkan reading tanpa memeriksa makna dan POS.",
+    "n5_which_noun_dono_dono": "Entry 殿 (suffix kehormatan), bukan pewatas どの; reading sama tidak membuktikan lexeme sama."
+  },
+  "englishRevisedOwnerIds": [
+    "4b14c9cc-ca61-5a32-8bf8-bddf625e5266",
+    "7a9abccf-7cf8-58c5-b7a4-4d9902a038c4",
+    "147ff50a-ec09-5e8a-9021-662d8dfde637",
+    "513ca7d0-7579-53f1-b3fd-d4f064337f60",
+    "b595dbd4-0d74-5f48-bede-ebb9c84e82e0",
+    "f3518262-9667-5170-b5d2-4eb1ec9b7ecf",
+    "ffbabe49-ec2b-509c-b432-0364601dd856",
+    "c44f7800-6bbc-50d5-8b9c-28430c1d7485",
+    "11435ab2-297f-5dff-afe5-8e864891a64e",
+    "5c7cc2d1-116c-583f-96a6-b206c1bbdd86",
+    "176a25f9-e68a-5ead-a896-c2bd44be0432",
+    "24009d46-a270-5706-82e0-7c1cdbd920e7",
+    "ae296331-0e1f-5d3b-a590-b751967a3e34",
+    "977e1f71-901a-5f3a-8302-b16a7e0c0f0f",
+    "74ba7e47-177e-56ac-b418-f76f1d707ccb",
+    "b4100ac7-f7a4-5412-9f43-1a3f5e05ab8f",
+    "3c9f0699-7dd9-5166-b85e-a8a08a6c5810",
+    "b033b2e3-3bd5-5eb0-9d7d-8f1ba7968097",
+    "1e5d9da3-83f4-5d29-8bcc-025e2ee4c2eb",
+    "8464261b-ab0e-5e46-a617-0c05dd46538d",
+    "3f0bc2fe-3f26-5734-9555-15eccf11edf2",
+    "11c4bf7a-5a2e-5679-8974-854f35390ab9",
+    "1e07f655-263a-588a-b451-e34322335955",
+    "7cec9926-324c-56f2-9d9f-0ec5eb6e70e8",
+    "f534c8d7-443b-5c71-adaa-ef43a932ec54",
+    "9a3b814a-f2c2-5998-8b7a-cd6c97a743bd",
+    "c174c736-dd24-5274-876d-f5a2de40864a",
+    "3ddf9fb6-f4de-5a7e-a7fe-ccb68fed6638",
+    "26753c98-5d41-5efe-964a-a82ff71667c2",
+    "ab919658-6193-5ca2-b64d-861bd9b4cb31",
+    "267a011e-b87b-5252-98bb-121374301385",
+    "fa5e0d44-c645-5141-949b-3e94e35b0c71",
+    "c7581009-fcf7-57d4-aced-a463547236b4",
+    "fa218f16-24de-5ef8-8de9-b37e0ed4f436",
+    "7a4429db-c5f2-50a1-a54d-a0db30993a21",
+    "dfa8d540-1fd9-57bb-9702-a7894c9205f4",
+    "64444ab2-e5a1-53a5-9fe5-814d72ccdd27",
+    "d86c252d-b71c-581c-ac32-f661a34c4a3e",
+    "00717101-aff1-5baa-b271-257f8920a136",
+    "e7a38223-e9a8-5c81-a20b-09424e23bae9",
+    "c3501773-5a77-5e42-b5fe-5bebd662dc76",
+    "9b994bd7-6ad7-5690-b9e6-978363aee555",
+    "295bdcf2-cd69-59e3-bf2e-1c8b88825568",
+    "874a4671-2dce-5657-b1e2-ca283a621458",
+    "388beda6-7be4-5591-b1b8-609722df4929",
+    "1e2667d2-a774-5f97-8ef1-ee03540b2f17",
+    "6e7ec03f-206e-5f13-a9e2-2db71a4a29ee"
+  ],
+  "presentationNotes": {
+    "745dcf70-a820-5eff-a400-eae03ef141d5": "HTML menambahkan label B： sesudah narasi B menjawab; kalimat dan blank tetap setara secara makna. Kedua bentuk sumber dipertahankan.",
+    "d514529f-ada0-557e-a4a0-5bc86132bdae": "HTML menambahkan label マリア： dan ケン： pada ujaran yang sudah dijelaskan narasi plain. Kedua bentuk sumber dipertahankan."
+  },
+  "lessons": [
+    {
+      "id": "4b14c9cc-ca61-5a32-8bf8-bddf625e5266",
+      "slug": "greetings-and-polite-openers",
+      "status": "HELD",
+      "holds": [
+        {
+          "id": "ee489861-5b62-5d9d-88ae-8e1ad540d027",
+          "kind": "postStudyQuestions",
+          "reason": "Tidak ada skill atomik untuk しつれいします dalam lesson; すみません bukan lexeme yang sama."
+        }
+      ]
+    },
+    {
+      "id": "a95dfe8b-b59e-5f22-b6df-8bba0be8315c",
+      "slug": "copula-affirmative-and-questions",
+      "status": "READY_FOR_BIL_03",
+      "holds": []
+    },
+    {
+      "id": "86e7168a-ef45-5550-a44e-18574971067a",
+      "slug": "copula-negative-and-past-reference",
+      "status": "READY_FOR_BIL_03",
+      "holds": []
+    },
+    {
+      "id": "c44f7800-6bbc-50d5-8b9c-28430c1d7485",
+      "slug": "belonging-role-and-basic-preference",
+      "status": "HELD",
+      "holds": [
+        {
+          "id": "b038c3be-cc0d-5020-9780-e6b06298e440",
+          "kind": "postStudyQuestions",
+          "reason": "Jawaban だいがくせい memerlukan lexeme 大学生; skill 学生 hanya memuat がくせい. Jangan menganggap student dan university student identitas lexical yang sama."
+        },
+        {
+          "id": "fd584302-ed2d-5480-91c7-f72691e2dd80",
+          "kind": "postStudyQuestions",
+          "reason": "Tidak ada skill atomik インドネシア人; skill 日本人 merujuk kebangsaan berbeda."
+        }
+      ]
+    },
+    {
+      "id": "24009d46-a270-5706-82e0-7c1cdbd920e7",
+      "slug": "ko-so-a-do-pronouns",
+      "status": "HELD",
+      "holds": [
+        {
+          "id": "81f3aafb-3557-5880-97d8-0598f05bd33e",
+          "kind": "postStudyQuestions",
+          "reason": "Skill どれ ada pada lesson choice-and-person-reference, bukan lesson ini; atribusi lintas lesson dilarang."
+        },
+        {
+          "id": "7c34d070-5073-5cf8-9bd6-f6ab373072ec",
+          "kind": "postStudyQuestions",
+          "reason": "Skill どれ tidak ada dalam lesson ini."
+        }
+      ]
+    },
+    {
+      "id": "ae296331-0e1f-5d3b-a590-b751967a3e34",
+      "slug": "ko-so-a-do-modifiers",
+      "status": "HELD",
+      "holds": [
+        {
+          "id": "d2ddb742-b2eb-5ed7-9560-bf80a19b455b",
+          "kind": "postStudyQuestions",
+          "reason": "Skill n5_kosoado_modifiers_kyuu adalah 九 (angka sembilan). Reading この pada entry angka bukan pewatas この."
+        },
+        {
+          "id": "c18d98a9-b00f-59b7-9141-b8a88e6090ab",
+          "kind": "postStudyQuestions",
+          "reason": "Tidak ada skill atomik pewatas どの dalam lesson."
+        },
+        {
+          "id": "d12fa1ae-b3ce-5ce1-8189-78eb190eb77b",
+          "kind": "postStudyQuestions",
+          "reason": "Skill yang tersedia 九, bukan pewatas この."
+        },
+        {
+          "id": "b134f410-01ef-5ead-914b-5a2e171e71bb",
+          "kind": "postStudyQuestions",
+          "reason": "Tidak ada skill atomik pewatas どの dalam lesson."
+        },
+        {
+          "id": "7b8f0fec-5519-5abf-b98e-88dcbd3a8fed",
+          "kind": "postStudyQuestions",
+          "reason": "Tidak ada skill atomik pewatas どの dalam lesson."
+        },
+        {
+          "id": "fb10b09b-faa8-5abe-997f-7ce46da6a81d",
+          "kind": "contentBlocks",
+          "reason": "Block membahas empat pewatas この/その/あの/どの sekaligus, tetapi owner bundle tidak ada. Tidak ada satu skill atomik yang mewakili seluruh block; この dan どの juga belum punya entry yang benar."
+        }
+      ]
+    },
+    {
+      "id": "977e1f71-901a-5f3a-8302-b16a7e0c0f0f",
+      "slug": "place-reference-and-location-questions",
+      "status": "HELD",
+      "holds": [
+        {
+          "id": "0ecf2c1b-cf4d-5360-9439-c70dca77c65f",
+          "kind": "contentBlocks",
+          "reason": "Block membahas ここ/そこ/あそこ, tetapi owner bundle tidak ada; memilih satu skill atomik secara arbitrer mengubah atribusi pedagogis."
+        }
+      ]
+    },
+    {
+      "id": "74ba7e47-177e-56ac-b418-f76f1d707ccb",
+      "slug": "choice-and-person-reference",
+      "status": "HELD",
+      "holds": [
+        {
+          "id": "18a4ebec-cdad-5737-860a-ccccc90c45b9",
+          "kind": "postStudyQuestions",
+          "reason": "Skill n5_which_noun_dono_dono memuat 殿 (suffix kehormatan), bukan pewatas どの."
+        },
+        {
+          "id": "8f5f40f7-09d9-58a2-85fd-11f41285df4e",
+          "kind": "postStudyQuestions",
+          "reason": "Skill 殿 (suffix) tidak merepresentasikan pewatas どの."
+        },
+        {
+          "id": "61f69a90-29da-572c-9cc5-dc525e623ad4",
+          "kind": "postStudyQuestions",
+          "reason": "Skill 殿 (suffix) tidak merepresentasikan pewatas どの."
+        },
+        {
+          "id": "ed500231-c191-5e17-a4fc-368c4f738e1d",
+          "kind": "postStudyQuestions",
+          "reason": "Skill 殿 (suffix) tidak merepresentasikan pewatas どの."
+        },
+        {
+          "id": "dfa29085-7639-5aca-8a6f-b297b16ff7b2",
+          "kind": "contentBlocks",
+          "reason": "Owner bundle どの tidak ada dan skill atomik yang bernama serupa berisi 殿, bukan pewatas."
+        }
+      ]
+    },
+    {
+      "id": "7bbfb649-309e-50c2-b7e8-304ddf0bf6b7",
+      "slug": "topic-subject-and-possession",
+      "status": "READY_FOR_BIL_03",
+      "holds": []
+    },
+    {
+      "id": "114cf2e3-5ce3-57f4-885c-c11c288337fd",
+      "slug": "objects-companions-and-loose-listing",
+      "status": "READY_FOR_BIL_03",
+      "holds": []
+    },
+    {
+      "id": "dbdca014-7aab-5738-81bc-b97b1e0a6a75",
+      "slug": "place-time-and-means-particles",
+      "status": "READY_FOR_BIL_03",
+      "holds": []
+    },
+    {
+      "id": "f4f4e241-3feb-5f98-89af-037872a2ac1f",
+      "slug": "sentence-ending-and-basic-quoting",
+      "status": "READY_FOR_BIL_03",
+      "holds": []
+    },
+    {
+      "id": "267a011e-b87b-5252-98bb-121374301385",
+      "slug": "polite-verb-basics",
+      "status": "HELD",
+      "holds": [
+        {
+          "id": "d3edbaa5-2313-57b8-8fb0-d7aa66aa0c8b",
+          "kind": "postStudyQuestions",
+          "reason": "Tidak ada skill lexical 寝る/ねる dalam lesson; jangan mengalihkan tes lexeme tidur ke kata kerja lain."
+        }
+      ]
+    },
+    {
+      "id": "72e2ef5e-525f-5661-9da0-fb86987cb972",
+      "slug": "u-verbs-and-ru-verbs-in-time",
+      "status": "READY_FOR_BIL_03",
+      "holds": []
+    },
+    {
+      "id": "ef97d0ae-8847-5506-a417-ce4cd8b5c40e",
+      "slug": "irregular-verbs-and-purpose",
+      "status": "READY_FOR_BIL_03",
+      "holds": []
+    },
+    {
+      "id": "6ac70d48-33b4-50c7-a3e4-9dcf3ff9312e",
+      "slug": "desire-intention-and-invitation",
+      "status": "READY_FOR_BIL_03",
+      "holds": []
+    }
+  ]
+}

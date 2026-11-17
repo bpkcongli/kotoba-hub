@@ -4,7 +4,7 @@ The finalized BIL-01 target adds syllabus translation/revision fields,
 `user_preferences`, and localized direct-quiz deliveries. See the
 [bilingual persistence and transition contract](../docs/syllabus/bilingual-content-contract.md).
 SQL migrations, audited backfill and v2 merge-import support belong to BIL-03;
-the commands below still operate on v1. Do not use the current full-catalog
+the commands below still operate on `content/syllabus/v1/manifest.json`. Do not use the current full-catalog
 seeder to import a partial bilingual batch.
 
 Drizzle writes generated SQL and migration metadata here. The registry at
@@ -43,7 +43,7 @@ Migration `0001_syllabus_catalog.sql` adds the seven syllabus tables. After
 `bun run db:migrate`, run `bun run db:seed:syllabus:dry-run` to inspect the
 validated catalog and rejected lessons, then `bun run db:seed:syllabus` to
 import it. The importer is transactional and can be rerun after curating
-`content/syllabus` without duplicating rows. It deactivates rows that no longer
+`content/syllabus/v1` without duplicating rows. It deactivates rows that no longer
 belong to a complete published lesson subtree, preserving IDs for future
 progress references. API and onboarding reads use MySQL; repository JSON is
 the canonical import input.

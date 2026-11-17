@@ -5,7 +5,7 @@ Folder ini memuat raw source layer untuk task `SYL-03A`.
 Tujuannya:
 - menyimpan snapshot mentah sedekat mungkin dengan provider asli
 - membawa header response, checksum, dan catatan provenance agar transform seed bisa diaudit
-- memisahkan bahan baku eksternal dari payload seed final `content/syllabus/manifest.json` dan `content/syllabus/tracks/*.json`
+- memisahkan bahan baku eksternal dari seed aktif `content/syllabus/v1/manifest.json` dan `content/syllabus/v1/tracks/*.json`, serta artefak authoring terisolasi di `content/syllabus/v2/`
 
 ## Layout
 
@@ -19,6 +19,7 @@ content/
       tatoeba/
       yomitan-jlpt-vocab/
       bunpro/
+      tae-kim/
 ```
 
 Setiap provider memakai pola:
@@ -43,11 +44,11 @@ Snapshot awal `SYL-03A` mencakup:
 - `yomitan-jlpt-vocab`: source repository archive plus raw `README` dan `LICENSE`
 - `Bunpro`: raw deck pages `N5` dan `N4`, daftar URL grammar point hasil ekstraksi dari deck, serta snapshot HTML per grammar point
 
+Tambahan dari pemilik repository: [Tae Kim Japanese Grammar Guide](tae-kim/README.md), PDF sumber penjelasan sekunder untuk authoring/review. Folder ini mempertahankan file yang disediakan langsung; tidak memakai layout snapshot fetch otomatis di atas. Metadata, checksum dan cara ekstraksi dicatat pada README sumber.
+
 ## Intentional Deferrals
 
 Beberapa source pendukung belum ikut diambil pada snapshot awal ini:
-- `Tae Kim`
-  Secondary explanation source untuk grammar. Tidak dibutuhkan untuk memulai canonical inventory grammar karena baseline `SYL-03A` mengutamakan deck dan detail page Bunpro.
 - `core-frequency`
   Di [docs/syllabus/source-of-truth-and-ingestion-plan.md](/home/user/Testing/kotoba-hub/docs/syllabus/source-of-truth-and-ingestion-plan.md:180) jalur lisensi dan bulk acquisition-nya masih belum dikunci, jadi belum aman dianggap bagian dari baseline raw snapshot.
 - `Tatoeba links.tar.bz2`

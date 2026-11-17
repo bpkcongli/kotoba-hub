@@ -1,0 +1,348 @@
+{
+  "contentBlocks": [
+    {
+      "id": "c2f8efe2-e02b-52c6-ae14-32f3ca3b9ef5",
+      "blockType": "PARAGRAPH",
+      "content": {},
+      "sortOrder": 1,
+      "isPublished": false,
+      "contentRevision": 1,
+      "localizations": {
+        "en": {
+          "sourceRevision": 1,
+          "translationRevision": 1,
+          "isPublished": false,
+          "sourceRefs": [
+            {
+              "provider": "BUNPRO",
+              "category": "GRAMMAR_POINT",
+              "externalId": "だった-でした",
+              "sourceUrl": "https://bunpro.jp/grammar_points/だった-でした",
+              "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/047-%E3%81%A0%E3%81%A3%E3%81%9F-%E3%81%A7%E3%81%97%E3%81%9F.html",
+              "notes": "Structure/About/Caution checked in the local snapshot; examples below are newly authored."
+            },
+            {
+              "provider": "TAE_KIM",
+              "category": "GRAMMAR_GUIDE",
+              "externalId": "2012-11-21/4.1.4",
+              "sourceUrl": "https://guidetojapanese.org/learn/grammar/polite",
+              "retrievedFrom": "content/syllabus/sources/tae-kim/Tae Kim Japanese Grammar Guide.pdf",
+              "notes": "Section 4.1.4, PDF/printed pages 88-89; reference for polite noun past and i-adjective contrast."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "AUTHORING_EXAMPLE",
+              "externalId": "copula-past-polite-example/en",
+              "notes": "Original illustrative wording; not a completed lesson or published seed."
+            }
+          ],
+          "title": "Talking about the past politely",
+          "body": "<p>Use <strong>でした</strong> after a noun to say what something was. For example, やすみです means it is a day off; やすみでした means it was a day off.</p><p>This pattern also works with na-adjectives. I-adjectives use a different past form, so do not add でした directly to them.</p>"
+        },
+        "id": {
+          "sourceRevision": 1,
+          "translationRevision": 1,
+          "isPublished": false,
+          "sourceRefs": [
+            {
+              "provider": "BUNPRO",
+              "category": "GRAMMAR_POINT",
+              "externalId": "だった-でした",
+              "sourceUrl": "https://bunpro.jp/grammar_points/だった-でした",
+              "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/047-%E3%81%A0%E3%81%A3%E3%81%9F-%E3%81%A7%E3%81%97%E3%81%9F.html",
+              "notes": "Structure/About/Caution checked in the local snapshot; examples below are newly authored."
+            },
+            {
+              "provider": "TAE_KIM",
+              "category": "GRAMMAR_GUIDE",
+              "externalId": "2012-11-21/4.1.4",
+              "sourceUrl": "https://guidetojapanese.org/learn/grammar/polite",
+              "retrievedFrom": "content/syllabus/sources/tae-kim/Tae Kim Japanese Grammar Guide.pdf",
+              "notes": "Section 4.1.4, PDF/printed pages 88-89; reference for polite noun past and i-adjective contrast."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "AUTHORING_EXAMPLE",
+              "externalId": "copula-past-polite-example/id",
+              "notes": "Original illustrative wording; not a completed lesson or published seed."
+            }
+          ],
+          "title": "Menceritakan masa lalu dengan sopan",
+          "body": "<p>Gunakan <strong>でした</strong> setelah kata benda untuk mengatakan keadaan di masa lalu. Misalnya, やすみです berarti hari libur; やすみでした berarti saat itu hari libur.</p><p>Pola ini juga bisa dipakai dengan kata sifat na. Kata sifat i punya bentuk lampau sendiri, jadi jangan langsung menambahkan でした setelahnya.</p>"
+        }
+      }
+    },
+    {
+      "id": "0d712120-83ef-53c7-9bcb-04380cabded9",
+      "blockType": "GRAMMAR_STRUCTURE",
+      "content": {
+        "skillCode": "n5_copula_past_polite"
+      },
+      "sortOrder": 2,
+      "isPublished": false,
+      "contentRevision": 1,
+      "localizations": {
+        "en": {
+          "sourceRevision": 1,
+          "translationRevision": 1,
+          "isPublished": false,
+          "sourceRefs": [
+            {
+              "provider": "BUNPRO",
+              "category": "GRAMMAR_POINT",
+              "externalId": "だった-でした",
+              "sourceUrl": "https://bunpro.jp/grammar_points/だった-でした",
+              "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/047-%E3%81%A0%E3%81%A3%E3%81%9F-%E3%81%A7%E3%81%97%E3%81%9F.html",
+              "notes": "Structure/About/Caution checked in the local snapshot; examples below are newly authored."
+            },
+            {
+              "provider": "TAE_KIM",
+              "category": "GRAMMAR_GUIDE",
+              "externalId": "2012-11-21/4.1.4",
+              "sourceUrl": "https://guidetojapanese.org/learn/grammar/polite",
+              "retrievedFrom": "content/syllabus/sources/tae-kim/Tae Kim Japanese Grammar Guide.pdf",
+              "notes": "Section 4.1.4, PDF/printed pages 88-89; reference for polite noun past and i-adjective contrast."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "AUTHORING_EXAMPLE",
+              "externalId": "copula-past-polite-example/en",
+              "notes": "Original illustrative wording; not a completed lesson or published seed."
+            }
+          ],
+          "ALL": null,
+          "STANDARD": null,
+          "POLITE": "<p>Noun / na-adjective + <strong>でした</strong></p>"
+        },
+        "id": {
+          "sourceRevision": 1,
+          "translationRevision": 1,
+          "isPublished": false,
+          "sourceRefs": [
+            {
+              "provider": "BUNPRO",
+              "category": "GRAMMAR_POINT",
+              "externalId": "だった-でした",
+              "sourceUrl": "https://bunpro.jp/grammar_points/だった-でした",
+              "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/047-%E3%81%A0%E3%81%A3%E3%81%9F-%E3%81%A7%E3%81%97%E3%81%9F.html",
+              "notes": "Structure/About/Caution checked in the local snapshot; examples below are newly authored."
+            },
+            {
+              "provider": "TAE_KIM",
+              "category": "GRAMMAR_GUIDE",
+              "externalId": "2012-11-21/4.1.4",
+              "sourceUrl": "https://guidetojapanese.org/learn/grammar/polite",
+              "retrievedFrom": "content/syllabus/sources/tae-kim/Tae Kim Japanese Grammar Guide.pdf",
+              "notes": "Section 4.1.4, PDF/printed pages 88-89; reference for polite noun past and i-adjective contrast."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "AUTHORING_EXAMPLE",
+              "externalId": "copula-past-polite-example/id",
+              "notes": "Original illustrative wording; not a completed lesson or published seed."
+            }
+          ],
+          "ALL": null,
+          "STANDARD": null,
+          "POLITE": "<p>Kata benda / kata sifat na + <strong>でした</strong></p>"
+        }
+      }
+    },
+    {
+      "id": "4f330135-1116-5086-af98-1686983d7bf7",
+      "blockType": "EXAMPLE_SENTENCE",
+      "content": {
+        "japaneseSentence": "<p>きのうはやすみでした。</p>"
+      },
+      "sortOrder": 3,
+      "isPublished": false,
+      "contentRevision": 1,
+      "localizations": {
+        "en": {
+          "sourceRevision": 1,
+          "translationRevision": 1,
+          "isPublished": false,
+          "sourceRefs": [
+            {
+              "provider": "BUNPRO",
+              "category": "GRAMMAR_POINT",
+              "externalId": "だった-でした",
+              "sourceUrl": "https://bunpro.jp/grammar_points/だった-でした",
+              "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/047-%E3%81%A0%E3%81%A3%E3%81%9F-%E3%81%A7%E3%81%97%E3%81%9F.html",
+              "notes": "Structure/About/Caution checked in the local snapshot; examples below are newly authored."
+            },
+            {
+              "provider": "TAE_KIM",
+              "category": "GRAMMAR_GUIDE",
+              "externalId": "2012-11-21/4.1.4",
+              "sourceUrl": "https://guidetojapanese.org/learn/grammar/polite",
+              "retrievedFrom": "content/syllabus/sources/tae-kim/Tae Kim Japanese Grammar Guide.pdf",
+              "notes": "Section 4.1.4, PDF/printed pages 88-89; reference for polite noun past and i-adjective contrast."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "AUTHORING_EXAMPLE",
+              "externalId": "copula-past-polite-example/en",
+              "notes": "Original illustrative wording; not a completed lesson or published seed."
+            }
+          ],
+          "translation": "<p>Yesterday was a day off.</p>"
+        },
+        "id": {
+          "sourceRevision": 1,
+          "translationRevision": 1,
+          "isPublished": false,
+          "sourceRefs": [
+            {
+              "provider": "BUNPRO",
+              "category": "GRAMMAR_POINT",
+              "externalId": "だった-でした",
+              "sourceUrl": "https://bunpro.jp/grammar_points/だった-でした",
+              "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/047-%E3%81%A0%E3%81%A3%E3%81%9F-%E3%81%A7%E3%81%97%E3%81%9F.html",
+              "notes": "Structure/About/Caution checked in the local snapshot; examples below are newly authored."
+            },
+            {
+              "provider": "TAE_KIM",
+              "category": "GRAMMAR_GUIDE",
+              "externalId": "2012-11-21/4.1.4",
+              "sourceUrl": "https://guidetojapanese.org/learn/grammar/polite",
+              "retrievedFrom": "content/syllabus/sources/tae-kim/Tae Kim Japanese Grammar Guide.pdf",
+              "notes": "Section 4.1.4, PDF/printed pages 88-89; reference for polite noun past and i-adjective contrast."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "AUTHORING_EXAMPLE",
+              "externalId": "copula-past-polite-example/id",
+              "notes": "Original illustrative wording; not a completed lesson or published seed."
+            }
+          ],
+          "translation": "<p>Kemarin hari libur.</p>"
+        }
+      }
+    }
+  ],
+  "postStudyQuestions": [
+    {
+      "id": "bb089e0d-dee5-5dc1-95ab-c6c378d7d61c",
+      "skillCode": "n5_copula_past_polite",
+      "difficultyLevel": 1,
+      "questionType": "SHORT_FREE_RESPONSE",
+      "promptPayload": {
+        "schemaVersion": 1,
+        "sentenceTemplate": "「あめです」をかこのていねいなかたちに：あめ___。",
+        "sentenceTemplateHtml": "<p>「あめです」をかこのていねいなかたちに：あめ<span class=\"question-blank\">___</span>。</p>",
+        "promptLanguage": "JA",
+        "answerLanguage": "JA",
+        "slotCount": 1,
+        "blankInputMode": "ROMAJI_TO_KANA",
+        "inputMethod": {
+          "acceptsRomaji": true,
+          "transformsTo": "KANA"
+        }
+      },
+      "expectedAnswer": {
+        "acceptedTextAnswers": [
+          "でした"
+        ],
+        "normalizationProfile": "kana-strict-v1"
+      },
+      "sortOrder": 1,
+      "isPublished": false,
+      "sourceRefs": [
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "だった-でした",
+          "sourceUrl": "https://bunpro.jp/grammar_points/だった-でした",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/047-%E3%81%A0%E3%81%A3%E3%81%9F-%E3%81%A7%E3%81%97%E3%81%9F.html",
+          "notes": "Structure/About/Caution checked in the local snapshot; examples below are newly authored."
+        },
+        {
+          "provider": "TAE_KIM",
+          "category": "GRAMMAR_GUIDE",
+          "externalId": "2012-11-21/4.1.4",
+          "sourceUrl": "https://guidetojapanese.org/learn/grammar/polite",
+          "retrievedFrom": "content/syllabus/sources/tae-kim/Tae Kim Japanese Grammar Guide.pdf",
+          "notes": "Section 4.1.4, PDF/printed pages 88-89; reference for polite noun past and i-adjective contrast."
+        },
+        {
+          "provider": "KOTOBAHUB_INTERNAL",
+          "category": "QUESTION_AUTHORING",
+          "externalId": "copula-past-polite-example/question-1",
+          "notes": "Original single-blank example; explicitly transforms the given affirmative sentence into the polite past."
+        }
+      ],
+      "contentRevision": 1,
+      "localizations": {
+        "en": {
+          "sourceRevision": 1,
+          "translationRevision": 1,
+          "isPublished": false,
+          "sourceRefs": [
+            {
+              "provider": "BUNPRO",
+              "category": "GRAMMAR_POINT",
+              "externalId": "だった-でした",
+              "sourceUrl": "https://bunpro.jp/grammar_points/だった-でした",
+              "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/047-%E3%81%A0%E3%81%A3%E3%81%9F-%E3%81%A7%E3%81%97%E3%81%9F.html",
+              "notes": "Structure/About/Caution checked in the local snapshot; examples below are newly authored."
+            },
+            {
+              "provider": "TAE_KIM",
+              "category": "GRAMMAR_GUIDE",
+              "externalId": "2012-11-21/4.1.4",
+              "sourceUrl": "https://guidetojapanese.org/learn/grammar/polite",
+              "retrievedFrom": "content/syllabus/sources/tae-kim/Tae Kim Japanese Grammar Guide.pdf",
+              "notes": "Section 4.1.4, PDF/printed pages 88-89; reference for polite noun past and i-adjective contrast."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "AUTHORING_EXAMPLE",
+              "externalId": "copula-past-polite-example/en",
+              "notes": "Original illustrative wording; not a completed lesson or published seed."
+            }
+          ],
+          "placeholder": "Type the missing ending",
+          "hintTexts": [
+            "<p>Change the given sentence to the polite past. Keep the same meaning.</p>"
+          ],
+          "explanation": "<p>あめです means it is rainy. Change <strong>です</strong> to <strong>でした</strong> after the noun あめ to talk about the past: あめでした means it was rainy.</p>"
+        },
+        "id": {
+          "sourceRevision": 1,
+          "translationRevision": 1,
+          "isPublished": false,
+          "sourceRefs": [
+            {
+              "provider": "BUNPRO",
+              "category": "GRAMMAR_POINT",
+              "externalId": "だった-でした",
+              "sourceUrl": "https://bunpro.jp/grammar_points/だった-でした",
+              "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/047-%E3%81%A0%E3%81%A3%E3%81%9F-%E3%81%A7%E3%81%97%E3%81%9F.html",
+              "notes": "Structure/About/Caution checked in the local snapshot; examples below are newly authored."
+            },
+            {
+              "provider": "TAE_KIM",
+              "category": "GRAMMAR_GUIDE",
+              "externalId": "2012-11-21/4.1.4",
+              "sourceUrl": "https://guidetojapanese.org/learn/grammar/polite",
+              "retrievedFrom": "content/syllabus/sources/tae-kim/Tae Kim Japanese Grammar Guide.pdf",
+              "notes": "Section 4.1.4, PDF/printed pages 88-89; reference for polite noun past and i-adjective contrast."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "AUTHORING_EXAMPLE",
+              "externalId": "copula-past-polite-example/id",
+              "notes": "Original illustrative wording; not a completed lesson or published seed."
+            }
+          ],
+          "placeholder": "Ketik akhiran yang belum ada",
+          "hintTexts": [
+            "<p>Ubah kalimat yang diberikan ke bentuk lampau yang sopan. Pertahankan maknanya.</p>"
+          ],
+          "explanation": "<p>あめです berarti saat ini hujan. Ubah <strong>です</strong> menjadi <strong>でした</strong> setelah kata benda あめ untuk menceritakan masa lalu: あめでした berarti saat itu hujan.</p>"
+        }
+      }
+    }
+  ]
+}

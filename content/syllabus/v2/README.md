@@ -1,5 +1,7 @@
 # BIL-02 — batch authoring v2
 
+Untuk melengkapi lesson N5/N4 di luar batch frozen, gunakan [panduan subagent authoring/review dan snippet v2](../../../docs/syllabus/syllabus-authoring-guide.md). Draft baru berisi hanya `contentBlocks` dan `postStudyQuestions`, disimpan per lesson pada path yang ditugaskan; draft bukan tambahan otomatis pada overlay/manifest batch-01.
+
 **HELD — belum boleh diimport.** Seluruh 16 lesson allowlist sudah dikonversi ke Inggris/Indonesia, tetapi tujuh lesson masih mempunyai blocker atribusi. Lihat [laporan konversi](../../../docs/syllabus/bilingual-batch-01-conversion.md) dan [hasil mesin](../../../docs/syllabus/bilingual-batch-01-conversion.json).
 
 - `manifest.json` memakai `MERGE_LESSONS` dan memuat tepat 16 ID lesson asli, bukan pengganti katalog v1.

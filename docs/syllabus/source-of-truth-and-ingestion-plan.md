@@ -176,7 +176,7 @@
   - hindari sentence yang terlalu kompleks untuk level target
 - Tatoeba juga cocok menjadi source primer candidate sentence untuk `post-study quiz` lesson selama:
   - kalimat bisa dipetakan jelas ke skill/lesson yang diuji
-  - jawaban slot-fill dapat dibuat deterministik dengan tepat empat opsi
+  - jawaban satu blank `SHORT_FREE_RESPONSE` dapat dicocokkan deterministik dengan alternatif jawaban Jepang terkurasi sesuai kontrak post-study quiz, tanpa opsi pilihan ganda
   - tingkat kompleksitasnya bisa diurutkan ke ladder `difficultyLevel` `1..10`
 - Rekomendasi field normalisasi sentence:
   - `sentence_id`

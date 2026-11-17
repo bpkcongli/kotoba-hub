@@ -5,6 +5,7 @@ import type {
   SyllabusUnitSnapshot,
 } from '@/backend/syllabus/domain/repositories/syllabus-catalog.repository';
 import type { CanonicalPostStudyQuestion } from '@/backend/syllabus/domain/value-objects/post-study-question-bank';
+import type { Locale } from '@/shared/locale';
 
 export interface PublishedOnboardingTrack {
   slug: string;
@@ -31,17 +32,18 @@ export interface CanonicalQuestionReadModel extends SyllabusLessonReadModel {
 }
 
 export interface SyllabusCatalogService {
-  getPublishedTracks(): Promise<SyllabusTrackSnapshot[]>;
+  getPublishedTracks(locale?: Locale): Promise<SyllabusTrackSnapshot[]>;
 
-  getPublishedOnboardingTracks(): Promise<PublishedOnboardingTrack[]>;
+  getPublishedOnboardingTracks(locale?: Locale): Promise<PublishedOnboardingTrack[]>;
 
-  getPublishedUnit(unitSlug: string): Promise<SyllabusUnitReadModel | null>;
+  getPublishedUnit(unitSlug: string, locale?: Locale): Promise<SyllabusUnitReadModel | null>;
 
-  getPublishedLesson(lessonSlug: string): Promise<SyllabusLessonReadModel | null>;
+  getPublishedLesson(lessonSlug: string, locale?: Locale): Promise<SyllabusLessonReadModel | null>;
 
   getCanonicalPostStudyQuestion(
     lessonSlug: string,
     difficultyLevel: number,
+    locale?: Locale,
   ): Promise<CanonicalQuestionReadModel | null>;
 
   assertPostStudyBank(lesson: SyllabusLessonSnapshot): void;

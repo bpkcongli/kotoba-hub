@@ -1,6 +1,8 @@
-# Keep credentials, source acquisitions, and unrelated workspace files out of builds.
-# Exclude children again after opening a parent directory to keep its allowlist narrow.
+# Exclude everything by default, including credentials and local build artifacts.
+# Re-exclude directory children before allowing specific files below.
 *
+
+# Package manifests and application build configuration.
 !package.json
 !bun.lock
 !next.config.ts
@@ -8,31 +10,46 @@
 !next-env.d.ts
 !postcss.config.mjs
 !drizzle.config.ts
+
+# SQL migrations and Drizzle metadata needed by the ops image.
 !drizzle/
 drizzle/*
 !drizzle/*.sql
 !drizzle/meta/
 drizzle/meta/*
 !drizzle/meta/*.json
+
+# Selected syllabus CLI entry points; other scripts stay excluded.
 !scripts/
 scripts/*
 !scripts/syllabus/
 scripts/syllabus/*
 !scripts/syllabus/seed-syllabus.ts
+!scripts/syllabus/check-bilingual-cutover.ts
+
+# Flashcard seed CLI for the ops image.
 !scripts/flashcards/
 scripts/flashcards/*
 !scripts/flashcards/seed-flashcards.ts
+
+# Application source and public assets.
 !src/
 !src/**
 !public/
 !public/**
+
+# Open the content parent while keeping unlisted datasets and raw sources excluded.
 !content/
 content/*
+
+# System flashcard deck JSON files.
 !content/flashcards/
 content/flashcards/*
 !content/flashcards/system-decks/
 content/flashcards/system-decks/*
 !content/flashcards/system-decks/*.json
+
+# Legacy v1 syllabus manifest and track JSON files.
 !content/syllabus/
 content/syllabus/*
 !content/syllabus/v1/
@@ -41,3 +58,28 @@ content/syllabus/v1/*
 content/syllabus/v1/tracks/*
 !content/syllabus/v1/tracks/*.json
 !content/syllabus/v1/manifest.json
+
+# Bilingual v2 syllabus manifest and tracks; authoring files stay excluded.
+!content/syllabus/v2/
+content/syllabus/v2/*
+!content/syllabus/v2/manifest.json
+!content/syllabus/v2/tracks/
+content/syllabus/v2/tracks/*
+!content/syllabus/v2/tracks/*.json
+
+# JSON schemas required to validate v2 seed imports; other docs stay excluded.
+!docs/
+docs/*
+!docs/syllabus/
+docs/syllabus/*
+!docs/syllabus/schema/
+docs/syllabus/schema/*
+!docs/syllabus/schema/seed-manifest.v2.schema.json
+!docs/syllabus/schema/track-seed.v2.schema.json
+
+# Reviewed batch inventory used to constrain the v2 import scope.
+!docs/syllabus/bilingual/
+docs/syllabus/bilingual/*
+!docs/syllabus/bilingual/batch-01/
+docs/syllabus/bilingual/batch-01/*
+!docs/syllabus/bilingual/batch-01/bilingual-batch-01.json

@@ -4,9 +4,11 @@ import {
   char,
   check,
   index,
+  foreignKey,
   int,
   json,
   mysqlTable,
+  primaryKey,
   text,
   timestamp,
   uniqueIndex,
@@ -22,11 +24,15 @@ export const tracks = mysqlTable(
     title: varchar('title', { length: 255 }).notNull(),
     description: text('description'),
     sortOrder: int('sort_order').notNull(),
+    revisionPayload: json('revision_payload'),
+    contentRevision: int('content_revision').notNull().default(1),
+    seedSchemaVersion: varchar('seed_schema_version', { length: 10 }).notNull().default('1.0.0'),
     isPublished: boolean('is_published').notNull().default(false),
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
   },
   (table) => [
+    check('tracks_content_revision_ck', sql`${table.contentRevision} > 0`),
     uniqueIndex('tracks_slug_uk').on(table.slug),
     index('tracks_curriculum_level_sort_idx').on(table.curriculumLevel, table.sortOrder),
   ],
@@ -44,11 +50,15 @@ export const units = mysqlTable(
     description: text('description'),
     sortOrder: int('sort_order').notNull(),
     isFoundationUnit: boolean('is_foundation_unit').notNull().default(false),
+    revisionPayload: json('revision_payload'),
+    contentRevision: int('content_revision').notNull().default(1),
+    seedSchemaVersion: varchar('seed_schema_version', { length: 10 }).notNull().default('1.0.0'),
     isPublished: boolean('is_published').notNull().default(false),
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
   },
   (table) => [
+    check('units_content_revision_ck', sql`${table.contentRevision} > 0`),
     uniqueIndex('units_slug_uk').on(table.slug),
     uniqueIndex('units_track_sort_uk').on(table.trackId, table.sortOrder),
     index('units_track_id_idx').on(table.trackId),
@@ -67,11 +77,15 @@ export const lessons = mysqlTable(
     learningObjective: text('learning_objective'),
     sortOrder: int('sort_order').notNull(),
     estimatedMinutes: int('estimated_minutes'),
+    revisionPayload: json('revision_payload'),
+    contentRevision: int('content_revision').notNull().default(1),
+    seedSchemaVersion: varchar('seed_schema_version', { length: 10 }).notNull().default('1.0.0'),
     isPublished: boolean('is_published').notNull().default(false),
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
   },
   (table) => [
+    check('lessons_content_revision_ck', sql`${table.contentRevision} > 0`),
     uniqueIndex('lessons_slug_uk').on(table.slug),
     uniqueIndex('lessons_unit_sort_uk').on(table.unitId, table.sortOrder),
     index('lessons_unit_id_idx').on(table.unitId),
@@ -88,11 +102,15 @@ export const lessonContentBlocks = mysqlTable(
     blockType: varchar('block_type', { length: 50 }).notNull(),
     content: json('content').notNull(),
     sortOrder: int('sort_order').notNull(),
+    revisionPayload: json('revision_payload'),
+    contentRevision: int('content_revision').notNull().default(1),
+    seedSchemaVersion: varchar('seed_schema_version', { length: 10 }).notNull().default('1.0.0'),
     isPublished: boolean('is_published').notNull().default(false),
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
   },
   (table) => [
+    check('lesson_content_blocks_content_revision_ck', sql`${table.contentRevision} > 0`),
     uniqueIndex('lesson_content_blocks_lesson_sort_uk').on(table.lessonId, table.sortOrder),
     index('lesson_content_blocks_lesson_id_idx').on(table.lessonId),
     check(
@@ -115,6 +133,7 @@ export const skills = mysqlTable(
     title: varchar('title', { length: 255 }).notNull(),
     description: text('description'),
     skillType: varchar('skill_type', { length: 50 }).notNull(),
+    content: json('content'),
     supportsFlashcards: boolean('supports_flashcards').notNull().default(false),
     supportsPracticeObjective: boolean('supports_practice_objective').notNull().default(false),
     supportsPracticeFreeResponse: boolean('supports_practice_free_response')
@@ -122,11 +141,15 @@ export const skills = mysqlTable(
       .default(false),
     prerequisiteSkillCodes: json('prerequisite_skill_codes'),
     sortOrder: int('sort_order').notNull(),
+    revisionPayload: json('revision_payload'),
+    contentRevision: int('content_revision').notNull().default(1),
+    seedSchemaVersion: varchar('seed_schema_version', { length: 10 }).notNull().default('1.0.0'),
     isPublished: boolean('is_published').notNull().default(false),
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
   },
   (table) => [
+    check('skills_content_revision_ck', sql`${table.contentRevision} > 0`),
     uniqueIndex('skills_code_uk').on(table.code),
     uniqueIndex('skills_slug_uk').on(table.slug),
     uniqueIndex('skills_lesson_sort_uk').on(table.lessonId, table.sortOrder),
@@ -148,6 +171,10 @@ export const lessonPostStudyQuestions = mysqlTable(
     difficultyLevel: int('difficulty_level').notNull(),
     questionType: varchar('question_type', { length: 50 }).notNull(),
     promptPayload: json('prompt_payload').notNull(),
+    revisionPayload: json('revision_payload'),
+    contentRevision: int('content_revision').notNull().default(1),
+    seedSchemaVersion: varchar('seed_schema_version', { length: 10 }).notNull().default('1.0.0'),
+    isPublished: boolean('is_published').notNull().default(true),
     expectedAnswerPayload: json('expected_answer_payload').notNull(),
     explanationText: text('explanation_text'),
     sourceProvider: varchar('source_provider', { length: 50 }).notNull(),
@@ -156,6 +183,7 @@ export const lessonPostStudyQuestions = mysqlTable(
     updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
   },
   (table) => [
+    check('lesson_post_study_questions_content_revision_ck', sql`${table.contentRevision} > 0`),
     uniqueIndex('lesson_post_study_questions_lesson_difficulty_uk').on(
       table.lessonId,
       table.difficultyLevel,
@@ -195,5 +223,152 @@ export const unitSkillMappings = mysqlTable(
     uniqueIndex('unit_skill_mappings_unit_skill_uk').on(table.unitId, table.skillId),
     index('unit_skill_mappings_skill_id_idx').on(table.skillId),
     index('unit_skill_mappings_lesson_id_idx').on(table.lessonId),
+  ],
+);
+
+const translationAudit = () => ({
+  sourceRevision: int('source_revision').notNull(),
+  translationRevision: int('translation_revision').notNull(),
+  isPublished: boolean('is_published').notNull().default(false),
+  sourceRefPayload: json('source_ref_payload').notNull(),
+  revisionPayload: json('revision_payload').notNull(),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+});
+
+export const trackTranslations = mysqlTable(
+  'track_translations',
+  {
+    trackId: char('track_id', { length: 36 })
+      .notNull()
+      .references(() => tracks.id, { onDelete: 'restrict' }),
+    locale: varchar('locale', { length: 2 }).$type<'en' | 'id'>().notNull(),
+    title: varchar('title', { length: 255 }).notNull(),
+    description: text('description'),
+    ...translationAudit(),
+  },
+  (t) => [
+    primaryKey({ columns: [t.trackId, t.locale] }),
+    index('track_translations_locale_idx').on(t.locale, t.isPublished),
+    check('track_translations_locale_ck', sql`${t.locale} in ('en', 'id')`),
+    check(
+      'track_translations_revision_ck',
+      sql`${t.sourceRevision} > 0 and ${t.translationRevision} > 0`,
+    ),
+  ],
+);
+
+export const unitTranslations = mysqlTable(
+  'unit_translations',
+  {
+    unitId: char('unit_id', { length: 36 })
+      .notNull()
+      .references(() => units.id, { onDelete: 'restrict' }),
+    locale: varchar('locale', { length: 2 }).$type<'en' | 'id'>().notNull(),
+    title: varchar('title', { length: 255 }).notNull(),
+    description: text('description'),
+    ...translationAudit(),
+  },
+  (t) => [
+    primaryKey({ columns: [t.unitId, t.locale] }),
+    index('unit_translations_locale_idx').on(t.locale, t.isPublished),
+    check('unit_translations_locale_ck', sql`${t.locale} in ('en', 'id')`),
+    check(
+      'unit_translations_revision_ck',
+      sql`${t.sourceRevision} > 0 and ${t.translationRevision} > 0`,
+    ),
+  ],
+);
+
+export const lessonTranslations = mysqlTable(
+  'lesson_translations',
+  {
+    lessonId: char('lesson_id', { length: 36 })
+      .notNull()
+      .references(() => lessons.id, { onDelete: 'restrict' }),
+    locale: varchar('locale', { length: 2 }).$type<'en' | 'id'>().notNull(),
+    title: varchar('title', { length: 255 }).notNull(),
+    learningObjective: text('learning_objective').notNull(),
+    ...translationAudit(),
+  },
+  (t) => [
+    primaryKey({ columns: [t.lessonId, t.locale] }),
+    index('lesson_translations_locale_idx').on(t.locale, t.isPublished),
+    check('lesson_translations_locale_ck', sql`${t.locale} in ('en', 'id')`),
+    check(
+      'lesson_translations_revision_ck',
+      sql`${t.sourceRevision} > 0 and ${t.translationRevision} > 0`,
+    ),
+  ],
+);
+
+export const skillTranslations = mysqlTable(
+  'skill_translations',
+  {
+    skillId: char('skill_id', { length: 36 })
+      .notNull()
+      .references(() => skills.id, { onDelete: 'restrict' }),
+    locale: varchar('locale', { length: 2 }).$type<'en' | 'id'>().notNull(),
+    title: varchar('title', { length: 255 }).notNull(),
+    description: text('description'),
+    content: json('content').notNull(),
+    ...translationAudit(),
+  },
+  (t) => [
+    primaryKey({ columns: [t.skillId, t.locale] }),
+    index('skill_translations_locale_idx').on(t.locale, t.isPublished),
+    check('skill_translations_locale_ck', sql`${t.locale} in ('en', 'id')`),
+    check(
+      'skill_translations_revision_ck',
+      sql`${t.sourceRevision} > 0 and ${t.translationRevision} > 0`,
+    ),
+  ],
+);
+
+export const lessonContentBlockTranslations = mysqlTable(
+  'lesson_content_block_translations',
+  {
+    contentBlockId: char('content_block_id', { length: 36 }).notNull(),
+    locale: varchar('locale', { length: 2 }).$type<'en' | 'id'>().notNull(),
+    content: json('content').notNull(),
+    ...translationAudit(),
+  },
+  (t) => [
+    primaryKey({ columns: [t.contentBlockId, t.locale] }),
+    foreignKey({
+      name: 'block_translation_owner_fk',
+      columns: [t.contentBlockId],
+      foreignColumns: [lessonContentBlocks.id],
+    }).onDelete('restrict'),
+    index('lesson_content_block_translations_locale_idx').on(t.locale, t.isPublished),
+    check('lesson_content_block_translations_locale_ck', sql`${t.locale} in ('en', 'id')`),
+    check(
+      'lesson_content_block_translations_revision_ck',
+      sql`${t.sourceRevision} > 0 and ${t.translationRevision} > 0`,
+    ),
+  ],
+);
+
+export const lessonPostStudyQuestionTranslations = mysqlTable(
+  'lesson_post_study_question_translations',
+  {
+    questionId: char('question_id', { length: 36 }).notNull(),
+    locale: varchar('locale', { length: 2 }).$type<'en' | 'id'>().notNull(),
+    content: json('content').notNull(),
+    ...translationAudit(),
+  },
+  (t) => [
+    primaryKey({ columns: [t.questionId, t.locale] }),
+    foreignKey({
+      name: 'question_translation_owner_fk',
+      columns: [t.questionId],
+      foreignColumns: [lessonPostStudyQuestions.id],
+    }).onDelete('restrict'),
+    index('lesson_post_study_question_translations_locale_idx').on(t.locale, t.isPublished),
+    check('lesson_post_study_question_translations_locale_ck', sql`${t.locale} in ('en', 'id')`),
+    check(
+      'lesson_post_study_question_translations_revision_ck',
+      sql`${t.sourceRevision} > 0 and ${t.translationRevision} > 0`,
+    ),
   ],
 );

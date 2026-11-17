@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { localeSchema } from '@/shared/locale';
 
 const text = z.string().min(1).max(2000);
 
@@ -28,16 +29,26 @@ export const submitPracticeAnswerRequestSchema = z.strictObject({
   responseTimeMs,
 });
 
-export const lessonPostStudyNextRequestSchema = z.strictObject({
-  lessonSlug: z.string().min(1).max(255),
-});
+export const lessonPostStudyNextRequestSchema = z.union([
+  z.strictObject({ lessonSlug: z.string().min(1).max(255) }),
+  z.strictObject({
+    lessonSlug: z.string().min(1).max(255),
+    contentFormat: z.literal('localized'),
+    contentLocale: localeSchema.optional(),
+  }),
+]);
 
-export const lessonPostStudyAnswerRequestSchema = z.strictObject({
+const legacyLessonAnswerSchema = z.strictObject({
   lessonSlug: z.string().min(1).max(255),
   questionId: z.uuid(),
   userAnswer: practiceTextAnswerSchema,
   responseTimeMs,
 });
+
+export const lessonPostStudyAnswerRequestSchema = z.union([
+  legacyLessonAnswerSchema,
+  legacyLessonAnswerSchema.extend({ contentFormat: z.literal('localized'), deliveryId: z.uuid() }),
+]);
 
 export const idempotencyKeySchema = z.uuid();
 

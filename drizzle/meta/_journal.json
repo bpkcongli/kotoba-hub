@@ -43,6 +43,13 @@
       "when": 1793027793490,
       "tag": "0005_practice_engine",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1794913117904,
+      "tag": "0006_bilingual_content",
+      "breakpoints": true
     }
   ]
 }

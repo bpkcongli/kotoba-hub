@@ -4,8 +4,11 @@ import { authorizationService, getSessionSnapshot } from '@/backend/auth/infrast
 import { ApplicationStatusCode } from '@/backend/shared/interface/primary/rest/api-status';
 import { queryValue } from '@/backend/shared/interface/primary/rest/query-value';
 import { apiResponse } from '@/backend/shared/interface/primary/rest/response';
+import type { ContentLocalePort } from '@/backend/syllabus/application/ports/content-locale.port';
 import type { SyllabusCatalogService } from '@/backend/syllabus/application/services/syllabus-catalog.service';
+import { contentLocaleAdapter } from '@/backend/syllabus/infrastructure/di';
 import { syllabusCatalogService } from '@/backend/syllabus/infrastructure/di';
+import { resolveLocale, type Locale } from '@/shared/locale';
 import {
   getLessonRequestSchema,
   getUnitRequestSchema,
@@ -17,7 +20,14 @@ export class SyllabusController {
   constructor(
     private readonly catalog: SyllabusCatalogService,
     private readonly authorization: AuthorizationService,
+    private readonly preferences: ContentLocalePort = contentLocaleAdapter,
   ) {}
+
+  private async locale(query: { contentFormat?: string; contentLocale?: Locale }, userId: string) {
+    return query.contentFormat
+      ? resolveLocale(query.contentLocale ?? (await this.preferences.getContentLocale(userId)))
+      : undefined;
+  }
 
   async listTracks(request: Request): Promise<Response> {
     try {
@@ -29,6 +39,8 @@ export class SyllabusController {
 
       const url = new URL(request.url);
       const parsed = listTracksRequestSchema.safeParse({
+        contentFormat: queryValue(url, 'contentFormat'),
+        contentLocale: queryValue(url, 'contentLocale'),
         offset: queryValue(url, 'offset'),
         limit: queryValue(url, 'limit'),
         curriculumLevels: queryValue(url, 'curriculumLevels'),
@@ -39,7 +51,13 @@ export class SyllabusController {
 
       const { offset, limit, curriculumLevels, includeUnits } = parsed.data;
       const filter = curriculumLevels ? new Set(curriculumLevels.split(',')) : null;
-      const publishedTracks = await this.catalog.getPublishedTracks();
+      const locale = parsed.data.contentFormat
+        ? resolveLocale(
+            parsed.data.contentLocale ??
+              (await this.preferences.getContentLocale(session.user!.id)),
+          )
+        : undefined;
+      const publishedTracks = await this.catalog.getPublishedTracks(locale);
 
       if (
         filter &&
@@ -64,22 +82,25 @@ export class SyllabusController {
           .map((track) => toTrackSummaryDto(track, this.catalog, includeUnits)),
       };
 
-      return Response.json({
-        status: {
-          traceId: randomUUID(),
-          code: ApplicationStatusCode.SYLLABUS_SUCCESS,
-          message: 'Success!',
-          errorDetails: [],
-        },
-        metadata: {
-          pagination: {
-            pageNumber: Math.floor(offset / limit) + 1,
-            pageSize: limit,
-            totalRecords: tracks.length,
+      return Response.json(
+        {
+          status: {
+            traceId: randomUUID(),
+            code: ApplicationStatusCode.SYLLABUS_SUCCESS,
+            message: 'Success!',
+            errorDetails: [],
           },
+          metadata: {
+            pagination: {
+              pageNumber: Math.floor(offset / limit) + 1,
+              pageSize: limit,
+              totalRecords: tracks.length,
+            },
+          },
+          data,
         },
-        data,
-      });
+        { headers: { 'Cache-Control': 'private, no-store' } },
+      );
     } catch (error) {
       console.error('Syllabus track read failed', error);
 
@@ -101,6 +122,8 @@ export class SyllabusController {
 
       const url = new URL(request.url);
       const parsed = getUnitRequestSchema.safeParse({
+        contentFormat: queryValue(url, 'contentFormat'),
+        contentLocale: queryValue(url, 'contentLocale'),
         unitSlug,
         includeLessons: queryValue(url, 'includeLessons'),
         includeSkills: queryValue(url, 'includeSkills'),
@@ -108,7 +131,10 @@ export class SyllabusController {
 
       if (!parsed.success) return invalidQuery(parsed.error.issues);
 
-      const result = await this.catalog.getPublishedUnit(parsed.data.unitSlug);
+      const result = await this.catalog.getPublishedUnit(
+        parsed.data.unitSlug,
+        await this.locale(parsed.data, session.user!.id),
+      );
 
       if (!result) return apiResponse(ApplicationStatusCode.SYLLABUS_UNIT_NOT_FOUND);
 
@@ -137,6 +163,8 @@ export class SyllabusController {
 
       const url = new URL(request.url);
       const parsed = getLessonRequestSchema.safeParse({
+        contentFormat: queryValue(url, 'contentFormat'),
+        contentLocale: queryValue(url, 'contentLocale'),
         lessonSlug,
         includeContentBlocks: queryValue(url, 'includeContentBlocks'),
         includeSkills: queryValue(url, 'includeSkills'),
@@ -144,7 +172,10 @@ export class SyllabusController {
 
       if (!parsed.success) return invalidQuery(parsed.error.issues);
 
-      const result = await this.catalog.getPublishedLesson(parsed.data.lessonSlug);
+      const result = await this.catalog.getPublishedLesson(
+        parsed.data.lessonSlug,
+        await this.locale(parsed.data, session.user!.id),
+      );
 
       if (!result) return apiResponse(ApplicationStatusCode.SYLLABUS_LESSON_NOT_FOUND);
 

@@ -40,6 +40,7 @@ export function toTrackSummaryDto(
 
   return {
     id: track.id,
+    ...(track.localization ? { localization: track.localization } : {}),
     slug: track.slug,
     curriculumLevel: track.curriculumLevel,
     title: track.title,
@@ -51,6 +52,7 @@ export function toTrackSummaryDto(
       ? {
           units: units.map((unit) => ({
             id: unit.id,
+            ...(unit.localization ? { localization: unit.localization } : {}),
             slug: unit.slug,
             title: unit.title,
             description: unit.description,
@@ -66,6 +68,7 @@ export function toTrackSummaryDto(
 function toTrackParentDto(track: SyllabusTrackSnapshot) {
   return {
     id: track.id,
+    ...(track.localization ? { localization: track.localization } : {}),
     slug: track.slug,
     curriculumLevel: track.curriculumLevel,
     title: track.title,
@@ -75,6 +78,7 @@ function toTrackParentDto(track: SyllabusTrackSnapshot) {
 function toSkillDto(skill: SyllabusSkillSnapshot) {
   return {
     id: skill.id,
+    ...(skill.localization ? { localization: skill.localization } : {}),
     code: skill.code,
     slug: skill.slug,
     curriculumLevel: skill.curriculumLevel,
@@ -93,6 +97,7 @@ function toContentBlockDto(block: SyllabusContentBlockSnapshot) {
 
   return {
     id: block.id,
+    ...(block.localization ? { localization: block.localization } : {}),
     blockType: block.blockType,
     content: block.content,
     sortOrder: block.sortOrder,
@@ -110,6 +115,7 @@ export function toUnitDto(
 
   return {
     id: unit.id,
+    ...(unit.localization ? { localization: unit.localization } : {}),
     slug: unit.slug,
     title: unit.title,
     description: unit.description,
@@ -119,6 +125,7 @@ export function toUnitDto(
     lessons: includeLessons
       ? lessons.map((lesson) => ({
           id: lesson.id,
+          ...(lesson.localization ? { localization: lesson.localization } : {}),
           slug: lesson.slug,
           title: lesson.title,
           learningObjective: lesson.learningObjective,
@@ -156,13 +163,20 @@ export function toLessonDto(
 
   return {
     id: lesson.id,
+    ...(lesson.localization ? { localization: lesson.localization } : {}),
     slug: lesson.slug,
     title: lesson.title,
     learningObjective: lesson.learningObjective,
     sortOrder: lesson.sortOrder,
     estimatedMinutes: lesson.estimatedMinutes,
     track: toTrackParentDto(track),
-    unit: { id: unit.id, slug: unit.slug, title: unit.title, sortOrder: unit.sortOrder },
+    unit: {
+      ...(unit.localization ? { localization: unit.localization } : {}),
+      id: unit.id,
+      slug: unit.slug,
+      title: unit.title,
+      sortOrder: unit.sortOrder,
+    },
     contentBlocks: includeContentBlocks
       ? lesson.contentBlocks
           .filter((block) => block.isPublished)

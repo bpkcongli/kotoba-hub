@@ -1,8 +1,10 @@
 import type { AuthorizationService } from '@/backend/auth/application/services/authorization.service';
 import { authorizationService, getSessionSnapshot } from '@/backend/auth/infrastructure/di';
 import { requireSameOrigin } from '@/backend/auth/interface/primary/rest/origin';
+import type { ContentLocalePort } from '@/backend/practice/application/ports/content-locale.port';
 import type { PracticeService } from '@/backend/practice/application/services/practice.service';
 import { PracticeError } from '@/backend/practice/domain/exceptions/practice-error';
+import { contentLocaleAdapter } from '@/backend/practice/infrastructure/di';
 import { practiceService } from '@/backend/practice/infrastructure/di';
 import {
   generatePracticeSessionRequestSchema,
@@ -20,11 +22,13 @@ import {
 } from '@/backend/practice/interface/primary/rest/dto/practice.response.dto';
 import { ApplicationStatusCode } from '@/backend/shared/interface/primary/rest/api-status';
 import { apiResponse } from '@/backend/shared/interface/primary/rest/response';
+import { resolveLocale } from '@/shared/locale';
 
 export class PracticeController {
   constructor(
     private readonly practice: PracticeService,
     private readonly authorization: AuthorizationService,
+    private readonly preferences: ContentLocalePort = contentLocaleAdapter,
   ) {}
 
   generateSession(request: Request) {
@@ -63,7 +67,17 @@ export class PracticeController {
 
       return apiResponse(
         ApplicationStatusCode.PRACTICE_SUCCESS,
-        toLessonNextDto(await this.practice.nextLessonQuestion(userId, body.data.lessonSlug)),
+        toLessonNextDto(
+          'contentFormat' in body.data
+            ? await this.practice.nextLessonQuestion(
+                userId,
+                body.data.lessonSlug,
+                resolveLocale(
+                  body.data.contentLocale ?? (await this.preferences.getContentLocale(userId)),
+                ),
+              )
+            : await this.practice.nextLessonQuestion(userId, body.data.lessonSlug),
+        ),
       );
     });
   }
@@ -74,6 +88,14 @@ export class PracticeController {
       if (!body.success) return invalid(body.error.issues);
 
       const key = request.headers.get('idempotency-key');
+      if ('contentFormat' in body.data && key === null)
+        return invalid([
+          {
+            path: ['Idempotency-Key'],
+            message: 'Idempotency-Key is required for localized answers.',
+          },
+        ]);
+
       if (key !== null) {
         const parsed = idempotencyKeySchema.safeParse(key);
 

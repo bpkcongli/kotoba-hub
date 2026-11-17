@@ -1,11 +1,24 @@
 # Database migrations
 
-The finalized BIL-01 target adds syllabus translation/revision fields,
-`user_preferences`, and localized direct-quiz deliveries. See the
-[bilingual persistence and transition contract](../docs/syllabus/bilingual/bilingual-content-contract.md).
-SQL migrations, audited backfill and v2 merge-import support belong to BIL-03;
-the commands below still operate on `content/syllabus/v1/manifest.json`. Do not use the current full-catalog
-seeder to import a partial bilingual batch.
+Migration `0006_bilingual_content.sql` implements BIL-03: six syllabus translation
+tables, canonical/translation revision fingerprints, skill content, soft question
+publication, user preferences and localized quiz deliveries. Audited backfill and
+`MERGE_LESSONS` use an explicit v2 manifest; default seeding remains v1 only until
+v2 rows exist. See the [BIL-03 operations and verification](../docs/syllabus/bilingual/bilingual-runtime-implementation.md).
+
+```sh
+bun run db:migrate
+bun run db:seed:syllabus:dry-run --manifest content/syllabus/v2/manifest.json
+bun run db:seed:syllabus --manifest content/syllabus/v2/manifest.json
+bun run db:check:bilingual-cutover
+```
+
+Dry-run validates files without accessing MySQL. Merge validates target identities,
+revisions and prerequisite chains transactionally, adding only missing canonical
+v1 prerequisite skills and unpublished parents. Existing out-of-batch rows are
+preserved. The read-only cutover check exits 1 with blocker slugs if published
+lessons cannot all be read as valid v2. Never use v1 reseed or a down migration
+as rollback after v2 merge.
 
 Drizzle writes generated SQL and migration metadata here. The registry at
 `src/backend/shared/infrastructure/database/schema.ts` re-exports schemas from

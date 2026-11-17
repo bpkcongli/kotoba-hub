@@ -1,6 +1,8 @@
+import { sql } from 'drizzle-orm';
 import {
   boolean,
   char,
+  check,
   int,
   json,
   mysqlTable,
@@ -43,4 +45,24 @@ export const learnerProfiles = mysqlTable(
     updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
   },
   (table) => [uniqueIndex('learner_profiles_user_id_uk').on(table.userId)],
+);
+
+export const userPreferences = mysqlTable(
+  'user_preferences',
+  {
+    userId: char('user_id', { length: 36 })
+      .primaryKey()
+      .references(() => users.id, { onDelete: 'restrict' }),
+    contentLocale: varchar('content_locale', { length: 2 })
+      .$type<'en' | 'id'>()
+      .notNull()
+      .default('en'),
+    uiLocale: varchar('ui_locale', { length: 2 }).$type<'en' | 'id'>().notNull().default('en'),
+    createdAt: timestamp('created_at').notNull().defaultNow(),
+    updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+  },
+  (t) => [
+    check('user_preferences_content_locale_ck', sql`${t.contentLocale} in ('en', 'id')`),
+    check('user_preferences_ui_locale_ck', sql`${t.uiLocale} in ('en', 'id')`),
+  ],
 );

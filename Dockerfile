@@ -15,8 +15,10 @@ COPY --chown=bun:bun package.json bun.lock tsconfig.json drizzle.config.ts ./
 COPY --chown=bun:bun src ./src
 COPY --chown=bun:bun drizzle ./drizzle
 COPY --chown=bun:bun scripts/syllabus/seed-syllabus.ts ./scripts/syllabus/
+COPY --chown=bun:bun scripts/syllabus/check-bilingual-cutover.ts ./scripts/syllabus/
 COPY --chown=bun:bun scripts/flashcards/seed-flashcards.ts ./scripts/flashcards/
 COPY --chown=bun:bun content ./content
+COPY --chown=bun:bun docs ./docs
 USER bun
 ENTRYPOINT ["bun"]
 CMD ["--help"]

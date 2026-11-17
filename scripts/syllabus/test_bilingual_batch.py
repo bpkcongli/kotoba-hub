@@ -47,6 +47,13 @@ class BilingualBatchTests(unittest.TestCase):
                     self.assertEqual(question[field], original[field])
 
                 prompt = {k: v for k, v in original['promptPayload'].items() if k not in {'placeholder', 'hintTexts'}}
+                correction = self.inventory.get('promptCorrections', {}).get('questions', {}).get(question['id'])
+
+                if correction:
+                    self.assertEqual(prompt['sentenceTemplate'], correction['before'])
+                    prompt['sentenceTemplate'] = correction['after']
+                    self.assertGreaterEqual(question['contentRevision'], correction['contentRevision'])
+
                 self.assertEqual(question['promptPayload'], prompt)
 
             for block, original in zip(lesson['contentBlocks'], before['contentBlocks']):

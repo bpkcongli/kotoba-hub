@@ -3,6 +3,7 @@ import {
   char,
   decimal,
   index,
+  foreignKey,
   int,
   json,
   mysqlTable,
@@ -11,6 +12,7 @@ import {
   uniqueIndex,
   varchar,
 } from 'drizzle-orm/mysql-core';
+import type { PostStudyDelivery } from '@/backend/practice/domain/repositories/post-study-delivery.repository';
 import type {
   AnswerResult,
   LessonReceipt,
@@ -18,7 +20,10 @@ import type {
   Recommendation,
   StoredAnswer,
 } from '@/backend/practice/domain/repositories/practice.repository';
-import { skills } from '@/backend/syllabus/infrastructure/database/schema';
+import {
+  skills,
+  lessonPostStudyQuestions,
+} from '@/backend/syllabus/infrastructure/database/schema';
 import { users } from '@/backend/users/infrastructure/database/schema';
 
 const audit = () => ({
@@ -116,4 +121,33 @@ export const practicePostStudyReceipts = mysqlTable(
     ...audit(),
   },
   (t) => [uniqueIndex('practice_post_study_user_key_uk').on(t.userId, t.idempotencyKey)],
+);
+
+export const practicePostStudyDeliveries = mysqlTable(
+  'practice_post_study_deliveries',
+  {
+    id: char('id', { length: 36 }).primaryKey(),
+    userId: char('user_id', { length: 36 })
+      .notNull()
+      .references(() => users.id, { onDelete: 'restrict' }),
+    questionId: char('question_id', { length: 36 }).notNull(),
+    snapshotPayload: json('snapshot_payload').$type<PostStudyDelivery>().notNull(),
+    createdAt: timestamp('created_at', { fsp: 3 }).notNull(),
+    expiresAt: timestamp('expires_at', { fsp: 3 }).notNull(),
+    receiptId: char('receipt_id', { length: 36 }),
+  },
+  (t) => [
+    foreignKey({
+      name: 'post_study_delivery_question_fk',
+      columns: [t.questionId],
+      foreignColumns: [lessonPostStudyQuestions.id],
+    }).onDelete('restrict'),
+    foreignKey({
+      name: 'post_study_delivery_receipt_fk',
+      columns: [t.receiptId],
+      foreignColumns: [practicePostStudyReceipts.id],
+    }).onDelete('restrict'),
+    uniqueIndex('practice_post_study_delivery_receipt_uk').on(t.receiptId),
+    index('practice_post_study_delivery_user_expiry_idx').on(t.userId, t.expiresAt),
+  ],
 );

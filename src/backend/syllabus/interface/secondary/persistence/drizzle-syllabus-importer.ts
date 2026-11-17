@@ -41,6 +41,27 @@ export function temporarySortOrders(rows: { sortOrder: number }[]): number[] {
 export class DrizzleSyllabusImporter {
   async import(plan: SyllabusSeedPlan): Promise<void> {
     await getDatabase().transaction(async (tx) => {
+      for (const table of [
+        tracks,
+        units,
+        lessons,
+        skills,
+        lessonContentBlocks,
+        lessonPostStudyQuestions,
+      ]) {
+        const localized = await tx
+          .select({ id: table.id })
+          .from(table)
+          .where(eq(table.seedSchemaVersion, '2.0.0'))
+          .limit(1)
+          .for('update');
+
+        if (localized.length)
+          throw new Error(
+            'v1 reseed is forbidden after v2 import. Use an explicit v2 manifest; rollback does not reseed v1.',
+          );
+      }
+
       const storedTracks = await tx.select({ id: tracks.id, slug: tracks.slug }).from(tracks);
       const storedUnits = await tx
         .select({

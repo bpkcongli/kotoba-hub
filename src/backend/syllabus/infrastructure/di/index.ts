@@ -4,6 +4,8 @@ import type { PrepareSyllabusSeedService } from '@/backend/syllabus/application/
 import type { SyllabusCatalogService } from '@/backend/syllabus/application/services/syllabus-catalog.service';
 import { DrizzleSyllabusCatalogRepository } from '@/backend/syllabus/interface/secondary/persistence/drizzle-syllabus-catalog.repository';
 import { SeedSyllabusCatalogRepository } from '@/backend/syllabus/interface/secondary/seed/seed-syllabus-catalog.repository';
+import { ContentLocaleAdapter } from '@/backend/syllabus/interface/secondary/users/content-locale.adapter';
+import { userPreferencesService } from '@/backend/users/infrastructure/di';
 
 export const drizzleSyllabusCatalogRepository = new DrizzleSyllabusCatalogRepository();
 
@@ -15,3 +17,5 @@ export const syllabusCatalogService: SyllabusCatalogService = new SyllabusCatalo
 
 export const prepareSyllabusSeedService: PrepareSyllabusSeedService =
   new PrepareSyllabusSeedServiceImpl(seedSyllabusCatalogRepository);
+
+export const contentLocaleAdapter = new ContentLocaleAdapter(userPreferencesService);

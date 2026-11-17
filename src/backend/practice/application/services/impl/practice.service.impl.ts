@@ -11,6 +11,7 @@ import type {
 } from '@/backend/practice/application/services/practice.service';
 import { PracticeSessionAggregate } from '@/backend/practice/domain/aggregates/practice-session';
 import { PracticeError } from '@/backend/practice/domain/exceptions/practice-error';
+import type { PostStudyDeliveryRepository } from '@/backend/practice/domain/repositories/post-study-delivery.repository';
 import type {
   PracticeRepository,
   PracticeSession,
@@ -22,6 +23,7 @@ import type {
 } from '@/backend/practice/domain/repositories/practice.repository';
 import { DeterministicAnswerEvaluator } from '@/backend/practice/domain/services/deterministic-answer-evaluator';
 import { generatedPracticeSchema } from '@/backend/shared/application/helpers/ai-schemas';
+import type { Locale } from '@/shared/locale';
 
 export class PracticeServiceImpl implements PracticeService {
   constructor(
@@ -32,6 +34,7 @@ export class PracticeServiceImpl implements PracticeService {
     private readonly ai: PracticeAiPort,
     private readonly evaluator = new DeterministicAnswerEvaluator(),
     private readonly now: () => Date = () => new Date(),
+    private readonly deliveries?: PostStudyDeliveryRepository,
   ) {}
 
   async generateSession(userId: string, questionCount = 5): Promise<PracticeSession> {
@@ -274,7 +277,11 @@ export class PracticeServiceImpl implements PracticeService {
     );
   }
 
-  async nextLessonQuestion(userId: string, lessonSlug: string): Promise<LessonNextResult> {
+  async nextLessonQuestion(
+    userId: string,
+    lessonSlug: string,
+    locale?: Locale,
+  ): Promise<LessonNextResult> {
     const lesson = await this.catalog.getLesson(lessonSlug);
     if (!lesson)
       throw new PracticeError(140406002, 'Published lesson was not found.', 'lessonSlug');
@@ -282,11 +289,35 @@ export class PracticeServiceImpl implements PracticeService {
     const level = await this.progress.getUnderstanding(userId, lesson.id);
     const difficulty = Math.min(level + 1, 10);
 
-    const question = await this.catalog.getQuestion(lessonSlug, difficulty);
+    const question = locale
+      ? await this.catalog.getQuestion(lessonSlug, difficulty, locale)
+      : await this.catalog.getQuestion(lessonSlug, difficulty);
     if (!question)
       throw new PracticeError(140406002, 'Published lesson question was not found.', 'lessonSlug');
 
+    let deliveryId: string | undefined, expiresAt: string | undefined;
+
+    if (locale) {
+      if (!this.deliveries || !question.localization)
+        throw new Error('Localized delivery is unavailable.');
+
+      deliveryId = randomUUID();
+      expiresAt = new Date(this.now().getTime() + 24 * 60 * 60 * 1000).toISOString();
+
+      await this.deliveries.create({
+        id: deliveryId,
+        userId,
+        lessonSlug,
+        lessonId: lesson.id,
+        understandingBefore: level,
+        question: { ...question, localization: question.localization },
+        createdAt: this.now().toISOString(),
+        expiresAt,
+      });
+    }
+
     return {
+      ...(deliveryId ? { deliveryId, expiresAt } : {}),
       lessonSlug,
       currentUnderstandingLevel: level,
       targetUnderstandingLevel: difficulty,
@@ -294,6 +325,7 @@ export class PracticeServiceImpl implements PracticeService {
       isReview: level >= 1,
       question: {
         id: question.id,
+        ...(locale ? { localization: question.localization } : {}),
         skillCode: question.skillCode,
         questionType: 'SHORT_FREE_RESPONSE',
         gradingStrategy: 'DETERMINISTIC',
@@ -316,6 +348,9 @@ export class PracticeServiceImpl implements PracticeService {
         JSON.stringify({
           lessonSlug: request.lessonSlug,
           questionId: request.questionId,
+          ...(request.contentFormat
+            ? { contentFormat: request.contentFormat, deliveryId: request.deliveryId }
+            : {}),
           answer: canonicalAnswer(request.userAnswer),
           responseTimeMs: request.responseTimeMs ?? null,
         }),
@@ -330,9 +365,39 @@ export class PracticeServiceImpl implements PracticeService {
         'Idempotency key already identifies another attempt.',
         'Idempotency-Key',
       );
+
     if (receipt?.result) return receipt.result;
+
     if (!receipt) {
-      const next = await this.nextLessonQuestion(userId, request.lessonSlug);
+      const delivery =
+        request.contentFormat === 'localized' && request.deliveryId
+          ? await this.deliveries?.get(userId, request.deliveryId)
+          : null;
+
+      if (request.contentFormat === 'localized') {
+        if (!delivery) throw new PracticeError(140406002, 'Delivery was not found.', 'deliveryId');
+
+        if (
+          delivery.lessonSlug !== request.lessonSlug ||
+          delivery.question.id !== request.questionId
+        )
+          throw new PracticeError(142206002, 'Delivery binding mismatch.', 'deliveryId');
+
+        if (new Date(delivery.expiresAt) <= this.now())
+          throw new PracticeError(142206002, 'Delivery expired.', 'deliveryId');
+
+        const level = await this.progress.getUnderstanding(userId, delivery.lessonId);
+        if (level !== delivery.understandingBefore)
+          throw new PracticeError(142206002, 'Lesson target changed.', 'deliveryId');
+      }
+
+      const next = delivery
+        ? {
+            question: delivery.question,
+            currentUnderstandingLevel: delivery.understandingBefore,
+            targetDifficultyLevel: delivery.question.difficultyLevel,
+          }
+        : await this.nextLessonQuestion(userId, request.lessonSlug);
 
       if (next.question.id !== request.questionId)
         throw new PracticeError(
@@ -341,10 +406,9 @@ export class PracticeServiceImpl implements PracticeService {
           'questionId',
         );
 
-      const question = await this.catalog.getQuestion(
-        request.lessonSlug,
-        next.targetDifficultyLevel,
-      );
+      const question =
+        delivery?.question ??
+        (await this.catalog.getQuestion(request.lessonSlug, next.targetDifficultyLevel));
 
       if (!question)
         throw new PracticeError(140406002, 'Published question was not found.', 'questionId');
@@ -358,11 +422,15 @@ export class PracticeServiceImpl implements PracticeService {
         request.userAnswer,
       );
 
-      if (question.explanation)
+      if (delivery) grade.feedbackText = question.explanation;
+      else if (question.explanation)
         grade.feedbackText = grade.isCorrect ? 'Correct answer.' : question.explanation;
 
       const candidate: LessonReceipt = {
         id: randomUUID(),
+        ...(delivery
+          ? { deliveryId: delivery.id, localization: delivery.question.localization }
+          : {}),
         userId,
         key,
         fingerprint: hash,
@@ -379,7 +447,9 @@ export class PracticeServiceImpl implements PracticeService {
         result: null,
       };
 
-      receipt = await this.repository.createLessonReceipt(candidate);
+      receipt = delivery
+        ? await this.deliveries!.consume(delivery.id, candidate, this.now())
+        : await this.repository.createLessonReceipt(candidate);
 
       if (receipt.fingerprint !== hash)
         throw new PracticeError(
@@ -412,6 +482,9 @@ export class PracticeServiceImpl implements PracticeService {
       recorded.lessonTransition?.after ?? Math.min(before + Number(receipt.grade.isCorrect), 10);
 
     const result: LessonAnswerResult = {
+      ...(receipt.deliveryId
+        ? { deliveryId: receipt.deliveryId, localization: receipt.localization }
+        : {}),
       lessonSlug: receipt.lessonSlug,
       questionId: receipt.questionId,
       isCorrect: receipt.grade.isCorrect,

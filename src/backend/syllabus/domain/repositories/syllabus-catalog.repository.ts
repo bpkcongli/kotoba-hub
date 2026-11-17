@@ -1,6 +1,7 @@
+import type { BilingualOwner } from '@/backend/syllabus/domain/value-objects/bilingual-content';
 import type { CanonicalPostStudyQuestion } from '@/backend/syllabus/domain/value-objects/post-study-question-bank';
 
-export interface SyllabusSkillSnapshot {
+export interface SyllabusSkillSnapshot extends BilingualOwner {
   id: string;
   code: string;
   slug: string;
@@ -8,6 +9,7 @@ export interface SyllabusSkillSnapshot {
   title: string;
   description: string | null;
   skillType: string;
+  content?: Record<string, unknown>;
   supportsFlashcards: boolean;
   supportsPracticeObjective: boolean;
   supportsPracticeFreeResponse: boolean;
@@ -16,7 +18,7 @@ export interface SyllabusSkillSnapshot {
   isPublished: boolean;
 }
 
-export interface SyllabusContentBlockSnapshot {
+export interface SyllabusContentBlockSnapshot extends BilingualOwner {
   id: string;
   blockType: string;
   content?: Record<string, unknown>;
@@ -26,7 +28,7 @@ export interface SyllabusContentBlockSnapshot {
   isPublished: boolean;
 }
 
-export interface SyllabusLessonSnapshot {
+export interface SyllabusLessonSnapshot extends BilingualOwner {
   id: string;
   slug: string;
   title: string;
@@ -42,7 +44,7 @@ export interface SyllabusLessonSnapshot {
   skills: SyllabusSkillSnapshot[];
 }
 
-export interface SyllabusUnitSnapshot {
+export interface SyllabusUnitSnapshot extends BilingualOwner {
   id: string;
   slug: string;
   title: string;
@@ -59,7 +61,7 @@ export interface SyllabusUnitSnapshot {
   lessons: SyllabusLessonSnapshot[];
 }
 
-export interface SyllabusTrackSnapshot {
+export interface SyllabusTrackSnapshot extends BilingualOwner {
   id: string;
   slug: string;
   curriculumLevel: string;

@@ -4,7 +4,17 @@ import type {
   SyllabusCatalogRepository,
   SyllabusTrackSnapshot,
 } from '@/backend/syllabus/domain/repositories/syllabus-catalog.repository';
+import type {
+  ContentTranslation,
+  BilingualOwner,
+} from '@/backend/syllabus/domain/value-objects/bilingual-content';
 import {
+  trackTranslations,
+  unitTranslations,
+  lessonTranslations,
+  skillTranslations,
+  lessonContentBlockTranslations,
+  lessonPostStudyQuestionTranslations,
   lessonContentBlocks,
   lessonPostStudyQuestions,
   lessons,
@@ -13,6 +23,7 @@ import {
   units,
   unitSkillMappings,
 } from '@/backend/syllabus/infrastructure/database/schema';
+import type { Locale } from '@/shared/locale';
 
 export class DrizzleSyllabusCatalogRepository implements SyllabusCatalogRepository {
   async getTracks(): Promise<SyllabusTrackSnapshot[]> {
@@ -28,11 +39,27 @@ export class DrizzleSyllabusCatalogRepository implements SyllabusCatalogReposito
           .select()
           .from(lessonContentBlocks)
           .where(eq(lessonContentBlocks.isPublished, true));
-        const questionRows = await tx.select().from(lessonPostStudyQuestions);
+        const questionRows = await tx
+          .select()
+          .from(lessonPostStudyQuestions)
+          .where(eq(lessonPostStudyQuestions.isPublished, true));
+
+        const trackTexts = await tx.select().from(trackTranslations);
+        const unitTexts = await tx.select().from(unitTranslations);
+        const lessonTexts = await tx.select().from(lessonTranslations);
+        const skillTexts = await tx.select().from(skillTranslations);
+        const blockTexts = await tx.select().from(lessonContentBlockTranslations);
+        const questionTexts = await tx.select().from(lessonPostStudyQuestionTranslations);
+
         const mappingRows = await tx.select().from(unitSkillMappings);
 
         return trackRows.map((track) => ({
           id: track.id,
+          ...this.bilingualOwner(
+            track,
+            trackTexts.filter((text) => text.trackId === track.id),
+            false,
+          ),
           slug: track.slug,
           curriculumLevel: track.curriculumLevel,
           title: track.title,
@@ -43,6 +70,11 @@ export class DrizzleSyllabusCatalogRepository implements SyllabusCatalogReposito
             .filter((unit) => unit.trackId === track.id)
             .map((unit) => ({
               id: unit.id,
+              ...this.bilingualOwner(
+                unit,
+                unitTexts.filter((text) => text.unitId === unit.id),
+                false,
+              ),
               slug: unit.slug,
               title: unit.title,
               description: unit.description,
@@ -72,6 +104,11 @@ export class DrizzleSyllabusCatalogRepository implements SyllabusCatalogReposito
                 .filter((lesson) => lesson.unitId === unit.id)
                 .map((lesson) => ({
                   id: lesson.id,
+                  ...this.bilingualOwner(
+                    lesson,
+                    lessonTexts.filter((text) => text.lessonId === lesson.id),
+                    false,
+                  ),
                   slug: lesson.slug,
                   title: lesson.title,
                   learningObjective: lesson.learningObjective,
@@ -82,6 +119,11 @@ export class DrizzleSyllabusCatalogRepository implements SyllabusCatalogReposito
                     .filter((block) => block.lessonId === lesson.id)
                     .map((block) => ({
                       id: block.id,
+                      ...this.bilingualOwner(
+                        block,
+                        blockTexts.filter((text) => text.contentBlockId === block.id),
+                        true,
+                      ),
                       blockType: block.blockType,
                       content: block.content as Record<string, unknown>,
                       sortOrder: block.sortOrder,
@@ -91,12 +133,18 @@ export class DrizzleSyllabusCatalogRepository implements SyllabusCatalogReposito
                     .filter((skill) => skill.lessonId === lesson.id)
                     .map((skill) => ({
                       id: skill.id,
+                      ...this.bilingualOwner(
+                        skill,
+                        skillTexts.filter((text) => text.skillId === skill.id),
+                        false,
+                      ),
                       code: skill.code,
                       slug: skill.slug,
                       curriculumLevel: skill.curriculumLevel,
                       title: skill.title,
                       description: skill.description,
                       skillType: skill.skillType,
+                      content: skill.content as Record<string, unknown> | undefined,
                       supportsFlashcards: skill.supportsFlashcards,
                       supportsPracticeObjective: skill.supportsPracticeObjective,
                       supportsPracticeFreeResponse: skill.supportsPracticeFreeResponse,
@@ -110,6 +158,11 @@ export class DrizzleSyllabusCatalogRepository implements SyllabusCatalogReposito
                     .filter((question) => question.lessonId === lesson.id)
                     .map((question) => ({
                       id: question.id,
+                      ...this.bilingualOwner(
+                        question,
+                        questionTexts.filter((text) => text.questionId === question.id),
+                        true,
+                      ),
                       skillCode:
                         skillRows.find((skill) => skill.id === question.skillId)?.code ?? '',
                       difficultyLevel: question.difficultyLevel,
@@ -127,6 +180,48 @@ export class DrizzleSyllabusCatalogRepository implements SyllabusCatalogReposito
       },
       { isolationLevel: 'repeatable read', withConsistentSnapshot: true },
     );
+  }
+
+  private bilingualOwner(
+    owner: { contentRevision: number; seedSchemaVersion: string },
+    texts: {
+      locale: Locale;
+      sourceRevision: number;
+      translationRevision: number;
+      isPublished: boolean;
+      sourceRefPayload: unknown;
+      content?: unknown;
+      title?: string;
+      description?: string | null;
+      learningObjective?: string;
+    }[],
+    packageContent: boolean,
+  ): BilingualOwner {
+    return {
+      contentRevision: owner.contentRevision,
+      seedSchemaVersion: owner.seedSchemaVersion,
+      localizations: Object.fromEntries(
+        texts.map((text) => [
+          text.locale,
+          {
+            sourceRevision: text.sourceRevision,
+            translationRevision: text.translationRevision,
+            isPublished: text.isPublished,
+            sourceRefs: text.sourceRefPayload as unknown[],
+            ...(packageContent
+              ? (text.content as object)
+              : {
+                  ...(text.title !== undefined ? { title: text.title } : {}),
+                  ...(text.description !== undefined ? { description: text.description } : {}),
+                  ...(text.learningObjective !== undefined
+                    ? { learningObjective: text.learningObjective }
+                    : {}),
+                  ...(text.content !== undefined ? { content: text.content } : {}),
+                }),
+          } as ContentTranslation,
+        ]),
+      ),
+    };
   }
 }
 

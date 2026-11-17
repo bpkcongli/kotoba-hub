@@ -1,6 +1,7 @@
 import { InvalidPublishedLesson } from '@/backend/syllabus/domain/exceptions/invalid-published-lesson';
+import type { BilingualOwner } from './bilingual-content';
 
-export interface CanonicalPostStudyQuestion {
+export interface CanonicalPostStudyQuestion extends BilingualOwner {
   id: string;
   skillCode: string;
   difficultyLevel: number;
@@ -18,8 +19,10 @@ export class PostStudyQuestionBank {
     lessonSlug: string,
     questions: CanonicalPostStudyQuestion[],
     publishedSkillCodes: string[],
+    private readonly schemaVersion = '1.0.0',
   ) {
     this.byDifficulty = new Map();
+
     if (questions.length !== 10) {
       throw new InvalidPublishedLesson(
         lessonSlug,
@@ -91,6 +94,7 @@ export class PostStudyQuestionBank {
     if (!this.isRecord(prompt)) return false;
 
     return (
+      (this.schemaVersion !== '2.0.0' || prompt.schemaVersion === 1) &&
       Number.isInteger(prompt.schemaVersion) &&
       (prompt.schemaVersion as number) >= 1 &&
       this.hasSingleBlank(prompt.sentenceTemplate) &&
@@ -134,7 +138,9 @@ export class PostStudyQuestionBank {
 
     return (
       Object.keys(prompt).every((key) => allowedKeys.includes(key)) &&
-      (prompt.placeholder === undefined || typeof prompt.placeholder === 'string') &&
+      (prompt.placeholder === undefined ||
+        (this.schemaVersion === '2.0.0' && prompt.placeholder === null) ||
+        typeof prompt.placeholder === 'string') &&
       (prompt.hintTexts === undefined ||
         (Array.isArray(prompt.hintTexts) &&
           prompt.hintTexts.every((text) => typeof text === 'string' && text.length > 0)))
@@ -145,6 +151,29 @@ export class PostStudyQuestionBank {
     if (!this.isRecord(expectedAnswer)) return false;
 
     const answers = expectedAnswer.acceptedTextAnswers;
+
+    if (this.schemaVersion === '2.0.0')
+      return (
+        Object.keys(expectedAnswer).every((key) =>
+          ['acceptedTextAnswers', 'normalizationProfile'].includes(key),
+        ) &&
+        expectedAnswer.normalizationProfile === 'kana-strict-v1' &&
+        Array.isArray(answers) &&
+        answers.length > 0 &&
+        answers.every(
+          (answer) =>
+            typeof answer === 'string' &&
+            /[\u3041-\u3096\u30a1-\u30fa\u3400-\u9fff]/u.test(answer) &&
+            /^[\u3040-\u30ff\u3400-\u9fffー\s・、。！？「」『』（）]+$/u.test(answer),
+        ) &&
+        answers.some(
+          (answer) =>
+            typeof answer === 'string' &&
+            /[\u3041-\u3096\u30a1-\u30fa]/u.test(answer) &&
+            !/[\u3400-\u9fff]/u.test(answer),
+        )
+      );
+
     return (
       Object.keys(expectedAnswer).every((key) =>
         ['acceptedTextAnswers', 'normalizationProfile'].includes(key),

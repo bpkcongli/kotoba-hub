@@ -1,3 +1,4 @@
+import { localizeSyllabus } from '@/backend/syllabus/application/helpers/localize-syllabus';
 import type {
   CanonicalQuestionReadModel,
   PublishedOnboardingTrack,
@@ -13,18 +14,21 @@ import type {
   SyllabusUnitSnapshot,
 } from '@/backend/syllabus/domain/repositories/syllabus-catalog.repository';
 import { PostStudyQuestionBank } from '@/backend/syllabus/domain/value-objects/post-study-question-bank';
+import type { Locale } from '@/shared/locale';
 
 export class SyllabusCatalogServiceImpl implements SyllabusCatalogService {
   constructor(private readonly repository: SyllabusCatalogRepository) {}
 
-  async getPublishedTracks(): Promise<SyllabusTrackSnapshot[]> {
-    return (await this.repository.getTracks())
+  async getPublishedTracks(locale?: Locale): Promise<SyllabusTrackSnapshot[]> {
+    const tracks = await this.repository.getTracks();
+
+    return (locale ? localizeSyllabus(tracks, locale) : tracks)
       .filter((track) => track.isPublished)
       .sort((a, b) => a.sortOrder - b.sortOrder);
   }
 
-  async getPublishedOnboardingTracks(): Promise<PublishedOnboardingTrack[]> {
-    return (await this.getPublishedTracks()).map((track) => ({
+  async getPublishedOnboardingTracks(locale?: Locale): Promise<PublishedOnboardingTrack[]> {
+    return (await this.getPublishedTracks(locale)).map((track) => ({
       slug: track.slug,
       curriculumLevel: track.curriculumLevel,
       sortOrder: track.sortOrder,
@@ -40,8 +44,8 @@ export class SyllabusCatalogServiceImpl implements SyllabusCatalogService {
     }));
   }
 
-  async getPublishedUnit(unitSlug: string): Promise<SyllabusUnitReadModel | null> {
-    for (const track of await this.getPublishedTracks()) {
+  async getPublishedUnit(unitSlug: string, locale?: Locale): Promise<SyllabusUnitReadModel | null> {
+    for (const track of await this.getPublishedTracks(locale)) {
       const unit = this.publishedUnits(track).find((item) => item.slug === unitSlug);
       if (unit) return { track, unit };
     }
@@ -49,8 +53,11 @@ export class SyllabusCatalogServiceImpl implements SyllabusCatalogService {
     return null;
   }
 
-  async getPublishedLesson(lessonSlug: string): Promise<SyllabusLessonReadModel | null> {
-    for (const track of await this.getPublishedTracks()) {
+  async getPublishedLesson(
+    lessonSlug: string,
+    locale?: Locale,
+  ): Promise<SyllabusLessonReadModel | null> {
+    for (const track of await this.getPublishedTracks(locale)) {
       for (const unit of this.publishedUnits(track)) {
         const lesson = this.publishedLessons(unit).find((item) => item.slug === lessonSlug);
         if (lesson) return { track, unit, lesson };
@@ -63,11 +70,13 @@ export class SyllabusCatalogServiceImpl implements SyllabusCatalogService {
   async getCanonicalPostStudyQuestion(
     lessonSlug: string,
     difficultyLevel: number,
+    locale?: Locale,
   ): Promise<CanonicalQuestionReadModel | null> {
-    const result = await this.getPublishedLesson(lessonSlug);
+    const result = await this.getPublishedLesson(lessonSlug, locale);
     if (!result) return null;
 
     const bank = this.questionBank(result.lesson);
+
     return { ...result, question: bank.get(difficultyLevel) };
   }
 
@@ -96,6 +105,7 @@ export class SyllabusCatalogServiceImpl implements SyllabusCatalogService {
       lesson.slug,
       (lesson.postStudyQuestions ?? []).filter((question) => question.isPublished !== false),
       this.publishedSkills(lesson).map((skill) => skill.code),
+      lesson.seedSchemaVersion,
     );
   }
 }

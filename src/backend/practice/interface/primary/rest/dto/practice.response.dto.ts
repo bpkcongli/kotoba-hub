@@ -129,6 +129,7 @@ export function toPracticeAnswerDto(a: AnswerResult) {
 
 export function toLessonNextDto(n: LessonNextResult) {
   return {
+    ...(n.deliveryId ? { deliveryId: n.deliveryId, expiresAt: n.expiresAt } : {}),
     lessonSlug: n.lessonSlug,
     currentUnderstandingLevel: n.currentUnderstandingLevel,
     targetUnderstandingLevel: n.targetUnderstandingLevel,
@@ -136,11 +137,15 @@ export function toLessonNextDto(n: LessonNextResult) {
     isReview: n.isReview,
     question: {
       id: n.question.id,
+      ...(n.question.localization ? { localization: n.question.localization } : {}),
       skillCode: n.question.skillCode,
       questionType: n.question.questionType,
       gradingStrategy: n.question.gradingStrategy,
       difficultyLevel: n.question.difficultyLevel,
-      promptPayload: prompt(n.question),
+      promptPayload: {
+        ...prompt(n.question),
+        ...(n.question.localization ? { hintTexts: n.question.promptPayload.hintTexts ?? [] } : {}),
+      },
     },
   };
 }
@@ -149,6 +154,7 @@ export function toLessonAnswerDto(a: LessonAnswerResult) {
   const u = a.understandingProgress;
 
   return {
+    ...(a.deliveryId ? { deliveryId: a.deliveryId, localization: a.localization } : {}),
     lessonSlug: a.lessonSlug,
     questionId: a.questionId,
     isCorrect: a.isCorrect,

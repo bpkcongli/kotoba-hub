@@ -212,6 +212,13 @@ def build(inventory, source, authoring, curation=None):
 
             owner['skillCode'] = authoring['questionSkillCodes'].get(owner['id'], owner['skillCode'])
 
+            correction = inventory.get('promptCorrections', {}).get('questions', {}).get(owner['id'])
+
+            if correction:
+                require(owner['promptPayload']['sentenceTemplate'] == correction['before'], 'Prompt correction baseline mismatch.')
+                require(owner['contentRevision'] >= correction['contentRevision'], 'Prompt correction requires canonical revision.')
+                owner['promptPayload']['sentenceTemplate'] = correction['after']
+
             parser = BatchHtml()
             parser.feed(owner['promptPayload']['sentenceTemplateHtml'])
             plain = re.sub(r'\s+', '', owner['promptPayload']['sentenceTemplate'])
@@ -302,7 +309,7 @@ def build(inventory, source, authoring, curation=None):
     report = {'batchId': inventory['batchId'], 'sourceFile': inventory['sourceFile'],
               'sourceSha256': inventory['sourceSha256'], 'status': 'HELD' if any(l['holds'] for l in summaries) else 'READY_FOR_BIL_03',
               'ownerCount': len(rows), 'localizedOwnerCount': len(rows),
-              'questionCount': len(question_ids), 'questionAttributionFixes': authoring['questionSkillCodes'],
+              'questionCount': len(question_ids), 'promptCorrections': inventory.get('promptCorrections'), 'questionAttributionFixes': authoring['questionSkillCodes'],
               'blockAttributionFixes': authoring['blockSkillCodes'],
               'unusableSkillCodes': authoring['unusableSkillCodes'],
               'englishRevisedOwnerIds': changed_english, 'presentationNotes': authoring['presentationNotes'],

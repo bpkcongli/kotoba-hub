@@ -3,6 +3,7 @@ import type {
   PracticeCatalogSkill,
 } from '@/backend/practice/application/ports/practice-catalog.port';
 import type { SyllabusCatalogService } from '@/backend/syllabus/application/services/syllabus-catalog.service';
+import type { Locale } from '@/shared/locale';
 
 export class PracticeCatalogAdapter implements PracticeCatalogPort {
   constructor(private readonly syllabus: SyllabusCatalogService) {}
@@ -31,8 +32,8 @@ export class PracticeCatalogAdapter implements PracticeCatalogPort {
     return model ? { id: model.lesson.id, slug: model.lesson.slug } : null;
   }
 
-  async getQuestion(slug: string, difficulty: number) {
-    const model = await this.syllabus.getCanonicalPostStudyQuestion(slug, difficulty);
+  async getQuestion(slug: string, difficulty: number, locale?: Locale) {
+    const model = await this.syllabus.getCanonicalPostStudyQuestion(slug, difficulty, locale);
     if (!model) return null;
 
     const skill = this.syllabus

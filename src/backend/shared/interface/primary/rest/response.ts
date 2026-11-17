@@ -14,5 +14,8 @@ export function apiResponse<TData = unknown>(
     ...(data !== undefined ? { data } : {}),
   };
 
-  return Response.json(body, { status: httpStatus });
+  return Response.json(body, {
+    status: httpStatus,
+    headers: { 'Cache-Control': 'private, no-store' },
+  });
 }

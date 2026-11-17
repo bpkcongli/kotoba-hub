@@ -3,6 +3,7 @@ import type {
   AiDifficultyBand,
   AiQuestionType,
 } from '@/backend/shared/application/services/requests/ai-request';
+import type { Localization } from '@/shared/locale';
 
 export type UserAnswer =
   | { rawInputRomaji: string; normalizedKana: string; normalizedKanji?: string | null }
@@ -75,6 +76,8 @@ export interface UnderstandingProgress {
 }
 
 export interface LessonAnswerResult {
+  deliveryId?: string;
+  localization?: Localization;
   lessonSlug: string;
   questionId: string;
   isCorrect: boolean;
@@ -101,6 +104,8 @@ export interface StoredAnswer {
 }
 
 export interface LessonReceipt {
+  deliveryId?: string;
+  localization?: Localization;
   id: string;
   userId: string;
   key: string;

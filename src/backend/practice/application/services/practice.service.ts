@@ -4,6 +4,7 @@ import type {
   PracticeSession,
   UserAnswer,
 } from '@/backend/practice/domain/repositories/practice.repository';
+import type { Locale, Localization } from '@/shared/locale';
 
 export interface SubmitPracticeAnswerRequest {
   questionId: string;
@@ -14,9 +15,13 @@ export interface SubmitPracticeAnswerRequest {
 export interface SubmitLessonAnswerRequest extends SubmitPracticeAnswerRequest {
   lessonSlug: string;
   idempotencyKey?: string;
+  contentFormat?: 'localized';
+  deliveryId?: string;
 }
 
 export interface LessonNextResult {
+  deliveryId?: string;
+  expiresAt?: string;
   lessonSlug: string;
   currentUnderstandingLevel: number;
   targetUnderstandingLevel: number;
@@ -24,6 +29,7 @@ export interface LessonNextResult {
   isReview: boolean;
   question: {
     id: string;
+    localization?: Localization;
     skillCode: string;
     questionType: 'SHORT_FREE_RESPONSE';
     gradingStrategy: 'DETERMINISTIC';
@@ -41,7 +47,11 @@ export interface PracticeService {
     request: SubmitPracticeAnswerRequest,
   ): Promise<AnswerResult>;
 
-  nextLessonQuestion(userId: string, lessonSlug: string): Promise<LessonNextResult>;
+  nextLessonQuestion(
+    userId: string,
+    lessonSlug: string,
+    locale?: Locale,
+  ): Promise<LessonNextResult>;
 
   submitLessonAnswer(
     userId: string,

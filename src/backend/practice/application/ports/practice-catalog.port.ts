@@ -1,4 +1,5 @@
 import type { CanonicalPostStudyQuestion } from '@/backend/syllabus/domain/value-objects/post-study-question-bank';
+import type { Locale } from '@/shared/locale';
 
 export interface PracticeCatalogSkill {
   id: string;
@@ -16,5 +17,6 @@ export interface PracticeCatalogPort {
   getQuestion(
     slug: string,
     difficulty: number,
+    locale?: Locale,
   ): Promise<(CanonicalPostStudyQuestion & { skillId: string; lessonId: string }) | null>;
 }

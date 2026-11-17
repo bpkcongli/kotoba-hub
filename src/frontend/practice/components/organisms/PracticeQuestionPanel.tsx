@@ -4,6 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { useEffect, useRef, useState } from 'react';
 import { usePracticeStore } from '@/frontend/practice/hooks';
 import { Button } from '@/frontend/shared/components/atoms';
+import { LessonRichText } from '@/frontend/syllabus/components/organisms';
 
 const fieldClass =
   'min-h-11 w-full rounded-md border border-border-strong bg-background px-3 py-3 font-japanese text-body outline-none focus-visible:focus-ring disabled:opacity-70';
@@ -24,8 +25,10 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
   const slot = q.questionType === 'SLOT_FILL';
   const arrange = q.questionType === 'ARRANGE_TOKEN';
   const free = q.questionType === 'FREE_RESPONSE';
+
   const source = short || slot ? q.promptPayload.sentenceTemplate : q.promptPayload.sourceSentence;
   const japanese = short || slot || q.promptPayload.promptLanguage === 'JA';
+
   const title = short
     ? 'Fill in the missing kana'
     : slot
@@ -47,6 +50,16 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
         className={`scroll-mt-40 py-4 text-h2 leading-relaxed outline-none focus-visible:focus-ring ${japanese ? 'font-japanese' : ''}`}>
         {source}
       </h3>
+
+      {store.mode === 'lesson' &&
+        short &&
+        store.lessonQuiz?.question.promptPayload.hintTexts?.map((hint, index) => (
+          <LessonRichText
+            key={index}
+            html={hint}
+            locale={store.lessonQuiz?.question.localization?.resolvedLocale}
+          />
+        ))}
 
       {free && (
         <p className="text-body-sm text-muted-foreground">

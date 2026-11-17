@@ -1,9 +1,18 @@
 import sanitizeHtml from 'sanitize-html';
 import type { LessonContentBlock } from '@/frontend/syllabus/interfaces/entities';
 
-export function LessonRichText({ html, japanese = false }: { html: string; japanese?: boolean }) {
+export function LessonRichText({
+  html,
+  japanese = false,
+  locale,
+}: {
+  html: string;
+  japanese?: boolean;
+  locale?: 'en' | 'id';
+}) {
   const clean = sanitizeHtml(html, {
     allowedTags: [
+      'div',
       'p',
       'br',
       'span',
@@ -28,14 +37,23 @@ export function LessonRichText({ html, japanese = false }: { html: string; japan
       'td',
       'code',
     ],
-    allowedAttributes: { span: ['class'] },
-    allowedClasses: { span: ['text-emphasis'] },
+    allowedAttributes: { '*': ['class'] },
+    allowedClasses: {
+      '*': [
+        'text-emphasis',
+        'text-warning',
+        'question-blank',
+        'question-dialogue',
+        'question-scenario',
+        'question-continuation',
+      ],
+    },
     disallowedTagsMode: 'discard',
   });
 
   return (
     <div
-      lang={japanese ? 'ja' : undefined}
+      lang={japanese ? 'ja' : locale}
       className={`min-w-0 space-y-3 overflow-x-auto leading-8 wrap-anywhere [&_.text-emphasis]:font-semibold [&_li]:ml-5 [&_ol]:list-decimal [&_table]:w-full [&_td]:border [&_td]:p-2 [&_th]:border [&_th]:p-2 [&_ul]:list-disc ${japanese ? 'font-japanese text-body-lg' : ''}`}
       dangerouslySetInnerHTML={{ __html: clean }}
     />
@@ -48,7 +66,16 @@ export function LessonContent({ blocks }: { blocks: LessonContentBlock[] }) {
       {[...blocks]
         .sort((a, b) => a.sortOrder - b.sortOrder)
         .map((block) => (
-          <section key={block.id} className="min-w-0 space-y-3">
+          <section
+            lang={block.localization?.resolvedLocale}
+            key={block.id}
+            className="min-w-0 space-y-3">
+            {block.localization?.isFallback && (
+              <p lang="en" className="text-body-sm text-muted-foreground">
+                English translation shown
+              </p>
+            )}
+
             {block.blockType === 'PARAGRAPH' ? (
               <>
                 {block.content.title && (
@@ -63,7 +90,13 @@ export function LessonContent({ blocks }: { blocks: LessonContentBlock[] }) {
 
                 <LessonRichText html={block.content.japaneseSentence} japanese />
 
-                <LessonRichText html={block.content.englishTranslation} />
+                <LessonRichText
+                  html={
+                    'translation' in block.content
+                      ? block.content.translation
+                      : block.content.englishTranslation
+                  }
+                />
               </div>
             ) : (
               <>

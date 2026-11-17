@@ -18,6 +18,8 @@ export interface PracticeAnswerRequest {
 }
 
 export interface LessonAnswerRequest {
+  contentFormat?: 'localized';
+  deliveryId?: string;
   lessonSlug: string;
   questionId: string;
   userAnswer: PracticeTextAnswer;

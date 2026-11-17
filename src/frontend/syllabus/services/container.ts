@@ -2,6 +2,7 @@ import { Container } from 'inversify';
 import type { HttpClient } from '@/frontend/shared/adapters/http-client';
 import type { FeatureContainerOptions } from '@/frontend/shared/interfaces';
 import { SHARED_TYPES } from '@/frontend/shared/services';
+import type { ILocaleStore } from '@/frontend/shared/services/internal';
 import { SyllabusService, type ISyllabusService } from './external';
 import { SyllabusStore, type ISyllabusStore } from './internal';
 import { SYLLABUS_TYPES } from './types';
@@ -11,7 +12,13 @@ export function createSyllabusContainer({ parentContainer }: FeatureContainerOpt
 
   container
     .bind<ISyllabusService>(SYLLABUS_TYPES.Service)
-    .toDynamicValue((c) => new SyllabusService(c.get<HttpClient>(SHARED_TYPES.HttpClient)))
+    .toDynamicValue(
+      (c) =>
+        new SyllabusService(
+          c.get<HttpClient>(SHARED_TYPES.HttpClient),
+          c.get<ILocaleStore>(SHARED_TYPES.LocaleStore),
+        ),
+    )
     .inSingletonScope();
 
   container

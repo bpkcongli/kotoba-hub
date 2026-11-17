@@ -4,7 +4,35 @@ import {
   syllabusUnitFixture,
   syllabusLessonFixture,
 } from '@/mocks/fixtures/syllabus';
+import { localizedFixture, getMockPreferences } from '@/mocks/states/locale';
 import { getMockSession } from '@/mocks/states/session';
+import { localeSchema } from '@/shared/locale';
+
+function localizedResponse<T extends Record<string, unknown>>(request: Request, data: T) {
+  const query = new URL(request.url).searchParams;
+  const format = query.get('contentFormat'),
+    locale = query.get('contentLocale');
+
+  if (
+    query.getAll('contentFormat').length > 1 ||
+    query.getAll('contentLocale').length > 1 ||
+    (format !== null && format !== 'localized') ||
+    (locale !== null && (format !== 'localized' || !localeSchema.safeParse(locale).success))
+  ) {
+    return HttpResponse.json({ status: status(142204001) }, { status: 422 });
+  }
+
+  return HttpResponse.json(
+    format === 'localized'
+      ? localizedFixture(
+          data,
+          localeSchema.safeParse(locale).success
+            ? (locale as 'en' | 'id')
+            : getMockPreferences().contentLocale,
+        )
+      : data,
+  );
+}
 
 function status(code: number, message = 'Success!') {
   return { traceId: crypto.randomUUID(), code, message, errorDetails: [] };
@@ -57,7 +85,7 @@ export const syllabusHandlers = [
       (t) => !levels || levels.includes(t.curriculumLevel),
     );
 
-    return HttpResponse.json({
+    return localizedResponse(request, {
       status: status(120004000),
       data: {
         tracks: tracks.slice(offset, offset + limit).map((t) => {
@@ -79,27 +107,27 @@ export const syllabusHandlers = [
       },
     });
   }),
-  http.get('*/api/v1/syllabus/units/:unitSlug', ({ params }) => {
+  http.get('*/api/v1/syllabus/units/:unitSlug', ({ params, request }) => {
     const denied = guard();
     if (denied) return denied;
 
     const unit = syllabusUnitFixture();
 
     return params.unitSlug === unit.slug
-      ? HttpResponse.json({ status: status(120004000), data: unit })
+      ? localizedResponse(request, { status: status(120004000), data: unit })
       : HttpResponse.json(
           { status: status(140404001, 'This unit is not available in the published syllabus.') },
           { status: 404 },
         );
   }),
-  http.get('*/api/v1/syllabus/lessons/:lessonSlug', ({ params }) => {
+  http.get('*/api/v1/syllabus/lessons/:lessonSlug', ({ params, request }) => {
     const denied = guard();
     if (denied) return denied;
 
     const lesson = syllabusLessonFixture();
 
     return params.lessonSlug === lesson.slug
-      ? HttpResponse.json({ status: status(120004000), data: lesson })
+      ? localizedResponse(request, { status: status(120004000), data: lesson })
       : HttpResponse.json(
           { status: status(140404002, 'This lesson is not available in the published syllabus.') },
           { status: 404 },

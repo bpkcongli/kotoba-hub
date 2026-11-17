@@ -13,6 +13,8 @@ import type {
 } from '@/frontend/practice/interfaces/requests';
 import { practiceSessionFixture } from '@/mocks/fixtures/practice';
 import { lessonQuizFixture, syllabusLessonFixture } from '@/mocks/fixtures/syllabus';
+import type { Locale } from '@/shared/locale';
+import { localizedFixture } from './locale';
 import { recordMockProgress, setMockProgressUnderstanding } from './progress';
 import { registerMockStateReset } from './reset';
 
@@ -195,7 +197,13 @@ export function setMockLessonUnderstanding(ownerId: string, slug: string, level:
   setMockProgressUnderstanding(ownerId, slug, level);
 }
 
-export function nextMockLessonQuiz(ownerId: string, slug: string): Result<LessonQuiz> {
+const deliveries = new Map<string, { userId: string; quiz: LessonQuiz; key?: string }>();
+
+export function nextMockLessonQuiz(
+  ownerId: string,
+  slug: string,
+  locale?: Locale,
+): Result<LessonQuiz> {
   const quiz = lessonQuizFixture();
 
   if (slug !== quiz.lessonSlug)
@@ -204,23 +212,32 @@ export function nextMockLessonQuiz(ownerId: string, slug: string): Result<Lesson
   const current = understanding.get(snapshotKey(ownerId, slug)) ?? 0;
   const target = Math.min(current + 1, 10);
 
-  return {
-    result: {
-      ...quiz,
-      currentUnderstandingLevel: current,
-      targetUnderstandingLevel: target,
-      targetDifficultyLevel: target,
-      isReview: current >= 1,
-      question: {
-        ...quiz.question,
-        id:
-          target === 1
-            ? quiz.question.id
-            : `10000000-0000-4000-8000-${String(6 + target).padStart(12, '0')}`,
-        difficultyLevel: target,
-      },
+  const result: LessonQuiz = {
+    ...quiz,
+    currentUnderstandingLevel: current,
+    targetUnderstandingLevel: target,
+    targetDifficultyLevel: target,
+    isReview: current >= 1,
+    question: {
+      ...quiz.question,
+      id:
+        target === 1
+          ? quiz.question.id
+          : `10000000-0000-4000-8000-${String(6 + target).padStart(12, '0')}`,
+      difficultyLevel: target,
     },
   };
+
+  if (locale) {
+    const localized = localizedFixture(result, locale);
+    localized.deliveryId = crypto.randomUUID();
+    localized.expiresAt = new Date(Date.now() + 86400000).toISOString();
+    deliveries.set(localized.deliveryId, { userId: ownerId, quiz: structuredClone(localized) });
+
+    return { result: localized };
+  }
+
+  return { result };
 }
 
 export function answerMockLessonQuiz(
@@ -237,11 +254,19 @@ export function answerMockLessonQuiz(
       ? { result: structuredClone(previous.result) }
       : failure('Retry your original lesson answer.');
 
+  const delivery = payload.deliveryId ? deliveries.get(payload.deliveryId) : undefined;
+
+  if (payload.contentFormat && (!delivery || delivery.userId !== ownerId))
+    return { code: 140406002, message: 'Delivery not found.', httpStatus: 404 };
+
+  if (delivery && (delivery.key || Date.parse(delivery.quiz.expiresAt!) <= Date.now()))
+    return failure('Delivery expired or consumed.');
+
   const next = nextMockLessonQuiz(ownerId, payload.lessonSlug);
 
   if (!('result' in next)) return next;
 
-  const quiz = next.result;
+  const quiz = delivery?.quiz ?? next.result;
 
   if (payload.questionId !== quiz.question.id)
     return failure('Load the current lesson question before answering.');
@@ -253,6 +278,9 @@ export function answerMockLessonQuiz(
   const before = quiz.currentUnderstandingLevel;
   const after = Math.min(before + Number(isCorrect), 10);
   const result: LessonQuizResult = {
+    ...(delivery
+      ? { deliveryId: payload.deliveryId, localization: delivery.quiz.question.localization }
+      : {}),
     lessonSlug: payload.lessonSlug,
     questionId: payload.questionId,
     isCorrect,
@@ -272,6 +300,7 @@ export function answerMockLessonQuiz(
     progressImpact: impact(quiz.question.skillCode, isCorrect),
   };
 
+  if (delivery) delivery.key = key;
   understanding.set(snapshotKey(ownerId, payload.lessonSlug), after);
   receipts.set(key, { fingerprint: print, result: structuredClone(result) });
 
@@ -312,6 +341,7 @@ export function answerMockLessonQuiz(
 }
 
 export function resetMockPractice(): void {
+  deliveries.clear();
   sessions.clear();
   understanding.clear();
   receipts.clear();

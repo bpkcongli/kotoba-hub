@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { apiStatusSchema } from '@/frontend/shared/interfaces/responses';
+import { localizationSchema } from '@/frontend/shared/interfaces/responses/Localization';
 import { nextQuizSchema } from '@/frontend/syllabus/interfaces/responses';
 
 const id = z.uuid();
@@ -138,6 +139,8 @@ export const practiceAnswerResultSchema = grade.extend({
 });
 
 export const lessonQuizResultSchema = grade.extend({
+  deliveryId: z.uuid().optional(),
+  localization: localizationSchema.optional(),
   lessonSlug: text,
   questionId: id,
   gradingSource: z.literal('RULE_ENGINE'),
@@ -153,6 +156,7 @@ export const lessonQuizResultSchema = grade.extend({
 });
 
 const status = apiStatusSchema.extend({ code: z.literal(120006000) });
+
 export const practiceSessionResponseSchema = z.object({ status, data: practiceSessionSchema });
 export const practiceAnswerResponseSchema = z.object({ status, data: practiceAnswerResultSchema });
 export const lessonQuestionResponseSchema = z.object({ status, data: nextQuizSchema });

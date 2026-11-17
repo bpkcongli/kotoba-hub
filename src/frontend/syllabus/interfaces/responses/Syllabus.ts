@@ -1,11 +1,13 @@
 import { z } from 'zod';
 import { apiStatusSchema } from '@/frontend/shared/interfaces/responses';
+import { localizationSchema } from '@/frontend/shared/interfaces/responses/Localization';
 
 const slug = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
 const order = z.number().int();
 const nonblank = z.string().min(1);
 
 const skillSchema = z.object({
+  localization: localizationSchema.optional(),
   id: z.uuid(),
   code: nonblank,
   slug,
@@ -19,7 +21,13 @@ const skillSchema = z.object({
   prerequisiteSkillCodes: z.array(z.string()),
 });
 
-const trackParent = z.object({ id: z.uuid(), slug, curriculumLevel: nonblank, title: nonblank });
+const trackParent = z.object({
+  localization: localizationSchema.optional(),
+  id: z.uuid(),
+  slug,
+  curriculumLevel: nonblank,
+  title: nonblank,
+});
 
 export const trackSchema = trackParent.extend({
   description: z.string().nullable(),
@@ -28,6 +36,7 @@ export const trackSchema = trackParent.extend({
   foundationUnitSlug: slug.nullable(),
   units: z.array(
     z.object({
+      localization: localizationSchema.optional(),
       id: z.uuid(),
       slug,
       title: nonblank,
@@ -40,6 +49,7 @@ export const trackSchema = trackParent.extend({
 });
 
 const lessonSummary = z.object({
+  localization: localizationSchema.optional(),
   id: z.uuid(),
   slug,
   title: nonblank,
@@ -50,6 +60,7 @@ const lessonSummary = z.object({
 });
 
 export const unitSchema = z.object({
+  localization: localizationSchema.optional(),
   id: z.uuid(),
   slug,
   title: nonblank,
@@ -65,18 +76,24 @@ export const unitSchema = z.object({
 
 export const contentBlockSchema = z.discriminatedUnion('blockType', [
   z.object({
+    localization: localizationSchema.optional(),
     id: z.uuid(),
     sortOrder: order,
     blockType: z.literal('PARAGRAPH'),
-    content: z.object({ title: z.string().optional(), body: nonblank }),
+    content: z.object({ title: z.string().nullish(), body: nonblank }),
   }),
   z.object({
+    localization: localizationSchema.optional(),
     id: z.uuid(),
     sortOrder: order,
     blockType: z.literal('EXAMPLE_SENTENCE'),
-    content: z.object({ japaneseSentence: nonblank, englishTranslation: nonblank }),
+    content: z.union([
+      z.object({ japaneseSentence: nonblank, translation: nonblank }),
+      z.object({ japaneseSentence: nonblank, englishTranslation: nonblank }),
+    ]),
   }),
   z.object({
+    localization: localizationSchema.optional(),
     id: z.uuid(),
     sortOrder: order,
     blockType: z.literal('GRAMMAR_STRUCTURE'),
@@ -93,7 +110,13 @@ export const contentBlockSchema = z.discriminatedUnion('blockType', [
 
 export const lessonSchema = lessonSummary.extend({
   track: trackParent,
-  unit: z.object({ id: z.uuid(), slug, title: nonblank, sortOrder: order }),
+  unit: z.object({
+    localization: localizationSchema.optional(),
+    id: z.uuid(),
+    slug,
+    title: nonblank,
+    sortOrder: order,
+  }),
   contentBlocks: z.array(contentBlockSchema),
   postStudyQuiz: z.object({
     isRequired: z.literal(true),
@@ -116,6 +139,7 @@ export const nextQuizSchema = z.object({
   targetDifficultyLevel: z.number().int().min(1).max(10),
   isReview: z.boolean(),
   question: z.object({
+    localization: localizationSchema.optional(),
     id: z.uuid(),
     skillCode: nonblank,
     questionType: z.literal('SHORT_FREE_RESPONSE'),
@@ -134,6 +158,8 @@ export const nextQuizSchema = z.object({
       hintTexts: z.array(z.string()).optional(),
     }),
   }),
+  deliveryId: z.uuid().optional(),
+  expiresAt: z.iso.datetime().optional(),
 });
 
 const syllabusStatus = apiStatusSchema.extend({ code: z.literal(120004000) });

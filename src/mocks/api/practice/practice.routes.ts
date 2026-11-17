@@ -1,5 +1,6 @@
 import { http, HttpResponse } from 'msw';
 import { z } from 'zod';
+import { getMockPreferences } from '@/mocks/states/locale';
 import {
   answerMockLessonQuiz,
   answerMockPracticeSession,
@@ -7,6 +8,7 @@ import {
   nextMockLessonQuiz,
 } from '@/mocks/states/practice';
 import { getMockSession } from '@/mocks/states/session';
+import { localeSchema } from '@/shared/locale';
 
 function status(code = 120006000, message = 'Success!') {
   return { traceId: crypto.randomUUID(), code, message, errorDetails: [] };
@@ -48,10 +50,15 @@ const answerSchema = z.strictObject({
   responseTimeMs: z.number().int().min(0).max(2147483647),
 });
 
-const lessonAnswerSchema = answerSchema.extend({
+const legacyLessonAnswerSchema = answerSchema.extend({
   lessonSlug: z.string().min(1).max(255),
   userAnswer: textAnswer,
 });
+
+const lessonAnswerSchema = z.union([
+  legacyLessonAnswerSchema,
+  legacyLessonAnswerSchema.extend({ contentFormat: z.literal('localized'), deliveryId: z.uuid() }),
+]);
 
 function result<T>(value: { result: T } | { code: number; message: string; httpStatus: number }) {
   return 'result' in value
@@ -108,11 +115,24 @@ export const practiceHandlers = [
     if (denied) return denied;
 
     const parsed = z
-      .strictObject({ lessonSlug: z.string().min(1).max(255) })
+      .strictObject({
+        lessonSlug: z.string().min(1).max(255),
+        contentFormat: z.literal('localized').optional(),
+        contentLocale: localeSchema.optional(),
+      })
+      .refine((v) => !v.contentLocale || !!v.contentFormat)
       .safeParse(await request.json().catch(() => null));
 
     return parsed.success
-      ? result(nextMockLessonQuiz(getMockSession().user!.id, parsed.data.lessonSlug))
+      ? result(
+          nextMockLessonQuiz(
+            getMockSession().user!.id,
+            parsed.data.lessonSlug,
+            parsed.data.contentFormat
+              ? (parsed.data.contentLocale ?? getMockPreferences().contentLocale)
+              : undefined,
+          ),
+        )
       : failure(142206001, 'Choose a lesson.');
   }),
 
@@ -123,8 +143,13 @@ export const practiceHandlers = [
     const parsed = lessonAnswerSchema.safeParse(await request.json().catch(() => null));
     const key = request.headers.get('Idempotency-Key');
 
-    if (!parsed.success || (key !== null && !z.uuid().safeParse(key).success))
+    if (
+      !parsed.success ||
+      (key !== null && !z.uuid().safeParse(key).success) ||
+      (parsed.success && 'contentFormat' in parsed.data && key === null)
+    ) {
       return failure(142206001, 'Answer the current lesson question.');
+    }
 
     return result(answerMockLessonQuiz(getMockSession().user!.id, parsed.data, key ?? undefined));
   }),

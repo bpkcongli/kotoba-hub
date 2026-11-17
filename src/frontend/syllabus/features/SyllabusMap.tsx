@@ -44,6 +44,7 @@ export const SyllabusMapScreen = observer(function SyllabusMapScreen() {
               {store.tracks.map((track) => (
                 <Button
                   key={track.slug}
+                  lang={track.localization?.resolvedLocale}
                   variant={track.slug === store.selectedTrackSlug ? 'default' : 'secondary'}
                   aria-pressed={track.slug === store.selectedTrackSlug}
                   onClick={() => store.selectTrack(track.slug)}>
@@ -54,7 +55,10 @@ export const SyllabusMapScreen = observer(function SyllabusMapScreen() {
 
             {store.selectedTrack && (
               <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(220px,0.4fr)]">
-                <section aria-label={store.selectedTrack.title} className="min-w-0 space-y-5">
+                <section
+                  lang={store.selectedTrack.localization?.resolvedLocale}
+                  aria-label={store.selectedTrack.title}
+                  className="min-w-0 space-y-5">
                   <div className="space-y-2">
                     <h2 className="text-h2 font-semibold">{store.selectedTrack.title}</h2>
 
@@ -67,6 +71,7 @@ export const SyllabusMapScreen = observer(function SyllabusMapScreen() {
                     {store.selectedTrack.units.map((unit, index) => (
                       <li
                         key={unit.slug}
+                        lang={unit.localization?.resolvedLocale}
                         className="space-y-3 rounded-md border border-border-subtle bg-card p-5">
                         <p className="text-caption font-semibold text-muted-foreground">
                           Unit {index + 1}

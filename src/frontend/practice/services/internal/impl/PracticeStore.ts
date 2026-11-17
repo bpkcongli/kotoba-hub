@@ -275,6 +275,9 @@ export class PracticeStore implements IPracticeStore {
           lessonRequest: {
             ...request,
             lessonSlug: this.lessonSlug,
+            ...(this.lessonQuiz?.deliveryId
+              ? { contentFormat: 'localized', deliveryId: this.lessonQuiz.deliveryId }
+              : {}),
             userAnswer: request.userAnswer as LessonAnswerRequest['userAnswer'],
           },
           key: crypto.randomUUID(),

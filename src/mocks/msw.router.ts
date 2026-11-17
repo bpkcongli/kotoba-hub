@@ -5,9 +5,11 @@ import { onboardingHandlers } from './api/onboarding/onboarding.routes';
 import { practiceHandlers } from './api/practice/practice.routes';
 import { progressHandlers } from './api/progress/progress.routes';
 import { syllabusHandlers } from './api/syllabus/syllabus.routes';
+import { preferencesHandlers } from './api/users/preferences.routes';
 
 export const handlers: RequestHandler[] = [
   ...authHandlers,
+  ...preferencesHandlers,
   ...onboardingHandlers,
   ...syllabusHandlers,
   ...flashcardHandlers,

@@ -13,9 +13,14 @@ import type { IPracticeService } from '@/frontend/practice/services/external/IPr
 import type { HttpClient } from '@/frontend/shared/adapters/http-client';
 import { readHttpResponse } from '@/frontend/shared/adapters/http-client/helpers';
 import { ClientException } from '@/frontend/shared/exceptions';
+import { validateLocalizedContent } from '@/frontend/shared/helpers';
+import type { ILocaleStore } from '@/frontend/shared/services/internal';
 
 export class PracticeService implements IPracticeService {
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly http: HttpClient,
+    private readonly locale?: ILocaleStore,
+  ) {}
 
   async generateSession(request: GeneratePracticeRequest, signal?: AbortSignal) {
     const data = readHttpResponse(
@@ -62,15 +67,24 @@ export class PracticeService implements IPracticeService {
   }
 
   async getLessonQuestion(lessonSlug: string, signal?: AbortSignal) {
+    const query = this.locale?.contentQuery;
     const data = readHttpResponse(
       await this.http.request({
         method: 'POST',
         path: '/practice/lesson-post-study/next',
-        body: { lessonSlug },
+        body: { lessonSlug, ...query },
         signal,
       }),
       lessonQuestionResponseSchema,
     ).data;
+
+    validateLocalizedContent(data.question, query?.contentLocale);
+
+    if (query?.contentFormat && (!data.deliveryId || !data.expiresAt))
+      throw new ClientException(
+        'contract',
+        'The lesson delivery could not be read. Please try again.',
+      );
 
     if (
       data.lessonSlug !== lessonSlug ||
@@ -99,6 +113,12 @@ export class PracticeService implements IPracticeService {
       }),
       lessonAnswerResponseSchema,
     ).data;
+
+    if (request.deliveryId && (data.deliveryId !== request.deliveryId || !data.localization))
+      throw new ClientException(
+        'contract',
+        'The answer delivery could not be confirmed. Retry the same answer.',
+      );
 
     if (data.lessonSlug !== request.lessonSlug || data.questionId !== request.questionId)
       throw new ClientException(

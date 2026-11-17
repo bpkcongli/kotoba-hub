@@ -4,6 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { useEffect, useRef } from 'react';
 import { MASTERY_LABELS, skillLabel } from '@/frontend/practice/helpers';
 import { usePracticeStore } from '@/frontend/practice/hooks';
+import { LessonRichText } from '@/frontend/syllabus/components/organisms';
 
 export const PracticeFeedback = observer(function PracticeFeedback() {
   const store = usePracticeStore();
@@ -26,7 +27,15 @@ export const PracticeFeedback = observer(function PracticeFeedback() {
 
       <p>Score: {result.numericScore}/100</p>
 
-      {result.feedbackText && <p className="whitespace-pre-wrap">{result.feedbackText}</p>}
+      {result.feedbackText &&
+        (store.mode === 'lesson' && store.lessonResult?.localization ? (
+          <LessonRichText
+            html={result.feedbackText}
+            locale={store.lessonResult.localization.resolvedLocale}
+          />
+        ) : (
+          <p className="whitespace-pre-wrap">{result.feedbackText}</p>
+        ))}
 
       <p className="text-body-sm text-muted-foreground">
         {result.gradingSource === 'AI_PROVIDER'

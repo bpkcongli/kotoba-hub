@@ -32,8 +32,10 @@ export const UnitDetailScreen = observer(function UnitDetailScreen({
             <Link href="/syllabus">← Back to syllabus</Link>
           </Button>
 
-          <header className="space-y-3">
-            <p className="text-body-sm text-muted-foreground">
+          <header lang={unit?.localization?.resolvedLocale} className="space-y-3">
+            <p
+              lang={unit.track.localization?.resolvedLocale}
+              className="text-body-sm text-muted-foreground">
               {unit.track.curriculumLevel} · {unit.track.title}
             </p>
 
@@ -54,7 +56,10 @@ export const UnitDetailScreen = observer(function UnitDetailScreen({
               {[...unit.lessons]
                 .sort((a, b) => a.sortOrder - b.sortOrder)
                 .map((lesson, index) => (
-                  <li key={lesson.slug} className="space-y-4 p-5 sm:p-6">
+                  <li
+                    lang={lesson.localization?.resolvedLocale}
+                    key={lesson.slug}
+                    className="space-y-4 p-5 sm:p-6">
                     <div className="space-y-2">
                       <p className="text-caption text-muted-foreground">
                         Lesson {index + 1}
@@ -71,7 +76,9 @@ export const UnitDetailScreen = observer(function UnitDetailScreen({
                         aria-label="Covered skills"
                         className="flex flex-wrap gap-x-4 gap-y-2 text-body-sm text-muted-foreground">
                         {lesson.skills.map((skill) => (
-                          <li key={skill.code}>{skill.title}</li>
+                          <li lang={skill.localization?.resolvedLocale} key={skill.code}>
+                            {skill.title}
+                          </li>
                         ))}
                       </ul>
                     </div>

@@ -33,8 +33,10 @@ export const LessonOverviewScreen = observer(function LessonOverviewScreen({
             <Link href={`/syllabus/units/${lesson.unit.slug}`}>← Back to {lesson.unit.title}</Link>
           </Button>
 
-          <header className="space-y-4">
-            <p className="text-body-sm text-muted-foreground">
+          <header lang={lesson?.localization?.resolvedLocale} className="space-y-4">
+            <p
+              lang={lesson.unit.localization?.resolvedLocale}
+              className="text-body-sm text-muted-foreground">
               {lesson.track.curriculumLevel} · {lesson.unit.title}
             </p>
 
@@ -60,7 +62,9 @@ export const LessonOverviewScreen = observer(function LessonOverviewScreen({
               aria-label="Covered skills"
               className="flex flex-wrap gap-3 text-body-sm text-muted-foreground">
               {lesson.skills.map((skill) => (
-                <li key={skill.code}>{skill.title}</li>
+                <li lang={skill.localization?.resolvedLocale} key={skill.code}>
+                  {skill.title}
+                </li>
               ))}
             </ul>
           </header>

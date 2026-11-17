@@ -1,6 +1,6 @@
 # Kontrak Konten Bilingual — BIL-01
 
-Status: **final untuk implementasi BIL-02/BIL-03**, 4 November 2026; varian kunci Jepang diselaraskan 6 November 2026 sesuai keputusan pemilik proyek pada BIL-02. Runtime, seed aktif, dan migration saat ini masih v1; dokumen ini menetapkan target. [Rencana tahap](./bilingual-support-plan.md) tetap menjadi acuan scope.
+Status: **final untuk implementasi BIL-02/BIL-03**, 4 November 2026; varian kunci Jepang diselaraskan 6 November 2026 sesuai keputusan pemilik proyek pada BIL-02. Implementasi runtime/migration/importer BIL-03 tersedia; rollout DB memakai manifest v2 eksplisit dan gate cutover. Lihat [operasi BIL-03](./bilingual-runtime-implementation.md). [Rencana tahap](./bilingual-support-plan.md) tetap menjadi acuan scope.
 
 ## 1. Artefak dan batch awal
 
@@ -11,7 +11,7 @@ Status: **final untuk implementasi BIL-02/BIL-03**, 4 November 2026; varian kunc
 | [Contoh manifest](../examples/bilingual-manifest.v2.example.json), [track](../examples/bilingual-track.v2.example.json) | Fixture dokumentasi dengan ID contoh, seluruh owner unpublished dan satu soal draft; bukan input seed production    |
 | [Allowlist batch 01](./batch-01/bilingual-batch-01.json)                                                                       | **16 lesson N5**, ID/slug lesson dan parent, ID skill/block/soal, checksum file sumber, serta masalah atribusi awal |
 
-- `BIL-02` menulis `content/syllabus/v2/manifest.json` dan `content/syllabus/v2/tracks/*.json` berdasarkan allowlist. Folder itu belum dibaca runtime secara otomatis. File v1 pada `content/syllabus/v1/manifest.json` dan `tracks/` tetap menjadi input aktif hingga `BIL-03`.
+- `BIL-02` menulis `content/syllabus/v2/manifest.json` dan `content/syllabus/v2/tracks/*.json` berdasarkan allowlist. Folder itu dipilih eksplisit dengan `--manifest content/syllabus/v2/manifest.json`. Default CLI tetap v1 untuk DB yang belum mempunyai row v2; reader memakai DB dan gate cutover.
 - Allowlist mengunci identitas 16 lesson yang memiliki materi dan sepuluh soal pada snapshot v1: **9 importable, 7 membutuhkan perbaikan atribusi skill**. Paragraf pengantar lesson lain tidak termasuk batch. Perubahan checksum sumber wajib menghasilkan laporan diff sebelum konversi; jangan memperluas allowlist otomatis.
 - Hasil authoring `BIL-02` dan blocker publikasi tercatat pada [laporan konversi batch](./batch-01/bilingual-batch-01-conversion.md). Artefak v2 dapat berstatus `HELD` meskipun lolos JSON Schema; status itu tidak mengizinkan import parsial atau cutover `BIL-03`.
 - UUID, slug, kode skill, urutan, prerequisite, dan ID soal dipertahankan, dengan pengecualian kurasi tambahan yang dicatat eksplisit pada bagian berikut. Jangan menambah kode bundle palsu untuk mengatasi atribusi; petakan setiap soal ke skill atomik yang benar dalam lesson pada `BIL-02`. Jika tidak ada skill yang sesuai, tahan publikasi dan laporkan.
@@ -19,11 +19,30 @@ Status: **final untuk implementasi BIL-02/BIL-03**, 4 November 2026; varian kunc
 
 ### Kurasi canonical BIL-02 yang diotorisasi 17 November 2026
 
-Pemilik proyek menugaskan `syllabus-maker` dan `syllabus-reviewer` untuk menyelesaikan blocker batch. [Catatan kurasi](batch-01/bilingual-batch-01-curation.md) menjadi pengecualian terukur terhadap pembekuan subtree awal: snapshot v1 dan checksum-nya tetap, sementara overlay authoring v2 menambah delapan skill atomik berprovenance, mengganti representasi tujuh block menjadi paragraf, dan memperbaiki dua edge prerequisite yang menunjuk lexeme salah/retired. UUID/urutan block tetap; UUID/slug semua lesson dan seluruh prompt, kunci, difficulty, ID serta provenance canonical 160 soal tetap.
+Pemilik proyek menugaskan `syllabus-maker` dan `syllabus-reviewer` untuk menyelesaikan blocker batch. [Catatan kurasi](batch-01/bilingual-batch-01-curation.md) menjadi pengecualian terukur terhadap pembekuan subtree awal: snapshot v1 dan checksum-nya tetap, sementara overlay authoring v2 menambah delapan skill atomik berprovenance, mengganti representasi tujuh block menjadi paragraf, dan memperbaiki dua edge prerequisite yang menunjuk lexeme salah/retired. UUID/urutan block tetap; UUID/slug semua lesson, HTML prompt, kunci, difficulty, ID serta provenance canonical 160 soal tetap. Dua prompt plain memiliki koreksi label dialog yang diotorisasi pada BIL-03 sebagaimana catatan berikut.
 
 Allowlist menyimpan scope tambahan dan checksum file kurasi secara eksplisit; compiler menolak perubahan di luar scope tersebut. Skill lexical baru mendapat UUID/kode lesson-owned yang berbeda tanpa memindahkan atau memakai ulang identitas existing. Referensi ke entry JMdict yang sama pada lesson berbeda diperbolehkan sebagai kurasi ownership yang tercatat, bukan duplikasi kode/UUID canonical. Entry `九` dan `殿` lama dipertahankan dan tetap unpublished, tidak didefinisikan ulang sebagai `この`/`どの`.
 
 Maker menulis usulan/artefak kurasi terisolasi; agent utama mengintegrasikan perubahan katalog, revisi dan allowlist, kemudian reviewer memeriksa hasil. Perubahan ini tidak mengaktifkan importer v2 atau menulis database. Acceptance BIL-02 tetap mensyaratkan seluruh 16 lesson, kedua bahasa current, atribusi valid dan gate publishable lulus; keputusan reviewer dicatat beserta sumber dan batas pemeriksaannya.
+
+### Koreksi prompt dan backfill yang diotorisasi pada BIL-03
+
+Pemilik proyek menyetujui penyelarasan prompt plain dengan HTML untuk soal
+`745dcf70-a820-5eff-a400-eae03ef141d5` (label `B：`) dan
+`d514529f-ada0-557e-a4a0-5bc86132bdae` (label `マリア：`/`ケン：`).
+`promptCorrections` pada allowlist menyimpan before/after/revisi/alasan;
+compiler memeriksa baseline dan menerapkan overlay hanya pada dua ID tersebut.
+`contentRevision` dan `sourceRevision` kedua bahasa dinaikkan; teks/provenance
+localization serta HTML/kunci tidak berubah sehingga `translationRevision` tetap.
+Snapshot v1/checksum tetap utuh. Pengecualian ini menggantikan catatan lama bahwa
+seluruh prompt plain dipertahankan.
+
+Pemilik proyek juga menyetujui backfill terbatas untuk rantai prerequisite di luar
+batch yang belum ada pada DB hasil import v1. Importer menambahkan skill
+terjangkau dengan ID/content v1 asli; parent yang belum ada tetap unpublished.
+Row existing tidak ditimpa/dipublikasikan ulang, dan seluruh rantai divalidasi
+terhadap DB dalam transaksi merge. Rincian dan batas rollback ada pada
+[implementasi runtime](./bilingual-runtime-implementation.md).
 
 ## 2. Pemisahan canonical dan terjemahan
 
@@ -70,7 +89,7 @@ Nama lama dipetakan sebagai berikut; field v1 tersebut tidak diterima dalam payl
 
 ## 4. Schema database target
 
-Tambahan persistence ini dikerjakan pada `BIL-03`, melalui Drizzle/migration baru setelah ERD diselaraskan. Tidak menjalankan migration pada `BIL-01`.
+Tambahan persistence ini diimplementasikan pada `BIL-03` melalui migration `0006_bilingual_content.sql`, termasuk `revision_payload` owner/translation dan flag `is_published` soal untuk rekonsiliasi. Tidak menjalankan migration pada `BIL-01`.
 
 | Tabel owner                                                                                    | Tambahan canonical                                                                                    |
 | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
@@ -107,7 +126,7 @@ Backfill row v1 harus mengaudit bahasa sebelum membuat localization. Payload yan
 - Importer v2 menerima manifest eksplisit `content/syllabus/v2/manifest.json`; semua file pada manifest itu wajib `2.0.0`. Versi lain ditolak; tidak menebak versi dari shape, tidak mencampur payload v1/v2 dalam satu manifest. JSON Schema v1 lama tetap digunakan pada jalur v1.
 - `MERGE_LESSONS` meng-upsert tepat lesson pada `tracks[].lessonIds`, parent metadata/localization, dan subtree lengkap lesson tersebut. Set ID lesson pada payload harus sama persis dengan manifest; duplikasi/path traversal/identity conflict/revision mundur ditolak. Urutan dalam batch memakai nomor asli, bukan dinomori ulang.
 - Seluruh batch divalidasi sebelum transaksi. Invalid candidate membatalkan batch; jangan diam-diam skip kandidat sehingga operasi sukses semu. Tidak menonaktifkan track/unit/lesson/skill/block/mapping di luar scope. Di dalam lesson, row yang dihapus dari payload ditandai unpublished sesuai rekonsiliasi, tidak dihapus fisik; bank canonical wajib lengkap.
-- Setelah row memiliki `seed_schema_version=2.0.0`, importer v1 menolak operasi yang akan menimpa/menonaktifkannya. `BIL-03` harus memasang guard ini sebelum v2 diaktifkan; importer v1 saat ini belum memilikinya. Reseed v2 identik adalah no-op secara isi/revisi.
+- Setelah row memiliki `seed_schema_version=2.0.0`, importer v1 menolak operasi yang akan menimpa/menonaktifkannya. Guard BIL-03 sudah menolak reseed v1 sebelum operasi penulisan jika row v2 ditemukan. Reseed v2 identik adalah no-op secara isi/revisi.
 - API `/api/v1` memakai **`contentFormat=localized`** sebagai opt-in di query syllabus dan body direct quiz. Tanpa `contentFormat`, response mempertahankan shape v1 dan proyeksi Inggris, tanpa mengikuti preferensi. Nilai format selain `localized` ditolak; `contentLocale` hanya diterima bersama `localized`, kombinasi lain `422`. Field example pada localized bernama `translation`; legacy tetap `englishTranslation`.
 - Response localized tidak pernah mengirim localization draft, seluruh map bahasa, atau kunci quiz. Kontrak future-ready beserta guard, code, dan DTO ada di [OpenAPI bilingual](../../api-contract/openapi.bilingual.yaml). File OpenAPI lama mendeskripsikan representasi legacy sampai consumer dipindahkan bersama `BIL-03`.
 - Rollout: migration additive + backfill terverifikasi → importer/reader kompatibel → dry-run dan merge batch → FE opt-in → evaluasi. App dan ops memakai release yang sama. Rollback app memakai proyeksi Inggris dan data/snapshot tersimpan; **jangan menjalankan reseed v1 atau down migration** sebagai rollback. Penghapusan legacy menunggu `BIL-08`.

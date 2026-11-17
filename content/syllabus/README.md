@@ -2,8 +2,8 @@
 
 | Folder | Isi | Status |
 | --- | --- | --- |
-| [v1/](./v1/manifest.json) | Manifest dan empat track seed `1.0.0` | Input aktif importer syllabus dan generator flashcard |
-| [v2/](./v2/README.md) | Authoring dan batch bilingual `2.0.0` | BIL-02 `READY_FOR_BIL_03`; belum diimport |
+| [v1/](./v1/manifest.json) | Manifest dan empat track seed `1.0.0` | Default CLI sebelum ada row v2; sumber generator flashcard |
+| [v2/](./v2/README.md) | Authoring dan batch bilingual `2.0.0` | Siap diimport eksplisit oleh importer BIL-03; merge tidak mengganti katalog |
 | [sources/](./sources/README.md) | Snapshot sumber dan catatan provenance | Sumber bersama lintas versi |
 
 Setiap manifest menyimpan path track relatif terhadap folder versinya. Raw source tetap di `sources/`; UUID namespace dan isi seed v1 tidak berubah ketika folder dipindahkan.

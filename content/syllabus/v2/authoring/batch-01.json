@@ -5379,10 +5379,10 @@
       }
     },
     "745dcf70-a820-5eff-a400-eae03ef141d5": {
-      "contentRevision": 3,
+      "contentRevision": 4,
       "localizations": {
         "en": {
-          "sourceRevision": 3,
+          "sourceRevision": 4,
           "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
@@ -5409,7 +5409,7 @@
           "explanation": "<p>The object changes from <span class=\"text-emphasis\">それ</span> for A to <span class=\"text-emphasis\">これ</span> for B because it is in B’s hands.</p>"
         },
         "id": {
-          "sourceRevision": 3,
+          "sourceRevision": 4,
           "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
@@ -18861,10 +18861,10 @@
       }
     },
     "d514529f-ada0-557e-a4a0-5bc86132bdae": {
-      "contentRevision": 1,
+      "contentRevision": 2,
       "localizations": {
         "en": {
-          "sourceRevision": 1,
+          "sourceRevision": 2,
           "translationRevision": 1,
           "isPublished": true,
           "sourceRefs": [
@@ -18884,7 +18884,7 @@
           "explanation": "<p><span class=\"text-emphasis\">見る</span> becomes the stem <span class=\"text-emphasis\">見</span>. Since Ken came to the festival for that purpose, the complete answer is <span class=\"text-emphasis\">見に来ました</span>.</p>"
         },
         "id": {
-          "sourceRevision": 1,
+          "sourceRevision": 2,
           "translationRevision": 1,
           "isPublished": true,
           "sourceRefs": [
@@ -20565,10 +20565,7 @@
   },
   "holds": {},
   "blockSkillCodes": {},
-  "presentationNotes": {
-    "745dcf70-a820-5eff-a400-eae03ef141d5": "HTML menambahkan label B： sesudah narasi B menjawab; kalimat dan blank tetap setara secara makna. Kedua bentuk sumber dipertahankan.",
-    "d514529f-ada0-557e-a4a0-5bc86132bdae": "HTML menambahkan label マリア： dan ケン： pada ujaran yang sudah dijelaskan narasi plain. Kedua bentuk sumber dipertahankan."
-  },
+  "presentationNotes": {},
   "generatedAt": "2026-11-17",
   "unusableSkillCodes": {
     "n5_kosoado_modifiers_kyuu": "Entry 九 (sembilan), bukan pewatas この; jangan mencocokkan reading tanpa memeriksa makna dan POS.",

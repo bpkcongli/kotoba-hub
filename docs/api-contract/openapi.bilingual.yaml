@@ -1,12 +1,12 @@
 openapi: 3.0.3
 info:
-  title: KotobaHub Bilingual API Target
+  title: KotobaHub Bilingual API
   version: 0.2.0
   description:
-    Final BIL-01 contract for BIL-03 implementation. This file documents the explicit localized representation
-    of existing /api/v1 syllabus/direct-quiz routes and new preference routes. It is not a claim of runtime availability.
+    Implemented BIL-03 contract. This file documents the explicit localized representation
+    of existing /api/v1 syllabus/direct-quiz routes and new preference routes. Database rollout requires migration and explicit v2 merge; see the BIL-03 implementation runbook.
     Legacy operations remain specified by the existing feature OpenAPI files.
-  x-implementation-status: PLANNED_BIL_03
+  x-implementation-status: IMPLEMENTED_BIL_03
 servers:
   - url: http://localhost:3000/api/v1
     description: Local development server
@@ -562,7 +562,7 @@ paths:
         - Practice
       summary: Get next lesson post-study question
       description:
-        BIL-03 target. Same-origin is checked before APP_READY session. Delivery snapshots retain the
+        BIL-03 implementation. Same-origin is checked before APP_READY session. Delivery snapshots retain the
         displayed language, revision and server-only key. See bilingual.md for expiry, ownership and replay rules.
       operationId: getNextLessonPostStudyQuestionLocalized
       security:
@@ -677,7 +677,7 @@ paths:
         - Practice
       summary: Submit lesson post-study answer
       description:
-        BIL-03 target. Same-origin is checked before APP_READY session. Delivery snapshots retain the
+        BIL-03 implementation. Same-origin is checked before APP_READY session. Delivery snapshots retain the
         displayed language, revision and server-only key. See bilingual.md for expiry, ownership and replay rules.
       operationId: submitLessonPostStudyAnswerLocalized
       security:
@@ -812,7 +812,7 @@ paths:
       security:
         - cookieAuth: []
       description:
-        BIL-03 target. Valid session is sufficient before or after onboarding. Missing preference row
+        BIL-03 implementation. Valid session is sufficient before or after onboarding. Missing preference row
         reads en/en; GET does not write. PATCH checks same-origin before session, updates supplied fields only,
         and never creates/completes a learner profile.
       responses:
@@ -851,7 +851,7 @@ paths:
       security:
         - cookieAuth: []
       description:
-        BIL-03 target. Valid session is sufficient before or after onboarding. Missing preference row
+        BIL-03 implementation. Valid session is sufficient before or after onboarding. Missing preference row
         reads en/en; GET does not write. PATCH checks same-origin before session, updates supplied fields only,
         and never creates/completes a learner profile.
       responses:

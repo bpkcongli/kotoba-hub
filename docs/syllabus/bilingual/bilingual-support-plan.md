@@ -2,7 +2,7 @@
 
 ## Status dan batas cakupan
 
-- `BIL-01` selesai: [kontrak konten bilingual](./bilingual-content-contract.md), schema/examples v2, ERD target dan OpenAPI sudah difinalkan. Authoring/kurasi `BIL-02` menghasilkan seluruh teks `en/id` dan batch `READY_FOR_BIL_03`; lihat [hasil konversi](./batch-01/bilingual-batch-01-conversion.md). Runtime/seed aktif tetap v1 hingga implementasi `BIL-03`.
+- `BIL-01` selesai: [kontrak konten bilingual](./bilingual-content-contract.md), schema/examples v2, ERD target dan OpenAPI sudah difinalkan. Authoring/kurasi `BIL-02` menghasilkan seluruh teks `en/id` dan batch `READY_FOR_BIL_03`; lihat [hasil konversi](./batch-01/bilingual-batch-01-conversion.md). Implementasi BIL-03 tersedia; migration/merge DB tujuan tetap eksplisit dan FE memakai gate cutover. Lihat [implementasi runtime](./bilingual-runtime-implementation.md).
 - Target: materi dan aplikasi berbahasa Inggris (`en`) serta Indonesia (`id`), dengan bahasa Jepang (`ja`) tetap sebagai bahasa yang dipelajari.
 - Identitas track/unit/lesson/skill/soal, slug, urutan, prerequisite, dan progress tetap canonical lintas bahasa. Locale tidak menjadi bagian ID atau kunci mastery/Leitner.
 - Batch awal mencakup **16 lesson N5 yang sudah memiliki materi terkurasi dan bank 10 soal**, beserta metadata parent dan skill terkait. ID/slug dan checksum sumber dikunci pada [allowlist batch 01](./batch-01/bilingual-batch-01.json); paragraf pengantar generik tidak dihitung sebagai materi lengkap.
@@ -14,7 +14,7 @@ Gunakan `[ ]` untuk belum selesai dan `[x]` untuk selesai. Perbarui status bersa
 
 - [x] `BIL-01` Finalisasi schema dan kebijakan bahasa. Lihat [kontrak final](./bilingual-content-contract.md).
 - [x] `BIL-02` Konversi dan kurasi seed batch awal: 492 owner bilingual/current, seluruh 18 hold terselesaikan, 16 lesson lolos gate publishable. Lihat [kurasi canonical](./batch-01/bilingual-batch-01-curation.md).
-- [ ] `BIL-03` Integrasi database, importer, API, dan pembaca syllabus.
+- [x] `BIL-03` Integrasi database, importer, API dan pembaca syllabus, termasuk gate cutover dan delivery quiz. Lihat [hasil implementasi/verifikasi](./bilingual-runtime-implementation.md).
 - [ ] `BIL-04` Seed lesson lain (tooling authoring/review tersedia; pengisian seluruh N5/N4 dan integrasi seed belum dilakukan).
 - [ ] `BIL-05` Flashcard bilingual.
 - [ ] `BIL-06` Random practice dan AI bilingual.
@@ -46,6 +46,12 @@ Gunakan `[ ]` untuk belum selesai dan `[x]` untuk selesai. Perbarui status bersa
 - Tetapkan pemilihan versi melalui manifest dan cutover eksplisit. Import batch terjemahan tidak boleh menonaktifkan subtree di luar batch; hentikan versi tidak didukung dengan error jelas.
 - Implementasikan preferensi, DTO netral bahasa, fallback, dan renderer lesson yang konsisten di server/client. Cache/store memakai locale dan menolak hasil request locale lama.
 - Pertahankan guard auth, validasi jawaban Jepang, progress, dan idempotency. Terjemahan published harus merujuk revisi canonical yang sesuai.
+
+Hasil 17 November 2026: migration `0006`, merge v2 dan backfill 21 prerequisite
+terbatas diuji pada MySQL terisolasi; 694 tes Jest, 17 tes preservasi Python,
+artefak Docker app/ops dan Chrome desktop/mobile lulus. Dua koreksi label prompt
+plain serta backfill prerequisite telah diotorisasi pemilik proyek. Katalog DB
+uji menghasilkan `ready: true`; deployment/backup/restore live tetap BIL-08.
 
 ### BIL-04 — Seed lesson lain (belum dieksekusi)
 

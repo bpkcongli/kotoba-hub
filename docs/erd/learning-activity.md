@@ -2,7 +2,7 @@
 
 ## Perluasan final BIL-01 (implementasi BIL-03)
 
-Direct quiz localized membutuhkan snapshot delivery agar locale, revisi soal dan kunci yang dinilai sama dengan saat soal diberikan. Kontrak v1/engine di bawah tetap baseline; tambahan target:
+Direct quiz localized membutuhkan snapshot delivery agar locale, revisi soal dan kunci yang dinilai sama dengan saat soal diberikan. Kontrak v1/engine di bawah tetap baseline; tambahan pada migration `0006_bilingual_content.sql`:
 
 ```mermaid
 erDiagram
@@ -22,9 +22,9 @@ erDiagram
 
 - Owner adalah `practice`, terjemahan bank tetap `syllabus`, progress tetap `progress`. Tidak membuat practice session/question. Kunci snapshot tidak pernah dikirim pada response next.
 - Localized answer wajib delivery ID dan Idempotency-Key. Delivery maksimal satu hasil; receipt/result, konsumsi delivery dan recovery progress harus tahan concurrency/retry. Receipt menyimpan delivery ID/result localization. Replay sah memakai hasil lama sebelum expiry/stale-target checks; owner/authorization tetap diperiksa.
-- Detail request, snapshot, expiry, conflict dan kompatibilitas: [kontrak konten §7](../syllabus/bilingual/bilingual-content-contract.md#7-direct-quiz-bahasa-yang-konsisten-sampai-retry), [API bilingual](../api-contract/bilingual.md), serta [OpenAPI target](../api-contract/openapi.bilingual.yaml). Migration belum dijalankan pada `BIL-01`.
+- Detail request, snapshot, expiry, conflict dan kompatibilitas: [kontrak konten §7](../syllabus/bilingual/bilingual-content-contract.md#7-direct-quiz-bahasa-yang-konsisten-sampai-retry), [API bilingual](../api-contract/bilingual.md), serta [OpenAPI target](../api-contract/openapi.bilingual.yaml). Migration tersedia pada `BIL-03`; pengujian dilakukan pada MySQL terisolasi.
 - Locale tidak menjadi key tambahan untuk mastery, understanding, atau Leitner. Schema aktivitas flashcard/random practice bilingual difinalkan `BIL-05/BIL-06`; sesi/receipt lama tidak ditulis ulang.
-- Tabel receipt sudah diimplementasikan pada `IMP-09`; definisi kolom dan payload existing tersedia pada bagian [`practice_post_study_receipts`](#practice_post_study_receipts). Relasi delivery ke receipt di atas masih target `BIL-03`.
+- Tabel receipt sudah diimplementasikan pada `IMP-09`; definisi kolom dan payload existing tersedia pada bagian [`practice_post_study_receipts`](#practice_post_study_receipts). Relasi delivery ke receipt di atas diimplementasikan pada `BIL-03`.
 
 ## Scope
 - Dokumen ini menyelesaikan task `ARCH-10`.

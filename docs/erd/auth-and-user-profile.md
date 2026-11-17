@@ -2,7 +2,7 @@
 
 ## Perluasan final BIL-01 (implementasi BIL-03)
 
-Preferensi bahasa menjadi scope `users` melalui tabel terpisah agar tersedia sebelum profil onboarding dibuat. Definisi v1 di bawah tetap menggambarkan schema aktif; target tambahan:
+Preferensi bahasa menjadi scope `users` melalui tabel terpisah agar tersedia sebelum profil onboarding dibuat. Definisi v1 di bawah dipertahankan; tambahan diimplementasikan melalui `0006_bilingual_content.sql`:
 
 ```mermaid
 erDiagram
@@ -19,7 +19,7 @@ erDiagram
 - `user_id` FK `users.id` memakai RESTRICT; satu row maksimal per user. Kedua locale NOT NULL DEFAULT `'en'`, CHECK nilai `en/id`; timestamp NOT NULL. Tanpa row, query mengembalikan default tanpa menulis.
 - GET/PATCH `/api/v1/user-profile/preferences` memerlukan session valid, tersedia sebelum/sesudah onboarding. PATCH same-origin, partial nonkosong; tidak membuat `learner_profiles` atau mengubah onboarding/progress.
 - `content_locale` terpisah dari `ui_locale`, `preferred_script`, dan timezone. Cookie UI pra-login tidak otomatis mengubah preferensi akun. Lihat [kontrak bilingual](../syllabus/bilingual/bilingual-content-contract.md#5-preferensi-user-dan-i18n) dan [OpenAPI target](../api-contract/openapi.bilingual.yaml).
-- Penambahan tabel ini adalah kontrak, migration dikerjakan `BIL-03`. Bahasa tidak ditambahkan ke session/account OAuth atau payload konfirmasi assessment.
+- Tabel diimplementasikan pada `BIL-03`; migration harus dijalankan sebelum app memakai preferensi. Bahasa tidak ditambahkan ke session/account OAuth atau payload konfirmasi assessment.
 
 ## Scope
 - Dokumen ini menyelesaikan task `ARCH-08`.

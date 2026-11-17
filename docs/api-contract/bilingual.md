@@ -1,15 +1,15 @@
 # API Bilingual — BIL-01
 
-Status: kontrak final untuk **BIL-03**, belum tersedia pada runtime v1. Schema executable: [openapi.bilingual.yaml](./openapi.bilingual.yaml). Aturan data, revisi, publikasi, dan transisi: [kontrak konten bilingual](../syllabus/bilingual/bilingual-content-contract.md).
+Status: **diimplementasikan pada BIL-03**; aktivasi DB memerlukan migration dan merge v2 eksplisit. Lihat [implementasi dan operasi](../syllabus/bilingual/bilingual-runtime-implementation.md). Schema executable: [openapi.bilingual.yaml](./openapi.bilingual.yaml). Aturan data, revisi, publikasi, dan transisi: [kontrak konten bilingual](../syllabus/bilingual/bilingual-content-contract.md).
 
 ## Pemilihan representasi
 
 | Request                                                                          | Response                                                                                                      |
 | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
 | Syllabus tanpa `contentFormat`                                                   | Kontrak [syllabus v1](./openapi.syllabus.yaml), proyeksi Inggris; preferensi user tidak mengubah shape/bahasa |
-| Syllabus `contentFormat=localized`                                               | Kontrak target bilingual; `contentLocale=en/id` opsional, lalu preferensi, lalu `en`                          |
+| Syllabus `contentFormat=localized`                                               | Kontrak bilingual; `contentLocale=en/id` opsional, lalu preferensi, lalu `en`                          |
 | Direct quiz body tanpa `contentFormat`                                           | Kontrak [practice v1](./openapi.practice.yaml)                                                                |
-| Direct quiz body `contentFormat=localized`                                       | Kontrak target delivery/answer di bawah                                                                       |
+| Direct quiz body `contentFormat=localized`                                       | Kontrak delivery/answer di bawah                                                                       |
 | Locale dikirim tanpa opt-in localized, format/locale invalid atau query berulang | `422`; tidak mengabaikan input atau downgrade diam-diam                                                       |
 
 Contoh: `GET /api/v1/syllabus/lessons/copula-affirmative-and-questions?contentFormat=localized&contentLocale=id`.

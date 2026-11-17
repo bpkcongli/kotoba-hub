@@ -8904,7 +8904,7 @@
                 "questionType": "SHORT_FREE_RESPONSE",
                 "promptPayload": {
                   "schemaVersion": 1,
-                  "sentenceTemplate": "A：「それはだれのかばんですか。」Bはかばんを持って答えます。「___はわたしのです。」",
+                  "sentenceTemplate": "A：「それはだれのかばんですか。」Bはかばんを持って答えます。B：「___はわたしのです。」",
                   "sentenceTemplateHtml": "<div class=\"question-dialogue\"><p>A：「それはだれのかばんですか。」</p><p>Bはかばんを持って答えます。</p><p>B：「<span class=\"question-blank\">___</span>はわたしのです。」</p></div>",
                   "promptLanguage": "JA",
                   "answerLanguage": "JA",
@@ -8931,10 +8931,10 @@
                     "notes": "Internally authored for the canonical lesson post-study question bank."
                   }
                 ],
-                "contentRevision": 3,
+                "contentRevision": 4,
                 "localizations": {
                   "en": {
-                    "sourceRevision": 3,
+                    "sourceRevision": 4,
                     "translationRevision": 2,
                     "isPublished": true,
                     "sourceRefs": [
@@ -8961,7 +8961,7 @@
                     "explanation": "<p>The object changes from <span class=\"text-emphasis\">それ</span> for A to <span class=\"text-emphasis\">これ</span> for B because it is in B’s hands.</p>"
                   },
                   "id": {
-                    "sourceRevision": 3,
+                    "sourceRevision": 4,
                     "translationRevision": 2,
                     "isPublished": true,
                     "sourceRefs": [
@@ -32364,7 +32364,7 @@
                 "questionType": "SHORT_FREE_RESPONSE",
                 "promptPayload": {
                   "schemaVersion": 1,
-                  "sentenceTemplate": "大学の文化祭の日、マリアさんが受付にいます。ケンさんが来たので、マリアさんは聞きます。「今日は何をしに来ましたか。」ケンさんは答えます。「友達のバンドを___。」",
+                  "sentenceTemplate": "大学の文化祭の日、マリアさんが受付にいます。ケンさんが来たので、マリアさんは聞きます。マリア：「今日は何をしに来ましたか。」ケン：「友達のバンドを___。」",
                   "sentenceTemplateHtml": "<div class=\"question-scenario\"><p>大学の文化祭の日、マリアさんが受付にいます。ケンさんが来たので、マリアさんは聞きます。</p><p>マリア：「今日は何をしに来ましたか。」</p><p>ケン：「友達のバンドを<span class=\"question-blank\">___</span>。」</p></div>",
                   "promptLanguage": "JA",
                   "answerLanguage": "JA",
@@ -32391,10 +32391,10 @@
                     "notes": "Internally authored for the canonical lesson post-study question bank."
                   }
                 ],
-                "contentRevision": 1,
+                "contentRevision": 2,
                 "localizations": {
                   "en": {
-                    "sourceRevision": 1,
+                    "sourceRevision": 2,
                     "translationRevision": 1,
                     "isPublished": true,
                     "sourceRefs": [
@@ -32414,7 +32414,7 @@
                     "explanation": "<p><span class=\"text-emphasis\">見る</span> becomes the stem <span class=\"text-emphasis\">見</span>. Since Ken came to the festival for that purpose, the complete answer is <span class=\"text-emphasis\">見に来ました</span>.</p>"
                   },
                   "id": {
-                    "sourceRevision": 1,
+                    "sourceRevision": 2,
                     "translationRevision": 1,
                     "isPublished": true,
                     "sourceRefs": [

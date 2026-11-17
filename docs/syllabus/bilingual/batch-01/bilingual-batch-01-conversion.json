@@ -6,6 +6,23 @@
   "ownerCount": 492,
   "localizedOwnerCount": 492,
   "questionCount": 160,
+  "promptCorrections": {
+    "recordedAt": "2026-11-17",
+    "questions": {
+      "745dcf70-a820-5eff-a400-eae03ef141d5": {
+        "before": "A：「それはだれのかばんですか。」Bはかばんを持って答えます。「___はわたしのです。」",
+        "after": "A：「それはだれのかばんですか。」Bはかばんを持って答えます。B：「___はわたしのです。」",
+        "contentRevision": 4,
+        "reason": "Owner authorized BIL-03 alignment of plain prompt with the existing HTML dialog on 2026-11-17; keys/HTML/IDs unchanged."
+      },
+      "d514529f-ada0-557e-a4a0-5bc86132bdae": {
+        "before": "大学の文化祭の日、マリアさんが受付にいます。ケンさんが来たので、マリアさんは聞きます。「今日は何をしに来ましたか。」ケンさんは答えます。「友達のバンドを___。」",
+        "after": "大学の文化祭の日、マリアさんが受付にいます。ケンさんが来たので、マリアさんは聞きます。マリア：「今日は何をしに来ましたか。」ケン：「友達のバンドを___。」",
+        "contentRevision": 2,
+        "reason": "Owner authorized BIL-03 alignment of plain prompt with the existing HTML dialog on 2026-11-17; keys/HTML/IDs unchanged."
+      }
+    }
+  },
   "questionAttributionFixes": {
     "7d44ad62-010b-5d4e-81bb-5d915fb8d0b9": "n5_vocab_greetings_and_polite_openers_ohayou",
     "e31340d0-4e22-51cb-85fd-15cd60ecd15a": "n5_vocab_greetings_and_polite_openers_ohayou",
@@ -129,10 +146,7 @@
     "1e2667d2-a774-5f97-8ef1-ee03540b2f17",
     "6e7ec03f-206e-5f13-a9e2-2db71a4a29ee"
   ],
-  "presentationNotes": {
-    "745dcf70-a820-5eff-a400-eae03ef141d5": "HTML menambahkan label B： sesudah narasi B menjawab; kalimat dan blank tetap setara secara makna. Kedua bentuk sumber dipertahankan.",
-    "d514529f-ada0-557e-a4a0-5bc86132bdae": "HTML menambahkan label マリア： dan ケン： pada ujaran yang sudah dijelaskan narasi plain. Kedua bentuk sumber dipertahankan."
-  },
+  "presentationNotes": {},
   "lessons": [
     {
       "id": "4b14c9cc-ca61-5a32-8bf8-bddf625e5266",

@@ -11,7 +11,7 @@ from convert_bilingual_batch import (
 class BilingualBatchTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.inventory = read_json(ROOT / 'docs/syllabus/bilingual-batch-01.json')
+        cls.inventory = read_json(ROOT / 'docs/syllabus/bilingual/batch-01/bilingual-batch-01.json')
         cls.source = read_json(ROOT / cls.inventory['sourceFile'])
         cls.authoring = read_json(AUTHORING)
         cls.curation = load_curation(ROOT, cls.inventory)

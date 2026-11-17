@@ -2,7 +2,7 @@
 
 The finalized BIL-01 target adds syllabus translation/revision fields,
 `user_preferences`, and localized direct-quiz deliveries. See the
-[bilingual persistence and transition contract](../docs/syllabus/bilingual-content-contract.md).
+[bilingual persistence and transition contract](../docs/syllabus/bilingual/bilingual-content-contract.md).
 SQL migrations, audited backfill and v2 merge-import support belong to BIL-03;
 the commands below still operate on `content/syllabus/v1/manifest.json`. Do not use the current full-catalog
 seeder to import a partial bilingual batch.

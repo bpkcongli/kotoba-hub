@@ -1,6 +1,6 @@
 # API Bilingual — BIL-01
 
-Status: kontrak final untuk **BIL-03**, belum tersedia pada runtime v1. Schema executable: [openapi.bilingual.yaml](./openapi.bilingual.yaml). Aturan data, revisi, publikasi, dan transisi: [kontrak konten bilingual](../syllabus/bilingual-content-contract.md).
+Status: kontrak final untuk **BIL-03**, belum tersedia pada runtime v1. Schema executable: [openapi.bilingual.yaml](./openapi.bilingual.yaml). Aturan data, revisi, publikasi, dan transisi: [kontrak konten bilingual](../syllabus/bilingual/bilingual-content-contract.md).
 
 ## Pemilihan representasi
 

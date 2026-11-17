@@ -1,6 +1,6 @@
 # Bunpro Provenance
 
-Provider primer untuk canonical inventory grammar sesuai [docs/syllabus/source-of-truth-and-ingestion-plan.md](/home/user/Testing/kotoba-hub/docs/syllabus/source-of-truth-and-ingestion-plan.md:73).
+Provider primer untuk canonical inventory grammar sesuai [docs/syllabus/ingestion/source-of-truth-and-ingestion-plan.md](/home/user/Testing/kotoba-hub/docs/syllabus/ingestion/source-of-truth-and-ingestion-plan.md:73).
 
 ## Artifacts
 

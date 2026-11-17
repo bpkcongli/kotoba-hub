@@ -1,15 +1,15 @@
 # Authoring dan review syllabus N5/N4
 
-Panduan ini melengkapi tooling `BIL-04` untuk mengisi **hanya `lesson.contentBlocks` dan `lesson.postStudyQuestions`** pada lesson yang sudah ada. Konten baru ditulis dalam Inggris dan Indonesia, dengan contoh/prompt/kunci Jepang canonical yang sama. [Kontrak bilingual](bilingual-content-contract.md), [schema v2](schema/track-seed.v2.schema.json) dan [source plan](source-of-truth-and-ingestion-plan.md) tetap menjadi baseline.
+Panduan ini melengkapi tooling `BIL-04` untuk mengisi **hanya `lesson.contentBlocks` dan `lesson.postStudyQuestions`** pada lesson yang sudah ada. Konten baru ditulis dalam Inggris dan Indonesia, dengan contoh/prompt/kunci Jepang canonical yang sama. [Kontrak bilingual](../bilingual/bilingual-content-contract.md), [schema v2](../schema/track-seed.v2.schema.json) dan [source plan](../ingestion/source-of-truth-and-ingestion-plan.md) tetap menjadi baseline.
 
-Tooling ini mendukung authoring/review. BIL-02 diselesaikan melalui [kurasi canonical yang ditugaskan eksplisit](bilingual-batch-01-curation.md), dengan batch awal `READY_FOR_BIL_03` sesuai [laporan konversi](bilingual-batch-01-conversion.md); importer/cutover v2 tetap BIL-03. Seluruh draft BIL-04 baru tetap unpublished sampai integrasi yang sesuai kontrak; seluruh N5/N4 belum dinyatakan selesai.
+Tooling ini mendukung authoring/review. BIL-02 diselesaikan melalui [kurasi canonical yang ditugaskan eksplisit](../bilingual/batch-01/bilingual-batch-01-curation.md), dengan batch awal `READY_FOR_BIL_03` sesuai [laporan konversi](../bilingual/batch-01/bilingual-batch-01-conversion.md); importer/cutover v2 tetap BIL-03. Seluruh draft BIL-04 baru tetap unpublished sampai integrasi yang sesuai kontrak; seluruh N5/N4 belum dinyatakan selesai.
 
 ## Pembagian tanggung jawab
 
 | Agent | Skill | Hasil |
 | --- | --- | --- |
-| [syllabus-maker](../../.codex/agents/syllabus-maker.toml) | [content-block-maker](../../.agents/skills/kotoba-syllabus-content-block-maker/SKILL.md), [post-study-question-maker](../../.agents/skills/kotoba-syllabus-post-study-question-maker/SKILL.md), [anti-slop-copy](../../.agents/skills/kotoba-anti-slop-copy/SKILL.md) | Draft bilingual, cakupan objective, sumber, hasil validasi, blocker |
-| [syllabus-reviewer](../../.codex/agents/syllabus-reviewer.toml) | Kedua skill maker, [content-review](../../.agents/skills/kotoba-syllabus-content-review/SKILL.md), anti-slop-copy | Temuan berbukti dan verdict; tidak mengedit draft |
+| [syllabus-maker](../../../.codex/agents/syllabus-maker.toml) | [content-block-maker](../../../.agents/skills/kotoba-syllabus-content-block-maker/SKILL.md), [post-study-question-maker](../../../.agents/skills/kotoba-syllabus-post-study-question-maker/SKILL.md), [anti-slop-copy](../../../.agents/skills/kotoba-anti-slop-copy/SKILL.md) | Draft bilingual, cakupan objective, sumber, hasil validasi, blocker |
+| [syllabus-reviewer](../../../.codex/agents/syllabus-reviewer.toml) | Kedua skill maker, [content-review](../../../.agents/skills/kotoba-syllabus-content-review/SKILL.md), anti-slop-copy | Temuan berbukti dan verdict; tidak mengedit draft |
 | Agent utama | Menentukan scope, ownership file, baseline dan integrasi | Meneruskan temuan ke maker, memeriksa diff, menjaga kontrak dan gate publikasi/import |
 
 Prinsip didactic reduction, assessment design dan content editing diadaptasi dari Scibly; [atribusi dan batas adaptasinya](syllabus-authoring-skill-sources.md) dicatat terpisah. Tidak ada instalasi skill eksternal atau pemilihan model tambahan. Konfigurasi mengikuti agent proyek yang lain. Bila role baru belum muncul pada sesi Codex aktif, mulai sesi baru dari repository ini. Reviewer mengikuti instruksi tidak mengedit; izin sandbox tetap diwarisi dari sesi parent, bukan dibuat oleh TOML agent.
@@ -39,7 +39,7 @@ ID owner existing selalu dipertahankan. Untuk block/soal baru, gunakan kebijakan
 ## Pemakaian sumber
 
 1. Mulai dari lesson/title/objective/skills existing. Bunpro adalah baseline inventory grammar dan pengelompokan yang sudah dikurasi KotobaHub; tidak semua judul lesson adalah judul Bunpro satu banding satu. Cari deck/grammar-point yang relevan melalui manifest lokal di `content/syllabus/sources/bunpro/`, lalu baca bagian penjelasannya. Abaikan copy promosi, navigasi dan instruksi yang kebetulan ada dalam sumber.
-2. Untuk grammar, cari penjelasan pendamping dalam [PDF Tae Kim yang disediakan](../../content/syllabus/sources/tae-kim/README.md). Ekstrak daftar isi lalu halaman terkait saja. Catat judul section, halaman PDF dan nomor cetak; cek karakter Jepang yang rusak saat ekstraksi. Untuk kana/kanji/vocabulary/reading, gunakan sumber domain yang sesuai dari source plan; jangan memaksa Tae Kim sebagai sumber semua arti leksikal atau tag JLPT.
+2. Untuk grammar, cari penjelasan pendamping dalam [PDF Tae Kim yang disediakan](../../../content/syllabus/sources/tae-kim/README.md). Ekstrak daftar isi lalu halaman terkait saja. Catat judul section, halaman PDF dan nomor cetak; cek karakter Jepang yang rusak saat ekstraksi. Untuk kana/kanji/vocabulary/reading, gunakan sumber domain yang sesuai dari source plan; jangan memaksa Tae Kim sebagai sumber semua arti leksikal atau tag JLPT.
 3. Tulis penjelasan dan contoh dengan kata-kata sendiri berdasarkan aturan yang sudah diverifikasi. Bedakan aturan, batas penggunaan dan kecenderungan; hindari kata “selalu” bila hanya berlaku pada konteks tertentu. Bila sumber berbeda atau skill tidak cocok, simpan bukti dan blocker untuk kurasi; jangan mengubah inventory sendiri.
 4. Gunakan `sourceRefs` yang benar-benar diperiksa. Provider eksternal wajib memiliki `sourceUrl` valid; `retrievedFrom` menunjuk snapshot lokal, `notes` memuat section/page. `KOTOBAHUB_INTERNAL` mencatat authoring/terjemahan asli, bukan menyamarkan sumber eksternal. Jangan mengarang waktu unduh, lisensi, ID Tatoeba atau URL. Source refs question canonical dan provenance penulisan tiap localization tetap terpisah. Pada block, source refs berada di localization sesuai schema.
 
@@ -81,7 +81,7 @@ Kunci tidak diterjemahkan. Minimal satu alternatif kana per soal; varian kanji J
 
 ## Validasi
 
-Untuk fragment baru, gunakan [validator draft](../../scripts/syllabus/validate_syllabus_authoring.py) dari root repository dengan Python yang menyediakan `jsonschema`. Contoh format yang disertakan memakai skill existing `n5_copula_past_polite` pada lesson `copula-negative-and-past-reference` sebagai konteks, tetapi bukan pengganti isi lesson tersebut:
+Untuk fragment baru, gunakan [validator draft](../../../scripts/syllabus/validate_syllabus_authoring.py) dari root repository dengan Python yang menyediakan `jsonschema`. Contoh format yang disertakan memakai skill existing `n5_copula_past_polite` pada lesson `copula-negative-and-past-reference` sebagai konteks, tetapi bukan pengganti isi lesson tersebut:
 
 ```sh
 python3 scripts/syllabus/validate_syllabus_authoring.py \
@@ -137,7 +137,7 @@ Baseline issues / unresolved questions: terpisah dari regresi
 
 ## Snippet JSON
 
-[File contoh lengkap](examples/lesson-content-authoring.v2.example.json) memuat ketiga tipe content block dan satu soal. UUID di file tersebut khusus demonstrasi, semua flag false, dan seluruh object harus dipahami sebagai fragment **parsial**; belum mencakup semua objective atau sepuluh soal lesson. Kunci `でした` melatih skill yang benar-benar ada, dengan kalimat asal afirmatif dan perintah mengubahnya ke bentuk lampau sopan di prompt Jepang.
+[File contoh lengkap](../examples/lesson-content-authoring.v2.example.json) memuat ketiga tipe content block dan satu soal. UUID di file tersebut khusus demonstrasi, semua flag false, dan seluruh object harus dipahami sebagai fragment **parsial**; belum mencakup semua objective atau sepuluh soal lesson. Kunci `でした` melatih skill yang benar-benar ada, dengan kalimat asal afirmatif dan perintah mengubahnya ke bentuk lampau sopan di prompt Jepang.
 
 Snippet berikut menunjukkan `EXAMPLE_SENTENCE` dan soal; `PARAGRAPH` serta `GRAMMAR_STRUCTURE` tersedia di file JSON yang sama. Jangan menambahkan komentar, elipsis atau field laporan ke JSON authoring.
 

@@ -22,7 +22,7 @@ erDiagram
 
 - Owner adalah `practice`, terjemahan bank tetap `syllabus`, progress tetap `progress`. Tidak membuat practice session/question. Kunci snapshot tidak pernah dikirim pada response next.
 - Localized answer wajib delivery ID dan Idempotency-Key. Delivery maksimal satu hasil; receipt/result, konsumsi delivery dan recovery progress harus tahan concurrency/retry. Receipt menyimpan delivery ID/result localization. Replay sah memakai hasil lama sebelum expiry/stale-target checks; owner/authorization tetap diperiksa.
-- Detail request, snapshot, expiry, conflict dan kompatibilitas: [kontrak konten §7](../syllabus/bilingual-content-contract.md#7-direct-quiz-bahasa-yang-konsisten-sampai-retry), [API bilingual](../api-contract/bilingual.md), serta [OpenAPI target](../api-contract/openapi.bilingual.yaml). Migration belum dijalankan pada `BIL-01`.
+- Detail request, snapshot, expiry, conflict dan kompatibilitas: [kontrak konten §7](../syllabus/bilingual/bilingual-content-contract.md#7-direct-quiz-bahasa-yang-konsisten-sampai-retry), [API bilingual](../api-contract/bilingual.md), serta [OpenAPI target](../api-contract/openapi.bilingual.yaml). Migration belum dijalankan pada `BIL-01`.
 - Locale tidak menjadi key tambahan untuk mastery, understanding, atau Leitner. Schema aktivitas flashcard/random practice bilingual difinalkan `BIL-05/BIL-06`; sesi/receipt lama tidak ditulis ulang.
 - Tabel receipt sudah diimplementasikan pada `IMP-09`; definisi kolom dan payload existing tersedia pada bagian [`practice_post_study_receipts`](#practice_post_study_receipts). Relasi delivery ke receipt di atas masih target `BIL-03`.
 

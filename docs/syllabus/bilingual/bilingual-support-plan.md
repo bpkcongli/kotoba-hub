@@ -2,18 +2,18 @@
 
 ## Status dan batas cakupan
 
-- `BIL-01` selesai: [kontrak konten bilingual](./bilingual-content-contract.md), schema/examples v2, ERD target dan OpenAPI sudah difinalkan. Authoring/kurasi `BIL-02` menghasilkan seluruh teks `en/id` dan batch `READY_FOR_BIL_03`; lihat [hasil konversi](./bilingual-batch-01-conversion.md). Runtime/seed aktif tetap v1 hingga implementasi `BIL-03`.
+- `BIL-01` selesai: [kontrak konten bilingual](./bilingual-content-contract.md), schema/examples v2, ERD target dan OpenAPI sudah difinalkan. Authoring/kurasi `BIL-02` menghasilkan seluruh teks `en/id` dan batch `READY_FOR_BIL_03`; lihat [hasil konversi](./batch-01/bilingual-batch-01-conversion.md). Runtime/seed aktif tetap v1 hingga implementasi `BIL-03`.
 - Target: materi dan aplikasi berbahasa Inggris (`en`) serta Indonesia (`id`), dengan bahasa Jepang (`ja`) tetap sebagai bahasa yang dipelajari.
 - Identitas track/unit/lesson/skill/soal, slug, urutan, prerequisite, dan progress tetap canonical lintas bahasa. Locale tidak menjadi bagian ID atau kunci mastery/Leitner.
-- Batch awal mencakup **16 lesson N5 yang sudah memiliki materi terkurasi dan bank 10 soal**, beserta metadata parent dan skill terkait. ID/slug dan checksum sumber dikunci pada [allowlist batch 01](./bilingual-batch-01.json); paragraf pengantar generik tidak dihitung sebagai materi lengkap.
+- Batch awal mencakup **16 lesson N5 yang sudah memiliki materi terkurasi dan bank 10 soal**, beserta metadata parent dan skill terkait. ID/slug dan checksum sumber dikunci pada [allowlist batch 01](./batch-01/bilingual-batch-01.json); paragraf pengantar generik tidak dihitung sebagai materi lengkap.
 - Baseline seed: 42 lesson N5, 40 lesson N4; dry-run importer meloloskan 9 lesson. Dari 16 kandidat, 7 bermasalah pada atribusi skill soal. Periksa ulang saat eksekusi.
 
 ## Tahapan
 
-Gunakan `[ ]` untuk belum selesai dan `[x]` untuk selesai. Perbarui status bersama task terkait di [task breakdown](../task-breakdown.md); tahap ditandai selesai setelah seluruh cakupannya terpenuhi.
+Gunakan `[ ]` untuk belum selesai dan `[x]` untuk selesai. Perbarui status bersama task terkait di [task breakdown](../../task-breakdown.md); tahap ditandai selesai setelah seluruh cakupannya terpenuhi.
 
 - [x] `BIL-01` Finalisasi schema dan kebijakan bahasa. Lihat [kontrak final](./bilingual-content-contract.md).
-- [x] `BIL-02` Konversi dan kurasi seed batch awal: 492 owner bilingual/current, seluruh 18 hold terselesaikan, 16 lesson lolos gate publishable. Lihat [kurasi canonical](./bilingual-batch-01-curation.md).
+- [x] `BIL-02` Konversi dan kurasi seed batch awal: 492 owner bilingual/current, seluruh 18 hold terselesaikan, 16 lesson lolos gate publishable. Lihat [kurasi canonical](./batch-01/bilingual-batch-01-curation.md).
 - [ ] `BIL-03` Integrasi database, importer, API, dan pembaca syllabus.
 - [ ] `BIL-04` Seed lesson lain (tooling authoring/review tersedia; pengisian seluruh N5/N4 dan integrasi seed belum dilakukan).
 - [ ] `BIL-05` Flashcard bilingual.
@@ -29,7 +29,7 @@ Gunakan `[ ]` untuk belum selesai dan `[x]` untuk selesai. Perbarui status bersa
 - Bedakan `contentLocale`, `uiLocale`, bahasa prompt/jawaban, dan `preferredScript`. Simpan preferensi pada context `users`; default awal `en`. Definisikan resolusi sejak awal: pilihan eksplisit yang valid → preferensi tersimpan → default. Untuk UI sebelum login, gunakan cookie locale yang divalidasi.
 - Fallback: locale yang diminta dan published → `en` published. Satu bahasa per entitas/block; hint dan explanation satu soal menjadi satu paket. Jika keduanya tidak tersedia, tahan publikasi konten wajib. Response menunjukkan requested/resolved locale dan fallback; draft tidak ditampilkan.
 - Petakan field lama (`englishTranslation`, `meaningsEn`, `glossesEn`, `translationEn`) ke schema baru; tentukan penyimpanan arti skill karena `skill.content` belum dipersist oleh importer syllabus.
-- Output selesai: [schema seed](./seed-content-schema.md), [JSON Schema v2](./schema/track-seed.v2.schema.json) dan contoh, ERD [syllabus](../erd/syllabus-domain.md) / [user](../erd/auth-and-user-profile.md) / [activity](../erd/learning-activity.md), [OpenAPI target](../api-contract/openapi.bilingual.yaml), serta aturan kompatibilitas v1/v2. Verifikasi: `python3 scripts/syllabus/validate_bilingual_contracts.py`.
+- Output selesai: [schema seed](../ingestion/seed-content-schema.md), [JSON Schema v2](../schema/track-seed.v2.schema.json) dan contoh, ERD [syllabus](../../erd/syllabus-domain.md) / [user](../../erd/auth-and-user-profile.md) / [activity](../../erd/learning-activity.md), [OpenAPI target](../../api-contract/openapi.bilingual.yaml), serta aturan kompatibilitas v1/v2. Verifikasi: `python3 scripts/syllabus/validate_bilingual_contracts.py`.
 
 ### BIL-02 — Konversi seed untuk lesson yang sudah tersedia
 
@@ -37,8 +37,8 @@ Gunakan `[ ]` untuk belum selesai dan `[x]` untuk selesai. Perbarui status bersa
 - Cakup metadata, paragraf, contoh, grammar, arti skill yang relevan, serta placeholder/hint/explanation quiz. Review kesetaraan makna dan istilah pedagogis; jangan menambah lesson atau bank soal baru.
 - Perbaiki atribusi skill 7 kandidat tanpa mengganti ID soal; publikasi tetap mensyaratkan bank 10 soal valid dan ladder `1..10`.
 - Siapkan artefak v2 terpisah; regenerasi mempertahankan kurasi/terjemahan. Manifest aktif tetap v1 sampai importer siap; subset batch tidak boleh menggantikan seluruh track aktif.
-- Hasil 6 November 2026: [authoring/artefak v2](../../content/syllabus/v2/README.md) lengkap untuk kedua bahasa; [laporan blocker](./bilingual-batch-01-conversion.md) mencatat 9 lesson siap, 7 ditahan. Pemeriksaan schema/tes authoring lulus, tetapi gate `--require-publishable` wajib gagal sampai semua atribusi selesai. Tahap ini belum selesai; BIL-03 belum dibuka.
-- Hasil kurasi 17 November 2026: delapan skill lexical baru, tujuh konversi block, dua prerequisite yang diperbaiki dan empat hint direview secara eksplisit. Snapshot v1 tetap utuh; scope/checksum tambahan dikunci pada allowlist. Seluruh 16 lesson lolos gate, sehingga BIL-02 selesai dan dependency konten BIL-03 terpenuhi. Keterbatasan assessment baseline yang prompt/kuncinya dibekukan dicatat pada [laporan kurasi](./bilingual-batch-01-curation.md).
+- Hasil 6 November 2026: [authoring/artefak v2](../../../content/syllabus/v2/README.md) lengkap untuk kedua bahasa; [laporan blocker](./batch-01/bilingual-batch-01-conversion.md) mencatat 9 lesson siap, 7 ditahan. Pemeriksaan schema/tes authoring lulus, tetapi gate `--require-publishable` wajib gagal sampai semua atribusi selesai. Tahap ini belum selesai; BIL-03 belum dibuka.
+- Hasil kurasi 17 November 2026: delapan skill lexical baru, tujuh konversi block, dua prerequisite yang diperbaiki dan empat hint direview secara eksplisit. Snapshot v1 tetap utuh; scope/checksum tambahan dikunci pada allowlist. Seluruh 16 lesson lolos gate, sehingga BIL-02 selesai dan dependency konten BIL-03 terpenuhi. Keterbatasan assessment baseline yang prompt/kuncinya dibekukan dicatat pada [laporan kurasi](./batch-01/bilingual-batch-01-curation.md).
 
 ### BIL-03 — Integrasi database, importer, API, dan pembaca syllabus
 
@@ -49,7 +49,7 @@ Gunakan `[ ]` untuk belum selesai dan `[x]` untuk selesai. Perbarui status bersa
 
 ### BIL-04 — Seed lesson lain (belum dieksekusi)
 
-- Subagent dan skill authoring/review seed v2 sudah tersedia; [panduan authoring](./syllabus-authoring-guide.md) menetapkan draft terisolasi per lesson. Pengisian seluruh N5/N4 dan integrasi seed masih pekerjaan terpisah dari kurasi BIL-02.
+- Subagent dan skill authoring/review seed v2 sudah tersedia; [panduan authoring](../authoring/syllabus-authoring-guide.md) menetapkan draft terisolasi per lesson. Pengisian seluruh N5/N4 dan integrasi seed masih pekerjaan terpisah dari kurasi BIL-02.
 - Setelah tooling siap, perluas konten berdasarkan schema final dan hasil batch awal. Tahap ini tidak memblokir `BIL-05`–`BIL-08` untuk cakupan yang sudah siap.
 
 ### BIL-05 — Flashcard bilingual
@@ -82,6 +82,6 @@ Urutan utama: **`BIL-01 → BIL-02 → BIL-03 → BIL-05/BIL-06 → BIL-07 → B
 
 ## Acuan implementasi
 
-- Ownership dan struktur: [ARCHITECTURE.md](../../ARCHITECTURE.md).
-- Kontrak: [syllabus](../api-contract/syllabus.md), [profile](../api-contract/user-profile-and-personalization.md), [flashcards](../api-contract/flashcards.md), [practice](../api-contract/practice.md), dan [base/error](../api-contract/README.md), beserta OpenAPI masing-masing.
-- Runtime: [learning activity ERD](../erd/learning-activity.md), [AI integration](../ai-integration.md), [frontend foundations](../frontend/frontend-foundation-patterns.md), serta [migration/seeding](../../drizzle/README.md).
+- Ownership dan struktur: [ARCHITECTURE.md](../../../ARCHITECTURE.md).
+- Kontrak: [syllabus](../../api-contract/syllabus.md), [profile](../../api-contract/user-profile-and-personalization.md), [flashcards](../../api-contract/flashcards.md), [practice](../../api-contract/practice.md), dan [base/error](../../api-contract/README.md), beserta OpenAPI masing-masing.
+- Runtime: [learning activity ERD](../../erd/learning-activity.md), [AI integration](../../ai-integration.md), [frontend foundations](../../frontend/frontend-foundation-patterns.md), serta [migration/seeding](../../../drizzle/README.md).

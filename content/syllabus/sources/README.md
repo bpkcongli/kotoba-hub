@@ -50,7 +50,7 @@ Tambahan dari pemilik repository: [Tae Kim Japanese Grammar Guide](tae-kim/READM
 
 Beberapa source pendukung belum ikut diambil pada snapshot awal ini:
 - `core-frequency`
-  Di [docs/syllabus/source-of-truth-and-ingestion-plan.md](/home/user/Testing/kotoba-hub/docs/syllabus/source-of-truth-and-ingestion-plan.md:180) jalur lisensi dan bulk acquisition-nya masih belum dikunci, jadi belum aman dianggap bagian dari baseline raw snapshot.
+  Di [docs/syllabus/ingestion/source-of-truth-and-ingestion-plan.md](/home/user/Testing/kotoba-hub/docs/syllabus/ingestion/source-of-truth-and-ingestion-plan.md:180) jalur lisensi dan bulk acquisition-nya masih belum dikunci, jadi belum aman dianggap bagian dari baseline raw snapshot.
 - `Tatoeba links.tar.bz2`
   Export translation graph ini official dan relevan, tetapi ukurannya jauh lebih besar daripada subset awal yang dibutuhkan untuk bootstrap pairing `jpn -> eng`. Snapshot awal memprioritaskan `jpn_indices` lebih dulu, lalu `links` bisa ditambahkan di refresh berikutnya bila transform membutuhkan graph penuh.
 

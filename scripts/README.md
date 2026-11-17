@@ -20,7 +20,7 @@ python3 scripts/syllabus/test_bilingual_batch.py
 python3 scripts/syllabus/test_syllabus_authoring.py
 ```
 
-Regenerasi artefak bilingual menggunakan `python3 scripts/syllabus/convert_bilingual_batch.py`. Scope, revisi, dan alur review mengikuti [panduan authoring](../docs/syllabus/syllabus-authoring-guide.md) dan [README v2](../content/syllabus/v2/README.md).
+Regenerasi artefak bilingual menggunakan `python3 scripts/syllabus/convert_bilingual_batch.py`. Scope, revisi, dan alur review mengikuti [panduan authoring](../docs/syllabus/authoring/syllabus-authoring-guide.md) dan [README v2](../content/syllabus/v2/README.md).
 
 ## Seed Dan Smoke Test
 

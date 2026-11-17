@@ -1,8 +1,8 @@
 # BIL-02 — batch authoring v2
 
-Untuk melengkapi lesson N5/N4 di luar batch frozen, gunakan [panduan subagent authoring/review dan snippet v2](../../../docs/syllabus/syllabus-authoring-guide.md). Draft baru berisi hanya `contentBlocks` dan `postStudyQuestions`, disimpan per lesson pada path yang ditugaskan; draft bukan tambahan otomatis pada overlay/manifest batch-01.
+Untuk melengkapi lesson N5/N4 di luar batch frozen, gunakan [panduan subagent authoring/review dan snippet v2](../../../docs/syllabus/authoring/syllabus-authoring-guide.md). Draft baru berisi hanya `contentBlocks` dan `postStudyQuestions`, disimpan per lesson pada path yang ditugaskan; draft bukan tambahan otomatis pada overlay/manifest batch-01.
 
-**READY_FOR_BIL_03 — authoring offline siap.** Seluruh 16 lesson allowlist mempunyai kedua bahasa current dan lolos gate publishable setelah [kurasi canonical](../../../docs/syllabus/bilingual-batch-01-curation.md). Lihat [laporan konversi](../../../docs/syllabus/bilingual-batch-01-conversion.md) dan [hasil mesin](../../../docs/syllabus/bilingual-batch-01-conversion.json). Import/database/cutover belum dijalankan; implementasinya tetap BIL-03.
+**READY_FOR_BIL_03 — authoring offline siap.** Seluruh 16 lesson allowlist mempunyai kedua bahasa current dan lolos gate publishable setelah [kurasi canonical](../../../docs/syllabus/bilingual/batch-01/bilingual-batch-01-curation.md). Lihat [laporan konversi](../../../docs/syllabus/bilingual/batch-01/bilingual-batch-01-conversion.md) dan [hasil mesin](../../../docs/syllabus/bilingual/batch-01/bilingual-batch-01-conversion.json). Import/database/cutover belum dijalankan; implementasinya tetap BIL-03.
 
 - `manifest.json` memakai `MERGE_LESSONS` dan memuat tepat 16 ID lesson asli, bukan pengganti katalog v1.
 - `tracks/jlpt-n5-foundation.json` adalah artefak hasil kompilasi: 492 owner, 102 skill, 209 block dan 160 soal. Seluruh 16 lesson siap; dua entry lexical salah tetap unpublished pada identitas/content lama.

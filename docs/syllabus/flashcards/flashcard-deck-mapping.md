@@ -7,7 +7,7 @@
 
 ## Why This Task Exists
 - `SYL-05` sengaja menulis banyak skill `KANJI` dan `VOCABULARY` sebagai bundle kurikulum, mis. `n5_vocab_greetings_and_polite_openers` atau `n5_vocab_calendar_kanji_bundle`, agar sequencing lesson stabil lebih dulu.
-- Schema seed final di [track-seed.schema.json](./schema/track-seed.schema.json) justru mengasumsikan:
+- Schema seed final di [track-seed.schema.json](../schema/track-seed.schema.json) justru mengasumsikan:
   - `KANA` boleh membawa banyak karakter dalam satu skill.
   - `KANJI` mewakili satu literal kanji per skill.
   - `VOCABULARY` mewakili satu lemma atau fixed expression per skill.
@@ -181,7 +181,7 @@ Interpretasi per family:
 - Perbedaan ini disengaja dan kini dianggap resolved, bukan mismatch, selama transform `SYL-06B` mengikuti aturan atomization di atas.
 
 ## Runtime Import (`IMP-07`)
-- `bun run db:seed:flashcards:dry-run` membaca katalog syllabus MySQL yang sudah di-seed; `bun run db:seed:flashcards` menerapkan plan dalam satu transaksi. Detail workflow di [drizzle README](../../drizzle/README.md).
+- `bun run db:seed:flashcards:dry-run` membaca katalog syllabus MySQL yang sudah di-seed; `bun run db:seed:flashcards` menerapkan plan dalam satu transaksi. Detail workflow di [drizzle README](../../../drizzle/README.md).
 - KANA/VOCABULARY memakai ID dan urutan dari artifact `content/flashcards/system-decks`; KANJI diturunkan dari `content.kanji` pada canonical track seed dengan ID deterministik per skill/unit.
 - Filter publikasi memakai facade syllabus: item mapped wajib cocok dengan ID skill, lesson, unit, track, dan family published. Candidate pending N5 tetap null skill dan track-scoped; item mapped yang belum eligible tidak diubah menjadi pending.
 - Reseed merekonsiliasi membership system tanpa menghapus histori session/state maupun custom deck. Pool distractor menolak alias jawaban maupun kandidat yang berbagi prompt/alias lintas script, agar jawaban alternatif yang sah tidak dinilai salah.

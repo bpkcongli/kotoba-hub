@@ -237,7 +237,7 @@
 - `READING`
 
 Catatan finalisasi:
-- Taxonomy `skill_type` final dan policy support flags untuk `SYL-01` dikunci di [jlpt-syllabus-structure.md](./jlpt-syllabus-structure.md).
+- Taxonomy `skill_type` final dan policy support flags untuk `SYL-01` dikunci di [jlpt-syllabus-structure.md](../curriculum/jlpt-syllabus-structure.md).
 
 ### Support Flag Heuristics
 - `supports_flashcards = true`
@@ -265,7 +265,7 @@ Catatan finalisasi:
 - Jika nanti produk ingin query sentence/frequency secara langsung dari database, perlu task arsitektur lanjutan untuk menambah tabel baru atau read model turunan.
 
 ## Recommended Next Steps
-1. Pakai [jlpt-syllabus-structure.md](./jlpt-syllabus-structure.md) sebagai baseline structural untuk `SYL-02` sampai `SYL-06`.
+1. Pakai [jlpt-syllabus-structure.md](../curriculum/jlpt-syllabus-structure.md) sebagai baseline structural untuk `SYL-02` sampai `SYL-06`.
 2. Tentukan scope konten `N5 -> N4` dan skeleton `N3 -> N2` untuk `SYL-02`.
 3. Pakai schema di [seed-content-schema.md](./seed-content-schema.md) sebagai baseline `SYL-03`.
 4. Baru setelah itu susun unit, lesson, dan skill detail untuk `SYL-04` sampai `SYL-06`.

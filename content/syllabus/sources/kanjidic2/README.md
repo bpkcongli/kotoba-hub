@@ -1,6 +1,6 @@
 # KANJIDIC2 Provenance
 
-Provider primer untuk metadata kanji sesuai [docs/syllabus/source-of-truth-and-ingestion-plan.md](/home/user/Testing/kotoba-hub/docs/syllabus/source-of-truth-and-ingestion-plan.md:40).
+Provider primer untuk metadata kanji sesuai [docs/syllabus/ingestion/source-of-truth-and-ingestion-plan.md](/home/user/Testing/kotoba-hub/docs/syllabus/ingestion/source-of-truth-and-ingestion-plan.md:40).
 
 ## Artifacts
 

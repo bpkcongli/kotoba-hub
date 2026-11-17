@@ -4,12 +4,12 @@ Konversi awal: **6 November 2026**. Kurasi lanjutan: **17 November 2026**. Statu
 
 ## Artefak dan hasil
 
-- [Manifest v2](../../content/syllabus/v2/manifest.json) dan [track v2](../../content/syllabus/v2/tracks/jlpt-n5-foundation.json) memuat tepat **16 lesson**, **102 skill**, **209 block** (112 paragraf, 58 contoh, 39 struktur), dan **160 soal**. Bersama satu track dan empat unit, terdapat **492 owner**, semuanya memiliki localization `en/id` lengkap/current dan provenance editorial.
-- [Overlay awal](../../content/syllabus/v2/authoring/batch-01.json) menyimpan teks serta revisi owner existing. [Overlay kurasi canonical](../../content/syllabus/v2/authoring/batch-01-curation.json) menjadi sumber delapan skill baru dan tujuh block pengganti serta dua perbaikan prerequisite. [Compiler](../../scripts/syllabus/convert_bilingual_batch.py) mempertahankan kedua sumber kurasi; generated track bukan jalur edit. [Petunjuk authoring](../../content/syllabus/v2/README.md) menjelaskan regenerasi dan gate.
+- [Manifest v2](../../../../content/syllabus/v2/manifest.json) dan [track v2](../../../../content/syllabus/v2/tracks/jlpt-n5-foundation.json) memuat tepat **16 lesson**, **102 skill**, **209 block** (112 paragraf, 58 contoh, 39 struktur), dan **160 soal**. Bersama satu track dan empat unit, terdapat **492 owner**, semuanya memiliki localization `en/id` lengkap/current dan provenance editorial.
+- [Overlay awal](../../../../content/syllabus/v2/authoring/batch-01.json) menyimpan teks serta revisi owner existing. [Overlay kurasi canonical](../../../../content/syllabus/v2/authoring/batch-01-curation.json) menjadi sumber delapan skill baru dan tujuh block pengganti serta dua perbaikan prerequisite. [Compiler](../../../../scripts/syllabus/convert_bilingual_batch.py) mempertahankan kedua sumber kurasi; generated track bukan jalur edit. [Petunjuk authoring](../../../../content/syllabus/v2/README.md) menjelaskan regenerasi dan gate.
 - [Hasil mesin](./bilingual-batch-01-conversion.json) mencatat **56** atribusi soal yang diperbaiki (41 awal + 15 lanjutan), tujuh konversi block, dua perbaikan prerequisite dan evidence kurasi. **Seluruh 18 hold awal selesai**, ditambah empat struktur existing yang sebelumnya menunjuk vocabulary. Seluruh **16 lesson** siap sebagai input BIL-03 setelah runtime tersedia.
 - Snapshot sumber cocok dengan checksum allowlist `a9815d2b692d0e401f7f1296cf5ab3d083b49c68e13bf01ac614009f91fb9153`. File v1, manifest aktif, database, migration, API, dan renderer tidak diubah.
 
-Sesudah authoring, folder seed direorganisasi pada 6 November 2026: manifest/track aktif kini berada di `content/syllabus/v1/`, dengan isi dan checksum identik. `sourceFile` pada allowlist/laporan menunjuk lokasi baru. Path `retrievedFrom` di dalam provenance localization tetap historis agar relokasi tidak mengubah revisi editorial; lihat [peta relokasi](../../content/syllabus/README.md).
+Sesudah authoring, folder seed direorganisasi pada 6 November 2026: manifest/track aktif kini berada di `content/syllabus/v1/`, dengan isi dan checksum identik. `sourceFile` pada allowlist/laporan menunjuk lokasi baru. Path `retrievedFrom` di dalam provenance localization tetap historis agar relokasi tidak mengubah revisi editorial; lihat [peta relokasi](../../../../content/syllabus/README.md).
 
 ## Audit bahasa dan identitas
 
@@ -27,11 +27,11 @@ Prasyarat `kana_script_switch_basics` tetap berupa referensi canonical di luar s
 
 Pemilik proyek memilih **mempertahankan kunci lama dan menyelaraskan schema** pada 6 November 2026. Lima soal terdampak memiliki alternatif `こちらこそ、よろしくおねがいします` (dua soal) atau `誰` (tiga soal). Semua alternatif dipertahankan byte-for-byte pada payload JSON, termasuk urutannya.
 
-Schema v2 kini menerima alternatif kana/kanji Jepang serta `、`, menolak Latin/tanda baca saja, dan tetap mewajibkan setidaknya satu alternatif kana per soal. Tidak ada normalisasi baru atau penghapusan tanda baca; pencocokan tetap mengikuti NFKC/trim. [Kontrak bilingual](./bilingual-content-contract.md) diselaraskan. Validator runtime v2 harus mengikuti aturan ini pada BIL-03; memperluas validator v1 bukan bagian perubahan ini.
+Schema v2 kini menerima alternatif kana/kanji Jepang serta `、`, menolak Latin/tanda baca saja, dan tetap mewajibkan setidaknya satu alternatif kana per soal. Tidak ada normalisasi baru atau penghapusan tanda baca; pencocokan tetap mengikuti NFKC/trim. [Kontrak bilingual](../bilingual-content-contract.md) diselaraskan. Validator runtime v2 harus mengikuti aturan ini pada BIL-03; memperluas validator v1 bukan bagian perubahan ini.
 
 ## Riwayat blocker publikasi — seluruhnya terselesaikan
 
-Tabel berikut mencatat kondisi 6 November yang mendasari kurasi. Nomor soal adalah `difficultyLevel`, bukan ID baru. Resolusi 17 November: tambahkan delapan skill lexical yang benar untuk 15 soal; ubah tiga struktur yang ditahan serta empat struktur vocabulary lain menjadi paragraf. ID dan evidence lengkap ada pada [artefak kurasi](../../content/syllabus/v2/authoring/batch-01-curation.json) dan laporan mesin.
+Tabel berikut mencatat kondisi 6 November yang mendasari kurasi. Nomor soal adalah `difficultyLevel`, bukan ID baru. Resolusi 17 November: tambahkan delapan skill lexical yang benar untuk 15 soal; ubah tiga struktur yang ditahan serta empat struktur vocabulary lain menjadi paragraf. ID dan evidence lengkap ada pada [artefak kurasi](../../../../content/syllabus/v2/authoring/batch-01-curation.json) dan laporan mesin.
 
 | Lesson | Referensi yang ditahan | Alasan |
 | --- | --- | --- |
@@ -45,7 +45,7 @@ Tabel berikut mencatat kondisi 6 November yang mendasari kurasi. Nomor soal adal
 
 Skill salah entry `n5_kosoado_modifiers_kyuu` dan `n5_which_noun_dono_dono` tetap unpublished pada artefak v2 tanpa perubahan ID/content. Soal dan block kini mempunyai atribusi/representasi yang valid; seluruh 16 lesson published-ready. Localizations lengkap/current, termasuk pada dua owner retired yang tetap dapat diaudit.
 
-Kontrak BIL-01 meminta hold ketika tidak ada skill sesuai. Otorisasi kurasi eksplisit telah dicatat dalam [kontrak bilingual](bilingual-content-contract.md#kurasi-canonical-bil-02-yang-diotorisasi-17-november-2026); allowlist kini memuat scope/checksum overlay v2 tambahan sementara snapshot v1 tetap utuh. `九`/`殿` tidak diganti identitasnya, skill existing tidak dipindahkan lintas lesson, dan soal/kunci tidak diubah untuk menyamarkan gap.
+Kontrak BIL-01 meminta hold ketika tidak ada skill sesuai. Otorisasi kurasi eksplisit telah dicatat dalam [kontrak bilingual](../bilingual-content-contract.md#kurasi-canonical-bil-02-yang-diotorisasi-17-november-2026); allowlist kini memuat scope/checksum overlay v2 tambahan sementara snapshot v1 tetap utuh. `九`/`殿` tidak diganti identitasnya, skill existing tidak dipindahkan lintas lesson, dan soal/kunci tidak diubah untuk menyamarkan gap.
 
 ## Verifikasi
 

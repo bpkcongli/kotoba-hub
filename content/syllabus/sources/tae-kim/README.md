@@ -31,4 +31,4 @@ Contoh kedua memuat §4.1.4, *Using 「です」 for everything else*, termasuk 
 
 Catat path lokal di `retrievedFrom`, section dan halaman di `notes`, serta URL bagian situs pendamping yang benar-benar diperiksa sebagai `sourceUrl`. Schema v2 mewajibkan URL untuk provider eksternal. Jika URL bagian belum terverifikasi, simpan catatan sumber dalam handoff dan tandai provenance belum lengkap; jangan membuat URL atau melabeli sumber eksternal sebagai `KOTOBAHUB_INTERNAL`. Contoh URL yang sudah diperiksa untuk §4.1.4: [Polite Form and Verb Stems](https://guidetojapanese.org/learn/grammar/polite).
 
-Alur authoring dan review: [syllabus authoring guide](../../../../docs/syllabus/syllabus-authoring-guide.md).
+Alur authoring dan review: [syllabus authoring guide](../../../../docs/syllabus/authoring/syllabus-authoring-guide.md).

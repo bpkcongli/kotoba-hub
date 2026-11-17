@@ -1,6 +1,6 @@
 # JMdict Provenance
 
-Provider primer untuk vocabulary seed sesuai [docs/syllabus/source-of-truth-and-ingestion-plan.md](/home/user/Testing/kotoba-hub/docs/syllabus/source-of-truth-and-ingestion-plan.md:106).
+Provider primer untuk vocabulary seed sesuai [docs/syllabus/ingestion/source-of-truth-and-ingestion-plan.md](/home/user/Testing/kotoba-hub/docs/syllabus/ingestion/source-of-truth-and-ingestion-plan.md:106).
 
 ## Artifacts
 

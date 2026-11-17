@@ -1,6 +1,6 @@
 # Yomitan JLPT Vocab Provenance
 
-Overlay source untuk sinyal JLPT vocabulary sesuai [docs/syllabus/source-of-truth-and-ingestion-plan.md](/home/user/Testing/kotoba-hub/docs/syllabus/source-of-truth-and-ingestion-plan.md:117).
+Overlay source untuk sinyal JLPT vocabulary sesuai [docs/syllabus/ingestion/source-of-truth-and-ingestion-plan.md](/home/user/Testing/kotoba-hub/docs/syllabus/ingestion/source-of-truth-and-ingestion-plan.md:117).
 
 ## Artifacts
 

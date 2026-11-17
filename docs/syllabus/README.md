@@ -1,53 +1,72 @@
 # Syllabus Documentation
 
-## Scope
-- Folder ini menjadi baseline dokumentasi untuk task `SYL-01` sampai `SYL-07`.
-- Fokus tahap awal bukan membuat seed final, tetapi mengunci source of truth eksternal, cara akuisisi dataset, dan bentuk seed content yang konsisten dengan ERD `syllabus`.
-- Dokumen di folder ini harus dibaca sebelum menyusun unit, lesson, skill, atau seed import untuk domain `syllabus`.
+## Scope Dan Status
 
-## Related Tasks
-- `SYL-00` Dokumentasi source-of-truth, ingestion, dan seed schema.
-- `SYL-01` Finalisasi struktur `track -> unit -> lesson -> skill` berbasis JLPT.
-- `SYL-02` Penetapan scope seed awal `N5 -> N4`, dengan skeleton `N3 -> N2`. Lihat [seed-coverage-scope.md](./seed-coverage-scope.md).
-- `SYL-03` Definisi schema seed content.
-- `SYL-04` Finalisasi daftar unit per level dan urutan belajar utama. Lihat [jlpt-unit-sequencing.md](./jlpt-unit-sequencing.md).
-- `SYL-05` Turunan lesson dan skill canonical. Lihat [jlpt-lesson-and-skill-breakdown.md](./jlpt-lesson-and-skill-breakdown.md).
-- `SYL-06` Finalisasi support flags skill terhadap flashcard dan random questions. Lihat [skill-activity-support-matrix.md](./skill-activity-support-matrix.md).
-- `SYL-06A` sampai `SYL-07` mapping deck, seed JSON final, dan review alignment ke personalization/progress.
+Folder ini menjadi baseline dokumentasi `SYL-00` sampai `SYL-07` dan `BIL-01` sampai `BIL-08`. Mulai dari [task breakdown](../task-breakdown.md), lalu baca dokumen sesuai tanggung jawab yang dikerjakan.
 
-## Documents In This Folder
-- [bilingual-content-contract.md](./bilingual-content-contract.md)
-  Kontrak final `BIL-01`: schema seed v2, revisi/publikasi/fallback, DB terjemahan dan preferensi, serta transisi importer/API. [Allowlist batch 01](./bilingual-batch-01.json) mengunci identitas 16 lesson yang akan dikonversi.
-- [bilingual-batch-01-conversion.md](./bilingual-batch-01-conversion.md)
-  Hasil authoring `BIL-02`: 16 lesson dan 484 owner bilingual, perbaikan atribusi, gate regenerasi, serta blocker tujuh lesson. Artefak v2 masih `HELD`; manifest aktif tetap v1.
-- [bilingual-support-plan.md](./bilingual-support-plan.md)
-  Rencana bertahap `BIL-01`–`BIL-08`; kontrak `BIL-01` sudah final, runtime/seed aktif masih v1. Generasi lesson lain ditangguhkan sampai tooling authoring siap.
-- [jlpt-syllabus-structure.md](./jlpt-syllabus-structure.md)
-  Mengunci struktur resmi `track -> unit -> lesson -> skill`, taxonomy `curriculumLevel`, taxonomy `skillType`, serta policy support flags untuk task `SYL-01`.
-- [seed-coverage-scope.md](./seed-coverage-scope.md)
-  Menetapkan batas coverage seed awal: `N5 -> N4` harus detail dan boleh dipublish, sementara `N3 -> N2` hadir sebagai skeleton extensible untuk task `SYL-02`.
-- [source-of-truth-and-ingestion-plan.md](./source-of-truth-and-ingestion-plan.md)
-  Menjelaskan prioritas sumber referensi, cara mengambil dataset, limitasi lisensi/format, dan aturan normalisasi sebelum data masuk ke seed content.
-- [seed-content-schema.md](./seed-content-schema.md)
-  Menjelaskan bentuk seed content yang disarankan untuk repo dan bagaimana field seed dipetakan ke tabel `tracks`, `units`, `lessons`, `lesson_content_blocks`, `skills`, dan `unit_skill_mappings`.
-- [jlpt-unit-sequencing.md](./jlpt-unit-sequencing.md)
-  Mengunci daftar unit published `N5` dan `N4`, urutan learner journey utamanya, serta batas scope `N3/N2` pada task `SYL-04`.
-- [jlpt-lesson-and-skill-breakdown.md](./jlpt-lesson-and-skill-breakdown.md)
-  Menurunkan unit published `N5` dan `N4` menjadi lesson map canonical beserta bentuk skill trackable per lesson untuk task `SYL-05`.
-- [skill-activity-support-matrix.md](./skill-activity-support-matrix.md)
-  Mengunci support flags final seluruh skill published `N5` dan `N4`, termasuk terjemahan istilah produk "random questions" ke `supportsPracticeObjective` dan `supportsPracticeFreeResponse` untuk task `SYL-06`.
-- [flashcard-deck-mapping.md](./flashcard-deck-mapping.md)
-  Mengunci aturan normalisasi `KANA`/`KANJI`/`VOCABULARY`, grouping deck system bawaan, dan relasi `skill -> flashcard item -> flashcard deck` untuk task `SYL-06A`.
-- [kana-flashcard-seeder-schema.md](./kana-flashcard-seeder-schema.md)
-  Mendefinisikan kontrak planning untuk script dan artifact seed system flashcard deck `KANA`, termasuk deck lesson-scoped hiragana/katakana dan schema output machine-readable.
-- [vocabulary-flashcard-seeder-schema.md](./vocabulary-flashcard-seeder-schema.md)
-  Mendefinisikan kontrak planning untuk script dan artifact seed system flashcard deck `VOCABULARY`, termasuk schema `decks`, `items`, dan membership ordering.
-- [raw-source-acquisition.md](./raw-source-acquisition.md)
-  Mencatat hasil task `SYL-03A`, termasuk provider mana yang sudah tersnapshot di `content/syllabus/sources/`, mana yang masih partial, dan konvensi provenance/checksum yang dipakai.
-- [schema/](./schema/)
-  Berisi JSON Schema machine-readable untuk `manifest.json` dan file track seed agar bentuk payload dapat divalidasi otomatis.
-- [examples/](./examples/)
-  Berisi contoh payload minimal yang mengikuti schema final `SYL-03` tanpa mengklaim bahwa coverage syllabus final `N5 -> N4` sudah lengkap.
+Seed aktif berada di `content/syllabus/v1/`. Artefak bilingual batch awal berstatus **READY_FOR_BIL_03**: 16 lesson, 492 owner bilingual, 102 skill, 209 block, dan 160 soal. Importer, database, dan cutover v2 tetap pekerjaan `BIL-03`; lihat [hasil konversi](bilingual/batch-01/bilingual-batch-01-conversion.md).
+
+## Peta Tanggung Jawab
+
+| Folder | Tanggung jawab | Task terkait |
+| --- | --- | --- |
+| [curriculum/](curriculum/) | Struktur JLPT, coverage, urutan unit, breakdown lesson/skill, dan dukungan aktivitas. | `SYL-01`, `SYL-02`, `SYL-04`, `SYL-05`, `SYL-06`, `SYL-07` |
+| [ingestion/](ingestion/) | Prioritas sumber, akuisisi snapshot, normalisasi, kontrak seed, dan mapping persistence. | `SYL-00`, `SYL-03`, `SYL-03A`, `SYL-06B`, `IMP-05` |
+| [flashcards/](flashcards/) | Mapping skill ke deck/item serta kontrak seeder kana dan vocabulary. | `SYL-06A`, `IMP-07` |
+| [authoring/](authoring/) | Panduan penulisan/review konten bilingual dan atribusi sumber skill authoring. | Tooling `BIL-04` |
+| [bilingual/](bilingual/) | Rencana tahapan bilingual dan kontrak konten, locale, revisi, publikasi, serta transisi runtime. | `BIL-01` sampai `BIL-08` |
+| [bilingual/batch-01/](bilingual/batch-01/) | Inventaris scope batch awal, catatan konversi/kurasi, dan laporan mesin. | `BIL-02` |
+| [schema/](schema/) | JSON Schema machine-readable untuk syllabus v1/v2 dan seed flashcard. | `SYL-03`, `SYL-06A`, `BIL-01` |
+| [examples/](examples/) | Contoh payload dan fragment authoring untuk schema terkait. | `SYL-03`, `BIL-01`, tooling `BIL-04` |
+| [licenses/](licenses/) | Notice lisensi yang menyertai adaptasi skill authoring. | Tooling `BIL-04` |
+
+## Curriculum
+
+- [Struktur syllabus JLPT](curriculum/jlpt-syllabus-structure.md): hierarki `track -> unit -> lesson -> skill` dan taxonomy.
+- [Coverage seed](curriculum/seed-coverage-scope.md): scope detail N5/N4 dan skeleton N3/N2.
+- [Urutan unit](curriculum/jlpt-unit-sequencing.md): urutan belajar dan objective unit.
+- [Breakdown lesson dan skill](curriculum/jlpt-lesson-and-skill-breakdown.md): inventaris lesson dan skill trackable.
+- [Dukungan aktivitas skill](curriculum/skill-activity-support-matrix.md): support flags untuk flashcard dan practice.
+
+## Ingestion
+
+- [Source of truth dan ingestion](ingestion/source-of-truth-and-ingestion-plan.md): prioritas sumber, lisensi, dan normalisasi.
+- [Akuisisi sumber mentah](ingestion/raw-source-acquisition.md): snapshot provider, provenance, dan checksum.
+- [Kontrak seed content](ingestion/seed-content-schema.md): bentuk seed dan pemetaan ke ERD syllabus.
+
+## Flashcards
+
+- [Mapping deck](flashcards/flashcard-deck-mapping.md): relasi `skill -> item -> deck`, grouping, dan batas import.
+- [Seeder kana](flashcards/kana-flashcard-seeder-schema.md): kontrak artifact dan script seed kana.
+- [Seeder vocabulary](flashcards/vocabulary-flashcard-seeder-schema.md): kontrak deck, item, dan membership vocabulary.
+
+## Authoring
+
+- [Panduan authoring dan review](authoring/syllabus-authoring-guide.md): scope penugasan, format fragment/overlay, gaya bahasa, dan verifikasi.
+- [Sumber skill authoring](authoring/syllabus-authoring-skill-sources.md): atribusi dan batas adaptasi prinsip pedagogi.
+
+## Bilingual
+
+- [Rencana dukungan bilingual](bilingual/bilingual-support-plan.md): urutan dan dependency `BIL-01` sampai `BIL-08`.
+- [Kontrak konten bilingual](bilingual/bilingual-content-contract.md): schema v2, locale, revisi, publication/fallback, dan transisi importer/API.
+- [Inventaris batch 01](bilingual/batch-01/bilingual-batch-01.json): input scope, identitas baseline, checksum, dan kurasi yang diizinkan.
+- [Catatan konversi](bilingual/batch-01/bilingual-batch-01-conversion.md): hasil, gate verifikasi, dan riwayat blocker.
+- [Catatan kurasi](bilingual/batch-01/bilingual-batch-01-curation.md): resolusi, evidence sumber, hasil review, dan batas acceptance.
+- [Laporan mesin](bilingual/batch-01/bilingual-batch-01-conversion.json): output compiler berisi status dan hasil pemeriksaan batch.
+
+Teks materi yang diedit tetap berada di [sumber authoring v2](../../content/syllabus/v2/README.md). Folder batch dokumentasi menyimpan scope dan laporan, sedangkan compiler berada di [scripts/syllabus/](../../scripts/syllabus/).
+
+## Relokasi Dan Provenance
+
+Dokumen yang sebelumnya langsung berada di `docs/syllabus/` dipindahkan ke folder tanggung jawab di atas dengan nama file yang sama. Path baru digunakan untuk navigasi, input generator, dan lokasi laporan compiler. Folder `schema/`, `examples/`, serta `licenses/` tetap pada lokasi semula.
+
+Path dan URL dalam provenance seed frozen tetap historis agar pemindahan dokumentasi tidak mengubah checksum, revisi, atau hasil kompilasi konten. Referensi historis berikut dapat ditelusuri ke lokasi baru:
+
+| Referensi historis | Dokumen saat ini |
+| --- | --- |
+| `docs/syllabus/source-of-truth-and-ingestion-plan.md` | [Source plan](ingestion/source-of-truth-and-ingestion-plan.md) |
+| `docs/syllabus/jlpt-lesson-and-skill-breakdown.md` | [Breakdown lesson/skill](curriculum/jlpt-lesson-and-skill-breakdown.md) |
+| `docs/syllabus/bilingual-batch-01-curation.md` | [Catatan kurasi batch 01](bilingual/batch-01/bilingual-batch-01-curation.md) |
 
 ## Source Priority
 

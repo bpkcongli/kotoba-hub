@@ -17,7 +17,7 @@ from validate_bilingual_contracts import check_inventory, require
 ROOT = Path(__file__).resolve().parents[2]
 OUTPUT = ROOT / 'content/syllabus/v2'
 AUTHORING = OUTPUT / 'authoring/batch-01.json'
-REPORT = ROOT / 'docs/syllabus/bilingual-batch-01-conversion.json'
+REPORT = ROOT / 'docs/syllabus/bilingual/batch-01/bilingual-batch-01-conversion.json'
 META = {'sourceRevision', 'translationRevision', 'isPublished', 'sourceRefs'}
 
 
@@ -359,7 +359,7 @@ def main():
     args = parser.parse_args()
 
     check_inventory()
-    inventory = read_json(ROOT / 'docs/syllabus/bilingual-batch-01.json')
+    inventory = read_json(ROOT / 'docs/syllabus/bilingual/batch-01/bilingual-batch-01.json')
     source_path = ROOT / inventory['sourceFile']
     actual = hashlib.sha256(source_path.read_bytes()).hexdigest()
     require(actual == inventory['sourceSha256'], f'Source changed: expected {inventory["sourceSha256"]}, actual {actual}. Review the diff first.')

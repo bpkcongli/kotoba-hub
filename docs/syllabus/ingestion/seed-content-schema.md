@@ -2,7 +2,7 @@
 
 ## Versi kontrak
 - Isi dokumen di bawah dan schema tanpa suffix tetap baseline **v1** untuk seed/runtime aktif.
-- **BIL-01** memfinalkan v2 `2.0.0` pada [kontrak konten bilingual](./bilingual-content-contract.md), [schema manifest v2](./schema/seed-manifest.v2.schema.json), dan [schema track v2](./schema/track-seed.v2.schema.json). Contoh serta [allowlist 16 lesson](./bilingual-batch-01.json) dirujuk oleh kontrak tersebut.
+- **BIL-01** memfinalkan v2 `2.0.0` pada [kontrak konten bilingual](../bilingual/bilingual-content-contract.md), [schema manifest v2](../schema/seed-manifest.v2.schema.json), dan [schema track v2](../schema/track-seed.v2.schema.json). Contoh serta [allowlist 16 lesson](../bilingual/batch-01/bilingual-batch-01.json) dirujuk oleh kontrak tersebut.
 - V2 memisahkan canonical dan `localizations.en/id`, memakai revisi/publikasi per bahasa dan import `MERGE_LESSONS`. Definisi field v1 di bawah tidak diterapkan pada payload v2. Konversi konten pada `BIL-02`, jalur import/runtime pada `BIL-03`.
 
 ## Scope
@@ -15,11 +15,11 @@
 ## Canonical Artifacts
 - Dokumen ini adalah penjelasan human-readable untuk schema seed.
 - Schema machine-readable disimpan di:
-  - [schema/seed-manifest.schema.json](./schema/seed-manifest.schema.json)
-  - [schema/track-seed.schema.json](./schema/track-seed.schema.json)
+  - [schema/seed-manifest.schema.json](../schema/seed-manifest.schema.json)
+  - [schema/track-seed.schema.json](../schema/track-seed.schema.json)
 - Example payload disimpan di:
-  - [examples/seed-manifest.example.json](./examples/seed-manifest.example.json)
-  - [examples/jlpt-n5-foundation.example.json](./examples/jlpt-n5-foundation.example.json)
+  - [examples/seed-manifest.example.json](../examples/seed-manifest.example.json)
+  - [examples/jlpt-n5-foundation.example.json](../examples/jlpt-n5-foundation.example.json)
 - JSON Schema dipakai untuk validasi bentuk file, sedangkan aturan semantik lintas parent-child tetap divalidasi di importer atau CI check.
 
 ## File Layout Recommendation

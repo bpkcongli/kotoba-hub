@@ -5,7 +5,7 @@ description: Review KotobaHub N5/N4 bilingual syllabus drafts or diffs for sourc
 
 # Review lesson content
 
-Work without editing files. Read the [task breakdown](../../../docs/task-breakdown.md), task references and [authoring guide](../../../docs/syllabus/syllabus-authoring-guide.md), especially its review rubric and workflow boundary. Apply the [block maker](../kotoba-syllabus-content-block-maker/SKILL.md), [question maker](../kotoba-syllabus-post-study-question-maker/SKILL.md) and [anti-slop copy](../kotoba-anti-slop-copy/SKILL.md) criteria.
+Work without editing files. Read the [task breakdown](../../../docs/task-breakdown.md), task references and [authoring guide](../../../docs/syllabus/authoring/syllabus-authoring-guide.md), especially its review rubric and workflow boundary. Apply the [block maker](../kotoba-syllabus-content-block-maker/SKILL.md), [question maker](../kotoba-syllabus-post-study-question-maker/SKILL.md) and [anti-slop copy](../kotoba-anti-slop-copy/SKILL.md) criteria.
 
 - Inspect the exact candidate against its baseline and assigned lesson IDs. Check changes are limited to the assigned arrays or overlay owners and their required revision/provenance fields. Existing titles, skills, source identities, Japanese prompts and keys are not incidental copy edits.
 - Independently verify the substantive Japanese rule, example, answer and register against relevant Bunpro snapshot/Tae Kim pages. Do not accept a maker's source list without checking it. Distinguish a grammar dispute from a source extraction artifact; escalate unresolved disagreements with precise evidence.
@@ -16,4 +16,4 @@ Work without editing files. Read the [task breakdown](../../../docs/task-breakdo
 
 Return the guide's verdict, ordered findings with exact JSON/file evidence, checked scope, source sections, actual check results and remaining uncertainty. Recommend a concrete correction for each finding. If evidence is missing, use REVIEW_INCOMPLETE; if blocking findings remain, use NEEDS_CHANGES. READY_FOR_INTEGRATION is an editorial verdict for the reviewed scope, not permission to publish/import or override a batch hold. For a partial snippet, explicitly limit the verdict to that fragment.
 
-Adaptation sources and notices: [authoring skill sources](../../../docs/syllabus/syllabus-authoring-skill-sources.md).
+Adaptation sources and notices: [authoring skill sources](../../../docs/syllabus/authoring/syllabus-authoring-skill-sources.md).

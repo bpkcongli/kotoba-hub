@@ -685,7 +685,7 @@ def romanize_kana(text: str) -> str:
 
 
 def parse_unit_metadata() -> dict[str, dict[str, Any]]:
-    text = (DOCS_DIR / "jlpt-unit-sequencing.md").read_text(encoding="utf-8")
+    text = (DOCS_DIR / "curriculum" / "jlpt-unit-sequencing.md").read_text(encoding="utf-8")
     units: dict[str, dict[str, Any]] = {}
     current_track_slug: str | None = None
     for line in text.splitlines():
@@ -712,7 +712,7 @@ def parse_unit_metadata() -> dict[str, dict[str, Any]]:
 
 
 def parse_lesson_breakdown() -> dict[str, dict[str, Any]]:
-    text = (DOCS_DIR / "jlpt-lesson-and-skill-breakdown.md").read_text(encoding="utf-8")
+    text = (DOCS_DIR / "curriculum" / "jlpt-lesson-and-skill-breakdown.md").read_text(encoding="utf-8")
     current_level: str | None = None
     current_unit: str | None = None
     lessons_by_unit: dict[str, dict[str, Any]] = defaultdict(lambda: {"level": None, "lessons": []})
@@ -763,7 +763,7 @@ def parse_lesson_breakdown() -> dict[str, dict[str, Any]]:
 
 
 def parse_support_matrix() -> dict[str, str]:
-    text = (DOCS_DIR / "skill-activity-support-matrix.md").read_text(encoding="utf-8")
+    text = (DOCS_DIR / "curriculum" / "skill-activity-support-matrix.md").read_text(encoding="utf-8")
     support: dict[str, str] = {}
     for line in text.splitlines():
         if not line.startswith("- `") or "->" not in line:

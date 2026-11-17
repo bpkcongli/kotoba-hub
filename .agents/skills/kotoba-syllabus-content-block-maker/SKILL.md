@@ -5,7 +5,7 @@ description: Create or revise English/Indonesian lesson.contentBlocks for existi
 
 # Bilingual lesson blocks
 
-Read the [task breakdown](../../../docs/task-breakdown.md), task references and [authoring guide](../../../docs/syllabus/syllabus-authoring-guide.md) first. Use its source, draft/overlay, style and revision rules. The [v2 contract](../../../docs/syllabus/bilingual-content-contract.md) and [schema](../../../docs/syllabus/schema/track-seed.v2.schema.json) decide the payload shape; the [JSON example](../../../docs/syllabus/examples/lesson-content-authoring.v2.example.json) demonstrates all three block types.
+Read the [task breakdown](../../../docs/task-breakdown.md), task references and [authoring guide](../../../docs/syllabus/authoring/syllabus-authoring-guide.md) first. Use its source, draft/overlay, style and revision rules. The [v2 contract](../../../docs/syllabus/bilingual/bilingual-content-contract.md) and [schema](../../../docs/syllabus/schema/track-seed.v2.schema.json) decide the payload shape; the [JSON example](../../../docs/syllabus/examples/lesson-content-authoring.v2.example.json) demonstrates all three block types.
 
 1. Read the assigned lesson's existing title, objective, atomic skills, prerequisites and source references. Map each objective to an explanation and a usable example before drafting. Keep the existing curriculum order; Tae Kim is a secondary explanation source, not a replacement inventory.
 2. Extract only relevant Bunpro text and Tae Kim PDF pages. Record the actual section/page and write an original explanation. If the title, sources and skill ownership disagree, report the mismatch and continue only with independent supported content.
@@ -16,4 +16,4 @@ Read the [task breakdown](../../../docs/task-breakdown.md), task references and 
 
 Validate the fragment or assigned overlay using the guide. Hand off objective coverage, source sections, exact owner IDs, checks and unresolved issues. Stop at the assigned arrays; do not silently edit lesson metadata, skills or publish flags. For full lesson completion, pair this skill with [post-study question maker](../kotoba-syllabus-post-study-question-maker/SKILL.md).
 
-Adaptation sources and notices: [authoring skill sources](../../../docs/syllabus/syllabus-authoring-skill-sources.md).
+Adaptation sources and notices: [authoring skill sources](../../../docs/syllabus/authoring/syllabus-authoring-skill-sources.md).

@@ -23,16 +23,16 @@ KotobaHub adalah aplikasi web belajar bahasa Jepang mandiri dengan jalur JLPT ya
 | --- | --- | --- |
 | Akses | Google OAuth, session cookie, guard berdasarkan login dan onboarding | [Auth API](docs/api-contract/auth-and-authorization.md) |
 | Personalisasi awal | Wizard terstruktur, catatan opsional untuk normalisasi AI, review draft, konfirmasi user sebelum profil disimpan | [Profile API](docs/api-contract/user-profile-and-personalization.md) |
-| Syllabus | Katalog read-only `track -> unit -> lesson -> skill`; N5/N4 adalah kandidat publish, tetapi hanya subtree lesson dengan bank quiz valid yang masuk katalog database; N3/N2 skeleton unpublished | [Syllabus scope](docs/syllabus/seed-coverage-scope.md), [Syllabus API](docs/api-contract/syllabus.md) |
-| Lesson | Baca `contentBlocks` berurutan lalu jalankan quiz wajib deterministik satu soal; understanding per lesson `0..10` | [Syllabus seed schema](docs/syllabus/seed-content-schema.md), [Practice API](docs/api-contract/practice.md) |
-| Flashcards | System deck KANA/KANJI/VOCABULARY, sesi pilihan ganda, script pair terkunci per sesi, evaluasi deterministik, bucket Leitner | [Deck mapping](docs/syllabus/flashcard-deck-mapping.md), [Flashcards API](docs/api-contract/flashcards.md) |
+| Syllabus | Katalog read-only `track -> unit -> lesson -> skill`; N5/N4 adalah kandidat publish, tetapi hanya subtree lesson dengan bank quiz valid yang masuk katalog database; N3/N2 skeleton unpublished | [Syllabus scope](docs/syllabus/curriculum/seed-coverage-scope.md), [Syllabus API](docs/api-contract/syllabus.md) |
+| Lesson | Baca `contentBlocks` berurutan lalu jalankan quiz wajib deterministik satu soal; understanding per lesson `0..10` | [Syllabus seed schema](docs/syllabus/ingestion/seed-content-schema.md), [Practice API](docs/api-contract/practice.md) |
+| Flashcards | System deck KANA/KANJI/VOCABULARY, sesi pilihan ganda, script pair terkunci per sesi, evaluasi deterministik, bucket Leitner | [Deck mapping](docs/syllabus/flashcards/flashcard-deck-mapping.md), [Flashcards API](docs/api-contract/flashcards.md) |
 | Random practice | Sesi default lima soal berbasis rekomendasi, grading deterministik atau AI sesuai tipe soal | [Practice API](docs/api-contract/practice.md) |
 | Progress | Event per jawaban, mastery snapshot per skill, understanding snapshot per lesson, overview dan activity history | [Progress API](docs/api-contract/progress.md), [Learning activity ERD](docs/erd/learning-activity.md) |
 | Delivery | Satu Next.js fullstack app, MySQL, Docker, CI/quality gates dan testing area kritikal | [MVP plan](docs/mvp-plan.md), [Architecture](docs/architecture-foundation.md) |
 
 Kontrak backend flashcards juga mencakup pembuatan **custom deck** yang mereferensikan item yang sudah ada. Katalog dan persistence custom deck mengikuti [Flashcards API](docs/api-contract/flashcards.md); layar editor custom deck belum tercantum dalam daftar UI `IMP-11`–`IMP-16`, sehingga jangan mengasumsikan layar authoring baru tanpa menyelaraskan scope UI terlebih dahulu.
 
-Di luar Core MVP: admin CMS, leaderboard, fitur sosial, voice conversation, push notification, multiplayer, RAG umum, dan dark mode yang belum dikunci. N3/N2 belum dianggap katalog materi siap belajar. Sumber: [MVP plan](docs/mvp-plan.md) dan [seed coverage](docs/syllabus/seed-coverage-scope.md).
+Di luar Core MVP: admin CMS, leaderboard, fitur sosial, voice conversation, push notification, multiplayer, RAG umum, dan dark mode yang belum dikunci. N3/N2 belum dianggap katalog materi siap belajar. Sumber: [MVP plan](docs/mvp-plan.md) dan [seed coverage](docs/syllabus/curriculum/seed-coverage-scope.md).
 
 ## 3. Pengalaman pengguna inti
 
@@ -62,7 +62,7 @@ Di luar Core MVP: admin CMS, leaderboard, fitur sosial, voice conversation, push
 3. Sesi menampilkan satu kartu fokus pada satu waktu. Jawaban dinilai deterministik, bucket item diperbarui (`NEW`, `LEARNING`, `MASTERED`), dan feedback muncul dekat opsi jawaban.
 4. Item dengan mapping skill resmi menghasilkan `progress_event` dan mastery terbaru; item tanpa mapping resmi boleh dilatih tetapi tidak menaikkan mastery syllabus.
 
-**Kriteria penerimaan:** script pair terkunci selama sesi; untuk menggantinya user memulai sesi baru. Feedback kana ringkas, kanji dapat menampilkan meaning, onyomi, kunyomi, dan contoh. Hasil sesi memiliki ringkasan serta langkah lanjut. Rujukan: [Flashcards API](docs/api-contract/flashcards.md), [deck mapping](docs/syllabus/flashcard-deck-mapping.md).
+**Kriteria penerimaan:** script pair terkunci selama sesi; untuk menggantinya user memulai sesi baru. Feedback kana ringkas, kanji dapat menampilkan meaning, onyomi, kunyomi, dan contoh. Hasil sesi memiliki ringkasan serta langkah lanjut. Rujukan: [Flashcards API](docs/api-contract/flashcards.md), [deck mapping](docs/syllabus/flashcards/flashcard-deck-mapping.md).
 
 ### 3.4 Random practice dan progress
 
@@ -79,7 +79,7 @@ Di luar Core MVP: admin CMS, leaderboard, fitur sosial, voice conversation, push
 - `syllabus` adalah sumber skill dan struktur kurikulum. `progress` memiliki learning events serta snapshot. `personalization` menghitung rekomendasi dari profile, syllabus, dan progress; `practice` membentuk serta menilai sesi. Producer aktivitas menulis progress melalui port/use case, bukan langsung ke tabel context lain. Lihat [architecture foundation](docs/architecture-foundation.md).
 - Mastery skill memakai maksimal **20 attempt terakhir** dengan bobot **accuracy 70%**, **recency 20%**, **speed/confidence proxy 10%**. Difficulty naik saat mastery `>= 80` selama dua sesi dan turun/remediate saat `<= 50` selama dua sesi. Detail perhitungan tetap harus diuji di `TEST-01`. Lihat [MVP plan](docs/mvp-plan.md) dan [learning activity ERD](docs/erd/learning-activity.md).
 - Bank post-study milik `syllabus`, sedangkan pemilihan dan grading direct quiz milik `practice`. `lesson_understanding_snapshots` adalah sumber level lesson; `skill_mastery_snapshots` tetap sumber mastery skill.
-- Published catalog database hanya menampilkan subtree N5/N4 yang lolos validasi bank quiz lesson. Track dan unit tanpa lesson valid tidak tampil; N3/N2 tetap skeleton unpublished pada seed. Source eksternal dinormalisasi dan dikurasi sebelum menjadi seed; provenance tidak boleh hilang. Import database dapat dijalankan ulang setelah kurasi tanpa membuat row duplikat. Lihat [syllabus ingestion](docs/syllabus/source-of-truth-and-ingestion-plan.md).
+- Published catalog database hanya menampilkan subtree N5/N4 yang lolos validasi bank quiz lesson. Track dan unit tanpa lesson valid tidak tampil; N3/N2 tetap skeleton unpublished pada seed. Source eksternal dinormalisasi dan dikurasi sebelum menjadi seed; provenance tidak boleh hilang. Import database dapat dijalankan ulang setelah kurasi tanpa membuat row duplikat. Lihat [syllabus ingestion](docs/syllabus/ingestion/source-of-truth-and-ingestion-plan.md).
 - API publik memakai prefix `/api/v1`, session cookie, response envelope `status`/`data`, serta metadata pagination untuk list. Nama endpoint lama tanpa `/v1` dalam [MVP plan](docs/mvp-plan.md) adalah ringkasan awal; implementasi mengikuti [API base](docs/api-contract/README.md) dan kontrak feature yang lebih rinci.
 - AI memakai provider abstraction dengan structured output, schema validation, request observability, dan default adapter OpenAI saat implementasi. AI dipakai hanya untuk kebutuhan yang ditentukan kontrak; canonical post-study bank serta grading objective tetap deterministik. Lihat [MVP plan](docs/mvp-plan.md) dan [AI observability ERD](docs/erd/ai-support-and-observability.md).
 
@@ -118,5 +118,5 @@ Ikuti urutan `IMP-01`–`IMP-17` dan ketentuan bahwa backend/database setiap fit
 - Struktur folder BE/FE, store, dan DI: [ARCHITECTURE.md](ARCHITECTURE.md). Batas module serta alur bisnis: [architecture foundation](docs/architecture-foundation.md).
 - Persistence: [auth/user ERD](docs/erd/auth-and-user-profile.md), [syllabus ERD](docs/erd/syllabus-domain.md), [learning activity ERD](docs/erd/learning-activity.md), [AI observability ERD](docs/erd/ai-support-and-observability.md).
 - Kontrak transport: [API base](docs/api-contract/README.md) dan file naratif/OpenAPI per context di [docs/api-contract/](docs/api-contract/).
-- Content: [syllabus README](docs/syllabus/README.md), [seed schema](docs/syllabus/seed-content-schema.md), [deck mapping](docs/syllabus/flashcard-deck-mapping.md), [published seed](content/syllabus/v1/manifest.json).
+- Content: [syllabus README](docs/syllabus/README.md), [seed schema](docs/syllabus/ingestion/seed-content-schema.md), [deck mapping](docs/syllabus/flashcards/flashcard-deck-mapping.md), [published seed](content/syllabus/v1/manifest.json).
 - UI: [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) dan dokumen rinci di [docs/system-design/](docs/system-design/).

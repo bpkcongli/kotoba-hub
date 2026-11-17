@@ -2,7 +2,7 @@
 
 ## Perluasan final BIL-01 (implementasi BIL-03)
 
-Diagram dan definisi existing di bawah menggambarkan persistence v1. Target bilingual menambahkan relasi berikut; detail field, tipe, revision gate, backfill, dan proyeksi kompatibilitas ditetapkan pada [kontrak konten bilingual](../syllabus/bilingual-content-contract.md#4-schema-database-target).
+Diagram dan definisi existing di bawah menggambarkan persistence v1. Target bilingual menambahkan relasi berikut; detail field, tipe, revision gate, backfill, dan proyeksi kompatibilitas ditetapkan pada [kontrak konten bilingual](../syllabus/bilingual/bilingual-content-contract.md#4-schema-database-target).
 
 ```mermaid
 erDiagram
@@ -28,7 +28,7 @@ erDiagram
 - Localization current wajib `source_revision = owner.content_revision`. Inggris current menjadi gate published subtree v2; Indonesia boleh draft/stale dan fallback satu paket ke Inggris. Publication dan revision dibandingkan pada aplikasi, bukan FK lintas revision.
 - Translation tables milik `syllabus`. Kolom teks/JSON v1 menjadi proyeksi Inggris yang diperbarui importer satu arah saat row sudah v2. Source metadata seed tetap dipertahankan; arti/check/contoh localized disimpan di `skill_translations.content`.
 - Belum ada migration SQL pada `BIL-01`; urutan migration/import dan proteksi scope parsial diimplementasikan `BIL-03`. Tabel progress, ID bank, dan ladder tetap sama.
-- Audit `BIL-02` mempertahankan alternatif kunci Jepang existing, termasuk kanji `誰` dan koma `、`. Setiap soal tetap mempunyai alternatif kana; validator v2 harus mengikuti [keputusan kunci](../syllabus/bilingual-batch-01-conversion.md#keputusan-kunci-jawaban), tanpa mengubah kunci atau menambahkan normalisasi tanda baca. Persistensi `expected_answer_payload` tidak berubah bentuk.
+- Audit `BIL-02` mempertahankan alternatif kunci Jepang existing, termasuk kanji `誰` dan koma `、`. Setiap soal tetap mempunyai alternatif kana; validator v2 harus mengikuti [keputusan kunci](../syllabus/bilingual/batch-01/bilingual-batch-01-conversion.md#keputusan-kunci-jawaban), tanpa mengubah kunci atau menambahkan normalisasi tanda baca. Persistensi `expected_answer_payload` tidak berubah bentuk.
 
 ## Scope
 - Dokumen ini menyelesaikan task `ARCH-09`.

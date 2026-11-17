@@ -7,7 +7,7 @@ description: Implement KotobaHub syllabus ingestion, flashcard/Leitner, lesson q
 
 Use for `IMP-05`–`IMP-07`, `IMP-09`, or integration of their learning state.
 
-- Read the applicable [seed schema](../../../docs/syllabus/seed-content-schema.md), [deck mapping](../../../docs/syllabus/flashcard-deck-mapping.md), [learning activity ERD](../../../docs/erd/learning-activity.md), and feature contracts in [API docs](../../../docs/api-contract/).
+- Read the applicable [seed schema](../../../docs/syllabus/ingestion/seed-content-schema.md), [deck mapping](../../../docs/syllabus/flashcards/flashcard-deck-mapping.md), [learning activity ERD](../../../docs/erd/learning-activity.md), and feature contracts in [API docs](../../../docs/api-contract/).
 - Import only published syllabus tracks for learner-facing catalog. Validate the `track -> unit -> lesson -> skill` attribution before any progress event. Use canonical skill IDs from syllabus.
 - Flashcards use session-locked script pairs, multiple-choice options snapshotted at session creation, deterministic evaluation, and `NEW`/`LEARNING`/`MASTERED` item states. Item results with no official skill mapping do not update official mastery.
 - A lesson post-study attempt selects one canonical `SHORT_FREE_RESPONSE` question at `min(current_understanding_level + 1, 10)` from its ten-question bank. It does not create a `practice_session`. A correct answer advances at most one level, and level `>=1` means lesson completed.

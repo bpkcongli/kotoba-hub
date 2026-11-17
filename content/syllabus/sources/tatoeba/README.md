@@ -1,6 +1,6 @@
 # Tatoeba Provenance
 
-Provider primer untuk example sentence candidates sesuai [docs/syllabus/source-of-truth-and-ingestion-plan.md](/home/user/Testing/kotoba-hub/docs/syllabus/source-of-truth-and-ingestion-plan.md:158).
+Provider primer untuk example sentence candidates sesuai [docs/syllabus/ingestion/source-of-truth-and-ingestion-plan.md](/home/user/Testing/kotoba-hub/docs/syllabus/ingestion/source-of-truth-and-ingestion-plan.md:158).
 
 ## Artifacts
 

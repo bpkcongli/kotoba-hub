@@ -62,9 +62,9 @@
   - Dokumen `SYL-06A` sudah mengunci relasi `skill -> flashcard item -> flashcard deck`, tetapi repo belum punya seeder khusus yang menurunkan published vocabulary skill menjadi payload deck system yang siap diimport.
   - Repo juga belum punya schema dokumentatif yang mengunci kontrak input-output untuk script seeder vocabulary, sehingga ada risiko implementasi nanti menebak-nebak bentuk artifact, path file, dan aturan validasinya.
 - Affected artifacts:
-  - [flashcard-deck-mapping.md](./syllabus/flashcard-deck-mapping.md)
-  - [source-of-truth-and-ingestion-plan.md](./syllabus/source-of-truth-and-ingestion-plan.md)
-  - [vocabulary-flashcard-seeder-schema.md](./syllabus/vocabulary-flashcard-seeder-schema.md)
+  - [flashcard-deck-mapping.md](./syllabus/flashcards/flashcard-deck-mapping.md)
+  - [source-of-truth-and-ingestion-plan.md](./syllabus/ingestion/source-of-truth-and-ingestion-plan.md)
+  - [vocabulary-flashcard-seeder-schema.md](./syllabus/flashcards/vocabulary-flashcard-seeder-schema.md)
 - Debt summary:
   - Saat ini raw source dan syllabus seed sudah cukup untuk menurunkan item vocabulary atomik, tetapi belum ada jalur resmi dari `content/syllabus/v1/tracks/*.json` ke artifact flashcard seed yang eksplisit dan bisa diaudit.
   - Tanpa kontrak repo-native untuk `decks`, `items`, dan membership ordering, implementasi script berisiko mencampur ownership syllabus dengan katalog flashcard runtime atau menghasilkan slug/id yang tidak stabil.

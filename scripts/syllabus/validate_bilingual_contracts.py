@@ -98,7 +98,7 @@ def check_seed_schemas():
 
 
 def check_inventory():
-    inventory = read_json(ROOT / 'docs/syllabus/bilingual-batch-01.json')
+    inventory = read_json(ROOT / 'docs/syllabus/bilingual/batch-01/bilingual-batch-01.json')
     source_path = ROOT / inventory['sourceFile']
     require(hashlib.sha256(source_path.read_bytes()).hexdigest() == inventory['sourceSha256'],
             'Baseline changed: review source diff and update the inventory intentionally.')

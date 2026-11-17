@@ -14,8 +14,16 @@ Status: **final untuk implementasi BIL-02/BIL-03**, 4 November 2026; varian kunc
 - `BIL-02` menulis `content/syllabus/v2/manifest.json` dan `content/syllabus/v2/tracks/*.json` berdasarkan allowlist. Folder itu belum dibaca runtime secara otomatis. File v1 pada `content/syllabus/v1/manifest.json` dan `tracks/` tetap menjadi input aktif hingga `BIL-03`.
 - Allowlist mengunci identitas 16 lesson yang memiliki materi dan sepuluh soal pada snapshot v1: **9 importable, 7 membutuhkan perbaikan atribusi skill**. Paragraf pengantar lesson lain tidak termasuk batch. Perubahan checksum sumber wajib menghasilkan laporan diff sebelum konversi; jangan memperluas allowlist otomatis.
 - Hasil authoring `BIL-02` dan blocker publikasi tercatat pada [laporan konversi batch](./bilingual-batch-01-conversion.md). Artefak v2 dapat berstatus `HELD` meskipun lolos JSON Schema; status itu tidak mengizinkan import parsial atau cutover `BIL-03`.
-- UUID, slug, kode skill, urutan, prerequisite, dan ID soal dipertahankan. Jangan menambah kode bundle palsu untuk mengatasi atribusi; petakan setiap soal ke skill atomik yang benar dalam lesson pada `BIL-02`. Jika tidak ada skill yang sesuai, tahan publikasi dan laporkan.
+- UUID, slug, kode skill, urutan, prerequisite, dan ID soal dipertahankan, dengan pengecualian kurasi tambahan yang dicatat eksplisit pada bagian berikut. Jangan menambah kode bundle palsu untuk mengatasi atribusi; petakan setiap soal ke skill atomik yang benar dalam lesson pada `BIL-02`. Jika tidak ada skill yang sesuai, tahan publikasi dan laporkan.
 - Versi schema hanya menunjukkan bentuk data. `contentRevision` menunjukkan revisi materi owner; keduanya terpisah dari API `/api/v1`, `promptPayload.schemaVersion=1`, dan urutan migration DB.
+
+### Kurasi canonical BIL-02 yang diotorisasi 17 November 2026
+
+Pemilik proyek menugaskan `syllabus-maker` dan `syllabus-reviewer` untuk menyelesaikan blocker batch. [Catatan kurasi](bilingual-batch-01-curation.md) menjadi pengecualian terukur terhadap pembekuan subtree awal: snapshot v1 dan checksum-nya tetap, sementara overlay authoring v2 menambah delapan skill atomik berprovenance, mengganti representasi tujuh block menjadi paragraf, dan memperbaiki dua edge prerequisite yang menunjuk lexeme salah/retired. UUID/urutan block tetap; UUID/slug semua lesson dan seluruh prompt, kunci, difficulty, ID serta provenance canonical 160 soal tetap.
+
+Allowlist menyimpan scope tambahan dan checksum file kurasi secara eksplisit; compiler menolak perubahan di luar scope tersebut. Skill lexical baru mendapat UUID/kode lesson-owned yang berbeda tanpa memindahkan atau memakai ulang identitas existing. Referensi ke entry JMdict yang sama pada lesson berbeda diperbolehkan sebagai kurasi ownership yang tercatat, bukan duplikasi kode/UUID canonical. Entry `九` dan `殿` lama dipertahankan dan tetap unpublished, tidak didefinisikan ulang sebagai `この`/`どの`.
+
+Maker menulis usulan/artefak kurasi terisolasi; agent utama mengintegrasikan perubahan katalog, revisi dan allowlist, kemudian reviewer memeriksa hasil. Perubahan ini tidak mengaktifkan importer v2 atau menulis database. Acceptance BIL-02 tetap mensyaratkan seluruh 16 lesson, kedua bahasa current, atribusi valid dan gate publishable lulus; keputusan reviewer dicatat beserta sumber dan batas pemeriksaannya.
 
 ## 2. Pemisahan canonical dan terjemahan
 

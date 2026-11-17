@@ -696,11 +696,11 @@
       }
     },
     "ee489861-5b62-5d9d-88ae-8e1ad540d027": {
-      "contentRevision": 1,
+      "contentRevision": 2,
       "localizations": {
         "en": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -709,6 +709,13 @@
               "externalId": "bilingual-n5-existing-01:ee489861-5b62-5d9d-88ae-8e1ad540d027:en",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: audited English baseline."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:ee489861-5b62-5d9d-88ae-8e1ad540d027:en",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Excuse me for entering",
@@ -719,8 +726,8 @@
           "explanation": "<p>Say <span class=\"text-emphasis\">しつれいします</span> when entering a teacher's room or office politely.</p>"
         },
         "id": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -729,6 +736,13 @@
               "externalId": "bilingual-n5-existing-01:ee489861-5b62-5d9d-88ae-8e1ad540d027:id",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:ee489861-5b62-5d9d-88ae-8e1ad540d027:id",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Permisi masuk",
@@ -2895,11 +2909,11 @@
       }
     },
     "e2428888-83a2-5189-9b4f-02bccb94f3b7": {
-      "contentRevision": 1,
+      "contentRevision": 2,
       "localizations": {
         "en": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -2908,18 +2922,25 @@
               "externalId": "bilingual-n5-existing-01:e2428888-83a2-5189-9b4f-02bccb94f3b7:en",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: audited English baseline."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:e2428888-83a2-5189-9b4f-02bccb94f3b7:en",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Independent bilingual review removed a hint that spelled out the answer. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Complete the conversational polite negative",
           "hintTexts": [
             "<p>A: Is Ms. Sato a doctor? B: No, she is <span class=\"text-emphasis\">not a doctor</span>. She is a nurse.</p>",
-            "<p>The response uses the conversational polite form <span class=\"text-emphasis\">じゃありません</span>.</p>"
+            "<p>The reply politely rejects a present identity. The conversational contraction is already before the blank.</p>"
           ],
           "explanation": "<p>After <span class=\"text-emphasis\">じゃ</span>, add <span class=\"text-emphasis\">ありません</span> to complete the conversational polite negative <span class=\"text-emphasis\">じゃありません</span>.</p>"
         },
         "id": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -2928,12 +2949,19 @@
               "externalId": "bilingual-n5-existing-01:e2428888-83a2-5189-9b4f-02bccb94f3b7:id",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:e2428888-83a2-5189-9b4f-02bccb94f3b7:id",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Independent bilingual review removed a hint that spelled out the answer. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Lengkapi negatif sopan percakapan",
           "hintTexts": [
             "<p>A: Apakah Bu Sato seorang dokter? B: Tidak, beliau <span class=\"text-emphasis\">bukan dokter</span>. Beliau seorang perawat.</p>",
-            "<p>Jawaban memakai bentuk sopan percakapan <span class=\"text-emphasis\">じゃありません</span>.</p>"
+            "<p>Jawaban menyangkal identitas saat ini dengan sopan. Bentuk singkat percakapan sudah ada sebelum bagian kosong.</p>"
           ],
           "explanation": "<p>Setelah <span class=\"text-emphasis\">じゃ</span>, tambahkan <span class=\"text-emphasis\">ありません</span> untuk melengkapi negatif sopan percakapan <span class=\"text-emphasis\">じゃありません</span>.</p>"
         }
@@ -3210,11 +3238,11 @@
       }
     },
     "06713a0b-506b-5852-be82-9c58682229e6": {
-      "contentRevision": 1,
+      "contentRevision": 2,
       "localizations": {
         "en": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -3223,18 +3251,25 @@
               "externalId": "bilingual-n5-existing-01:06713a0b-506b-5852-be82-9c58682229e6:en",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: audited English baseline."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:06713a0b-506b-5852-be82-9c58682229e6:en",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Independent bilingual review removed a hint that spelled out the answer. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Complete the conversational polite negative past",
           "hintTexts": [
             "<p>A: Was this room a library before? B: No, it <span class=\"text-emphasis\">was not a library</span>. It was a classroom.</p>",
-            "<p>The answer uses the conversational polite negative past form <span class=\"text-emphasis\">じゃありませんでした</span>.</p>"
+            "<p>The question is about the past. Complete the conversational polite negative ending after the contraction already shown.</p>"
           ],
           "explanation": "<p>After <span class=\"text-emphasis\">じゃ</span>, add <span class=\"text-emphasis\">ありませんでした</span> to complete the polite negative past form.</p>"
         },
         "id": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -3243,12 +3278,19 @@
               "externalId": "bilingual-n5-existing-01:06713a0b-506b-5852-be82-9c58682229e6:id",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:06713a0b-506b-5852-be82-9c58682229e6:id",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Independent bilingual review removed a hint that spelled out the answer. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Lengkapi negatif lampau sopan percakapan",
           "hintTexts": [
             "<p>A: Apakah dahulu ruangan ini perpustakaan? B: Tidak, ruangan ini <span class=\"text-emphasis\">bukan perpustakaan</span>. Dahulu ini ruang kelas.</p>",
-            "<p>Jawaban memakai bentuk negatif lampau sopan percakapan <span class=\"text-emphasis\">じゃありませんでした</span>.</p>"
+            "<p>Pertanyaan membahas masa lampau. Lengkapi akhiran negatif lampau sopan setelah bentuk singkat yang sudah ditampilkan.</p>"
           ],
           "explanation": "<p>Setelah <span class=\"text-emphasis\">じゃ</span>, tambahkan <span class=\"text-emphasis\">ありませんでした</span> untuk melengkapi bentuk negatif lampau sopan.</p>"
         }
@@ -3883,11 +3925,11 @@
       }
     },
     "b038c3be-cc0d-5020-9780-e6b06298e440": {
-      "contentRevision": 1,
+      "contentRevision": 2,
       "localizations": {
         "en": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -3896,6 +3938,13 @@
               "externalId": "bilingual-n5-existing-01:b038c3be-cc0d-5020-9780-e6b06298e440:en",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: audited English baseline."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:b038c3be-cc0d-5020-9780-e6b06298e440:en",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "University student",
@@ -3906,8 +3955,8 @@
           "explanation": "<p><span class=\"text-emphasis\">大学生（だいがくせい）</span> means “university student.”</p>"
         },
         "id": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -3916,6 +3965,13 @@
               "externalId": "bilingual-n5-existing-01:b038c3be-cc0d-5020-9780-e6b06298e440:id",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:b038c3be-cc0d-5020-9780-e6b06298e440:id",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Mahasiswa",
@@ -4018,11 +4074,11 @@
       }
     },
     "fd584302-ed2d-5480-91c7-f72691e2dd80": {
-      "contentRevision": 1,
+      "contentRevision": 2,
       "localizations": {
         "en": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -4031,6 +4087,13 @@
               "externalId": "bilingual-n5-existing-01:fd584302-ed2d-5480-91c7-f72691e2dd80:en",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: audited English baseline."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:fd584302-ed2d-5480-91c7-f72691e2dd80:en",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Indonesian",
@@ -4041,8 +4104,8 @@
           "explanation": "<p>Add <span class=\"text-emphasis\">人（じん）</span> after the country name: <span class=\"text-emphasis\">インドネシア人</span>.</p>"
         },
         "id": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -4051,6 +4114,13 @@
               "externalId": "bilingual-n5-existing-01:fd584302-ed2d-5480-91c7-f72691e2dd80:id",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:fd584302-ed2d-5480-91c7-f72691e2dd80:id",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Orang Indonesia",
@@ -5309,11 +5379,11 @@
       }
     },
     "745dcf70-a820-5eff-a400-eae03ef141d5": {
-      "contentRevision": 2,
+      "contentRevision": 3,
       "localizations": {
         "en": {
-          "sourceRevision": 2,
-          "translationRevision": 1,
+          "sourceRevision": 3,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -5322,18 +5392,25 @@
               "externalId": "bilingual-n5-existing-01:745dcf70-a820-5eff-a400-eae03ef141d5:en",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: audited English baseline."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:745dcf70-a820-5eff-a400-eae03ef141d5:en",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Independent bilingual review removed a hint that spelled out the answer. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "This, from speaker B’s viewpoint",
           "hintTexts": [
             "<p>A: “Whose bag is that?” B holds the bag and answers: “<span class=\"text-emphasis\">This</span> is mine.”</p>",
-            "<p>A uses それ because the bag is near B. When B speaks, the same bag becomes これ.</p>"
+            "<p>The bag is in B’s hands. Choose the standalone pointing word from B’s viewpoint as the new speaker.</p>"
           ],
           "explanation": "<p>The object changes from <span class=\"text-emphasis\">それ</span> for A to <span class=\"text-emphasis\">これ</span> for B because it is in B’s hands.</p>"
         },
         "id": {
-          "sourceRevision": 2,
-          "translationRevision": 1,
+          "sourceRevision": 3,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -5342,23 +5419,30 @@
               "externalId": "bilingual-n5-existing-01:745dcf70-a820-5eff-a400-eae03ef141d5:id",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:745dcf70-a820-5eff-a400-eae03ef141d5:id",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Independent bilingual review removed a hint that spelled out the answer. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Ini, dari sudut pandang B",
           "hintTexts": [
             "<p>A: “Tas siapa itu?” B memegang tas dan menjawab: “<span class=\"text-emphasis\">Ini</span> milik saya.”</p>",
-            "<p>A menggunakan それ karena tas dekat B. Saat B berbicara, tas yang sama menjadi これ.</p>"
+            "<p>Tas dipegang B. Pilih kata penunjuk yang berdiri sendiri dari sudut pandang B sebagai pembicara baru.</p>"
           ],
           "explanation": "<p>Benda berubah dari <span class=\"text-emphasis\">それ</span> bagi A menjadi <span class=\"text-emphasis\">これ</span> bagi B karena dipegang B.</p>"
         }
       }
     },
     "81f3aafb-3557-5880-97d8-0598f05bd33e": {
-      "contentRevision": 1,
+      "contentRevision": 2,
       "localizations": {
         "en": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -5367,6 +5451,13 @@
               "externalId": "bilingual-n5-existing-01:81f3aafb-3557-5880-97d8-0598f05bd33e:en",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: audited English baseline."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:81f3aafb-3557-5880-97d8-0598f05bd33e:en",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Which one?",
@@ -5377,8 +5468,8 @@
           "explanation": "<p>Use <span class=\"text-emphasis\">どれ</span> to ask “which one?” without placing a noun directly after it.</p>"
         },
         "id": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -5387,6 +5478,13 @@
               "externalId": "bilingual-n5-existing-01:81f3aafb-3557-5880-97d8-0598f05bd33e:id",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:81f3aafb-3557-5880-97d8-0598f05bd33e:id",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Yang mana?",
@@ -5489,11 +5587,11 @@
       }
     },
     "7c34d070-5073-5cf8-9bd6-f6ab373072ec": {
-      "contentRevision": 1,
+      "contentRevision": 2,
       "localizations": {
         "en": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -5502,6 +5600,13 @@
               "externalId": "bilingual-n5-existing-01:7c34d070-5073-5cf8-9bd6-f6ab373072ec:en",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: audited English baseline."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:7c34d070-5073-5cf8-9bd6-f6ab373072ec:en",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Which one?",
@@ -5512,8 +5617,8 @@
           "explanation": "<p>Use <span class=\"text-emphasis\">どれ</span> to ask which single item is the correct one among several choices.</p>"
         },
         "id": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -5522,6 +5627,13 @@
               "externalId": "bilingual-n5-existing-01:7c34d070-5073-5cf8-9bd6-f6ab373072ec:id",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:7c34d070-5073-5cf8-9bd6-f6ab373072ec:id",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Yang mana?",
@@ -5534,11 +5646,11 @@
       }
     },
     "1dca1e7b-2713-5b7d-bfa1-7bd65f2491ec": {
-      "contentRevision": 2,
+      "contentRevision": 3,
       "localizations": {
         "en": {
-          "sourceRevision": 2,
-          "translationRevision": 1,
+          "sourceRevision": 3,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -5547,18 +5659,25 @@
               "externalId": "bilingual-n5-existing-01:1dca1e7b-2713-5b7d-bfa1-7bd65f2491ec:en",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: audited English baseline."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:1dca1e7b-2713-5b7d-bfa1-7bd65f2491ec:en",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Independent bilingual review removed a hint that spelled out the answer. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "This, now near speaker A",
           "hintTexts": [
             "<p>In the classroom, A is holding a notebook. B: “Is that the teacher’s notebook?” A: “No, <span class=\"text-emphasis\">this</span> is mine. The teacher’s notebook is by the window.”</p>",
-            "<p>B calls the notebook それ because it is near A. When A answers, A calls the same notebook これ.</p>"
+            "<p>A is holding the notebook. Choose the standalone pointing word from A’s viewpoint when A replies.</p>"
           ],
           "explanation": "<p>This question tests a viewpoint shift. B uses <span class=\"text-emphasis\">それ</span> for the notebook near A, while A uses <span class=\"text-emphasis\">これ</span> because A is holding it.</p>"
         },
         "id": {
-          "sourceRevision": 2,
-          "translationRevision": 1,
+          "sourceRevision": 3,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -5567,12 +5686,19 @@
               "externalId": "bilingual-n5-existing-01:1dca1e7b-2713-5b7d-bfa1-7bd65f2491ec:id",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:1dca1e7b-2713-5b7d-bfa1-7bd65f2491ec:id",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Independent bilingual review removed a hint that spelled out the answer. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Ini, kini dekat pembicara A",
           "hintTexts": [
             "<p>Di kelas, A memegang buku catatan. B: “Apakah itu buku catatan guru?” A: “Tidak, <span class=\"text-emphasis\">ini</span> milik saya. Buku catatan guru dekat jendela.”</p>",
-            "<p>B menyebutnya それ karena dekat A. Saat A menjawab, ia menyebut buku yang sama これ.</p>"
+            "<p>A memegang buku catatan. Pilih kata penunjuk yang berdiri sendiri dari sudut pandang A ketika A menjawab.</p>"
           ],
           "explanation": "<p>Soal ini menguji perubahan sudut pandang. B menggunakan <span class=\"text-emphasis\">それ</span> untuk buku dekat A, sedangkan A menggunakan <span class=\"text-emphasis\">これ</span> karena memegangnya.</p>"
         }
@@ -6121,45 +6247,6 @@
         }
       }
     },
-    "fb10b09b-faa8-5abe-997f-7ce46da6a81d": {
-      "contentRevision": 1,
-      "localizations": {
-        "en": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
-          "isPublished": true,
-          "sourceRefs": [
-            {
-              "provider": "KOTOBAHUB_INTERNAL",
-              "category": "BILINGUAL_EDITORIAL",
-              "externalId": "bilingual-n5-existing-01:fb10b09b-faa8-5abe-997f-7ce46da6a81d:en",
-              "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
-              "notes": "BIL-02: audited English baseline."
-            }
-          ],
-          "ALL": "<p><span class=\"text-emphasis\">この</span> + Noun — this noun near the speaker<br><span class=\"text-emphasis\">その</span> + Noun — that noun near the listener<br><span class=\"text-emphasis\">あの</span> + Noun — that noun away from both people<br><span class=\"text-emphasis\">どの</span> + Noun — which noun</p>",
-          "STANDARD": null,
-          "POLITE": null
-        },
-        "id": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
-          "isPublished": true,
-          "sourceRefs": [
-            {
-              "provider": "KOTOBAHUB_INTERNAL",
-              "category": "BILINGUAL_EDITORIAL",
-              "externalId": "bilingual-n5-existing-01:fb10b09b-faa8-5abe-997f-7ce46da6a81d:id",
-              "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
-              "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
-            }
-          ],
-          "ALL": "<p><span class=\"text-emphasis\">この</span> + Kata benda — benda ini dekat pembicara<br><span class=\"text-emphasis\">その</span> + Kata benda — benda itu dekat pendengar<br><span class=\"text-emphasis\">あの</span> + Kata benda — benda itu jauh dari keduanya<br><span class=\"text-emphasis\">どの</span> + Kata benda — benda yang mana</p>",
-          "STANDARD": null,
-          "POLITE": null
-        }
-      }
-    },
     "7538bc66-2b57-5df0-a35f-ef1ed663fd45": {
       "contentRevision": 1,
       "localizations": {
@@ -6414,11 +6501,11 @@
       }
     },
     "d2ddb742-b2eb-5ed7-9560-bf80a19b455b": {
-      "contentRevision": 1,
+      "contentRevision": 2,
       "localizations": {
         "en": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -6427,6 +6514,13 @@
               "externalId": "bilingual-n5-existing-01:d2ddb742-b2eb-5ed7-9560-bf80a19b455b:en",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: audited English baseline."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:d2ddb742-b2eb-5ed7-9560-bf80a19b455b:en",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "This, near the speaker",
@@ -6437,8 +6531,8 @@
           "explanation": "<p>Use <span class=\"text-emphasis\">この + noun</span> for a noun close to the speaker.</p>"
         },
         "id": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -6447,6 +6541,13 @@
               "externalId": "bilingual-n5-existing-01:d2ddb742-b2eb-5ed7-9560-bf80a19b455b:id",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:d2ddb742-b2eb-5ed7-9560-bf80a19b455b:id",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Ini, dekat pembicara",
@@ -6549,11 +6650,11 @@
       }
     },
     "c18d98a9-b00f-59b7-9141-b8a88e6090ab": {
-      "contentRevision": 1,
+      "contentRevision": 2,
       "localizations": {
         "en": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -6562,6 +6663,13 @@
               "externalId": "bilingual-n5-existing-01:c18d98a9-b00f-59b7-9141-b8a88e6090ab:en",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: audited English baseline."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:c18d98a9-b00f-59b7-9141-b8a88e6090ab:en",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Which bag",
@@ -6572,8 +6680,8 @@
           "explanation": "<p>Use <span class=\"text-emphasis\">どの + noun</span> when asking which member of a group is meant.</p>"
         },
         "id": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -6582,6 +6690,13 @@
               "externalId": "bilingual-n5-existing-01:c18d98a9-b00f-59b7-9141-b8a88e6090ab:id",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:c18d98a9-b00f-59b7-9141-b8a88e6090ab:id",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Tas yang mana",
@@ -6594,11 +6709,11 @@
       }
     },
     "d12fa1ae-b3ce-5ce1-8189-78eb190eb77b": {
-      "contentRevision": 1,
+      "contentRevision": 2,
       "localizations": {
         "en": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -6607,6 +6722,13 @@
               "externalId": "bilingual-n5-existing-01:d12fa1ae-b3ce-5ce1-8189-78eb190eb77b:en",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: audited English baseline."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:d12fa1ae-b3ce-5ce1-8189-78eb190eb77b:en",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "This pen, near the clerk",
@@ -6617,8 +6739,8 @@
           "explanation": "<p>From the clerk’s viewpoint, the pen is nearby, so <span class=\"text-emphasis\">このペン</span> is natural. The customer then refers to it as <span class=\"text-emphasis\">それ</span>.</p>"
         },
         "id": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -6627,6 +6749,13 @@
               "externalId": "bilingual-n5-existing-01:d12fa1ae-b3ce-5ce1-8189-78eb190eb77b:id",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:d12fa1ae-b3ce-5ce1-8189-78eb190eb77b:id",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Pena ini, dekat penjual",
@@ -6729,11 +6858,11 @@
       }
     },
     "b134f410-01ef-5ead-914b-5a2e171e71bb": {
-      "contentRevision": 1,
+      "contentRevision": 2,
       "localizations": {
         "en": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -6742,6 +6871,13 @@
               "externalId": "bilingual-n5-existing-01:b134f410-01ef-5ead-914b-5a2e171e71bb:en",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: audited English baseline."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:b134f410-01ef-5ead-914b-5a2e171e71bb:en",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Which student",
@@ -6752,8 +6888,8 @@
           "explanation": "<p>Because <span class=\"text-emphasis\">学生</span> is stated after the question word, use the modifier <span class=\"text-emphasis\">どの</span>, not the standalone pronoun <span class=\"text-emphasis\">どれ</span>.</p>"
         },
         "id": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -6762,6 +6898,13 @@
               "externalId": "bilingual-n5-existing-01:b134f410-01ef-5ead-914b-5a2e171e71bb:id",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:b134f410-01ef-5ead-914b-5a2e171e71bb:id",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Pelajar yang mana",
@@ -6819,11 +6962,11 @@
       }
     },
     "7b8f0fec-5519-5abf-b98e-88dcbd3a8fed": {
-      "contentRevision": 1,
+      "contentRevision": 2,
       "localizations": {
         "en": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -6832,6 +6975,13 @@
               "externalId": "bilingual-n5-existing-01:7b8f0fec-5519-5abf-b98e-88dcbd3a8fed:en",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: audited English baseline."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:7b8f0fec-5519-5abf-b98e-88dcbd3a8fed:en",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Which coat",
@@ -6842,8 +6992,8 @@
           "explanation": "<p>Use <span class=\"text-emphasis\">どのコート</span> because the customer is asking which one among several coats costs 5,000 yen.</p>"
         },
         "id": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -6852,6 +7002,13 @@
               "externalId": "bilingual-n5-existing-01:7b8f0fec-5519-5abf-b98e-88dcbd3a8fed:id",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:7b8f0fec-5519-5abf-b98e-88dcbd3a8fed:id",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Mantel yang mana",
@@ -6917,11 +7074,11 @@
       }
     },
     "d462d224-7999-5e7c-b4ac-e31e4a9bc5e8": {
-      "contentRevision": 1,
+      "contentRevision": 2,
       "localizations": {
         "en": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -6930,6 +7087,13 @@
               "externalId": "bilingual-n5-existing-01:d462d224-7999-5e7c-b4ac-e31e4a9bc5e8:en",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: audited English baseline."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:prerequisite:d462d224-7999-5e7c-b4ac-e31e4a9bc5e8:en",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Replaced the retired wrong-lexeme prerequisite with the verified lesson-owned intended lexeme; existing identity, lexical content and support flags preserved."
             }
           ],
           "title": "其の",
@@ -6945,8 +7109,8 @@
           }
         },
         "id": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -6955,6 +7119,13 @@
               "externalId": "bilingual-n5-existing-01:d462d224-7999-5e7c-b4ac-e31e4a9bc5e8:id",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:prerequisite:d462d224-7999-5e7c-b4ac-e31e4a9bc5e8:id",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Replaced the retired wrong-lexeme prerequisite with the verified lesson-owned intended lexeme; existing identity, lexical content and support flags preserved."
             }
           ],
           "title": "其の",
@@ -7408,45 +7579,6 @@
         }
       }
     },
-    "0ecf2c1b-cf4d-5360-9439-c70dca77c65f": {
-      "contentRevision": 1,
-      "localizations": {
-        "en": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
-          "isPublished": true,
-          "sourceRefs": [
-            {
-              "provider": "KOTOBAHUB_INTERNAL",
-              "category": "BILINGUAL_EDITORIAL",
-              "externalId": "bilingual-n5-existing-01:0ecf2c1b-cf4d-5360-9439-c70dca77c65f:en",
-              "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
-              "notes": "BIL-02: audited English baseline."
-            }
-          ],
-          "ALL": "<p><span class=\"text-emphasis\">ここ</span> — here, near the speaker<br><span class=\"text-emphasis\">そこ</span> — there, near the listener<br><span class=\"text-emphasis\">あそこ</span> — over there, away from both people</p>",
-          "STANDARD": null,
-          "POLITE": null
-        },
-        "id": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
-          "isPublished": true,
-          "sourceRefs": [
-            {
-              "provider": "KOTOBAHUB_INTERNAL",
-              "category": "BILINGUAL_EDITORIAL",
-              "externalId": "bilingual-n5-existing-01:0ecf2c1b-cf4d-5360-9439-c70dca77c65f:id",
-              "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
-              "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
-            }
-          ],
-          "ALL": "<p><span class=\"text-emphasis\">ここ</span> — sini, dekat pembicara<br><span class=\"text-emphasis\">そこ</span> — situ, dekat pendengar<br><span class=\"text-emphasis\">あそこ</span> — sana, jauh dari keduanya</p>",
-          "STANDARD": null,
-          "POLITE": null
-        }
-      }
-    },
     "2e5dece7-867e-5d92-adb7-df7c88ad9d98": {
       "contentRevision": 1,
       "localizations": {
@@ -7553,45 +7685,6 @@
           ],
           "title": "Menanyakan Letak Sesuatu",
           "body": "<p>Gunakan <span class=\"text-emphasis\">どこ</span> jika lokasinya belum diketahui. Pola <span class=\"text-emphasis\">kata benda は どこですか</span> berarti “Di mana kata benda tersebut?” Jawabannya dapat berupa <span class=\"text-emphasis\">ここです</span>, <span class=\"text-emphasis\">そこです</span>, atau <span class=\"text-emphasis\">あそこです</span>.</p>"
-        }
-      }
-    },
-    "40a4806b-8415-5f3d-8510-193c10715420": {
-      "contentRevision": 2,
-      "localizations": {
-        "en": {
-          "sourceRevision": 2,
-          "translationRevision": 1,
-          "isPublished": true,
-          "sourceRefs": [
-            {
-              "provider": "KOTOBAHUB_INTERNAL",
-              "category": "BILINGUAL_EDITORIAL",
-              "externalId": "bilingual-n5-existing-01:40a4806b-8415-5f3d-8510-193c10715420:en",
-              "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
-              "notes": "BIL-02: audited English baseline."
-            }
-          ],
-          "ALL": "<p>Noun + <span class=\"text-warning\">は</span> + <span class=\"text-emphasis\">どこ</span> + ですか<br><span class=\"text-emphasis\">ここ</span> / <span class=\"text-emphasis\">そこ</span> / <span class=\"text-emphasis\">あそこ</span> + です</p>",
-          "STANDARD": null,
-          "POLITE": null
-        },
-        "id": {
-          "sourceRevision": 2,
-          "translationRevision": 1,
-          "isPublished": true,
-          "sourceRefs": [
-            {
-              "provider": "KOTOBAHUB_INTERNAL",
-              "category": "BILINGUAL_EDITORIAL",
-              "externalId": "bilingual-n5-existing-01:40a4806b-8415-5f3d-8510-193c10715420:id",
-              "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
-              "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
-            }
-          ],
-          "ALL": "<p>Kata benda + <span class=\"text-warning\">は</span> + <span class=\"text-emphasis\">どこ</span> + ですか<br><span class=\"text-emphasis\">ここ</span> / <span class=\"text-emphasis\">そこ</span> / <span class=\"text-emphasis\">あそこ</span> + です</p>",
-          "STANDARD": null,
-          "POLITE": null
         }
       }
     },
@@ -8806,45 +8899,6 @@
         }
       }
     },
-    "4133f29f-c96b-510c-a9c5-84b777868460": {
-      "contentRevision": 2,
-      "localizations": {
-        "en": {
-          "sourceRevision": 2,
-          "translationRevision": 1,
-          "isPublished": true,
-          "sourceRefs": [
-            {
-              "provider": "KOTOBAHUB_INTERNAL",
-              "category": "BILINGUAL_EDITORIAL",
-              "externalId": "bilingual-n5-existing-01:4133f29f-c96b-510c-a9c5-84b777868460:en",
-              "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
-              "notes": "BIL-02: audited English baseline."
-            }
-          ],
-          "ALL": "<p>Noun + <span class=\"text-warning\">は</span> + <span class=\"text-emphasis\">だれ</span> + ですか<br><span class=\"text-emphasis\">だれ</span> + ですか</p>",
-          "STANDARD": null,
-          "POLITE": null
-        },
-        "id": {
-          "sourceRevision": 2,
-          "translationRevision": 1,
-          "isPublished": true,
-          "sourceRefs": [
-            {
-              "provider": "KOTOBAHUB_INTERNAL",
-              "category": "BILINGUAL_EDITORIAL",
-              "externalId": "bilingual-n5-existing-01:4133f29f-c96b-510c-a9c5-84b777868460:id",
-              "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
-              "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
-            }
-          ],
-          "ALL": "<p>Kata benda + <span class=\"text-warning\">は</span> + <span class=\"text-emphasis\">だれ</span> + ですか<br><span class=\"text-emphasis\">だれ</span> + ですか</p>",
-          "STANDARD": null,
-          "POLITE": null
-        }
-      }
-    },
     "eb25e125-685b-5e97-981a-09f701dae782": {
       "contentRevision": 1,
       "localizations": {
@@ -8917,45 +8971,6 @@
         }
       }
     },
-    "6a661297-679e-5d65-a9f9-8d2f32f29edf": {
-      "contentRevision": 2,
-      "localizations": {
-        "en": {
-          "sourceRevision": 2,
-          "translationRevision": 1,
-          "isPublished": true,
-          "sourceRefs": [
-            {
-              "provider": "KOTOBAHUB_INTERNAL",
-              "category": "BILINGUAL_EDITORIAL",
-              "externalId": "bilingual-n5-existing-01:6a661297-679e-5d65-a9f9-8d2f32f29edf:en",
-              "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
-              "notes": "BIL-02: audited English baseline."
-            }
-          ],
-          "ALL": "<p><span class=\"text-emphasis\">だれ</span> + <span class=\"text-warning\">の</span> + Noun + ですか<br>Noun + <span class=\"text-warning\">は</span> + <span class=\"text-emphasis\">だれ</span> + <span class=\"text-warning\">の</span> + ですか</p>",
-          "STANDARD": null,
-          "POLITE": null
-        },
-        "id": {
-          "sourceRevision": 2,
-          "translationRevision": 1,
-          "isPublished": true,
-          "sourceRefs": [
-            {
-              "provider": "KOTOBAHUB_INTERNAL",
-              "category": "BILINGUAL_EDITORIAL",
-              "externalId": "bilingual-n5-existing-01:6a661297-679e-5d65-a9f9-8d2f32f29edf:id",
-              "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
-              "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
-            }
-          ],
-          "ALL": "<p><span class=\"text-emphasis\">だれ</span> + <span class=\"text-warning\">の</span> + Kata benda + ですか<br>Kata benda + <span class=\"text-warning\">は</span> + <span class=\"text-emphasis\">だれ</span> + <span class=\"text-warning\">の</span> + ですか</p>",
-          "STANDARD": null,
-          "POLITE": null
-        }
-      }
-    },
     "8090e234-f316-575e-ba39-57a59cccdddc": {
       "contentRevision": 1,
       "localizations": {
@@ -8990,45 +9005,6 @@
           ],
           "title": "Memilih Satu dengan どれ",
           "body": "<p>Gunakan <span class=\"text-emphasis\">どれ</span> ketika ada beberapa benda yang terlihat atau dipahami bersama dan Anda ingin bertanya “yang mana?” Karena <span class=\"text-emphasis\">どれ</span> berdiri sendiri, jangan langsung menambahkan kata benda setelahnya. Pola yang berguna adalah <span class=\"text-emphasis\">kata benda は どれですか</span>.</p>"
-        }
-      }
-    },
-    "87eba7a4-20a5-5b86-88bb-73801a250b09": {
-      "contentRevision": 2,
-      "localizations": {
-        "en": {
-          "sourceRevision": 2,
-          "translationRevision": 1,
-          "isPublished": true,
-          "sourceRefs": [
-            {
-              "provider": "KOTOBAHUB_INTERNAL",
-              "category": "BILINGUAL_EDITORIAL",
-              "externalId": "bilingual-n5-existing-01:87eba7a4-20a5-5b86-88bb-73801a250b09:en",
-              "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
-              "notes": "BIL-02: audited English baseline."
-            }
-          ],
-          "ALL": "<p>Noun + <span class=\"text-warning\">は</span> + <span class=\"text-emphasis\">どれ</span> + ですか<br><span class=\"text-emphasis\">どれ</span> + にしますか</p>",
-          "STANDARD": null,
-          "POLITE": null
-        },
-        "id": {
-          "sourceRevision": 2,
-          "translationRevision": 1,
-          "isPublished": true,
-          "sourceRefs": [
-            {
-              "provider": "KOTOBAHUB_INTERNAL",
-              "category": "BILINGUAL_EDITORIAL",
-              "externalId": "bilingual-n5-existing-01:87eba7a4-20a5-5b86-88bb-73801a250b09:id",
-              "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
-              "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
-            }
-          ],
-          "ALL": "<p>Kata benda + <span class=\"text-warning\">は</span> + <span class=\"text-emphasis\">どれ</span> + ですか<br><span class=\"text-emphasis\">どれ</span> + にしますか</p>",
-          "STANDARD": null,
-          "POLITE": null
         }
       }
     },
@@ -9101,45 +9077,6 @@
           ],
           "title": "Menggunakan どの Sebelum Kata Benda",
           "body": "<p>Gunakan <span class=\"text-emphasis\">どの</span> ketika kata bendanya masih perlu disebutkan. Kata ini harus langsung mendahului kata benda, seperti <span class=\"text-emphasis\">どの本</span> (“buku mana”) atau <span class=\"text-emphasis\">どの人</span> (“orang yang mana”). Berbeda dari <span class=\"text-emphasis\">どれ</span>, <span class=\"text-emphasis\">どの</span> tidak dapat berdiri sendiri.</p>"
-        }
-      }
-    },
-    "dfa29085-7639-5aca-8a6f-b297b16ff7b2": {
-      "contentRevision": 1,
-      "localizations": {
-        "en": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
-          "isPublished": true,
-          "sourceRefs": [
-            {
-              "provider": "KOTOBAHUB_INTERNAL",
-              "category": "BILINGUAL_EDITORIAL",
-              "externalId": "bilingual-n5-existing-01:dfa29085-7639-5aca-8a6f-b297b16ff7b2:en",
-              "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
-              "notes": "BIL-02: audited English baseline."
-            }
-          ],
-          "ALL": "<p><span class=\"text-emphasis\">どの</span> + Noun + ですか<br><span class=\"text-emphasis\">どの</span> + Noun + <span class=\"text-warning\">を</span> + Verb<br>Noun + <span class=\"text-warning\">は</span> + <span class=\"text-emphasis\">どの</span> + Noun + ですか</p>",
-          "STANDARD": null,
-          "POLITE": null
-        },
-        "id": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
-          "isPublished": true,
-          "sourceRefs": [
-            {
-              "provider": "KOTOBAHUB_INTERNAL",
-              "category": "BILINGUAL_EDITORIAL",
-              "externalId": "bilingual-n5-existing-01:dfa29085-7639-5aca-8a6f-b297b16ff7b2:id",
-              "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
-              "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
-            }
-          ],
-          "ALL": "<p><span class=\"text-emphasis\">どの</span> + Kata benda + ですか<br><span class=\"text-emphasis\">どの</span> + Kata benda + <span class=\"text-warning\">を</span> + Kata kerja<br>Kata benda + <span class=\"text-warning\">は</span> + <span class=\"text-emphasis\">どの</span> + Kata benda + ですか</p>",
-          "STANDARD": null,
-          "POLITE": null
         }
       }
     },
@@ -9306,11 +9243,11 @@
       }
     },
     "18a4ebec-cdad-5737-860a-ccccc90c45b9": {
-      "contentRevision": 1,
+      "contentRevision": 2,
       "localizations": {
         "en": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -9319,6 +9256,13 @@
               "externalId": "bilingual-n5-existing-01:18a4ebec-cdad-5737-860a-ccccc90c45b9:en",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: audited English baseline."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:18a4ebec-cdad-5737-860a-ccccc90c45b9:en",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Which book",
@@ -9329,8 +9273,8 @@
           "explanation": "<p>Use <span class=\"text-emphasis\">どの</span> directly before a noun: <span class=\"text-emphasis\">どの本</span>.</p>"
         },
         "id": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -9339,6 +9283,13 @@
               "externalId": "bilingual-n5-existing-01:18a4ebec-cdad-5737-860a-ccccc90c45b9:id",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:18a4ebec-cdad-5737-860a-ccccc90c45b9:id",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Buku yang mana",
@@ -9441,11 +9392,11 @@
       }
     },
     "8f5f40f7-09d9-58a2-85fd-11f41285df4e": {
-      "contentRevision": 1,
+      "contentRevision": 2,
       "localizations": {
         "en": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -9454,6 +9405,13 @@
               "externalId": "bilingual-n5-existing-01:8f5f40f7-09d9-58a2-85fd-11f41285df4e:en",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: audited English baseline."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:8f5f40f7-09d9-58a2-85fd-11f41285df4e:en",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Which restaurant or shop",
@@ -9464,8 +9422,8 @@
           "explanation": "<p><span class=\"text-emphasis\">どの</span> must be used because it directly modifies <span class=\"text-emphasis\">店</span>.</p>"
         },
         "id": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -9474,6 +9432,13 @@
               "externalId": "bilingual-n5-existing-01:8f5f40f7-09d9-58a2-85fd-11f41285df4e:id",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:8f5f40f7-09d9-58a2-85fd-11f41285df4e:id",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Tempat makan atau toko yang mana",
@@ -9576,11 +9541,11 @@
       }
     },
     "61f69a90-29da-572c-9cc5-dc525e623ad4": {
-      "contentRevision": 1,
+      "contentRevision": 2,
       "localizations": {
         "en": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -9589,6 +9554,13 @@
               "externalId": "bilingual-n5-existing-01:61f69a90-29da-572c-9cc5-dc525e623ad4:en",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: audited English baseline."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:61f69a90-29da-572c-9cc5-dc525e623ad4:en",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Which person",
@@ -9599,8 +9571,8 @@
           "explanation": "<p>Use <span class=\"text-emphasis\">どの</span> before <span class=\"text-emphasis\">人</span>: <span class=\"text-emphasis\">どの人</span>.</p>"
         },
         "id": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -9609,6 +9581,13 @@
               "externalId": "bilingual-n5-existing-01:61f69a90-29da-572c-9cc5-dc525e623ad4:id",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:61f69a90-29da-572c-9cc5-dc525e623ad4:id",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Orang yang mana",
@@ -9621,11 +9600,11 @@
       }
     },
     "ed500231-c191-5e17-a4fc-368c4f738e1d": {
-      "contentRevision": 1,
+      "contentRevision": 2,
       "localizations": {
         "en": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -9634,6 +9613,13 @@
               "externalId": "bilingual-n5-existing-01:ed500231-c191-5e17-a4fc-368c4f738e1d:en",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: audited English baseline."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:ed500231-c191-5e17-a4fc-368c4f738e1d:en",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Which person",
@@ -9644,8 +9630,8 @@
           "explanation": "<p>The noun <span class=\"text-emphasis\">人</span> follows the blank, so the correct form is <span class=\"text-emphasis\">どの</span>.</p>"
         },
         "id": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -9654,6 +9640,13 @@
               "externalId": "bilingual-n5-existing-01:ed500231-c191-5e17-a4fc-368c4f738e1d:id",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:ed500231-c191-5e17-a4fc-368c4f738e1d:id",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Orang yang mana",
@@ -9827,11 +9820,11 @@
       }
     },
     "e4256c2b-c985-5367-b8f3-4ff25bee3365": {
-      "contentRevision": 1,
+      "contentRevision": 2,
       "localizations": {
         "en": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -9840,6 +9833,13 @@
               "externalId": "bilingual-n5-existing-01:e4256c2b-c985-5367-b8f3-4ff25bee3365:en",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: audited English baseline."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:prerequisite:e4256c2b-c985-5367-b8f3-4ff25bee3365:en",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Replaced the retired wrong-lexeme prerequisite with the verified lesson-owned intended lexeme; existing identity, lexical content and support flags preserved."
             }
           ],
           "title": "私",
@@ -9854,8 +9854,8 @@
           }
         },
         "id": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -9864,6 +9864,13 @@
               "externalId": "bilingual-n5-existing-01:e4256c2b-c985-5367-b8f3-4ff25bee3365:id",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:prerequisite:e4256c2b-c985-5367-b8f3-4ff25bee3365:id",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Replaced the retired wrong-lexeme prerequisite with the verified lesson-owned intended lexeme; existing identity, lexical content and support flags preserved."
             }
           ],
           "title": "私",
@@ -15401,11 +15408,11 @@
       }
     },
     "d3edbaa5-2313-57b8-8fb0-d7aa66aa0c8b": {
-      "contentRevision": 1,
+      "contentRevision": 2,
       "localizations": {
         "en": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -15414,6 +15421,13 @@
               "externalId": "bilingual-n5-existing-01:d3edbaa5-2313-57b8-8fb0-d7aa66aa0c8b:en",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: audited English baseline."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:d3edbaa5-2313-57b8-8fb0-d7aa66aa0c8b:en",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Go to bed, polite",
@@ -15424,8 +15438,8 @@
           "explanation": "<p><span class=\"text-emphasis\">ねます</span> is the polite non-past form used here for the routine “go to bed.”</p>"
         },
         "id": {
-          "sourceRevision": 1,
-          "translationRevision": 1,
+          "sourceRevision": 2,
+          "translationRevision": 2,
           "isPublished": true,
           "sourceRefs": [
             {
@@ -15434,6 +15448,13 @@
               "externalId": "bilingual-n5-existing-01:d3edbaa5-2313-57b8-8fb0-d7aa66aa0c8b:id",
               "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
               "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+            },
+            {
+              "provider": "KOTOBAHUB_INTERNAL",
+              "category": "CANONICAL_CURATION_REVIEW",
+              "externalId": "bilingual-n5-existing-01:2026-11-17:d3edbaa5-2313-57b8-8fb0-d7aa66aa0c8b:id",
+              "retrievedFrom": "docs/syllabus/bilingual-batch-01-curation.md",
+              "notes": "Same-lesson lexical attribution checked against the scoped curation sources. Japanese prompt and accepted answers preserved."
             }
           ],
           "placeholder": "Tidur, sopan",
@@ -20525,39 +20546,30 @@
     "34edaf6a-3539-5139-8ff8-3e04aa4aa9a4": "n5_which_one_dore_dore",
     "ba128cdd-6f68-5915-8c5e-d9e036dbbbf8": "n5_who_dare_dare",
     "27d7e1bb-ef4b-5183-a4dc-55a223fefafe": "n5_which_one_dore_dore",
-    "993d8091-1c6b-55d5-a173-984f8ba21d4e": "n5_vocab_daily_routine_verbs_nomu"
+    "993d8091-1c6b-55d5-a173-984f8ba21d4e": "n5_vocab_daily_routine_verbs_nomu",
+    "ee489861-5b62-5d9d-88ae-8e1ad540d027": "n5_vocab_greetings_and_polite_openers_shitsureishimasu",
+    "b038c3be-cc0d-5020-9780-e6b06298e440": "n5_vocab_identity_and_roles_daigakusei",
+    "fd584302-ed2d-5480-91c7-f72691e2dd80": "n5_vocab_identity_and_roles_indoneshiajin",
+    "81f3aafb-3557-5880-97d8-0598f05bd33e": "n5_kosoado_pronouns_dore",
+    "7c34d070-5073-5cf8-9bd6-f6ab373072ec": "n5_kosoado_pronouns_dore",
+    "d2ddb742-b2eb-5ed7-9560-bf80a19b455b": "n5_kosoado_modifiers_kono",
+    "d12fa1ae-b3ce-5ce1-8189-78eb190eb77b": "n5_kosoado_modifiers_kono",
+    "c18d98a9-b00f-59b7-9141-b8a88e6090ab": "n5_kosoado_modifiers_dono",
+    "b134f410-01ef-5ead-914b-5a2e171e71bb": "n5_kosoado_modifiers_dono",
+    "7b8f0fec-5519-5abf-b98e-88dcbd3a8fed": "n5_kosoado_modifiers_dono",
+    "18a4ebec-cdad-5737-860a-ccccc90c45b9": "n5_which_noun_dono_determiner",
+    "8f5f40f7-09d9-58a2-85fd-11f41285df4e": "n5_which_noun_dono_determiner",
+    "61f69a90-29da-572c-9cc5-dc525e623ad4": "n5_which_noun_dono_determiner",
+    "ed500231-c191-5e17-a4fc-368c4f738e1d": "n5_which_noun_dono_determiner",
+    "d3edbaa5-2313-57b8-8fb0-d7aa66aa0c8b": "n5_vocab_daily_routine_verbs_neru"
   },
-  "holds": {
-    "ee489861-5b62-5d9d-88ae-8e1ad540d027": "Tidak ada skill atomik untuk しつれいします dalam lesson; すみません bukan lexeme yang sama.",
-    "b038c3be-cc0d-5020-9780-e6b06298e440": "Jawaban だいがくせい memerlukan lexeme 大学生; skill 学生 hanya memuat がくせい. Jangan menganggap student dan university student identitas lexical yang sama.",
-    "fd584302-ed2d-5480-91c7-f72691e2dd80": "Tidak ada skill atomik インドネシア人; skill 日本人 merujuk kebangsaan berbeda.",
-    "81f3aafb-3557-5880-97d8-0598f05bd33e": "Skill どれ ada pada lesson choice-and-person-reference, bukan lesson ini; atribusi lintas lesson dilarang.",
-    "7c34d070-5073-5cf8-9bd6-f6ab373072ec": "Skill どれ tidak ada dalam lesson ini.",
-    "d2ddb742-b2eb-5ed7-9560-bf80a19b455b": "Skill n5_kosoado_modifiers_kyuu adalah 九 (angka sembilan). Reading この pada entry angka bukan pewatas この.",
-    "c18d98a9-b00f-59b7-9141-b8a88e6090ab": "Tidak ada skill atomik pewatas どの dalam lesson.",
-    "d12fa1ae-b3ce-5ce1-8189-78eb190eb77b": "Skill yang tersedia 九, bukan pewatas この.",
-    "b134f410-01ef-5ead-914b-5a2e171e71bb": "Tidak ada skill atomik pewatas どの dalam lesson.",
-    "7b8f0fec-5519-5abf-b98e-88dcbd3a8fed": "Tidak ada skill atomik pewatas どの dalam lesson.",
-    "18a4ebec-cdad-5737-860a-ccccc90c45b9": "Skill n5_which_noun_dono_dono memuat 殿 (suffix kehormatan), bukan pewatas どの.",
-    "8f5f40f7-09d9-58a2-85fd-11f41285df4e": "Skill 殿 (suffix) tidak merepresentasikan pewatas どの.",
-    "61f69a90-29da-572c-9cc5-dc525e623ad4": "Skill 殿 (suffix) tidak merepresentasikan pewatas どの.",
-    "ed500231-c191-5e17-a4fc-368c4f738e1d": "Skill 殿 (suffix) tidak merepresentasikan pewatas どの.",
-    "d3edbaa5-2313-57b8-8fb0-d7aa66aa0c8b": "Tidak ada skill lexical 寝る/ねる dalam lesson; jangan mengalihkan tes lexeme tidur ke kata kerja lain.",
-    "fb10b09b-faa8-5abe-997f-7ce46da6a81d": "Block membahas empat pewatas この/その/あの/どの sekaligus, tetapi owner bundle tidak ada. Tidak ada satu skill atomik yang mewakili seluruh block; この dan どの juga belum punya entry yang benar.",
-    "0ecf2c1b-cf4d-5360-9439-c70dca77c65f": "Block membahas ここ/そこ/あそこ, tetapi owner bundle tidak ada; memilih satu skill atomik secara arbitrer mengubah atribusi pedagogis.",
-    "dfa29085-7639-5aca-8a6f-b297b16ff7b2": "Owner bundle どの tidak ada dan skill atomik yang bernama serupa berisi 殿, bukan pewatas."
-  },
-  "blockSkillCodes": {
-    "40a4806b-8415-5f3d-8510-193c10715420": "n5_where_question_doko_doko",
-    "4133f29f-c96b-510c-a9c5-84b777868460": "n5_who_dare_dare",
-    "6a661297-679e-5d65-a9f9-8d2f32f29edf": "n5_who_dare_dare",
-    "87eba7a4-20a5-5b86-88bb-73801a250b09": "n5_which_one_dore_dore"
-  },
+  "holds": {},
+  "blockSkillCodes": {},
   "presentationNotes": {
     "745dcf70-a820-5eff-a400-eae03ef141d5": "HTML menambahkan label B： sesudah narasi B menjawab; kalimat dan blank tetap setara secara makna. Kedua bentuk sumber dipertahankan.",
     "d514529f-ada0-557e-a4a0-5bc86132bdae": "HTML menambahkan label マリア： dan ケン： pada ujaran yang sudah dijelaskan narasi plain. Kedua bentuk sumber dipertahankan."
   },
-  "generatedAt": "2026-11-06",
+  "generatedAt": "2026-11-17",
   "unusableSkillCodes": {
     "n5_kosoado_modifiers_kyuu": "Entry 九 (sembilan), bukan pewatas この; jangan mencocokkan reading tanpa memeriksa makna dan POS.",
     "n5_which_noun_dono_dono": "Entry 殿 (suffix kehormatan), bukan pewatas どの; reading sama tidak membuktikan lexeme sama."

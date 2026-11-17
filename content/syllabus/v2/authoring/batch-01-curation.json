@@ -1,0 +1,2398 @@
+{
+  "batchId": "bilingual-n5-existing-01",
+  "sourceSha256": "a9815d2b692d0e401f7f1296cf5ab3d083b49c68e13bf01ac614009f91fb9153",
+  "recordedAt": "2026-11-17",
+  "addedSkills": [
+    {
+      "lessonId": "4b14c9cc-ca61-5a32-8bf8-bddf625e5266",
+      "reason": "Add the exact lesson-owned lexeme 失礼します (しつれいします) for the unchanged answer bank; a similar reading, different lexical entry, or another lesson’s skill is not a substitute.",
+      "skill": {
+        "id": "926b9ec4-896f-51c0-b6b8-c82966e68963",
+        "code": "n5_vocab_greetings_and_polite_openers_shitsureishimasu",
+        "slug": "n5-vocab-greetings-and-polite-openers-shitsureishimasu",
+        "curriculumLevel": "N5",
+        "skillType": "VOCABULARY",
+        "supportsFlashcards": true,
+        "supportsPracticeObjective": true,
+        "supportsPracticeFreeResponse": false,
+        "prerequisiteSkillCodes": [],
+        "sortOrder": 10,
+        "isPublished": true,
+        "curriculumSignals": {
+          "jlpt": {
+            "resolvedLevel": "N5",
+            "candidates": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "level": "N5",
+                "scope": "VOCABULARY",
+                "confidence": "CURATED"
+              }
+            ],
+            "resolutionNotes": "KotobaHub placement follows this existing N5 lesson and its unchanged curated question bank. JMdict supplies lexical identity, not a JLPT-level claim."
+          }
+        },
+        "sourceRefs": [
+          {
+            "provider": "JMDICT",
+            "category": "LEXICAL_ENTRY",
+            "externalId": "2276200",
+            "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+            "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+            "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+            "notes": "Checked entry 2276200: spelling 失礼します, reading しつれいします, intended sense 1."
+          }
+        ],
+        "content": {
+          "vocabulary": {
+            "primarySpelling": "失礼します",
+            "alternateSpellings": [],
+            "readings": [
+              "しつれいします"
+            ],
+            "partsOfSpeech": [
+              "expressions (phrases, clauses, etc.)"
+            ],
+            "fields": [],
+            "priorityTags": [
+              "spec1"
+            ],
+            "jlptSignalCandidates": []
+          }
+        },
+        "contentRevision": 1,
+        "localizations": {
+          "en": {
+            "sourceRevision": 1,
+            "translationRevision": 1,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "JMDICT",
+                "category": "LEXICAL_ENTRY",
+                "externalId": "2276200",
+                "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+                "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+                "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+                "notes": "Checked entry 2276200: spelling 失礼します, reading しつれいします, intended sense 1."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:926b9ec4-896f-51c0-b6b8-c82966e68963:en",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "失礼します",
+            "description": "Use しつれいします as a polite opener when entering someone’s room.",
+            "content": {
+              "vocabulary": {
+                "glosses": [
+                  "excuse me",
+                  "pardon me"
+                ]
+              }
+            }
+          },
+          "id": {
+            "sourceRevision": 1,
+            "translationRevision": 1,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "JMDICT",
+                "category": "LEXICAL_ENTRY",
+                "externalId": "2276200",
+                "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+                "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+                "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+                "notes": "Checked entry 2276200: spelling 失礼します, reading しつれいします, intended sense 1."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:926b9ec4-896f-51c0-b6b8-c82966e68963:id",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "失礼します",
+            "description": "Gunakan しつれいします untuk mengucapkan permisi dengan sopan saat memasuki ruangan seseorang.",
+            "content": {
+              "vocabulary": {
+                "glosses": [
+                  "permisi",
+                  "maaf mengganggu"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "lessonId": "c44f7800-6bbc-50d5-8b9c-28430c1d7485",
+      "reason": "Add the exact lesson-owned lexeme 大学生 (だいがくせい) for the unchanged answer bank; a similar reading, different lexical entry, or another lesson’s skill is not a substitute.",
+      "skill": {
+        "id": "782a2608-b858-5fe5-9b88-6e97d061c6b8",
+        "code": "n5_vocab_identity_and_roles_daigakusei",
+        "slug": "n5-vocab-identity-and-roles-daigakusei",
+        "curriculumLevel": "N5",
+        "skillType": "VOCABULARY",
+        "supportsFlashcards": true,
+        "supportsPracticeObjective": true,
+        "supportsPracticeFreeResponse": false,
+        "prerequisiteSkillCodes": [],
+        "sortOrder": 8,
+        "isPublished": true,
+        "curriculumSignals": {
+          "jlpt": {
+            "resolvedLevel": "N5",
+            "candidates": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "level": "N5",
+                "scope": "VOCABULARY",
+                "confidence": "CURATED"
+              }
+            ],
+            "resolutionNotes": "KotobaHub placement follows this existing N5 lesson and its unchanged curated question bank. JMdict supplies lexical identity, not a JLPT-level claim."
+          }
+        },
+        "sourceRefs": [
+          {
+            "provider": "JMDICT",
+            "category": "LEXICAL_ENTRY",
+            "externalId": "1413260",
+            "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+            "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+            "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+            "notes": "Checked entry 1413260: spelling 大学生, reading だいがくせい, intended sense 1."
+          }
+        ],
+        "content": {
+          "vocabulary": {
+            "primarySpelling": "大学生",
+            "alternateSpellings": [],
+            "readings": [
+              "だいがくせい"
+            ],
+            "partsOfSpeech": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "fields": [],
+            "priorityTags": [
+              "ichi1"
+            ],
+            "jlptSignalCandidates": []
+          }
+        },
+        "contentRevision": 1,
+        "localizations": {
+          "en": {
+            "sourceRevision": 1,
+            "translationRevision": 1,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "JMDICT",
+                "category": "LEXICAL_ENTRY",
+                "externalId": "1413260",
+                "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+                "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+                "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+                "notes": "Checked entry 1413260: spelling 大学生, reading だいがくせい, intended sense 1."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:782a2608-b858-5fe5-9b88-6e97d061c6b8:en",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "大学生",
+            "description": "Use 大学生 for someone studying at a university or college; its reading is だいがくせい.",
+            "content": {
+              "vocabulary": {
+                "glosses": [
+                  "university student",
+                  "college student"
+                ]
+              }
+            }
+          },
+          "id": {
+            "sourceRevision": 1,
+            "translationRevision": 1,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "JMDICT",
+                "category": "LEXICAL_ENTRY",
+                "externalId": "1413260",
+                "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+                "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+                "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+                "notes": "Checked entry 1413260: spelling 大学生, reading だいがくせい, intended sense 1."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:782a2608-b858-5fe5-9b88-6e97d061c6b8:id",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "大学生",
+            "description": "Gunakan 大学生 untuk seseorang yang kuliah; bacaannya だいがくせい.",
+            "content": {
+              "vocabulary": {
+                "glosses": [
+                  "mahasiswa"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "lessonId": "c44f7800-6bbc-50d5-8b9c-28430c1d7485",
+      "reason": "Add the exact lesson-owned lexeme インドネシア人 (インドネシアじん) for the unchanged answer bank; a similar reading, different lexical entry, or another lesson’s skill is not a substitute.",
+      "skill": {
+        "id": "4398dad5-6597-5f38-a951-78c8650f36be",
+        "code": "n5_vocab_identity_and_roles_indoneshiajin",
+        "slug": "n5-vocab-identity-and-roles-indoneshiajin",
+        "curriculumLevel": "N5",
+        "skillType": "VOCABULARY",
+        "supportsFlashcards": true,
+        "supportsPracticeObjective": true,
+        "supportsPracticeFreeResponse": false,
+        "prerequisiteSkillCodes": [],
+        "sortOrder": 9,
+        "isPublished": true,
+        "curriculumSignals": {
+          "jlpt": {
+            "resolvedLevel": "N5",
+            "candidates": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "level": "N5",
+                "scope": "VOCABULARY",
+                "confidence": "CURATED"
+              }
+            ],
+            "resolutionNotes": "KotobaHub placement follows this existing N5 lesson and its unchanged curated question bank. JMdict supplies lexical identity, not a JLPT-level claim."
+          }
+        },
+        "sourceRefs": [
+          {
+            "provider": "JMDICT",
+            "category": "LEXICAL_ENTRY",
+            "externalId": "2582220",
+            "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+            "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+            "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+            "notes": "Checked entry 2582220: spelling インドネシア人, reading インドネシアじん, intended sense 1."
+          }
+        ],
+        "content": {
+          "vocabulary": {
+            "primarySpelling": "インドネシア人",
+            "alternateSpellings": [],
+            "readings": [
+              "インドネシアじん"
+            ],
+            "partsOfSpeech": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "fields": [],
+            "priorityTags": [],
+            "jlptSignalCandidates": []
+          }
+        },
+        "contentRevision": 1,
+        "localizations": {
+          "en": {
+            "sourceRevision": 1,
+            "translationRevision": 1,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "JMDICT",
+                "category": "LEXICAL_ENTRY",
+                "externalId": "2582220",
+                "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+                "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+                "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+                "notes": "Checked entry 2582220: spelling インドネシア人, reading インドネシアじん, intended sense 1."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:4398dad5-6597-5f38-a951-78c8650f36be:en",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "インドネシア人",
+            "description": "Use インドネシア人 to describe someone as Indonesian; read 人 as じん here.",
+            "content": {
+              "vocabulary": {
+                "glosses": [
+                  "Indonesian person"
+                ]
+              }
+            }
+          },
+          "id": {
+            "sourceRevision": 1,
+            "translationRevision": 1,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "JMDICT",
+                "category": "LEXICAL_ENTRY",
+                "externalId": "2582220",
+                "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+                "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+                "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+                "notes": "Checked entry 2582220: spelling インドネシア人, reading インドネシアじん, intended sense 1."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:4398dad5-6597-5f38-a951-78c8650f36be:id",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "インドネシア人",
+            "description": "Gunakan インドネシア人 untuk menyebut orang Indonesia; 人 dibaca じん di sini.",
+            "content": {
+              "vocabulary": {
+                "glosses": [
+                  "orang Indonesia"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "lessonId": "24009d46-a270-5706-82e0-7c1cdbd920e7",
+      "reason": "Add the exact lesson-owned lexeme どれ (どれ) for the unchanged answer bank; a similar reading, different lexical entry, or another lesson’s skill is not a substitute. The JMdict external identity is shared with other lesson-scoped uses; the new skill UUID/code is distinct and no existing skill is moved.",
+      "skill": {
+        "id": "9631e65b-095e-52ae-ac43-01f03ba2a768",
+        "code": "n5_kosoado_pronouns_dore",
+        "slug": "n5-kosoado-pronouns-dore",
+        "curriculumLevel": "N5",
+        "skillType": "VOCABULARY",
+        "supportsFlashcards": true,
+        "supportsPracticeObjective": true,
+        "supportsPracticeFreeResponse": false,
+        "prerequisiteSkillCodes": [],
+        "sortOrder": 9,
+        "isPublished": true,
+        "curriculumSignals": {
+          "jlpt": {
+            "resolvedLevel": "N5",
+            "candidates": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "level": "N5",
+                "scope": "VOCABULARY",
+                "confidence": "CURATED"
+              }
+            ],
+            "resolutionNotes": "KotobaHub placement follows this existing N5 lesson and its unchanged curated question bank. JMdict supplies lexical identity, not a JLPT-level claim."
+          }
+        },
+        "sourceRefs": [
+          {
+            "provider": "JMDICT",
+            "category": "LEXICAL_ENTRY",
+            "externalId": "1009290",
+            "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+            "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+            "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+            "notes": "Checked entry 1009290: spelling 何れ, reading どれ, intended sense 1."
+          },
+          {
+            "provider": "BUNPRO",
+            "category": "GRAMMAR_POINT",
+            "externalId": "どれ",
+            "sourceUrl": "https://bunpro.jp/grammar_points/どれ",
+            "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/070-%E3%81%A9%E3%82%8C.html",
+            "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+          }
+        ],
+        "content": {
+          "vocabulary": {
+            "primarySpelling": "何れ",
+            "alternateSpellings": [],
+            "readings": [
+              "どれ"
+            ],
+            "partsOfSpeech": [
+              "pronoun"
+            ],
+            "fields": [],
+            "priorityTags": [
+              "ichi1"
+            ],
+            "jlptSignalCandidates": []
+          }
+        },
+        "contentRevision": 1,
+        "localizations": {
+          "en": {
+            "sourceRevision": 1,
+            "translationRevision": 1,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "JMDICT",
+                "category": "LEXICAL_ENTRY",
+                "externalId": "1009290",
+                "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+                "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+                "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+                "notes": "Checked entry 1009290: spelling 何れ, reading どれ, intended sense 1."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "どれ",
+                "sourceUrl": "https://bunpro.jp/grammar_points/どれ",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/070-%E3%81%A9%E3%82%8C.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:9631e65b-095e-52ae-ac43-01f03ba2a768:en",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "どれ",
+            "description": "Use どれ on its own to ask which one from three or more choices.",
+            "content": {
+              "vocabulary": {
+                "glosses": [
+                  "which one (of three or more)"
+                ]
+              }
+            }
+          },
+          "id": {
+            "sourceRevision": 1,
+            "translationRevision": 1,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "JMDICT",
+                "category": "LEXICAL_ENTRY",
+                "externalId": "1009290",
+                "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+                "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+                "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+                "notes": "Checked entry 1009290: spelling 何れ, reading どれ, intended sense 1."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "どれ",
+                "sourceUrl": "https://bunpro.jp/grammar_points/どれ",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/070-%E3%81%A9%E3%82%8C.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:9631e65b-095e-52ae-ac43-01f03ba2a768:id",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "どれ",
+            "description": "Gunakan どれ tanpa kata benda sesudahnya untuk bertanya yang mana dari tiga pilihan atau lebih.",
+            "content": {
+              "vocabulary": {
+                "glosses": [
+                  "yang mana (dari tiga pilihan atau lebih)"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "lessonId": "ae296331-0e1f-5d3b-a590-b751967a3e34",
+      "reason": "Add the exact lesson-owned lexeme この (この) for the unchanged answer bank; a similar reading, different lexical entry, or another lesson’s skill is not a substitute.",
+      "skill": {
+        "id": "0bb89782-a7ac-58c0-8461-5b24070b2b5a",
+        "code": "n5_kosoado_modifiers_kono",
+        "slug": "n5-kosoado-modifiers-kono",
+        "curriculumLevel": "N5",
+        "skillType": "VOCABULARY",
+        "supportsFlashcards": true,
+        "supportsPracticeObjective": true,
+        "supportsPracticeFreeResponse": false,
+        "prerequisiteSkillCodes": [],
+        "sortOrder": 9,
+        "isPublished": true,
+        "curriculumSignals": {
+          "jlpt": {
+            "resolvedLevel": "N5",
+            "candidates": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "level": "N5",
+                "scope": "VOCABULARY",
+                "confidence": "CURATED"
+              }
+            ],
+            "resolutionNotes": "KotobaHub placement follows this existing N5 lesson and its unchanged curated question bank. JMdict supplies lexical identity, not a JLPT-level claim."
+          }
+        },
+        "sourceRefs": [
+          {
+            "provider": "JMDICT",
+            "category": "LEXICAL_ENTRY",
+            "externalId": "1582920",
+            "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+            "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+            "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+            "notes": "Checked entry 1582920: spelling 此の, reading この, intended sense 1."
+          },
+          {
+            "provider": "BUNPRO",
+            "category": "GRAMMAR_POINT",
+            "externalId": "この",
+            "sourceUrl": "https://bunpro.jp/grammar_points/この",
+            "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/031-%E3%81%93%E3%81%AE.html",
+            "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+          }
+        ],
+        "content": {
+          "vocabulary": {
+            "primarySpelling": "此の",
+            "alternateSpellings": [
+              "斯の"
+            ],
+            "readings": [
+              "この",
+              "こん"
+            ],
+            "partsOfSpeech": [
+              "pre-noun adjectival (rentaishi)"
+            ],
+            "fields": [],
+            "priorityTags": [
+              "ichi1"
+            ],
+            "jlptSignalCandidates": []
+          }
+        },
+        "contentRevision": 1,
+        "localizations": {
+          "en": {
+            "sourceRevision": 1,
+            "translationRevision": 1,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "JMDICT",
+                "category": "LEXICAL_ENTRY",
+                "externalId": "1582920",
+                "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+                "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+                "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+                "notes": "Checked entry 1582920: spelling 此の, reading この, intended sense 1."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "この",
+                "sourceUrl": "https://bunpro.jp/grammar_points/この",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/031-%E3%81%93%E3%81%AE.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:0bb89782-a7ac-58c0-8461-5b24070b2b5a:en",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "この",
+            "description": "Put この before a noun to point to someone or something near you, as in この本.",
+            "content": {
+              "vocabulary": {
+                "glosses": [
+                  "this (before a noun)"
+                ]
+              }
+            }
+          },
+          "id": {
+            "sourceRevision": 1,
+            "translationRevision": 1,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "JMDICT",
+                "category": "LEXICAL_ENTRY",
+                "externalId": "1582920",
+                "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+                "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+                "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+                "notes": "Checked entry 1582920: spelling 此の, reading この, intended sense 1."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "この",
+                "sourceUrl": "https://bunpro.jp/grammar_points/この",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/031-%E3%81%93%E3%81%AE.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:0bb89782-a7ac-58c0-8461-5b24070b2b5a:id",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "この",
+            "description": "Letakkan この sebelum kata benda untuk menunjuk orang atau benda di dekat kamu, seperti この本.",
+            "content": {
+              "vocabulary": {
+                "glosses": [
+                  "ini (sebelum kata benda)"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "lessonId": "ae296331-0e1f-5d3b-a590-b751967a3e34",
+      "reason": "Add the exact lesson-owned lexeme どの (どの) for the unchanged answer bank; a similar reading, different lexical entry, or another lesson’s skill is not a substitute. The JMdict external identity is shared with other lesson-scoped uses; the new skill UUID/code is distinct and no existing skill is moved.",
+      "skill": {
+        "id": "110f3b70-54fa-57d5-bcb0-4dc6d6f3a051",
+        "code": "n5_kosoado_modifiers_dono",
+        "slug": "n5-kosoado-modifiers-dono",
+        "curriculumLevel": "N5",
+        "skillType": "VOCABULARY",
+        "supportsFlashcards": true,
+        "supportsPracticeObjective": true,
+        "supportsPracticeFreeResponse": false,
+        "prerequisiteSkillCodes": [],
+        "sortOrder": 10,
+        "isPublished": true,
+        "curriculumSignals": {
+          "jlpt": {
+            "resolvedLevel": "N5",
+            "candidates": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "level": "N5",
+                "scope": "VOCABULARY",
+                "confidence": "CURATED"
+              }
+            ],
+            "resolutionNotes": "KotobaHub placement follows this existing N5 lesson and its unchanged curated question bank. JMdict supplies lexical identity, not a JLPT-level claim."
+          }
+        },
+        "sourceRefs": [
+          {
+            "provider": "JMDICT",
+            "category": "LEXICAL_ENTRY",
+            "externalId": "1920240",
+            "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+            "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+            "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+            "notes": "Checked entry 1920240: spelling 何の, reading どの, intended sense 1."
+          },
+          {
+            "provider": "BUNPRO",
+            "category": "GRAMMAR_POINT",
+            "externalId": "どの",
+            "sourceUrl": "https://bunpro.jp/grammar_points/どの",
+            "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/069-%E3%81%A9%E3%81%AE.html",
+            "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+          }
+        ],
+        "content": {
+          "vocabulary": {
+            "primarySpelling": "何の",
+            "alternateSpellings": [],
+            "readings": [
+              "どの"
+            ],
+            "partsOfSpeech": [
+              "pre-noun adjectival (rentaishi)"
+            ],
+            "fields": [],
+            "priorityTags": [
+              "news1",
+              "nf05"
+            ],
+            "jlptSignalCandidates": []
+          }
+        },
+        "contentRevision": 1,
+        "localizations": {
+          "en": {
+            "sourceRevision": 1,
+            "translationRevision": 1,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "JMDICT",
+                "category": "LEXICAL_ENTRY",
+                "externalId": "1920240",
+                "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+                "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+                "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+                "notes": "Checked entry 1920240: spelling 何の, reading どの, intended sense 1."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "どの",
+                "sourceUrl": "https://bunpro.jp/grammar_points/どの",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/069-%E3%81%A9%E3%81%AE.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:110f3b70-54fa-57d5-bcb0-4dc6d6f3a051:en",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "どの",
+            "description": "Put どの before a noun to ask which one, as in どの本, when choosing from three or more.",
+            "content": {
+              "vocabulary": {
+                "glosses": [
+                  "which (before a noun)"
+                ]
+              }
+            }
+          },
+          "id": {
+            "sourceRevision": 1,
+            "translationRevision": 1,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "JMDICT",
+                "category": "LEXICAL_ENTRY",
+                "externalId": "1920240",
+                "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+                "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+                "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+                "notes": "Checked entry 1920240: spelling 何の, reading どの, intended sense 1."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "どの",
+                "sourceUrl": "https://bunpro.jp/grammar_points/どの",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/069-%E3%81%A9%E3%81%AE.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:110f3b70-54fa-57d5-bcb0-4dc6d6f3a051:id",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "どの",
+            "description": "Letakkan どの sebelum kata benda untuk bertanya yang mana, seperti どの本, saat memilih dari tiga pilihan atau lebih.",
+            "content": {
+              "vocabulary": {
+                "glosses": [
+                  "yang mana (sebelum kata benda)"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "lessonId": "74ba7e47-177e-56ac-b418-f76f1d707ccb",
+      "reason": "Add the exact lesson-owned lexeme どの (どの) for the unchanged answer bank; a similar reading, different lexical entry, or another lesson’s skill is not a substitute. The JMdict external identity is shared with other lesson-scoped uses; the new skill UUID/code is distinct and no existing skill is moved.",
+      "skill": {
+        "id": "ce806477-8abe-56fe-9a6e-a1f11abfc8e1",
+        "code": "n5_which_noun_dono_determiner",
+        "slug": "n5-which-noun-dono-determiner",
+        "curriculumLevel": "N5",
+        "skillType": "VOCABULARY",
+        "supportsFlashcards": true,
+        "supportsPracticeObjective": true,
+        "supportsPracticeFreeResponse": false,
+        "prerequisiteSkillCodes": [],
+        "sortOrder": 8,
+        "isPublished": true,
+        "curriculumSignals": {
+          "jlpt": {
+            "resolvedLevel": "N5",
+            "candidates": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "level": "N5",
+                "scope": "VOCABULARY",
+                "confidence": "CURATED"
+              }
+            ],
+            "resolutionNotes": "KotobaHub placement follows this existing N5 lesson and its unchanged curated question bank. JMdict supplies lexical identity, not a JLPT-level claim."
+          }
+        },
+        "sourceRefs": [
+          {
+            "provider": "JMDICT",
+            "category": "LEXICAL_ENTRY",
+            "externalId": "1920240",
+            "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+            "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+            "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+            "notes": "Checked entry 1920240: spelling 何の, reading どの, intended sense 1."
+          },
+          {
+            "provider": "BUNPRO",
+            "category": "GRAMMAR_POINT",
+            "externalId": "どの",
+            "sourceUrl": "https://bunpro.jp/grammar_points/どの",
+            "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/069-%E3%81%A9%E3%81%AE.html",
+            "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+          }
+        ],
+        "content": {
+          "vocabulary": {
+            "primarySpelling": "何の",
+            "alternateSpellings": [],
+            "readings": [
+              "どの"
+            ],
+            "partsOfSpeech": [
+              "pre-noun adjectival (rentaishi)"
+            ],
+            "fields": [],
+            "priorityTags": [
+              "news1",
+              "nf05"
+            ],
+            "jlptSignalCandidates": []
+          }
+        },
+        "contentRevision": 1,
+        "localizations": {
+          "en": {
+            "sourceRevision": 1,
+            "translationRevision": 1,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "JMDICT",
+                "category": "LEXICAL_ENTRY",
+                "externalId": "1920240",
+                "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+                "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+                "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+                "notes": "Checked entry 1920240: spelling 何の, reading どの, intended sense 1."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "どの",
+                "sourceUrl": "https://bunpro.jp/grammar_points/どの",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/069-%E3%81%A9%E3%81%AE.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:ce806477-8abe-56fe-9a6e-a1f11abfc8e1:en",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "どの",
+            "description": "Use どの with the following noun to ask which person or thing from three or more choices.",
+            "content": {
+              "vocabulary": {
+                "glosses": [
+                  "which (before a noun)"
+                ]
+              }
+            }
+          },
+          "id": {
+            "sourceRevision": 1,
+            "translationRevision": 1,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "JMDICT",
+                "category": "LEXICAL_ENTRY",
+                "externalId": "1920240",
+                "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+                "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+                "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+                "notes": "Checked entry 1920240: spelling 何の, reading どの, intended sense 1."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "どの",
+                "sourceUrl": "https://bunpro.jp/grammar_points/どの",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/069-%E3%81%A9%E3%81%AE.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:ce806477-8abe-56fe-9a6e-a1f11abfc8e1:id",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "どの",
+            "description": "Gunakan どの sebelum kata benda untuk menanyakan orang atau benda yang mana dari tiga pilihan atau lebih.",
+            "content": {
+              "vocabulary": {
+                "glosses": [
+                  "yang mana (sebelum kata benda)"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "lessonId": "267a011e-b87b-5252-98bb-121374301385",
+      "reason": "Add the exact lesson-owned lexeme 寝る (ねる) for the unchanged answer bank; a similar reading, different lexical entry, or another lesson’s skill is not a substitute.",
+      "skill": {
+        "id": "2cbb87e4-b7f1-518a-82d3-67b47c145e5f",
+        "code": "n5_vocab_daily_routine_verbs_neru",
+        "slug": "n5-vocab-daily-routine-verbs-neru",
+        "curriculumLevel": "N5",
+        "skillType": "VOCABULARY",
+        "supportsFlashcards": true,
+        "supportsPracticeObjective": true,
+        "supportsPracticeFreeResponse": false,
+        "prerequisiteSkillCodes": [],
+        "sortOrder": 11,
+        "isPublished": true,
+        "curriculumSignals": {
+          "jlpt": {
+            "resolvedLevel": "N5",
+            "candidates": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "level": "N5",
+                "scope": "VOCABULARY",
+                "confidence": "CURATED"
+              }
+            ],
+            "resolutionNotes": "KotobaHub placement follows this existing N5 lesson and its unchanged curated question bank. JMdict supplies lexical identity, not a JLPT-level claim."
+          }
+        },
+        "sourceRefs": [
+          {
+            "provider": "JMDICT",
+            "category": "LEXICAL_ENTRY",
+            "externalId": "1360010",
+            "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+            "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+            "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+            "notes": "Checked entry 1360010: spelling 寝る, reading ねる, intended sense 1 and 2 (go to bed)."
+          },
+          {
+            "provider": "TAE_KIM",
+            "category": "GRAMMAR_GUIDE",
+            "externalId": "2012-11-21/4.1.2-4.1.3",
+            "sourceUrl": "https://guidetojapanese.org/learn/grammar/polite",
+            "retrievedFrom": "content/syllabus/sources/tae-kim/Tae Kim Japanese Grammar Guide.pdf",
+            "notes": "Sections 4.1.2 and 4.1.3, PDF/printed pages 84-87: ru-verb stems remove final る, then add ます. Combined with JMdict Ichidan classification of 寝る to verify 寝る → ねます."
+          }
+        ],
+        "content": {
+          "vocabulary": {
+            "primarySpelling": "寝る",
+            "alternateSpellings": [
+              "寐る"
+            ],
+            "readings": [
+              "ねる"
+            ],
+            "partsOfSpeech": [
+              "Ichidan verb",
+              "intransitive verb"
+            ],
+            "fields": [],
+            "priorityTags": [
+              "ichi1",
+              "news1",
+              "nf15"
+            ],
+            "jlptSignalCandidates": []
+          }
+        },
+        "contentRevision": 1,
+        "localizations": {
+          "en": {
+            "sourceRevision": 1,
+            "translationRevision": 1,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "JMDICT",
+                "category": "LEXICAL_ENTRY",
+                "externalId": "1360010",
+                "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+                "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+                "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+                "notes": "Checked entry 1360010: spelling 寝る, reading ねる, intended sense 1 and 2 (go to bed)."
+              },
+              {
+                "provider": "TAE_KIM",
+                "category": "GRAMMAR_GUIDE",
+                "externalId": "2012-11-21/4.1.2-4.1.3",
+                "sourceUrl": "https://guidetojapanese.org/learn/grammar/polite",
+                "retrievedFrom": "content/syllabus/sources/tae-kim/Tae Kim Japanese Grammar Guide.pdf",
+                "notes": "Sections 4.1.2 and 4.1.3, PDF/printed pages 84-87: ru-verb stems remove final る, then add ます. Combined with JMdict Ichidan classification of 寝る to verify 寝る → ねます."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:2cbb87e4-b7f1-518a-82d3-67b47c145e5f:en",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "寝る",
+            "description": "寝る means to sleep or go to bed. Its polite non-past form is ねます.",
+            "content": {
+              "vocabulary": {
+                "glosses": [
+                  "to sleep",
+                  "to go to bed"
+                ]
+              }
+            }
+          },
+          "id": {
+            "sourceRevision": 1,
+            "translationRevision": 1,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "JMDICT",
+                "category": "LEXICAL_ENTRY",
+                "externalId": "1360010",
+                "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+                "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+                "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+                "notes": "Checked entry 1360010: spelling 寝る, reading ねる, intended sense 1 and 2 (go to bed)."
+              },
+              {
+                "provider": "TAE_KIM",
+                "category": "GRAMMAR_GUIDE",
+                "externalId": "2012-11-21/4.1.2-4.1.3",
+                "sourceUrl": "https://guidetojapanese.org/learn/grammar/polite",
+                "retrievedFrom": "content/syllabus/sources/tae-kim/Tae Kim Japanese Grammar Guide.pdf",
+                "notes": "Sections 4.1.2 and 4.1.3, PDF/printed pages 84-87: ru-verb stems remove final る, then add ます. Combined with JMdict Ichidan classification of 寝る to verify 寝る → ねます."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:2cbb87e4-b7f1-518a-82d3-67b47c145e5f:id",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "寝る",
+            "description": "寝る berarti tidur atau pergi tidur. Bentuk nonlampau sopannya adalah ねます.",
+            "content": {
+              "vocabulary": {
+                "glosses": [
+                  "tidur",
+                  "pergi tidur"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "blockReplacements": [
+    {
+      "lessonId": "ae296331-0e1f-5d3b-a590-b751967a3e34",
+      "reason": "Convert the vocabulary/pattern overview to PARAGRAPH, preserving its ID, sortOrder and every original Japanese pattern. No artificial bundle or arbitrary atomic grammar owner is introduced.",
+      "block": {
+        "id": "fb10b09b-faa8-5abe-997f-7ce46da6a81d",
+        "blockType": "PARAGRAPH",
+        "content": {},
+        "sortOrder": 3,
+        "isPublished": true,
+        "contentRevision": 2,
+        "localizations": {
+          "en": {
+            "sourceRevision": 2,
+            "translationRevision": 2,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "BILINGUAL_EDITORIAL",
+                "externalId": "bilingual-n5-existing-01:fb10b09b-faa8-5abe-997f-7ce46da6a81d:en",
+                "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
+                "notes": "BIL-02: audited English baseline."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "この",
+                "sourceUrl": "https://bunpro.jp/grammar_points/この",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/031-%E3%81%93%E3%81%AE.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "その",
+                "sourceUrl": "https://bunpro.jp/grammar_points/その",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/039-%E3%81%9D%E3%81%AE.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "あの",
+                "sourceUrl": "https://bunpro.jp/grammar_points/あの",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/003-%E3%81%82%E3%81%AE.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "どの",
+                "sourceUrl": "https://bunpro.jp/grammar_points/どの",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/069-%E3%81%A9%E3%81%AE.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:fb10b09b-faa8-5abe-997f-7ce46da6a81d:en",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "Choosing a word before a noun",
+            "body": "<p>These words go directly before a noun. For physical objects, choose the word from the speaker’s point of view.</p><p><span class=\"text-emphasis\">この</span> + Noun — this noun near the speaker<br><span class=\"text-emphasis\">その</span> + Noun — that noun near the listener<br><span class=\"text-emphasis\">あの</span> + Noun — that noun away from both people<br><span class=\"text-emphasis\">どの</span> + Noun — which noun</p><p>Use どの to ask which one from three or more choices. この本 means “this book”; どの本 means “which book”.</p>"
+          },
+          "id": {
+            "sourceRevision": 2,
+            "translationRevision": 2,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "BILINGUAL_EDITORIAL",
+                "externalId": "bilingual-n5-existing-01:fb10b09b-faa8-5abe-997f-7ce46da6a81d:id",
+                "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
+                "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "この",
+                "sourceUrl": "https://bunpro.jp/grammar_points/この",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/031-%E3%81%93%E3%81%AE.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "その",
+                "sourceUrl": "https://bunpro.jp/grammar_points/その",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/039-%E3%81%9D%E3%81%AE.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "あの",
+                "sourceUrl": "https://bunpro.jp/grammar_points/あの",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/003-%E3%81%82%E3%81%AE.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "どの",
+                "sourceUrl": "https://bunpro.jp/grammar_points/どの",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/069-%E3%81%A9%E3%81%AE.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:fb10b09b-faa8-5abe-997f-7ce46da6a81d:id",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "Memilih kata sebelum kata benda",
+            "body": "<p>Kata-kata ini langsung diikuti kata benda. Saat menunjuk benda, pilih katanya dari sudut pandang pembicara.</p><p><span class=\"text-emphasis\">この</span> + Kata benda — benda ini dekat pembicara<br><span class=\"text-emphasis\">その</span> + Kata benda — benda itu dekat pendengar<br><span class=\"text-emphasis\">あの</span> + Kata benda — benda itu jauh dari keduanya<br><span class=\"text-emphasis\">どの</span> + Kata benda — benda yang mana</p><p>Gunakan どの untuk bertanya yang mana dari tiga pilihan atau lebih. この本 berarti “buku ini”; どの本 berarti “buku yang mana”.</p>"
+          }
+        }
+      }
+    },
+    {
+      "lessonId": "977e1f71-901a-5f3a-8302-b16a7e0c0f0f",
+      "reason": "Convert the vocabulary/pattern overview to PARAGRAPH, preserving its ID, sortOrder and every original Japanese pattern. No artificial bundle or arbitrary atomic grammar owner is introduced.",
+      "block": {
+        "id": "0ecf2c1b-cf4d-5360-9439-c70dca77c65f",
+        "blockType": "PARAGRAPH",
+        "content": {},
+        "sortOrder": 3,
+        "isPublished": true,
+        "contentRevision": 2,
+        "localizations": {
+          "en": {
+            "sourceRevision": 2,
+            "translationRevision": 2,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "BILINGUAL_EDITORIAL",
+                "externalId": "bilingual-n5-existing-01:0ecf2c1b-cf4d-5360-9439-c70dca77c65f:en",
+                "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
+                "notes": "BIL-02: audited English baseline."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "ここ",
+                "sourceUrl": "https://bunpro.jp/grammar_points/ここ",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/030-%E3%81%93%E3%81%93.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "そこ",
+                "sourceUrl": "https://bunpro.jp/grammar_points/そこ",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/038-%E3%81%9D%E3%81%93.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "あそこ",
+                "sourceUrl": "https://bunpro.jp/grammar_points/あそこ",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/002-%E3%81%82%E3%81%9D%E3%81%93.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:0ecf2c1b-cf4d-5360-9439-c70dca77c65f:en",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "Pointing to a place",
+            "body": "<p>Use these words to name a place without repeating its name. For a place you can point to, choose from the speaker’s point of view.</p><p><span class=\"text-emphasis\">ここ</span> — here, near the speaker<br><span class=\"text-emphasis\">そこ</span> — there, near the listener<br><span class=\"text-emphasis\">あそこ</span> — over there, away from both people</p>"
+          },
+          "id": {
+            "sourceRevision": 2,
+            "translationRevision": 2,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "BILINGUAL_EDITORIAL",
+                "externalId": "bilingual-n5-existing-01:0ecf2c1b-cf4d-5360-9439-c70dca77c65f:id",
+                "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
+                "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "ここ",
+                "sourceUrl": "https://bunpro.jp/grammar_points/ここ",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/030-%E3%81%93%E3%81%93.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "そこ",
+                "sourceUrl": "https://bunpro.jp/grammar_points/そこ",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/038-%E3%81%9D%E3%81%93.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "あそこ",
+                "sourceUrl": "https://bunpro.jp/grammar_points/あそこ",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/002-%E3%81%82%E3%81%9D%E3%81%93.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:0ecf2c1b-cf4d-5360-9439-c70dca77c65f:id",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "Menunjuk tempat",
+            "body": "<p>Gunakan kata-kata ini untuk menyebut tempat tanpa mengulang namanya. Untuk tempat yang bisa ditunjuk, pilih kata dari sudut pandang pembicara.</p><p><span class=\"text-emphasis\">ここ</span> — sini, dekat pembicara<br><span class=\"text-emphasis\">そこ</span> — situ, dekat pendengar<br><span class=\"text-emphasis\">あそこ</span> — sana, jauh dari keduanya</p>"
+          }
+        }
+      }
+    },
+    {
+      "lessonId": "74ba7e47-177e-56ac-b418-f76f1d707ccb",
+      "reason": "Convert the vocabulary/pattern overview to PARAGRAPH, preserving its ID, sortOrder and every original Japanese pattern. No artificial bundle or arbitrary atomic grammar owner is introduced.",
+      "block": {
+        "id": "dfa29085-7639-5aca-8a6f-b297b16ff7b2",
+        "blockType": "PARAGRAPH",
+        "content": {},
+        "sortOrder": 11,
+        "isPublished": true,
+        "contentRevision": 2,
+        "localizations": {
+          "en": {
+            "sourceRevision": 2,
+            "translationRevision": 2,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "BILINGUAL_EDITORIAL",
+                "externalId": "bilingual-n5-existing-01:dfa29085-7639-5aca-8a6f-b297b16ff7b2:en",
+                "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
+                "notes": "BIL-02: audited English baseline."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "どの",
+                "sourceUrl": "https://bunpro.jp/grammar_points/どの",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/069-%E3%81%A9%E3%81%AE.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:dfa29085-7639-5aca-8a6f-b297b16ff7b2:en",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "Asking which person or thing",
+            "body": "<p>Use どの directly before a noun to ask which one from three or more choices. The noun can name a thing or a person. The patterns below show where that phrase fits in a sentence.</p><p><span class=\"text-emphasis\">どの</span> + Noun + ですか<br><span class=\"text-emphasis\">どの</span> + Noun + <span class=\"text-warning\">を</span> + Verb<br>Noun + <span class=\"text-warning\">は</span> + <span class=\"text-emphasis\">どの</span> + Noun + ですか</p><p>どの本 means “which book”, while どの人 means “which person”.</p>"
+          },
+          "id": {
+            "sourceRevision": 2,
+            "translationRevision": 2,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "BILINGUAL_EDITORIAL",
+                "externalId": "bilingual-n5-existing-01:dfa29085-7639-5aca-8a6f-b297b16ff7b2:id",
+                "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
+                "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "どの",
+                "sourceUrl": "https://bunpro.jp/grammar_points/どの",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/069-%E3%81%A9%E3%81%AE.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:dfa29085-7639-5aca-8a6f-b297b16ff7b2:id",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "Menanyakan orang atau benda yang mana",
+            "body": "<p>Gunakan どの tepat sebelum kata benda untuk bertanya yang mana dari tiga pilihan atau lebih. Kata bendanya bisa menyebut benda atau orang. Pola di bawah menunjukkan letak frasa itu dalam kalimat.</p><p><span class=\"text-emphasis\">どの</span> + Kata benda + ですか<br><span class=\"text-emphasis\">どの</span> + Kata benda + <span class=\"text-warning\">を</span> + Kata kerja<br>Kata benda + <span class=\"text-warning\">は</span> + <span class=\"text-emphasis\">どの</span> + Kata benda + ですか</p><p>どの本 berarti “buku yang mana”, sedangkan どの人 berarti “orang yang mana”.</p>"
+          }
+        }
+      }
+    },
+    {
+      "lessonId": "977e1f71-901a-5f3a-8302-b16a7e0c0f0f",
+      "reason": "Convert the vocabulary/pattern overview to PARAGRAPH, preserving its ID, sortOrder and every original Japanese pattern. No artificial bundle or arbitrary atomic grammar owner is introduced.",
+      "block": {
+        "id": "40a4806b-8415-5f3d-8510-193c10715420",
+        "blockType": "PARAGRAPH",
+        "content": {},
+        "sortOrder": 7,
+        "isPublished": true,
+        "contentRevision": 3,
+        "localizations": {
+          "en": {
+            "sourceRevision": 3,
+            "translationRevision": 2,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "BILINGUAL_EDITORIAL",
+                "externalId": "bilingual-n5-existing-01:40a4806b-8415-5f3d-8510-193c10715420:en",
+                "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
+                "notes": "BIL-02: audited English baseline."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "どこ",
+                "sourceUrl": "https://bunpro.jp/grammar_points/どこ",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/068-%E3%81%A9%E3%81%93.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "ここ",
+                "sourceUrl": "https://bunpro.jp/grammar_points/ここ",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/030-%E3%81%93%E3%81%93.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "そこ",
+                "sourceUrl": "https://bunpro.jp/grammar_points/そこ",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/038-%E3%81%9D%E3%81%93.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "あそこ",
+                "sourceUrl": "https://bunpro.jp/grammar_points/あそこ",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/002-%E3%81%82%E3%81%9D%E3%81%93.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:40a4806b-8415-5f3d-8510-193c10715420:en",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "Asking where a place is",
+            "body": "<p>Ask where a place is with どこですか. Answer with the word that matches its position.</p><p>Noun + <span class=\"text-warning\">は</span> + <span class=\"text-emphasis\">どこ</span> + ですか<br><span class=\"text-emphasis\">ここ</span> / <span class=\"text-emphasis\">そこ</span> / <span class=\"text-emphasis\">あそこ</span> + です</p>"
+          },
+          "id": {
+            "sourceRevision": 3,
+            "translationRevision": 2,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "BILINGUAL_EDITORIAL",
+                "externalId": "bilingual-n5-existing-01:40a4806b-8415-5f3d-8510-193c10715420:id",
+                "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
+                "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "どこ",
+                "sourceUrl": "https://bunpro.jp/grammar_points/どこ",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/068-%E3%81%A9%E3%81%93.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "ここ",
+                "sourceUrl": "https://bunpro.jp/grammar_points/ここ",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/030-%E3%81%93%E3%81%93.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "そこ",
+                "sourceUrl": "https://bunpro.jp/grammar_points/そこ",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/038-%E3%81%9D%E3%81%93.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "あそこ",
+                "sourceUrl": "https://bunpro.jp/grammar_points/あそこ",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/002-%E3%81%82%E3%81%9D%E3%81%93.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:40a4806b-8415-5f3d-8510-193c10715420:id",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "Menanyakan letak tempat",
+            "body": "<p>Tanyakan letak tempat dengan どこですか. Jawab dengan kata yang sesuai dengan posisinya.</p><p>Kata benda + <span class=\"text-warning\">は</span> + <span class=\"text-emphasis\">どこ</span> + ですか<br><span class=\"text-emphasis\">ここ</span> / <span class=\"text-emphasis\">そこ</span> / <span class=\"text-emphasis\">あそこ</span> + です</p>"
+          }
+        }
+      }
+    },
+    {
+      "lessonId": "74ba7e47-177e-56ac-b418-f76f1d707ccb",
+      "reason": "Convert the vocabulary/pattern overview to PARAGRAPH, preserving its ID, sortOrder and every original Japanese pattern. No artificial bundle or arbitrary atomic grammar owner is introduced.",
+      "block": {
+        "id": "4133f29f-c96b-510c-a9c5-84b777868460",
+        "blockType": "PARAGRAPH",
+        "content": {},
+        "sortOrder": 3,
+        "isPublished": true,
+        "contentRevision": 3,
+        "localizations": {
+          "en": {
+            "sourceRevision": 3,
+            "translationRevision": 2,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "BILINGUAL_EDITORIAL",
+                "externalId": "bilingual-n5-existing-01:4133f29f-c96b-510c-a9c5-84b777868460:en",
+                "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
+                "notes": "BIL-02: audited English baseline."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "だれ",
+                "sourceUrl": "https://bunpro.jp/grammar_points/だれ",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/048-%E3%81%A0%E3%82%8C.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:4133f29f-c96b-510c-a9c5-84b777868460:en",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "Asking who someone is",
+            "body": "<p>Use だれ to ask who someone is. Add ですか for a polite question.</p><p>Noun + <span class=\"text-warning\">は</span> + <span class=\"text-emphasis\">だれ</span> + ですか<br><span class=\"text-emphasis\">だれ</span> + ですか</p>"
+          },
+          "id": {
+            "sourceRevision": 3,
+            "translationRevision": 2,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "BILINGUAL_EDITORIAL",
+                "externalId": "bilingual-n5-existing-01:4133f29f-c96b-510c-a9c5-84b777868460:id",
+                "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
+                "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "だれ",
+                "sourceUrl": "https://bunpro.jp/grammar_points/だれ",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/048-%E3%81%A0%E3%82%8C.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:4133f29f-c96b-510c-a9c5-84b777868460:id",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "Menanyakan siapa seseorang",
+            "body": "<p>Gunakan だれ untuk menanyakan siapa seseorang. Tambahkan ですか untuk bertanya dengan sopan.</p><p>Kata benda + <span class=\"text-warning\">は</span> + <span class=\"text-emphasis\">だれ</span> + ですか<br><span class=\"text-emphasis\">だれ</span> + ですか</p>"
+          }
+        }
+      }
+    },
+    {
+      "lessonId": "74ba7e47-177e-56ac-b418-f76f1d707ccb",
+      "reason": "Convert the vocabulary/pattern overview to PARAGRAPH, preserving its ID, sortOrder and every original Japanese pattern. No artificial bundle or arbitrary atomic grammar owner is introduced.",
+      "block": {
+        "id": "6a661297-679e-5d65-a9f9-8d2f32f29edf",
+        "blockType": "PARAGRAPH",
+        "content": {},
+        "sortOrder": 6,
+        "isPublished": true,
+        "contentRevision": 3,
+        "localizations": {
+          "en": {
+            "sourceRevision": 3,
+            "translationRevision": 2,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "BILINGUAL_EDITORIAL",
+                "externalId": "bilingual-n5-existing-01:6a661297-679e-5d65-a9f9-8d2f32f29edf:en",
+                "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
+                "notes": "BIL-02: audited English baseline."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "だれ",
+                "sourceUrl": "https://bunpro.jp/grammar_points/だれ",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/048-%E3%81%A0%E3%82%8C.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "の",
+                "sourceUrl": "https://bunpro.jp/grammar_points/の",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/094-%E3%81%AE.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:6a661297-679e-5d65-a9f9-8d2f32f29edf:en",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "Asking who something belongs to",
+            "body": "<p>Use だれの to ask who something belongs to. When the object is already clear, you can leave out the noun after の.</p><p><span class=\"text-emphasis\">だれ</span> + <span class=\"text-warning\">の</span> + Noun + ですか<br>Noun + <span class=\"text-warning\">は</span> + <span class=\"text-emphasis\">だれ</span> + <span class=\"text-warning\">の</span> + ですか</p>"
+          },
+          "id": {
+            "sourceRevision": 3,
+            "translationRevision": 2,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "BILINGUAL_EDITORIAL",
+                "externalId": "bilingual-n5-existing-01:6a661297-679e-5d65-a9f9-8d2f32f29edf:id",
+                "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
+                "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "だれ",
+                "sourceUrl": "https://bunpro.jp/grammar_points/だれ",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/048-%E3%81%A0%E3%82%8C.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "の",
+                "sourceUrl": "https://bunpro.jp/grammar_points/の",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/094-%E3%81%AE.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:6a661297-679e-5d65-a9f9-8d2f32f29edf:id",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "Menanyakan pemilik suatu benda",
+            "body": "<p>Gunakan だれの untuk menanyakan pemilik suatu benda. Jika bendanya sudah jelas, kamu bisa menghilangkan kata benda setelah の.</p><p><span class=\"text-emphasis\">だれ</span> + <span class=\"text-warning\">の</span> + Kata benda + ですか<br>Kata benda + <span class=\"text-warning\">は</span> + <span class=\"text-emphasis\">だれ</span> + <span class=\"text-warning\">の</span> + ですか</p>"
+          }
+        }
+      }
+    },
+    {
+      "lessonId": "74ba7e47-177e-56ac-b418-f76f1d707ccb",
+      "reason": "Convert the vocabulary/pattern overview to PARAGRAPH, preserving its ID, sortOrder and every original Japanese pattern. No artificial bundle or arbitrary atomic grammar owner is introduced.",
+      "block": {
+        "id": "87eba7a4-20a5-5b86-88bb-73801a250b09",
+        "blockType": "PARAGRAPH",
+        "content": {},
+        "sortOrder": 8,
+        "isPublished": true,
+        "contentRevision": 3,
+        "localizations": {
+          "en": {
+            "sourceRevision": 3,
+            "translationRevision": 2,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "BILINGUAL_EDITORIAL",
+                "externalId": "bilingual-n5-existing-01:87eba7a4-20a5-5b86-88bb-73801a250b09:en",
+                "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
+                "notes": "BIL-02: audited English baseline."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "どれ",
+                "sourceUrl": "https://bunpro.jp/grammar_points/どれ",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/070-%E3%81%A9%E3%82%8C.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:87eba7a4-20a5-5b86-88bb-73801a250b09:en",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "Asking which one",
+            "body": "<p>Use どれ on its own to ask which one from three or more choices. どれにしますか asks which one someone will choose.</p><p>Noun + <span class=\"text-warning\">は</span> + <span class=\"text-emphasis\">どれ</span> + ですか<br><span class=\"text-emphasis\">どれ</span> + にしますか</p>"
+          },
+          "id": {
+            "sourceRevision": 3,
+            "translationRevision": 2,
+            "isPublished": true,
+            "sourceRefs": [
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "BILINGUAL_EDITORIAL",
+                "externalId": "bilingual-n5-existing-01:87eba7a4-20a5-5b86-88bb-73801a250b09:id",
+                "retrievedFrom": "content/syllabus/tracks/jlpt-n5-foundation.json",
+                "notes": "BIL-02: Indonesian translation checked against English and Japanese content."
+              },
+              {
+                "provider": "BUNPRO",
+                "category": "GRAMMAR_POINT",
+                "externalId": "どれ",
+                "sourceUrl": "https://bunpro.jp/grammar_points/どれ",
+                "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/070-%E3%81%A9%E3%82%8C.html",
+                "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+              },
+              {
+                "provider": "KOTOBAHUB_INTERNAL",
+                "category": "CANONICAL_CURATION",
+                "externalId": "bilingual-n5-existing-01:curation:87eba7a4-20a5-5b86-88bb-73801a250b09:id",
+                "retrievedFrom": "content/syllabus/v2/authoring/batch-01-curation.json",
+                "notes": "Original bilingual editorial wording for the explicitly authorized 2026-11-17 canonical curation proposal; requires independent review before integration."
+              }
+            ],
+            "title": "Menanyakan yang mana",
+            "body": "<p>Gunakan どれ tanpa kata benda sesudahnya untuk bertanya yang mana dari tiga pilihan atau lebih. どれにしますか menanyakan pilihan yang akan diambil seseorang.</p><p>Kata benda + <span class=\"text-warning\">は</span> + <span class=\"text-emphasis\">どれ</span> + ですか<br><span class=\"text-emphasis\">どれ</span> + にしますか</p>"
+          }
+        }
+      }
+    }
+  ],
+  "questionSkillCodes": {
+    "ee489861-5b62-5d9d-88ae-8e1ad540d027": "n5_vocab_greetings_and_polite_openers_shitsureishimasu",
+    "b038c3be-cc0d-5020-9780-e6b06298e440": "n5_vocab_identity_and_roles_daigakusei",
+    "fd584302-ed2d-5480-91c7-f72691e2dd80": "n5_vocab_identity_and_roles_indoneshiajin",
+    "81f3aafb-3557-5880-97d8-0598f05bd33e": "n5_kosoado_pronouns_dore",
+    "7c34d070-5073-5cf8-9bd6-f6ab373072ec": "n5_kosoado_pronouns_dore",
+    "d2ddb742-b2eb-5ed7-9560-bf80a19b455b": "n5_kosoado_modifiers_kono",
+    "d12fa1ae-b3ce-5ce1-8189-78eb190eb77b": "n5_kosoado_modifiers_kono",
+    "c18d98a9-b00f-59b7-9141-b8a88e6090ab": "n5_kosoado_modifiers_dono",
+    "b134f410-01ef-5ead-914b-5a2e171e71bb": "n5_kosoado_modifiers_dono",
+    "7b8f0fec-5519-5abf-b98e-88dcbd3a8fed": "n5_kosoado_modifiers_dono",
+    "18a4ebec-cdad-5737-860a-ccccc90c45b9": "n5_which_noun_dono_determiner",
+    "8f5f40f7-09d9-58a2-85fd-11f41285df4e": "n5_which_noun_dono_determiner",
+    "61f69a90-29da-572c-9cc5-dc525e623ad4": "n5_which_noun_dono_determiner",
+    "ed500231-c191-5e17-a4fc-368c4f738e1d": "n5_which_noun_dono_determiner",
+    "d3edbaa5-2313-57b8-8fb0-d7aa66aa0c8b": "n5_vocab_daily_routine_verbs_neru"
+  },
+  "resolutions": [
+    {
+      "ownerId": "ee489861-5b62-5d9d-88ae-8e1ad540d027",
+      "reason": "Attribute the preserved prompt/answer to n5_vocab_greetings_and_polite_openers_shitsureishimasu in the same lesson. Add the exact lesson-owned lexeme 失礼します (しつれいします) for the unchanged answer bank; a similar reading, different lexical entry, or another lesson’s skill is not a substitute.",
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "2276200",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+          "notes": "Checked entry 2276200: spelling 失礼します, reading しつれいします, intended sense 1."
+        }
+      ]
+    },
+    {
+      "ownerId": "b038c3be-cc0d-5020-9780-e6b06298e440",
+      "reason": "Attribute the preserved prompt/answer to n5_vocab_identity_and_roles_daigakusei in the same lesson. Add the exact lesson-owned lexeme 大学生 (だいがくせい) for the unchanged answer bank; a similar reading, different lexical entry, or another lesson’s skill is not a substitute.",
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "1413260",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+          "notes": "Checked entry 1413260: spelling 大学生, reading だいがくせい, intended sense 1."
+        }
+      ]
+    },
+    {
+      "ownerId": "fd584302-ed2d-5480-91c7-f72691e2dd80",
+      "reason": "Attribute the preserved prompt/answer to n5_vocab_identity_and_roles_indoneshiajin in the same lesson. Add the exact lesson-owned lexeme インドネシア人 (インドネシアじん) for the unchanged answer bank; a similar reading, different lexical entry, or another lesson’s skill is not a substitute.",
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "2582220",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+          "notes": "Checked entry 2582220: spelling インドネシア人, reading インドネシアじん, intended sense 1."
+        }
+      ]
+    },
+    {
+      "ownerId": "81f3aafb-3557-5880-97d8-0598f05bd33e",
+      "reason": "Attribute the preserved prompt/answer to n5_kosoado_pronouns_dore in the same lesson. Add the exact lesson-owned lexeme どれ (どれ) for the unchanged answer bank; a similar reading, different lexical entry, or another lesson’s skill is not a substitute. The JMdict external identity is shared with other lesson-scoped uses; the new skill UUID/code is distinct and no existing skill is moved.",
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "1009290",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+          "notes": "Checked entry 1009290: spelling 何れ, reading どれ, intended sense 1."
+        },
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "どれ",
+          "sourceUrl": "https://bunpro.jp/grammar_points/どれ",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/070-%E3%81%A9%E3%82%8C.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        }
+      ]
+    },
+    {
+      "ownerId": "7c34d070-5073-5cf8-9bd6-f6ab373072ec",
+      "reason": "Attribute the preserved prompt/answer to n5_kosoado_pronouns_dore in the same lesson. Add the exact lesson-owned lexeme どれ (どれ) for the unchanged answer bank; a similar reading, different lexical entry, or another lesson’s skill is not a substitute. The JMdict external identity is shared with other lesson-scoped uses; the new skill UUID/code is distinct and no existing skill is moved.",
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "1009290",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+          "notes": "Checked entry 1009290: spelling 何れ, reading どれ, intended sense 1."
+        },
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "どれ",
+          "sourceUrl": "https://bunpro.jp/grammar_points/どれ",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/070-%E3%81%A9%E3%82%8C.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        }
+      ]
+    },
+    {
+      "ownerId": "d2ddb742-b2eb-5ed7-9560-bf80a19b455b",
+      "reason": "Attribute the preserved prompt/answer to n5_kosoado_modifiers_kono in the same lesson. Add the exact lesson-owned lexeme この (この) for the unchanged answer bank; a similar reading, different lexical entry, or another lesson’s skill is not a substitute.",
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "1582920",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+          "notes": "Checked entry 1582920: spelling 此の, reading この, intended sense 1."
+        },
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "この",
+          "sourceUrl": "https://bunpro.jp/grammar_points/この",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/031-%E3%81%93%E3%81%AE.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        }
+      ]
+    },
+    {
+      "ownerId": "d12fa1ae-b3ce-5ce1-8189-78eb190eb77b",
+      "reason": "Attribute the preserved prompt/answer to n5_kosoado_modifiers_kono in the same lesson. Add the exact lesson-owned lexeme この (この) for the unchanged answer bank; a similar reading, different lexical entry, or another lesson’s skill is not a substitute.",
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "1582920",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+          "notes": "Checked entry 1582920: spelling 此の, reading この, intended sense 1."
+        },
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "この",
+          "sourceUrl": "https://bunpro.jp/grammar_points/この",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/031-%E3%81%93%E3%81%AE.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        }
+      ]
+    },
+    {
+      "ownerId": "c18d98a9-b00f-59b7-9141-b8a88e6090ab",
+      "reason": "Attribute the preserved prompt/answer to n5_kosoado_modifiers_dono in the same lesson. Add the exact lesson-owned lexeme どの (どの) for the unchanged answer bank; a similar reading, different lexical entry, or another lesson’s skill is not a substitute. The JMdict external identity is shared with other lesson-scoped uses; the new skill UUID/code is distinct and no existing skill is moved.",
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "1920240",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+          "notes": "Checked entry 1920240: spelling 何の, reading どの, intended sense 1."
+        },
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "どの",
+          "sourceUrl": "https://bunpro.jp/grammar_points/どの",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/069-%E3%81%A9%E3%81%AE.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        }
+      ]
+    },
+    {
+      "ownerId": "b134f410-01ef-5ead-914b-5a2e171e71bb",
+      "reason": "Attribute the preserved prompt/answer to n5_kosoado_modifiers_dono in the same lesson. Add the exact lesson-owned lexeme どの (どの) for the unchanged answer bank; a similar reading, different lexical entry, or another lesson’s skill is not a substitute. The JMdict external identity is shared with other lesson-scoped uses; the new skill UUID/code is distinct and no existing skill is moved.",
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "1920240",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+          "notes": "Checked entry 1920240: spelling 何の, reading どの, intended sense 1."
+        },
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "どの",
+          "sourceUrl": "https://bunpro.jp/grammar_points/どの",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/069-%E3%81%A9%E3%81%AE.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        }
+      ]
+    },
+    {
+      "ownerId": "7b8f0fec-5519-5abf-b98e-88dcbd3a8fed",
+      "reason": "Attribute the preserved prompt/answer to n5_kosoado_modifiers_dono in the same lesson. Add the exact lesson-owned lexeme どの (どの) for the unchanged answer bank; a similar reading, different lexical entry, or another lesson’s skill is not a substitute. The JMdict external identity is shared with other lesson-scoped uses; the new skill UUID/code is distinct and no existing skill is moved.",
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "1920240",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+          "notes": "Checked entry 1920240: spelling 何の, reading どの, intended sense 1."
+        },
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "どの",
+          "sourceUrl": "https://bunpro.jp/grammar_points/どの",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/069-%E3%81%A9%E3%81%AE.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        }
+      ]
+    },
+    {
+      "ownerId": "18a4ebec-cdad-5737-860a-ccccc90c45b9",
+      "reason": "Attribute the preserved prompt/answer to n5_which_noun_dono_determiner in the same lesson. Add the exact lesson-owned lexeme どの (どの) for the unchanged answer bank; a similar reading, different lexical entry, or another lesson’s skill is not a substitute. The JMdict external identity is shared with other lesson-scoped uses; the new skill UUID/code is distinct and no existing skill is moved.",
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "1920240",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+          "notes": "Checked entry 1920240: spelling 何の, reading どの, intended sense 1."
+        },
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "どの",
+          "sourceUrl": "https://bunpro.jp/grammar_points/どの",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/069-%E3%81%A9%E3%81%AE.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        }
+      ]
+    },
+    {
+      "ownerId": "8f5f40f7-09d9-58a2-85fd-11f41285df4e",
+      "reason": "Attribute the preserved prompt/answer to n5_which_noun_dono_determiner in the same lesson. Add the exact lesson-owned lexeme どの (どの) for the unchanged answer bank; a similar reading, different lexical entry, or another lesson’s skill is not a substitute. The JMdict external identity is shared with other lesson-scoped uses; the new skill UUID/code is distinct and no existing skill is moved.",
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "1920240",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+          "notes": "Checked entry 1920240: spelling 何の, reading どの, intended sense 1."
+        },
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "どの",
+          "sourceUrl": "https://bunpro.jp/grammar_points/どの",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/069-%E3%81%A9%E3%81%AE.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        }
+      ]
+    },
+    {
+      "ownerId": "61f69a90-29da-572c-9cc5-dc525e623ad4",
+      "reason": "Attribute the preserved prompt/answer to n5_which_noun_dono_determiner in the same lesson. Add the exact lesson-owned lexeme どの (どの) for the unchanged answer bank; a similar reading, different lexical entry, or another lesson’s skill is not a substitute. The JMdict external identity is shared with other lesson-scoped uses; the new skill UUID/code is distinct and no existing skill is moved.",
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "1920240",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+          "notes": "Checked entry 1920240: spelling 何の, reading どの, intended sense 1."
+        },
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "どの",
+          "sourceUrl": "https://bunpro.jp/grammar_points/どの",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/069-%E3%81%A9%E3%81%AE.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        }
+      ]
+    },
+    {
+      "ownerId": "ed500231-c191-5e17-a4fc-368c4f738e1d",
+      "reason": "Attribute the preserved prompt/answer to n5_which_noun_dono_determiner in the same lesson. Add the exact lesson-owned lexeme どの (どの) for the unchanged answer bank; a similar reading, different lexical entry, or another lesson’s skill is not a substitute. The JMdict external identity is shared with other lesson-scoped uses; the new skill UUID/code is distinct and no existing skill is moved.",
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "1920240",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+          "notes": "Checked entry 1920240: spelling 何の, reading どの, intended sense 1."
+        },
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "どの",
+          "sourceUrl": "https://bunpro.jp/grammar_points/どの",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/069-%E3%81%A9%E3%81%AE.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        }
+      ]
+    },
+    {
+      "ownerId": "d3edbaa5-2313-57b8-8fb0-d7aa66aa0c8b",
+      "reason": "Attribute the preserved prompt/answer to n5_vocab_daily_routine_verbs_neru in the same lesson. Add the exact lesson-owned lexeme 寝る (ねる) for the unchanged answer bank; a similar reading, different lexical entry, or another lesson’s skill is not a substitute.",
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "1360010",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+          "notes": "Checked entry 1360010: spelling 寝る, reading ねる, intended sense 1 and 2 (go to bed)."
+        },
+        {
+          "provider": "TAE_KIM",
+          "category": "GRAMMAR_GUIDE",
+          "externalId": "2012-11-21/4.1.2-4.1.3",
+          "sourceUrl": "https://guidetojapanese.org/learn/grammar/polite",
+          "retrievedFrom": "content/syllabus/sources/tae-kim/Tae Kim Japanese Grammar Guide.pdf",
+          "notes": "Sections 4.1.2 and 4.1.3, PDF/printed pages 84-87: ru-verb stems remove final る, then add ます. Combined with JMdict Ichidan classification of 寝る to verify 寝る → ねます."
+        }
+      ]
+    },
+    {
+      "ownerId": "fb10b09b-faa8-5abe-997f-7ce46da6a81d",
+      "reason": "Convert the vocabulary/pattern overview to PARAGRAPH, preserving its ID, sortOrder and every original Japanese pattern. No artificial bundle or arbitrary atomic grammar owner is introduced.",
+      "sourceRefs": [
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "この",
+          "sourceUrl": "https://bunpro.jp/grammar_points/この",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/031-%E3%81%93%E3%81%AE.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        },
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "その",
+          "sourceUrl": "https://bunpro.jp/grammar_points/その",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/039-%E3%81%9D%E3%81%AE.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        },
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "あの",
+          "sourceUrl": "https://bunpro.jp/grammar_points/あの",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/003-%E3%81%82%E3%81%AE.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        },
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "どの",
+          "sourceUrl": "https://bunpro.jp/grammar_points/どの",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/069-%E3%81%A9%E3%81%AE.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        }
+      ]
+    },
+    {
+      "ownerId": "0ecf2c1b-cf4d-5360-9439-c70dca77c65f",
+      "reason": "Convert the vocabulary/pattern overview to PARAGRAPH, preserving its ID, sortOrder and every original Japanese pattern. No artificial bundle or arbitrary atomic grammar owner is introduced.",
+      "sourceRefs": [
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "ここ",
+          "sourceUrl": "https://bunpro.jp/grammar_points/ここ",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/030-%E3%81%93%E3%81%93.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        },
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "そこ",
+          "sourceUrl": "https://bunpro.jp/grammar_points/そこ",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/038-%E3%81%9D%E3%81%93.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        },
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "あそこ",
+          "sourceUrl": "https://bunpro.jp/grammar_points/あそこ",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/002-%E3%81%82%E3%81%9D%E3%81%93.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        }
+      ]
+    },
+    {
+      "ownerId": "dfa29085-7639-5aca-8a6f-b297b16ff7b2",
+      "reason": "Convert the vocabulary/pattern overview to PARAGRAPH, preserving its ID, sortOrder and every original Japanese pattern. No artificial bundle or arbitrary atomic grammar owner is introduced.",
+      "sourceRefs": [
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "どの",
+          "sourceUrl": "https://bunpro.jp/grammar_points/どの",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/069-%E3%81%A9%E3%81%AE.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        }
+      ]
+    },
+    {
+      "ownerId": "40a4806b-8415-5f3d-8510-193c10715420",
+      "reason": "Convert the vocabulary/pattern overview to PARAGRAPH, preserving its ID, sortOrder and every original Japanese pattern. No artificial bundle or arbitrary atomic grammar owner is introduced.",
+      "sourceRefs": [
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "どこ",
+          "sourceUrl": "https://bunpro.jp/grammar_points/どこ",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/068-%E3%81%A9%E3%81%93.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        },
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "ここ",
+          "sourceUrl": "https://bunpro.jp/grammar_points/ここ",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/030-%E3%81%93%E3%81%93.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        },
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "そこ",
+          "sourceUrl": "https://bunpro.jp/grammar_points/そこ",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/038-%E3%81%9D%E3%81%93.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        },
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "あそこ",
+          "sourceUrl": "https://bunpro.jp/grammar_points/あそこ",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/002-%E3%81%82%E3%81%9D%E3%81%93.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        }
+      ]
+    },
+    {
+      "ownerId": "4133f29f-c96b-510c-a9c5-84b777868460",
+      "reason": "Convert the vocabulary/pattern overview to PARAGRAPH, preserving its ID, sortOrder and every original Japanese pattern. No artificial bundle or arbitrary atomic grammar owner is introduced.",
+      "sourceRefs": [
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "だれ",
+          "sourceUrl": "https://bunpro.jp/grammar_points/だれ",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/048-%E3%81%A0%E3%82%8C.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        }
+      ]
+    },
+    {
+      "ownerId": "6a661297-679e-5d65-a9f9-8d2f32f29edf",
+      "reason": "Convert the vocabulary/pattern overview to PARAGRAPH, preserving its ID, sortOrder and every original Japanese pattern. No artificial bundle or arbitrary atomic grammar owner is introduced.",
+      "sourceRefs": [
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "だれ",
+          "sourceUrl": "https://bunpro.jp/grammar_points/だれ",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/048-%E3%81%A0%E3%82%8C.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        },
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "の",
+          "sourceUrl": "https://bunpro.jp/grammar_points/の",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/094-%E3%81%AE.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        }
+      ]
+    },
+    {
+      "ownerId": "87eba7a4-20a5-5b86-88bb-73801a250b09",
+      "reason": "Convert the vocabulary/pattern overview to PARAGRAPH, preserving its ID, sortOrder and every original Japanese pattern. No artificial bundle or arbitrary atomic grammar owner is introduced.",
+      "sourceRefs": [
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "どれ",
+          "sourceUrl": "https://bunpro.jp/grammar_points/どれ",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/070-%E3%81%A9%E3%82%8C.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        }
+      ]
+    }
+  ],
+  "prerequisiteReplacements": [
+    {
+      "lessonId": "ae296331-0e1f-5d3b-a590-b751967a3e34",
+      "skillCode": "n5_kosoado_modifiers_sono",
+      "oldPrerequisiteSkillCodes": [
+        "n5_kosoado_modifiers_kyuu"
+      ],
+      "prerequisiteSkillCodes": [
+        "n5_kosoado_modifiers_kono"
+      ],
+      "reason": "Preserve the intended prerequisite lexeme この by replacing the erroneous 九 entry with the verified lesson-owned determiner. Existing skill identity, order and support flags remain unchanged. The corrected prerequisite uses the appended new skill; sortOrder is display order, not prerequisite identity. The new prerequisite skill has no prerequisites, so this change creates no cycle.",
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "1582920",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+          "notes": "Checked entry 1582920: spelling 此の, reading この, intended sense 1."
+        },
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "この",
+          "sourceUrl": "https://bunpro.jp/grammar_points/この",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/031-%E3%81%93%E3%81%AE.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        }
+      ]
+    },
+    {
+      "lessonId": "74ba7e47-177e-56ac-b418-f76f1d707ccb",
+      "skillCode": "n5_vocab_people_reference_basic_watashi",
+      "oldPrerequisiteSkillCodes": [
+        "n5_which_noun_dono_dono"
+      ],
+      "prerequisiteSkillCodes": [
+        "n5_which_noun_dono_determiner"
+      ],
+      "reason": "Preserve the intended prerequisite lexeme どの by replacing the erroneous honorific 殿 entry with the verified lesson-owned determiner. Existing skill identity, order and support flags remain unchanged. The corrected prerequisite uses the appended new skill; sortOrder is display order, not prerequisite identity. The new prerequisite skill has no prerequisites, so this change creates no cycle.",
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "1920240",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+          "notes": "Checked entry 1920240: spelling 何の, reading どの, intended sense 1."
+        },
+        {
+          "provider": "BUNPRO",
+          "category": "GRAMMAR_POINT",
+          "externalId": "どの",
+          "sourceUrl": "https://bunpro.jp/grammar_points/どの",
+          "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/069-%E3%81%A9%E3%81%AE.html",
+          "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+        }
+      ]
+    }
+  ]
+}

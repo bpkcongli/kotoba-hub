@@ -169,7 +169,9 @@
         "6cb36848-7ecf-5422-8510-f3bd66a2700c"
       ],
       "baselineStatus": "REQUIRES_SKILL_ATTRIBUTION_FIX",
-      "unresolvedQuestionSkillCodes": ["n5_vocab_identity_and_roles"]
+      "unresolvedQuestionSkillCodes": [
+        "n5_vocab_identity_and_roles"
+      ]
     },
     {
       "id": "24009d46-a270-5706-82e0-7c1cdbd920e7",
@@ -211,7 +213,9 @@
         "1dca1e7b-2713-5b7d-bfa1-7bd65f2491ec"
       ],
       "baselineStatus": "REQUIRES_SKILL_ATTRIBUTION_FIX",
-      "unresolvedQuestionSkillCodes": ["n5_kosoado_pronouns"]
+      "unresolvedQuestionSkillCodes": [
+        "n5_kosoado_pronouns"
+      ]
     },
     {
       "id": "ae296331-0e1f-5d3b-a590-b751967a3e34",
@@ -253,7 +257,9 @@
         "7b8f0fec-5519-5abf-b98e-88dcbd3a8fed"
       ],
       "baselineStatus": "REQUIRES_SKILL_ATTRIBUTION_FIX",
-      "unresolvedQuestionSkillCodes": ["n5_kosoado_modifiers"]
+      "unresolvedQuestionSkillCodes": [
+        "n5_kosoado_modifiers"
+      ]
     },
     {
       "id": "977e1f71-901a-5f3a-8302-b16a7e0c0f0f",
@@ -297,7 +303,10 @@
         "a1e6be38-ad46-5c98-ad25-2a122eeab0ba"
       ],
       "baselineStatus": "REQUIRES_SKILL_ATTRIBUTION_FIX",
-      "unresolvedQuestionSkillCodes": ["n5_place_reference_words", "n5_where_question_doko"]
+      "unresolvedQuestionSkillCodes": [
+        "n5_place_reference_words",
+        "n5_where_question_doko"
+      ]
     },
     {
       "id": "74ba7e47-177e-56ac-b418-f76f1d707ccb",
@@ -341,7 +350,11 @@
         "ed500231-c191-5e17-a4fc-368c4f738e1d"
       ],
       "baselineStatus": "REQUIRES_SKILL_ATTRIBUTION_FIX",
-      "unresolvedQuestionSkillCodes": ["n5_which_noun_dono", "n5_which_one_dore", "n5_who_dare"]
+      "unresolvedQuestionSkillCodes": [
+        "n5_which_noun_dono",
+        "n5_which_one_dore",
+        "n5_who_dare"
+      ]
     },
     {
       "id": "7bbfb649-309e-50c2-b7e8-304ddf0bf6b7",
@@ -555,7 +568,9 @@
         "a7a3506a-0689-5e05-a9fd-e98d115125eb"
       ],
       "baselineStatus": "REQUIRES_SKILL_ATTRIBUTION_FIX",
-      "unresolvedQuestionSkillCodes": ["n5_vocab_daily_routine_verbs"]
+      "unresolvedQuestionSkillCodes": [
+        "n5_vocab_daily_routine_verbs"
+      ]
     },
     {
       "id": "72e2ef5e-525f-5661-9da0-fb86987cb972",
@@ -698,5 +713,164 @@
       "baselineStatus": "IMPORTABLE_V1",
       "unresolvedQuestionSkillCodes": []
     }
-  ]
+  ],
+  "curation": {
+    "file": "content/syllabus/v2/authoring/batch-01-curation.json",
+    "sha256": "13746cd847c3cabb679d17c25eeab4b7b7a800c5f558cf254f6322f33db6887e",
+    "addedSkills": [
+      {
+        "lessonId": "4b14c9cc-ca61-5a32-8bf8-bddf625e5266",
+        "id": "926b9ec4-896f-51c0-b6b8-c82966e68963",
+        "code": "n5_vocab_greetings_and_polite_openers_shitsureishimasu"
+      },
+      {
+        "lessonId": "c44f7800-6bbc-50d5-8b9c-28430c1d7485",
+        "id": "782a2608-b858-5fe5-9b88-6e97d061c6b8",
+        "code": "n5_vocab_identity_and_roles_daigakusei"
+      },
+      {
+        "lessonId": "c44f7800-6bbc-50d5-8b9c-28430c1d7485",
+        "id": "4398dad5-6597-5f38-a951-78c8650f36be",
+        "code": "n5_vocab_identity_and_roles_indoneshiajin"
+      },
+      {
+        "lessonId": "24009d46-a270-5706-82e0-7c1cdbd920e7",
+        "id": "9631e65b-095e-52ae-ac43-01f03ba2a768",
+        "code": "n5_kosoado_pronouns_dore"
+      },
+      {
+        "lessonId": "ae296331-0e1f-5d3b-a590-b751967a3e34",
+        "id": "0bb89782-a7ac-58c0-8461-5b24070b2b5a",
+        "code": "n5_kosoado_modifiers_kono"
+      },
+      {
+        "lessonId": "ae296331-0e1f-5d3b-a590-b751967a3e34",
+        "id": "110f3b70-54fa-57d5-bcb0-4dc6d6f3a051",
+        "code": "n5_kosoado_modifiers_dono"
+      },
+      {
+        "lessonId": "74ba7e47-177e-56ac-b418-f76f1d707ccb",
+        "id": "ce806477-8abe-56fe-9a6e-a1f11abfc8e1",
+        "code": "n5_which_noun_dono_determiner"
+      },
+      {
+        "lessonId": "267a011e-b87b-5252-98bb-121374301385",
+        "id": "2cbb87e4-b7f1-518a-82d3-67b47c145e5f",
+        "code": "n5_vocab_daily_routine_verbs_neru"
+      }
+    ],
+    "blockReplacements": [
+      {
+        "lessonId": "ae296331-0e1f-5d3b-a590-b751967a3e34",
+        "id": "fb10b09b-faa8-5abe-997f-7ce46da6a81d"
+      },
+      {
+        "lessonId": "977e1f71-901a-5f3a-8302-b16a7e0c0f0f",
+        "id": "0ecf2c1b-cf4d-5360-9439-c70dca77c65f"
+      },
+      {
+        "lessonId": "74ba7e47-177e-56ac-b418-f76f1d707ccb",
+        "id": "dfa29085-7639-5aca-8a6f-b297b16ff7b2"
+      },
+      {
+        "lessonId": "977e1f71-901a-5f3a-8302-b16a7e0c0f0f",
+        "id": "40a4806b-8415-5f3d-8510-193c10715420"
+      },
+      {
+        "lessonId": "74ba7e47-177e-56ac-b418-f76f1d707ccb",
+        "id": "4133f29f-c96b-510c-a9c5-84b777868460"
+      },
+      {
+        "lessonId": "74ba7e47-177e-56ac-b418-f76f1d707ccb",
+        "id": "6a661297-679e-5d65-a9f9-8d2f32f29edf"
+      },
+      {
+        "lessonId": "74ba7e47-177e-56ac-b418-f76f1d707ccb",
+        "id": "87eba7a4-20a5-5b86-88bb-73801a250b09"
+      }
+    ],
+    "questionSkillCodes": {
+      "ee489861-5b62-5d9d-88ae-8e1ad540d027": "n5_vocab_greetings_and_polite_openers_shitsureishimasu",
+      "b038c3be-cc0d-5020-9780-e6b06298e440": "n5_vocab_identity_and_roles_daigakusei",
+      "fd584302-ed2d-5480-91c7-f72691e2dd80": "n5_vocab_identity_and_roles_indoneshiajin",
+      "81f3aafb-3557-5880-97d8-0598f05bd33e": "n5_kosoado_pronouns_dore",
+      "7c34d070-5073-5cf8-9bd6-f6ab373072ec": "n5_kosoado_pronouns_dore",
+      "d2ddb742-b2eb-5ed7-9560-bf80a19b455b": "n5_kosoado_modifiers_kono",
+      "d12fa1ae-b3ce-5ce1-8189-78eb190eb77b": "n5_kosoado_modifiers_kono",
+      "c18d98a9-b00f-59b7-9141-b8a88e6090ab": "n5_kosoado_modifiers_dono",
+      "b134f410-01ef-5ead-914b-5a2e171e71bb": "n5_kosoado_modifiers_dono",
+      "7b8f0fec-5519-5abf-b98e-88dcbd3a8fed": "n5_kosoado_modifiers_dono",
+      "18a4ebec-cdad-5737-860a-ccccc90c45b9": "n5_which_noun_dono_determiner",
+      "8f5f40f7-09d9-58a2-85fd-11f41285df4e": "n5_which_noun_dono_determiner",
+      "61f69a90-29da-572c-9cc5-dc525e623ad4": "n5_which_noun_dono_determiner",
+      "ed500231-c191-5e17-a4fc-368c4f738e1d": "n5_which_noun_dono_determiner",
+      "d3edbaa5-2313-57b8-8fb0-d7aa66aa0c8b": "n5_vocab_daily_routine_verbs_neru"
+    },
+    "retiredSkillCodes": [
+      "n5_kosoado_modifiers_kyuu",
+      "n5_which_noun_dono_dono"
+    ],
+    "prerequisiteReplacements": [
+      {
+        "lessonId": "ae296331-0e1f-5d3b-a590-b751967a3e34",
+        "skillCode": "n5_kosoado_modifiers_sono",
+        "oldPrerequisiteSkillCodes": [
+          "n5_kosoado_modifiers_kyuu"
+        ],
+        "prerequisiteSkillCodes": [
+          "n5_kosoado_modifiers_kono"
+        ],
+        "reason": "Preserve the intended prerequisite lexeme この by replacing the erroneous 九 entry with the verified lesson-owned determiner. Existing skill identity, order and support flags remain unchanged. The corrected prerequisite uses the appended new skill; sortOrder is display order, not prerequisite identity. The new prerequisite skill has no prerequisites, so this change creates no cycle.",
+        "sourceRefs": [
+          {
+            "provider": "JMDICT",
+            "category": "LEXICAL_ENTRY",
+            "externalId": "1582920",
+            "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+            "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+            "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+            "notes": "Checked entry 1582920: spelling 此の, reading この, intended sense 1."
+          },
+          {
+            "provider": "BUNPRO",
+            "category": "GRAMMAR_POINT",
+            "externalId": "この",
+            "sourceUrl": "https://bunpro.jp/grammar_points/この",
+            "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/031-%E3%81%93%E3%81%AE.html",
+            "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+          }
+        ]
+      },
+      {
+        "lessonId": "74ba7e47-177e-56ac-b418-f76f1d707ccb",
+        "skillCode": "n5_vocab_people_reference_basic_watashi",
+        "oldPrerequisiteSkillCodes": [
+          "n5_which_noun_dono_dono"
+        ],
+        "prerequisiteSkillCodes": [
+          "n5_which_noun_dono_determiner"
+        ],
+        "reason": "Preserve the intended prerequisite lexeme どの by replacing the erroneous honorific 殿 entry with the verified lesson-owned determiner. Existing skill identity, order and support flags remain unchanged. The corrected prerequisite uses the appended new skill; sortOrder is display order, not prerequisite identity. The new prerequisite skill has no prerequisites, so this change creates no cycle.",
+        "sourceRefs": [
+          {
+            "provider": "JMDICT",
+            "category": "LEXICAL_ENTRY",
+            "externalId": "1920240",
+            "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+            "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+            "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition.",
+            "notes": "Checked entry 1920240: spelling 何の, reading どの, intended sense 1."
+          },
+          {
+            "provider": "BUNPRO",
+            "category": "GRAMMAR_POINT",
+            "externalId": "どの",
+            "sourceUrl": "https://bunpro.jp/grammar_points/どの",
+            "retrievedFrom": "content/syllabus/sources/bunpro/raw/2026-05-16/grammar_points/n5/069-%E3%81%A9%E3%81%AE.html",
+            "notes": "Structure and About checked in the local snapshot; wording is newly authored. Caution checked where present."
+          }
+        ]
+      }
+    ]
+  }
 }

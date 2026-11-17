@@ -2,7 +2,7 @@
 
 Panduan ini melengkapi tooling `BIL-04` untuk mengisi **hanya `lesson.contentBlocks` dan `lesson.postStudyQuestions`** pada lesson yang sudah ada. Konten baru ditulis dalam Inggris dan Indonesia, dengan contoh/prompt/kunci Jepang canonical yang sama. [Kontrak bilingual](bilingual-content-contract.md), [schema v2](schema/track-seed.v2.schema.json) dan [source plan](source-of-truth-and-ingestion-plan.md) tetap menjadi baseline.
 
-Tooling ini tidak menyelesaikan `BIL-02`, mengaktifkan importer v2, atau menyatakan seluruh N5/N4 telah selesai. Batch awal masih **HELD** sesuai [laporan konversi](bilingual-batch-01-conversion.md); `BIL-03` tetap menjadi dependency cutover. Seluruh draft baru tetap unpublished sampai integrasi yang sesuai kontrak.
+Tooling ini mendukung authoring/review. BIL-02 diselesaikan melalui [kurasi canonical yang ditugaskan eksplisit](bilingual-batch-01-curation.md), dengan batch awal `READY_FOR_BIL_03` sesuai [laporan konversi](bilingual-batch-01-conversion.md); importer/cutover v2 tetap BIL-03. Seluruh draft BIL-04 baru tetap unpublished sampai integrasi yang sesuai kontrak; seluruh N5/N4 belum dinyatakan selesai.
 
 ## Pembagian tanggung jawab
 
@@ -29,6 +29,8 @@ Ada dua jalur yang berbeda:
 
 1. **Lesson baru di luar frozen batch:** tulis satu fragment JSON per lesson di path yang ditugaskan, misalnya `content/syllabus/v2/drafts/<track-slug>/<lesson-slug>.json`. Root fragment hanya berisi `contentBlocks` dan `postStudyQuestions`; ini bahan review, bukan seed track atau format input importer. Identitas target dan bukti sumber disertakan dalam handoff. Katalog v1/v2 yang ditugaskan dibaca sebagai konteks; tidak ditulis langsung. Agent utama menangani integrasi ke authoring/seed yang sesuai setelah tooling importer tersedia.
 2. **BIL-02 batch-01:** hanya owner yang sudah ada pada `content/syllabus/v2/authoring/batch-01.json` boleh diedit sesuai scope eksplisit. Overlay ini memiliki struktur berbeda dari fragment: teks berada di `owners.<UUID>.localizations`. Jangan memasukkan block/soal baru ke overlay, menambah allowlist, mengganti checksum baseline, atau mengedit `v2/tracks/` hasil kompilasi. Compiler batch-01 bukan generator N4 atau generator semua lesson.
+
+Pengecualian kurasi BIL-02 tanggal 17 November memakai `authoring/batch-01-curation.json` dan scope/checksum tambahan pada allowlist: delapan skill baru, tujuh block pengganti dan dua koreksi prerequisite. Maker menyusun artefak usulan terisolasi; agent utama mengintegrasikan setelah review. Scope khusus ini tidak memberi izin perluasan katalog otomatis pada penugasan authoring berikutnya. Owner replacement tidak diduplikasi pada overlay awal.
 
 `content/syllabus/v1/manifest.json` tetap jalur aktif. Jangan mengubah manifest, flag publikasi katalog/overlay existing, lesson title, skills, prerequisites atau support flags sebagai efek samping authoring. Semua owner dan localization dalam **fragment kandidat terisolasi** memakai `isPublished: false`, termasuk jika mempertahankan ID owner lama. Flag draft pada salinan kandidat tidak mengubah flag baseline; publikasi saat integrasi ditangani terpisah. Reviewer mengembalikan laporan tanpa menulis file maker. Saat delegasi paralel, ownership dibagi berdasarkan **file fisik**; dua lesson dalam satu JSON track/overlay tidak boleh diedit dua maker sekaligus. Semua agent menjaga perubahan rekan kerja.
 
@@ -100,7 +102,7 @@ python3 scripts/test_bilingual_batch.py
 python3 scripts/validate_bilingual_contracts.py
 ```
 
-Jika overlay memang diubah dan hasil kompilasi perlu diperbarui, agent utama menjalankan compiler tanpa `--check` sesuai workflow batch, lalu mengulang checks. `--check --require-publishable` tetap harus gagal selama batch HELD. Checks batch/schema examples tersebut tidak membuktikan draft N4 telah tervalidasi dan tidak menggantikan review isi.
+Jika overlay memang diubah dan hasil kompilasi perlu diperbarui, agent utama menjalankan compiler tanpa `--check` sesuai workflow batch, lalu mengulang checks. `--check --require-publishable` kini lulus untuk seluruh batch BIL-02; gate tetap menolak batch dengan hold/referensi invalid. Checks batch/schema examples tersebut tidak membuktikan draft N4 telah tervalidasi dan tidak menggantikan review isi.
 
 ## Handoff dan rubric review
 

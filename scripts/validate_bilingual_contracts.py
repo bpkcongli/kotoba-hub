@@ -6,6 +6,8 @@ from pathlib import Path
 import yaml
 from jsonschema import Draft202012Validator, FormatChecker
 
+from bilingual_curation import load_curation, validate_curation
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMAS = ROOT / 'docs/syllabus/schema'
@@ -116,7 +118,13 @@ def check_inventory():
         require(entry['baselineStatus'] == ('REQUIRES_SKILL_ATTRIBUTION_FIX' if unresolved else 'IMPORTABLE_V1'),
                 'Baseline status mismatch.')
     require(sum(e['baselineStatus'] == 'IMPORTABLE_V1' for e in entries) == 9, 'Expected nine importable v1 lessons.')
+    curation = load_curation(ROOT, inventory)
+    validate_curation(ROOT, inventory, {'track': source}, curation)
     print('Inventory: source checksum, 16 lesson/subtree identities and 9/7 baseline split OK.')
+    if curation:
+        print(f'Curation: checksum, {len(curation["addedSkills"])} added skills, '
+              f'{len(curation["blockReplacements"])} block conversions and '
+              f'{len(curation["questionSkillCodes"])} same-lesson question mappings OK.')
 
 
 def check_openapi():

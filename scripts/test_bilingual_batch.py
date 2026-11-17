@@ -2,6 +2,7 @@ import copy
 import re
 import unittest
 
+from bilingual_curation import load_curation, validate_curation, validate_dependencies
 from convert_bilingual_batch import (
     AUTHORING, OUTPUT, ROOT, build, check_revisions, owner_rows, read_json,
 )
@@ -13,11 +14,12 @@ class BilingualBatchTests(unittest.TestCase):
         cls.inventory = read_json(ROOT / 'docs/syllabus/bilingual-batch-01.json')
         cls.source = read_json(ROOT / cls.inventory['sourceFile'])
         cls.authoring = read_json(AUTHORING)
+        cls.curation = load_curation(ROOT, cls.inventory)
 
-        cls.manifest, cls.payload, cls.report = build(cls.inventory, cls.source, cls.authoring)
+        cls.manifest, cls.payload, cls.report = build(cls.inventory, cls.source, cls.authoring, cls.curation)
 
     def compile(self, authoring):
-        return build(self.inventory, self.source, authoring)
+        return build(self.inventory, self.source, authoring, self.curation)
 
     def test_identity_japanese_keys_and_provenance_are_preserved(self):
         old = self.source['track']
@@ -36,7 +38,9 @@ class BilingualBatchTests(unittest.TestCase):
                 self.assertEqual(lesson[field], before[field])
 
             for field in ['skills', 'contentBlocks', 'postStudyQuestions']:
-                self.assertEqual([o['id'] for o in lesson[field]], [o['id'] for o in before[field]])
+                additions = [row['skill']['id'] for row in self.curation['addedSkills']
+                             if row['lessonId'] == lesson['id']] if field == 'skills' else []
+                self.assertEqual([o['id'] for o in lesson[field]], [o['id'] for o in before[field]] + additions)
 
             for question, original in zip(lesson['postStudyQuestions'], before['postStudyQuestions']):
                 for field in ['expectedAnswer', 'difficultyLevel', 'sortOrder', 'questionType', 'sourceRefs']:
@@ -51,9 +55,14 @@ class BilingualBatchTests(unittest.TestCase):
 
             for skill, original in zip(lesson['skills'], before['skills']):
                 for field in ['code', 'slug', 'skillType', 'curriculumLevel', 'sortOrder',
-                              'prerequisiteSkillCodes', 'curriculumSignals', 'sourceRefs',
+                              'curriculumSignals', 'sourceRefs',
                               'supportsFlashcards', 'supportsPracticeObjective', 'supportsPracticeFreeResponse']:
                     self.assertEqual(skill[field], original[field])
+
+                repairs = {row['skillCode']: row['prerequisiteSkillCodes']
+                           for row in self.curation['prerequisiteReplacements']}
+                self.assertEqual(skill['prerequisiteSkillCodes'],
+                                 repairs.get(skill['code'], original['prerequisiteSkillCodes']))
 
                 canonical = copy.deepcopy(original['content'])
                 if skill['skillType'] == 'GRAMMAR':
@@ -63,18 +72,23 @@ class BilingualBatchTests(unittest.TestCase):
 
                 self.assertEqual(skill['content'], canonical)
 
-    def test_held_batch_is_explicit_and_does_not_publish_incomplete_lessons(self):
-        self.assertEqual(self.report['status'], 'HELD')
-        held = {l['id'] for l in self.report['lessons'] if l['status'] == 'HELD'}
-        self.assertEqual(len(held), 7)
-        self.assertEqual(sum(len(l['holds']) for l in self.report['lessons']), 18)
+    def test_curation_resolves_the_full_batch_without_dropping_any_question(self):
+        self.assertEqual(self.report['status'], 'READY_FOR_BIL_03')
+        self.assertEqual(len(self.report['lessons']), 16)
+        self.assertTrue(all(lesson['status'] == 'READY_FOR_BIL_03' and not lesson['holds']
+                            for lesson in self.report['lessons']))
 
         for unit in self.payload['track']['units']:
             for lesson in unit['lessons']:
-                self.assertEqual(lesson['isPublished'], lesson['id'] not in held)
+                self.assertTrue(lesson['isPublished'])
+                self.assertEqual(sorted(q['difficultyLevel'] for q in lesson['postStudyQuestions']),
+                                 list(range(1, 11)))
 
-        self.assertEqual(len(self.report['questionAttributionFixes']), 41)
-        self.assertEqual(len(self.report['blockAttributionFixes']), 4)
+        self.assertEqual(self.report['questionCount'], 160)
+        self.assertEqual(len(self.report['questionAttributionFixes']), 56)
+        self.assertEqual(len(self.curation['addedSkills']), 8)
+        self.assertEqual(len(self.curation['blockReplacements']), 7)
+        self.assertEqual(len(self.curation['resolutions']), 22)
 
     def test_missing_indonesian_and_stale_translations_are_rejected(self):
         owner_id = self.payload['track']['id']
@@ -111,7 +125,6 @@ class BilingualBatchTests(unittest.TestCase):
                       if l['slug'] == 'ko-so-a-do-modifiers')
         question = lesson['postStudyQuestions'][0]
 
-        authoring['holds'].pop(question['id'])
         authoring['questionSkillCodes'][question['id']] = 'n5_kosoado_modifiers_kyuu'
         authoring['owners'][question['id']]['contentRevision'] = 2
         for locale in ['en', 'id']:
@@ -119,6 +132,85 @@ class BilingualBatchTests(unittest.TestCase):
 
         with self.assertRaises(AssertionError):
             self.compile(authoring)
+
+    def test_curation_cannot_be_omitted_or_have_resolution_evidence_removed(self):
+        with self.assertRaisesRegex(AssertionError, 'Missing scoped curation'):
+            build(self.inventory, self.source, self.authoring)
+
+        curation = copy.deepcopy(self.curation)
+        curation['resolutions'].pop()
+
+        with self.assertRaisesRegex(AssertionError, 'Incomplete curation resolutions'):
+            build(self.inventory, self.source, self.authoring, curation)
+
+    def test_new_skills_cannot_be_moved_to_another_lesson_even_with_a_changed_scope(self):
+        curation = copy.deepcopy(self.curation)
+        inventory = copy.deepcopy(self.inventory)
+        question_id = next(iter(curation['questionSkillCodes']))
+        other_skill = curation['addedSkills'][-1]['skill']['code']
+        curation['questionSkillCodes'][question_id] = other_skill
+        inventory['curation']['questionSkillCodes'][question_id] = other_skill
+
+        with self.assertRaisesRegex(AssertionError, 'across lessons'):
+            validate_curation(ROOT, inventory, self.source, curation)
+
+    def test_converted_blocks_preserve_japanese_and_real_grammar_blocks_have_grammar_owners(self):
+        expected = {row['block']['id']: row['block'] for row in self.curation['blockReplacements']}
+        for unit in self.payload['track']['units']:
+            for lesson in unit['lessons']:
+                skills = {skill['code']: skill for skill in lesson['skills']}
+                for block in lesson['contentBlocks']:
+                    if block['id'] in expected:
+                        self.assertEqual(block, expected[block['id']])
+                        self.assertEqual(block['blockType'], 'PARAGRAPH')
+                    elif block['blockType'] == 'GRAMMAR_STRUCTURE':
+                        self.assertEqual(skills[block['content']['skillCode']]['skillType'], 'GRAMMAR')
+
+        curation = copy.deepcopy(self.curation)
+        curation['blockReplacements'][0]['block']['localizations']['id']['body'] = '<p>Penjelasan.</p>'
+        with self.assertRaisesRegex(AssertionError, 'Japanese pattern'):
+            validate_curation(ROOT, self.inventory, self.source, curation)
+
+    def test_retired_wrong_lexemes_cannot_be_published_by_clearing_the_retirement_list(self):
+        authoring = copy.deepcopy(self.authoring)
+        authoring['unusableSkillCodes'].clear()
+        with self.assertRaisesRegex(AssertionError, 'remain retired'):
+            self.compile(authoring)
+
+    def test_dependency_graph_rejects_retired_targets_missing_targets_and_cycles(self):
+        for prerequisite in ['n5_kosoado_modifiers_kyuu', 'unknown_skill', 'n5_kosoado_modifiers_sono']:
+            track = copy.deepcopy(self.payload['track'])
+            skill = next(skill for unit in track['units'] for lesson in unit['lessons']
+                         for skill in lesson['skills'] if skill['code'] == 'n5_kosoado_modifiers_sono')
+            skill['prerequisiteSkillCodes'] = [prerequisite]
+            with self.assertRaisesRegex(AssertionError, 'Unavailable prerequisite|Prerequisite cycle'):
+                validate_dependencies(track, self.source)
+
+        validate_dependencies(self.payload['track'], self.source)
+
+    def test_curation_loader_rejects_an_unreviewed_checksum(self):
+        inventory = copy.deepcopy(self.inventory)
+        inventory['curation']['sha256'] = '0' * 64
+        with self.assertRaisesRegex(AssertionError, 'checksum changed'):
+            load_curation(ROOT, inventory)
+
+    def test_reviewed_hints_no_longer_spell_out_the_accepted_answer(self):
+        reviewed = {'e2428888-83a2-5189-9b4f-02bccb94f3b7', '06713a0b-506b-5852-be82-9c58682229e6',
+                    '745dcf70-a820-5eff-a400-eae03ef141d5', '1dca1e7b-2713-5b7d-bfa1-7bd65f2491ec'}
+        questions = {q['id']: q for unit in self.payload['track']['units'] for lesson in unit['lessons']
+                     for q in lesson['postStudyQuestions']}
+
+        for qid in reviewed:
+            question = questions[qid]
+            for localization in question['localizations'].values():
+                hints = ' '.join(localization['hintTexts'])
+                self.assertFalse(any(answer in hints for answer in question['expectedAnswer']['acceptedTextAnswers']))
+
+    def test_revision_check_rejects_lost_existing_owners(self):
+        candidate = copy.deepcopy(self.payload)
+        candidate['track']['units'][0]['lessons'][0]['skills'].pop(0)
+        with self.assertRaisesRegex(AssertionError, 'cannot disappear'):
+            check_revisions(self.payload, candidate)
 
     def test_unsafe_localized_html_is_rejected(self):
         authoring = copy.deepcopy(self.authoring)
@@ -151,7 +243,7 @@ class BilingualBatchTests(unittest.TestCase):
 
     def test_every_owner_has_current_bilingual_provenance(self):
         rows = list(owner_rows(self.payload['track']))
-        self.assertEqual(len(rows), 484)
+        self.assertEqual(len(rows), 492)
 
         for owner in rows:
             self.assertEqual(set(owner['localizations']), {'en', 'id'})

@@ -10,6 +10,7 @@ from pathlib import Path
 
 from jsonschema import Draft202012Validator, FormatChecker
 
+from bilingual_curation import load_curation, validate_curation, validate_dependencies
 from validate_bilingual_contracts import check_inventory, require
 
 
@@ -125,9 +126,12 @@ def legacy_localization(owner):
             'explanation': owner.get('explanation')}
 
 
-def build(inventory, source, authoring):
+def build(inventory, source, authoring, curation=None):
     require(authoring['batchId'] == inventory['batchId'], 'Wrong authoring batch.')
     require(authoring['sourceSha256'] == inventory['sourceSha256'], 'Wrong authoring baseline.')
+
+    validate_curation(ROOT, inventory, source, curation)
+    replacements = {row['block']['id']: row['block'] for row in curation['blockReplacements']} if curation else {}
 
     allowed = {entry['id'] for entry in inventory['lessons']}
     track = copy.deepcopy(source['track'])
@@ -138,7 +142,8 @@ def build(inventory, source, authoring):
 
     originals = {owner['id']: copy.deepcopy(owner) for owner in owner_rows(track)}
     require(len(list(owner_rows(track))) == len(originals), 'Duplicate canonical ID.')
-    require(set(authoring['owners']) == set(originals), 'Authoring owner set differs from allowlist.')
+    require(set(authoring['owners']) == set(originals) - set(replacements),
+            'Authoring owner set differs from allowlist/curation.')
 
     question_ids = {q['id'] for u in track['units'] for l in u['lessons'] for q in l['postStudyQuestions']}
     block_ids = {b['id'] for u in track['units'] for l in u['lessons'] for b in l['contentBlocks']}
@@ -151,10 +156,22 @@ def build(inventory, source, authoring):
     skill_codes = {s['code'] for u in track['units'] for l in u['lessons'] for s in l['skills']}
     require(set(authoring['unusableSkillCodes']) <= skill_codes, 'Unknown lexical hold.')
 
+    if curation:
+        require(set(authoring['unusableSkillCodes']) == set(inventory['curation']['retiredSkillCodes']),
+                'Retired lexical identities must remain retired.')
+        require(all(authoring['questionSkillCodes'].get(qid) == code
+                    for qid, code in curation['questionSkillCodes'].items()),
+                'Curation question mappings were not integrated.')
+        require(not (set(authoring['holds']) & {row['ownerId'] for row in curation['resolutions']}),
+                'Resolved curation still has publication holds.')
+
     require(all(isinstance(reason, str) and reason.strip() for reason in authoring['holds'].values()),
             'A publication hold must explain the unresolved attribution.')
 
     for owner in owner_rows(track):
+        if owner['id'] in replacements:
+            continue
+
         original = originals[owner['id']]
         record = authoring['owners'][owner['id']]
 
@@ -206,6 +223,31 @@ def build(inventory, source, authoring):
         if owner['id'] in authoring['holds']:
             owner['isPublished'] = False
 
+    for unit in track['units']:
+        for lesson in unit['lessons']:
+            lesson['contentBlocks'] = [copy.deepcopy(replacements.get(block['id'], block))
+                                       for block in lesson['contentBlocks']]
+            if curation:
+                lesson['skills'].extend(copy.deepcopy(row['skill']) for row in curation['addedSkills']
+                                        if row['lessonId'] == lesson['id'])
+
+    if curation:
+        prerequisite_replacements = {row['skillCode']: row['prerequisiteSkillCodes']
+                                     for row in curation['prerequisiteReplacements']}
+        for unit in track['units']:
+            for lesson in unit['lessons']:
+                for skill in lesson['skills']:
+                    if skill['code'] in prerequisite_replacements:
+                        skill['prerequisiteSkillCodes'] = copy.deepcopy(prerequisite_replacements[skill['code']])
+        validate_dependencies(track, source)
+
+    rows = list(owner_rows(track))
+    require(len(rows) == len({row['id'] for row in rows}), 'Duplicate curated owner ID.')
+    require(all(set(row['localizations']) == {'en', 'id'} and
+                all(text['isPublished'] and text['sourceRevision'] == row['contentRevision']
+                    for text in row['localizations'].values()) for row in rows),
+            'Every curated owner requires both current language packages.')
+
     summaries = []
     for unit in track['units']:
         for lesson in unit['lessons']:
@@ -219,6 +261,11 @@ def build(inventory, source, authoring):
 
                     if reference and reference not in codes:
                         require(held, f'Unreviewed attribution: {owner["id"]}')
+
+                    if curation and owner.get('blockType') == 'GRAMMAR_STRUCTURE':
+                        require(any(skill['code'] == reference and skill['skillType'] == 'GRAMMAR'
+                                    and skill['isPublished'] for skill in lesson['skills']),
+                                f'Grammar block requires a grammar skill: {owner["id"]}')
 
                     if held:
                         holds.append({'id': owner['id'], 'kind': field,
@@ -249,24 +296,38 @@ def build(inventory, source, authoring):
 
     changed_english = [oid for oid, old in originals.items()
                        if legacy_localization(old) != {
-                           k: v for k, v in authoring['owners'][oid]['localizations']['en'].items() if k not in META}]
+                           k: v for k, v in (replacements.get(oid) or authoring['owners'][oid])['localizations']['en'].items()
+                           if k not in META}]
 
     report = {'batchId': inventory['batchId'], 'sourceFile': inventory['sourceFile'],
               'sourceSha256': inventory['sourceSha256'], 'status': 'HELD' if any(l['holds'] for l in summaries) else 'READY_FOR_BIL_03',
-              'ownerCount': len(originals), 'localizedOwnerCount': len(originals),
+              'ownerCount': len(rows), 'localizedOwnerCount': len(rows),
               'questionCount': len(question_ids), 'questionAttributionFixes': authoring['questionSkillCodes'],
               'blockAttributionFixes': authoring['blockSkillCodes'],
               'unusableSkillCodes': authoring['unusableSkillCodes'],
               'englishRevisedOwnerIds': changed_english, 'presentationNotes': authoring['presentationNotes'],
               'lessons': summaries}
 
+    if curation:
+        report['curation'] = {**inventory['curation'], 'recordedAt': curation['recordedAt'],
+                              'resolutions': curation['resolutions']}
+        report['baselineOwnerCount'] = len(originals)
+
     return manifest, payload, report
 
 
 def check_revisions(previous, candidate):
     old_rows = {row['id']: row for row in owner_rows(previous['track'])}
+    new_rows = list(owner_rows(candidate['track']))
+    require(set(old_rows) <= {row['id'] for row in new_rows}, 'Existing owner cannot disappear.')
 
-    for row in owner_rows(candidate['track']):
+    for row in new_rows:
+        if row['id'] not in old_rows:
+            require(row['contentRevision'] == 1 and
+                    all(text['translationRevision'] == 1 for text in row['localizations'].values()),
+                    'New owner revisions must start at one.')
+            continue
+
         old = old_rows[row['id']]
         require(row['contentRevision'] >= old['contentRevision'], 'Canonical revision cannot decrease.')
 
@@ -303,7 +364,8 @@ def main():
     actual = hashlib.sha256(source_path.read_bytes()).hexdigest()
     require(actual == inventory['sourceSha256'], f'Source changed: expected {inventory["sourceSha256"]}, actual {actual}. Review the diff first.')
 
-    manifest, payload, report = build(inventory, read_json(source_path), read_json(AUTHORING))
+    manifest, payload, report = build(inventory, read_json(source_path), read_json(AUTHORING),
+                                      load_curation(ROOT, inventory))
     track_path = OUTPUT / manifest['tracks'][0]['file']
 
     if track_path.exists():

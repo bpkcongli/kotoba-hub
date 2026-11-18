@@ -7,6 +7,7 @@ import type {
   PracticeSession,
   ProgressImpact,
 } from '@/backend/practice/domain/repositories/practice.repository';
+import type { AiLanguage } from '@/backend/shared/application/services/requests/ai-request';
 
 function prompt(question: Pick<PracticeQuestion, 'questionType' | 'promptPayload'>) {
   const p = question.promptPayload;
@@ -59,6 +60,14 @@ function prompt(question: Pick<PracticeQuestion, 'questionType' | 'promptPayload
   };
 }
 
+function language(l: AiLanguage) {
+  return {
+    instructionLocale: l.instructionLocale,
+    feedbackLocale: l.feedbackLocale,
+    translationLocale: l.translationLocale,
+  };
+}
+
 function progress(p: ProgressImpact | null) {
   return p
     ? {
@@ -83,6 +92,7 @@ function grade(g: Grade) {
 export function toPracticeSessionDto(s: PracticeSession) {
   return {
     id: s.id,
+    ...(s.recommendation.language ? { language: language(s.recommendation.language) } : {}),
     status: s.status,
     difficultyBand: s.difficultyBand,
     questionMix: {
@@ -108,6 +118,7 @@ export function toPracticeSessionDto(s: PracticeSession) {
 export function toPracticeAnswerDto(a: AnswerResult) {
   return {
     ...grade(a),
+    ...(a.language ? { language: language(a.language) } : {}),
     sessionId: a.sessionId,
     questionId: a.questionId,
     answerId: a.answerId,

@@ -32,6 +32,17 @@ function setup(overrides: Partial<AiRuntimeConfig> = {}, providerName = 'TEST_PR
 }
 
 describe('AI application service contracts', () => {
+  it('records the version of the prompt actually sent to the provider', async () => {
+    const { service, generate, logs } = setup();
+    generate.mockResolvedValue(providerResult(placementOutput));
+
+    await service.summarizePlacement(placementInput());
+
+    const version = jest.mocked(logs.start).mock.calls[0][0].metadata.templateVersion;
+
+    expect(generate.mock.calls[0][0].instructions).toContain(`Template version: ${version}\n`);
+  });
+
   it.each([shortQuestion, slotQuestion, arrangeQuestion, freeQuestion])(
     'validates a supported generated question before returning it (%#)',
     async (question) => {
@@ -87,6 +98,7 @@ describe('AI application service contracts', () => {
     const { service, generate } = setup();
 
     generate.mockResolvedValue(providerResult({ questions: [shortQuestion()] }));
+
     await service.generatePracticeSession(generationInput());
 
     function inspect(value: unknown) {
@@ -117,6 +129,7 @@ describe('AI application service contracts', () => {
     const input = generationInput();
 
     await service.generatePracticeSession(input);
+
     expect(JSON.parse(generate.mock.calls[0][0].input).questionMix).toEqual({
       WEAK: 0.6,
       REINFORCEMENT: 0.3,
@@ -124,7 +137,9 @@ describe('AI application service contracts', () => {
     });
 
     input.questionMix = { WEAK: 0.8, REINFORCEMENT: 0.2, STRETCH: 0 };
+
     await service.generatePracticeSession(input);
+
     expect(JSON.parse(generate.mock.calls[1][0].input).questionMix).toEqual(input.questionMix);
   });
 
@@ -539,6 +554,7 @@ describe('bounded AI retries and observability', () => {
 
     await service.summarizePlacement(placementInput());
     await service.gradePracticeAnswer(gradingInput());
+
     await expect(service.summarizePlacement(placementInput())).rejects.toThrow();
 
     const stored = JSON.stringify([
@@ -562,5 +578,167 @@ describe('bounded AI retries and observability', () => {
       code: 'OBSERVABILITY',
     });
     expect(generate).not.toHaveBeenCalled();
+  });
+});
+
+describe('BIL-06 AI language contracts', () => {
+  const language = {
+    instructionLocale: 'id',
+    feedbackLocale: 'id',
+    translationLocale: 'id',
+  } as const;
+
+  function idArrange(reverse = false) {
+    const question = arrangeQuestion();
+    question.promptPayload = reverse
+      ? {
+          ...question.promptPayload,
+          direction: 'JA_TO_ID',
+          promptLanguage: 'JA',
+          answerLanguage: 'ID',
+          sourceSentence: 'あさです。',
+          arrangeTokens: [
+            { id: 't1', label: 'Ini' },
+            { id: 't2', label: 'pagi.' },
+          ],
+        }
+      : {
+          ...question.promptPayload,
+          direction: 'ID_TO_JA',
+          promptLanguage: 'ID',
+          answerLanguage: 'JA',
+          sourceSentence: 'Sekarang pagi.',
+        };
+
+    return question;
+  }
+
+  it.each([false, true])(
+    'accepts the requested Indonesian translation pair, reverse=%s',
+    async (reverse) => {
+      const { service, generate, logs } = setup();
+      const output = { questions: [idArrange(reverse)] };
+      generate.mockResolvedValue(providerResult(output));
+
+      await expect(
+        service.generatePracticeSession({ ...generationInput(), language }),
+      ).resolves.toEqual(output);
+
+      expect(JSON.parse(generate.mock.calls[0][0].input).language).toEqual(language);
+      expect(logs.start).toHaveBeenCalledWith(
+        expect.objectContaining({ metadata: expect.objectContaining(language) }),
+      );
+    },
+  );
+
+  it.each([arrangeQuestion, freeQuestion])(
+    'rejects an English translation substituted for Indonesian (%#)',
+    async (make) => {
+      const { service, generate } = setup();
+      generate.mockResolvedValue(providerResult({ questions: [make()] }));
+
+      await expect(
+        service.generatePracticeSession({ ...generationInput(), language }),
+      ).rejects.toMatchObject({ code: 'INVALID_OUTPUT' });
+    },
+  );
+
+  it('rejects an Indonesian pair for a legacy English request', async () => {
+    const { service, generate } = setup();
+    generate.mockResolvedValue(providerResult({ questions: [idArrange()] }));
+
+    await expect(service.generatePracticeSession(generationInput())).rejects.toMatchObject({
+      code: 'INVALID_OUTPUT',
+    });
+  });
+
+  it('retries an invalid pair without changing requested languages', async () => {
+    const { service, generate } = setup({ maxRetries: 1 });
+    const output = { questions: [idArrange()] };
+    generate
+      .mockResolvedValueOnce(providerResult({ questions: [arrangeQuestion()] }))
+      .mockResolvedValueOnce(providerResult(output));
+
+    await expect(
+      service.generatePracticeSession({ ...generationInput(), language }),
+    ).resolves.toEqual(output);
+
+    expect(generate.mock.calls).toHaveLength(2);
+    expect(generate.mock.calls[0][0].input).toBe(generate.mock.calls[1][0].input);
+  });
+
+  it('grades equivalent English and Indonesian sources using the same Japanese answer and preserves feedback', async () => {
+    const { service, generate, logs } = setup();
+    const en = gradingInput();
+    const id = {
+      ...gradingInput(),
+      language,
+      question: {
+        ...gradingInput().question,
+        promptLanguage: 'ID' as const,
+        answerLanguage: 'JA' as const,
+        sourceSentence: 'Saya seorang pelajar.',
+      },
+    };
+    generate.mockResolvedValueOnce(providerResult(gradingOutput)).mockResolvedValueOnce(
+      providerResult({
+        ...gradingOutput,
+        feedbackText: 'Kalimatmu menyampaikan makna yang diminta.',
+      }),
+    );
+
+    const a = await service.gradePracticeAnswer(en);
+    const b = await service.gradePracticeAnswer(id);
+
+    expect([a.isCorrect, a.numericScore]).toEqual([b.isCorrect, b.numericScore]);
+    expect(b.feedbackText).toBe('Kalimatmu menyampaikan makna yang diminta.');
+    expect(JSON.parse(generate.mock.calls[1][0].input)).toMatchObject({
+      language,
+      question: { promptLanguage: 'ID', answerLanguage: 'JA' },
+    });
+    expect(generate.mock.calls[1][0].instructions).toContain('language.feedbackLocale');
+    expect(JSON.stringify(jest.mocked(logs.start).mock.calls)).not.toContain(
+      id.question.sourceSentence,
+    );
+    expect(JSON.stringify(jest.mocked(logs.start).mock.calls)).not.toContain(
+      id.userAnswer.rawInputRomaji,
+    );
+  });
+
+  it('rejects grading source metadata that disagrees with the language snapshot before calling AI', async () => {
+    const { service, generate, logs } = setup();
+
+    await expect(
+      service.gradePracticeAnswer({ ...gradingInput(), language }),
+    ).rejects.toMatchObject({ code: 'INVALID_INPUT' });
+
+    expect(generate).not.toHaveBeenCalled();
+    expect(logs.start).not.toHaveBeenCalled();
+  });
+
+  it.each([null, { ...language, translationLocale: 'ja' }, { instructionLocale: 'id' }])(
+    'rejects invalid or partial language snapshots',
+    async (invalid) => {
+      const { service, generate } = setup();
+      const input = { ...generationInput(), language: invalid } as unknown as ReturnType<
+        typeof generationInput
+      >;
+
+      await expect(service.generatePracticeSession(input)).rejects.toMatchObject({
+        code: 'INVALID_INPUT',
+      });
+
+      expect(generate).not.toHaveBeenCalled();
+    },
+  );
+
+  it('keeps instruction, feedback and translation locales independent', async () => {
+    const { service, generate } = setup();
+    const mixed = { ...language, feedbackLocale: 'en' as const };
+    generate.mockResolvedValue(providerResult({ questions: [idArrange()] }));
+
+    await service.generatePracticeSession({ ...generationInput(), language: mixed });
+
+    expect(JSON.parse(generate.mock.calls[0][0].input).language).toEqual(mixed);
   });
 });

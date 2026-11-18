@@ -26,7 +26,13 @@ export interface AiLogStart {
   model: string;
   schemaName: string;
   startedAt: Date;
-  metadata: { templateVersion: number; catalogSkillCount: number };
+  metadata: {
+    templateVersion: number;
+    catalogSkillCount: number;
+    instructionLocale?: 'en' | 'id';
+    feedbackLocale?: 'en' | 'id';
+    translationLocale?: 'en' | 'id';
+  };
 }
 
 export interface AiAttemptLog {

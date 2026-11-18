@@ -36,9 +36,24 @@ export class PracticeController {
       const body = generatePracticeSessionRequestSchema.safeParse(await readBody(request, true));
       if (!body.success) return invalid(body.error.issues);
 
+      const locale =
+        'contentFormat' in body.data
+          ? resolveLocale(
+              body.data.contentLocale ?? (await this.preferences.getContentLocale(userId)),
+            )
+          : undefined;
+
       return apiResponse(
         ApplicationStatusCode.PRACTICE_SUCCESS,
-        toPracticeSessionDto(await this.practice.generateSession(userId, body.data.questionCount)),
+        toPracticeSessionDto(
+          locale
+            ? await this.practice.generateSession(userId, body.data.questionCount, {
+                instructionLocale: locale,
+                feedbackLocale: locale,
+                translationLocale: locale,
+              })
+            : await this.practice.generateSession(userId, body.data.questionCount),
+        ),
       );
     });
   }

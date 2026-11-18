@@ -32,7 +32,10 @@ export const shortQuestion: GeneratedPracticeSession['questions'][number] = {
   expectedAnswer: { acceptedTextAnswers: ['は'] },
 };
 
-export const freeQuestion: GeneratedPracticeSession['questions'][number] = {
+export const freeQuestion: Extract<
+  GeneratedPracticeSession['questions'][number],
+  { questionType: 'FREE_RESPONSE' }
+> = {
   skillCode,
   questionType: 'FREE_RESPONSE',
   gradingStrategy: 'AI',

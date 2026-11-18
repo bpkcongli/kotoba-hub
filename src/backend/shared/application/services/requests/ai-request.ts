@@ -52,7 +52,14 @@ export interface AiRequestMetadata {
   sourceEntityId?: string;
 }
 
+export interface AiLanguage {
+  instructionLocale: 'en' | 'id';
+  feedbackLocale: 'en' | 'id';
+  translationLocale: 'en' | 'id';
+}
+
 export interface AiRequestBase {
+  language?: AiLanguage;
   metadata: AiRequestMetadata;
   context: AiContextBundle;
 }
@@ -67,6 +74,8 @@ export interface GradePracticeAnswerInput extends AiRequestBase {
   question: {
     skillCode: string;
     questionType: 'FREE_RESPONSE';
+    promptLanguage?: 'EN' | 'ID';
+    answerLanguage?: 'JA';
     sourceSentence: string;
     referenceAnswer: string;
   };

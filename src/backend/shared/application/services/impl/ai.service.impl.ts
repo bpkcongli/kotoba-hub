@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { z } from 'zod';
 import {
+  aiLanguageSchema,
   contextSchema,
   difficultySchema,
   generatedPracticeSchema,
@@ -8,7 +9,10 @@ import {
   placementSchema,
   recommendationSchema,
 } from '@/backend/shared/application/helpers/ai-schemas';
-import { aiInstructions } from '@/backend/shared/application/helpers/ai-templates';
+import {
+  AI_TEMPLATE_VERSION,
+  aiInstructions,
+} from '@/backend/shared/application/helpers/ai-templates';
 import type { AiProviderPort, AiUsage } from '@/backend/shared/application/ports/ai-provider.port';
 import type { AiService } from '@/backend/shared/application/services/ai.service';
 import type {
@@ -46,6 +50,8 @@ const gradeInputSchema = z.strictObject({
   question: z.strictObject({
     skillCode: z.string().min(1).max(2000),
     questionType: z.literal('FREE_RESPONSE'),
+    promptLanguage: z.enum(['EN', 'ID']).default('EN'),
+    answerLanguage: z.literal('JA').default('JA'),
     sourceSentence: z.string().min(1).max(2000),
     referenceAnswer: z.string().min(1).max(2000),
   }),
@@ -68,6 +74,8 @@ export class AiServiceImpl implements AiService {
   async generatePracticeSession(
     input: GeneratePracticeSessionInput,
   ): Promise<GeneratedPracticeSession> {
+    input = { ...input, language: this.language(input) };
+
     const parameters = z
       .strictObject({
         questionCount: z.number().int().min(1).max(20),
@@ -105,13 +113,15 @@ export class AiServiceImpl implements AiService {
             context.catalog.some((skill) => skill.skillCode === question.skillCode) &&
             allowed.includes(question.questionType) &&
             question.difficultyBand === parameters.data.difficultyBand &&
-            this.validQuestion(question),
+            this.validQuestion(question, this.language(input).translationLocale),
         );
       },
     );
   }
 
   async gradePracticeAnswer(input: GradePracticeAnswerInput): Promise<GradedPracticeAnswer> {
+    input = { ...input, language: this.language(input) };
+
     const parameters = gradeInputSchema.safeParse({
       question: input.question,
       userAnswer: input.userAnswer,
@@ -119,6 +129,8 @@ export class AiServiceImpl implements AiService {
 
     if (
       !parameters.success ||
+      parameters.data.question.promptLanguage !==
+        (this.language(input).translationLocale === 'id' ? 'ID' : 'EN') ||
       !this.context(input).catalog.some(
         (skill) => skill.skillCode === parameters.data.question.skillCode,
       )
@@ -169,6 +181,7 @@ export class AiServiceImpl implements AiService {
             skill.unitSlug === output.recommendedUnitSlug &&
             skill.trackSlug === output.recommendedTrackSlug,
         );
+
         const allowed = context.allowedQuestionTypes.length
           ? context.allowedQuestionTypes
           : ['SHORT_FREE_RESPONSE'];
@@ -186,11 +199,14 @@ export class AiServiceImpl implements AiService {
     );
   }
 
-  private validQuestion(question: GeneratedPracticeSession['questions'][number]): boolean {
+  private validQuestion(
+    question: GeneratedPracticeSession['questions'][number],
+    locale: 'en' | 'id',
+  ): boolean {
     const japanese = (text: string) =>
       /[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u.test(text) && !/[<>]/u.test(text);
 
-    const english = (text: string) =>
+    const latinSentence = (text: string) =>
       /[a-z]/iu.test(text) &&
       !/[\r\n]|[.!?]\s+\S/u.test(text) &&
       !/[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}<>]/u.test(text);
@@ -220,17 +236,19 @@ export class AiServiceImpl implements AiService {
 
     if (question.questionType === 'ARRANGE_TOKEN') {
       const prompt = question.promptPayload;
-      const enToJa = prompt.direction === 'EN_TO_JA';
+      const toJa = prompt.direction === 'EN_TO_JA' || prompt.direction === 'ID_TO_JA';
+      const sourceLanguage = locale === 'id' ? 'ID' : 'EN';
       const ids = prompt.arrangeTokens.map((token) => token.id);
 
       return (
-        prompt.promptLanguage === (enToJa ? 'EN' : 'JA') &&
-        prompt.answerLanguage === (enToJa ? 'JA' : 'EN') &&
-        (enToJa ? english(prompt.sourceSentence) : japanese(prompt.sourceSentence)) &&
+        prompt.direction === (toJa ? `${sourceLanguage}_TO_JA` : `JA_TO_${sourceLanguage}`) &&
+        prompt.promptLanguage === (toJa ? sourceLanguage : 'JA') &&
+        prompt.answerLanguage === (toJa ? 'JA' : sourceLanguage) &&
+        (toJa ? latinSentence(prompt.sourceSentence) : japanese(prompt.sourceSentence)) &&
         prompt.arrangeTokens.every((token) =>
-          enToJa
+          toJa
             ? japanese(token.label) || /^[。、！？!?]$/u.test(token.label)
-            : english(token.label) || /^[0-9.,!?;:'"()—–“”‘’-]+$/u.test(token.label),
+            : latinSentence(token.label) || /^[0-9.,!?;:'"()—–“”‘’-]+$/u.test(token.label),
         ) &&
         new Set(ids).size === ids.length &&
         question.expectedAnswer.acceptedTokenOrders.every(
@@ -243,9 +261,22 @@ export class AiServiceImpl implements AiService {
     }
 
     return (
-      english(question.promptPayload.sourceSentence) &&
+      question.promptPayload.promptLanguage === (locale === 'id' ? 'ID' : 'EN') &&
+      latinSentence(question.promptPayload.sourceSentence) &&
       japanese(question.expectedAnswer.referenceAnswer)
     );
+  }
+
+  private language(input: AiRequestBase) {
+    const parsed = aiLanguageSchema.safeParse(
+      input.language === undefined
+        ? { instructionLocale: 'en', feedbackLocale: 'en', translationLocale: 'en' }
+        : input.language,
+    );
+
+    if (!parsed.success) throw new AiFailure('INVALID_INPUT');
+
+    return parsed.data;
   }
 
   private context(input: AiRequestBase): AiContextBundle {
@@ -281,8 +312,9 @@ export class AiServiceImpl implements AiService {
     valid: (output: T, context: AiContextBundle) => boolean,
   ): Promise<T> {
     const context = this.context(input);
-    const serialized = JSON.stringify({ context, ...parameters });
+    const language = this.language(input);
 
+    const serialized = JSON.stringify({ context, language, ...parameters });
     if (serialized.length > this.config.maxInputChars) throw new AiFailure('INVALID_INPUT');
 
     const id = randomUUID();
@@ -309,12 +341,17 @@ export class AiServiceImpl implements AiService {
         model,
         schemaName,
         startedAt,
-        metadata: { templateVersion: 1, catalogSkillCount: context.catalog.length },
+        metadata: {
+          templateVersion: AI_TEMPLATE_VERSION,
+          ...language,
+          catalogSkillCount: context.catalog.length,
+        },
       }),
     );
 
     for (let number = 1; number <= this.config.maxRetries + 1; number++) {
       const attemptStartedAt = new Date();
+
       let usage: AiUsage | null = null;
       let providerRequestId: string | null = null;
       let result: T | undefined;

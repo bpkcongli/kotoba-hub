@@ -22,7 +22,11 @@ import type {
   UserAnswer,
 } from '@/backend/practice/domain/repositories/practice.repository';
 import { DeterministicAnswerEvaluator } from '@/backend/practice/domain/services/deterministic-answer-evaluator';
-import { generatedPracticeSchema } from '@/backend/shared/application/helpers/ai-schemas';
+import {
+  aiLanguageSchema,
+  generatedPracticeSchema,
+} from '@/backend/shared/application/helpers/ai-schemas';
+import type { AiLanguage } from '@/backend/shared/application/services/requests/ai-request';
 import type { Locale } from '@/shared/locale';
 
 export class PracticeServiceImpl implements PracticeService {
@@ -37,7 +41,20 @@ export class PracticeServiceImpl implements PracticeService {
     private readonly deliveries?: PostStudyDeliveryRepository,
   ) {}
 
-  async generateSession(userId: string, questionCount = 5): Promise<PracticeSession> {
+  async generateSession(
+    userId: string,
+    questionCount = 5,
+    language?: AiLanguage,
+  ): Promise<PracticeSession> {
+    if (language !== undefined) {
+      const parsed = aiLanguageSchema.safeParse(language);
+
+      if (!parsed.success)
+        throw new PracticeError(142206001, 'Invalid practice language.', 'contentLocale');
+
+      language = parsed.data;
+    }
+
     if (!Number.isInteger(questionCount) || questionCount < 1 || questionCount > 10)
       throw new PracticeError(
         142206001,
@@ -63,6 +80,7 @@ export class PracticeServiceImpl implements PracticeService {
           sourceEntityId: sessionId,
         },
         context,
+        ...(language ? { language: { ...language } } : {}),
         questionCount,
         difficultyBand: recommendation.difficultyBand,
         questionMix: recommendation.questionMix,
@@ -85,6 +103,28 @@ export class PracticeServiceImpl implements PracticeService {
           : !skill.supportsPracticeObjective)
       )
         throw new Error('Generated question is outside authorized practice constraints.');
+
+      const translation = language?.translationLocale === 'id' ? 'ID' : 'EN';
+
+      if (
+        question.questionType === 'FREE_RESPONSE' &&
+        question.promptPayload.promptLanguage !== translation
+      )
+        throw new Error('Generated translation language does not match the session.');
+
+      if (question.questionType === 'ARRANGE_TOKEN') {
+        const p = question.promptPayload;
+
+        if (!(
+          (p.direction === `${translation}_TO_JA` &&
+            p.promptLanguage === translation &&
+            p.answerLanguage === 'JA') ||
+          (p.direction === `JA_TO_${translation}` &&
+            p.promptLanguage === 'JA' &&
+            p.answerLanguage === translation)
+        ))
+          throw new Error('Generated translation pair does not match the session.');
+      }
 
       const promptPayload: Record<string, unknown> = { ...question.promptPayload };
 
@@ -110,7 +150,11 @@ export class PracticeServiceImpl implements PracticeService {
       status: 'GENERATED',
       difficultyBand: recommendation.difficultyBand,
       questionMix: recommendation.questionMix,
-      recommendation: { ...recommendation, context },
+      recommendation: {
+        ...recommendation,
+        context,
+        ...(language ? { language: { ...language } } : {}),
+      },
       questions,
       answeredQuestionsCount: 0,
       startedAt: this.now().toISOString(),
@@ -166,7 +210,11 @@ export class PracticeServiceImpl implements PracticeService {
       'session' in prepared
         ? prepared.question.gradingStrategy === 'AI'
           ? await this.gradeAi(userId, id, prepared.session, prepared.question, request.userAnswer)
-          : this.evaluator.evaluate(prepared.question, request.userAnswer)
+          : this.evaluator.evaluate(
+              prepared.question,
+              request.userAnswer,
+              prepared.session.recommendation.language?.feedbackLocale,
+            )
         : null;
 
     const answer =
@@ -226,6 +274,9 @@ export class PracticeServiceImpl implements PracticeService {
               },
               result: {
                 ...grade!,
+                ...(tx.session.recommendation.language
+                  ? { language: { ...tx.session.recommendation.language } }
+                  : {}),
                 sessionId,
                 questionId: question.id,
                 answerId: id,
@@ -523,9 +574,12 @@ export class PracticeServiceImpl implements PracticeService {
         sourceEntityId: id,
       },
       context: session.recommendation.context,
+      ...(session.recommendation.language ? { language: session.recommendation.language } : {}),
       question: {
         skillCode: question.skillCode,
         questionType: 'FREE_RESPONSE',
+        promptLanguage: question.promptPayload.promptLanguage as 'EN' | 'ID',
+        answerLanguage: 'JA',
         sourceSentence: question.promptPayload.sourceSentence as string,
         referenceAnswer: question.expectedAnswer.referenceAnswer as string,
       },

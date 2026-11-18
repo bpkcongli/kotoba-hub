@@ -10,6 +10,7 @@ import type {
 import type { RecordLearningEventRequest } from '@/backend/progress/application/services/requests/record-learning-event.request';
 import type { RecordLearningEventResponse } from '@/backend/progress/application/services/responses/progress.response';
 import type { GeneratePracticeSessionInput } from '@/backend/shared/application/services/requests/ai-request';
+import type { GeneratedPracticeSession } from '@/backend/shared/application/services/responses/ai-response';
 import { emptyLesson, emptyMastery } from '../progress/fixtures';
 import {
   canonicalQuestion,
@@ -178,9 +179,13 @@ function setup() {
   };
 
   const ai = {
-    generate: jest.fn(async (input: GeneratePracticeSessionInput) => ({
-      questions: Array.from({ length: input.questionCount }, () => structuredClone(shortQuestion)),
-    })),
+    generate: jest.fn(
+      async (input: GeneratePracticeSessionInput): Promise<GeneratedPracticeSession> => ({
+        questions: Array.from({ length: input.questionCount }, () =>
+          structuredClone(shortQuestion),
+        ),
+      }),
+    ),
 
     grade: jest.fn(async () => ({
       isCorrect: true,
@@ -338,6 +343,8 @@ describe('random practice use cases', () => {
         question: {
           skillCode,
           questionType: 'FREE_RESPONSE',
+          promptLanguage: 'EN',
+          answerLanguage: 'JA',
           sourceSentence: 'I am a student.',
           referenceAnswer: 'わたしはがくせいです。',
         },
@@ -791,5 +798,116 @@ describe('direct lesson post-study use cases', () => {
       targetDifficultyLevel: 10,
       nextReviewDifficultyLevel: 10,
     });
+  });
+});
+
+describe('BIL-06 practice snapshots', () => {
+  const language = {
+    instructionLocale: 'id',
+    feedbackLocale: 'id',
+    translationLocale: 'id',
+  } as const;
+
+  it('persists language and localized deterministic feedback across a lost progress response and retry', async () => {
+    const { service, ai, sessions, progress } = setup();
+
+    const session = await service.generateSession(ids.user, 1, language);
+
+    expect(sessions.get(session.id)?.recommendation.language).toEqual(language);
+
+    const request = {
+      questionId: session.questions[0].id,
+      userAnswer: { rawInputRomaji: 'wa', normalizedKana: 'は' },
+    };
+    progress.recordEvent.mockRejectedValueOnce(new Error('Response lost'));
+
+    await expect(service.submitAnswer(ids.user, session.id, request)).rejects.toThrow(
+      'Response lost',
+    );
+
+    const result = await service.submitAnswer(ids.user, session.id, request);
+
+    expect(result).toMatchObject({ language, feedbackText: 'Jawaban benar.', isCorrect: true });
+
+    await expect(service.submitAnswer(ids.user, session.id, request)).resolves.toEqual(result);
+
+    expect(ai.generate).toHaveBeenCalledTimes(1);
+    expect(ai.grade).not.toHaveBeenCalled();
+
+    const events = progress.recordEvent.mock.calls.map(([event]) => event.eventId);
+
+    expect(new Set(events).size).toBe(1);
+  });
+
+  it('grades Indonesian free response with the saved source and keeps feedback on identical retries', async () => {
+    const { service, recommendationValue, ai } = setup();
+    recommendationValue.context.allowedQuestionTypes = ['FREE_RESPONSE'];
+    const question = {
+      ...freeQuestion,
+      promptPayload: {
+        ...freeQuestion.promptPayload,
+        promptLanguage: 'ID' as const,
+        sourceSentence: 'Saya seorang pelajar.',
+      },
+    };
+    ai.generate.mockResolvedValueOnce({ questions: [question] });
+    ai.grade.mockResolvedValueOnce({
+      isCorrect: true,
+      numericScore: 90,
+      feedbackText: 'Makna sesuai.',
+    });
+
+    const session = await service.generateSession(ids.user, 1, language);
+
+    const request = {
+      questionId: session.questions[0].id,
+      userAnswer: { rawInputRomaji: 'watashi', normalizedKana: 'わたしはがくせいです。' },
+    };
+
+    const result = await service.submitAnswer(ids.user, session.id, request);
+
+    expect(ai.grade).toHaveBeenCalledWith(
+      expect.objectContaining({
+        language,
+        question: expect.objectContaining({
+          promptLanguage: 'ID',
+          answerLanguage: 'JA',
+          sourceSentence: 'Saya seorang pelajar.',
+        }),
+      }),
+    );
+    expect(result).toMatchObject({ language, feedbackText: 'Makna sesuai.' });
+
+    await expect(service.submitAnswer(ids.user, session.id, request)).resolves.toEqual(result);
+
+    expect(ai.grade).toHaveBeenCalledTimes(1);
+  });
+
+  it('rejects substituted English pairs before persisting an Indonesian session', async () => {
+    const { service, recommendationValue, ai, repository } = setup();
+    recommendationValue.context.allowedQuestionTypes = ['FREE_RESPONSE'];
+    ai.generate.mockResolvedValueOnce({ questions: [freeQuestion] });
+
+    await expect(service.generateSession(ids.user, 1, language)).rejects.toThrow(
+      'translation language',
+    );
+
+    expect(repository.createSession).not.toHaveBeenCalled();
+  });
+
+  it('keeps legacy sessions and results without language fields', async () => {
+    const { service } = setup();
+
+    const session = await service.generateSession(ids.user, 1);
+
+    expect(session.recommendation).not.toHaveProperty('language');
+
+    const result = await service.submitAnswer(ids.user, session.id, {
+      questionId: session.questions[0].id,
+      userAnswer: { rawInputRomaji: 'wa', normalizedKana: 'は' },
+    });
+
+    expect(result).not.toHaveProperty('language');
+    expect(result.feedbackText).toBe('Correct answer.');
   });
 });

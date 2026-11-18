@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { AI_TEMPLATE_VERSION } from '@/backend/shared/application/helpers/ai-templates';
 import type { AiProviderPort } from '@/backend/shared/application/ports/ai-provider.port';
 import type {
   AiRuntimeConfig,
@@ -153,6 +154,7 @@ async function main() {
       .values({ id: userId, email: `${userId}@example.test`, displayName: 'AI smoke learner' });
 
     const request = input();
+    request.language = { instructionLocale: 'id', feedbackLocale: 'id', translationLocale: 'id' };
     const result = await service.summarizePlacement(request);
 
     assert.equal(result.suggestedKnownSkillClaims[0].skillCode, 'smoke_kana');
@@ -168,6 +170,11 @@ async function main() {
     assert.equal(saved.requestStatus, 'SUCCEEDED');
     assert.equal(saved.schemaParseSuccess, true);
     assert.equal(saved.retryCount, 1);
+    assert.deepEqual(saved.metadata, {
+      templateVersion: AI_TEMPLATE_VERSION,
+      catalogSkillCount: 1,
+      ...request.language,
+    });
     assert.equal(saved.promptTokens, 200);
     assert.equal(saved.completionTokens, 100);
     assert.equal(saved.totalTokens, 300);
@@ -211,6 +218,13 @@ async function main() {
     assert.equal(failed.requestStatus, 'FAILED');
     assert.equal(failed.failureCode, 'REFUSAL');
     assert.equal(failed.retryCount, 0);
+    assert.deepEqual(failed.metadata, {
+      templateVersion: AI_TEMPLATE_VERSION,
+      catalogSkillCount: 1,
+      instructionLocale: 'en',
+      feedbackLocale: 'en',
+      translationLocale: 'en',
+    });
     assert.equal(failed.totalTokens, 150);
 
     const [failedAttempt] = await db
@@ -237,7 +251,7 @@ async function main() {
     );
 
     console.log(
-      'AI MySQL smoke passed: migration, request/attempt persistence, bounded retry, cumulative usage/cost, refusal, duplicate request protection, and payload privacy.',
+      'AI MySQL smoke passed: migration, request/attempt persistence, bounded retry, cumulative usage/cost, refusal, duplicate request protection, payload privacy, and persisted locale/template metadata for bilingual and legacy requests.',
     );
   } finally {
     const ownedLogs = await db

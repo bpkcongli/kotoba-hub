@@ -1,5 +1,11 @@
 import { z } from 'zod';
 
+export const aiLanguageSchema = z.strictObject({
+  instructionLocale: z.enum(['en', 'id']),
+  feedbackLocale: z.enum(['en', 'id']),
+  translationLocale: z.enum(['en', 'id']),
+});
+
 const text = z.string().min(1).max(2000);
 
 export const questionTypeSchema = z.enum([
@@ -57,9 +63,9 @@ const arrangeQuestion = z.strictObject({
   gradingStrategy: z.literal('DETERMINISTIC'),
   promptPayload: z.strictObject({
     schemaVersion: z.literal(1),
-    promptLanguage: z.enum(['EN', 'JA']),
-    answerLanguage: z.enum(['EN', 'JA']),
-    direction: z.enum(['EN_TO_JA', 'JA_TO_EN']),
+    promptLanguage: z.enum(['EN', 'ID', 'JA']),
+    answerLanguage: z.enum(['EN', 'ID', 'JA']),
+    direction: z.enum(['EN_TO_JA', 'JA_TO_EN', 'ID_TO_JA', 'JA_TO_ID']),
     sourceSentence: text,
     arrangeTokens: z.array(choice).min(2).max(30),
   }),
@@ -74,7 +80,7 @@ const freeQuestion = z.strictObject({
   gradingStrategy: z.literal('AI'),
   promptPayload: z.strictObject({
     schemaVersion: z.literal(1),
-    promptLanguage: z.literal('EN'),
+    promptLanguage: z.enum(['EN', 'ID']),
     answerLanguage: z.literal('JA'),
     sourceSentence: text,
     inputMethod,
@@ -107,7 +113,6 @@ export const recommendationSchema = z.strictObject({
   nextLessonSlug: text,
   targetSkillCodes: z.array(text).min(1).max(100),
   difficultyBand: difficultySchema,
-
   allowedQuestionTypes: z.array(questionTypeSchema).min(1).max(4),
 });
 

@@ -17,9 +17,14 @@ export const practiceUserAnswerSchema = z.union([
 
 const responseTimeMs = z.number().int().min(0).max(2147483647).nullable().optional();
 
-export const generatePracticeSessionRequestSchema = z.strictObject({
-  questionCount: z.number().int().min(1).max(10).default(5),
-});
+export const generatePracticeSessionRequestSchema = z.union([
+  z.strictObject({ questionCount: z.number().int().min(1).max(10).default(5) }),
+  z.strictObject({
+    questionCount: z.number().int().min(1).max(10).default(5),
+    contentFormat: z.literal('localized'),
+    contentLocale: localeSchema.optional(),
+  }),
+]);
 
 export const practiceSessionPathSchema = z.strictObject({ sessionId: z.uuid() });
 

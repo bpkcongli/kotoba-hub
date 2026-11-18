@@ -5,7 +5,7 @@ import { POST as generateSession } from '@/app/api/v1/practice/sessions/generate
 import { anonymousSession } from '@/backend/auth/application/services/session.service';
 import { getSessionSnapshot } from '@/backend/auth/infrastructure/di';
 import { PracticeError } from '@/backend/practice/domain/exceptions/practice-error';
-import { practiceService } from '@/backend/practice/infrastructure/di';
+import { contentLocaleAdapter, practiceService } from '@/backend/practice/infrastructure/di';
 import { canonicalQuestion, ids, lessonSlug, shortQuestion, skillCode } from './fixtures';
 
 jest.mock('@/backend/auth/infrastructure/di', () => ({
@@ -16,6 +16,7 @@ jest.mock('@/backend/auth/infrastructure/di', () => ({
 }));
 
 jest.mock('@/backend/practice/infrastructure/di', () => ({
+  contentLocaleAdapter: { getContentLocale: jest.fn(async () => 'id') },
   practiceService: {
     generateSession: jest.fn(),
     submitAnswer: jest.fn(),
@@ -289,4 +290,49 @@ describe('protected practice routes', () => {
     expect(response.status).toBe(422);
     expect(practiceService.generateSession).toHaveBeenCalledWith(ids.user, 5);
   });
+});
+
+describe('BIL-06 localized practice generation boundary', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.mocked(getSessionSnapshot).mockResolvedValue(readySession);
+    jest.mocked(contentLocaleAdapter.getContentLocale).mockResolvedValue('id');
+  });
+
+  it.each([
+    { contentLocale: 'id' },
+    { contentFormat: 'localized', contentLocale: 'ja' },
+    { contentFormat: 'localized', language: { feedbackLocale: 'id' } },
+  ])('rejects malformed language request %j before service or preferences', async (body) => {
+    const response = await generateSession(request('sessions/generate', body));
+
+    expect(response.status).toBe(422);
+    expect(practiceService.generateSession).not.toHaveBeenCalled();
+    expect(contentLocaleAdapter.getContentLocale).not.toHaveBeenCalled();
+  });
+
+  it.each([undefined, 'en'] as const)(
+    'resolves explicit locale or stored preference: %s',
+    async (contentLocale) => {
+      jest
+        .mocked(practiceService.generateSession)
+        .mockRejectedValueOnce(new PracticeError(142206001, 'Fixture stops after resolution.'));
+
+      await generateSession(
+        request('sessions/generate', {
+          contentFormat: 'localized',
+          ...(contentLocale ? { contentLocale } : {}),
+        }),
+      );
+
+      const locale = contentLocale ?? 'id';
+
+      expect(practiceService.generateSession).toHaveBeenCalledWith(ids.user, 5, {
+        instructionLocale: locale,
+        feedbackLocale: locale,
+        translationLocale: locale,
+      });
+      expect(contentLocaleAdapter.getContentLocale).toHaveBeenCalledTimes(contentLocale ? 0 : 1);
+    },
+  );
 });

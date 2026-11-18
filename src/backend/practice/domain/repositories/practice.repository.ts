@@ -1,4 +1,5 @@
 import type {
+  AiLanguage,
   AiContextBundle,
   AiDifficultyBand,
   AiQuestionType,
@@ -23,6 +24,7 @@ export interface PracticeQuestion {
 }
 
 export interface Recommendation {
+  language?: AiLanguage;
   context: AiContextBundle;
   difficultyBand: AiDifficultyBand;
   questionMix: { WEAK: number; REINFORCEMENT: number; STRETCH: number };
@@ -58,6 +60,7 @@ export interface Grade {
 }
 
 export interface AnswerResult extends Grade {
+  language?: AiLanguage;
   sessionId: string;
   questionId: string;
   answerId: string;

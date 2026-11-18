@@ -9,6 +9,7 @@ export class DeterministicAnswerEvaluator {
   evaluate(
     question: Pick<PracticeQuestion, 'questionType' | 'promptPayload' | 'expectedAnswer'>,
     answer: UserAnswer,
+    feedbackLocale: 'en' | 'id' = 'en',
   ): Grade {
     let correct = false;
     let matched: string[] = [];
@@ -18,11 +19,13 @@ export class DeterministicAnswerEvaluator {
         throw new PracticeError(142206001, 'A text answer is required.', 'userAnswer');
 
       const accepted = question.expectedAnswer.acceptedTextAnswers as string[];
+
       matched = ['normalizedKana', 'normalizedKanji'].filter((key) => {
         const value = answer[key as keyof typeof answer];
 
         return typeof value === 'string' && accepted.some((a) => normalize(a) === normalize(value));
       });
+
       correct = matched.length > 0;
     } else if (question.questionType === 'SLOT_FILL') {
       if (!('selectedOptionId' in answer))
@@ -61,13 +64,21 @@ export class DeterministicAnswerEvaluator {
       correct = (question.expectedAnswer.acceptedTokenOrders as string[][]).some((order) =>
         order.every((id, i) => id === answer.arrangedTokenIds[i]),
       );
+
       matched = correct ? ['arrangedTokenIds'] : [];
     } else throw new PracticeError(142206001, 'Question requires AI grading.', 'userAnswer');
 
     return {
       isCorrect: correct,
       numericScore: correct ? 100 : 0,
-      feedbackText: correct ? 'Correct answer.' : 'Review the lesson before your next practice.',
+      feedbackText:
+        feedbackLocale === 'id'
+          ? correct
+            ? 'Jawaban benar.'
+            : 'Pelajari kembali materi sebelum latihan berikutnya.'
+          : correct
+            ? 'Correct answer.'
+            : 'Review the lesson before your next practice.',
       gradingSource: 'RULE_ENGINE',
       gradingMetadata: {
         gradingStrategy: 'DETERMINISTIC',

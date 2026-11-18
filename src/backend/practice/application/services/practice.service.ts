@@ -4,6 +4,7 @@ import type {
   PracticeSession,
   UserAnswer,
 } from '@/backend/practice/domain/repositories/practice.repository';
+import type { AiLanguage } from '@/backend/shared/application/services/requests/ai-request';
 import type { Locale, Localization } from '@/shared/locale';
 
 export interface SubmitPracticeAnswerRequest {
@@ -39,7 +40,11 @@ export interface LessonNextResult {
 }
 
 export interface PracticeService {
-  generateSession(userId: string, questionCount?: number): Promise<PracticeSession>;
+  generateSession(
+    userId: string,
+    questionCount?: number,
+    language?: AiLanguage,
+  ): Promise<PracticeSession>;
 
   submitAnswer(
     userId: string,

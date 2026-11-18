@@ -460,6 +460,49 @@ async function main() {
     assert.equal(generationCalls, 2);
     assert.equal(gradingCalls, 0, 'Canonical and objective grading must not call AI.');
 
+    for (const locale of ['en', 'id'] as const) {
+      const language = {
+        instructionLocale: locale,
+        feedbackLocale: locale,
+        translationLocale: locale,
+      };
+      const localized = await service.generateSession(userId, 1, language);
+      const reloadedRepository = new DrizzlePracticeRepository();
+      const restored = await reloadedRepository.withSessionLock(
+        userId,
+        localized.id,
+        async (tx) => tx.session,
+      );
+
+      assert.deepEqual(restored.recommendation.language, language);
+
+      const localizedRequest = { questionId: localized.questions[0].id, userAnswer: correctAnswer };
+      const response = await service.submitAnswer(userId, localized.id, localizedRequest);
+
+      assert.deepEqual(response.language, language);
+      assert.equal(response.feedbackText, locale === 'id' ? 'Jawaban benar.' : 'Correct answer.');
+
+      const reloadedService = new PracticeServiceImpl(
+        reloadedRepository,
+        catalog,
+        progressAdapter,
+        recommendations,
+        ai,
+      );
+
+      assert.deepEqual(
+        await reloadedService.submitAnswer(userId, localized.id, localizedRequest),
+        response,
+      );
+
+      const stored = await db
+        .select()
+        .from(practiceSchema.practiceAnswers)
+        .where(eq(practiceSchema.practiceAnswers.id, response.answerId));
+
+      assert.deepEqual(stored[0].resultPayload.language, language);
+    }
+
     const latest = await recommendations.getRecommendation(userId);
     assert.equal(
       latest.context.lessonUnderstanding.find((item) => item.lessonSlug === lessonSlug)?.level,
@@ -469,7 +512,7 @@ async function main() {
     assert.equal((await progress.getOverview(otherUserId)).trackedSkillsCount, 0);
 
     console.log(
-      'Practice MySQL smoke passed: migrations, default generation, owner/order guards, concurrent answers, stable replay, progress/receipt recovery, canonical direct quiz, level0->1/cap10, no quiz sessions and fresh recommendation. AI uses a test double.',
+      'Practice MySQL smoke passed: migrations, default generation, owner/order guards, concurrent answers, stable replay, progress/receipt recovery, canonical direct quiz, level0->1/cap10, no quiz sessions and fresh recommendation, bilingual session/result JSON roundtrip and completed-session replay. AI uses a test double.',
     );
   } finally {
     const sessionIds = (

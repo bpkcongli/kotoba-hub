@@ -143,3 +143,9 @@ available before seeding. Revision conflicts abort the complete seed transaction
 `test:flashcards` also verifies bilingual snapshot/replay and shared Leitner state.
 Add `--bilingual-syllabus` to exercise the BIL-03 v2 merge before flashcard seeding.
 See [BIL-05 coverage and operations](../docs/syllabus/bilingual/bilingual-flashcards-implementation.md).
+
+BIL-06 tidak menambah migration: bahasa random practice disimpan di JSON
+`recommendation_spec`, sedangkan bahasa/feedback hasil disimpan pada result JSON.
+Smoke practice juga memeriksa roundtrip kedua bahasa dan replay sesi selesai;
+smoke AI memeriksa metadata locale/versi template tanpa provider live. Lihat
+[implementasi BIL-06](../docs/syllabus/bilingual/bilingual-practice-implementation.md).

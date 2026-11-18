@@ -17,7 +17,7 @@ Gunakan `[ ]` untuk belum selesai dan `[x]` untuk selesai. Perbarui status bersa
 - [x] `BIL-03` Integrasi database, importer, API dan pembaca syllabus, termasuk gate cutover dan delivery quiz. Lihat [hasil implementasi/verifikasi](./bilingual-runtime-implementation.md).
 - [ ] `BIL-04` Seed lesson lain (tooling authoring/review tersedia; pengisian seluruh N5/N4 dan integrasi seed belum dilakukan).
 - [x] `BIL-05` Runtime/seed awal flashcard bilingual; [cakupan, fallback dan verifikasi](./bilingual-flashcards-implementation.md). Seluruh bank Indonesia belum dikurasi.
-- [ ] `BIL-06` Random practice dan AI bilingual.
+- [x] `BIL-06` Random practice dan AI bilingual; [runtime, snapshot dan verifikasi](./bilingual-practice-implementation.md). Model live dan rollout tetap BIL-08.
 - [ ] `BIL-07` Internationalization backend dan frontend.
 - [ ] `BIL-08` Verifikasi dan rollout.
 
@@ -70,6 +70,10 @@ Indonesia memakai fallback Inggris eksplisit; rollout production tetap BIL-08.
 - Validasi opsi setelah penerjemahan: arti yang sama tidak boleh menghasilkan pilihan ambigu atau duplikat. Jangan fallback sebagian opsi ke bahasa berbeda.
 
 ### BIL-06 — Random practice dan AI bilingual
+
+Runtime opt-in, template AI v2, snapshot bahasa/feedback dan kompatibilitas sesi lama
+tersedia. Tidak diperlukan migration baru; bahasa disimpan di JSON existing.
+Lihat [hasil implementasi dan batas verifikasi](./bilingual-practice-implementation.md).
 
 - Bawa locale instruksi/feedback dan bahasa prompt/jawaban ke request AI; revisi prompt berversi, schema, validator, grading, dan DTO untuk `en`↔`ja` serta `id`↔`ja`.
 - Bahasa soal, kunci, dan evaluator harus konsisten; pasangan yang belum tersedia tidak dialihkan diam-diam. Bahasa bantuan boleh fallback dengan penanda yang jelas.

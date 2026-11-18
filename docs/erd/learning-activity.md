@@ -1021,3 +1021,15 @@ attribution. `answer_payload` menyimpan feedback/bahasa hasil untuk replay.
 Mode baru `MEANING` disimpan di varchar existing; mode `ENGLISH` tetap untuk
 session legacy. Tidak mengubah/menghapus session, answer atau progress existing.
 Lihat [kontrak dan operasi](../syllabus/bilingual/bilingual-flashcards-implementation.md).
+
+
+## Snapshot bahasa random practice — BIL-06
+
+Tidak ada migration baru. `practice_sessions.recommendation_spec.language` menyimpan
+`instructionLocale`, `feedbackLocale`, `translationLocale` (`en`/`id`) untuk sesi
+localized. Snapshot soal tetap memiliki kunci dan metadata bahasa EN/ID/JA.
+`practice_answers.answer_payload`/`result_payload` menyimpan bahasa dan feedback
+final; retry membaca hasil itu sebelum grading dan memakai event progress yang sama.
+Field language absent pada row lama berarti English, tanpa menambah field DTO
+legacy. Locale tidak menjadi bagian identity skill atau kunci progress.
+Lihat [kontrak runtime](../syllabus/bilingual/bilingual-practice-implementation.md).

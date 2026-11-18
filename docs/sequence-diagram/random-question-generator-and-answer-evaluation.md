@@ -119,3 +119,18 @@ sequenceDiagram
 - Practice session bisa digenerate dan dinilai penuh dalam boundary `practice`.
 - Setelah hasil jawaban tersimpan, sistem siap menjalankan handoff terpisah ke `progress`.
 - Setelah titik ini, flow bisa dilanjutkan ke diagram [update-progress-snapshot.md](./update-progress-snapshot.md).
+
+
+## Random practice localized — BIL-06
+
+Generate opt-in menerima content locale eksplisit atau preferensi user melalui
+port users. Practice membekukan tiga locale (instruksi, feedback, pasangan
+terjemahan), lalu shared AI mengirimkannya pada prompt template 2. Validator
+menolak arah pasangan yang tidak sesuai. Sesi menyimpan language di JSON
+recommendation, sementara pertanyaan menyimpan prompt/token/kunci canonical.
+
+Saat answer, practice membaca snapshot sesi tanpa membaca preferensi terbaru.
+Deterministic grading memakai feedback locale snapshot; AI grading menerima sumber
+EN/ID serta jawaban JA dan snapshot bahasa yang sama. Hasil/feedback disimpan sebelum
+progress write-through. Jawaban identik yang sudah tersimpan memakai hasil/event
+lama, termasuk setelah sesi selesai atau preferensi berubah.

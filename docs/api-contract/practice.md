@@ -3,6 +3,25 @@
 ## Perluasan BIL-01
 - Delivery/snapshot bahasa untuk direct quiz `contentFormat=localized` difinalkan pada [kontrak bilingual](./bilingual.md) dan [OpenAPI target](./openapi.bilingual.yaml) untuk `BIL-03`. Quiz tetap canonical Jepang dengan grading deterministik dan tanpa practice session. Kontrak legacy di bawah tetap berlaku; pasangan random practice Indonesia difinalkan terpisah pada `BIL-06`.
 
+## Perluasan BIL-06
+
+Random practice localized menerima `contentFormat: "localized"` dan
+`contentLocale?: "en" | "id"` pada generate. Tanpa opt-in, kontrak legacy
+English tetap berlaku. Locale tanpa opt-in dan locale yang tidak didukung ditolak.
+Resolusi locale eksplisit → preferensi → `en`; sesi dan answer localized memuat
+`language: { instructionLocale, feedbackLocale, translationLocale }` yang dibekukan.
+Endpoint publik mengisi ketiganya dengan content locale yang sama.
+
+`ARRANGE_TOKEN` mendukung `EN_TO_JA`/`JA_TO_EN` atau `ID_TO_JA`/`JA_TO_ID`
+sesuai translation locale. `FREE_RESPONSE` menerima sumber `EN` atau `ID`, dengan
+jawaban `JA`. Pasangan yang salah ditolak; tidak ada fallback pasangan ke Inggris.
+Soal objektif Jepang dan bank quiz kurasi tetap dinilai deterministik.
+
+Feedback deterministik dan AI memakai bahasa sesi. Retry jawaban memakai snapshot
+hasil dan event ID lama; perubahan preferensi berlaku untuk sesi baru. Generate
+sendiri tetap membuat sesi baru setiap panggilan. Contoh English di bawah tetap
+valid untuk request legacy. Lihat [kontrak dan verifikasi BIL-06](../syllabus/bilingual/bilingual-practice-implementation.md).
+
 ## Scope
 - Dokumen ini menyelesaikan bagian `practice` dari task `ARCH-15`.
 - Fokusnya adalah generate random practice session, direct deterministic lesson post-study quiz, dan submit answer sampai hasil grading serta progress impact siap dipakai UI.
@@ -398,7 +417,7 @@ Notes:
 
 ### `ARRANGE_TOKEN`
 - Prompt meminta user menyusun token/kata menjadi jawaban akhir.
-- Arah soal boleh `EN_TO_JA` atau `JA_TO_EN`.
+- Arah soal mengikuti pasangan sesi: `EN_TO_JA`/`JA_TO_EN` atau `ID_TO_JA`/`JA_TO_ID`.
 - `gradingStrategy` default: `DETERMINISTIC`.
 - Bentuk minimum `promptPayload`:
 
@@ -427,7 +446,7 @@ Notes:
 ```
 
 ### `FREE_RESPONSE`
-- Prompt selalu berupa satu kalimat penuh dalam bahasa Inggris.
+- Prompt berupa satu kalimat penuh dalam bahasa Inggris (legacy/en) atau Indonesia (localized/id).
 - User menjawab versi kalimat tersebut dalam bahasa Jepang melalui input field.
 - Client input method menerima romaji lalu mentransform jawaban ke kana sebelum final submit.
 - Payload jawaban sebaiknya tetap menyertakan bentuk mentah romaji dan hasil normalisasi agar grading AI bisa diaudit.

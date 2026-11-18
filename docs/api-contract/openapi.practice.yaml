@@ -462,6 +462,10 @@ components:
         status:
           $ref: '#/components/schemas/Status'
     GeneratePracticeSessionRequest:
+      oneOf:
+        - $ref: '#/components/schemas/LegacyGeneratePracticeSessionRequest'
+        - $ref: '#/components/schemas/LocalizedGeneratePracticeSessionRequest'
+    LegacyGeneratePracticeSessionRequest:
       type: object
       additionalProperties: false
       properties:
@@ -470,9 +474,37 @@ components:
           minimum: 1
           maximum: 10
           default: 5
-          description: >
-            Jumlah soal random practice yang ingin digenerate. Pada MVP,
-            nilainya boleh 1-10 dengan default 5.
+    LocalizedGeneratePracticeSessionRequest:
+      type: object
+      additionalProperties: false
+      required: [contentFormat]
+      properties:
+        questionCount:
+          type: integer
+          minimum: 1
+          maximum: 10
+          default: 5
+        contentFormat:
+          type: string
+          enum: [localized]
+        contentLocale:
+          type: string
+          enum: [en, id]
+          description: Explicit locale, otherwise saved preference, otherwise en. Frozen for the session.
+    PracticeLanguage:
+      type: object
+      additionalProperties: false
+      required: [instructionLocale, feedbackLocale, translationLocale]
+      properties:
+        instructionLocale:
+          type: string
+          enum: [en, id]
+        feedbackLocale:
+          type: string
+          enum: [en, id]
+        translationLocale:
+          type: string
+          enum: [en, id]
     QuestionMix:
       type: object
       additionalProperties: false
@@ -603,17 +635,21 @@ components:
           type: string
           enum:
             - EN
+            - ID
             - JA
         answerLanguage:
           type: string
           enum:
             - EN
+            - ID
             - JA
         direction:
           type: string
           enum:
             - EN_TO_JA
             - JA_TO_EN
+            - ID_TO_JA
+            - JA_TO_ID
         sourceSentence:
           type: string
         arrangeTokens:
@@ -647,6 +683,7 @@ components:
           type: string
           enum:
             - EN
+            - ID
         answerLanguage:
           type: string
           enum:
@@ -724,6 +761,9 @@ components:
         - startedAt
         - questions
       properties:
+        language:
+          $ref: '#/components/schemas/PracticeLanguage'
+          description: Present only for localized sessions; frozen at generation and replayed with saved answers.
         id:
           type: string
           format: uuid
@@ -1085,6 +1125,9 @@ components:
         - nextQuestionId
         - progressImpact
       properties:
+        language:
+          $ref: '#/components/schemas/PracticeLanguage'
+          description: Present only for localized sessions; frozen at generation and replayed with saved answers.
         sessionId:
           type: string
           format: uuid

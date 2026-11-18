@@ -186,3 +186,14 @@ Recommended constraints:
 - Usage dan estimasi biaya final dijumlahkan lintas attempt bila seluruh attempt memiliki data yang diperlukan. Jika ada data yang tidak tersedia, total terkait `null`; nilai per-attempt yang diketahui tetap tersimpan. `attempt_metadata` mencatat ketersediaan usage dan cached input tokens.
 - `STARTED` dapat tersisa jika proses berhenti atau write log gagal setelah pemanggilan provider. Rekonsiliasi row menggantung dan kebijakan retensi log adalah tanggung jawab operasional; retry otomatis tidak menyamarkan keadaan ini.
 - Pengaturan model dan langkah setup berada di [panduan integrasi](../ai-integration.md). Nilai `gpt-5-mini` pada contoh konseptual awal merupakan ilustrasi schema, bukan default runtime terbaru.
+
+
+## Bahasa dan versi prompt — BIL-06
+
+Metadata request menyimpan `instructionLocale`, `feedbackLocale`,
+`translationLocale` (`en`/`id`) dan `templateVersion` dari sumber versi yang sama
+dengan instruksi provider. Template `2` mendukung EN/ID↔JA; prompt payload tetap
+schemaVersion `1`. Default request legacy adalah English. Metadata tidak memuat
+prompt, note, jawaban atau feedback mentah. Tidak diperlukan migration karena
+metadata menggunakan JSON existing. Pasangan bahasa output yang berbeda dari
+request dianggap invalid dan mengikuti retry terbatas, tanpa fallback pasangan.

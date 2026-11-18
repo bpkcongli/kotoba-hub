@@ -18,7 +18,7 @@ Keempat tipe soal dirender sesuai payload backend:
 - `SHORT_FREE_RESPONSE`: satu slot kosong dengan input romaji/Jepang dan bentuk Jepang final yang dapat diedit.
 - `SLOT_FILL`: empat opsi Jepang dengan radio keyboard-accessible.
 - `ARRANGE_TOKEN`: token bank dan answer order; tombol menambah atau melepas token tanpa drag wajib. Arah bahasa mengikuti question.
-- `FREE_RESPONSE`: prompt English, textarea jawaban, dan penjelasan bahwa feedback memakai AI.
+- `FREE_RESPONSE`: prompt English (legacy/en) atau Indonesia (localized/id), textarea jawaban, dan penjelasan bahwa feedback memakai AI.
 
 Konversi romaji memakai `wanakana`; learner melihat bentuk final sebelum submit. Input Jepang/katakana dan hasil IME kanji dipertahankan. Payload membawa input mentah, bentuk Jepang final, dan `normalizedKanji` jika ada kanji. Submit menunggu composition selesai dan konversi romaji lengkap. Frontend tidak menghitung grade, mastery, atau kenaikan understanding.
 
@@ -50,3 +50,15 @@ Verifikasi pada 30 Oktober 2026:
 - Kontras teks secondary pada secondary surface **5.60:1**, teks primary pada putih **15.30:1**, serta putih pada navy **16.39:1**. Feedback memakai label teks dan score.
 
 Preview ini tidak menggantikan verifikasi routing protected atau persistence backend end-to-end.
+
+
+## Perluasan BIL-06
+
+Generate memakai content query dari locale store; response localized wajib memiliki
+snapshot `language` yang cocok dengan request. Validasi response memeriksa arah
+EN/ID↔JA, bukan mengganti pasangan dari preferensi. Instruksi soal dan feedback
+memakai snapshot sesi/hasil; atribut `lang` prompt dan token mengikuti bahasa teks.
+Perubahan preferensi berlaku pada generate berikutnya. Pending answer/retry tetap
+mempertahankan payload serta response time awal; response dengan metadata bahasa
+berbeda ditolak sebelum state progress berubah. Shell dan pesan UI global tetap
+cakupan BIL-07. Lihat [implementasi dan verifikasi](../syllabus/bilingual/bilingual-practice-implementation.md).

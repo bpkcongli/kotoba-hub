@@ -191,3 +191,16 @@ Tes assessment mencakup jalur structured/AI, baseline progress, katalog dan DTO,
 auth/Origin, serta komposisi adapter normalisasi dengan AI service asli dan
 provider/log test doubles. Tidak diperlukan migration baru; persistence final tetap
 menggunakan endpoint konfirmasi melalui context users.
+
+
+## Bilingual random practice — BIL-06
+
+Template AI versi `2` mendukung sumber Inggris/Indonesia dan jawaban Jepang.
+`ARRANGE_TOKEN` juga mendukung Jepang ke Inggris/Indonesia. Shared request membawa
+`language: { instructionLocale, feedbackLocale, translationLocale }`; absent memakai
+English untuk kompatibilitas consumer lama. Locale parsial/null atau tidak didukung
+ditolak. Bahasa pasangan tidak fallback; bantuan dan feedback mengikuti snapshot
+sesi. Observability mencatat tiga locale dan versi tanpa payload learner mentah.
+Placement/recommendation saat ini menghasilkan referensi katalog, bukan alasan
+berbentuk prosa; mereka menerima kontrak bahasa shared yang sama. Detail runtime,
+batas validasi bahasa alami dan verifikasi berada pada [implementasi BIL-06](syllabus/bilingual/bilingual-practice-implementation.md).

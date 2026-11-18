@@ -25,6 +25,8 @@
 
 ## Canonical Relationship Model
 
+Pengembangan skill vocabulary mandiri yang menaungi banyak item dibahas pada [panduan authoring vocabulary](vocabulary-authoring-guide.md) (`VOC-01`/`VOC-02`). Kelompok tersebut saat ini merupakan kandidat draft; aturan atomization dan eligibility runtime di bawah tetap baseline sampai kontrak baru diimplementasikan. Lesson unpublished tidak membuat skill eligible pada katalog aktivitas existing.
+
 ```text
 lesson bundle handle
   -> atom skill (seed-final)

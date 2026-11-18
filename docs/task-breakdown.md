@@ -106,6 +106,12 @@ Rencana dan batas cakupan: [bilingual support plan](./syllabus/bilingual/bilingu
 - [ ] `BIL-07` Terapkan i18n BE/FE untuk pesan UI/API, error/validasi, formatter, SSR/hydration, serta pemilih bahasa; fondasi locale sudah dimulai pada `BIL-01`/`BIL-03`. Dependency: `BIL-05`, `BIL-06`.
 - [ ] `BIL-08` Verifikasi flow kedua bahasa, kualitas terjemahan, fallback/cache, progress/idempotency dan sesi lama, lalu rollout migration/seed/app dengan backup serta rollback. Dependency: `BIL-07`; checks terkait tetap dilakukan pada tiap tahap.
 
+### 8. Vocabulary Flashcard Authoring
+
+- [x] `VOC-01` Konfigurasi `vocabulary-curator`, `flashcard-maker`, dan `flashcard-reviewer` serta empat AI-skill kurasi sumber, pengelompokan, authoring bilingual dan review tersedia. [Panduan vocabulary](./syllabus/flashcards/vocabulary-authoring-guide.md) memuat handoff dan audit skill–lesson; kandidat kelompok mandiri tidak mengubah attribution/publikasi runtime. Validasi format/tautan dan review instruksi independen lulus. Uji lokal tiga item menghasilkan draft bilingual dan 18 set opsi; uji berantai maker/reviewer independen belum selesai karena limit subagent, sehingga belum ada verdict editorial konten siap integrasi.
+- [ ] `VOC-02` Finalisasi dan implementasikan skill vocabulary mandiri yang menaungi banyak item, dengan kontrak eligibility aktivitas terpisah dari visibilitas lesson. Selaraskan ERD/seed/facade/progress, aturan cakupan mastery, dan promosi pending yang mempertahankan item ID, Leitner, custom deck serta snapshot/retry sesi lama. Lesson unpublished belum menjadi fallback yang didukung katalog existing. Lihat [dependency aktivasi](./syllabus/flashcards/vocabulary-authoring-guide.md#dependency-aktivasi-voc-02). Dependency: `VOC-01`.
+- [ ] `VOC-03` Kurasi batch vocabulary pending, lengkapi paket Inggris/Indonesia, lakukan review independen, lalu integrasikan melalui jalur yang didukung dengan laporan coverage accepted/held dan fallback. Draft dapat disiapkan setelah `VOC-01`; integrasi official skill kelompok menunggu `VOC-02`.
+
 ## Assumptions And Tracking Rules
 - Gunakan status checklist sederhana `[ ]` untuk `todo` dan `[x]` untuk `done`; jika perlu blocker, tulis suffix singkat seperti `(blocked: waiting brand brief)`.
 - Task `DS-01` adalah dependency utama untuk visual system final; wireframe dan architecture tetap boleh lanjut sebelum brand brief datang.

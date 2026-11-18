@@ -6,6 +6,9 @@
 - Dokumen ini sekarang juga mengunci bagaimana candidate vocabulary `N5` dari `JMdict + yomitan-jlpt-vocab` yang belum punya mapping lesson resmi tetap bisa di-seed tanpa mengubah seed syllabus published terlebih dulu.
 
 ## Positioning Decision
+
+Untuk kurasi kelompok vocabulary mandiri tanpa lesson, gunakan [panduan authoring vocabulary](vocabulary-authoring-guide.md). Output tooling `VOC-01` adalah draft terpisah; schema/importer di dokumen ini belum mendukung aktivasi skill kelompok mandiri (`VOC-02`).
+
 - `VOCABULARY` tetap menjadi `skill` canonical di syllabus dan tetap membawa ownership `track -> unit -> lesson -> skill`.
 - `VOCABULARY` tidak wajib muncul sebagai materi bacaan utama di `lesson.contentBlocks`.
 - `VOCABULARY` juga tidak wajib menjadi bagian canonical `lesson.postStudyQuestions`, kecuali ada alasan pedagogis khusus di masa depan.

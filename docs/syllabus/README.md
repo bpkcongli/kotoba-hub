@@ -39,6 +39,7 @@ Seed aktif berada di `content/syllabus/v1/`. Artefak bilingual batch awal bersta
 - [Mapping deck](flashcards/flashcard-deck-mapping.md): relasi `skill -> item -> deck`, grouping, dan batas import.
 - [Seeder kana](flashcards/kana-flashcard-seeder-schema.md): kontrak artifact dan script seed kana.
 - [Seeder vocabulary](flashcards/vocabulary-flashcard-seeder-schema.md): kontrak deck, item, dan membership vocabulary.
+- [Kurasi dan authoring vocabulary](flashcards/vocabulary-authoring-guide.md): subagent/AI-skill, kelompok mandiri kandidat, handoff bilingual, review, dan dependency skill–lesson `VOC-01`–`VOC-03`.
 
 ## Authoring
 

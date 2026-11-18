@@ -327,6 +327,7 @@ export class PracticeStore implements IPracticeStore {
             const next = this.session.questions[this.currentIndex + 1]?.id ?? null;
 
             if (
+              JSON.stringify(result.language) !== JSON.stringify(this.session.language) ||
               p.totalQuestions !== this.session.totalQuestions ||
               p.answeredQuestionsCount !== this.currentIndex + 1 ||
               p.isCompleted !== (next === null) ||
@@ -376,13 +377,16 @@ export class PracticeStore implements IPracticeStore {
     if (this.isSubmitting) return;
 
     this.dispose();
+
     this.session = null;
     this.results = [];
     this.lessonQuiz = null;
     this.lessonResult = null;
     this.lessonSlug = null;
     this.mode = 'random';
+
     this.beginQuestion();
+
     this.stage = 'setup';
     this.error = null;
     this.accessIssue = null;

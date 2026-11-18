@@ -46,9 +46,15 @@ function failure(code: number, message: string, httpStatus: number) {
   );
 }
 
-function renderFeature(feature: ReactNode) {
+function renderFeature(feature: ReactNode, contentLocale?: 'en' | 'id') {
   const workspace = (content: ReactNode) => (
-    <FrontendContainerProvider bootstrap={{ session: appReadySessionFixture() }}>
+    <FrontendContainerProvider
+      bootstrap={{
+        session: appReadySessionFixture(),
+        ...(contentLocale
+          ? { preferences: { contentLocale, uiLocale: 'en' }, localizedSyllabus: true }
+          : {}),
+      }}>
       <PracticeContainerProvider>{content}</PracticeContainerProvider>
     </FrontendContainerProvider>
   );
@@ -70,6 +76,7 @@ async function startSession(questionCount = 4) {
   const sessionId = path.split('/').at(-1)!;
 
   expect(path).toBe(`/practice/sessions/${sessionId}`);
+
   rendered.show(<PracticeSessionScreen sessionId={sessionId} />);
 
   return { user, sessionId, ...rendered };
@@ -83,6 +90,7 @@ beforeEach(() => {
 test('answers all four question types with keyboard controls and keeps final feedback before summary', async () => {
   const { user, sessionId, show } = await startSession();
   const requests: unknown[] = [];
+
   const capture = async ({ request }: { request: Request }) => {
     if (/\/practice\/sessions\/[^/]+\/answer$/.test(new URL(request.url).pathname)) {
       requests.push(await request.clone().json());
@@ -117,6 +125,7 @@ test('answers all four question types with keyboard controls and keeps final fee
     const particle = screen.getByRole('radio', { name: 'は' });
 
     particle.focus();
+
     await user.keyboard(' ');
 
     expect(particle).toBeChecked();
@@ -131,6 +140,7 @@ test('answers all four question types with keyboard controls and keeps final fee
       const token = within(bank).getByRole('button', { name: label });
 
       token.focus();
+
       await user.keyboard(' ');
     }
 
@@ -154,6 +164,7 @@ test('answers all four question types with keyboard controls and keeps final fee
     );
 
     await user.click(screen.getByRole('button', { name: 'Check answer' }));
+
     feedback = await screen.findByRole('region', { name: 'Answer feedback' });
 
     expect(feedback).toHaveFocus();
@@ -202,6 +213,7 @@ test('retains and locks the submitted text after a failed answer, then retries i
       { once: true },
     ),
   );
+
   await user.type(screen.getByRole('textbox', { name: 'Romaji or Japanese answer' }), 'ha');
   await user.click(screen.getByRole('button', { name: 'Check answer' }));
 
@@ -284,6 +296,7 @@ test('loads the current lesson question when another tab advances understanding 
   const user = userEvent.setup();
 
   renderFeature(<LessonPostStudyScreen lessonSlug="hiragana-row-a" />);
+
   await screen.findByText('Difficulty 1/10');
 
   setMockLessonUnderstanding(appReadySessionFixture().user!.id, 'hiragana-row-a', 1);
@@ -315,6 +328,7 @@ test('supports Japanese IME output without submitting the composing Enter key', 
       ),
     ),
   );
+
   await startSession(1);
 
   const field = screen.getByRole('textbox', { name: 'Romaji or Japanese answer' });
@@ -392,6 +406,7 @@ test('shows saved feedback without a mastery update and identifies skills from i
 
   await user.click(screen.getByRole('radio', { name: 'が' }));
   await user.click(screen.getByRole('button', { name: 'Check answer' }));
+
   feedback = await screen.findByRole('region', { name: 'Answer feedback' });
 
   expect(
@@ -423,6 +438,7 @@ test('generation failures preserve count, reject malformed empty sessions, and a
   );
 
   renderFeature(<PracticeHub />);
+
   await user.click(screen.getByRole('button', { name: 'Generate practice' }));
 
   expect(await screen.findByRole('alert')).toHaveTextContent('Questions could not be generated.');
@@ -490,3 +506,79 @@ test('uses the selected lesson difficulty and displays a missing-lesson recovery
 
   expect(await screen.findByText('Difficulty 1/10')).toBeInTheDocument();
 });
+
+test.each(['ID_TO_JA', 'JA_TO_ID'] as const)(
+  'BIL-06 renders %s with the frozen instruction and actual content languages',
+  async (direction) => {
+    const user = userEvent.setup();
+    const q = practiceQuestionFixture('ARRANGE_TOKEN');
+
+    if (q.questionType !== 'ARRANGE_TOKEN') throw new Error('Arrange fixture required');
+
+    const toJapanese = direction === 'ID_TO_JA';
+    q.promptPayload = {
+      ...q.promptPayload,
+      direction,
+      promptLanguage: toJapanese ? 'ID' : 'JA',
+      answerLanguage: toJapanese ? 'JA' : 'ID',
+      sourceSentence: toJapanese ? 'Saya seorang pelajar.' : 'わたしはがくせいです。',
+      arrangeTokens: toJapanese
+        ? q.promptPayload.arrangeTokens
+        : [
+            { id: 't1', label: 'Saya' },
+            { id: 't2', label: 'seorang' },
+            { id: 't3', label: 'pelajar' },
+            { id: 't4', label: '.' },
+          ],
+    };
+    const session = practiceSessionFixture({
+      questionCount: 1,
+      questions: [q],
+      language: { instructionLocale: 'id', feedbackLocale: 'id', translationLocale: 'id' },
+    });
+
+    server.use(
+      http.post(`${baseUrl}/practice/sessions/generate`, async ({ request }) => {
+        expect(await request.json()).toEqual({
+          questionCount: 1,
+          contentFormat: 'localized',
+          contentLocale: 'id',
+        });
+
+        return HttpResponse.json(envelope(session));
+      }),
+    );
+
+    const rendered = renderFeature(<PracticeHub />, 'id');
+
+    fireEvent.change(screen.getByRole('spinbutton', { name: 'Question count' }), {
+      target: { value: '1' },
+    });
+    await user.click(screen.getByRole('button', { name: 'Generate practice' }));
+    await waitFor(() => expect(mockPush).toHaveBeenCalled());
+    rendered.show(<PracticeSessionScreen sessionId={session.id} />);
+
+    expect(screen.getByRole('heading', { name: 'Susun kalimat' })).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        toJapanese
+          ? 'Terjemahkan dari bahasa Indonesia ke bahasa Jepang.'
+          : 'Terjemahkan dari bahasa Jepang ke bahasa Indonesia.',
+      ),
+    ).toBeInTheDocument();
+    expect(screen.getByText(q.promptPayload.sourceSentence)).toHaveAttribute(
+      'lang',
+      toJapanese ? 'id' : 'ja',
+    );
+    expect(
+      screen.getByText(toJapanese ? 'Jawab dalam bahasa Jepang.' : 'Jawab dalam bahasa Indonesia.'),
+    ).toBeInTheDocument();
+
+    const bank = screen.getByRole('group', { name: 'Token tersedia' });
+
+    expect(within(bank).getAllByRole('button')[0]).toHaveAttribute(
+      'lang',
+      toJapanese ? 'ja' : 'id',
+    );
+  },
+);

@@ -81,13 +81,23 @@ export const practiceHandlers = [
     }
 
     const parsed = z
-      .strictObject({ questionCount: z.number().int().min(1).max(10).default(5) })
+      .strictObject({
+        questionCount: z.number().int().min(1).max(10).default(5),
+        contentFormat: z.literal('localized').optional(),
+        contentLocale: localeSchema.optional(),
+      })
+      .refine((v) => !v.contentLocale || !!v.contentFormat)
       .safeParse(body);
 
     return parsed.success
       ? HttpResponse.json({
           status: status(),
-          data: createMockPracticeSession(getMockSession().user!.id, parsed.data),
+          data: createMockPracticeSession(getMockSession().user!.id, {
+            ...parsed.data,
+            ...(parsed.data.contentFormat
+              ? { contentLocale: parsed.data.contentLocale ?? getMockPreferences().contentLocale }
+              : {}),
+          }),
         })
       : failure(142206001, 'Choose 1 to 10 questions.');
   }),

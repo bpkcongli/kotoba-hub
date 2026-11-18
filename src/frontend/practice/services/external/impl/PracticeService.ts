@@ -23,17 +23,26 @@ export class PracticeService implements IPracticeService {
   ) {}
 
   async generateSession(request: GeneratePracticeRequest, signal?: AbortSignal) {
+    const query = this.locale?.contentQuery;
+    const body = { ...request, ...query };
+
     const data = readHttpResponse(
       await this.http.request({
         method: 'POST',
         path: '/practice/sessions/generate',
-        body: request,
+        body,
         signal,
       }),
       practiceSessionResponseSchema,
     ).data;
 
     if (
+      (body.contentFormat === 'localized' &&
+        (!data.language ||
+          (body.contentLocale &&
+            (data.language.translationLocale !== body.contentLocale ||
+              data.language.instructionLocale !== body.contentLocale ||
+              data.language.feedbackLocale !== body.contentLocale)))) ||
       data.totalQuestions !== request.questionCount ||
       data.answeredQuestionsCount !== 0 ||
       data.status !== 'GENERATED'
@@ -68,6 +77,7 @@ export class PracticeService implements IPracticeService {
 
   async getLessonQuestion(lessonSlug: string, signal?: AbortSignal) {
     const query = this.locale?.contentQuery;
+
     const data = readHttpResponse(
       await this.http.request({
         method: 'POST',

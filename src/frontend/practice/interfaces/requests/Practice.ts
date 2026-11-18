@@ -1,5 +1,7 @@
 export interface GeneratePracticeRequest {
   questionCount: number;
+  contentFormat?: 'localized';
+  contentLocale?: 'en' | 'id';
 }
 
 export interface PracticeTextAnswer {

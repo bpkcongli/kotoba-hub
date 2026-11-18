@@ -95,6 +95,37 @@ export function createMockPracticeSession(
     id: crypto.randomUUID(),
   });
 
+  if (config.contentFormat) {
+    const locale = config.contentLocale ?? 'en';
+    session.language = {
+      instructionLocale: locale,
+      feedbackLocale: locale,
+      translationLocale: locale,
+    };
+    if (locale === 'id')
+      session.questions = session.questions.map((q) => {
+        if (q.questionType === 'ARRANGE_TOKEN')
+          return {
+            ...q,
+            promptPayload: {
+              ...q.promptPayload,
+              direction: 'ID_TO_JA',
+              promptLanguage: 'ID',
+              sourceSentence: 'Saya seorang pelajar.',
+            },
+          };
+        if (q.questionType === 'FREE_RESPONSE')
+          return {
+            ...q,
+            promptPayload: {
+              ...q.promptPayload,
+              promptLanguage: 'ID',
+              sourceSentence: 'Saya seorang pelajar.',
+            },
+          };
+        return q;
+      });
+  }
   sessions.set(session.id, { ownerId, session, answers: new Map() });
 
   return structuredClone(session);
@@ -127,14 +158,20 @@ export function answerMockPracticeSession(
   const answeredQuestionsCount = state.session.answeredQuestionsCount + 1;
   const nextQuestionId = state.session.questions[answeredQuestionsCount]?.id ?? null;
   const result: PracticeAnswerResult = {
+    ...(state.session.language ? { language: { ...state.session.language } } : {}),
     sessionId,
     questionId: question.id,
     answerId: crypto.randomUUID(),
     isCorrect,
     numericScore: isCorrect ? 100 : 0,
-    feedbackText: isCorrect
-      ? 'Your answer fits this sentence.'
-      : 'Review the sentence and the skill before your next practice.',
+    feedbackText:
+      state.session.language?.feedbackLocale === 'id'
+        ? isCorrect
+          ? 'Jawabanmu sesuai dengan kalimat ini.'
+          : 'Pelajari kembali kalimat dan keterampilannya sebelum latihan berikutnya.'
+        : isCorrect
+          ? 'Your answer fits this sentence.'
+          : 'Review the sentence and the skill before your next practice.',
     gradingSource: question.gradingStrategy === 'AI' ? 'AI_PROVIDER' : 'RULE_ENGINE',
     gradingMetadata: {
       gradingStrategy: question.gradingStrategy,

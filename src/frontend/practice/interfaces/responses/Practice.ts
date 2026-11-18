@@ -3,6 +3,12 @@ import { apiStatusSchema } from '@/frontend/shared/interfaces/responses';
 import { localizationSchema } from '@/frontend/shared/interfaces/responses/Localization';
 import { nextQuizSchema } from '@/frontend/syllabus/interfaces/responses';
 
+export const practiceLanguageSchema = z.object({
+  instructionLocale: z.enum(['en', 'id']),
+  feedbackLocale: z.enum(['en', 'id']),
+  translationLocale: z.enum(['en', 'id']),
+});
+
 const id = z.uuid();
 const level = z.number().int().min(0).max(10);
 const difficulty = z.enum(['REMEDIAL', 'STANDARD', 'STRETCH']);
@@ -57,9 +63,9 @@ export const practiceQuestionSchema = z.discriminatedUnion('questionType', [
     gradingStrategy: z.literal('DETERMINISTIC'),
     promptPayload: z.object({
       schemaVersion: z.literal(1),
-      promptLanguage: z.enum(['JA', 'EN']),
-      answerLanguage: z.enum(['JA', 'EN']),
-      direction: z.enum(['EN_TO_JA', 'JA_TO_EN']),
+      promptLanguage: z.enum(['JA', 'EN', 'ID']),
+      answerLanguage: z.enum(['JA', 'EN', 'ID']),
+      direction: z.enum(['EN_TO_JA', 'JA_TO_EN', 'ID_TO_JA', 'JA_TO_ID']),
       sourceSentence: text,
       arrangeTokens: z
         .array(option)
@@ -74,7 +80,7 @@ export const practiceQuestionSchema = z.discriminatedUnion('questionType', [
     gradingStrategy: z.literal('AI'),
     promptPayload: z.object({
       schemaVersion: z.literal(1),
-      promptLanguage: z.literal('EN'),
+      promptLanguage: z.enum(['EN', 'ID']),
       answerLanguage: z.literal('JA'),
       sourceSentence: text,
       inputMethod,
@@ -85,6 +91,7 @@ export const practiceQuestionSchema = z.discriminatedUnion('questionType', [
 export const practiceSessionSchema = z
   .object({
     id,
+    language: practiceLanguageSchema.optional(),
     status: z.enum(['GENERATED', 'IN_PROGRESS', 'COMPLETED', 'EXPIRED']),
     difficultyBand: difficulty,
     questionMix: z.object({
@@ -99,6 +106,24 @@ export const practiceSessionSchema = z
   })
   .refine(
     (s) =>
+      s.questions.every((q) => {
+        const source = s.language?.translationLocale === 'id' ? 'ID' : 'EN';
+
+        if (q.questionType === 'FREE_RESPONSE') return q.promptPayload.promptLanguage === source;
+
+        if (q.questionType !== 'ARRANGE_TOKEN') return true;
+
+        const p = q.promptPayload;
+
+        return (
+          (p.direction === `${source}_TO_JA` &&
+            p.promptLanguage === source &&
+            p.answerLanguage === 'JA') ||
+          (p.direction === `JA_TO_${source}` &&
+            p.promptLanguage === 'JA' &&
+            p.answerLanguage === source)
+        );
+      }) &&
       s.questions.length === s.totalQuestions &&
       new Set(s.questions.map((q) => q.id)).size === s.totalQuestions,
   );
@@ -121,6 +146,7 @@ const grade = z.object({
 });
 
 export const practiceAnswerResultSchema = grade.extend({
+  language: practiceLanguageSchema.optional(),
   sessionId: id,
   questionId: id,
   answerId: id,
@@ -158,6 +184,9 @@ export const lessonQuizResultSchema = grade.extend({
 const status = apiStatusSchema.extend({ code: z.literal(120006000) });
 
 export const practiceSessionResponseSchema = z.object({ status, data: practiceSessionSchema });
+
 export const practiceAnswerResponseSchema = z.object({ status, data: practiceAnswerResultSchema });
+
 export const lessonQuestionResponseSchema = z.object({ status, data: nextQuizSchema });
+
 export const lessonAnswerResponseSchema = z.object({ status, data: lessonQuizResultSchema });

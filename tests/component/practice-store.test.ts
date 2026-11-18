@@ -5,7 +5,8 @@ import type {
 } from '@/frontend/practice/interfaces/requests';
 import { createPracticeContainer, PRACTICE_TYPES } from '@/frontend/practice/services';
 import type { IPracticeStore } from '@/frontend/practice/services/internal';
-import { createFrontendContainer } from '@/frontend/shared/services';
+import { createFrontendContainer, SHARED_TYPES } from '@/frontend/shared/services';
+import type { ILocaleStore } from '@/frontend/shared/services/internal';
 import { practiceSessionFixture } from '@/mocks/fixtures/practice';
 import { appReadySessionFixture } from '@/mocks/fixtures/session';
 import { server } from '@/mocks/msw.node';
@@ -110,7 +111,9 @@ test('replays an answer committed before response loss with identical text and r
   try {
     store.setQuestionCount(1);
     await store.generateSession();
+
     now = 11700;
+
     store.setTextInput('ha');
     await store.submitAnswer();
 
@@ -122,6 +125,7 @@ test('replays an answer committed before response loss with identical text and r
     expect(store.textInput).toBe('ha');
 
     now = 25000;
+
     await store.submitAnswer();
 
     expect(store.stage).toBe('feedback');
@@ -136,6 +140,7 @@ test('replays an answer committed before response loss with identical text and r
     expect(bodies[1]).toEqual(bodies[0]);
   } finally {
     server.events.removeListener('request:start', capture);
+
     store.dispose();
   }
 });
@@ -147,6 +152,7 @@ test.each([
   'reuses the receipt after a %s lesson answer response is lost and starts a fresh attempt explicitly',
   async (_outcome, input, levelAfter) => {
     const requests: { key: string | null; body: unknown }[] = [];
+
     const capture = async ({ request }: { request: Request }) => {
       if (new URL(request.url).pathname.endsWith('/lesson-post-study/answer')) {
         requests.push({
@@ -211,6 +217,7 @@ test.each([
       expect(store.lessonResult?.understandingProgress.postStudyQuizCompleted).toBe(true);
     } finally {
       server.events.removeListener('request:start', capture);
+
       store.dispose();
     }
   },
@@ -224,7 +231,9 @@ test('disposal suppresses a late generated session response', async () => {
   server.use(
     http.post(`${baseUrl}/practice/sessions/generate`, async () => {
       started.resolve();
+
       await released.promise;
+
       finished.resolve();
 
       return HttpResponse.json(envelope(practiceSessionFixture()));
@@ -235,8 +244,11 @@ test('disposal suppresses a late generated session response', async () => {
   const pending = store.generateSession();
 
   await started.promise;
+
   store.dispose();
+
   released.resolve();
+
   await pending;
   await finished.promise;
 
@@ -244,4 +256,118 @@ test('disposal suppresses a late generated session response', async () => {
   expect(store.currentQuestion).toBeNull();
   expect(store.error).toBeNull();
   expect(store.isGenerating).toBe(false);
+});
+
+test('BIL-06 freezes Indonesian language and identical retry while the next session follows changed preferences', async () => {
+  const parent = createFrontendContainer({
+    bootstrap: {
+      session: appReadySessionFixture(),
+      preferences: { contentLocale: 'id', uiLocale: 'en' },
+      localizedSyllabus: true,
+    },
+  });
+  const locale = parent.get<ILocaleStore>(SHARED_TYPES.LocaleStore);
+  const store = createPracticeContainer({ parentContainer: parent }).get<IPracticeStore>(
+    PRACTICE_TYPES.Store,
+  );
+  const bodies: unknown[] = [];
+
+  server.use(
+    http.post(`${baseUrl}/practice/sessions/:sessionId/answer`, async ({ request, params }) => {
+      bodies.push(await request.clone().json());
+
+      const result = answerMockPracticeSession(
+        ownerId,
+        String(params.sessionId),
+        (await request.json()) as PracticeAnswerRequest,
+      );
+
+      if (bodies.length === 1) return failure();
+
+      return HttpResponse.json(envelope('result' in result ? result.result : null));
+    }),
+  );
+
+  store.setQuestionCount(1);
+  await store.generateSession();
+
+  expect(store.error).toBeNull();
+  expect(store.session?.language?.translationLocale).toBe('id');
+
+  locale.hydrate({ contentLocale: 'en', uiLocale: 'en' }, true);
+  store.setTextInput('ha');
+  await store.submitAnswer();
+
+  expect(store.answerLocked).toBe(true);
+
+  await store.submitAnswer();
+
+  expect(bodies).toHaveLength(2);
+  expect(bodies[1]).toEqual(bodies[0]);
+  expect(store.answerResult?.language?.feedbackLocale).toBe('id');
+  expect(store.answerResult?.feedbackText).toBe('Jawabanmu sesuai dengan kalimat ini.');
+
+  await store.generateSession();
+
+  expect(store.session?.language?.translationLocale).toBe('en');
+
+  store.dispose();
+});
+
+test('BIL-06 rejects feedback in a different session language while keeping the original retry', async () => {
+  const parent = createFrontendContainer({
+    bootstrap: {
+      session: appReadySessionFixture(),
+      preferences: { contentLocale: 'id', uiLocale: 'en' },
+      localizedSyllabus: true,
+    },
+  });
+  const store = createPracticeContainer({ parentContainer: parent }).get<IPracticeStore>(
+    PRACTICE_TYPES.Store,
+  );
+
+  store.setQuestionCount(1);
+  await store.generateSession();
+
+  const bodies: unknown[] = [];
+
+  server.use(
+    http.post(`${baseUrl}/practice/sessions/:sessionId/answer`, async ({ request, params }) => {
+      bodies.push(await request.clone().json());
+
+      const result = answerMockPracticeSession(
+        ownerId,
+        String(params.sessionId),
+        (await request.json()) as PracticeAnswerRequest,
+      );
+
+      if (!('result' in result)) return failure();
+
+      return HttpResponse.json(
+        envelope({
+          ...result.result,
+          ...(bodies.length === 1
+            ? { language: { ...result.result.language, feedbackLocale: 'en' } }
+            : {}),
+        }),
+      );
+    }),
+  );
+
+  store.setTextInput('ha');
+  await store.submitAnswer();
+
+  expect(store.error).not.toBeNull();
+  expect(store.stage).toBe('question');
+  expect(store.answerResult).toBeNull();
+  expect(store.session?.answeredQuestionsCount).toBe(0);
+  expect(store.answerLocked).toBe(true);
+
+  await store.submitAnswer();
+
+  expect(bodies[0]).toEqual(bodies[1]);
+  expect(store.stage).toBe('feedback');
+  expect(store.answerResult?.language?.feedbackLocale).toBe('id');
+
+  store.dispose();
 });

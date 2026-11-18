@@ -29,24 +29,54 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
   const source = short || slot ? q.promptPayload.sentenceTemplate : q.promptPayload.sourceSentence;
   const japanese = short || slot || q.promptPayload.promptLanguage === 'JA';
 
+  const locale =
+    store.mode === 'lesson'
+      ? (store.lessonQuiz?.question.localization?.resolvedLocale ?? 'en')
+      : (store.session?.language?.instructionLocale ?? 'en');
+
+  const t = (en: string, id: string) => (locale === 'id' ? id : en);
+
+  const sourceLocale = japanese ? 'ja' : q.promptPayload.promptLanguage === 'ID' ? 'id' : 'en';
+  const answerLocale =
+    'answerLanguage' in q.promptPayload
+      ? q.promptPayload.answerLanguage === 'JA'
+        ? 'ja'
+        : q.promptPayload.answerLanguage === 'ID'
+          ? 'id'
+          : 'en'
+      : 'ja';
+
   const title = short
-    ? 'Fill in the missing kana'
+    ? t('Fill in the missing kana', 'Isi kana yang kosong')
     : slot
-      ? 'Choose the missing word'
+      ? t('Choose the missing word', 'Pilih kata yang tepat')
       : arrange
-        ? 'Arrange the sentence'
-        : 'Write the sentence in Japanese';
+        ? t('Arrange the sentence', 'Susun kalimat')
+        : t('Write the sentence in Japanese', 'Tulis kalimat dalam bahasa Jepang');
 
   return (
     <section
-      aria-label={store.mode === 'lesson' ? 'Lesson question' : 'Practice question'}
+      lang={locale}
+      aria-label={
+        store.mode === 'lesson'
+          ? t('Lesson question', 'Soal materi')
+          : t('Practice question', 'Soal latihan')
+      }
       className="min-w-0 space-y-6 rounded-md border border-border-subtle bg-card p-5 wrap-anywhere sm:p-8">
       <h2 className="text-h3 font-semibold">{title}</h2>
+
+      {(arrange || free) && (
+        <p className="text-body-sm text-muted-foreground">
+          {locale === 'id'
+            ? `Terjemahkan dari bahasa ${sourceLocale === 'ja' ? 'Jepang' : sourceLocale === 'id' ? 'Indonesia' : 'Inggris'} ke bahasa ${answerLocale === 'ja' ? 'Jepang' : answerLocale === 'id' ? 'Indonesia' : 'Inggris'}.`
+            : `Translate from ${sourceLocale === 'ja' ? 'Japanese' : sourceLocale === 'id' ? 'Indonesian' : 'English'} to ${answerLocale === 'ja' ? 'Japanese' : answerLocale === 'id' ? 'Indonesian' : 'English'}.`}
+        </p>
+      )}
 
       <h3
         ref={promptRef}
         tabIndex={-1}
-        lang={japanese ? 'ja' : 'en'}
+        lang={sourceLocale}
         className={`scroll-mt-40 py-4 text-h2 leading-relaxed outline-none focus-visible:focus-ring ${japanese ? 'font-japanese' : ''}`}>
         {source}
       </h3>
@@ -63,7 +93,10 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
 
       {free && (
         <p className="text-body-sm text-muted-foreground">
-          AI checks your Japanese response and provides feedback.
+          {t(
+            'AI checks your Japanese response and provides feedback.',
+            'AI memeriksa jawaban bahasa Jepangmu dan memberikan umpan balik.',
+          )}
         </p>
       )}
 
@@ -75,11 +108,11 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
           if (!composing) void store.submitAnswer();
         }}>
         <fieldset disabled={store.answerLocked || store.isSubmitting} className="min-w-0 space-y-4">
-          <legend className="sr-only">Your answer</legend>
+          <legend className="sr-only">{t('Your answer', 'Jawabanmu')}</legend>
 
           {slot && (
             <fieldset className="space-y-3">
-              <legend className="sr-only">Answer options</legend>
+              <legend className="sr-only">{t('Answer options', 'Pilihan jawaban')}</legend>
 
               {q.promptPayload.options.map((option) => (
                 <label
@@ -105,19 +138,22 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
           {arrange && (
             <div className="space-y-5">
               <div>
-                <p className="mb-3 text-body-sm font-semibold">Answer order</p>
+                <p className="mb-3 text-body-sm font-semibold">
+                  {t('Answer order', 'Urutan jawaban')}
+                </p>
 
                 <ol
-                  aria-label="Answer order"
+                  aria-label={t('Answer order', 'Urutan jawaban')}
                   className="flex min-h-16 flex-wrap gap-2 rounded-md border border-border-strong bg-secondary p-3">
                   {store.arrangedTokenIds.map((id, index) => (
                     <li key={id}>
                       <Button
                         type="button"
                         variant="secondary"
-                        aria-label={`Remove token ${index + 1}: ${q.promptPayload.arrangeTokens.find((t) => t.id === id)?.label}`}
+                        aria-label={`${t('Remove token', 'Hapus token')} ${index + 1}: ${q.promptPayload.arrangeTokens.find((t) => t.id === id)?.label}`}
                         onClick={() => store.toggleToken(id)}
-                        className="h-auto min-h-11 font-japanese whitespace-normal">
+                        lang={answerLocale}
+                        className={`h-auto min-h-11 whitespace-normal ${answerLocale === 'ja' ? 'font-japanese' : ''}`}>
                         {q.promptPayload.arrangeTokens.find((t) => t.id === id)?.label}
                       </Button>
                     </li>
@@ -125,11 +161,17 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
                 </ol>
 
                 <p className="mt-2 text-body-sm text-muted-foreground">
-                  Select a token to add it. Select it in the answer to remove it.
+                  {t(
+                    'Select a token to add it. Select it in the answer to remove it.',
+                    'Pilih token untuk menambahkannya. Pilih token dalam jawaban untuk menghapusnya.',
+                  )}
                 </p>
               </div>
 
-              <div role="group" aria-label="Available tokens" className="flex flex-wrap gap-2">
+              <div
+                role="group"
+                aria-label={t('Available tokens', 'Token tersedia')}
+                className="flex flex-wrap gap-2">
                 {q.promptPayload.arrangeTokens
                   .filter((t) => !store.arrangedTokenIds.includes(t.id))
                   .map((token) => (
@@ -138,14 +180,21 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
                       variant="secondary"
                       key={token.id}
                       onClick={() => store.toggleToken(token.id)}
-                      className="h-auto min-h-11 font-japanese whitespace-normal">
+                      lang={answerLocale}
+                      className={`h-auto min-h-11 whitespace-normal ${answerLocale === 'ja' ? 'font-japanese' : ''}`}>
                       {token.label}
                     </Button>
                   ))}
               </div>
 
               <p className="text-body-sm text-muted-foreground">
-                Answer in {q.promptPayload.answerLanguage === 'JA' ? 'Japanese' : 'English'}.
+                {t('Answer in ', 'Jawab dalam bahasa ')}
+                {answerLocale === 'ja'
+                  ? t('Japanese', 'Jepang')
+                  : answerLocale === 'id'
+                    ? t('Indonesian', 'Indonesia')
+                    : t('English', 'Inggris')}
+                .
               </p>
             </div>
           )}
@@ -153,7 +202,9 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
           {(short || free) && (
             <>
               <label className="block space-y-2">
-                <span className="text-body-sm font-semibold">Romaji or Japanese answer</span>
+                <span className="text-body-sm font-semibold">
+                  {t('Romaji or Japanese answer', 'Jawaban romaji atau Jepang')}
+                </span>
 
                 {free ? (
                   <textarea
@@ -186,12 +237,16 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
               </label>
 
               <p id="practice-input-hint" className="text-body-sm text-muted-foreground">
-                Romaji is converted to kana below. Use uppercase romaji for katakana. Check the
-                Japanese answer before submitting; you can edit it with your Japanese keyboard.
+                {t(
+                  'Romaji is converted to kana below. Use uppercase romaji for katakana. Check the Japanese answer before submitting; you can edit it with your Japanese keyboard.',
+                  'Romaji diubah menjadi kana di bawah. Gunakan huruf besar untuk katakana. Periksa jawaban Jepang sebelum mengirim; kamu dapat mengeditnya dengan papan ketik Jepang.',
+                )}
               </p>
 
               <label className="block space-y-2">
-                <span className="text-body-sm font-semibold">Japanese answer to submit</span>
+                <span className="text-body-sm font-semibold">
+                  {t('Japanese answer to submit', 'Jawaban Jepang yang akan dikirim')}
+                </span>
 
                 <input
                   lang="ja"
@@ -208,7 +263,10 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
 
               {/[a-z]/i.test(store.japaneseAnswer) && (
                 <p className="text-body-sm">
-                  Finish converting the remaining romaji before submitting.
+                  {t(
+                    'Finish converting the remaining romaji before submitting.',
+                    'Ubah sisa romaji sebelum mengirim jawaban.',
+                  )}
                 </p>
               )}
             </>
@@ -219,10 +277,10 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
           !(store.mode === 'lesson' && store.error?.code === 142206002) && (
             <Button type="submit" disabled={!store.canSubmit || composing}>
               {store.isSubmitting
-                ? 'Checking answer…'
+                ? t('Checking answer…', 'Memeriksa jawaban…')
                 : store.answerLocked
-                  ? 'Retry answer'
-                  : 'Check answer'}
+                  ? t('Retry answer', 'Kirim ulang jawaban')
+                  : t('Check answer', 'Periksa jawaban')}
             </Button>
           )}
       </form>
@@ -232,7 +290,10 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
         !store.accessIssue &&
         !(store.mode === 'lesson' && store.error.code === 142206002) && (
           <p className="text-body-sm text-muted-foreground">
-            Your answer is kept. Retry the same answer to confirm the saved result.
+            {t(
+              'Your answer is kept. Retry the same answer to confirm the saved result.',
+              'Jawabanmu disimpan. Kirim ulang jawaban yang sama untuk memastikan hasilnya.',
+            )}
           </p>
         )}
     </section>

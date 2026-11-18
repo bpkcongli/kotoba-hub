@@ -1,5 +1,6 @@
+import { withLocalizedResponse } from '@/app/api/with-localized-response';
 import { flashcardController } from '@/backend/flashcards/interface/primary/rest/flashcard.controller';
 
-export function POST(request: Request) {
+export const POST = withLocalizedResponse((request: Request) => {
   return flashcardController.createSession(request);
-}
+});

@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+import { withLocalizedResponse } from '@/app/api/with-localized-response';
 import { readSessionToken } from '@/backend/auth/application/helpers/read-session-token';
 import { signOut } from '@/backend/auth/infrastructure/config/auth';
 import { SESSION_COOKIE_NAME } from '@/backend/auth/infrastructure/config/auth-cookie';
@@ -8,7 +9,7 @@ import { requireSameOrigin } from '@/backend/auth/interface/primary/rest/origin'
 import { ApplicationStatusCode } from '@/backend/shared/interface/primary/rest/api-status';
 import { apiResponse } from '@/backend/shared/interface/primary/rest/response';
 
-export async function POST(request: Request) {
+export const POST = withLocalizedResponse(async (request: Request) => {
   const originError = requireSameOrigin(request);
   if (originError) return originError;
 
@@ -33,4 +34,4 @@ export async function POST(request: Request) {
   }
 
   return apiResponse(ApplicationStatusCode.AUTH_SUCCESS);
-}
+});

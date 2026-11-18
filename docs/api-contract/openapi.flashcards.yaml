@@ -19,6 +19,8 @@ tags:
     description: Flashcard catalog, session lifecycle, and answer evaluation
 paths:
   /flashcards/decks:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     get:
       tags:
         - Flashcards
@@ -85,6 +87,9 @@ paths:
       responses:
         '200':
           description: Daftar flashcard deck berhasil diambil.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -115,6 +120,9 @@ paths:
                       isPublished: true
         '401':
           description: Session tidak ada atau tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -127,6 +135,9 @@ paths:
                   errorDetails: []
         '403':
           description: Onboarding belum selesai.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -149,6 +160,9 @@ paths:
         - cookieAuth: []
       requestBody:
         required: true
+        headers:
+          Content-Language:
+            $ref: '#/components/headers/UiContentLanguage'
         content:
           application/json:
             schema:
@@ -165,6 +179,9 @@ paths:
       responses:
         '200':
           description: Custom flashcard deck berhasil dibuat.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -189,6 +206,9 @@ paths:
                   isPublished: false
         '401':
           description: Session tidak ada atau tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -201,6 +221,9 @@ paths:
                   errorDetails: []
         '403':
           description: Onboarding belum selesai.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -213,6 +236,9 @@ paths:
                   errorDetails: []
         '422':
           description: Payload custom deck tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -249,6 +275,8 @@ paths:
                         - field: items
                           message: All items must match deck contentType.
   /flashcards/sessions:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     post:
       tags:
         - Flashcards
@@ -259,6 +287,9 @@ paths:
         - cookieAuth: []
       requestBody:
         required: true
+        headers:
+          Content-Language:
+            $ref: '#/components/headers/UiContentLanguage'
         content:
           application/json:
             schema:
@@ -270,6 +301,9 @@ paths:
       responses:
         '200':
           description: Flashcard session berhasil dibuat.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -321,6 +355,9 @@ paths:
                         value: tree
         '401':
           description: Session tidak ada atau tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -333,6 +370,9 @@ paths:
                   errorDetails: []
         '403':
           description: Onboarding belum selesai.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -345,6 +385,9 @@ paths:
                   errorDetails: []
         '404':
           description: Deck tidak ditemukan atau tidak bisa diakses.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -357,6 +400,9 @@ paths:
                   errorDetails: []
         '422':
           description: Payload session creation tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -383,6 +429,8 @@ paths:
                         - field: answerScriptMode
                           message: answerScriptMode is not valid for the selected questionScriptMode.
   /flashcards/sessions/{sessionId}/answer:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     post:
       tags:
         - Flashcards
@@ -408,6 +456,9 @@ paths:
             format: uuid
       requestBody:
         required: true
+        headers:
+          Content-Language:
+            $ref: '#/components/headers/UiContentLanguage'
         content:
           application/json:
             schema:
@@ -419,6 +470,9 @@ paths:
       responses:
         '200':
           description: Jawaban flashcard berhasil diproses.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -498,6 +552,9 @@ paths:
                     recommendedDifficultyBand: STANDARD
         '401':
           description: Session tidak ada atau tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -510,6 +567,9 @@ paths:
                   errorDetails: []
         '403':
           description: Onboarding belum selesai.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -522,6 +582,9 @@ paths:
                   errorDetails: []
         '404':
           description: Session atau item tidak ditemukan.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -534,6 +597,9 @@ paths:
                   errorDetails: []
         '422':
           description: Payload answer tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -560,12 +626,29 @@ paths:
                         - field: selectedOptionId
                           message: selectedOptionId is not part of the current item options.
 components:
+  headers:
+    UiContentLanguage:
+      description: Bahasa pesan envelope UI; locale konten/snapshot di data tetap mengikuti kontrak fitur.
+      schema:
+        type: string
+        enum: [en, id]
   securitySchemes:
     cookieAuth:
       type: apiKey
       in: cookie
       name: authjs.session-token
   parameters:
+    UiLocaleHeader:
+      name: X-UI-Locale
+      in: header
+      required: false
+      description: |
+        BIL-07: pilihan eksplisit bahasa pesan API. en/id valid menang atas preferensi akun,
+        lalu cookie pengunjung/default en. Header unsupported diabaikan. Tidak mengubah bahasa
+        prompt, kunci, feedback snapshot, timezone, authorization atau schema payload aktivitas.
+      schema:
+        type: string
+        enum: [en, id]
     Offset:
       name: offset
       in: query

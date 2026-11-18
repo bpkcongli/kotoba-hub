@@ -1,3 +1,4 @@
+import { withLocalizedResponse } from '@/app/api/with-localized-response';
 import { RedirectPath } from '@/backend/auth/domain/value-objects/redirect-path';
 import { signIn } from '@/backend/auth/infrastructure/config/auth';
 import { readAuthEnv } from '@/backend/auth/infrastructure/config/auth-env';
@@ -10,7 +11,7 @@ import {
 } from '@/backend/shared/interface/primary/rest/api-status';
 import { apiResponse } from '@/backend/shared/interface/primary/rest/response';
 
-export async function POST(request: Request) {
+export const POST = withLocalizedResponse(async (request: Request) => {
   const originError = requireSameOrigin(request);
   if (originError) return originError;
 
@@ -30,4 +31,4 @@ export async function POST(request: Request) {
   const location = await signIn('google', { redirect: false, redirectTo: redirectPath.value });
 
   return new Response(null, { status: HttpStatusCode.FOUND, headers: { Location: location } });
-}
+});

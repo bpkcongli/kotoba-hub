@@ -38,7 +38,7 @@ module.exports = async () => {
   // ESM-only dependencies need the SWC transform in Jest on Node 20.
   for (const project of projects) {
     project.transformIgnorePatterns = [
-      '/node_modules/(?!(until-async|rettime|@open-draft/deferred-promise|inversify|@inversifyjs)/)',
+      '/node_modules/(?!(until-async|rettime|@open-draft/deferred-promise|inversify|@inversifyjs|next-intl|use-intl|intl-messageformat|@formatjs)/)',
       '^.+\\.module\\.(css|sass|scss)$',
     ];
   }

@@ -18,6 +18,8 @@ tags:
     description: Practice generation, lesson post-study quiz, and answer grading
 paths:
   /practice/sessions/generate:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     post:
       tags:
         - Practice
@@ -30,6 +32,9 @@ paths:
         - cookieAuth: []
       requestBody:
         required: false
+        headers:
+          Content-Language:
+            $ref: '#/components/headers/UiContentLanguage'
         content:
           application/json:
             schema:
@@ -37,6 +42,9 @@ paths:
       responses:
         '200':
           description: Practice session berhasil digenerate.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -79,6 +87,9 @@ paths:
                       sortOrder: 1
         '401':
           description: Session tidak ada atau tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -91,6 +102,9 @@ paths:
                   errorDetails: []
         '403':
           description: Onboarding belum selesai.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -103,6 +117,9 @@ paths:
                   errorDetails: []
         '422':
           description: Payload generate tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -116,6 +133,8 @@ paths:
                     - field: questionCount
                       message: questionCount must be between 1 and 10.
   /practice/lesson-post-study/next:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     post:
       tags:
         - Practice
@@ -129,6 +148,9 @@ paths:
         - cookieAuth: []
       requestBody:
         required: true
+        headers:
+          Content-Language:
+            $ref: '#/components/headers/UiContentLanguage'
         content:
           application/json:
             schema:
@@ -136,6 +158,9 @@ paths:
       responses:
         '200':
           description: Pertanyaan post-study quiz berhasil diambil.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -172,18 +197,27 @@ paths:
                         transformsTo: KANA
         '401':
           description: Session tidak ada atau tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '403':
           description: Onboarding belum selesai.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: Lesson atau bank soal post-study tidak ditemukan.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -198,11 +232,16 @@ paths:
                       message: lessonSlug was not found or is not published.
         '422':
           description: Payload post-study next tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
   /practice/lesson-post-study/answer:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     post:
       tags:
         - Practice
@@ -226,6 +265,9 @@ paths:
             format: uuid
       requestBody:
         required: true
+        headers:
+          Content-Language:
+            $ref: '#/components/headers/UiContentLanguage'
         content:
           application/json:
             schema:
@@ -233,6 +275,9 @@ paths:
       responses:
         '200':
           description: Jawaban post-study quiz berhasil diproses.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -265,18 +310,27 @@ paths:
                     recommendedDifficultyBand: STANDARD
         '401':
           description: Session tidak ada atau tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '403':
           description: Onboarding belum selesai.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: Lesson atau question post-study tidak ditemukan.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -291,6 +345,9 @@ paths:
                       message: lessonSlug was not found or is not published.
         '422':
           description: Payload post-study answer tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -304,6 +361,8 @@ paths:
                     - field: questionId
                       message: questionId does not match the active lesson post-study target.
   /practice/sessions/{sessionId}/answer:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     post:
       tags:
         - Practice
@@ -321,6 +380,9 @@ paths:
             format: uuid
       requestBody:
         required: true
+        headers:
+          Content-Language:
+            $ref: '#/components/headers/UiContentLanguage'
         content:
           application/json:
             schema:
@@ -328,6 +390,9 @@ paths:
       responses:
         '200':
           description: Jawaban practice berhasil diproses.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -364,6 +429,9 @@ paths:
                     recommendedDifficultyBand: STANDARD
         '401':
           description: Session tidak ada atau tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -376,6 +444,9 @@ paths:
                   errorDetails: []
         '403':
           description: Onboarding belum selesai.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -388,6 +459,9 @@ paths:
                   errorDetails: []
         '404':
           description: Practice session atau question tidak ditemukan.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -400,6 +474,9 @@ paths:
                   errorDetails: []
         '422':
           description: Payload answer tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -413,6 +490,24 @@ paths:
                     - field: questionId
                       message: questionId does not belong to the session.
 components:
+  parameters:
+    UiLocaleHeader:
+      name: X-UI-Locale
+      in: header
+      required: false
+      description: |
+        BIL-07: pilihan eksplisit bahasa pesan API. en/id valid menang atas preferensi akun,
+        lalu cookie pengunjung/default en. Header unsupported diabaikan. Tidak mengubah bahasa
+        prompt, kunci, feedback snapshot, timezone, authorization atau schema payload aktivitas.
+      schema:
+        type: string
+        enum: [en, id]
+  headers:
+    UiContentLanguage:
+      description: Bahasa pesan envelope UI; locale konten/snapshot di data tetap mengikuti kontrak fitur.
+      schema:
+        type: string
+        enum: [en, id]
   securitySchemes:
     cookieAuth:
       type: apiKey

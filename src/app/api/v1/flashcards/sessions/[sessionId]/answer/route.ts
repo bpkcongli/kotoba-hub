@@ -1,7 +1,10 @@
+import { withLocalizedResponse } from '@/app/api/with-localized-response';
 import { flashcardController } from '@/backend/flashcards/interface/primary/rest/flashcard.controller';
 
-export async function POST(request: Request, context: { params: Promise<{ sessionId: string }> }) {
-  const { sessionId } = await context.params;
+export const POST = withLocalizedResponse(
+  async (request: Request, context: { params: Promise<{ sessionId: string }> }) => {
+    const { sessionId } = await context.params;
 
-  return flashcardController.submitAnswer(request, sessionId);
-}
+    return flashcardController.submitAnswer(request, sessionId);
+  },
+);

@@ -1,16 +1,20 @@
 import { cookies } from 'next/headers';
+import { NextRequest } from 'next/server';
+import { GET as googleCallback } from '@/app/api/v1/auth/callback/google/route';
 import { POST as startGoogle } from '@/app/api/v1/auth/google/start/route';
 import { GET as getSession } from '@/app/api/v1/auth/session/route';
 import { POST as signOutRoute } from '@/app/api/v1/auth/sign-out/route';
 import { anonymousSession } from '@/backend/auth/application/services/session.service';
-import { signIn, signOut } from '@/backend/auth/infrastructure/config/auth';
+import { handlers, signIn, signOut } from '@/backend/auth/infrastructure/config/auth';
 import { getSessionSnapshot, revokeSession } from '@/backend/auth/infrastructure/di';
 import { requireApiAccess } from '@/backend/auth/interface/primary/rest/guard';
 
 jest.mock('@/backend/auth/infrastructure/config/auth', () => ({
   signIn: jest.fn(),
   signOut: jest.fn(),
+  handlers: { GET: jest.fn() },
 }));
+
 jest.mock('@/backend/auth/infrastructure/di', () => ({
   authorizationService: new (jest.requireActual(
     '@/backend/auth/application/services/impl/authorization.service.impl',
@@ -24,7 +28,9 @@ jest.mock('@/backend/auth/infrastructure/di', () => ({
   })),
   revokeSession: jest.fn(),
 }));
+
 jest.mock('@/backend/auth/infrastructure/config/auth-env', () => ({ readAuthEnv: jest.fn() }));
+
 jest.mock('next/headers', () => ({ cookies: jest.fn() }));
 
 const sameOrigin = { Origin: 'http://localhost:3000' };
@@ -120,6 +126,67 @@ describe('canonical auth routes', () => {
     expect(response.status).toBe(302);
     expect(response.headers.get('location')).toBe('https://accounts.google.com/authorize');
     expect(signIn).toHaveBeenCalledWith('google', { redirect: false, redirectTo: '/dashboard' });
+  });
+
+  it.each(['?error=access_denied', '?code=code'])(
+    'localizes early OAuth callback errors: %s',
+    async (query) => {
+      const response = await googleCallback(
+        new NextRequest(`http://localhost:3000/api/v1/auth/callback/google${query}`, {
+          headers: { 'X-UI-Locale': 'id' },
+        }),
+      );
+
+      expect(response.status).toBe(query.includes('error=') ? 401 : 422);
+      expect(response.headers.get('Content-Language')).toBe('id');
+
+      const body = await response.json();
+
+      expect(body.status.message).toBe(
+        query.includes('error=')
+          ? 'Proses masuk dengan Google gagal.'
+          : 'Data balasan OAuth tidak valid.',
+      );
+      expect(handlers.GET).not.toHaveBeenCalled();
+    },
+  );
+
+  it('localizes Auth.js callback failure while retaining all cleanup cookies', async () => {
+    const redirect = new Response(null, {
+      status: 302,
+      headers: { Location: 'http://localhost:3000/login?error=OAuthCallbackError' },
+    });
+    redirect.headers.append('Set-Cookie', 'authjs.state=; Max-Age=0; HttpOnly; Path=/');
+    redirect.headers.append(
+      'Set-Cookie',
+      'authjs.pkce.code_verifier=; Max-Age=0; HttpOnly; Path=/',
+    );
+    jest.mocked(handlers.GET).mockResolvedValueOnce(redirect);
+
+    const response = await googleCallback(
+      new NextRequest('http://localhost:3000/api/v1/auth/callback/google?code=code&state=state', {
+        headers: { 'X-UI-Locale': 'id' },
+      }),
+    );
+
+    expect(response.status).toBe(401);
+    expect((await response.json()).status.message).toBe('Proses masuk dengan Google gagal.');
+    expect(response.headers.getSetCookie()).toEqual(redirect.headers.getSetCookie());
+  });
+
+  it('passes successful OAuth redirects through the wrapper unchanged', async () => {
+    const redirect = new Response(null, { status: 302, headers: { Location: '/dashboard' } });
+    redirect.headers.append('Set-Cookie', 'authjs.session-token=token; HttpOnly; Path=/');
+    jest.mocked(handlers.GET).mockResolvedValueOnce(redirect);
+
+    const response = await googleCallback(
+      new NextRequest('http://localhost:3000/api/v1/auth/callback/google?code=code&state=state', {
+        headers: { Cookie: 'authjs.session-token=token' },
+      }),
+    );
+
+    expect(response).toBe(redirect);
+    expect(getSessionSnapshot).not.toHaveBeenCalled();
   });
 
   it('makes same-origin sign-out idempotent', async () => {

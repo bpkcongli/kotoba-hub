@@ -18,6 +18,8 @@ tags:
   - name: User Preferences
 paths:
   /syllabus:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     get:
       tags:
         - Syllabus
@@ -52,6 +54,9 @@ paths:
       responses:
         '200':
           description: Daftar track syllabus berhasil diambil.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -87,6 +92,9 @@ paths:
                     totalRecords: 1
         '401':
           description: Session tidak ada atau tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -99,6 +107,9 @@ paths:
                   errorDetails: []
         '422':
           description: Invalid query, unsupported locale or invalid format/locale combination; code 142204001.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -112,6 +123,8 @@ paths:
                     - field: contentLocale
                       message: contentLocale must be en or id.
   /syllabus/units/{unitSlug}:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     get:
       tags:
         - Syllabus
@@ -148,6 +161,9 @@ paths:
       responses:
         '200':
           description: Detail unit berhasil diambil.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -267,6 +283,9 @@ paths:
                       sortOrder: 3
         '401':
           description: Session tidak ada atau tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -279,6 +298,9 @@ paths:
                   errorDetails: []
         '403':
           description: Onboarding belum selesai.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -291,6 +313,9 @@ paths:
                   errorDetails: []
         '404':
           description: Unit tidak ditemukan.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -303,6 +328,9 @@ paths:
                   errorDetails: []
         '422':
           description: Invalid query, unsupported locale or invalid format/locale combination; code 142204001.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -316,6 +344,8 @@ paths:
                     - field: contentLocale
                       message: contentLocale must be en or id.
   /syllabus/lessons/{lessonSlug}:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     get:
       tags:
         - Syllabus
@@ -352,6 +382,9 @@ paths:
       responses:
         '200':
           description: Detail lesson berhasil diambil.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -508,6 +541,9 @@ paths:
                     maxUnderstandingLevel: 10
         '401':
           description: Session tidak ada atau tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -520,6 +556,9 @@ paths:
                   errorDetails: []
         '403':
           description: Onboarding belum selesai.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -532,6 +571,9 @@ paths:
                   errorDetails: []
         '404':
           description: Lesson tidak ditemukan.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -544,6 +586,9 @@ paths:
                   errorDetails: []
         '422':
           description: Invalid query, unsupported locale or invalid format/locale combination; code 142204001.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -557,6 +602,8 @@ paths:
                     - field: contentLocale
                       message: contentLocale must be en or id.
   /practice/lesson-post-study/next:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     post:
       tags:
         - Practice
@@ -569,6 +616,9 @@ paths:
         - cookieAuth: []
       requestBody:
         required: true
+        headers:
+          Content-Language:
+            $ref: '#/components/headers/UiContentLanguage'
         content:
           application/json:
             schema:
@@ -576,6 +626,9 @@ paths:
       responses:
         '200':
           description: Pertanyaan post-study quiz berhasil diambil.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -623,6 +676,9 @@ paths:
                       translationRevision: 1
         '401':
           description: Session tidak ada atau tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -635,6 +691,9 @@ paths:
                   errorDetails: []
         '403':
           description: Onboarding belum selesai.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -647,6 +706,9 @@ paths:
                   errorDetails: []
         '404':
           description: Lesson atau bank soal post-study tidak ditemukan.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -659,6 +721,9 @@ paths:
                   errorDetails: []
         '422':
           description: Payload post-study next tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -672,6 +737,8 @@ paths:
                     - field: contentLocale
                       message: contentLocale must be en or id.
   /practice/lesson-post-study/answer:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     post:
       tags:
         - Practice
@@ -694,6 +761,9 @@ paths:
             format: uuid
       requestBody:
         required: true
+        headers:
+          Content-Language:
+            $ref: '#/components/headers/UiContentLanguage'
         content:
           application/json:
             schema:
@@ -701,6 +771,9 @@ paths:
       responses:
         '200':
           description: Jawaban post-study quiz berhasil diproses.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -742,6 +815,9 @@ paths:
                     recommendedDifficultyBand: STANDARD
         '401':
           description: Session tidak ada atau tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -754,6 +830,9 @@ paths:
                   errorDetails: []
         '403':
           description: Onboarding belum selesai.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -766,6 +845,9 @@ paths:
                   errorDetails: []
         '404':
           description: Lesson atau question post-study tidak ditemukan.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -778,6 +860,9 @@ paths:
                   errorDetails: []
         '422':
           description: Payload post-study answer tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -804,6 +889,8 @@ paths:
                         - field: deliveryId
                           message: Request a new delivery before submitting another answer.
   /user-profile/preferences:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     get:
       tags:
         - User Preferences
@@ -818,6 +905,9 @@ paths:
       responses:
         '200':
           description: Preferences; code 120002000.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -833,6 +923,9 @@ paths:
                   uiLocale: en
         '401':
           description: Invalid session; code 140102001.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -857,6 +950,9 @@ paths:
       responses:
         '200':
           description: Preferences; code 120002000.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -872,6 +968,9 @@ paths:
                   uiLocale: en
         '401':
           description: Invalid session; code 140102001.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -884,6 +983,9 @@ paths:
                   errorDetails: []
         '403':
           description: Origin is not the application origin; code 140302001.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -896,6 +998,9 @@ paths:
                   errorDetails: []
         '422':
           description: Empty patch, unknown field, null or invalid locale; code 142202001.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -910,17 +1015,37 @@ paths:
                       message: contentLocale must be en or id.
       requestBody:
         required: true
+        headers:
+          Content-Language:
+            $ref: '#/components/headers/UiContentLanguage'
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UserPreferencesPatch'
 components:
+  headers:
+    UiContentLanguage:
+      description: Bahasa pesan envelope UI; locale konten/snapshot di data tetap mengikuti kontrak fitur.
+      schema:
+        type: string
+        enum: [en, id]
   securitySchemes:
     cookieAuth:
       type: apiKey
       in: cookie
       name: authjs.session-token
   parameters:
+    UiLocaleHeader:
+      name: X-UI-Locale
+      in: header
+      required: false
+      description: |
+        BIL-07: pilihan eksplisit bahasa pesan API. en/id valid menang atas preferensi akun,
+        lalu cookie pengunjung/default en. Header unsupported diabaikan. Tidak mengubah bahasa
+        prompt, kunci, feedback snapshot, timezone, authorization atau schema payload aktivitas.
+      schema:
+        type: string
+        enum: [en, id]
     Offset:
       name: offset
       in: query

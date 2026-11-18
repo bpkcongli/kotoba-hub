@@ -18,6 +18,8 @@ tags:
     description: Session-based access state for route and API guards
 paths:
   /auth/google/start:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     post:
       tags:
         - Authentication
@@ -44,6 +46,9 @@ paths:
                 format: uri
         '403':
           description: Origin request tidak sama dengan origin aplikasi.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -56,6 +61,9 @@ paths:
                   errorDetails: []
         '422':
           description: Validation error response.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -69,6 +77,8 @@ paths:
                     - field: redirectTo
                       message: redirectTo must be a safe relative path.
   /auth/callback/google:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     get:
       tags:
         - Authentication
@@ -111,6 +121,9 @@ paths:
                 type: string
         '401':
           description: Identity, state, atau PKCE dari callback tidak bisa diverifikasi.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -123,6 +136,9 @@ paths:
                   errorDetails: []
         '422':
           description: Parameter code atau state OAuth callback tidak lengkap.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -136,6 +152,8 @@ paths:
                     - field: state
                       message: Required callback value is missing.
   /auth/session:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     get:
       tags:
         - Authentication
@@ -149,6 +167,9 @@ paths:
       responses:
         '200':
           description: Session snapshot berhasil diambil, baik untuk visitor anonymous maupun authenticated.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -192,6 +213,8 @@ paths:
                         appAccess: ANONYMOUS
                         onboardingCompleted: null
   /auth/sign-out:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     post:
       tags:
         - Authentication
@@ -205,6 +228,8 @@ paths:
         '200':
           description: Session dibersihkan atau memang sudah tidak ada.
           headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
             Set-Cookie:
               description: Cookie session di-expire/dikosongkan.
               schema:
@@ -221,6 +246,9 @@ paths:
                   errorDetails: []
         '403':
           description: Origin request tidak sama dengan origin aplikasi.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -233,6 +261,9 @@ paths:
                   errorDetails: []
         '500':
           description: Terjadi exception auth yang tidak tertangani; sign-out belum berhasil.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -244,6 +275,24 @@ paths:
                   message: Unhandled auth exception.
                   errorDetails: []
 components:
+  parameters:
+    UiLocaleHeader:
+      name: X-UI-Locale
+      in: header
+      required: false
+      description: |
+        BIL-07: pilihan eksplisit bahasa pesan API. en/id valid menang atas preferensi akun,
+        lalu cookie pengunjung/default en. Header unsupported diabaikan. Tidak mengubah bahasa
+        prompt, kunci, feedback snapshot, timezone, authorization atau schema payload aktivitas.
+      schema:
+        type: string
+        enum: [en, id]
+  headers:
+    UiContentLanguage:
+      description: Bahasa pesan envelope UI; locale konten/snapshot di data tetap mengikuti kontrak fitur.
+      schema:
+        type: string
+        enum: [en, id]
   schemas:
     ErrorDetail:
       type: object

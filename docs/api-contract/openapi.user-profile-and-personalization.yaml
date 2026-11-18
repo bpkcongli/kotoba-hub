@@ -20,6 +20,8 @@ tags:
     description: Onboarding assessment and confirmation flow
 paths:
   /user-profile/me:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     get:
       tags:
         - User Profile
@@ -31,6 +33,9 @@ paths:
       responses:
         '200':
           description: User profile summary berhasil diambil.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -51,6 +56,9 @@ paths:
                   learnerProfile: null
         '401':
           description: Session tidak ada atau tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -62,6 +70,8 @@ paths:
                   message: Unauthorized.
                   errorDetails: []
   /personalization/assessment:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     post:
       tags:
         - Personalization
@@ -82,6 +92,9 @@ paths:
         - cookieAuth: []
       requestBody:
         required: true
+        headers:
+          Content-Language:
+            $ref: '#/components/headers/UiContentLanguage'
         content:
           application/json:
             schema:
@@ -89,6 +102,9 @@ paths:
       responses:
         '200':
           description: Draft personalization berhasil dibuat.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -120,6 +136,9 @@ paths:
                   aiNormalizationUsed: true
         '401':
           description: Session tidak ada atau tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -132,6 +151,9 @@ paths:
                   errorDetails: []
         '403':
           description: Origin request assessment tidak sama dengan origin aplikasi.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -144,6 +166,9 @@ paths:
                   errorDetails: []
         '500':
           description: Assessment gagal, termasuk normalisasi AI yang gagal; tidak ada profile final yang disimpan.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -156,6 +181,9 @@ paths:
                   errorDetails: []
         '422':
           description: Request assessment tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -182,6 +210,8 @@ paths:
                         - field: targetLevel
                           message: Target level is not valid in the syllabus catalog.
   /personalization/assessment/confirm:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     post:
       tags:
         - Personalization
@@ -194,6 +224,9 @@ paths:
         - cookieAuth: []
       requestBody:
         required: true
+        headers:
+          Content-Language:
+            $ref: '#/components/headers/UiContentLanguage'
         content:
           application/json:
             schema:
@@ -201,6 +234,9 @@ paths:
       responses:
         '200':
           description: Learner profile final berhasil disimpan.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -236,6 +272,9 @@ paths:
                     nextLessonSlug: hiragana-vowels-and-k-row
         '401':
           description: Session tidak ada atau tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -248,6 +287,9 @@ paths:
                   errorDetails: []
         '403':
           description: Origin request konfirmasi tidak sama dengan origin aplikasi.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -260,6 +302,9 @@ paths:
                   errorDetails: []
         '422':
           description: Payload konfirmasi tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -286,6 +331,24 @@ paths:
                         - field: knownSkillClaims
                           message: One or more knownSkillClaims values are not valid skill codes.
 components:
+  parameters:
+    UiLocaleHeader:
+      name: X-UI-Locale
+      in: header
+      required: false
+      description: |
+        BIL-07: pilihan eksplisit bahasa pesan API. en/id valid menang atas preferensi akun,
+        lalu cookie pengunjung/default en. Header unsupported diabaikan. Tidak mengubah bahasa
+        prompt, kunci, feedback snapshot, timezone, authorization atau schema payload aktivitas.
+      schema:
+        type: string
+        enum: [en, id]
+  headers:
+    UiContentLanguage:
+      description: Bahasa pesan envelope UI; locale konten/snapshot di data tetap mengikuti kontrak fitur.
+      schema:
+        type: string
+        enum: [en, id]
   securitySchemes:
     cookieAuth:
       type: apiKey

@@ -17,12 +17,29 @@ tags:
     description: Reusable components and conventions
 paths: {}
 components:
+  headers:
+    UiContentLanguage:
+      description: Bahasa pesan envelope UI; locale konten/snapshot di data tetap mengikuti kontrak fitur.
+      schema:
+        type: string
+        enum: [en, id]
   securitySchemes:
     cookieAuth:
       type: apiKey
       in: cookie
       name: authjs.session-token
   parameters:
+    UiLocaleHeader:
+      name: X-UI-Locale
+      in: header
+      required: false
+      description: |
+        BIL-07: pilihan eksplisit bahasa pesan API. en/id valid menang atas preferensi akun,
+        lalu cookie pengunjung/default en. Header unsupported diabaikan. Tidak mengubah bahasa
+        prompt, kunci, feedback snapshot, timezone, authorization atau schema payload aktivitas.
+      schema:
+        type: string
+        enum: [en, id]
     Offset:
       name: offset
       in: query
@@ -57,6 +74,7 @@ components:
           example: email
         message:
           type: string
+          description: Pesan presentasi terlokalisasi; client memakai code/field untuk logika.
           example: Email is required.
     Status:
       type: object
@@ -80,6 +98,7 @@ components:
           example: 120000000
         message:
           type: string
+          description: Pesan presentasi terlokalisasi; client memakai code/field untuk logika.
           example: Success!
         errorDetails:
           type: array
@@ -176,6 +195,9 @@ components:
   responses:
     SuccessEmpty:
       description: Success response tanpa return value.
+      headers:
+        Content-Language:
+          $ref: '#/components/headers/UiContentLanguage'
       content:
         application/json:
           schema:
@@ -188,6 +210,9 @@ components:
               errorDetails: []
     SuccessObject:
       description: Success response untuk object tunggal.
+      headers:
+        Content-Language:
+          $ref: '#/components/headers/UiContentLanguage'
       content:
         application/json:
           schema:
@@ -203,6 +228,9 @@ components:
               fullName: John Doe
     SuccessList:
       description: Success response untuk list dengan pagination metadata.
+      headers:
+        Content-Language:
+          $ref: '#/components/headers/UiContentLanguage'
       content:
         application/json:
           schema:
@@ -222,6 +250,9 @@ components:
               flashcardItems: []
     ValidationError:
       description: Validation error generic untuk payload/schema/type mismatch.
+      headers:
+        Content-Language:
+          $ref: '#/components/headers/UiContentLanguage'
       content:
         application/json:
           schema:
@@ -238,6 +269,9 @@ components:
       description: |
         Validation error spesifik untuk request yang bentuk payload-nya valid,
         tetapi gagal pada aturan bisnis/domain.
+      headers:
+        Content-Language:
+          $ref: '#/components/headers/UiContentLanguage'
       content:
         application/json:
           schema:
@@ -252,6 +286,9 @@ components:
                   message: targetLevel is not valid in the published syllabus catalog.
     UnauthorizedError:
       description: Authentication required or invalid session.
+      headers:
+        Content-Language:
+          $ref: '#/components/headers/UiContentLanguage'
       content:
         application/json:
           schema:
@@ -264,6 +301,9 @@ components:
               errorDetails: []
     ForbiddenError:
       description: Session valid tetapi rule authorization tidak terpenuhi.
+      headers:
+        Content-Language:
+          $ref: '#/components/headers/UiContentLanguage'
       content:
         application/json:
           schema:

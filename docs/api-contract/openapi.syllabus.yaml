@@ -17,6 +17,8 @@ tags:
     description: Read-only syllabus catalog and unit detail
 paths:
   /syllabus:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     get:
       tags:
         - Syllabus
@@ -47,6 +49,9 @@ paths:
       responses:
         '200':
           description: Daftar track syllabus berhasil diambil.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -74,6 +79,9 @@ paths:
                       foundationUnitSlug: n5-kana-basics
         '401':
           description: Session tidak ada atau tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -86,6 +94,9 @@ paths:
                   errorDetails: []
         '422':
           description: Query syllabus tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -99,6 +110,8 @@ paths:
                     - field: curriculumLevels
                       message: curriculumLevels must use comma-separated published levels.
   /syllabus/units/{unitSlug}:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     get:
       tags:
         - Syllabus
@@ -131,6 +144,9 @@ paths:
       responses:
         '200':
           description: Detail unit berhasil diambil.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -179,6 +195,9 @@ paths:
                       sortOrder: 1
         '401':
           description: Session tidak ada atau tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -191,6 +210,9 @@ paths:
                   errorDetails: []
         '403':
           description: Onboarding belum selesai.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -203,6 +225,9 @@ paths:
                   errorDetails: []
         '404':
           description: Unit tidak ditemukan.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -214,6 +239,8 @@ paths:
                   message: Syllabus unit not found.
                   errorDetails: []
   /syllabus/lessons/{lessonSlug}:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     get:
       tags:
         - Syllabus
@@ -249,6 +276,9 @@ paths:
       responses:
         '200':
           description: Detail lesson berhasil diambil.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -322,6 +352,9 @@ paths:
                       prerequisiteSkillCodes: []
         '401':
           description: Session tidak ada atau tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -334,6 +367,9 @@ paths:
                   errorDetails: []
         '403':
           description: Onboarding belum selesai.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -346,6 +382,9 @@ paths:
                   errorDetails: []
         '404':
           description: Lesson tidak ditemukan.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -357,12 +396,29 @@ paths:
                   message: Syllabus lesson not found.
                   errorDetails: []
 components:
+  headers:
+    UiContentLanguage:
+      description: Bahasa pesan envelope UI; locale konten/snapshot di data tetap mengikuti kontrak fitur.
+      schema:
+        type: string
+        enum: [en, id]
   securitySchemes:
     cookieAuth:
       type: apiKey
       in: cookie
       name: authjs.session-token
   parameters:
+    UiLocaleHeader:
+      name: X-UI-Locale
+      in: header
+      required: false
+      description: |
+        BIL-07: pilihan eksplisit bahasa pesan API. en/id valid menang atas preferensi akun,
+        lalu cookie pengunjung/default en. Header unsupported diabaikan. Tidak mengubah bahasa
+        prompt, kunci, feedback snapshot, timezone, authorization atau schema payload aktivitas.
+      schema:
+        type: string
+        enum: [en, id]
     Offset:
       name: offset
       in: query

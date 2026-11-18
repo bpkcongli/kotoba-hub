@@ -1,9 +1,10 @@
+import { withLocalizedResponse } from '@/app/api/with-localized-response';
 import { flashcardController } from '@/backend/flashcards/interface/primary/rest/flashcard.controller';
 
-export function GET(request: Request) {
+export const GET = withLocalizedResponse((request: Request) => {
   return flashcardController.listDecks(request);
-}
+});
 
-export function POST(request: Request) {
+export const POST = withLocalizedResponse((request: Request) => {
   return flashcardController.createDeck(request);
-}
+});

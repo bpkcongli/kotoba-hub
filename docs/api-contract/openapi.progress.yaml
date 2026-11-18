@@ -16,6 +16,8 @@ tags:
     description: Progress overview, session feed, and timeline read models
 paths:
   /progress/overview:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     get:
       tags:
         - Progress
@@ -35,6 +37,9 @@ paths:
       responses:
         '200':
           description: Progress overview berhasil diambil.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -67,6 +72,9 @@ paths:
                       lastActivityAt: '2026-04-04T10:20:00Z'
         '401':
           description: Session tidak ada atau tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -79,6 +87,9 @@ paths:
                   errorDetails: []
         '403':
           description: Onboarding belum selesai.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -94,6 +105,8 @@ paths:
         '500':
           $ref: '#/components/responses/ProgressServerError'
   /progress/sessions:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     get:
       tags:
         - Progress
@@ -120,6 +133,9 @@ paths:
       responses:
         '200':
           description: Progress session feed berhasil diambil.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -152,6 +168,9 @@ paths:
                       averageScore: 80
         '401':
           description: Session tidak ada atau tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -164,6 +183,9 @@ paths:
                   errorDetails: []
         '403':
           description: Onboarding belum selesai.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -176,6 +198,9 @@ paths:
                   errorDetails: []
         '422':
           description: Query progress session feed tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -191,6 +216,8 @@ paths:
         '500':
           $ref: '#/components/responses/ProgressServerError'
   /progress/timeline:
+    parameters:
+      - $ref: '#/components/parameters/UiLocaleHeader'
     get:
       tags:
         - Progress
@@ -223,6 +250,9 @@ paths:
       responses:
         '200':
           description: Progress timeline berhasil diambil.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -257,6 +287,9 @@ paths:
                       answeredAt: '2026-04-04T10:20:00Z'
         '401':
           description: Session tidak ada atau tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -269,6 +302,9 @@ paths:
                   errorDetails: []
         '403':
           description: Onboarding belum selesai.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -281,6 +317,9 @@ paths:
                   errorDetails: []
         '422':
           description: Query progress tidak valid.
+          headers:
+            Content-Language:
+              $ref: '#/components/headers/UiContentLanguage'
           content:
             application/json:
               schema:
@@ -296,9 +335,18 @@ paths:
         '500':
           $ref: '#/components/responses/ProgressServerError'
 components:
+  headers:
+    UiContentLanguage:
+      description: Bahasa pesan envelope UI; locale konten/snapshot di data tetap mengikuti kontrak fitur.
+      schema:
+        type: string
+        enum: [en, id]
   responses:
     ProgressValidationError:
       description: Query progress tidak valid; parameter berulang, nilai kosong, dan filter malformed ditolak.
+      headers:
+        Content-Language:
+          $ref: '#/components/headers/UiContentLanguage'
       content:
         application/json:
           schema:
@@ -313,6 +361,9 @@ components:
                   message: Invalid track slug.
     ProgressServerError:
       description: Progress read gagal karena internal error.
+      headers:
+        Content-Language:
+          $ref: '#/components/headers/UiContentLanguage'
       content:
         application/json:
           schema:
@@ -329,6 +380,17 @@ components:
       in: cookie
       name: authjs.session-token
   parameters:
+    UiLocaleHeader:
+      name: X-UI-Locale
+      in: header
+      required: false
+      description: |
+        BIL-07: pilihan eksplisit bahasa pesan API. en/id valid menang atas preferensi akun,
+        lalu cookie pengunjung/default en. Header unsupported diabaikan. Tidak mengubah bahasa
+        prompt, kunci, feedback snapshot, timezone, authorization atau schema payload aktivitas.
+      schema:
+        type: string
+        enum: [en, id]
     Offset:
       name: offset
       in: query

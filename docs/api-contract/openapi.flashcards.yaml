@@ -28,6 +28,20 @@ paths:
       security:
         - cookieAuth: []
       parameters:
+        - name: contentFormat
+          in: query
+          required: false
+          description: Opt in to localized deck metadata. Omission retains the legacy English representation.
+          schema:
+            type: string
+            enum: [localized]
+        - name: contentLocale
+          in: query
+          required: false
+          description: Requires contentFormat=localized. Explicit locale overrides account preference, then en. Repeated or unsupported values return 422.
+          schema:
+            type: string
+            enum: [en, id]
         - $ref: '#/components/parameters/Offset'
         - $ref: '#/components/parameters/Limit'
         - name: deckSource
@@ -656,6 +670,8 @@ components:
         - itemCount
         - isPublished
       properties:
+        localization:
+          $ref: '#/components/schemas/FlashcardLocalization'
         id:
           type: string
           format: uuid
@@ -763,7 +779,15 @@ components:
         - deckId
         - questionScriptMode
         - answerScriptMode
+      description: Localized requests use MEANING instead of ENGLISH. MEANING is rejected for legacy requests; ENGLISH is rejected for localized requests. Language and content are frozen at creation. See bilingual-flashcards-implementation.md for valid pairs and fallback.
       properties:
+        contentFormat:
+          type: string
+          enum: [localized]
+        contentLocale:
+          type: string
+          enum: [en, id]
+          description: Requires contentFormat=localized. Defaults to saved content preference, then en.
         deckId:
           type: string
           format: uuid
@@ -784,6 +808,8 @@ components:
         - deckType
         - contentType
       properties:
+        localization:
+          $ref: '#/components/schemas/FlashcardLocalization'
         id:
           type: string
           format: uuid
@@ -813,6 +839,13 @@ components:
         - answerScriptMode
         - isLocked
       properties:
+        contentFormat:
+          type: string
+          enum: [localized]
+        contentLocale:
+          type: string
+          enum: [en, id]
+          description: Requested locale frozen at creation; per-turn resolved locale can fall back to en.
         questionScriptMode:
           type: string
         answerScriptMode:
@@ -874,6 +907,8 @@ components:
         - prompt
         - answerOptions
       properties:
+        localization:
+          $ref: '#/components/schemas/FlashcardLocalization'
         id:
           type: string
           format: uuid
@@ -982,11 +1017,20 @@ components:
       additionalProperties: false
       required:
         - character
-        - englishMeaning
         - onyomi
         - kunyomi
         - exampleWords
+      oneOf:
+        - required: [englishMeaning]
+          not:
+            required: [meaning]
+        - required: [meaning]
+          not:
+            required: [englishMeaning]
       properties:
+        meaning:
+          type: string
+          description: Present only on localized sessions; legacy uses englishMeaning.
         character:
           type: string
         englishMeaning:
@@ -1008,8 +1052,17 @@ components:
       additionalProperties: false
       required:
         - term
-        - englishMeaning
+      oneOf:
+        - required: [englishMeaning]
+          not:
+            required: [meaning]
+        - required: [meaning]
+          not:
+            required: [englishMeaning]
       properties:
+        meaning:
+          type: string
+          description: Present only on localized sessions; legacy uses englishMeaning.
         term:
           type: string
         kana:
@@ -1026,6 +1079,10 @@ components:
         - bucketMessage
         - progressMessage
       properties:
+        explanationText:
+          type: string
+          nullable: true
+          description: Plain text from the resolved snapshot package, localized sessions only. General status messages remain English until BIL-07.
         variant:
           type: string
           enum:
@@ -1134,6 +1191,8 @@ components:
         - nextItem
         - progressImpact
       properties:
+        localization:
+          $ref: '#/components/schemas/FlashcardLocalization'
         sessionId:
           type: string
           format: uuid
@@ -1173,3 +1232,23 @@ components:
           $ref: '#/components/schemas/Status'
         data:
           $ref: '#/components/schemas/FlashcardAnswerResult'
+    FlashcardLocalization:
+      type: object
+      additionalProperties: false
+      required: [requestedLocale, resolvedLocale, isFallback, contentRevision, translationRevision]
+      properties:
+        requestedLocale:
+          type: string
+          enum: [en, id]
+        resolvedLocale:
+          type: string
+          enum: [en, id]
+        isFallback:
+          type: boolean
+          description: True only for an id request resolved as one complete English package.
+        contentRevision:
+          type: integer
+          minimum: 1
+        translationRevision:
+          type: integer
+          minimum: 1

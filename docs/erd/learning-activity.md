@@ -1002,3 +1002,22 @@ Recommended constraints:
 - AI observability log seperti request id, model, token usage, dan failure reason; itu masuk task `ARCH-11`.
 - Content bank mentah untuk prompt template AI atau rubric library terpisah.
 - Dashboard read model/materialized view khusus analytics; bila nanti diperlukan, itu sebaiknya diperlakukan sebagai read model turunan, bukan core transactional table.
+
+
+### Flashcard bilingual (`BIL-05`)
+
+Migration `0007` menambah `content_revision int not null default 1` dan
+`localizations json null` pada `flashcard_decks` dan `flashcard_items`, dimiliki
+context flashcards. Paket en/id memiliki sourceRevision, translationRevision,
+isPublished dan sourceRefs. Paket deck berisi title/description; paket item
+berisi meaning, explanationText, exampleWords dan bank alias/distractor per
+representasi. Kolom legacy dipertahankan, tidak di-backfill dengan asumsi bahasa.
+Seed audited menulis paket Inggris serta overlay Indonesia yang tersedia.
+
+Tidak ada locale dalam key `flashcard_item_states(user_id,item_id)`. JSON
+`deck_snapshot` menyimpan requested locale/format dan metadata deck resolved;
+`turns_payload` menyimpan metadata/paket resolved, teks, opsi, kunci/revisi dan
+attribution. `answer_payload` menyimpan feedback/bahasa hasil untuk replay.
+Mode baru `MEANING` disimpan di varchar existing; mode `ENGLISH` tetap untuk
+session legacy. Tidak mengubah/menghapus session, answer atau progress existing.
+Lihat [kontrak dan operasi](../syllabus/bilingual/bilingual-flashcards-implementation.md).

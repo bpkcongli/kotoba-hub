@@ -3,7 +3,9 @@
 Implementasi 17 November 2026 menambahkan pembacaan syllabus Inggris/Indonesia,
 preferensi akun, dan delivery quiz deterministik. Artefak batch tetap 16 lesson,
 492 owner, serta 160 soal. Flashcard, random practice/AI dan katalog pesan UI/API
-tetap mengikuti tahap BIL-05, BIL-06 dan BIL-07.
+mengikuti tahap masing-masing. Runtime dan seed awal flashcard BIL-05 kini
+tersedia pada [implementasi flashcard bilingual](./bilingual-flashcards-implementation.md);
+random practice/AI dan katalog pesan tetap BIL-06/BIL-07.
 
 ## Persistence dan import
 

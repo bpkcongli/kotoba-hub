@@ -441,3 +441,29 @@ Success response:
 - Kontrak ini baru mencakup create custom deck. Update deck, delete deck, dan item-level CRUD bisa ditambahkan terpisah bila kebutuhan edit deck sudah jelas.
 - `progressImpact` sengaja dibuat ringkas; detail analytics penuh tetap di domain `progress`.
 - Jika nanti dibutuhkan accessibility override untuk ganti script mode di tengah jalan, sebaiknya diperlakukan sebagai `restart session` agar fairness dan jejak progress tetap stabil.
+
+
+## Perluasan bilingual — BIL-05
+
+GET `/flashcards/decks` dan POST `/flashcards/sessions` menerima
+`contentFormat=localized` serta `contentLocale=en|id` opsional. Tanpa opt-in,
+shape legacy dan mode `ENGLISH` tetap. Locale tanpa format/unsupported/kosong
+atau berulang ditolak `422 / 142205001`; mode yang tidak cocok representasi
+memakai `142205004`. Localized memakai `MEANING` pada posisi mode `ENGLISH`
+lama, dengan pasangan lainnya tetap. Preferensi diambil lewat facade users.
+
+Deck/item localized mengirim metadata `localization`; sesi menyimpan requested
+locale dalam `sessionConfig`. Paket arti, contoh, penjelasan, prompt/opsi serta
+revisi per turn dibekukan sebelum response creation. Fallback seluruh paket ke
+Inggris current; tidak ada campuran opsi, draft atau key dalam response creation.
+Custom deck title adalah teks user tanpa deklarasi bahasa; tidak diberi metadata
+terjemahan buatan. Metadata item tetap authoritative.
+
+Feedback localized memakai `meaning` (bukan `englishMeaning`) dan plain
+`explanationText` nullable. Answer tidak menerima locale baru; retry mengikuti
+snapshot dan mekanisme idempotency existing. Pembuatan session tetap operasi
+baru per POST, tanpa jaminan idempotency creation tambahan. Pesan status umum
+menunggu BIL-07. Response privat memakai `private, no-store`.
+
+Detail persistence, scope seed dan verifikasi:
+[implementasi BIL-05](../syllabus/bilingual/bilingual-flashcards-implementation.md).

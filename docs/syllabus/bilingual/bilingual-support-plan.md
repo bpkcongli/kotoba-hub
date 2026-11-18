@@ -16,7 +16,7 @@ Gunakan `[ ]` untuk belum selesai dan `[x]` untuk selesai. Perbarui status bersa
 - [x] `BIL-02` Konversi dan kurasi seed batch awal: 492 owner bilingual/current, seluruh 18 hold terselesaikan, 16 lesson lolos gate publishable. Lihat [kurasi canonical](./batch-01/bilingual-batch-01-curation.md).
 - [x] `BIL-03` Integrasi database, importer, API dan pembaca syllabus, termasuk gate cutover dan delivery quiz. Lihat [hasil implementasi/verifikasi](./bilingual-runtime-implementation.md).
 - [ ] `BIL-04` Seed lesson lain (tooling authoring/review tersedia; pengisian seluruh N5/N4 dan integrasi seed belum dilakukan).
-- [ ] `BIL-05` Flashcard bilingual.
+- [x] `BIL-05` Runtime/seed awal flashcard bilingual; [cakupan, fallback dan verifikasi](./bilingual-flashcards-implementation.md). Seluruh bank Indonesia belum dikurasi.
 - [ ] `BIL-06` Random practice dan AI bilingual.
 - [ ] `BIL-07` Internationalization backend dan frontend.
 - [ ] `BIL-08` Verifikasi dan rollout.
@@ -59,6 +59,11 @@ uji menghasilkan `ready: true`; deployment/backup/restore live tetap BIL-08.
 - Setelah tooling siap, perluas konten berdasarkan schema final dan hasil batch awal. Tahap ini tidak memblokir `BIL-05`–`BIL-08` untuk cakupan yang sudah siap.
 
 ### BIL-05 — Flashcard bilingual
+
+Runtime, migration 0007, API/FE dan seed awal tersedia; lihat
+[hasil implementasi dan batas kurasi](./bilingual-flashcards-implementation.md).
+Overlay awal: 88 judul deck/38 vocabulary ID. Item yang belum mempunyai paket
+Indonesia memakai fallback Inggris eksplisit; rollout production tetap BIL-08.
 
 - Perluas schema/seed/API deck/item untuk judul, arti, penjelasan, contoh, dan distractor `en`/`id`. Pisahkan representasi teks dari bahasa pada mode `ENGLISH`, dengan kompatibilitas sesi lama.
 - Pertahankan item ID dan state Leitner. Bekukan bahasa, opsi, kunci, dan revisi konten dalam snapshot sesi; pergantian preferensi berlaku untuk sesi berikutnya.

@@ -58,4 +58,4 @@ Guard/error lain mengikuti kontrak fitur existing, termasuk auth, onboarding, sa
 
 ## Batas perluasan
 
-Kontrak ini memfinalkan syllabus, preferensi, dan handoff quiz untuk `BIL-03`. Schema flashcard dan pasangan random practice AI akan difinalkan `BIL-05/BIL-06`; request lama tetap mengunci `ENGLISH` atau pasangan `EN/JA` sampai tahap tersebut. Setiap aktivitas bilingual wajib menyimpan locale, revisi, opsi/kunci, dan hasil pada snapshot milik context aktivitas; perubahan preference berlaku untuk sesi baru.
+Kontrak ini memfinalkan syllabus, preferensi, dan handoff quiz untuk `BIL-03`. Schema/runtime flashcard BIL-05 tersedia pada [kontrak flashcard](./flashcards.md#perluasan-bilingual--bil-05); request legacy tetap mengunci `ENGLISH`, localized memakai `MEANING`. Pasangan random practice AI tetap `EN/JA` sampai BIL-06. Setiap aktivitas bilingual wajib menyimpan locale, revisi, opsi/kunci, dan hasil pada snapshot milik context aktivitas; perubahan preference berlaku untuk sesi baru.

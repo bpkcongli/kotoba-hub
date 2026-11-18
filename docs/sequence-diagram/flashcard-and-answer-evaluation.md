@@ -56,3 +56,18 @@ sequenceDiagram
 ## Expected Outcome
 - Satu jawaban flashcard multiple-choice selesai diproses penuh di boundary `flashcards` sampai state internalnya aman tersimpan.
 - Setelah titik ini, flow bisa dilanjutkan ke diagram [update-progress-snapshot.md](./update-progress-snapshot.md).
+
+
+## Perluasan bilingual — BIL-05
+
+1. Guard existing → validasi representasi/pasangan script. Localized menerima
+   MEANING; legacy tetap ENGLISH. Resolve locale eksplisit → users preference
+   melalui consumer port → en. Tidak membaca preference pada answer.
+2. Repository membaca deck/item published/eligible. Resolve paket deck dan setiap
+   turn requested current → en current; validasi seluruh opsi setelah normalisasi.
+   Bila opsi requested ambigu/tidak cukup, fallback seluruh paket turn.
+3. Simpan deck_snapshot dan turns_payload lengkap sebelum response creation;
+   kirim DTO whitelist tanpa key/alias/provenance/internal packages.
+4. Answer mengunci sesi/state user+item existing, menilai key snapshot, menyimpan
+   localized feedback dan handoff progress existing. Retry identik membaca hasil
+   tersimpan; preference/reseed tidak memengaruhi hasil atau bahasa sesi.

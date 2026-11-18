@@ -1,18 +1,19 @@
 import type { ContentType, ScriptMode } from '@/frontend/flashcards/interfaces/entities';
+import type { UiMessageKey } from '@/shared/i18n';
 
-export const SCRIPT_LABELS: Record<ScriptMode, string> = {
-  KANJI: 'Kanji',
-  KANA: 'Kana',
-  ENGLISH: 'English',
-  MEANING: 'Meaning',
-  ROMAJI: 'Romaji',
-  JAPANESE: 'Japanese',
+export const SCRIPT_MESSAGE_KEYS: Record<ScriptMode, UiMessageKey> = {
+  KANJI: 'SHARED:SCRIPT_OPTIONS.KANJI.LABEL',
+  KANA: 'SHARED:SCRIPT_OPTIONS.KANA.LABEL',
+  ENGLISH: 'SHARED:SCRIPT_OPTIONS.ENGLISH.LABEL',
+  MEANING: 'SHARED:SCRIPT_OPTIONS.MEANING.LABEL',
+  ROMAJI: 'SHARED:SCRIPT_OPTIONS.ROMAJI.LABEL',
+  JAPANESE: 'SHARED:LANGUAGE_OPTIONS.JAPANESE.LABEL',
 };
 
-export const CONTENT_LABELS: Record<ContentType, string> = {
-  KANJI: 'Kanji',
-  KANA: 'Kana',
-  VOCABULARY: 'Vocabulary',
+export const CONTENT_MESSAGE_KEYS: Record<ContentType, UiMessageKey> = {
+  KANJI: 'SHARED:SCRIPT_OPTIONS.KANJI.LABEL',
+  KANA: 'SHARED:SCRIPT_OPTIONS.KANA.LABEL',
+  VOCABULARY: 'SHARED:SKILL_TYPES.VOCABULARY.LABEL',
 };
 
 export function questionModes(content: ContentType, localized = false): ScriptMode[] {

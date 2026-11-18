@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/app/page-metadata';
 import { FlashcardSummaryScreen } from '@/frontend/flashcards/features';
 
-export const metadata: Metadata = { title: 'Flashcard summary' };
+export function generateMetadata(): Promise<Metadata> {
+  return pageMetadata('FLASHCARDS:FLASHCARD_SUMMARY.PAGE.TITLE');
+}
 
 export default async function FlashcardSummaryPage({
   params,

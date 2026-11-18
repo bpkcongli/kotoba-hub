@@ -6,7 +6,8 @@ import { useEffect } from 'react';
 import { useFlashcardStore } from '@/frontend/flashcards/hooks';
 import { Button } from '@/frontend/shared/components/atoms';
 import { ErrorStatePanel } from '@/frontend/shared/components/organisms';
-import { useAppSessionStore } from '@/frontend/shared/hooks';
+import { errorMessage } from '@/frontend/shared/helpers/error-message';
+import { useAppSessionStore, useUiTranslations } from '@/frontend/shared/hooks';
 
 export const FlashcardError = observer(function FlashcardError({
   title,
@@ -15,6 +16,8 @@ export const FlashcardError = observer(function FlashcardError({
   title: string;
   retry?: () => void;
 }) {
+  const t = useUiTranslations();
+
   const store = useFlashcardStore();
   const session = useAppSessionStore();
 
@@ -27,7 +30,7 @@ export const FlashcardError = observer(function FlashcardError({
   return (
     <ErrorStatePanel
       title={title}
-      description={store.error.message}
+      description={errorMessage(store.error, t)}
       action={
         <div className="space-y-3">
           {store.error.fieldErrors.length > 0 && (
@@ -41,14 +44,16 @@ export const FlashcardError = observer(function FlashcardError({
           {store.accessIssue ? (
             <Button asChild>
               <Link href={store.accessIssue === 'session' ? '/login' : '/onboarding'}>
-                {store.accessIssue === 'session' ? 'Sign in' : 'Continue onboarding'}
+                {store.accessIssue === 'session'
+                  ? t('SHARED:APP_WORKSPACE.SIGN_IN_BUTTON.LABEL')
+                  : t('ONBOARDING:ONBOARDING_SCREEN.CONTINUE_ONBOARDING_BUTTON.LABEL')}
               </Link>
             </Button>
           ) : retry ? (
             <Button
               onClick={retry}
               disabled={store.isLoading || store.isStarting || store.isSubmitting}>
-              Try again
+              {t('SHARED:RECOVERY_ACTIONS.RETRY_BUTTON.LABEL')}
             </Button>
           ) : null}
         </div>

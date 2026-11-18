@@ -2,14 +2,19 @@
 
 import { observer } from 'mobx-react-lite';
 import Link from 'next/link';
+import { useLocale } from 'next-intl';
 import { useEffect } from 'react';
 import { Button } from '@/frontend/shared/components/atoms';
 import { EmptyStatePanel } from '@/frontend/shared/components/organisms';
+import { useUiTranslations } from '@/frontend/shared/hooks';
 import { SyllabusState } from '@/frontend/syllabus/components/organisms';
 import { useSyllabusStore } from '@/frontend/syllabus/hooks';
 import { SyllabusContainerProvider } from '@/frontend/syllabus/providers';
 
 export const SyllabusMapScreen = observer(function SyllabusMapScreen() {
+  const t = useUiTranslations();
+  const uiLocale = useLocale();
+
   const store = useSyllabusStore();
 
   useEffect(() => {
@@ -22,25 +27,35 @@ export const SyllabusMapScreen = observer(function SyllabusMapScreen() {
     <SyllabusState retry={() => void store.loadMap()}>
       <div className="min-w-0 space-y-8 wrap-anywhere [&_a]:max-w-full [&_button]:max-w-full">
         <header className="space-y-3">
-          <p className="text-body-sm font-semibold text-muted-foreground">Your learning path</p>
+          <p className="text-body-sm font-semibold text-muted-foreground">
+            {t('SYLLABUS:SYLLABUS_MAP.PAGE.EYEBROW')}
+          </p>
 
-          <h1 className="text-h1 font-semibold">Syllabus</h1>
+          <h1 className="text-h1 font-semibold">
+            {t('SHARED:APP_NAVIGATION.SYLLABUS_LINK.LABEL')}
+          </h1>
 
           <p className="max-w-2xl text-muted-foreground">
-            Read each lesson, then answer its post-study quiz. A correct answer completes the lesson
-            and builds your understanding up to level 10.
+            {t('SYLLABUS:SYLLABUS_MAP.PAGE.DESCRIPTION')}
           </p>
         </header>
 
         {!store.tracks.length ? (
           <EmptyStatePanel
-            title="No lessons are available yet"
-            description="Published lessons will appear here when their study material and quizzes are ready."
-            action={<Button onClick={() => void store.loadMap()}>Reload syllabus</Button>}
+            title={t('SYLLABUS:SYLLABUS_MAP.EMPTY_SYLLABUS.TITLE')}
+            description={t('SYLLABUS:SYLLABUS_MAP.EMPTY_SYLLABUS.DESCRIPTION')}
+            action={
+              <Button onClick={() => void store.loadMap()}>
+                {t('SYLLABUS:SYLLABUS_MAP.RELOAD_SYLLABUS_BUTTON.LABEL')}
+              </Button>
+            }
           />
         ) : (
           <>
-            <div className="flex flex-wrap gap-3" role="group" aria-label="Study level">
+            <div
+              className="flex flex-wrap gap-3"
+              role="group"
+              aria-label={t('SYLLABUS:SYLLABUS_MAP.STUDY_LEVEL_SELECT.LABEL')}>
               {store.tracks.map((track) => (
                 <Button
                   key={track.slug}
@@ -73,19 +88,32 @@ export const SyllabusMapScreen = observer(function SyllabusMapScreen() {
                         key={unit.slug}
                         lang={unit.localization?.resolvedLocale}
                         className="space-y-3 rounded-md border border-border-subtle bg-card p-5">
-                        <p className="text-caption font-semibold text-muted-foreground">
-                          Unit {index + 1}
-                          {unit.isFoundationUnit ? ' · Foundation' : ''}
+                        <p
+                          lang={uiLocale}
+                          className="text-caption font-semibold text-muted-foreground">
+                          {t('SHARED:CATALOG_ENTITIES.UNIT.LABEL')} {index + 1}
+                          {unit.isFoundationUnit
+                            ? ` · ${t('SHARED:DIFFICULTY_OPTIONS.FOUNDATION.LABEL')}`
+                            : ''}
                         </p>
+
                         <h3 className="text-h3 font-semibold">{unit.title}</h3>
+
                         {unit.description && (
                           <p className="text-body-sm text-muted-foreground">{unit.description}</p>
                         )}
-                        <p className="text-body-sm">
-                          {unit.lessonCount} {unit.lessonCount === 1 ? 'lesson' : 'lessons'}
+
+                        <p lang={uiLocale} className="text-body-sm">
+                          {t('SYLLABUS:CATALOG_SUMMARY.LESSON_COUNT.LABEL', {
+                            count: unit.lessonCount,
+                          })}
                         </p>
+
                         <Button asChild variant="secondary">
-                          <Link href={`/syllabus/units/${unit.slug}`}>View {unit.title}</Link>
+                          <Link lang={uiLocale} href={`/syllabus/units/${unit.slug}`}>
+                            {t('SYLLABUS:SYLLABUS_MAP.VIEW_UNIT_BUTTON.LABEL')}{' '}
+                            <span lang={unit.localization?.resolvedLocale}>{unit.title}</span>
+                          </Link>
                         </Button>
                       </li>
                     ))}
@@ -93,15 +121,16 @@ export const SyllabusMapScreen = observer(function SyllabusMapScreen() {
                 </section>
 
                 <aside className="space-y-3 self-start rounded-md bg-secondary p-5 text-body-sm">
-                  <h2 className="font-semibold">Study, then check your understanding</h2>
+                  <h2 className="font-semibold">
+                    {t('SYLLABUS:SYLLABUS_MAP.STUDY_GUIDANCE.TITLE')}
+                  </h2>
 
                   <p className="text-muted-foreground">
-                    Each lesson has a required one-question quiz. Reading alone does not complete
-                    it.
+                    {t('SYLLABUS:SYLLABUS_MAP.STUDY_GUIDANCE.DESCRIPTION')}
                   </p>
 
                   <p className="text-muted-foreground">
-                    Open a lesson to see your recorded understanding and next quiz difficulty.
+                    {t('SYLLABUS:SYLLABUS_MAP.STUDY_GUIDANCE.QUIZ_HINT')}
                   </p>
                 </aside>
               </div>

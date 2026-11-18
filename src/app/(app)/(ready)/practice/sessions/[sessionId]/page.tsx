@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/app/page-metadata';
 import { PracticeSessionScreen } from '@/frontend/practice/features';
 
-export const metadata: Metadata = { title: 'Practice session' };
+export function generateMetadata(): Promise<Metadata> {
+  return pageMetadata('PRACTICE:PRACTICE_SESSION.PAGE.TITLE');
+}
 
 export default async function PracticeSessionPage({
   params,

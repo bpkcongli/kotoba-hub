@@ -2,9 +2,12 @@
 
 import { observer } from 'mobx-react-lite';
 import Link from 'next/link';
+import { useLocale } from 'next-intl';
 import { useEffect } from 'react';
 import { Badge, Button } from '@/frontend/shared/components/atoms';
 import { EmptyStatePanel, ErrorStatePanel } from '@/frontend/shared/components/organisms';
+import { errorMessage } from '@/frontend/shared/helpers/error-message';
+import { useUiTranslations } from '@/frontend/shared/hooks';
 import { LessonContent, SyllabusState } from '@/frontend/syllabus/components/organisms';
 import { useSyllabusStore } from '@/frontend/syllabus/hooks';
 import { SyllabusContainerProvider } from '@/frontend/syllabus/providers';
@@ -14,6 +17,9 @@ export const LessonOverviewScreen = observer(function LessonOverviewScreen({
 }: {
   lessonSlug: string;
 }) {
+  const t = useUiTranslations();
+  const uiLocale = useLocale();
+
   const store = useSyllabusStore();
 
   useEffect(() => {
@@ -30,7 +36,9 @@ export const LessonOverviewScreen = observer(function LessonOverviewScreen({
       {lesson && (
         <div className="mx-auto max-w-reading min-w-0 space-y-8 wrap-anywhere [&_a]:max-w-full [&_button]:max-w-full">
           <Button asChild variant="ghost">
-            <Link href={`/syllabus/units/${lesson.unit.slug}`}>← Back to {lesson.unit.title}</Link>
+            <Link href={`/syllabus/units/${lesson.unit.slug}`}>
+              {t('SYLLABUS:LESSON_OVERVIEW.BACK_LINK.PREFIX')} {lesson.unit.title}
+            </Link>
           </Button>
 
           <header lang={lesson?.localization?.resolvedLocale} className="space-y-4">
@@ -44,22 +52,33 @@ export const LessonOverviewScreen = observer(function LessonOverviewScreen({
 
             {lesson.learningObjective && <p className="text-body-lg">{lesson.learningObjective}</p>}
 
-            <div className="flex flex-wrap items-center gap-3 text-body-sm">
+            <div lang={uiLocale} className="flex flex-wrap items-center gap-3 text-body-sm">
               <Badge>
                 {quiz?.currentUnderstandingLevel
-                  ? 'Completed'
+                  ? t('SHARED:LEARNING_STATUS.COMPLETED.LABEL')
                   : store.readingFinished
-                    ? 'Quiz required'
-                    : 'Reading'}
+                    ? t('SHARED:LEARNING_STATUS.QUIZ_REQUIRED.LABEL')
+                    : t('SHARED:LEARNING_STATUS.READING.LABEL')}
               </Badge>
 
-              {lesson.estimatedMinutes !== null && <span>About {lesson.estimatedMinutes} min</span>}
+              {lesson.estimatedMinutes !== null && (
+                <span>
+                  {t('SYLLABUS:LESSON_OVERVIEW.DURATION.LABEL')} {lesson.estimatedMinutes}{' '}
+                  {t('SYLLABUS:LESSON_OVERVIEW.DURATION.UNIT_LABEL')}
+                </span>
+              )}
 
-              {quiz && <span>Understanding {quiz.currentUnderstandingLevel}/10</span>}
+              {quiz && (
+                <span>
+                  {t('SHARED:LEARNING_STATUS.UNDERSTANDING.LABEL')} {quiz.currentUnderstandingLevel}
+                  /10
+                </span>
+              )}
             </div>
 
             <ul
-              aria-label="Covered skills"
+              lang={uiLocale}
+              aria-label={t('SYLLABUS:LESSON_OVERVIEW.COVERED_SKILLS_SECTION.TITLE')}
               className="flex flex-wrap gap-3 text-body-sm text-muted-foreground">
               {lesson.skills.map((skill) => (
                 <li lang={skill.localization?.resolvedLocale} key={skill.code}>
@@ -73,10 +92,12 @@ export const LessonOverviewScreen = observer(function LessonOverviewScreen({
             <LessonContent blocks={lesson.contentBlocks} />
           ) : (
             <EmptyStatePanel
-              title="Study material is unavailable"
-              description="Try reloading this lesson before continuing to its quiz."
+              title={t('SYLLABUS:LESSON_OVERVIEW.UNAVAILABLE_MATERIAL_STATE.TITLE')}
+              description={t('SYLLABUS:LESSON_OVERVIEW.UNAVAILABLE_MATERIAL_STATE.DESCRIPTION')}
               action={
-                <Button onClick={() => void store.loadLesson(lessonSlug)}>Reload lesson</Button>
+                <Button onClick={() => void store.loadLesson(lessonSlug)}>
+                  {t('SYLLABUS:LESSON_OVERVIEW.RELOAD_LESSON_BUTTON.LABEL')}
+                </Button>
               }
             />
           )}
@@ -85,50 +106,58 @@ export const LessonOverviewScreen = observer(function LessonOverviewScreen({
             aria-labelledby="lesson-quiz-heading"
             className="space-y-4 rounded-md border border-border bg-card p-5 sm:p-6">
             <h2 id="lesson-quiz-heading" className="text-h2 font-semibold">
-              {quiz?.isReview ? 'Review this lesson' : 'Check your understanding'}
+              {quiz?.isReview
+                ? t('SYLLABUS:LESSON_ACTIONS.REVIEW_LESSON_BUTTON.LABEL')
+                : t('SYLLABUS:LESSON_ACTIONS.CHECK_UNDERSTANDING_BUTTON.LABEL')}
             </h2>
 
             <p className="text-muted-foreground">
-              Reading does not mark this lesson complete. Answer the required post-study quiz
-              correctly to complete it. Each attempt has one question.
+              {t('SYLLABUS:LESSON_OVERVIEW.QUIZ_REQUIREMENT_NOTICE.DESCRIPTION')}
             </p>
 
             {quiz ? (
               <p className="text-body-sm">
-                {quiz.isReview ? 'Next review' : 'Next quiz'}: difficulty{' '}
-                {quiz.targetDifficultyLevel}/10 · Target understanding{' '}
+                {quiz.isReview
+                  ? t('SYLLABUS:LESSON_ACTIONS.REVIEW_DIFFICULTY.LABEL')
+                  : t('SYLLABUS:LESSON_ACTIONS.QUIZ_DIFFICULTY.LABEL')}
+                {t('SYLLABUS:LESSON_OVERVIEW.NEXT_QUIZ_DIFFICULTY.LABEL')}{' '}
+                {quiz.targetDifficultyLevel}
+                {t('SYLLABUS:LESSON_OVERVIEW.TARGET_UNDERSTANDING.LABEL')}{' '}
                 {quiz.targetUnderstandingLevel}/10
               </p>
             ) : store.quizError ? (
               <ErrorStatePanel
-                title="Quiz details could not load"
-                description={store.quizError.message}
+                title={t('SYLLABUS:LESSON_OVERVIEW.QUIZ_DETAILS_ERROR.TITLE')}
+                description={errorMessage(store.quizError, t)}
                 action={
                   <Button onClick={() => void store.loadQuiz(lessonSlug)}>
-                    Reload quiz details
+                    {t('SYLLABUS:LESSON_OVERVIEW.RELOAD_QUIZ_DETAILS_BUTTON.LABEL')}
                   </Button>
                 }
               />
             ) : (
               <p role="status" className="text-body-sm text-muted-foreground">
-                Loading quiz details…
+                {t('SYLLABUS:LESSON_OVERVIEW.QUIZ_DETAILS.LOADING_LABEL')}
               </p>
             )}
 
             {lesson.contentBlocks.length > 0 &&
               (!store.readingFinished && !quiz?.isReview ? (
-                <Button onClick={store.finishReading}>Finish reading</Button>
+                <Button onClick={store.finishReading}>
+                  {t('SYLLABUS:LESSON_OVERVIEW.FINISH_READING_BUTTON.LABEL')}
+                </Button>
               ) : quiz ? (
                 <Button asChild>
                   <Link href={`/syllabus/lessons/${lessonSlug}/post-study`}>
-                    {quiz.isReview ? 'Review lesson quiz' : 'Start post-study quiz'}
+                    {quiz.isReview
+                      ? t('SYLLABUS:LESSON_ACTIONS.REVIEW_QUIZ_BUTTON.LABEL')
+                      : t('SYLLABUS:LESSON_ACTIONS.START_QUIZ_BUTTON.LABEL')}
                   </Link>
                 </Button>
               ) : null)}
 
             <p className="text-caption text-muted-foreground">
-              Your reading state is kept on this page. Only a correct quiz answer updates recorded
-              completion.
+              {t('SYLLABUS:LESSON_OVERVIEW.READING_STATE_NOTICE.DESCRIPTION')}
             </p>
           </section>
         </div>

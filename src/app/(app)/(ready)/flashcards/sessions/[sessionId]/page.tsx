@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/app/page-metadata';
 import { FlashcardSessionScreen } from '@/frontend/flashcards/features';
 
-export const metadata: Metadata = { title: 'Flashcard session' };
+export function generateMetadata(): Promise<Metadata> {
+  return pageMetadata('FLASHCARDS:FLASHCARD_SESSION.PAGE.TITLE');
+}
 
 export default async function FlashcardSessionPage({
   params,

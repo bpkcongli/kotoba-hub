@@ -6,13 +6,12 @@ import { useEffect } from 'react';
 import { usePracticeStore } from '@/frontend/practice/hooks';
 import { Button } from '@/frontend/shared/components/atoms';
 import { ErrorStatePanel } from '@/frontend/shared/components/organisms';
-import { useAppSessionStore } from '@/frontend/shared/hooks';
+import { errorMessage } from '@/frontend/shared/helpers/error-message';
+import { useAppSessionStore, useUiTranslations } from '@/frontend/shared/hooks';
 
-export const PracticeError = observer(function PracticeError({
-  title = 'The request could not be completed',
-}: {
-  title?: string;
-}) {
+export const PracticeError = observer(function PracticeError({ title }: { title?: string }) {
+  const t = useUiTranslations();
+
   const store = usePracticeStore();
   const session = useAppSessionStore();
 
@@ -33,18 +32,20 @@ export const PracticeError = observer(function PracticeError({
   return (
     <div className="space-y-3">
       <ErrorStatePanel
-        title={title}
+        title={title ?? t('SHARED:CLIENT_ERRORS.REQUEST_ERROR.TITLE')}
         description={
-          store.error?.message ??
+          (store.error ? errorMessage(store.error, t) : undefined) ??
           (accessIssue === 'session'
-            ? 'Sign in to continue practicing.'
-            : 'Complete onboarding to continue practicing.')
+            ? t('PRACTICE:PRACTICE_ERROR.ANONYMOUS_ACCESS.DESCRIPTION')
+            : t('PRACTICE:PRACTICE_ERROR.ONBOARDING_ACCESS.DESCRIPTION'))
         }
         action={
           accessIssue ? (
             <Button asChild>
               <Link href={accessIssue === 'session' ? '/login' : '/onboarding'}>
-                {accessIssue === 'session' ? 'Sign in' : 'Continue onboarding'}
+                {accessIssue === 'session'
+                  ? t('SHARED:APP_WORKSPACE.SIGN_IN_BUTTON.LABEL')
+                  : t('ONBOARDING:ONBOARDING_SCREEN.CONTINUE_ONBOARDING_BUTTON.LABEL')}
               </Link>
             </Button>
           ) : undefined
@@ -59,7 +60,7 @@ export const PracticeError = observer(function PracticeError({
 
       {store.error?.traceId && (
         <p className="text-caption break-all text-muted-foreground">
-          Support reference: {store.error.traceId}
+          {t('SHARED:ERROR_DETAILS.SUPPORT_REFERENCE.LABEL')} {store.error.traceId}
         </p>
       )}
     </div>

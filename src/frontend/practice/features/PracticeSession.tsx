@@ -8,19 +8,23 @@ import {
   PracticeFeedback,
   PracticeError,
 } from '@/frontend/practice/components/organisms';
-import { DIFFICULTY_LABELS } from '@/frontend/practice/helpers';
+import { DIFFICULTY_MESSAGE_KEYS } from '@/frontend/practice/helpers';
 import { usePracticeStore } from '@/frontend/practice/hooks';
 import { Button, Progress } from '@/frontend/shared/components/atoms';
 import { FocusModeShell } from '@/frontend/shared/components/layouts';
 import { EmptyStatePanel } from '@/frontend/shared/components/organisms';
+import { useUiTranslations } from '@/frontend/shared/hooks';
 
 export const PracticeSessionScreen = observer(function PracticeSessionScreen({
   sessionId,
 }: {
   sessionId: string;
 }) {
+  const t = useUiTranslations();
+
   const store = usePracticeStore();
   const router = useRouter();
+
   const session = store.mode === 'random' && store.session?.id === sessionId ? store.session : null;
   const q = store.currentQuestion;
 
@@ -32,44 +36,52 @@ export const PracticeSessionScreen = observer(function PracticeSessionScreen({
 
   return (
     <FocusModeShell
-      title="Practice session"
+      title={t('PRACTICE:PRACTICE_SESSION.PAGE.TITLE')}
       exitAction={
         <Button asChild variant="ghost">
-          <Link href="/practice">Back to practice</Link>
+          <Link href="/practice">
+            {t('PRACTICE:PRACTICE_SESSION.BACK_TO_PRACTICE_BUTTON.LABEL')}
+          </Link>
         </Button>
       }
       progress={
         session ? (
           <div className="space-y-3">
             <p className="text-body-sm">
-              {session.answeredQuestionsCount} of {session.totalQuestions} answered
+              {session.answeredQuestionsCount}{' '}
+              {t('SHARED:LEARNING_STATUS.ANSWER_PROGRESS.CONNECTOR')} {session.totalQuestions}{' '}
+              {t('SHARED:LEARNING_STATUS.ANSWERED.UNIT_LABEL')}
             </p>
 
             <Progress
               value={session.answeredQuestionsCount}
               max={session.totalQuestions}
-              label="Questions answered"
+              label={t('PRACTICE:PRACTICE_SESSION.ANSWER_PROGRESS.ARIA_LABEL')}
             />
           </div>
         ) : undefined
       }>
       {!session ? (
         <EmptyStatePanel
-          title="This session is not open here"
-          description="Start a new practice session. Any answers already saved remain in your learning history."
+          title={t('SHARED:SESSION_STATUS.UNAVAILABLE_SESSION.TITLE')}
+          description={t('PRACTICE:PRACTICE_SESSION.UNAVAILABLE_SESSION_STATE.DESCRIPTION')}
           action={
             <Button asChild>
-              <Link href="/practice">Start practice</Link>
+              <Link href="/practice">
+                {t('PRACTICE:PRACTICE_SESSION.START_PRACTICE_BUTTON.LABEL')}
+              </Link>
             </Button>
           }
         />
       ) : store.stage === 'completed' ? (
         <EmptyStatePanel
-          title="Session complete"
-          description="All questions have been answered."
+          title={t('SHARED:SESSION_STATUS.COMPLETED.LABEL')}
+          description={t('PRACTICE:PRACTICE_SESSION.COMPLETED_SESSION_STATE.DESCRIPTION')}
           action={
             <Button asChild>
-              <Link href={`/practice/sessions/${sessionId}/summary`}>View summary</Link>
+              <Link href={`/practice/sessions/${sessionId}/summary`}>
+                {t('SHARED:LEARNING_ACTIONS.VIEW_SUMMARY_BUTTON.LABEL')}
+              </Link>
             </Button>
           }
         />
@@ -77,26 +89,29 @@ export const PracticeSessionScreen = observer(function PracticeSessionScreen({
         <div className="min-w-0 space-y-6 wrap-anywhere">
           <header className="space-y-2">
             <h1 className="text-h3 font-semibold">
-              Question {store.results.length + (store.stage === 'feedback' ? 0 : 1)} of{' '}
-              {session.totalQuestions}
+              {t('PRACTICE:PRACTICE_SESSION.QUESTION_NUMBER.LABEL')}{' '}
+              {store.results.length + (store.stage === 'feedback' ? 0 : 1)}{' '}
+              {t('SHARED:LEARNING_STATUS.ANSWER_PROGRESS.CONNECTOR')} {session.totalQuestions}
             </h1>
 
             <p className="text-body-sm text-muted-foreground">
-              Question difficulty:{' '}
-              {q && 'difficultyBand' in q ? DIFFICULTY_LABELS[q.difficultyBand] : '—'}
+              {t('PRACTICE:PRACTICE_SESSION.QUESTION_DIFFICULTY.LABEL')}{' '}
+              {q && 'difficultyBand' in q ? t(DIFFICULTY_MESSAGE_KEYS[q.difficultyBand]) : '—'}
             </p>
           </header>
 
           <PracticeQuestionPanel />
 
-          <PracticeError title="Your answer could not be confirmed" />
+          <PracticeError title={t('SHARED:ANSWER_STATUS.UNCONFIRMED_ANSWER.TITLE')} />
 
           {store.stage === 'feedback' && (
             <>
               <PracticeFeedback />
 
               <Button onClick={next}>
-                {store.answerResult?.sessionProgress.isCompleted ? 'View summary' : 'Next question'}
+                {store.answerResult?.sessionProgress.isCompleted
+                  ? t('SHARED:LEARNING_ACTIONS.VIEW_SUMMARY_BUTTON.LABEL')
+                  : t('PRACTICE:PRACTICE_SESSION.NEXT_QUESTION_BUTTON.LABEL')}
               </Button>
             </>
           )}

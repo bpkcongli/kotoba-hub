@@ -6,7 +6,8 @@ import { useEffect } from 'react';
 import { Button } from '@/frontend/shared/components/atoms';
 import { AppShell, PublicHeader } from '@/frontend/shared/components/layouts';
 import { ErrorStatePanel, LoadingPanel } from '@/frontend/shared/components/organisms';
-import { useAppSessionStore } from '@/frontend/shared/hooks';
+import { errorMessage } from '@/frontend/shared/helpers/error-message';
+import { useAppSessionStore, useUiTranslations } from '@/frontend/shared/hooks';
 
 export interface LoginProps {
   redirectTo?: string;
@@ -17,9 +18,11 @@ export const Login = observer(function Login({
   redirectTo = '/dashboard',
   hasError = false,
 }: LoginProps) {
+  const t = useUiTranslations();
+
+  const router = useRouter();
   const sessionStore = useAppSessionStore();
   const session = sessionStore.snapshot;
-  const router = useRouter();
 
   useEffect(() => {
     if (!session?.isAuthenticated) return;
@@ -34,38 +37,38 @@ export const Login = observer(function Login({
     <AppShell variant="public" header={<PublicHeader />} contentWidth="reading">
       <section aria-labelledby="login-heading" className="mx-auto max-w-lg py-8 md:py-16">
         <h1 id="login-heading" className="text-h1 font-bold tracking-tight">
-          Sign in to KotobaHub
+          {t('AUTH:LOGIN_SCREEN.PAGE.TITLE')}
         </h1>
 
         <p className="mt-4 text-body text-muted-foreground">
-          Use your Google account to save your learning profile and progress. If this is your first
-          visit, you’ll choose your study preferences next.
+          {t('AUTH:LOGIN_SCREEN.PAGE.DESCRIPTION')}
         </p>
+
         <div className="mt-8 space-y-6">
           {!session ? (
             sessionStore.error ? (
               <ErrorStatePanel
-                title="Your session could not be loaded"
-                description={sessionStore.error.message}
+                title={t('AUTH:LOGIN_SCREEN.SESSION_ERROR.TITLE')}
+                description={errorMessage(sessionStore.error, t)}
                 action={
                   <Button
                     onClick={() => void sessionStore.load()}
                     disabled={sessionStore.isLoading}>
-                    Try again
+                    {t('SHARED:RECOVERY_ACTIONS.RETRY_BUTTON.LABEL')}
                   </Button>
                 }
               />
             ) : (
-              <LoadingPanel label="Checking your session…" />
+              <LoadingPanel label={t('AUTH:LOGIN_SCREEN.SESSION.LOADING_LABEL')} />
             )
           ) : session.isAuthenticated ? (
-            <LoadingPanel label="Opening your study space…" />
+            <LoadingPanel label={t('AUTH:LOGIN_SCREEN.WORKSPACE.REDIRECTING_LABEL')} />
           ) : (
             <>
               {hasError && (
                 <ErrorStatePanel
-                  title="Sign-in was not completed"
-                  description="Try signing in with Google again."
+                  title={t('AUTH:LOGIN_SCREEN.SIGN_IN_ERROR.TITLE')}
+                  description={t('AUTH:LOGIN_SCREEN.SIGN_IN_ERROR.DESCRIPTION')}
                 />
               )}
 
@@ -73,12 +76,12 @@ export const Login = observer(function Login({
                 method="post"
                 action={`/api/v1/auth/google/start?${new URLSearchParams({ redirectTo }).toString()}`}>
                 <Button type="submit" className="w-full">
-                  Continue with Google
+                  {t('AUTH:LOGIN_SCREEN.GOOGLE_SIGN_IN_BUTTON.LABEL')}
                 </Button>
               </form>
 
               <p className="text-body-sm text-muted-foreground">
-                You’ll continue to Google to choose an account, then return here.
+                {t('AUTH:LOGIN_SCREEN.GOOGLE_SIGN_IN_BUTTON.HELP_TEXT')}
               </p>
             </>
           )}

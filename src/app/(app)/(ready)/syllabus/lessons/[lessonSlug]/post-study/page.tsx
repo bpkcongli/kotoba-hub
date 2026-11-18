@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/app/page-metadata';
 import { LessonPostStudy } from '@/frontend/practice/features';
 
-export const metadata: Metadata = { title: 'Post-study quiz' };
+export function generateMetadata(): Promise<Metadata> {
+  return pageMetadata('PRACTICE:LESSON_POST_STUDY.PAGE.QUIZ_TITLE');
+}
 
 export default async function LessonQuizPage({
   params,

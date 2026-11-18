@@ -198,9 +198,9 @@ test('collects errors for every invalid field and clears them after correction',
 
   expect(store.validateFormData()).toBe(false);
   expect(store.formErrors).toEqual({
-    dailyGoalMinutes: 'Enter a whole number of minutes greater than zero.',
-    weakSkillFocuses: 'Each focus must contain between 1 and 100 characters.',
-    note: 'Keep your note within 2,000 characters.',
+    dailyGoalMinutes: 'ONBOARDING:ASSESSMENT_FORM.DAILY_GOAL_FIELD.VALIDATION_MESSAGE',
+    weakSkillFocuses: 'ONBOARDING:ASSESSMENT_FORM.WEAK_FOCUS_GROUP.VALIDATION_MESSAGE',
+    note: 'ONBOARDING:ASSESSMENT_FORM.LEARNING_NOTE_FIELD.VALIDATION_MESSAGE',
   });
 
   store.setFormData({ dailyGoalMinutes: '20', weakSkillFocuses: [], note: '' });

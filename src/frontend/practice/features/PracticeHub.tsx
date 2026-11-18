@@ -5,11 +5,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { PracticeError } from '@/frontend/practice/components/organisms';
-import { DIFFICULTY_LABELS } from '@/frontend/practice/helpers';
+import { DIFFICULTY_MESSAGE_KEYS } from '@/frontend/practice/helpers';
 import { usePracticeStore } from '@/frontend/practice/hooks';
 import { Button } from '@/frontend/shared/components/atoms';
+import { useUiTranslations } from '@/frontend/shared/hooks';
 
 export const PracticeHub = observer(function PracticeHub() {
+  const t = useUiTranslations();
+
   const store = usePracticeStore();
   const router = useRouter();
   const mounted = useRef(true);
@@ -23,6 +26,7 @@ export const PracticeHub = observer(function PracticeHub() {
   }, []);
 
   const [countInput, setCountInput] = useState(String(store.questionCount));
+
   const countValid =
     /^\d+$/.test(countInput) && Number(countInput) >= 1 && Number(countInput) <= 10;
 
@@ -35,52 +39,62 @@ export const PracticeHub = observer(function PracticeHub() {
   return (
     <div className="mx-auto max-w-reading min-w-0 space-y-8 wrap-anywhere">
       <header className="space-y-3">
-        <h1 className="text-h1 font-semibold">Practice</h1>
+        <h1 className="text-h1 font-semibold">{t('SHARED:APP_NAVIGATION.PRACTICE_LINK.LABEL')}</h1>
 
-        <p className="text-muted-foreground">
-          Practice questions selected from your learning profile and recent progress.
-        </p>
+        <p className="text-muted-foreground">{t('PRACTICE:PRACTICE_HUB.PAGE.DESCRIPTION')}</p>
       </header>
 
       {store.session && (
         <section className="space-y-3 rounded-md border bg-card p-5">
           <h2 className="text-h3 font-semibold">
-            {store.session.status === 'COMPLETED' ? 'Your last session' : 'Session in progress'}
+            {store.session.status === 'COMPLETED'
+              ? t('PRACTICE:PRACTICE_HUB.PREVIOUS_SESSION.TITLE')
+              : t('PRACTICE:PRACTICE_HUB.ACTIVE_SESSION.TITLE')}
           </h2>
 
           <p>
-            {store.session.answeredQuestionsCount} of {store.session.totalQuestions} answered
+            {store.session.answeredQuestionsCount}{' '}
+            {t('SHARED:LEARNING_STATUS.ANSWER_PROGRESS.CONNECTOR')} {store.session.totalQuestions}{' '}
+            {t('SHARED:LEARNING_STATUS.ANSWERED.UNIT_LABEL')}
           </p>
 
           <p className="text-body-sm text-muted-foreground">
-            Session difficulty: {DIFFICULTY_LABELS[store.session.difficultyBand]}
+            {t('PRACTICE:PRACTICE_HUB.SESSION_DIFFICULTY.LABEL')}{' '}
+            {t(DIFFICULTY_MESSAGE_KEYS[store.session.difficultyBand])}
           </p>
 
           <p className="text-body-sm text-muted-foreground">
-            Question mix: {Math.round(store.session.questionMix.WEAK * 100)}% weak skills ·{' '}
-            {Math.round(store.session.questionMix.REINFORCEMENT * 100)}% reinforcement ·{' '}
-            {Math.round(store.session.questionMix.STRETCH * 100)}% stretch
+            {t('PRACTICE:PRACTICE_HUB.QUESTION_MIX.LABEL')}{' '}
+            {Math.round(store.session.questionMix.WEAK * 100)}
+            {t('PRACTICE:PRACTICE_HUB.QUESTION_MIX.WEAK_SKILLS_UNIT')}{' '}
+            {Math.round(store.session.questionMix.REINFORCEMENT * 100)}
+            {t('PRACTICE:PRACTICE_HUB.QUESTION_MIX.REINFORCEMENT_UNIT')}{' '}
+            {Math.round(store.session.questionMix.STRETCH * 100)}
+            {t('PRACTICE:PRACTICE_HUB.QUESTION_MIX.STRETCH_UNIT')}
           </p>
 
           <Button asChild variant="secondary">
             <Link
               href={`/practice/sessions/${store.session.id}${store.stage === 'completed' ? '/summary' : ''}`}>
-              {store.stage === 'completed' ? 'View summary' : 'Return to session'}
+              {store.stage === 'completed'
+                ? t('SHARED:LEARNING_ACTIONS.VIEW_SUMMARY_BUTTON.LABEL')
+                : t('PRACTICE:PRACTICE_HUB.RETURN_TO_SESSION_BUTTON.LABEL')}
             </Link>
           </Button>
         </section>
       )}
 
       <section className="space-y-5 rounded-md border border-border-subtle bg-card p-5 sm:p-8">
-        <h2 className="text-h3 font-semibold">Start a practice session</h2>
+        <h2 className="text-h3 font-semibold">{t('PRACTICE:PRACTICE_HUB.SESSION_SETUP.TITLE')}</h2>
 
         <p className="text-body-sm text-muted-foreground">
-          Questions can include missing words, sentence ordering, and Japanese writing. Difficulty
-          and the question mix are selected when your session is generated.
+          {t('PRACTICE:PRACTICE_HUB.SESSION_SETUP.DESCRIPTION')}
         </p>
 
         <label className="block space-y-2">
-          <span className="text-body-sm font-semibold">Question count</span>
+          <span className="text-body-sm font-semibold">
+            {t('PRACTICE:PRACTICE_HUB.QUESTION_COUNT_FIELD.LABEL')}
+          </span>
 
           <input
             type="number"
@@ -96,16 +110,22 @@ export const PracticeHub = observer(function PracticeHub() {
           />
         </label>
 
-        {!countValid && <p className="text-body-sm">Choose 1 to 10 questions.</p>}
+        {!countValid && (
+          <p className="text-body-sm">
+            {t('PRACTICE:PRACTICE_HUB.QUESTION_COUNT_FIELD.VALIDATION_MESSAGE')}
+          </p>
+        )}
 
         <Button
           onClick={() => void start()}
           disabled={store.isGenerating || !!store.accessIssue || !countValid}>
-          {store.isGenerating ? 'Preparing questions…' : 'Generate practice'}
+          {store.isGenerating
+            ? t('PRACTICE:PRACTICE_HUB.START_PRACTICE_BUTTON.LOADING_LABEL')
+            : t('PRACTICE:PRACTICE_HUB.START_PRACTICE_BUTTON.LABEL')}
         </Button>
       </section>
 
-      <PracticeError title="Your practice session could not be prepared" />
+      <PracticeError title={t('PRACTICE:PRACTICE_HUB.SESSION_ERROR.TITLE')} />
     </div>
   );
 });

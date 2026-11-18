@@ -1,5 +1,8 @@
+'use client';
+
 import type { ReactNode } from 'react';
 import { cn } from '@/frontend/shared/helpers/cn';
+import { useUiTranslations } from '@/frontend/shared/hooks';
 
 export type AppShellProps = {
   children: ReactNode;
@@ -12,6 +15,8 @@ export type AppShellProps = {
 );
 
 export function AppShell(props: AppShellProps) {
+  const t = useUiTranslations();
+
   const { children, header, footer, variant, contentWidth } = props;
 
   return (
@@ -23,7 +28,7 @@ export function AppShell(props: AppShellProps) {
       <a
         href="#main-content"
         className="sr-only fixed top-4 left-4 z-50 rounded-md bg-primary px-5 py-3 font-semibold text-primary-foreground focus:not-sr-only focus-visible:focus-ring">
-        Skip to content
+        {t('SHARED:APP_NAVIGATION.SKIP_TO_CONTENT_LINK.LABEL')}
       </a>
 
       {variant === 'app' && props.sidebar}
@@ -39,12 +44,12 @@ export function AppShell(props: AppShellProps) {
             variant === 'public'
               ? 'max-w-public'
               : variant === 'onboarding'
-                ? 'max-w-[45rem]'
+                ? 'max-w-180'
                 : variant === 'focus' || contentWidth === 'session'
-                  ? 'max-w-[60rem]'
+                  ? 'max-w-180'
                   : contentWidth === 'reading'
                     ? 'max-w-reading'
-                    : 'max-w-[80rem]',
+                    : 'max-w-180',
             variant === 'app' && 'pb-[calc(7rem+env(safe-area-inset-bottom))] lg:pb-8',
           )}>
           {children}

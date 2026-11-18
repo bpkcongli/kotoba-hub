@@ -34,25 +34,49 @@ export class LocaleStore implements ILocaleStore {
 
   hydrate(preferences: UserPreferences, localizedSyllabus: boolean) {
     this.dispose();
+
     this.preferences = preferences;
     this.localizedSyllabus = localizedSyllabus;
     this.error = null;
   }
 
   async setContentLocale(contentLocale: Locale) {
+    await this.save({ contentLocale });
+  }
+
+  async setUiLocale(uiLocale: Locale, authenticated: boolean) {
     if (this.isSaving) return;
+
+    if (authenticated) {
+      if (!(await this.save({ uiLocale }))) return;
+    } else {
+      this.preferences = { ...this.preferences, uiLocale };
+      this.error = null;
+    }
+
+    if (typeof document !== 'undefined') {
+      document.cookie = `kotobahub-ui-locale=${this.preferences.uiLocale}; Path=/; Max-Age=31536000; SameSite=Lax${location.protocol === 'https:' ? '; Secure' : ''}`;
+    }
+  }
+
+  private async save(value: Partial<UserPreferences>) {
+    if (this.isSaving) return false;
 
     const controller = new AbortController();
     this.controller = controller;
     this.isSaving = true;
     this.error = null;
 
+    let applied = false;
+
     try {
-      const preferences = await this.service.patch({ contentLocale }, controller.signal);
+      const preferences = await this.service.patch(value, controller.signal);
 
       runInAction(() => {
-        if (this.controller === controller && !controller.signal.aborted)
+        if (this.controller === controller && !controller.signal.aborted) {
           this.preferences = preferences;
+          applied = true;
+        }
       });
     } catch (error) {
       runInAction(() => {
@@ -67,10 +91,13 @@ export class LocaleStore implements ILocaleStore {
         }
       });
     }
+
+    return applied;
   }
 
   reset() {
     this.dispose();
+
     this.preferences = { ...defaultPreferences };
     this.localizedSyllabus = false;
     this.error = null;
@@ -79,6 +106,7 @@ export class LocaleStore implements ILocaleStore {
   dispose() {
     this.controller?.abort();
     this.controller = null;
+
     this.isSaving = false;
   }
 }

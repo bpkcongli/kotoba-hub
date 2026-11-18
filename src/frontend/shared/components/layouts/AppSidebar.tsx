@@ -1,6 +1,9 @@
+'use client';
+
 import { BookOpen, Settings } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/frontend/shared/helpers/cn';
+import { useUiTranslations } from '@/frontend/shared/hooks';
 import { APP_NAVIGATION, isNavigationActive, type AppNavigationItem } from './navigation';
 
 export interface AppNavigationProps {
@@ -9,6 +12,8 @@ export interface AppNavigationProps {
 }
 
 export function AppSidebar({ pathname, items = APP_NAVIGATION }: AppNavigationProps) {
+  const t = useUiTranslations();
+
   return (
     <aside className="sticky top-0 hidden h-svh w-64 flex-col overflow-y-auto bg-primary px-4 py-6 text-primary-foreground lg:flex">
       <Link
@@ -18,15 +23,17 @@ export function AppSidebar({ pathname, items = APP_NAVIGATION }: AppNavigationPr
         <span className="text-h3">KotobaHub</span>
       </Link>
 
-      <nav aria-label="Primary navigation">
+      <nav aria-label={t('SHARED:APP_NAVIGATION.PRIMARY_NAVIGATION.ARIA_LABEL')}>
         <ul className="space-y-2">
-          {items.map(({ href, label, icon: Icon, available }) => {
+          {items.map(({ href, label, messageKey, icon: Icon, available }) => {
             const active = available && isNavigationActive(pathname, href);
 
             const content = (
               <>
                 <Icon aria-hidden="true" className="size-5 shrink-0" />
-                <span className="min-w-0 wrap-break-word">{label}</span>
+                <span className="min-w-0 wrap-break-word">
+                  {messageKey ? t(messageKey) : label}
+                </span>
               </>
             );
 
@@ -49,7 +56,9 @@ export function AppSidebar({ pathname, items = APP_NAVIGATION }: AppNavigationPr
                     aria-disabled="true"
                     className="flex min-h-12 flex-wrap items-center gap-x-3 gap-y-1 rounded-md border-l-4 border-transparent px-3 py-3 text-body-sm">
                     {content}
-                    <span className="ml-8 w-full text-caption">Not available yet</span>
+                    <span className="ml-8 w-full text-caption">
+                      {t('SHARED:APP_NAVIGATION.UNAVAILABLE_LINK.STATUS_LABEL')}
+                    </span>
                   </span>
                 )}
               </li>
@@ -63,8 +72,10 @@ export function AppSidebar({ pathname, items = APP_NAVIGATION }: AppNavigationPr
           aria-disabled="true"
           className="flex min-h-11 flex-wrap items-center gap-x-3 px-4 text-body-sm">
           <Settings aria-hidden="true" className="size-5 shrink-0" />
-          <span>Settings</span>
-          <span className="ml-8 w-full text-caption">Not available yet</span>
+          <span>{t('SHARED:APP_NAVIGATION.SETTINGS_LINK.LABEL')}</span>
+          <span className="ml-8 w-full text-caption">
+            {t('SHARED:APP_NAVIGATION.UNAVAILABLE_LINK.STATUS_LABEL')}
+          </span>
         </span>
       </div>
     </aside>

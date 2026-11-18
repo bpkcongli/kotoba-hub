@@ -24,7 +24,12 @@ export function createFrontendContainer(
   // Shared adapters
   container
     .bind<HttpClient>(SHARED_TYPES.HttpClient)
-    .toConstantValue(new AxiosHttpClient(configuration));
+    .toConstantValue(
+      new AxiosHttpClient(
+        configuration,
+        () => container.get<ILocaleStore>(SHARED_TYPES.LocaleStore).preferences.uiLocale,
+      ),
+    );
 
   // External services
   container

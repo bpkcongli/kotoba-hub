@@ -6,16 +6,19 @@ import { useEffect, type ReactNode } from 'react';
 import { Button } from '@/frontend/shared/components/atoms';
 import { AppShell, PublicHeader } from '@/frontend/shared/components/layouts';
 import { ErrorStatePanel, LoadingPanel } from '@/frontend/shared/components/organisms';
-import { useAppSessionStore } from '@/frontend/shared/hooks';
+import { errorMessage } from '@/frontend/shared/helpers/error-message';
+import { useAppSessionStore, useUiTranslations } from '@/frontend/shared/hooks';
 
 export const OnboardingWorkspace = observer(function OnboardingWorkspace({
   children,
 }: {
   children: ReactNode;
 }) {
+  const t = useUiTranslations();
+
+  const router = useRouter();
   const store = useAppSessionStore();
   const session = store.snapshot;
-  const router = useRouter();
 
   useEffect(() => {
     if (!session) return;
@@ -40,7 +43,9 @@ export const OnboardingWorkspace = observer(function OnboardingWorkspace({
                 variant="ghost"
                 disabled={store.isSigningOut}
                 onClick={() => void store.signOut()}>
-                {store.isSigningOut ? 'Signing out…' : 'Sign out'}
+                {store.isSigningOut
+                  ? t('SHARED:APP_WORKSPACE.SIGN_OUT_BUTTON.LOADING_LABEL')
+                  : t('SHARED:APP_WORKSPACE.SIGN_OUT_BUTTON.LABEL')}
               </Button>
             )
           }
@@ -49,14 +54,14 @@ export const OnboardingWorkspace = observer(function OnboardingWorkspace({
       {store.error && (
         <div className="mb-6">
           <ErrorStatePanel
-            title="Your session could not be updated"
-            description={store.error.message}
+            title={t('AUTH:ONBOARDING_WORKSPACE.SESSION_ERROR.TITLE')}
+            description={errorMessage(store.error, t)}
             action={
               <Button
                 variant="secondary"
                 onClick={() => void store.load()}
                 disabled={store.isLoading}>
-                Check session
+                {t('AUTH:ONBOARDING_WORKSPACE.CHECK_SESSION_BUTTON.LABEL')}
               </Button>
             }
           />
@@ -68,7 +73,13 @@ export const OnboardingWorkspace = observer(function OnboardingWorkspace({
           {children}
         </fieldset>
       ) : (
-        <LoadingPanel label={store.isSigningOut ? 'Signing out…' : 'Opening your study space…'} />
+        <LoadingPanel
+          label={
+            store.isSigningOut
+              ? t('SHARED:APP_WORKSPACE.SIGN_OUT_BUTTON.LOADING_LABEL')
+              : t('AUTH:LOGIN_SCREEN.WORKSPACE.REDIRECTING_LABEL')
+          }
+        />
       )}
     </AppShell>
   );

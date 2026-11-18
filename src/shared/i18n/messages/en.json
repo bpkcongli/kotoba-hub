@@ -1,0 +1,1340 @@
+{
+  "AUTH": {
+    "LOGIN_SCREEN": {
+      "GOOGLE_SIGN_IN_BUTTON": {
+        "HELP_TEXT": "You’ll continue to Google to choose an account, then return here.",
+        "LABEL": "Continue with Google"
+      },
+      "PAGE": {
+        "DESCRIPTION": "Use your Google account to save your learning profile and progress. If this is your first visit, you’ll choose your study preferences next.",
+        "TITLE": "Sign in to KotobaHub"
+      },
+      "SESSION": {
+        "LOADING_LABEL": "Checking your session…"
+      },
+      "SESSION_ERROR": {
+        "TITLE": "Your session could not be loaded"
+      },
+      "SIGN_IN_ERROR": {
+        "DESCRIPTION": "Try signing in with Google again.",
+        "TITLE": "Sign-in was not completed"
+      },
+      "WORKSPACE": {
+        "REDIRECTING_LABEL": "Opening your study space…"
+      }
+    },
+    "ONBOARDING_WORKSPACE": {
+      "CHECK_SESSION_BUTTON": {
+        "LABEL": "Check session"
+      },
+      "SESSION_ERROR": {
+        "TITLE": "Your session could not be updated"
+      }
+    }
+  },
+  "FLASHCARDS": {
+    "ANSWER_FEEDBACK": {
+      "CARD_BUCKET": {
+        "LABEL": "Card bucket:"
+      },
+      "CARD_REVIEW_NOTICE": {
+        "DESCRIPTION": "Card review saved. This card does not update skill mastery."
+      },
+      "CORRECT_ANSWER": {
+        "LABEL": "Correct answer:"
+      },
+      "EMPTY_READING_LIST": {
+        "LABEL": "None listed"
+      },
+      "EXAMPLE_WORDS": {
+        "TITLE": "Example words"
+      },
+      "KUNYOMI": {
+        "LABEL": "Kunyomi"
+      },
+      "MASTERY_UPDATE_NOTICE": {
+        "DESCRIPTION": "Skill progress updated."
+      },
+      "ONYOMI": {
+        "LABEL": "Onyomi"
+      },
+      "SKILL_MASTERY_SCORE": {
+        "LABEL": "Skill mastery score:"
+      }
+    },
+    "BUCKET_OPTIONS": {
+      "LEARNING": {
+        "LABEL": "Learning"
+      },
+      "NEW": {
+        "LABEL": "New"
+      },
+      "MASTERED": {
+        "LABEL": "Mastered"
+      }
+    },
+    "FLASHCARDS_HUB": {
+      "ANSWER_SCRIPT_SELECT": {
+        "LABEL": "Answer script"
+      },
+      "CHANGE_MODES_BUTTON": {
+        "LABEL": "End and choose modes"
+      },
+      "CONTENT_LANGUAGE": {
+        "FALLBACK_DESCRIPTION": ". Cards without an Indonesian translation use English. The language stays locked for this session.",
+        "LABEL": "Content language:"
+      },
+      "CONTINUE_SESSION_BUTTON": {
+        "LABEL": "Continue session"
+      },
+      "CURRENT_SESSION": {
+        "ANSWERED_DESCRIPTION": "cards answered. Saved answers stay in your learning history.",
+        "TITLE": "Your current session"
+      },
+      "DECK_LIST": {
+        "LOADING_LABEL": "Loading flashcard decks…",
+        "STALE_NOTICE": "The deck list below has not been refreshed."
+      },
+      "DECK_LOAD_ERROR": {
+        "TITLE": "Flashcards could not load"
+      },
+      "DECK_OPTION": {
+        "CARD_COUNT_UNIT": "cards ·"
+      },
+      "DECK_REFRESH_ERROR": {
+        "TITLE": "Decks could not be refreshed"
+      },
+      "DECK_SELECT": {
+        "LABEL": "Deck"
+      },
+      "DECK_SOURCE": {
+        "CUSTOM_LABEL": "Your deck",
+        "SYSTEM_LABEL": "System deck"
+      },
+      "DECK_SUMMARY": {
+        "CARD_COUNT_UNIT": "cards"
+      },
+      "DECK_TRANSLATION_FALLBACK": {
+        "DESCRIPTION": "Deck information is shown in English because an Indonesian translation is unavailable."
+      },
+      "EMPTY_DECK": {
+        "DESCRIPTION": "This deck has no cards yet. Choose another deck to practise."
+      },
+      "EMPTY_DECK_LIST": {
+        "DESCRIPTION": "Choose a lesson from the syllabus, or check for decks again later.",
+        "TITLE": "No flashcard decks available"
+      },
+      "LOCKED_SCRIPTS": {
+        "DESCRIPTION": "Scripts stay locked during the session. To change them, end the session and start again."
+      },
+      "OPEN_SYLLABUS_BUTTON": {
+        "LABEL": "Open syllabus"
+      },
+      "PAGE": {
+        "DESCRIPTION": "Choose a deck, set your scripts, and practise one card at a time."
+      },
+      "QUESTION_SCRIPT_SELECT": {
+        "LABEL": "Question script"
+      },
+      "RELOAD_DECKS_BUTTON": {
+        "LABEL": "Reload decks"
+      },
+      "SESSION_ERROR": {
+        "TITLE": "The session could not start"
+      },
+      "SESSION_SETUP": {
+        "TITLE": "Set up your session"
+      },
+      "START_SESSION_BUTTON": {
+        "LABEL": "Start session",
+        "LOADING_LABEL": "Starting session…"
+      },
+      "WORKSPACE": {
+        "LOADING_LABEL": "Loading flashcards…"
+      }
+    },
+    "FLASHCARD_SESSION": {
+      "ANSWER_PROGRESS": {
+        "ARIA_LABEL": "Cards answered"
+      },
+      "BACK_TO_DECKS_BUTTON": {
+        "LABEL": "Back to decks"
+      },
+      "CHOOSE_DECK_BUTTON": {
+        "LABEL": "Choose a deck"
+      },
+      "COMPLETED_SESSION_STATE": {
+        "DESCRIPTION": "All cards in this session have been answered."
+      },
+      "CORRECT_OPTION": {
+        "LABEL": "Correct answer"
+      },
+      "CURRENT_CARD": {
+        "ARIA_LABEL": "Current flashcard"
+      },
+      "INCORRECT_OPTION": {
+        "LABEL": "Your answer · incorrect"
+      },
+      "LOCKED_SCRIPTS": {
+        "LABEL": "Scripts locked:"
+      },
+      "MEANING_QUESTION": {
+        "DESCRIPTION": "Choose the {language} meaning."
+      },
+      "NEXT_CARD_BUTTON": {
+        "LABEL": "Next card"
+      },
+      "PAGE": {
+        "TITLE": "Flashcard session"
+      },
+      "SCRIPT_QUESTION": {
+        "DESCRIPTION": "Choose the {script} answer."
+      },
+      "TRANSLATION_FALLBACK_NOTICE": {
+        "DESCRIPTION": "This card uses English because an Indonesian translation is unavailable."
+      },
+      "UNAVAILABLE_SESSION_STATE": {
+        "DESCRIPTION": "Choose a deck and start a new session. Any answers already saved remain in your learning history."
+      },
+      "UNCONFIRMED_ANSWER_ERROR": {
+        "DESCRIPTION": "Your choice is kept. Use Retry answer to confirm it without answering the card twice."
+      }
+    },
+    "FLASHCARD_SUMMARY": {
+      "CHOOSE_ANOTHER_DECK_BUTTON": {
+        "LABEL": "Choose another deck"
+      },
+      "PAGE": {
+        "TITLE": "Flashcard summary"
+      },
+      "RESULT_SECTION": {
+        "TITLE": "Your session result"
+      },
+      "SAVED_REVIEWS_NOTICE": {
+        "DESCRIPTION": "Your card reviews are saved. Card buckets and skill mastery are tracked separately; completing this session does not complete a lesson."
+      },
+      "UNAVAILABLE_SESSION_STATE": {
+        "DESCRIPTION": "Finish a session to see its result. Saved answers remain in your learning history."
+      }
+    }
+  },
+  "ONBOARDING": {
+    "ASSESSMENT_FORM": {
+      "CURRENT_LEVEL_SELECT": {
+        "BEGINNER_OPTION_LABEL": "New to Japanese",
+        "LABEL": "Current level",
+        "UNAVAILABLE_MESSAGE": "Your saved current level is no longer available. Choose an available level or New to Japanese.",
+        "UNAVAILABLE_SUFFIX": "(unavailable)",
+        "VALIDATION_MESSAGE": "Choose an available current level or New to Japanese."
+      },
+      "DAILY_GOAL_FIELD": {
+        "LABEL": "Daily study goal (minutes)",
+        "VALIDATION_MESSAGE": "Enter a whole number of minutes greater than zero."
+      },
+      "DRAFT_STATUS": {
+        "DESCRIPTION": "Preparing a draft. Your profile has not been saved."
+      },
+      "FORM": {
+        "ARIA_LABEL": "Your learning preferences"
+      },
+      "LEARNING_NOTE_FIELD": {
+        "HELP_TEXT": "A note uses AI to suggest skills for your review. Leave it blank to continue without AI. Maximum 2,000 characters.",
+        "LABEL": "What have you studied? (optional)",
+        "VALIDATION_MESSAGE": "Keep your note within 2,000 characters."
+      },
+      "PREFERRED_SCRIPT_SELECT": {
+        "HELP_TEXT": "This saves a preference. Activities may use their own script settings.",
+        "LABEL": "Preferred script",
+        "VALIDATION_MESSAGE": "Choose a script preference."
+      },
+      "REVIEW_STUDY_PLAN_BUTTON": {
+        "LABEL": "Review study plan",
+        "LOADING_LABEL": "Preparing your draft…"
+      },
+      "TARGET_LEVEL_SELECT": {
+        "HELP_TEXT": "Only levels with published lessons are available.",
+        "LABEL": "Target level",
+        "PLACEHOLDER": "Choose a target",
+        "VALIDATION_MESSAGE": "Choose an available target level."
+      },
+      "WEAK_FOCUS_GROUP": {
+        "LABEL": "Areas to focus on (optional)",
+        "VALIDATION_MESSAGE": "Each focus must contain between 1 and 100 characters."
+      }
+    },
+    "ASSESSMENT_REVIEW": {
+      "CONFIRMATION_STATUS": {
+        "DESCRIPTION": "Saving your confirmed learning preferences…"
+      },
+      "CONFIRM_STUDY_PLAN_BUTTON": {
+        "LABEL": "Confirm study plan",
+        "LOADING_LABEL": "Saving profile…"
+      },
+      "DAILY_GOAL": {
+        "LABEL": "Daily goal",
+        "VALUE_LABEL": "{count, number} minutes"
+      },
+      "EDIT_ASSESSMENT_BUTTON": {
+        "LABEL": "Edit assessment"
+      },
+      "EMPTY_FOCUS_AREAS": {
+        "LABEL": "No focus areas selected"
+      },
+      "EMPTY_KNOWN_SKILLS": {
+        "DESCRIPTION": "No known skills were suggested. You can confirm your preferences as they are."
+      },
+      "FOCUS_AREAS": {
+        "LABEL": "Focus areas"
+      },
+      "KNOWN_SKILLS_GROUP": {
+        "HELP_TEXT": "Keep only the skills you recognize. These claims do not mark lessons complete or increase measured mastery.",
+        "LABEL": "Skills you already know"
+      },
+      "KNOWN_SKILL_SOURCE": {
+        "ASSESSMENT_LABEL": "Suggested from your assessment",
+        "NOTE_LABEL": "Suggested from your note"
+      }
+    },
+    "FOCUS_OPTIONS": {
+      "GRAMMAR": {
+        "LABEL": "Grammar"
+      },
+      "LISTENING": {
+        "LABEL": "Listening"
+      },
+      "PARTICLES": {
+        "LABEL": "Particles"
+      },
+      "READING": {
+        "LABEL": "Reading"
+      },
+      "KANA": {
+        "LABEL": "Kana"
+      },
+      "KANJI": {
+        "LABEL": "Kanji"
+      }
+    },
+    "ONBOARDING_SCREEN": {
+      "ASSESSMENT_ERROR": {
+        "NOTE_RETRY_HINT": "You can remove your optional note and try again without AI."
+      },
+      "ASSESSMENT_STEP": {
+        "LABEL": "Learning preferences"
+      },
+      "CATALOG": {
+        "LOADING_LABEL": "Loading available study levels…"
+      },
+      "CATALOG_ERROR": {
+        "TITLE": "Your assessment could not load"
+      },
+      "COMPLETED_PROFILE": {
+        "DESCRIPTION": "Continue to your study workspace."
+      },
+      "CONFIRMATION_NOTICE": {
+        "TITLE": "Before you confirm"
+      },
+      "CONTINUE_ONBOARDING_BUTTON": {
+        "LABEL": "Continue onboarding"
+      },
+      "CONTINUE_TO_DASHBOARD_BUTTON": {
+        "LABEL": "Continue to dashboard",
+        "LOADING_LABEL": "Continuing…"
+      },
+      "DAILY_GOAL_NOTICE": {
+        "DESCRIPTION": "Your daily goal is a preference. Your progress changes when you complete learning activities."
+      },
+      "DRAFT_NOTICE": {
+        "DESCRIPTION": "You will review a draft before anything is saved. An optional note can suggest known skills for you to keep or remove."
+      },
+      "EMPTY_CATALOG": {
+        "DESCRIPTION": "Your assessment needs a published syllabus. Try again after lessons have been added.",
+        "TITLE": "No study levels are available yet"
+      },
+      "EXPIRED_SESSION_NOTICE": {
+        "DESCRIPTION": "Your session expired. Sign in again to continue."
+      },
+      "PAGE": {
+        "ASSESSMENT_DESCRIPTION": "Tell us where you are starting and what you want to work on.",
+        "ASSESSMENT_TITLE": "Set up your study plan",
+        "COMPLETED_DESCRIPTION": "Your learning preferences have been confirmed.",
+        "COMPLETED_TITLE": "Your study plan is saved",
+        "REVIEW_DESCRIPTION": "Check your preferences and suggested skills before saving your profile.",
+        "REVIEW_TITLE": "Review your study plan"
+      },
+      "RELOAD_CATALOG_BUTTON": {
+        "LABEL": "Reload available levels"
+      },
+      "REVIEW_STEP": {
+        "LABEL": "Draft review"
+      },
+      "SESSION_SYNC": {
+        "ERROR_MESSAGE": "Your profile is saved, but your session could not refresh. Try continuing again.",
+        "LOADING_LABEL": "Updating your session…"
+      },
+      "STARTING_POINT_SECTION": {
+        "TITLE": "Your starting point"
+      },
+      "STARTING_TRACK": {
+        "DESCRIPTION": ". Lesson recommendations use your confirmed preferences and measured progress.",
+        "PREFIX": "Your starting track is"
+      },
+      "STEP_LIST": {
+        "ARIA_LABEL": "Onboarding steps",
+        "ASSESSMENT_LABEL": "1. Learning preferences",
+        "REVIEW_LABEL": "2. Review and confirm"
+      },
+      "STUDY_PLAN_SECTION": {
+        "TITLE": "About your study plan"
+      }
+    }
+  },
+  "PRACTICE": {
+    "ANSWER_FEEDBACK": {
+      "AI_EVALUATION": {
+        "LABEL": "AI feedback"
+      },
+      "ANSWER_SCORE": {
+        "LABEL": "Score"
+      },
+      "INCORRECT_RESULT": {
+        "LABEL": "Not quite"
+      },
+      "MASTERY": {
+        "LABEL": "Mastery"
+      },
+      "OBJECTIVE_EVALUATION": {
+        "LABEL": "Checked against the accepted answer"
+      },
+      "PANEL": {
+        "ARIA_LABEL": "Answer feedback"
+      },
+      "SAVED_ANSWER_NOTICE": {
+        "DESCRIPTION": "Your answer is saved. No syllabus mastery update was returned."
+      },
+      "SKILL": {
+        "LABEL": "Skill"
+      }
+    },
+    "LESSON_POST_STUDY": {
+      "BACK_TO_LESSON_BUTTON": {
+        "LABEL": "Back to lesson"
+      },
+      "LESSON_RESULT": {
+        "COMPLETED_DESCRIPTION": "Your lesson completion is saved. Continue reviewing to build understanding.",
+        "TITLE": "Lesson result",
+        "UNCHANGED_DESCRIPTION": "Understanding has not changed. Review the lesson and try the question again."
+      },
+      "LESSON_STATUS": {
+        "COMPLETED_LABEL": "Lesson completed"
+      },
+      "LOAD_CURRENT_QUESTION_BUTTON": {
+        "LABEL": "Load current question"
+      },
+      "NEXT_REVIEW_DIFFICULTY": {
+        "LABEL": "Next review difficulty:"
+      },
+      "PAGE": {
+        "DESCRIPTION": "One question checks your lesson understanding.",
+        "QUIZ_TITLE": "Post-study quiz",
+        "REVIEW_TITLE": "Lesson review"
+      },
+      "QUESTION": {
+        "LOADING_LABEL": "Loading your lesson question…"
+      },
+      "QUESTION_ERROR": {
+        "TITLE": "The lesson quiz could not load"
+      },
+      "REVIEW_AGAIN_BUTTON": {
+        "LABEL": "Review again"
+      },
+      "STALE_QUESTION_NOTICE": {
+        "DESCRIPTION": "Your lesson question no longer matches the active difficulty. Load the current question to continue."
+      },
+      "TARGET_UNDERSTANDING": {
+        "LABEL": "Target understanding:"
+      },
+      "TRY_ANOTHER_QUESTION_BUTTON": {
+        "LABEL": "Try another question"
+      }
+    },
+    "MASTERY_OPTIONS": {
+      "DEVELOPING": {
+        "LABEL": "Developing"
+      },
+      "MASTERED": {
+        "LABEL": "Mastered"
+      },
+      "STABLE": {
+        "LABEL": "Stable"
+      },
+      "WEAK": {
+        "LABEL": "Needs review"
+      }
+    },
+    "PRACTICE_ERROR": {
+      "ANONYMOUS_ACCESS": {
+        "DESCRIPTION": "Sign in to continue practicing."
+      },
+      "ONBOARDING_ACCESS": {
+        "DESCRIPTION": "Complete onboarding to continue practicing."
+      }
+    },
+    "PRACTICE_HUB": {
+      "ACTIVE_SESSION": {
+        "TITLE": "Session in progress"
+      },
+      "PAGE": {
+        "DESCRIPTION": "Practice questions selected from your learning profile and recent progress."
+      },
+      "PREVIOUS_SESSION": {
+        "TITLE": "Your last session"
+      },
+      "QUESTION_COUNT_FIELD": {
+        "LABEL": "Question count",
+        "VALIDATION_MESSAGE": "Choose 1 to 10 questions."
+      },
+      "QUESTION_MIX": {
+        "LABEL": "Question mix:",
+        "REINFORCEMENT_UNIT": "% reinforcement ·",
+        "STRETCH_UNIT": "% stretch",
+        "WEAK_SKILLS_UNIT": "% weak skills ·"
+      },
+      "RETURN_TO_SESSION_BUTTON": {
+        "LABEL": "Return to session"
+      },
+      "SESSION_DIFFICULTY": {
+        "LABEL": "Session difficulty:"
+      },
+      "SESSION_ERROR": {
+        "TITLE": "Your practice session could not be prepared"
+      },
+      "SESSION_SETUP": {
+        "DESCRIPTION": "Questions can include missing words, sentence ordering, and Japanese writing. Difficulty and the question mix are selected when your session is generated.",
+        "TITLE": "Start a practice session"
+      },
+      "START_PRACTICE_BUTTON": {
+        "LABEL": "Generate practice",
+        "LOADING_LABEL": "Preparing questions…"
+      }
+    },
+    "PRACTICE_SESSION": {
+      "ANSWER_PROGRESS": {
+        "ARIA_LABEL": "Questions answered"
+      },
+      "BACK_TO_PRACTICE_BUTTON": {
+        "LABEL": "Back to practice"
+      },
+      "COMPLETED_SESSION_STATE": {
+        "DESCRIPTION": "All questions have been answered."
+      },
+      "NEXT_QUESTION_BUTTON": {
+        "LABEL": "Next question"
+      },
+      "PAGE": {
+        "TITLE": "Practice session"
+      },
+      "QUESTION_DIFFICULTY": {
+        "LABEL": "Question difficulty:"
+      },
+      "QUESTION_NUMBER": {
+        "LABEL": "Question"
+      },
+      "START_PRACTICE_BUTTON": {
+        "LABEL": "Start practice"
+      },
+      "UNAVAILABLE_SESSION_STATE": {
+        "DESCRIPTION": "Start a new practice session. Any answers already saved remain in your learning history."
+      }
+    },
+    "PRACTICE_SUMMARY": {
+      "ANSWERED_COUNT": {
+        "UNIT_LABEL": "questions answered"
+      },
+      "ANSWER_RESULTS": {
+        "TITLE": "Your results"
+      },
+      "COMPLETED_SESSION_STATE": {
+        "TITLE": "Practice complete"
+      },
+      "PAGE": {
+        "TITLE": "Practice summary"
+      },
+      "PRACTICE_AGAIN_BUTTON": {
+        "LABEL": "Practice again"
+      },
+      "REVIEW_COUNT": {
+        "UNIT_LABEL": "to review"
+      },
+      "REVIEW_SKILLS": {
+        "DESCRIPTION": "Use the syllabus to review these topics before another session.",
+        "TITLE": "Skills to revisit"
+      },
+      "REVIEW_SYLLABUS_BUTTON": {
+        "LABEL": "Review syllabus"
+      },
+      "SESSION_RESULTS": {
+        "TITLE": "Session results"
+      },
+      "UNAVAILABLE_SESSION_STATE": {
+        "DESCRIPTION": "Complete a practice session to view its results here."
+      }
+    },
+    "QUESTION_PANEL": {
+      "ANSWER_FIELD": {
+        "LABEL": "Your answer"
+      },
+      "ANSWER_LANGUAGE": {
+        "DESCRIPTION": "Answer in {language}.",
+        "PREFIX": "Answer in "
+      },
+      "ARRANGED_ANSWER": {
+        "LABEL": "Answer order"
+      },
+      "ARRANGE_TOKEN": {
+        "TITLE": "Arrange the sentence"
+      },
+      "AVAILABLE_TOKENS": {
+        "LABEL": "Available tokens"
+      },
+      "FREE_RESPONSE": {
+        "HELP_TEXT": "AI checks your Japanese response and provides feedback.",
+        "TITLE": "Write the sentence in Japanese"
+      },
+      "JAPANESE_ANSWER_FIELD": {
+        "LABEL": "Japanese answer to submit"
+      },
+      "LESSON_QUESTION": {
+        "ARIA_LABEL": "Lesson question"
+      },
+      "PENDING_ANSWER_NOTICE": {
+        "DESCRIPTION": "Your answer is kept. Retry the same answer to confirm the saved result."
+      },
+      "PRACTICE_QUESTION": {
+        "ARIA_LABEL": "Practice question"
+      },
+      "REMOVE_TOKEN_BUTTON": {
+        "ARIA_LABEL": "Remove token {number}: {token}",
+        "LABEL": "Remove token"
+      },
+      "ROMAJI_FIELD": {
+        "HELP_TEXT": "Romaji is converted to kana below. Use uppercase romaji for katakana. Check the Japanese answer before submitting; you can edit it with your Japanese keyboard.",
+        "LABEL": "Romaji or Japanese answer",
+        "VALIDATION_MESSAGE": "Finish converting the remaining romaji before submitting."
+      },
+      "SHORT_ANSWER": {
+        "TITLE": "Fill in the missing kana"
+      },
+      "SLOT_FILL": {
+        "TITLE": "Choose the missing word"
+      },
+      "TOKEN_SELECTION": {
+        "HELP_TEXT": "Select a token to add it. Select it in the answer to remove it."
+      },
+      "TRANSLATION_DIRECTION": {
+        "DESCRIPTION": "Translate from {source} to {answer}."
+      }
+    }
+  },
+  "PROGRESS": {
+    "ACCESS_ERROR": {
+      "ANONYMOUS_ACCESS": {
+        "DESCRIPTION": "Your session has expired. Sign in again to continue.",
+        "TITLE": "Sign in to view your progress"
+      },
+      "ONBOARDING_ACCESS": {
+        "DESCRIPTION": "Confirm your learner profile before continuing.",
+        "TITLE": "Finish onboarding to view your progress"
+      },
+      "SIGN_IN_BUTTON": {
+        "LABEL": "Sign in again"
+      }
+    },
+    "ANSWER_HISTORY": {
+      "ANSWER_LIST": {
+        "LOADING_LABEL": "Loading answer history…"
+      },
+      "ANSWER_SCORE": {
+        "LABEL": "· Answer score"
+      },
+      "EMPTY_ANSWER_LIST": {
+        "DESCRIPTION": "Your recorded answers will appear here after a learning activity.",
+        "TITLE": "No answers to show"
+      }
+    },
+    "HISTORY_PAGINATION": {
+      "CURRENT_PAGE": {
+        "LABEL": "Page"
+      },
+      "NEXT_PAGE_BUTTON": {
+        "LABEL": "Next"
+      },
+      "PREVIOUS_PAGE_BUTTON": {
+        "LABEL": "Previous"
+      }
+    },
+    "LESSON_UNDERSTANDING": {
+      "COMPLETED_COUNT": {
+        "UNIT_LABEL": "completed ·"
+      },
+      "EMPTY_SELECTION": {
+        "DESCRIPTION": "See each lesson’s current understanding and next quiz difficulty.",
+        "TITLE": "Choose a unit to view lesson progress"
+      },
+      "LESSON_UNDERSTANDING": {
+        "ARIA_LABEL": "{lesson} understanding"
+      },
+      "NEXT_QUIZ_DIFFICULTY": {
+        "LABEL": "difficulty:"
+      },
+      "REQUIRED_QUIZ_COUNT": {
+        "UNIT_LABEL": "quiz required in this unit"
+      },
+      "UNDERSTANDING_SCORE": {
+        "LABEL": "{value} of 10",
+        "SCALE_LABEL": "of 10"
+      }
+    },
+    "PROGRESS_DASHBOARD": {
+      "ACTIVITY_TYPE_SELECT": {
+        "ALL_OPTION_LABEL": "All activities",
+        "LABEL": "Activity type",
+        "LESSON_QUIZ_OPTION_LABEL": "Lesson quiz"
+      },
+      "ANSWER_HISTORY_ERROR": {
+        "TITLE": "Could not load answer history"
+      },
+      "ANSWER_HISTORY_SECTION": {
+        "DESCRIPTION": "Scores describe each answer. They are separate from your current skill mastery.",
+        "TITLE": "Answer history"
+      },
+      "CATALOG_ERROR": {
+        "TITLE": "Could not load the lesson catalog"
+      },
+      "CONTINUE_LEARNING_SECTION": {
+        "DESCRIPTION": "Read a lesson, then answer its required post-study quiz to complete it.",
+        "TITLE": "Continue learning"
+      },
+      "EMPTY_ATTEMPTS": {
+        "LABEL": "No attempts yet"
+      },
+      "EMPTY_OVERVIEW": {
+        "DESCRIPTION": "Read a lesson and answer its quiz, or practice a syllabus skill, to begin recording progress.",
+        "TITLE": "No tracked progress yet"
+      },
+      "HISTORICAL_TRACK": {
+        "SUFFIX": "(history)"
+      },
+      "LESSON_UNDERSTANDING": {
+        "LOADING_LABEL": "Loading lesson understanding…"
+      },
+      "LESSON_UNDERSTANDING_ERROR": {
+        "TITLE": "Could not refresh lesson understanding"
+      },
+      "LESSON_UNDERSTANDING_SECTION": {
+        "DESCRIPTION": "Completion starts at understanding level 1. Select a unit to check its current quiz status.",
+        "TITLE": "Lesson understanding"
+      },
+      "OVERVIEW": {
+        "LOADING_LABEL": "Loading learning progress…",
+        "REFRESHING_LABEL": "Refreshing progress…"
+      },
+      "PAGE": {
+        "DASHBOARD_TITLE": "Your next study step",
+        "DESCRIPTION": "Review your skill mastery, lesson understanding, and recorded activity.",
+        "PROGRESS_TITLE": "Learning progress"
+      },
+      "RECENT_SESSIONS_ERROR": {
+        "TITLE": "Could not load recent sessions"
+      },
+      "RECENT_SESSIONS_SECTION": {
+        "TITLE": "Recent sessions"
+      },
+      "REFRESH_BUTTON": {
+        "LABEL": "Refresh progress"
+      },
+      "TRACK_SELECT": {
+        "ALL_OPTION_LABEL": "All tracks",
+        "LABEL": "Track",
+        "SELECTED_HISTORY_OPTION_LABEL": "Selected track (history)"
+      },
+      "UNIT_SELECT": {
+        "PLACEHOLDER": "Choose a unit"
+      },
+      "VIEW_SYLLABUS_BUTTON": {
+        "LABEL": "View syllabus"
+      }
+    },
+    "PROGRESS_ERROR": {
+      "PREVIOUS_DATA_NOTICE": {
+        "DESCRIPTION": "Showing previously loaded data. This section could not be refreshed."
+      },
+      "REFRESH_ERROR": {
+        "TITLE": "Could not refresh progress"
+      }
+    },
+    "PROGRESS_OVERVIEW": {
+      "AVERAGE_LESSON_UNDERSTANDING": {
+        "HELP_TEXT": "Lesson understanding is separate from skill mastery.",
+        "LABEL": "Average lesson understanding"
+      },
+      "AVERAGE_SKILL_MASTERY": {
+        "LABEL": "Average skill mastery"
+      },
+      "COMPLETED_LESSONS": {
+        "HELP_TEXT": "A correct post-study answer completes a lesson.",
+        "LABEL": "Lessons completed"
+      },
+      "EMPTY_ACTIVITY": {
+        "LABEL": "No activity yet"
+      },
+      "LAST_ACTIVITY": {
+        "LABEL": "Last activity:"
+      },
+      "MASTERY_GROUPS": {
+        "DEVELOPING_LABEL": "Developing:",
+        "MASTERED_LABEL": "Mastered:",
+        "TITLE": "Skill mastery groups",
+        "WEAK_LABEL": "Weak:"
+      },
+      "RECOMMENDED_DIFFICULTY": {
+        "LABEL": "Recommended practice difficulty:"
+      },
+      "REVIEW_FLASHCARDS_BUTTON": {
+        "LABEL": "Review flashcards"
+      },
+      "SECTION": {
+        "TITLE": "Your learning so far"
+      },
+      "SKILL_COUNT": {
+        "PREFIX": "Across",
+        "UNIT_LABEL": "tracked skills"
+      },
+      "TRACKED_LESSON_COUNT": {
+        "UNIT_LABEL": "tracked"
+      }
+    },
+    "RECENT_SESSIONS": {
+      "AVERAGE_ANSWER_SCORE": {
+        "LABEL": "Average answer score:"
+      },
+      "EMPTY_QUIZ_ATTEMPTS": {
+        "LABEL": "No quiz attempts yet"
+      },
+      "EMPTY_SESSION_LIST": {
+        "DESCRIPTION": "Learning activities that contribute to your syllabus progress will appear here.",
+        "TITLE": "No sessions to show"
+      },
+      "INCORRECT_COUNT": {
+        "UNIT_LABEL": "incorrect ·"
+      },
+      "INTERACTION_COUNT": {
+        "UNIT_LABEL": "interactions"
+      },
+      "REQUIRED_QUIZ": {
+        "LABEL": "Required quiz"
+      },
+      "REVIEW_QUIZ": {
+        "LABEL": "Review quiz"
+      },
+      "REVIEW_UNIT_BUTTON": {
+        "LABEL": "Review unit"
+      },
+      "SESSION_LIST": {
+        "LOADING_LABEL": "Loading recent sessions…"
+      }
+    },
+    "SESSION_STATUS": {
+      "ENDED": {
+        "LABEL": "Ended"
+      },
+      "IN_PROGRESS": {
+        "LABEL": "In progress"
+      },
+      "READY": {
+        "LABEL": "Ready"
+      },
+      "UNKNOWN": {
+        "LABEL": "Status unavailable"
+      }
+    },
+    "WEAK_SKILLS": {
+      "CONTINUE_PRACTICE_NOTICE": {
+        "DESCRIPTION": "Practice builds evidence for your skill mastery. Review lesson material when you need a refresher.",
+        "TITLE": "Keep practicing"
+      },
+      "SECTION": {
+        "DESCRIPTION": "{count, number} tracked skills need more practice. Your next practice session uses your latest progress.",
+        "TITLE": "Skills to strengthen"
+      }
+    }
+  },
+  "SHARED": {
+    "ANSWER_ACTIONS": {
+      "CHECK_ANSWER_BUTTON": {
+        "LABEL": "Check answer",
+        "LOADING_LABEL": "Checking answer…"
+      },
+      "RETRY_ANSWER_BUTTON": {
+        "LABEL": "Retry answer"
+      }
+    },
+    "ANSWER_INPUT": {
+      "ANSWER_OPTIONS": {
+        "ARIA_LABEL": "Answer options"
+      }
+    },
+    "ANSWER_STATUS": {
+      "CORRECT": {
+        "COUNT_UNIT_LABEL": "correct ·",
+        "LABEL": "Correct"
+      },
+      "INCORRECT": {
+        "LABEL": "Incorrect"
+      },
+      "UNCONFIRMED_ANSWER": {
+        "TITLE": "Your answer could not be confirmed"
+      }
+    },
+    "APP_FOOTER": {
+      "PRODUCT_DESCRIPTION": {
+        "LABEL": "Your Japanese study space, one step at a time."
+      }
+    },
+    "APP_NAVIGATION": {
+      "DASHBOARD_LINK": {
+        "LABEL": "Dashboard"
+      },
+      "FLASHCARDS_LINK": {
+        "LABEL": "Flashcards"
+      },
+      "MOBILE_NAVIGATION": {
+        "ARIA_LABEL": "Mobile navigation"
+      },
+      "ONBOARDING_LINK": {
+        "LABEL": "Your learning profile"
+      },
+      "PRACTICE_LINK": {
+        "LABEL": "Practice"
+      },
+      "PRIMARY_NAVIGATION": {
+        "ARIA_LABEL": "Primary navigation"
+      },
+      "PROGRESS_LINK": {
+        "LABEL": "Progress"
+      },
+      "SETTINGS_LINK": {
+        "LABEL": "Settings"
+      },
+      "SKIP_TO_CONTENT_LINK": {
+        "LABEL": "Skip to content"
+      },
+      "SYLLABUS_LINK": {
+        "LABEL": "Syllabus"
+      },
+      "UNAVAILABLE_LINK": {
+        "BADGE_LABEL": "Soon",
+        "STATUS_LABEL": "Not available yet"
+      }
+    },
+    "APP_WORKSPACE": {
+      "ACCOUNT_MENU": {
+        "ARIA_LABEL": "Your account",
+        "LABEL": "Account"
+      },
+      "PAGE": {
+        "TITLE": "Your study space"
+      },
+      "SIGN_IN_BUTTON": {
+        "LABEL": "Sign in"
+      },
+      "SIGN_OUT_BUTTON": {
+        "LABEL": "Sign out",
+        "LOADING_LABEL": "Signing out…"
+      }
+    },
+    "CATALOG_ENTITIES": {
+      "LESSON": {
+        "LABEL": "Lesson"
+      },
+      "UNIT": {
+        "LABEL": "Unit"
+      }
+    },
+    "CLIENT_ERRORS": {
+      "CANCELLATION_ERROR": {
+        "MESSAGE": "Request cancelled."
+      },
+      "CONTRACT_ERROR": {
+        "MESSAGE": "The response could not be read. Please try again."
+      },
+      "NETWORK_ERROR": {
+        "MESSAGE": "Could not connect. Check your connection and try again."
+      },
+      "REQUEST_ERROR": {
+        "MESSAGE": "Could not complete the request. Please try again.",
+        "TITLE": "The request could not be completed"
+      },
+      "TIMEOUT_ERROR": {
+        "MESSAGE": "The request timed out. Please try again."
+      },
+      "UNKNOWN_ERROR": {
+        "RETRY_MESSAGE": "Could not complete the request. Please try again."
+      }
+    },
+    "DIFFICULTY_OPTIONS": {
+      "FOUNDATION": {
+        "LABEL": "Foundation"
+      },
+      "REVIEW": {
+        "LABEL": "Review"
+      },
+      "STANDARD": {
+        "LABEL": "Standard"
+      },
+      "STRETCH": {
+        "LABEL": "Stretch"
+      }
+    },
+    "ERROR_DETAILS": {
+      "SUPPORT_REFERENCE": {
+        "LABEL": "Support reference:"
+      },
+      "TRACE_REFERENCE": {
+        "LABEL": "Reference:"
+      }
+    },
+    "LANDING_PAGE": {
+      "HERO": {
+        "DESCRIPTION": "A study space for your Japanese journey, bringing lessons, practice, and progress together.",
+        "EYEBROW": "A calmer way to learn Japanese",
+        "TITLE": "Small steps. Stronger understanding."
+      },
+      "LEARNING_APPROACH_LINK": {
+        "LABEL": "See the learning approach"
+      },
+      "LEARNING_APPROACH_SECTION": {
+        "TITLE": "A little structure for every step"
+      },
+      "PRACTICE_STEP": {
+        "DESCRIPTION": "Revisit what you learn with flashcards and focused questions.",
+        "TITLE": "Put learning into practice"
+      },
+      "PROGRESS_STEP": {
+        "DESCRIPTION": "Use feedback to find what to review and where to go next.",
+        "TITLE": "See your understanding grow"
+      },
+      "SIGN_IN_BUTTON": {
+        "HELP_TEXT": "Choose your study preferences after signing in."
+      },
+      "SYLLABUS_STEP": {
+        "DESCRIPTION": "Build your foundations with a structured JLPT syllabus.",
+        "TITLE": "Follow a clear path"
+      }
+    },
+    "LANGUAGE_OPTIONS": {
+      "ENGLISH": {
+        "LABEL": "English"
+      },
+      "INDONESIAN": {
+        "LABEL": "Indonesian",
+        "NATIVE_LABEL": "Bahasa Indonesia"
+      },
+      "JAPANESE": {
+        "LABEL": "Japanese"
+      }
+    },
+    "LANGUAGE_SWITCHER": {
+      "INTERFACE_LANGUAGE_SELECT": {
+        "ERROR_MESSAGE": "The language could not be saved. Please try again.",
+        "LABEL": "Interface language"
+      }
+    },
+    "LEARNING_ACTIONS": {
+      "BACK_TO_SYLLABUS_BUTTON": {
+        "LABEL": "Back to syllabus"
+      },
+      "REVIEW_LESSON_BUTTON": {
+        "LABEL": "Review a lesson"
+      },
+      "REVIEW_LESSON_LINK": {
+        "LABEL": "Review lesson"
+      },
+      "VIEW_PROGRESS_BUTTON": {
+        "LABEL": "View progress"
+      },
+      "VIEW_SUMMARY_BUTTON": {
+        "LABEL": "View summary"
+      }
+    },
+    "LEARNING_STATUS": {
+      "ANSWERED": {
+        "UNIT_LABEL": "answered"
+      },
+      "ANSWER_PROGRESS": {
+        "CONNECTOR": "of"
+      },
+      "COMPLETED": {
+        "LABEL": "Completed"
+      },
+      "DIFFICULTY": {
+        "LABEL": "Difficulty"
+      },
+      "QUIZ_REQUIRED": {
+        "LABEL": "Quiz required"
+      },
+      "READING": {
+        "LABEL": "Reading"
+      },
+      "UNDERSTANDING": {
+        "LABEL": "Understanding"
+      }
+    },
+    "MOCK_STARTUP": {
+      "RELOAD_BUTTON": {
+        "LABEL": "Reload page"
+      },
+      "STARTUP_ERROR": {
+        "DESCRIPTION": "Check the browser console for details, then reload to try again.",
+        "TITLE": "The development API could not start"
+      },
+      "WORKSPACE": {
+        "LOADING_LABEL": "Preparing the development API…"
+      }
+    },
+    "NOT_FOUND_PAGE": {
+      "PAGE": {
+        "DESCRIPTION": "Check the address or return to the home page to continue.",
+        "TITLE": "Page not found"
+      },
+      "RETURN_HOME_BUTTON": {
+        "LABEL": "Return home"
+      }
+    },
+    "PAGE_ERROR": {
+      "LOAD_ERROR": {
+        "DESCRIPTION": "Please try again to load this page.",
+        "TITLE": "Your study space could not be loaded"
+      }
+    },
+    "RECOVERY_ACTIONS": {
+      "RETRY_BUTTON": {
+        "LABEL": "Try again"
+      }
+    },
+    "SCRIPT_OPTIONS": {
+      "ENGLISH": {
+        "LABEL": "English"
+      },
+      "KANA": {
+        "LABEL": "Kana"
+      },
+      "KANJI": {
+        "LABEL": "Kanji"
+      },
+      "MEANING": {
+        "LABEL": "Meaning"
+      },
+      "MIXED": {
+        "LABEL": "Mixed scripts"
+      },
+      "ROMAJI": {
+        "LABEL": "Romaji"
+      }
+    },
+    "SESSION_BOOTSTRAP": {
+      "WORKSPACE": {
+        "LOADING_LABEL": "Loading your workspace…"
+      }
+    },
+    "SESSION_STATUS": {
+      "COMPLETED": {
+        "LABEL": "Session complete"
+      },
+      "UNAVAILABLE_SESSION": {
+        "TITLE": "This session is not open here"
+      },
+      "UNAVAILABLE_SUMMARY": {
+        "TITLE": "No completed session is open here"
+      }
+    },
+    "SITE_METADATA": {
+      "PAGE": {
+        "DESCRIPTION": "A structured Japanese study space with lessons, practice, and progress, one step at a time.",
+        "TITLE": "Your Japanese study space"
+      },
+      "SITE_NAME": {
+        "LABEL": "KotobaHub"
+      }
+    },
+    "SKILL_TYPES": {
+      "VOCABULARY": {
+        "LABEL": "Vocabulary"
+      }
+    },
+    "STATE_PANELS": {
+      "WORKSPACE": {
+        "LOADING_LABEL": "Loading your study space…"
+      }
+    },
+    "VALUE_FORMATTING": {
+      "UNAVAILABLE_VALUE": {
+        "LABEL": "Not available"
+      }
+    }
+  },
+  "SYLLABUS": {
+    "CATALOG_SUMMARY": {
+      "LESSON_COUNT": {
+        "LABEL": "{count, plural, one {# lesson} other {# lessons}}"
+      }
+    },
+    "CONTENT_LANGUAGE": {
+      "LANGUAGE_SELECT": {
+        "LABEL": "Content language"
+      },
+      "SAVE_ERROR": {
+        "DESCRIPTION": "The content language could not be confirmed. Please try again.",
+        "TITLE": "Could not complete the request."
+      }
+    },
+    "LESSON_ACTIONS": {
+      "CHECK_UNDERSTANDING_BUTTON": {
+        "LABEL": "Check your understanding"
+      },
+      "QUIZ_DIFFICULTY": {
+        "LABEL": "Next quiz"
+      },
+      "REVIEW_DIFFICULTY": {
+        "LABEL": "Next review"
+      },
+      "REVIEW_LESSON_BUTTON": {
+        "LABEL": "Review this lesson"
+      },
+      "REVIEW_QUIZ_BUTTON": {
+        "LABEL": "Review lesson quiz"
+      },
+      "START_QUIZ_BUTTON": {
+        "LABEL": "Start post-study quiz"
+      }
+    },
+    "LESSON_CONTENT": {
+      "EXAMPLE_BLOCK": {
+        "LABEL": "Example"
+      },
+      "FORM_COMPARISON": {
+        "POLITE_LABEL": "Polite form",
+        "STANDARD_LABEL": "Standard form"
+      },
+      "GRAMMAR_STRUCTURE_BLOCK": {
+        "LABEL": "Grammar structure"
+      },
+      "TRANSLATION_FALLBACK_NOTICE": {
+        "LABEL": "English translation shown"
+      }
+    },
+    "LESSON_OVERVIEW": {
+      "BACK_LINK": {
+        "PREFIX": "← Back to"
+      },
+      "COVERED_SKILLS_SECTION": {
+        "TITLE": "Covered skills"
+      },
+      "DURATION": {
+        "LABEL": "About",
+        "UNIT_LABEL": "min",
+        "VALUE_LABEL": " · About {count, number} min"
+      },
+      "FINISH_READING_BUTTON": {
+        "LABEL": "Finish reading"
+      },
+      "NEXT_QUIZ_DIFFICULTY": {
+        "LABEL": ": difficulty"
+      },
+      "QUIZ_DETAILS": {
+        "LOADING_LABEL": "Loading quiz details…"
+      },
+      "QUIZ_DETAILS_ERROR": {
+        "TITLE": "Quiz details could not load"
+      },
+      "QUIZ_REQUIREMENT_NOTICE": {
+        "DESCRIPTION": "Reading does not mark this lesson complete. Answer the required post-study quiz correctly to complete it. Each attempt has one question."
+      },
+      "READING_STATE_NOTICE": {
+        "DESCRIPTION": "Your reading state is kept on this page. Only a correct quiz answer updates recorded completion."
+      },
+      "RELOAD_LESSON_BUTTON": {
+        "LABEL": "Reload lesson"
+      },
+      "RELOAD_QUIZ_DETAILS_BUTTON": {
+        "LABEL": "Reload quiz details"
+      },
+      "TARGET_UNDERSTANDING": {
+        "LABEL": "/10 · Target understanding"
+      },
+      "UNAVAILABLE_MATERIAL_STATE": {
+        "DESCRIPTION": "Try reloading this lesson before continuing to its quiz.",
+        "TITLE": "Study material is unavailable"
+      }
+    },
+    "SYLLABUS_MAP": {
+      "EMPTY_SYLLABUS": {
+        "DESCRIPTION": "Published lessons will appear here when their study material and quizzes are ready.",
+        "TITLE": "No lessons are available yet"
+      },
+      "PAGE": {
+        "DESCRIPTION": "Read each lesson, then answer its post-study quiz. A correct answer completes the lesson and builds your understanding up to level 10.",
+        "EYEBROW": "Your learning path"
+      },
+      "RELOAD_SYLLABUS_BUTTON": {
+        "LABEL": "Reload syllabus"
+      },
+      "STUDY_GUIDANCE": {
+        "DESCRIPTION": "Each lesson has a required one-question quiz. Reading alone does not complete it.",
+        "QUIZ_HINT": "Open a lesson to see your recorded understanding and next quiz difficulty.",
+        "TITLE": "Study, then check your understanding"
+      },
+      "STUDY_LEVEL_SELECT": {
+        "LABEL": "Study level"
+      },
+      "VIEW_UNIT_BUTTON": {
+        "LABEL": "View"
+      }
+    },
+    "SYLLABUS_STATE": {
+      "ANONYMOUS_ACCESS": {
+        "TITLE": "Sign in to continue"
+      },
+      "LOAD_ERROR": {
+        "TITLE": "The syllabus could not load"
+      },
+      "ONBOARDING_ACCESS": {
+        "TITLE": "Finish your study plan"
+      },
+      "UNAVAILABLE_LESSON": {
+        "TITLE": "Lesson unavailable"
+      },
+      "UNAVAILABLE_UNIT": {
+        "TITLE": "Unit unavailable"
+      },
+      "WORKSPACE": {
+        "LOADING_LABEL": "Loading syllabus…"
+      }
+    },
+    "UNIT_DETAIL": {
+      "BACK_TO_SYLLABUS_LINK": {
+        "LABEL": "← Back to syllabus"
+      },
+      "EMPTY_UNIT": {
+        "DESCRIPTION": "Return to the syllabus to choose another unit.",
+        "TITLE": "No lessons are available in this unit"
+      },
+      "LESSON_ORDER": {
+        "DESCRIPTION": "· Follow the order below"
+      },
+      "READ_LESSON_BUTTON": {
+        "LABEL": "Read"
+      }
+    }
+  }
+}

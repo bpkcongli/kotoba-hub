@@ -1,11 +1,12 @@
 import 'server-only';
+import { cache } from 'react';
 import { getSessionSnapshot } from '@/backend/auth/infrastructure/di';
 import { localizedCutoverBlockers } from '@/backend/syllabus/application/helpers/localize-syllabus';
 import { syllabusCatalogService } from '@/backend/syllabus/infrastructure/di';
 import { userPreferencesService } from '@/backend/users/infrastructure/di';
 import { defaultPreferences, uiLocaleCookie } from '@/shared/locale';
 
-export async function localeBootstrap(cookie: string | null) {
+export const localeBootstrap = cache(async function localeBootstrap(cookie: string | null) {
   const session = await getSessionSnapshot(cookie);
   const preferences = session.user
     ? await userPreferencesService.get(session.user.id)
@@ -23,4 +24,4 @@ export async function localeBootstrap(cookie: string | null) {
   if (blockers.length) console.info('Localized syllabus cutover held', { lessonSlugs: blockers });
 
   return { session, preferences, localizedSyllabus };
-}
+});

@@ -8,17 +8,15 @@ import type { IDefaultFormStore, IDisposableStore } from '@/frontend/shared/inte
 
 export const assessmentFormDataSchema = z.object({
   currentLevel: z
-    .string({ error: 'Choose an available current level or New to Japanese.' })
-    .min(1, 'Choose an available current level or New to Japanese.')
-    .max(50, 'Choose an available current level or New to Japanese.'),
-
+    .string({ error: 'ONBOARDING:ASSESSMENT_FORM.CURRENT_LEVEL_SELECT.VALIDATION_MESSAGE' })
+    .min(1, 'ONBOARDING:ASSESSMENT_FORM.CURRENT_LEVEL_SELECT.VALIDATION_MESSAGE')
+    .max(50, 'ONBOARDING:ASSESSMENT_FORM.CURRENT_LEVEL_SELECT.VALIDATION_MESSAGE'),
   targetLevel: z
-    .string({ error: 'Choose an available target level.' })
-    .min(1, 'Choose an available target level.')
-    .max(50, 'Choose an available target level.'),
-
+    .string({ error: 'ONBOARDING:ASSESSMENT_FORM.TARGET_LEVEL_SELECT.VALIDATION_MESSAGE' })
+    .min(1, 'ONBOARDING:ASSESSMENT_FORM.TARGET_LEVEL_SELECT.VALIDATION_MESSAGE')
+    .max(50, 'ONBOARDING:ASSESSMENT_FORM.TARGET_LEVEL_SELECT.VALIDATION_MESSAGE'),
   dailyGoalMinutes: z
-    .string({ error: 'Enter a whole number of minutes greater than zero.' })
+    .string({ error: 'ONBOARDING:ASSESSMENT_FORM.DAILY_GOAL_FIELD.VALIDATION_MESSAGE' })
     .refine(
       (value) => {
         const minutes = Number(value);
@@ -30,26 +28,23 @@ export const assessmentFormDataSchema = z.object({
           minutes <= 2147483647
         );
       },
-      { message: 'Enter a whole number of minutes greater than zero.' },
+      { message: 'ONBOARDING:ASSESSMENT_FORM.DAILY_GOAL_FIELD.VALIDATION_MESSAGE' },
     ),
-
   preferredScript: z.enum(['ROMAJI', 'KANA', 'MIXED'], {
-    error: 'Choose a script preference.',
+    error: 'ONBOARDING:ASSESSMENT_FORM.PREFERRED_SCRIPT_SELECT.VALIDATION_MESSAGE',
   }),
-
   weakSkillFocuses: z.array(
     z
-      .string({ error: 'Each focus must contain between 1 and 100 characters.' })
-      .max(100, 'Each focus must contain between 1 and 100 characters.')
+      .string({ error: 'ONBOARDING:ASSESSMENT_FORM.WEAK_FOCUS_GROUP.VALIDATION_MESSAGE' })
+      .max(100, 'ONBOARDING:ASSESSMENT_FORM.WEAK_FOCUS_GROUP.VALIDATION_MESSAGE')
       .refine((value) => value.trim().length > 0, {
-        message: 'Each focus must contain between 1 and 100 characters.',
+        message: 'ONBOARDING:ASSESSMENT_FORM.WEAK_FOCUS_GROUP.VALIDATION_MESSAGE',
       }),
-    { error: 'Each focus must contain between 1 and 100 characters.' },
+    { error: 'ONBOARDING:ASSESSMENT_FORM.WEAK_FOCUS_GROUP.VALIDATION_MESSAGE' },
   ),
-
   note: z
-    .string({ error: 'Keep your note within 2,000 characters.' })
-    .max(2000, 'Keep your note within 2,000 characters.'),
+    .string({ error: 'ONBOARDING:ASSESSMENT_FORM.LEARNING_NOTE_FIELD.VALIDATION_MESSAGE' })
+    .max(2000, 'ONBOARDING:ASSESSMENT_FORM.LEARNING_NOTE_FIELD.VALIDATION_MESSAGE'),
 });
 
 export type AssessmentFormData = z.infer<typeof assessmentFormDataSchema>;

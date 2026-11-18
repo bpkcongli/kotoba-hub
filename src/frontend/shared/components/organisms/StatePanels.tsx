@@ -1,3 +1,5 @@
+'use client';
+
 import { CircleAlert } from 'lucide-react';
 import type { ReactNode } from 'react';
 import {
@@ -8,6 +10,7 @@ import {
   CardTitle,
   Skeleton,
 } from '@/frontend/shared/components/atoms';
+import { useUiTranslations } from '@/frontend/shared/hooks';
 
 export interface StatePanelProps {
   title: string;
@@ -20,6 +23,7 @@ export function EmptyStatePanel({ title, description, action }: StatePanelProps)
     <Card>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
+
         <CardDescription>{description}</CardDescription>
       </CardHeader>
 
@@ -44,10 +48,12 @@ export function ErrorStatePanel({ title, description, action }: StatePanelProps)
   );
 }
 
-export function LoadingPanel({ label = 'Loading your study space…' }: { label?: string }) {
+export function LoadingPanel({ label }: { label?: string }) {
+  const t = useUiTranslations();
+
   return (
     <div role="status" aria-busy="true" className="space-y-6">
-      <span className="sr-only">{label}</span>
+      <span className="sr-only">{label ?? t('SHARED:STATE_PANELS.WORKSPACE.LOADING_LABEL')}</span>
 
       <div className="space-y-3">
         <Skeleton className="h-8 w-2/3 max-w-sm" />
@@ -59,6 +65,7 @@ export function LoadingPanel({ label = 'Loading your study space…' }: { label?
           <Skeleton className="h-6 w-1/2" />
           <Skeleton className="h-4 w-full" />
         </CardHeader>
+
         <CardContent>
           <Skeleton className="h-24 w-full" />
         </CardContent>

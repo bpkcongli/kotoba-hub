@@ -12,7 +12,7 @@ export function Providers({
   bootstrap?: FrontendBootstrapData;
 }) {
   return (
-    <MockProvider>
+    <MockProvider locale={bootstrap?.preferences?.uiLocale}>
       <FrontendContainerProvider bootstrap={bootstrap}>{children}</FrontendContainerProvider>
     </MockProvider>
   );

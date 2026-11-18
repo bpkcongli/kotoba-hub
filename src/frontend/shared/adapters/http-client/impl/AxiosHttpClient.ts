@@ -7,11 +7,15 @@ import type {
 } from '@/frontend/shared/adapters/http-client/HttpClient';
 import { ClientException } from '@/frontend/shared/exceptions';
 import type { FrontendContainerOptions } from '@/frontend/shared/interfaces';
+import type { Locale } from '@/shared/locale';
 
 export class AxiosHttpClient implements HttpClient {
   private readonly client: AxiosInstance;
 
-  constructor(options: Pick<FrontendContainerOptions, 'apiBasePath' | 'requestTimeoutMs'>) {
+  constructor(
+    options: Pick<FrontendContainerOptions, 'apiBasePath' | 'requestTimeoutMs'>,
+    private readonly getUiLocale: () => Locale = () => 'en',
+  ) {
     if (!Number.isFinite(options.requestTimeoutMs) || options.requestTimeoutMs <= 0) {
       throw new ClientException('unexpected', 'Request configuration is invalid.');
     }
@@ -35,7 +39,7 @@ export class AxiosHttpClient implements HttpClient {
         method: request.method,
         params: request.query,
         data: request.body,
-        headers: request.headers,
+        headers: { ...request.headers, 'X-UI-Locale': this.getUiLocale() },
         signal: request.signal,
       });
 

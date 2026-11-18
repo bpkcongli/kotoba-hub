@@ -16,6 +16,8 @@ export interface ILocaleStore {
 
   setContentLocale(locale: Locale): Promise<void>;
 
+  setUiLocale(locale: Locale, authenticated: boolean): Promise<void>;
+
   reset(): void;
 
   dispose(): void;

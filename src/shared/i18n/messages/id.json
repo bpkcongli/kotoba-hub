@@ -1,0 +1,1340 @@
+{
+  "AUTH": {
+    "LOGIN_SCREEN": {
+      "GOOGLE_SIGN_IN_BUTTON": {
+        "HELP_TEXT": "Kamu akan diarahkan ke Google untuk memilih akun, lalu kembali ke sini.",
+        "LABEL": "Lanjutkan dengan Google"
+      },
+      "PAGE": {
+        "DESCRIPTION": "Gunakan akun Google untuk menyimpan profil dan progres belajarmu. Jika ini kunjungan pertamamu, selanjutnya kamu akan memilih preferensi belajar.",
+        "TITLE": "Masuk ke KotobaHub"
+      },
+      "SESSION": {
+        "LOADING_LABEL": "Memeriksa sesi…"
+      },
+      "SESSION_ERROR": {
+        "TITLE": "Sesi tidak dapat dimuat"
+      },
+      "SIGN_IN_ERROR": {
+        "DESCRIPTION": "Coba masuk dengan Google lagi.",
+        "TITLE": "Proses masuk belum selesai"
+      },
+      "WORKSPACE": {
+        "REDIRECTING_LABEL": "Membuka ruang belajarmu…"
+      }
+    },
+    "ONBOARDING_WORKSPACE": {
+      "CHECK_SESSION_BUTTON": {
+        "LABEL": "Periksa sesi"
+      },
+      "SESSION_ERROR": {
+        "TITLE": "Sesi tidak dapat diperbarui"
+      }
+    }
+  },
+  "FLASHCARDS": {
+    "ANSWER_FEEDBACK": {
+      "CARD_BUCKET": {
+        "LABEL": "Kotak kartu:"
+      },
+      "CARD_REVIEW_NOTICE": {
+        "DESCRIPTION": "Hasil latihan kartu tersimpan. Kartu ini tidak memperbarui penguasaan keterampilan."
+      },
+      "CORRECT_ANSWER": {
+        "LABEL": "Jawaban benar:"
+      },
+      "EMPTY_READING_LIST": {
+        "LABEL": "Tidak tercantum"
+      },
+      "EXAMPLE_WORDS": {
+        "TITLE": "Contoh kata"
+      },
+      "KUNYOMI": {
+        "LABEL": "Kunyomi"
+      },
+      "MASTERY_UPDATE_NOTICE": {
+        "DESCRIPTION": "Progres keterampilan diperbarui."
+      },
+      "ONYOMI": {
+        "LABEL": "Onyomi"
+      },
+      "SKILL_MASTERY_SCORE": {
+        "LABEL": "Skor penguasaan keterampilan:"
+      }
+    },
+    "BUCKET_OPTIONS": {
+      "LEARNING": {
+        "LABEL": "Dipelajari"
+      },
+      "NEW": {
+        "LABEL": "Baru"
+      },
+      "MASTERED": {
+        "LABEL": "Dikuasai"
+      }
+    },
+    "FLASHCARDS_HUB": {
+      "ANSWER_SCRIPT_SELECT": {
+        "LABEL": "Aksara jawaban"
+      },
+      "CHANGE_MODES_BUTTON": {
+        "LABEL": "Akhiri dan pilih mode"
+      },
+      "CONTENT_LANGUAGE": {
+        "FALLBACK_DESCRIPTION": ". Kartu yang belum memiliki terjemahan bahasa Indonesia menggunakan bahasa Inggris. Bahasa tidak dapat diubah selama sesi ini.",
+        "LABEL": "Bahasa materi:"
+      },
+      "CONTINUE_SESSION_BUTTON": {
+        "LABEL": "Lanjutkan sesi"
+      },
+      "CURRENT_SESSION": {
+        "ANSWERED_DESCRIPTION": "kartu dijawab. Jawaban yang sudah tersimpan tetap tercatat dalam riwayat belajarmu.",
+        "TITLE": "Sesimu saat ini"
+      },
+      "DECK_LIST": {
+        "LOADING_LABEL": "Memuat dek kartu belajar…",
+        "STALE_NOTICE": "Daftar dek di bawah belum diperbarui."
+      },
+      "DECK_LOAD_ERROR": {
+        "TITLE": "Kartu belajar tidak dapat dimuat"
+      },
+      "DECK_OPTION": {
+        "CARD_COUNT_UNIT": "kartu ·"
+      },
+      "DECK_REFRESH_ERROR": {
+        "TITLE": "Dek tidak dapat diperbarui"
+      },
+      "DECK_SELECT": {
+        "LABEL": "Dek"
+      },
+      "DECK_SOURCE": {
+        "CUSTOM_LABEL": "Dekmu",
+        "SYSTEM_LABEL": "Dek bawaan"
+      },
+      "DECK_SUMMARY": {
+        "CARD_COUNT_UNIT": "kartu"
+      },
+      "DECK_TRANSLATION_FALLBACK": {
+        "DESCRIPTION": "Informasi dek ditampilkan dalam bahasa Inggris karena terjemahan bahasa Indonesia belum tersedia."
+      },
+      "EMPTY_DECK": {
+        "DESCRIPTION": "Dek ini belum memiliki kartu. Pilih dek lain untuk berlatih."
+      },
+      "EMPTY_DECK_LIST": {
+        "DESCRIPTION": "Pilih pelajaran dari silabus, atau periksa ketersediaan dek lagi nanti.",
+        "TITLE": "Belum ada dek kartu belajar"
+      },
+      "LOCKED_SCRIPTS": {
+        "DESCRIPTION": "Aksara tidak dapat diubah selama sesi berlangsung. Untuk mengubahnya, akhiri sesi lalu mulai lagi."
+      },
+      "OPEN_SYLLABUS_BUTTON": {
+        "LABEL": "Buka silabus"
+      },
+      "PAGE": {
+        "DESCRIPTION": "Pilih dek, tentukan aksara, lalu berlatih satu kartu setiap kali."
+      },
+      "QUESTION_SCRIPT_SELECT": {
+        "LABEL": "Aksara soal"
+      },
+      "RELOAD_DECKS_BUTTON": {
+        "LABEL": "Muat ulang dek"
+      },
+      "SESSION_ERROR": {
+        "TITLE": "Sesi tidak dapat dimulai"
+      },
+      "SESSION_SETUP": {
+        "TITLE": "Atur sesimu"
+      },
+      "START_SESSION_BUTTON": {
+        "LABEL": "Mulai sesi",
+        "LOADING_LABEL": "Memulai sesi…"
+      },
+      "WORKSPACE": {
+        "LOADING_LABEL": "Memuat kartu belajar…"
+      }
+    },
+    "FLASHCARD_SESSION": {
+      "ANSWER_PROGRESS": {
+        "ARIA_LABEL": "Kartu yang dijawab"
+      },
+      "BACK_TO_DECKS_BUTTON": {
+        "LABEL": "Kembali ke daftar dek"
+      },
+      "CHOOSE_DECK_BUTTON": {
+        "LABEL": "Pilih dek"
+      },
+      "COMPLETED_SESSION_STATE": {
+        "DESCRIPTION": "Semua kartu dalam sesi ini sudah dijawab."
+      },
+      "CORRECT_OPTION": {
+        "LABEL": "Jawaban benar"
+      },
+      "CURRENT_CARD": {
+        "ARIA_LABEL": "Kartu belajar saat ini"
+      },
+      "INCORRECT_OPTION": {
+        "LABEL": "Jawabanmu · salah"
+      },
+      "LOCKED_SCRIPTS": {
+        "LABEL": "Aksara yang digunakan:"
+      },
+      "MEANING_QUESTION": {
+        "DESCRIPTION": "Pilih arti dalam bahasa {language}."
+      },
+      "NEXT_CARD_BUTTON": {
+        "LABEL": "Kartu berikutnya"
+      },
+      "PAGE": {
+        "TITLE": "Sesi kartu belajar"
+      },
+      "SCRIPT_QUESTION": {
+        "DESCRIPTION": "Pilih jawaban dalam {script}."
+      },
+      "TRANSLATION_FALLBACK_NOTICE": {
+        "DESCRIPTION": "Kartu ini menggunakan bahasa Inggris karena terjemahan bahasa Indonesia belum tersedia."
+      },
+      "UNAVAILABLE_SESSION_STATE": {
+        "DESCRIPTION": "Pilih dek dan mulai sesi baru. Jawaban yang sudah tersimpan tetap tercatat dalam riwayat belajarmu."
+      },
+      "UNCONFIRMED_ANSWER_ERROR": {
+        "DESCRIPTION": "Pilihanmu tetap tersimpan. Pilih Coba kirim jawaban lagi untuk mengonfirmasinya tanpa menjawab kartu dua kali."
+      }
+    },
+    "FLASHCARD_SUMMARY": {
+      "CHOOSE_ANOTHER_DECK_BUTTON": {
+        "LABEL": "Pilih dek lain"
+      },
+      "PAGE": {
+        "TITLE": "Ringkasan kartu belajar"
+      },
+      "RESULT_SECTION": {
+        "TITLE": "Hasil sesimu"
+      },
+      "SAVED_REVIEWS_NOTICE": {
+        "DESCRIPTION": "Hasil latihan kartu sudah tersimpan. Kotak kartu dan penguasaan keterampilan dicatat secara terpisah; menyelesaikan sesi ini tidak berarti menyelesaikan pelajaran."
+      },
+      "UNAVAILABLE_SESSION_STATE": {
+        "DESCRIPTION": "Selesaikan sesi untuk melihat hasilnya. Jawaban yang sudah tersimpan tetap tercatat dalam riwayat belajarmu."
+      }
+    }
+  },
+  "ONBOARDING": {
+    "ASSESSMENT_FORM": {
+      "CURRENT_LEVEL_SELECT": {
+        "BEGINNER_OPTION_LABEL": "Baru mulai belajar bahasa Jepang",
+        "LABEL": "Level saat ini",
+        "UNAVAILABLE_MESSAGE": "Level yang tersimpan sudah tidak tersedia. Pilih level yang tersedia atau Baru mulai belajar bahasa Jepang.",
+        "UNAVAILABLE_SUFFIX": "(tidak tersedia)",
+        "VALIDATION_MESSAGE": "Pilih level saat ini yang tersedia atau Baru mulai belajar bahasa Jepang."
+      },
+      "DAILY_GOAL_FIELD": {
+        "LABEL": "Target belajar harian (menit)",
+        "VALIDATION_MESSAGE": "Masukkan jumlah menit berupa bilangan bulat lebih dari nol."
+      },
+      "DRAFT_STATUS": {
+        "DESCRIPTION": "Menyiapkan draf. Profilmu belum disimpan."
+      },
+      "FORM": {
+        "ARIA_LABEL": "Preferensi belajarmu"
+      },
+      "LEARNING_NOTE_FIELD": {
+        "HELP_TEXT": "AI akan menggunakan catatanmu untuk menyarankan keterampilan yang dapat kamu tinjau. Kosongkan untuk melanjutkan tanpa AI. Maksimal 2.000 karakter.",
+        "LABEL": "Apa yang sudah kamu pelajari? (opsional)",
+        "VALIDATION_MESSAGE": "Batasi catatanmu hingga 2.000 karakter."
+      },
+      "PREFERRED_SCRIPT_SELECT": {
+        "HELP_TEXT": "Pilihan ini disimpan sebagai preferensi. Setiap aktivitas dapat menggunakan pengaturan aksaranya sendiri.",
+        "LABEL": "Pilihan aksara",
+        "VALIDATION_MESSAGE": "Pilih preferensi aksara."
+      },
+      "REVIEW_STUDY_PLAN_BUTTON": {
+        "LABEL": "Tinjau rencana belajar",
+        "LOADING_LABEL": "Menyiapkan drafmu…"
+      },
+      "TARGET_LEVEL_SELECT": {
+        "HELP_TEXT": "Hanya level dengan pelajaran yang sudah dipublikasikan yang tersedia.",
+        "LABEL": "Level tujuan",
+        "PLACEHOLDER": "Pilih level tujuan",
+        "VALIDATION_MESSAGE": "Pilih level tujuan yang tersedia."
+      },
+      "WEAK_FOCUS_GROUP": {
+        "LABEL": "Fokus belajar (opsional)",
+        "VALIDATION_MESSAGE": "Setiap fokus belajar harus berisi 1 hingga 100 karakter."
+      }
+    },
+    "ASSESSMENT_REVIEW": {
+      "CONFIRMATION_STATUS": {
+        "DESCRIPTION": "Menyimpan preferensi belajar yang telah kamu konfirmasi…"
+      },
+      "CONFIRM_STUDY_PLAN_BUTTON": {
+        "LABEL": "Konfirmasi rencana belajar",
+        "LOADING_LABEL": "Menyimpan profil…"
+      },
+      "DAILY_GOAL": {
+        "LABEL": "Target harian",
+        "VALUE_LABEL": "{count, number} menit"
+      },
+      "EDIT_ASSESSMENT_BUTTON": {
+        "LABEL": "Ubah asesmen"
+      },
+      "EMPTY_FOCUS_AREAS": {
+        "LABEL": "Belum ada fokus belajar yang dipilih"
+      },
+      "EMPTY_KNOWN_SKILLS": {
+        "DESCRIPTION": "Tidak ada saran keterampilan yang sudah kamu kenal. Kamu dapat mengonfirmasi preferensi yang sudah dipilih."
+      },
+      "FOCUS_AREAS": {
+        "LABEL": "Fokus belajar"
+      },
+      "KNOWN_SKILLS_GROUP": {
+        "HELP_TEXT": "Pertahankan hanya keterampilan yang kamu kenali. Pilihan ini tidak menandai pelajaran sebagai selesai atau meningkatkan penguasaan yang terukur.",
+        "LABEL": "Keterampilan yang sudah kamu kenal"
+      },
+      "KNOWN_SKILL_SOURCE": {
+        "ASSESSMENT_LABEL": "Disarankan dari asesmenmu",
+        "NOTE_LABEL": "Disarankan dari catatanmu"
+      }
+    },
+    "FOCUS_OPTIONS": {
+      "GRAMMAR": {
+        "LABEL": "Tata bahasa"
+      },
+      "LISTENING": {
+        "LABEL": "Menyimak"
+      },
+      "PARTICLES": {
+        "LABEL": "Partikel"
+      },
+      "READING": {
+        "LABEL": "Membaca"
+      },
+      "KANA": {
+        "LABEL": "Kana"
+      },
+      "KANJI": {
+        "LABEL": "Kanji"
+      }
+    },
+    "ONBOARDING_SCREEN": {
+      "ASSESSMENT_ERROR": {
+        "NOTE_RETRY_HINT": "Kamu dapat menghapus catatan opsional dan mencoba lagi tanpa AI."
+      },
+      "ASSESSMENT_STEP": {
+        "LABEL": "Preferensi belajar"
+      },
+      "CATALOG": {
+        "LOADING_LABEL": "Memuat level belajar yang tersedia…"
+      },
+      "CATALOG_ERROR": {
+        "TITLE": "Asesmen tidak dapat dimuat"
+      },
+      "COMPLETED_PROFILE": {
+        "DESCRIPTION": "Lanjutkan ke ruang belajarmu."
+      },
+      "CONFIRMATION_NOTICE": {
+        "TITLE": "Sebelum konfirmasi"
+      },
+      "CONTINUE_ONBOARDING_BUTTON": {
+        "LABEL": "Lanjutkan penyiapan awal"
+      },
+      "CONTINUE_TO_DASHBOARD_BUTTON": {
+        "LABEL": "Lanjutkan ke dasbor",
+        "LOADING_LABEL": "Melanjutkan…"
+      },
+      "DAILY_GOAL_NOTICE": {
+        "DESCRIPTION": "Target harianmu adalah preferensi. Progresmu berubah saat kamu menyelesaikan aktivitas belajar."
+      },
+      "DRAFT_NOTICE": {
+        "DESCRIPTION": "Kamu akan meninjau draf sebelum data disimpan. Catatan opsional dapat menghasilkan saran keterampilan yang sudah kamu kenal untuk kamu pertahankan atau hapus."
+      },
+      "EMPTY_CATALOG": {
+        "DESCRIPTION": "Asesmen memerlukan silabus yang sudah dipublikasikan. Coba lagi setelah pelajaran ditambahkan.",
+        "TITLE": "Belum ada level belajar yang tersedia"
+      },
+      "EXPIRED_SESSION_NOTICE": {
+        "DESCRIPTION": "Sesimu telah berakhir. Masuk lagi untuk melanjutkan."
+      },
+      "PAGE": {
+        "ASSESSMENT_DESCRIPTION": "Ceritakan titik awalmu dan apa yang ingin kamu pelajari.",
+        "ASSESSMENT_TITLE": "Atur rencana belajarmu",
+        "COMPLETED_DESCRIPTION": "Preferensi belajarmu telah dikonfirmasi.",
+        "COMPLETED_TITLE": "Rencana belajarmu tersimpan",
+        "REVIEW_DESCRIPTION": "Periksa preferensi dan keterampilan yang disarankan sebelum menyimpan profilmu.",
+        "REVIEW_TITLE": "Tinjau rencana belajarmu"
+      },
+      "RELOAD_CATALOG_BUTTON": {
+        "LABEL": "Muat ulang level yang tersedia"
+      },
+      "REVIEW_STEP": {
+        "LABEL": "Tinjauan draf"
+      },
+      "SESSION_SYNC": {
+        "ERROR_MESSAGE": "Profilmu tersimpan, tetapi sesimu tidak dapat diperbarui. Coba lanjutkan lagi.",
+        "LOADING_LABEL": "Memperbarui sesimu…"
+      },
+      "STARTING_POINT_SECTION": {
+        "TITLE": "Titik awalmu"
+      },
+      "STARTING_TRACK": {
+        "DESCRIPTION": ". Rekomendasi pelajaran menggunakan preferensi yang telah kamu konfirmasi dan progres yang terukur.",
+        "PREFIX": "Jalur awalmu adalah"
+      },
+      "STEP_LIST": {
+        "ARIA_LABEL": "Langkah penyiapan awal",
+        "ASSESSMENT_LABEL": "1. Preferensi belajar",
+        "REVIEW_LABEL": "2. Tinjau dan konfirmasi"
+      },
+      "STUDY_PLAN_SECTION": {
+        "TITLE": "Tentang rencana belajarmu"
+      }
+    }
+  },
+  "PRACTICE": {
+    "ANSWER_FEEDBACK": {
+      "AI_EVALUATION": {
+        "LABEL": "Umpan balik AI"
+      },
+      "ANSWER_SCORE": {
+        "LABEL": "Nilai"
+      },
+      "INCORRECT_RESULT": {
+        "LABEL": "Belum tepat"
+      },
+      "MASTERY": {
+        "LABEL": "Penguasaan"
+      },
+      "OBJECTIVE_EVALUATION": {
+        "LABEL": "Diperiksa berdasarkan jawaban yang diterima"
+      },
+      "PANEL": {
+        "ARIA_LABEL": "Umpan balik jawaban"
+      },
+      "SAVED_ANSWER_NOTICE": {
+        "DESCRIPTION": "Jawabanmu tersimpan. Tidak ada pembaruan penguasaan silabus yang diterima."
+      },
+      "SKILL": {
+        "LABEL": "Keterampilan"
+      }
+    },
+    "LESSON_POST_STUDY": {
+      "BACK_TO_LESSON_BUTTON": {
+        "LABEL": "Kembali ke pelajaran"
+      },
+      "LESSON_RESULT": {
+        "COMPLETED_DESCRIPTION": "Penyelesaian pelajaranmu sudah tersimpan. Terus ulangi untuk meningkatkan pemahaman.",
+        "TITLE": "Hasil pelajaran",
+        "UNCHANGED_DESCRIPTION": "Pemahaman belum berubah. Ulangi pelajaran lalu coba jawab soalnya lagi."
+      },
+      "LESSON_STATUS": {
+        "COMPLETED_LABEL": "Pelajaran selesai"
+      },
+      "LOAD_CURRENT_QUESTION_BUTTON": {
+        "LABEL": "Muat soal terbaru"
+      },
+      "NEXT_REVIEW_DIFFICULTY": {
+        "LABEL": "Tingkat kesulitan ulasan berikutnya:"
+      },
+      "PAGE": {
+        "DESCRIPTION": "Satu soal untuk mengukur pemahamanmu tentang pelajaran ini.",
+        "QUIZ_TITLE": "Kuis setelah belajar",
+        "REVIEW_TITLE": "Ulasan pelajaran"
+      },
+      "QUESTION": {
+        "LOADING_LABEL": "Memuat soal pelajaran…"
+      },
+      "QUESTION_ERROR": {
+        "TITLE": "Kuis pelajaran belum dapat dimuat"
+      },
+      "REVIEW_AGAIN_BUTTON": {
+        "LABEL": "Ulangi lagi"
+      },
+      "STALE_QUESTION_NOTICE": {
+        "DESCRIPTION": "Soal pelajaranmu sudah tidak sesuai dengan tingkat kesulitan yang aktif. Muat soal terbaru untuk melanjutkan."
+      },
+      "TARGET_UNDERSTANDING": {
+        "LABEL": "Target pemahaman:"
+      },
+      "TRY_ANOTHER_QUESTION_BUTTON": {
+        "LABEL": "Coba soal lain"
+      }
+    },
+    "MASTERY_OPTIONS": {
+      "DEVELOPING": {
+        "LABEL": "Berkembang"
+      },
+      "MASTERED": {
+        "LABEL": "Dikuasai"
+      },
+      "STABLE": {
+        "LABEL": "Stabil"
+      },
+      "WEAK": {
+        "LABEL": "Perlu diulang"
+      }
+    },
+    "PRACTICE_ERROR": {
+      "ANONYMOUS_ACCESS": {
+        "DESCRIPTION": "Masuk untuk melanjutkan latihan."
+      },
+      "ONBOARDING_ACCESS": {
+        "DESCRIPTION": "Selesaikan penyiapan awal untuk melanjutkan latihan."
+      }
+    },
+    "PRACTICE_HUB": {
+      "ACTIVE_SESSION": {
+        "TITLE": "Sesi sedang berlangsung"
+      },
+      "PAGE": {
+        "DESCRIPTION": "Soal latihan dipilih berdasarkan profil belajar dan progres terbarumu."
+      },
+      "PREVIOUS_SESSION": {
+        "TITLE": "Sesi terakhirmu"
+      },
+      "QUESTION_COUNT_FIELD": {
+        "LABEL": "Jumlah soal",
+        "VALIDATION_MESSAGE": "Pilih 1 hingga 10 soal."
+      },
+      "QUESTION_MIX": {
+        "LABEL": "Komposisi soal:",
+        "REINFORCEMENT_UNIT": "% penguatan ·",
+        "STRETCH_UNIT": "% tantangan",
+        "WEAK_SKILLS_UNIT": "% keterampilan yang perlu dilatih ·"
+      },
+      "RETURN_TO_SESSION_BUTTON": {
+        "LABEL": "Kembali ke sesi"
+      },
+      "SESSION_DIFFICULTY": {
+        "LABEL": "Tingkat kesulitan sesi:"
+      },
+      "SESSION_ERROR": {
+        "TITLE": "Sesi latihanmu belum dapat disiapkan"
+      },
+      "SESSION_SETUP": {
+        "DESCRIPTION": "Soal dapat berupa melengkapi kata, menyusun kalimat, dan menulis dalam bahasa Jepang. Tingkat kesulitan dan komposisi soal ditentukan saat sesimu dibuat.",
+        "TITLE": "Mulai sesi latihan"
+      },
+      "START_PRACTICE_BUTTON": {
+        "LABEL": "Buat latihan",
+        "LOADING_LABEL": "Menyiapkan soal…"
+      }
+    },
+    "PRACTICE_SESSION": {
+      "ANSWER_PROGRESS": {
+        "ARIA_LABEL": "Soal yang dijawab"
+      },
+      "BACK_TO_PRACTICE_BUTTON": {
+        "LABEL": "Kembali ke latihan"
+      },
+      "COMPLETED_SESSION_STATE": {
+        "DESCRIPTION": "Semua soal sudah dijawab."
+      },
+      "NEXT_QUESTION_BUTTON": {
+        "LABEL": "Soal berikutnya"
+      },
+      "PAGE": {
+        "TITLE": "Sesi latihan"
+      },
+      "QUESTION_DIFFICULTY": {
+        "LABEL": "Tingkat kesulitan soal:"
+      },
+      "QUESTION_NUMBER": {
+        "LABEL": "Soal"
+      },
+      "START_PRACTICE_BUTTON": {
+        "LABEL": "Mulai latihan"
+      },
+      "UNAVAILABLE_SESSION_STATE": {
+        "DESCRIPTION": "Mulai sesi latihan baru. Jawaban yang sudah tersimpan tetap tercatat dalam riwayat belajarmu."
+      }
+    },
+    "PRACTICE_SUMMARY": {
+      "ANSWERED_COUNT": {
+        "UNIT_LABEL": "soal dijawab"
+      },
+      "ANSWER_RESULTS": {
+        "TITLE": "Hasilmu"
+      },
+      "COMPLETED_SESSION_STATE": {
+        "TITLE": "Latihan selesai"
+      },
+      "PAGE": {
+        "TITLE": "Ringkasan latihan"
+      },
+      "PRACTICE_AGAIN_BUTTON": {
+        "LABEL": "Berlatih lagi"
+      },
+      "REVIEW_COUNT": {
+        "UNIT_LABEL": "perlu diulang"
+      },
+      "REVIEW_SKILLS": {
+        "DESCRIPTION": "Gunakan silabus untuk mengulang topik berikut sebelum memulai sesi berikutnya.",
+        "TITLE": "Keterampilan yang perlu dilatih lagi"
+      },
+      "REVIEW_SYLLABUS_BUTTON": {
+        "LABEL": "Tinjau silabus"
+      },
+      "SESSION_RESULTS": {
+        "TITLE": "Hasil sesi"
+      },
+      "UNAVAILABLE_SESSION_STATE": {
+        "DESCRIPTION": "Selesaikan sesi latihan untuk melihat hasilnya di sini."
+      }
+    },
+    "QUESTION_PANEL": {
+      "ANSWER_FIELD": {
+        "LABEL": "Jawabanmu"
+      },
+      "ANSWER_LANGUAGE": {
+        "DESCRIPTION": "Jawab dalam bahasa {language}.",
+        "PREFIX": "Jawab dalam bahasa "
+      },
+      "ARRANGED_ANSWER": {
+        "LABEL": "Urutan jawaban"
+      },
+      "ARRANGE_TOKEN": {
+        "TITLE": "Susun kalimat"
+      },
+      "AVAILABLE_TOKENS": {
+        "LABEL": "Token tersedia"
+      },
+      "FREE_RESPONSE": {
+        "HELP_TEXT": "AI memeriksa jawaban bahasa Jepangmu dan memberikan umpan balik.",
+        "TITLE": "Tulis kalimat dalam bahasa Jepang"
+      },
+      "JAPANESE_ANSWER_FIELD": {
+        "LABEL": "Jawaban Jepang yang akan dikirim"
+      },
+      "LESSON_QUESTION": {
+        "ARIA_LABEL": "Soal materi"
+      },
+      "PENDING_ANSWER_NOTICE": {
+        "DESCRIPTION": "Jawabanmu disimpan. Kirim ulang jawaban yang sama untuk memastikan hasilnya."
+      },
+      "PRACTICE_QUESTION": {
+        "ARIA_LABEL": "Soal latihan"
+      },
+      "REMOVE_TOKEN_BUTTON": {
+        "ARIA_LABEL": "Hapus token {number}: {token}",
+        "LABEL": "Hapus token"
+      },
+      "ROMAJI_FIELD": {
+        "HELP_TEXT": "Romaji diubah menjadi kana di bawah. Gunakan huruf besar untuk katakana. Periksa jawaban Jepang sebelum mengirim; kamu dapat mengeditnya dengan papan ketik Jepang.",
+        "LABEL": "Jawaban romaji atau Jepang",
+        "VALIDATION_MESSAGE": "Ubah sisa romaji sebelum mengirim jawaban."
+      },
+      "SHORT_ANSWER": {
+        "TITLE": "Isi kana yang kosong"
+      },
+      "SLOT_FILL": {
+        "TITLE": "Pilih kata yang tepat"
+      },
+      "TOKEN_SELECTION": {
+        "HELP_TEXT": "Pilih token untuk menambahkannya. Pilih token dalam jawaban untuk menghapusnya."
+      },
+      "TRANSLATION_DIRECTION": {
+        "DESCRIPTION": "Terjemahkan dari bahasa {source} ke bahasa {answer}."
+      }
+    }
+  },
+  "PROGRESS": {
+    "ACCESS_ERROR": {
+      "ANONYMOUS_ACCESS": {
+        "DESCRIPTION": "Sesimu telah berakhir. Masuk lagi untuk melanjutkan.",
+        "TITLE": "Masuk untuk melihat progresmu"
+      },
+      "ONBOARDING_ACCESS": {
+        "DESCRIPTION": "Konfirmasi profil belajarmu sebelum melanjutkan.",
+        "TITLE": "Selesaikan penyiapan awal untuk melihat progresmu"
+      },
+      "SIGN_IN_BUTTON": {
+        "LABEL": "Masuk lagi"
+      }
+    },
+    "ANSWER_HISTORY": {
+      "ANSWER_LIST": {
+        "LOADING_LABEL": "Memuat riwayat jawaban…"
+      },
+      "ANSWER_SCORE": {
+        "LABEL": "· Skor jawaban"
+      },
+      "EMPTY_ANSWER_LIST": {
+        "DESCRIPTION": "Jawaban yang tercatat akan muncul di sini setelah aktivitas belajar.",
+        "TITLE": "Belum ada jawaban untuk ditampilkan"
+      }
+    },
+    "HISTORY_PAGINATION": {
+      "CURRENT_PAGE": {
+        "LABEL": "Halaman"
+      },
+      "NEXT_PAGE_BUTTON": {
+        "LABEL": "Berikutnya"
+      },
+      "PREVIOUS_PAGE_BUTTON": {
+        "LABEL": "Sebelumnya"
+      }
+    },
+    "LESSON_UNDERSTANDING": {
+      "COMPLETED_COUNT": {
+        "UNIT_LABEL": "selesai ·"
+      },
+      "EMPTY_SELECTION": {
+        "DESCRIPTION": "Lihat pemahaman setiap pelajaran saat ini dan tingkat kesulitan kuis berikutnya.",
+        "TITLE": "Pilih unit untuk melihat progres pelajaran"
+      },
+      "LESSON_UNDERSTANDING": {
+        "ARIA_LABEL": "Pemahaman {lesson}"
+      },
+      "NEXT_QUIZ_DIFFICULTY": {
+        "LABEL": "tingkat kesulitan:"
+      },
+      "REQUIRED_QUIZ_COUNT": {
+        "UNIT_LABEL": "memerlukan kuis dalam unit ini"
+      },
+      "UNDERSTANDING_SCORE": {
+        "LABEL": "{value} dari 10",
+        "SCALE_LABEL": "dari 10"
+      }
+    },
+    "PROGRESS_DASHBOARD": {
+      "ACTIVITY_TYPE_SELECT": {
+        "ALL_OPTION_LABEL": "Semua aktivitas",
+        "LABEL": "Jenis aktivitas",
+        "LESSON_QUIZ_OPTION_LABEL": "Kuis pelajaran"
+      },
+      "ANSWER_HISTORY_ERROR": {
+        "TITLE": "Riwayat jawaban tidak dapat dimuat"
+      },
+      "ANSWER_HISTORY_SECTION": {
+        "DESCRIPTION": "Skor menggambarkan setiap jawaban. Skor ini terpisah dari penguasaan keterampilanmu saat ini.",
+        "TITLE": "Riwayat jawaban"
+      },
+      "CATALOG_ERROR": {
+        "TITLE": "Katalog pelajaran tidak dapat dimuat"
+      },
+      "CONTINUE_LEARNING_SECTION": {
+        "DESCRIPTION": "Baca pelajaran, lalu jawab kuis wajib setelah belajar untuk menyelesaikannya.",
+        "TITLE": "Lanjutkan belajar"
+      },
+      "EMPTY_ATTEMPTS": {
+        "LABEL": "Belum ada percobaan"
+      },
+      "EMPTY_OVERVIEW": {
+        "DESCRIPTION": "Baca pelajaran dan jawab kuisnya, atau latih keterampilan dalam silabus, untuk mulai mencatat progres.",
+        "TITLE": "Belum ada progres yang tercatat"
+      },
+      "HISTORICAL_TRACK": {
+        "SUFFIX": "(riwayat)"
+      },
+      "LESSON_UNDERSTANDING": {
+        "LOADING_LABEL": "Memuat pemahaman pelajaran…"
+      },
+      "LESSON_UNDERSTANDING_ERROR": {
+        "TITLE": "Pemahaman pelajaran tidak dapat diperbarui"
+      },
+      "LESSON_UNDERSTANDING_SECTION": {
+        "DESCRIPTION": "Pelajaran selesai mulai dari pemahaman level 1. Pilih unit untuk memeriksa status kuisnya saat ini.",
+        "TITLE": "Pemahaman pelajaran"
+      },
+      "OVERVIEW": {
+        "LOADING_LABEL": "Memuat progres belajar…",
+        "REFRESHING_LABEL": "Memperbarui progres…"
+      },
+      "PAGE": {
+        "DASHBOARD_TITLE": "Langkah belajar berikutnya",
+        "DESCRIPTION": "Tinjau penguasaan keterampilan, pemahaman pelajaran, dan aktivitas yang tercatat.",
+        "PROGRESS_TITLE": "Progres belajar"
+      },
+      "RECENT_SESSIONS_ERROR": {
+        "TITLE": "Sesi terbaru tidak dapat dimuat"
+      },
+      "RECENT_SESSIONS_SECTION": {
+        "TITLE": "Sesi terbaru"
+      },
+      "REFRESH_BUTTON": {
+        "LABEL": "Perbarui progres"
+      },
+      "TRACK_SELECT": {
+        "ALL_OPTION_LABEL": "Semua jalur",
+        "LABEL": "Jalur",
+        "SELECTED_HISTORY_OPTION_LABEL": "Jalur yang dipilih (riwayat)"
+      },
+      "UNIT_SELECT": {
+        "PLACEHOLDER": "Pilih unit"
+      },
+      "VIEW_SYLLABUS_BUTTON": {
+        "LABEL": "Lihat silabus"
+      }
+    },
+    "PROGRESS_ERROR": {
+      "PREVIOUS_DATA_NOTICE": {
+        "DESCRIPTION": "Menampilkan data yang dimuat sebelumnya. Bagian ini tidak dapat diperbarui."
+      },
+      "REFRESH_ERROR": {
+        "TITLE": "Progres tidak dapat diperbarui"
+      }
+    },
+    "PROGRESS_OVERVIEW": {
+      "AVERAGE_LESSON_UNDERSTANDING": {
+        "HELP_TEXT": "Pemahaman pelajaran terpisah dari penguasaan keterampilan.",
+        "LABEL": "Rata-rata pemahaman pelajaran"
+      },
+      "AVERAGE_SKILL_MASTERY": {
+        "LABEL": "Rata-rata penguasaan keterampilan"
+      },
+      "COMPLETED_LESSONS": {
+        "HELP_TEXT": "Jawaban benar pada kuis setelah belajar menyelesaikan pelajaran.",
+        "LABEL": "Pelajaran selesai"
+      },
+      "EMPTY_ACTIVITY": {
+        "LABEL": "Belum ada aktivitas"
+      },
+      "LAST_ACTIVITY": {
+        "LABEL": "Aktivitas terakhir:"
+      },
+      "MASTERY_GROUPS": {
+        "DEVELOPING_LABEL": "Berkembang:",
+        "MASTERED_LABEL": "Dikuasai:",
+        "TITLE": "Kelompok penguasaan keterampilan",
+        "WEAK_LABEL": "Perlu dilatih:"
+      },
+      "RECOMMENDED_DIFFICULTY": {
+        "LABEL": "Rekomendasi tingkat kesulitan latihan:"
+      },
+      "REVIEW_FLASHCARDS_BUTTON": {
+        "LABEL": "Ulangi kartu belajar"
+      },
+      "SECTION": {
+        "TITLE": "Hasil belajarmu sejauh ini"
+      },
+      "SKILL_COUNT": {
+        "PREFIX": "Dari",
+        "UNIT_LABEL": "keterampilan yang tercatat"
+      },
+      "TRACKED_LESSON_COUNT": {
+        "UNIT_LABEL": "tercatat"
+      }
+    },
+    "RECENT_SESSIONS": {
+      "AVERAGE_ANSWER_SCORE": {
+        "LABEL": "Rata-rata skor jawaban:"
+      },
+      "EMPTY_QUIZ_ATTEMPTS": {
+        "LABEL": "Belum ada percobaan kuis"
+      },
+      "EMPTY_SESSION_LIST": {
+        "DESCRIPTION": "Aktivitas belajar yang berkontribusi pada progres silabusmu akan muncul di sini.",
+        "TITLE": "Belum ada sesi untuk ditampilkan"
+      },
+      "INCORRECT_COUNT": {
+        "UNIT_LABEL": "salah ·"
+      },
+      "INTERACTION_COUNT": {
+        "UNIT_LABEL": "interaksi"
+      },
+      "REQUIRED_QUIZ": {
+        "LABEL": "Kuis wajib"
+      },
+      "REVIEW_QUIZ": {
+        "LABEL": "Ulangi kuis"
+      },
+      "REVIEW_UNIT_BUTTON": {
+        "LABEL": "Ulangi unit"
+      },
+      "SESSION_LIST": {
+        "LOADING_LABEL": "Memuat sesi terbaru…"
+      }
+    },
+    "SESSION_STATUS": {
+      "ENDED": {
+        "LABEL": "Berakhir"
+      },
+      "IN_PROGRESS": {
+        "LABEL": "Sedang berlangsung"
+      },
+      "READY": {
+        "LABEL": "Siap"
+      },
+      "UNKNOWN": {
+        "LABEL": "Status tidak tersedia"
+      }
+    },
+    "WEAK_SKILLS": {
+      "CONTINUE_PRACTICE_NOTICE": {
+        "DESCRIPTION": "Latihan menambah bukti penguasaan keterampilanmu. Baca kembali materi saat kamu perlu mengulang.",
+        "TITLE": "Terus berlatih"
+      },
+      "SECTION": {
+        "DESCRIPTION": "{count, number} keterampilan yang tercatat perlu dilatih lagi. Sesi latihan berikutnya menggunakan progres terbarumu.",
+        "TITLE": "Keterampilan yang perlu dilatih"
+      }
+    }
+  },
+  "SHARED": {
+    "ANSWER_ACTIONS": {
+      "CHECK_ANSWER_BUTTON": {
+        "LABEL": "Periksa jawaban",
+        "LOADING_LABEL": "Memeriksa jawaban…"
+      },
+      "RETRY_ANSWER_BUTTON": {
+        "LABEL": "Coba kirim jawaban lagi"
+      }
+    },
+    "ANSWER_INPUT": {
+      "ANSWER_OPTIONS": {
+        "ARIA_LABEL": "Pilihan jawaban"
+      }
+    },
+    "ANSWER_STATUS": {
+      "CORRECT": {
+        "COUNT_UNIT_LABEL": "benar ·",
+        "LABEL": "Benar"
+      },
+      "INCORRECT": {
+        "LABEL": "Salah"
+      },
+      "UNCONFIRMED_ANSWER": {
+        "TITLE": "Jawabanmu belum dapat dikonfirmasi"
+      }
+    },
+    "APP_FOOTER": {
+      "PRODUCT_DESCRIPTION": {
+        "LABEL": "Ruang belajar bahasa Jepangmu, selangkah demi selangkah."
+      }
+    },
+    "APP_NAVIGATION": {
+      "DASHBOARD_LINK": {
+        "LABEL": "Dasbor"
+      },
+      "FLASHCARDS_LINK": {
+        "LABEL": "Kartu belajar"
+      },
+      "MOBILE_NAVIGATION": {
+        "ARIA_LABEL": "Navigasi seluler"
+      },
+      "ONBOARDING_LINK": {
+        "LABEL": "Profil belajarmu"
+      },
+      "PRACTICE_LINK": {
+        "LABEL": "Latihan"
+      },
+      "PRIMARY_NAVIGATION": {
+        "ARIA_LABEL": "Navigasi utama"
+      },
+      "PROGRESS_LINK": {
+        "LABEL": "Progres"
+      },
+      "SETTINGS_LINK": {
+        "LABEL": "Pengaturan"
+      },
+      "SKIP_TO_CONTENT_LINK": {
+        "LABEL": "Langsung ke konten"
+      },
+      "SYLLABUS_LINK": {
+        "LABEL": "Silabus"
+      },
+      "UNAVAILABLE_LINK": {
+        "BADGE_LABEL": "Segera hadir",
+        "STATUS_LABEL": "Belum tersedia"
+      }
+    },
+    "APP_WORKSPACE": {
+      "ACCOUNT_MENU": {
+        "ARIA_LABEL": "Akunmu",
+        "LABEL": "Akun"
+      },
+      "PAGE": {
+        "TITLE": "Ruang belajarmu"
+      },
+      "SIGN_IN_BUTTON": {
+        "LABEL": "Masuk"
+      },
+      "SIGN_OUT_BUTTON": {
+        "LABEL": "Keluar",
+        "LOADING_LABEL": "Keluar…"
+      }
+    },
+    "CATALOG_ENTITIES": {
+      "LESSON": {
+        "LABEL": "Pelajaran"
+      },
+      "UNIT": {
+        "LABEL": "Unit"
+      }
+    },
+    "CLIENT_ERRORS": {
+      "CANCELLATION_ERROR": {
+        "MESSAGE": "Permintaan dibatalkan."
+      },
+      "CONTRACT_ERROR": {
+        "MESSAGE": "Respons tidak dapat dibaca. Silakan coba lagi."
+      },
+      "NETWORK_ERROR": {
+        "MESSAGE": "Tidak dapat terhubung. Periksa koneksimu dan coba lagi."
+      },
+      "REQUEST_ERROR": {
+        "MESSAGE": "Permintaan tidak dapat diselesaikan. Silakan coba lagi.",
+        "TITLE": "Permintaan tidak dapat diselesaikan"
+      },
+      "TIMEOUT_ERROR": {
+        "MESSAGE": "Waktu permintaan habis. Silakan coba lagi."
+      },
+      "UNKNOWN_ERROR": {
+        "RETRY_MESSAGE": "Permintaan tidak dapat diselesaikan. Silakan coba lagi."
+      }
+    },
+    "DIFFICULTY_OPTIONS": {
+      "FOUNDATION": {
+        "LABEL": "Dasar"
+      },
+      "REVIEW": {
+        "LABEL": "Ulangi"
+      },
+      "STANDARD": {
+        "LABEL": "Standar"
+      },
+      "STRETCH": {
+        "LABEL": "Tantangan"
+      }
+    },
+    "ERROR_DETAILS": {
+      "SUPPORT_REFERENCE": {
+        "LABEL": "Referensi bantuan:"
+      },
+      "TRACE_REFERENCE": {
+        "LABEL": "Referensi:"
+      }
+    },
+    "LANDING_PAGE": {
+      "HERO": {
+        "DESCRIPTION": "Ruang belajar bahasa Jepang yang menggabungkan pelajaran, latihan, dan progres.",
+        "EYEBROW": "Belajar bahasa Jepang dengan lebih tenang",
+        "TITLE": "Langkah kecil. Pemahaman lebih kuat."
+      },
+      "LEARNING_APPROACH_LINK": {
+        "LABEL": "Lihat cara belajar"
+      },
+      "LEARNING_APPROACH_SECTION": {
+        "TITLE": "Panduan untuk setiap langkah"
+      },
+      "PRACTICE_STEP": {
+        "DESCRIPTION": "Ulangi yang telah dipelajari melalui kartu belajar dan soal terarah.",
+        "TITLE": "Praktikkan yang dipelajari"
+      },
+      "PROGRESS_STEP": {
+        "DESCRIPTION": "Gunakan umpan balik untuk menentukan materi yang perlu diulang dan langkah berikutnya.",
+        "TITLE": "Lihat pemahamanmu berkembang"
+      },
+      "SIGN_IN_BUTTON": {
+        "HELP_TEXT": "Pilih preferensi belajar setelah masuk."
+      },
+      "SYLLABUS_STEP": {
+        "DESCRIPTION": "Bangun dasar pengetahuanmu melalui silabus JLPT yang terstruktur.",
+        "TITLE": "Ikuti jalur yang terarah"
+      }
+    },
+    "LANGUAGE_OPTIONS": {
+      "ENGLISH": {
+        "LABEL": "English"
+      },
+      "INDONESIAN": {
+        "LABEL": "Indonesia",
+        "NATIVE_LABEL": "Bahasa Indonesia"
+      },
+      "JAPANESE": {
+        "LABEL": "Jepang"
+      }
+    },
+    "LANGUAGE_SWITCHER": {
+      "INTERFACE_LANGUAGE_SELECT": {
+        "ERROR_MESSAGE": "Bahasa belum dapat disimpan. Silakan coba lagi.",
+        "LABEL": "Bahasa antarmuka"
+      }
+    },
+    "LEARNING_ACTIONS": {
+      "BACK_TO_SYLLABUS_BUTTON": {
+        "LABEL": "Kembali ke silabus"
+      },
+      "REVIEW_LESSON_BUTTON": {
+        "LABEL": "Ulangi pelajaran"
+      },
+      "REVIEW_LESSON_LINK": {
+        "LABEL": "Ulangi pelajaran"
+      },
+      "VIEW_PROGRESS_BUTTON": {
+        "LABEL": "Lihat progres"
+      },
+      "VIEW_SUMMARY_BUTTON": {
+        "LABEL": "Lihat ringkasan"
+      }
+    },
+    "LEARNING_STATUS": {
+      "ANSWERED": {
+        "UNIT_LABEL": "dijawab"
+      },
+      "ANSWER_PROGRESS": {
+        "CONNECTOR": "dari"
+      },
+      "COMPLETED": {
+        "LABEL": "Selesai"
+      },
+      "DIFFICULTY": {
+        "LABEL": "Tingkat kesulitan"
+      },
+      "QUIZ_REQUIRED": {
+        "LABEL": "Kuis diperlukan"
+      },
+      "READING": {
+        "LABEL": "Membaca"
+      },
+      "UNDERSTANDING": {
+        "LABEL": "Pemahaman"
+      }
+    },
+    "MOCK_STARTUP": {
+      "RELOAD_BUTTON": {
+        "LABEL": "Muat ulang halaman"
+      },
+      "STARTUP_ERROR": {
+        "DESCRIPTION": "Periksa konsol browser untuk detailnya, lalu muat ulang untuk mencoba lagi.",
+        "TITLE": "API pengembangan tidak dapat dijalankan"
+      },
+      "WORKSPACE": {
+        "LOADING_LABEL": "Menyiapkan API pengembangan…"
+      }
+    },
+    "NOT_FOUND_PAGE": {
+      "PAGE": {
+        "DESCRIPTION": "Periksa alamat halaman atau kembali ke halaman awal untuk melanjutkan.",
+        "TITLE": "Halaman tidak ditemukan"
+      },
+      "RETURN_HOME_BUTTON": {
+        "LABEL": "Kembali ke halaman awal"
+      }
+    },
+    "PAGE_ERROR": {
+      "LOAD_ERROR": {
+        "DESCRIPTION": "Silakan coba lagi untuk memuat halaman ini.",
+        "TITLE": "Ruang belajarmu tidak dapat dimuat"
+      }
+    },
+    "RECOVERY_ACTIONS": {
+      "RETRY_BUTTON": {
+        "LABEL": "Coba lagi"
+      }
+    },
+    "SCRIPT_OPTIONS": {
+      "ENGLISH": {
+        "LABEL": "Inggris"
+      },
+      "KANA": {
+        "LABEL": "Kana"
+      },
+      "KANJI": {
+        "LABEL": "Kanji"
+      },
+      "MEANING": {
+        "LABEL": "Arti"
+      },
+      "MIXED": {
+        "LABEL": "Campuran aksara"
+      },
+      "ROMAJI": {
+        "LABEL": "Romaji"
+      }
+    },
+    "SESSION_BOOTSTRAP": {
+      "WORKSPACE": {
+        "LOADING_LABEL": "Memuat ruang belajarmu…"
+      }
+    },
+    "SESSION_STATUS": {
+      "COMPLETED": {
+        "LABEL": "Sesi selesai"
+      },
+      "UNAVAILABLE_SESSION": {
+        "TITLE": "Sesi ini tidak tersedia di halaman ini"
+      },
+      "UNAVAILABLE_SUMMARY": {
+        "TITLE": "Belum ada hasil sesi yang tersedia di halaman ini"
+      }
+    },
+    "SITE_METADATA": {
+      "PAGE": {
+        "DESCRIPTION": "Ruang belajar bahasa Jepang yang terstruktur, dengan pelajaran, latihan, dan progres, selangkah demi selangkah.",
+        "TITLE": "Ruang belajar bahasa Jepangmu"
+      },
+      "SITE_NAME": {
+        "LABEL": "KotobaHub"
+      }
+    },
+    "SKILL_TYPES": {
+      "VOCABULARY": {
+        "LABEL": "Kosakata"
+      }
+    },
+    "STATE_PANELS": {
+      "WORKSPACE": {
+        "LOADING_LABEL": "Memuat ruang belajarmu…"
+      }
+    },
+    "VALUE_FORMATTING": {
+      "UNAVAILABLE_VALUE": {
+        "LABEL": "Tidak tersedia"
+      }
+    }
+  },
+  "SYLLABUS": {
+    "CATALOG_SUMMARY": {
+      "LESSON_COUNT": {
+        "LABEL": "{count, number} pelajaran"
+      }
+    },
+    "CONTENT_LANGUAGE": {
+      "LANGUAGE_SELECT": {
+        "LABEL": "Bahasa materi"
+      },
+      "SAVE_ERROR": {
+        "DESCRIPTION": "Bahasa materi belum dapat dipastikan. Silakan coba lagi.",
+        "TITLE": "Permintaan tidak dapat diselesaikan."
+      }
+    },
+    "LESSON_ACTIONS": {
+      "CHECK_UNDERSTANDING_BUTTON": {
+        "LABEL": "Periksa pemahamanmu"
+      },
+      "QUIZ_DIFFICULTY": {
+        "LABEL": "Kuis berikutnya"
+      },
+      "REVIEW_DIFFICULTY": {
+        "LABEL": "Ulasan berikutnya"
+      },
+      "REVIEW_LESSON_BUTTON": {
+        "LABEL": "Ulangi pelajaran ini"
+      },
+      "REVIEW_QUIZ_BUTTON": {
+        "LABEL": "Ulangi kuis pelajaran"
+      },
+      "START_QUIZ_BUTTON": {
+        "LABEL": "Mulai kuis setelah belajar"
+      }
+    },
+    "LESSON_CONTENT": {
+      "EXAMPLE_BLOCK": {
+        "LABEL": "Contoh"
+      },
+      "FORM_COMPARISON": {
+        "POLITE_LABEL": "Bentuk sopan",
+        "STANDARD_LABEL": "Bentuk standar"
+      },
+      "GRAMMAR_STRUCTURE_BLOCK": {
+        "LABEL": "Struktur tata bahasa"
+      },
+      "TRANSLATION_FALLBACK_NOTICE": {
+        "LABEL": "Terjemahan bahasa Inggris ditampilkan"
+      }
+    },
+    "LESSON_OVERVIEW": {
+      "BACK_LINK": {
+        "PREFIX": "← Kembali ke"
+      },
+      "COVERED_SKILLS_SECTION": {
+        "TITLE": "Keterampilan yang dipelajari"
+      },
+      "DURATION": {
+        "LABEL": "Sekitar",
+        "UNIT_LABEL": "menit",
+        "VALUE_LABEL": " · Sekitar {count, number} menit"
+      },
+      "FINISH_READING_BUTTON": {
+        "LABEL": "Selesai membaca"
+      },
+      "NEXT_QUIZ_DIFFICULTY": {
+        "LABEL": ": tingkat kesulitan"
+      },
+      "QUIZ_DETAILS": {
+        "LOADING_LABEL": "Memuat detail kuis…"
+      },
+      "QUIZ_DETAILS_ERROR": {
+        "TITLE": "Detail kuis tidak dapat dimuat"
+      },
+      "QUIZ_REQUIREMENT_NOTICE": {
+        "DESCRIPTION": "Membaca saja belum menyelesaikan pelajaran ini. Jawab kuis wajib setelah belajar dengan benar untuk menyelesaikannya. Setiap percobaan berisi satu soal."
+      },
+      "READING_STATE_NOTICE": {
+        "DESCRIPTION": "Status membaca disimpan di halaman ini. Status penyelesaian yang tercatat hanya diperbarui setelah jawaban kuis benar."
+      },
+      "RELOAD_LESSON_BUTTON": {
+        "LABEL": "Muat ulang pelajaran"
+      },
+      "RELOAD_QUIZ_DETAILS_BUTTON": {
+        "LABEL": "Muat ulang detail kuis"
+      },
+      "TARGET_UNDERSTANDING": {
+        "LABEL": "/10 · Target pemahaman"
+      },
+      "UNAVAILABLE_MATERIAL_STATE": {
+        "DESCRIPTION": "Coba muat ulang pelajaran ini sebelum melanjutkan ke kuis.",
+        "TITLE": "Materi belajar tidak tersedia"
+      }
+    },
+    "SYLLABUS_MAP": {
+      "EMPTY_SYLLABUS": {
+        "DESCRIPTION": "Pelajaran yang dipublikasikan akan muncul di sini setelah materi belajar dan kuisnya siap.",
+        "TITLE": "Belum ada pelajaran yang tersedia"
+      },
+      "PAGE": {
+        "DESCRIPTION": "Baca setiap pelajaran, lalu jawab kuis setelah belajar. Jawaban yang benar menyelesaikan pelajaran dan meningkatkan pemahamanmu hingga level 10.",
+        "EYEBROW": "Jalur belajarmu"
+      },
+      "RELOAD_SYLLABUS_BUTTON": {
+        "LABEL": "Muat ulang silabus"
+      },
+      "STUDY_GUIDANCE": {
+        "DESCRIPTION": "Setiap pelajaran memiliki kuis wajib berisi satu soal. Membaca saja belum menyelesaikan pelajaran.",
+        "QUIZ_HINT": "Buka pelajaran untuk melihat pemahaman yang tercatat dan tingkat kesulitan kuis berikutnya.",
+        "TITLE": "Belajar, lalu periksa pemahamanmu"
+      },
+      "STUDY_LEVEL_SELECT": {
+        "LABEL": "Level belajar"
+      },
+      "VIEW_UNIT_BUTTON": {
+        "LABEL": "Lihat"
+      }
+    },
+    "SYLLABUS_STATE": {
+      "ANONYMOUS_ACCESS": {
+        "TITLE": "Masuk untuk melanjutkan"
+      },
+      "LOAD_ERROR": {
+        "TITLE": "Silabus tidak dapat dimuat"
+      },
+      "ONBOARDING_ACCESS": {
+        "TITLE": "Selesaikan rencana belajarmu"
+      },
+      "UNAVAILABLE_LESSON": {
+        "TITLE": "Pelajaran tidak tersedia"
+      },
+      "UNAVAILABLE_UNIT": {
+        "TITLE": "Unit tidak tersedia"
+      },
+      "WORKSPACE": {
+        "LOADING_LABEL": "Memuat silabus…"
+      }
+    },
+    "UNIT_DETAIL": {
+      "BACK_TO_SYLLABUS_LINK": {
+        "LABEL": "← Kembali ke silabus"
+      },
+      "EMPTY_UNIT": {
+        "DESCRIPTION": "Kembali ke silabus untuk memilih unit lain.",
+        "TITLE": "Belum ada pelajaran yang tersedia di unit ini"
+      },
+      "LESSON_ORDER": {
+        "DESCRIPTION": "· Ikuti urutan di bawah"
+      },
+      "READ_LESSON_BUTTON": {
+        "LABEL": "Baca"
+      }
+    }
+  }
+}

@@ -4,17 +4,22 @@ import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import type { ReactNode } from 'react';
 import './globals.css';
+import { uiTranslator } from '@/shared/i18n';
 import { localeBootstrap } from './locale-bootstrap';
 import { Providers } from './providers';
 
-export const metadata: Metadata = {
-  title: {
-    default: 'KotobaHub — Your Japanese study space',
-    template: '%s | KotobaHub',
-  },
-  description:
-    'A structured Japanese study space with lessons, practice, and progress, one step at a time.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { preferences } = await localeBootstrap((await headers()).get('cookie'));
+  const t = uiTranslator(preferences.uiLocale);
+
+  return {
+    title: {
+      default: `KotobaHub — ${t('SHARED:SITE_METADATA.PAGE.TITLE')}`,
+      template: '%s | KotobaHub',
+    },
+    description: t('SHARED:SITE_METADATA.PAGE.DESCRIPTION'),
+  };
+}
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const bootstrap = await localeBootstrap((await headers()).get('cookie'));

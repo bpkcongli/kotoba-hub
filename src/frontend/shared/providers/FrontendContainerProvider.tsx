@@ -6,6 +6,7 @@ import type { FrontendBootstrapData, FrontendContainerOptions } from '@/frontend
 import { createFrontendContainer, SHARED_TYPES } from '@/frontend/shared/services';
 import type { IAppSessionStore, ILocaleStore } from '@/frontend/shared/services/internal';
 import { FrontendContainerContext } from './frontend-container-context';
+import { UiLocaleProvider } from './UiLocaleProvider';
 
 export interface FrontendContainerProviderProps {
   children: ReactNode;
@@ -54,7 +55,7 @@ export function FrontendContainerProvider({
 
   return (
     <FrontendContainerContext.Provider value={container}>
-      {children}
+      <UiLocaleProvider>{children}</UiLocaleProvider>
     </FrontendContainerContext.Provider>
   );
 }

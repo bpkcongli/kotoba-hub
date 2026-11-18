@@ -1,6 +1,7 @@
 import { BookOpen } from 'lucide-react';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
+import { UiLanguage } from '@/frontend/shared/components/organisms/UiLanguage';
 
 export interface AppHeaderProps {
   title: string;
@@ -18,12 +19,11 @@ export function AppHeader({ title, breadcrumbs, actions, accountMenu }: AppHeade
           <p className="text-h3 font-semibold wrap-break-word">{title}</p>
         </div>
 
-        {(actions || accountMenu) && (
-          <div className="flex flex-wrap items-center gap-3">
-            {actions}
-            {accountMenu}
-          </div>
-        )}
+        <div className="flex flex-wrap items-center gap-3">
+          <UiLanguage />
+          {actions}
+          {accountMenu}
+        </div>
       </div>
     </header>
   );
@@ -40,7 +40,10 @@ export function PublicHeader({ actions }: { actions?: ReactNode }) {
           <span className="text-h3">KotobaHub</span>
         </Link>
 
-        {actions}
+        <div className="flex flex-wrap items-center gap-3">
+          <UiLanguage />
+          {actions}
+        </div>
       </div>
     </header>
   );

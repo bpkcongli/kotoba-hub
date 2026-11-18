@@ -1,4 +1,5 @@
-import { render, screen, within } from '@testing-library/react';
+import { render as rtlRender, screen, within } from '@testing-library/react';
+import type { ReactElement, ReactNode } from 'react';
 import {
   APP_NAVIGATION,
   AppBottomNav,
@@ -10,6 +11,16 @@ import {
 } from '@/frontend/shared/components/layouts';
 import { FrontendContainerProvider } from '@/frontend/shared/providers';
 import { appReadySessionFixture, onboardingSessionFixture } from '@/mocks/fixtures/session';
+
+function render(ui: ReactElement) {
+  const bootstrap = { session: appReadySessionFixture() };
+
+  return rtlRender(ui, {
+    wrapper: ({ children }: { children: ReactNode }) => (
+      <FrontendContainerProvider bootstrap={bootstrap}>{children}</FrontendContainerProvider>
+    ),
+  });
+}
 
 let pathname = '/dashboard';
 const replace = jest.fn();

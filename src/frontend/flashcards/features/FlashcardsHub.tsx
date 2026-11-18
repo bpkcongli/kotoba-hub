@@ -6,8 +6,8 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { FlashcardError } from '@/frontend/flashcards/components/organisms';
 import {
-  CONTENT_LABELS,
-  SCRIPT_LABELS,
+  CONTENT_MESSAGE_KEYS,
+  SCRIPT_MESSAGE_KEYS,
   questionModes,
   answerModes,
 } from '@/frontend/flashcards/helpers';
@@ -15,11 +15,14 @@ import { useFlashcardStore } from '@/frontend/flashcards/hooks';
 import type { ScriptMode } from '@/frontend/flashcards/interfaces/entities';
 import { Button } from '@/frontend/shared/components/atoms';
 import { EmptyStatePanel, LoadingPanel } from '@/frontend/shared/components/organisms';
+import { useUiTranslations } from '@/frontend/shared/hooks';
 
 const selectClass =
   'min-h-11 w-full rounded-md border border-border bg-card px-3 py-2 text-body focus-visible:focus-ring disabled:opacity-50';
 
 export const FlashcardsHub = observer(function FlashcardsHub() {
+  const t = useUiTranslations();
+
   const store = useFlashcardStore();
   const router = useRouter();
 
@@ -38,32 +41,37 @@ export const FlashcardsHub = observer(function FlashcardsHub() {
   return (
     <div className="mx-auto max-w-reading min-w-0 space-y-8 wrap-anywhere">
       <header className="space-y-3">
-        <h1 className="text-h2 font-semibold md:text-h1">Flashcards</h1>
+        <h1 className="text-h2 font-semibold md:text-h1">
+          {t('SHARED:APP_NAVIGATION.FLASHCARDS_LINK.LABEL')}
+        </h1>
 
-        <p className="text-muted-foreground">
-          Choose a deck, set your scripts, and practise one card at a time.
-        </p>
+        <p className="text-muted-foreground">{t('FLASHCARDS:FLASHCARDS_HUB.PAGE.DESCRIPTION')}</p>
       </header>
 
       {store.stage !== 'setup' && store.session ? (
         <section className="space-y-4 rounded-md border bg-card p-5 sm:p-8">
           <h2 className="text-h3 font-semibold">
-            {store.stage === 'completed' ? 'Your session result' : 'Your current session'}
+            {store.stage === 'completed'
+              ? t('FLASHCARDS:FLASHCARD_SUMMARY.RESULT_SECTION.TITLE')
+              : t('FLASHCARDS:FLASHCARDS_HUB.CURRENT_SESSION.TITLE')}
           </h2>
 
           <p lang={store.session.deck.localization?.resolvedLocale}>{store.session.deck.title}</p>
 
           <p className="text-body-sm text-muted-foreground">
-            {store.session.sessionProgress.totalAnswered} of{' '}
-            {store.session.sessionProgress.totalItems} cards answered. Saved answers stay in your
-            learning history.
+            {store.session.sessionProgress.totalAnswered}{' '}
+            {t('SHARED:LEARNING_STATUS.ANSWER_PROGRESS.CONNECTOR')}{' '}
+            {store.session.sessionProgress.totalItems}{' '}
+            {t('FLASHCARDS:FLASHCARDS_HUB.CURRENT_SESSION.ANSWERED_DESCRIPTION')}
           </p>
 
           <div className="flex flex-wrap gap-3">
             <Button asChild>
               <Link
                 href={`/flashcards/sessions/${store.session.id}${store.stage === 'completed' ? '/summary' : ''}`}>
-                {store.stage === 'completed' ? 'View summary' : 'Continue session'}
+                {store.stage === 'completed'
+                  ? t('SHARED:LEARNING_ACTIONS.VIEW_SUMMARY_BUTTON.LABEL')
+                  : t('FLASHCARDS:FLASHCARDS_HUB.CONTINUE_SESSION_BUTTON.LABEL')}
               </Link>
             </Button>
 
@@ -74,7 +82,9 @@ export const FlashcardsHub = observer(function FlashcardsHub() {
                 store.resetSession();
                 void store.loadDecks();
               }}>
-              {store.stage === 'completed' ? 'Choose another deck' : 'End and choose modes'}
+              {store.stage === 'completed'
+                ? t('FLASHCARDS:FLASHCARD_SUMMARY.CHOOSE_ANOTHER_DECK_BUTTON.LABEL')
+                : t('FLASHCARDS:FLASHCARDS_HUB.CHANGE_MODES_BUTTON.LABEL')}
             </Button>
           </div>
         </section>
@@ -83,34 +93,36 @@ export const FlashcardsHub = observer(function FlashcardsHub() {
           <FlashcardError
             title={
               store.errorOperation === 'start'
-                ? 'The session could not start'
+                ? t('FLASHCARDS:FLASHCARDS_HUB.SESSION_ERROR.TITLE')
                 : store.isLoaded
-                  ? 'Decks could not be refreshed'
-                  : 'Flashcards could not load'
+                  ? t('FLASHCARDS:FLASHCARDS_HUB.DECK_REFRESH_ERROR.TITLE')
+                  : t('FLASHCARDS:FLASHCARDS_HUB.DECK_LOAD_ERROR.TITLE')
             }
             retry={() => void (store.errorOperation === 'start' ? start() : store.loadDecks())}
           />
 
           {store.error && store.errorOperation === 'decks' && store.isLoaded && (
             <p className="text-body-sm text-muted-foreground">
-              The deck list below has not been refreshed.
+              {t('FLASHCARDS:FLASHCARDS_HUB.DECK_LIST.STALE_NOTICE')}
             </p>
           )}
 
           {store.isLoading ? (
-            <LoadingPanel label="Loading flashcard decks…" />
+            <LoadingPanel label={t('FLASHCARDS:FLASHCARDS_HUB.DECK_LIST.LOADING_LABEL')} />
           ) : store.isLoaded && !store.decks.length ? (
             <EmptyStatePanel
-              title="No flashcard decks available"
-              description="Choose a lesson from the syllabus, or check for decks again later."
+              title={t('FLASHCARDS:FLASHCARDS_HUB.EMPTY_DECK_LIST.TITLE')}
+              description={t('FLASHCARDS:FLASHCARDS_HUB.EMPTY_DECK_LIST.DESCRIPTION')}
               action={
                 <div className="flex flex-wrap gap-3">
                   <Button asChild>
-                    <Link href="/syllabus">Open syllabus</Link>
+                    <Link href="/syllabus">
+                      {t('FLASHCARDS:FLASHCARDS_HUB.OPEN_SYLLABUS_BUTTON.LABEL')}
+                    </Link>
                   </Button>
 
                   <Button variant="secondary" onClick={() => void store.loadDecks()}>
-                    Reload decks
+                    {t('FLASHCARDS:FLASHCARDS_HUB.RELOAD_DECKS_BUTTON.LABEL')}
                   </Button>
                 </div>
               }
@@ -122,11 +134,13 @@ export const FlashcardsHub = observer(function FlashcardsHub() {
                 void start();
               }}
               className="space-y-6 rounded-md border border-border-subtle bg-card p-5 sm:p-8">
-              <h2 className="text-h3 font-semibold">Set up your session</h2>
+              <h2 className="text-h3 font-semibold">
+                {t('FLASHCARDS:FLASHCARDS_HUB.SESSION_SETUP.TITLE')}
+              </h2>
 
               <div className="space-y-2">
                 <label htmlFor="flashcard-deck" className="font-semibold">
-                  Deck
+                  {t('FLASHCARDS:FLASHCARDS_HUB.DECK_SELECT.LABEL')}
                 </label>
 
                 <select
@@ -137,21 +151,25 @@ export const FlashcardsHub = observer(function FlashcardsHub() {
                   onChange={(event) => store.selectDeck(event.target.value)}>
                   {store.decks.map((item) => (
                     <option key={item.id} value={item.id}>
-                      {item.title} · {item.itemCount} cards
+                      {item.title} · {item.itemCount}{' '}
+                      {t('FLASHCARDS:FLASHCARDS_HUB.DECK_SUMMARY.CARD_COUNT_UNIT')}
                     </option>
                   ))}
                 </select>
 
                 <p className="text-body-sm text-muted-foreground">
-                  {CONTENT_LABELS[deck.contentType]} · {deck.itemCount} cards ·{' '}
-                  {deck.deckSource === 'SYSTEM' ? 'System deck' : 'Your deck'}
+                  {t(CONTENT_MESSAGE_KEYS[deck.contentType])} · {deck.itemCount}{' '}
+                  {t('FLASHCARDS:FLASHCARDS_HUB.DECK_OPTION.CARD_COUNT_UNIT')}{' '}
+                  {deck.deckSource === 'SYSTEM'
+                    ? t('FLASHCARDS:FLASHCARDS_HUB.DECK_SOURCE.SYSTEM_LABEL')
+                    : t('FLASHCARDS:FLASHCARDS_HUB.DECK_SOURCE.CUSTOM_LABEL')}
                 </p>
               </div>
 
               <div className="grid gap-5 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label htmlFor="question-script" className="font-semibold">
-                    Question script
+                    {t('FLASHCARDS:FLASHCARDS_HUB.QUESTION_SCRIPT_SELECT.LABEL')}
                   </label>
 
                   <select
@@ -164,7 +182,7 @@ export const FlashcardsHub = observer(function FlashcardsHub() {
                     }>
                     {questionModes(deck.contentType, !!store.contentLocale).map((mode) => (
                       <option key={mode} value={mode}>
-                        {SCRIPT_LABELS[mode]}
+                        {t(SCRIPT_MESSAGE_KEYS[mode])}
                       </option>
                     ))}
                   </select>
@@ -172,7 +190,7 @@ export const FlashcardsHub = observer(function FlashcardsHub() {
 
                 <div className="space-y-2">
                   <label htmlFor="answer-script" className="font-semibold">
-                    Answer script
+                    {t('FLASHCARDS:FLASHCARDS_HUB.ANSWER_SCRIPT_SELECT.LABEL')}
                   </label>
 
                   <select
@@ -189,7 +207,7 @@ export const FlashcardsHub = observer(function FlashcardsHub() {
                       !!store.contentLocale,
                     ).map((mode) => (
                       <option key={mode} value={mode}>
-                        {SCRIPT_LABELS[mode]}
+                        {t(SCRIPT_MESSAGE_KEYS[mode])}
                       </option>
                     ))}
                   </select>
@@ -198,32 +216,34 @@ export const FlashcardsHub = observer(function FlashcardsHub() {
 
               {deck.localization?.isFallback && (
                 <p role="status">
-                  Deck information is shown in English because an Indonesian translation is
-                  unavailable.
+                  {t('FLASHCARDS:FLASHCARDS_HUB.DECK_TRANSLATION_FALLBACK.DESCRIPTION')}
                 </p>
               )}
 
               {store.contentLocale && (
                 <p className="text-body-sm text-muted-foreground">
-                  Content language: {store.contentLocale === 'id' ? 'Indonesian' : 'English'}. Cards
-                  without an Indonesian translation use English. The language stays locked for this
-                  session.
+                  {t('FLASHCARDS:FLASHCARDS_HUB.CONTENT_LANGUAGE.LABEL')}{' '}
+                  {store.contentLocale === 'id'
+                    ? t('SHARED:LANGUAGE_OPTIONS.INDONESIAN.LABEL')
+                    : t('SHARED:LANGUAGE_OPTIONS.ENGLISH.LABEL')}
+                  {t('FLASHCARDS:FLASHCARDS_HUB.CONTENT_LANGUAGE.FALLBACK_DESCRIPTION')}
                 </p>
               )}
 
               <p className="text-body-sm text-muted-foreground">
-                Scripts stay locked during the session. To change them, end the session and start
-                again.
+                {t('FLASHCARDS:FLASHCARDS_HUB.LOCKED_SCRIPTS.DESCRIPTION')}
               </p>
 
               {deck.itemCount === 0 && (
-                <p role="status">This deck has no cards yet. Choose another deck to practise.</p>
+                <p role="status">{t('FLASHCARDS:FLASHCARDS_HUB.EMPTY_DECK.DESCRIPTION')}</p>
               )}
 
               <Button
                 type="submit"
                 disabled={store.isStarting || deck.itemCount === 0 || !!store.accessIssue}>
-                {store.isStarting ? 'Starting session…' : 'Start session'}
+                {store.isStarting
+                  ? t('FLASHCARDS:FLASHCARDS_HUB.START_SESSION_BUTTON.LOADING_LABEL')
+                  : t('FLASHCARDS:FLASHCARDS_HUB.START_SESSION_BUTTON.LABEL')}
               </Button>
             </form>
           ) : null}

@@ -1,11 +1,17 @@
 'use client';
 
 import { observer } from 'mobx-react-lite';
+import { useLocale } from 'next-intl';
 import { formControlClass, levelLabel, weakFocusOptions } from '@/frontend/onboarding/helpers';
 import { useOnboardingStore } from '@/frontend/onboarding/hooks';
 import { Button } from '@/frontend/shared/components/atoms';
+import { validationMessage } from '@/frontend/shared/helpers/error-message';
+import { useUiTranslations } from '@/frontend/shared/hooks';
 
 export const AssessmentForm = observer(function AssessmentForm() {
+  const t = useUiTranslations();
+  const uiLocale = useLocale() === 'id' ? 'id' : 'en';
+
   const store = useOnboardingStore();
 
   const form = store.formData;
@@ -16,7 +22,7 @@ export const AssessmentForm = observer(function AssessmentForm() {
   const currentLevelError =
     errors.currentLevel ??
     (unavailableCurrentLevel
-      ? 'Your saved current level is no longer available. Choose an available level or New to Japanese.'
+      ? t('ONBOARDING:ASSESSMENT_FORM.CURRENT_LEVEL_SELECT.UNAVAILABLE_MESSAGE')
       : undefined);
 
   return (
@@ -28,11 +34,13 @@ export const AssessmentForm = observer(function AssessmentForm() {
       }}
       className="space-y-6">
       <fieldset disabled={store.isSubmitting} className="space-y-6">
-        <legend className="sr-only">Your learning preferences</legend>
+        <legend className="sr-only">{t('ONBOARDING:ASSESSMENT_FORM.FORM.ARIA_LABEL')}</legend>
+
         <div className="space-y-2">
           <label htmlFor="current-level" className="text-body-sm font-semibold">
-            Current level
+            {t('ONBOARDING:ASSESSMENT_FORM.CURRENT_LEVEL_SELECT.LABEL')}
           </label>
+
           <select
             id="current-level"
             className={formControlClass}
@@ -40,30 +48,36 @@ export const AssessmentForm = observer(function AssessmentForm() {
             onChange={(event) => store.setFormData({ currentLevel: event.target.value })}
             aria-invalid={Boolean(currentLevelError)}
             aria-describedby={currentLevelError ? 'current-level-error' : undefined}>
-            <option value="BEGINNER">New to Japanese</option>
+            <option value="BEGINNER">
+              {t('ONBOARDING:ASSESSMENT_FORM.CURRENT_LEVEL_SELECT.BEGINNER_OPTION_LABEL')}
+            </option>
+
             {unavailableCurrentLevel && (
               <option value={form.currentLevel} disabled>
-                {levelLabel(form.currentLevel)} (unavailable)
+                {levelLabel(form.currentLevel, uiLocale)}{' '}
+                {t('ONBOARDING:ASSESSMENT_FORM.CURRENT_LEVEL_SELECT.UNAVAILABLE_SUFFIX')}
               </option>
             )}
 
             {store.tracks.map((track) => (
               <option key={track.id} value={`JLPT_${track.curriculumLevel}`}>
-                {levelLabel(`JLPT_${track.curriculumLevel}`)}
+                {levelLabel(`JLPT_${track.curriculumLevel}`, uiLocale)}
               </option>
             ))}
           </select>
+
           {currentLevelError && (
             <p id="current-level-error" className="text-body-sm text-destructive">
-              {currentLevelError}
+              {validationMessage(currentLevelError, t)}
             </p>
           )}
         </div>
 
         <div className="space-y-2">
           <label htmlFor="target-level" className="text-body-sm font-semibold">
-            Target level
+            {t('ONBOARDING:ASSESSMENT_FORM.TARGET_LEVEL_SELECT.LABEL')}
           </label>
+
           <select
             id="target-level"
             className={formControlClass}
@@ -71,27 +85,33 @@ export const AssessmentForm = observer(function AssessmentForm() {
             onChange={(event) => store.setFormData({ targetLevel: event.target.value })}
             aria-invalid={Boolean(errors.targetLevel)}
             aria-describedby={`target-level-help${errors.targetLevel ? ' target-level-error' : ''}`}>
-            <option value="">Choose a target</option>
+            <option value="">
+              {t('ONBOARDING:ASSESSMENT_FORM.TARGET_LEVEL_SELECT.PLACEHOLDER')}
+            </option>
+
             {store.tracks.map((track) => (
               <option key={track.id} value={`JLPT_${track.curriculumLevel}`}>
-                {levelLabel(`JLPT_${track.curriculumLevel}`)}
+                {levelLabel(`JLPT_${track.curriculumLevel}`, uiLocale)}
               </option>
             ))}
           </select>
+
           <p id="target-level-help" className="text-body-sm text-muted-foreground">
-            Only levels with published lessons are available.
+            {t('ONBOARDING:ASSESSMENT_FORM.TARGET_LEVEL_SELECT.HELP_TEXT')}
           </p>
+
           {errors.targetLevel && (
             <p id="target-level-error" className="text-body-sm text-destructive">
-              {errors.targetLevel}
+              {validationMessage(errors.targetLevel, t)}
             </p>
           )}
         </div>
 
         <div className="space-y-2">
           <label htmlFor="daily-goal" className="text-body-sm font-semibold">
-            Daily study goal (minutes)
+            {t('ONBOARDING:ASSESSMENT_FORM.DAILY_GOAL_FIELD.LABEL')}
           </label>
+
           <input
             id="daily-goal"
             type="number"
@@ -105,17 +125,19 @@ export const AssessmentForm = observer(function AssessmentForm() {
             aria-invalid={Boolean(errors.dailyGoalMinutes)}
             aria-describedby={errors.dailyGoalMinutes ? 'daily-goal-error' : undefined}
           />
+
           {errors.dailyGoalMinutes && (
             <p id="daily-goal-error" className="text-body-sm text-destructive">
-              {errors.dailyGoalMinutes}
+              {validationMessage(errors.dailyGoalMinutes, t)}
             </p>
           )}
         </div>
 
         <div className="space-y-2">
           <label htmlFor="preferred-script" className="text-body-sm font-semibold">
-            Preferred script
+            {t('ONBOARDING:ASSESSMENT_FORM.PREFERRED_SCRIPT_SELECT.LABEL')}
           </label>
+
           <select
             id="preferred-script"
             className={formControlClass}
@@ -127,22 +149,27 @@ export const AssessmentForm = observer(function AssessmentForm() {
             }
             aria-invalid={Boolean(errors.preferredScript)}
             aria-describedby={`preferred-script-help${errors.preferredScript ? ' preferred-script-error' : ''}`}>
-            <option value="ROMAJI">Romaji</option>
-            <option value="KANA">Kana</option>
-            <option value="MIXED">Mixed scripts</option>
+            <option value="ROMAJI">{t('SHARED:SCRIPT_OPTIONS.ROMAJI.LABEL')}</option>
+            <option value="KANA">{t('SHARED:SCRIPT_OPTIONS.KANA.LABEL')}</option>
+            <option value="MIXED">{t('SHARED:SCRIPT_OPTIONS.MIXED.LABEL')}</option>
           </select>
+
           <p id="preferred-script-help" className="text-body-sm text-muted-foreground">
-            This saves a preference. Activities may use their own script settings.
+            {t('ONBOARDING:ASSESSMENT_FORM.PREFERRED_SCRIPT_SELECT.HELP_TEXT')}
           </p>
+
           {errors.preferredScript && (
             <p id="preferred-script-error" className="text-body-sm text-destructive">
-              {errors.preferredScript}
+              {validationMessage(errors.preferredScript, t)}
             </p>
           )}
         </div>
 
         <fieldset aria-describedby={errors.weakSkillFocuses ? 'weak-focus-error' : undefined}>
-          <legend className="mb-2 text-body-sm font-semibold">Areas to focus on (optional)</legend>
+          <legend className="mb-2 text-body-sm font-semibold">
+            {t('ONBOARDING:ASSESSMENT_FORM.WEAK_FOCUS_GROUP.LABEL')}
+          </legend>
+
           <div className="flex flex-wrap gap-2">
             {weakFocusOptions.map((focus) => (
               <label
@@ -160,22 +187,23 @@ export const AssessmentForm = observer(function AssessmentForm() {
                     })
                   }
                 />
-                {focus.label}
+                {t(focus.label)}
               </label>
             ))}
           </div>
 
           {errors.weakSkillFocuses && (
             <p id="weak-focus-error" className="text-body-sm text-destructive">
-              {errors.weakSkillFocuses}
+              {validationMessage(errors.weakSkillFocuses, t)}
             </p>
           )}
         </fieldset>
 
         <div className="space-y-2">
           <label htmlFor="learning-note" className="text-body-sm font-semibold">
-            What have you studied? (optional)
+            {t('ONBOARDING:ASSESSMENT_FORM.LEARNING_NOTE_FIELD.LABEL')}
           </label>
+
           <textarea
             id="learning-note"
             rows={4}
@@ -186,24 +214,28 @@ export const AssessmentForm = observer(function AssessmentForm() {
             aria-invalid={Boolean(errors.note)}
             aria-describedby={`learning-note-help${errors.note ? ' learning-note-error' : ''}`}
           />
+
           <p id="learning-note-help" className="text-body-sm text-muted-foreground">
-            A note uses AI to suggest skills for your review. Leave it blank to continue without AI.
-            Maximum 2,000 characters.
+            {t('ONBOARDING:ASSESSMENT_FORM.LEARNING_NOTE_FIELD.HELP_TEXT')}
           </p>
+
           {errors.note && (
             <p id="learning-note-error" className="text-body-sm text-destructive">
-              {errors.note}
+              {validationMessage(errors.note, t)}
             </p>
           )}
         </div>
       </fieldset>
 
       <Button type="submit" disabled={store.isSubmitting} className="w-full sm:w-auto">
-        {store.isSubmitting ? 'Preparing your draft…' : 'Review study plan'}
+        {store.isSubmitting
+          ? t('ONBOARDING:ASSESSMENT_FORM.REVIEW_STUDY_PLAN_BUTTON.LOADING_LABEL')
+          : t('ONBOARDING:ASSESSMENT_FORM.REVIEW_STUDY_PLAN_BUTTON.LABEL')}
       </Button>
+
       {store.isSubmitting && (
         <p role="status" className="text-body-sm text-muted-foreground">
-          Preparing a draft. Your profile has not been saved.
+          {t('ONBOARDING:ASSESSMENT_FORM.DRAFT_STATUS.DESCRIPTION')}
         </p>
       )}
     </form>

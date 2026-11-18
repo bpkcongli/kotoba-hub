@@ -4,13 +4,14 @@ import Link from 'next/link';
 import { useEffect } from 'react';
 import { Button } from '@/frontend/shared/components/atoms';
 import { ErrorStatePanel } from '@/frontend/shared/components/organisms';
-import { useAppSessionStore } from '@/frontend/shared/hooks';
+import { errorMessage } from '@/frontend/shared/helpers/error-message';
+import { useAppSessionStore, useUiTranslations } from '@/frontend/shared/hooks';
 import type { StoreError } from '@/frontend/shared/interfaces';
 
 export function ProgressError({
   error,
   retry,
-  title = 'Could not refresh progress',
+  title,
   previousData = false,
 }: {
   error: StoreError;
@@ -18,21 +19,23 @@ export function ProgressError({
   title?: string;
   previousData?: boolean;
 }) {
+  const t = useUiTranslations();
+
   return (
     <div className="space-y-2">
       <ErrorStatePanel
-        title={title}
-        description={error.message}
+        title={title ?? t('PROGRESS:PROGRESS_ERROR.REFRESH_ERROR.TITLE')}
+        description={errorMessage(error, t)}
         action={
           <Button variant="secondary" onClick={retry}>
-            Try again
+            {t('SHARED:RECOVERY_ACTIONS.RETRY_BUTTON.LABEL')}
           </Button>
         }
       />
 
       {previousData && (
         <p className="text-body-sm text-muted-foreground">
-          Showing previously loaded data. This section could not be refreshed.
+          {t('PROGRESS:PROGRESS_ERROR.PREVIOUS_DATA_NOTICE.DESCRIPTION')}
         </p>
       )}
 
@@ -45,13 +48,17 @@ export function ProgressError({
       )}
 
       {error.traceId && (
-        <p className="text-caption text-muted-foreground">Reference: {error.traceId}</p>
+        <p className="text-caption text-muted-foreground">
+          {t('SHARED:ERROR_DETAILS.TRACE_REFERENCE.LABEL')} {error.traceId}
+        </p>
       )}
     </div>
   );
 }
 
 export function ProgressAccessIssue({ issue }: { issue: 'session' | 'onboarding' }) {
+  const t = useUiTranslations();
+
   const session = useAppSessionStore();
 
   useEffect(() => {
@@ -62,18 +69,20 @@ export function ProgressAccessIssue({ issue }: { issue: 'session' | 'onboarding'
     <ErrorStatePanel
       title={
         issue === 'session'
-          ? 'Sign in to view your progress'
-          : 'Finish onboarding to view your progress'
+          ? t('PROGRESS:ACCESS_ERROR.ANONYMOUS_ACCESS.TITLE')
+          : t('PROGRESS:ACCESS_ERROR.ONBOARDING_ACCESS.TITLE')
       }
       description={
         issue === 'session'
-          ? 'Your session has expired. Sign in again to continue.'
-          : 'Confirm your learner profile before continuing.'
+          ? t('PROGRESS:ACCESS_ERROR.ANONYMOUS_ACCESS.DESCRIPTION')
+          : t('PROGRESS:ACCESS_ERROR.ONBOARDING_ACCESS.DESCRIPTION')
       }
       action={
         <Button asChild>
           <Link href={issue === 'session' ? '/login' : '/onboarding'}>
-            {issue === 'session' ? 'Sign in again' : 'Continue onboarding'}
+            {issue === 'session'
+              ? t('PROGRESS:ACCESS_ERROR.SIGN_IN_BUTTON.LABEL')
+              : t('ONBOARDING:ONBOARDING_SCREEN.CONTINUE_ONBOARDING_BUTTON.LABEL')}
           </Link>
         </Button>
       }

@@ -1,15 +1,20 @@
 'use client';
 
 import { observer } from 'mobx-react-lite';
-import { levelLabel, scriptLabel } from '@/frontend/onboarding/helpers';
+import { useLocale } from 'next-intl';
+import { levelLabel, scriptLabel, weakFocusOptions } from '@/frontend/onboarding/helpers';
 import { useOnboardingStore } from '@/frontend/onboarding/hooks';
 import { Button } from '@/frontend/shared/components/atoms';
+import { useUiTranslations } from '@/frontend/shared/hooks';
 
 export const AssessmentReview = observer(function AssessmentReview({
   onConfirm,
 }: {
   onConfirm: () => void;
 }) {
+  const t = useUiTranslations();
+  const uiLocale = useLocale() === 'id' ? 'id' : 'en';
+
   const store = useOnboardingStore();
   if (!store.result) return null;
 
@@ -20,11 +25,34 @@ export const AssessmentReview = observer(function AssessmentReview({
     <div className="space-y-6">
       <dl className="divide-y divide-border-subtle">
         {[
-          ['Current level', levelLabel(profile.currentLevel)],
-          ['Target level', levelLabel(profile.targetLevel)],
-          ['Daily goal', `${profile.dailyGoalMinutes} minutes`],
-          ['Preferred script', scriptLabel(profile.preferredScript)],
-          ['Focus areas', profile.weakSkillFocuses.join(', ') || 'No focus areas selected'],
+          [
+            t('ONBOARDING:ASSESSMENT_FORM.CURRENT_LEVEL_SELECT.LABEL'),
+            levelLabel(profile.currentLevel, uiLocale),
+          ],
+          [
+            t('ONBOARDING:ASSESSMENT_FORM.TARGET_LEVEL_SELECT.LABEL'),
+            levelLabel(profile.targetLevel, uiLocale),
+          ],
+          [
+            t('ONBOARDING:ASSESSMENT_REVIEW.DAILY_GOAL.LABEL'),
+            t('ONBOARDING:ASSESSMENT_REVIEW.DAILY_GOAL.VALUE_LABEL', {
+              count: profile.dailyGoalMinutes,
+            }),
+          ],
+          [
+            t('ONBOARDING:ASSESSMENT_FORM.PREFERRED_SCRIPT_SELECT.LABEL'),
+            scriptLabel(profile.preferredScript, uiLocale),
+          ],
+          [
+            t('ONBOARDING:ASSESSMENT_REVIEW.FOCUS_AREAS.LABEL'),
+            profile.weakSkillFocuses
+              .map((value) => {
+                const focus = weakFocusOptions.find((focus) => focus.value === value);
+
+                return focus ? t(focus.label) : value;
+              })
+              .join(', ') || t('ONBOARDING:ASSESSMENT_REVIEW.EMPTY_FOCUS_AREAS.LABEL'),
+          ],
         ].map(([label, value]) => (
           <div key={label} className="space-y-1 py-3 first:pt-0">
             <dt className="text-body-sm text-muted-foreground">{label}</dt>
@@ -34,13 +62,16 @@ export const AssessmentReview = observer(function AssessmentReview({
       </dl>
 
       <fieldset disabled={store.isConfirming} className="space-y-2">
-        <legend className="text-body-sm font-semibold">Skills you already know</legend>
+        <legend className="text-body-sm font-semibold">
+          {t('ONBOARDING:ASSESSMENT_REVIEW.KNOWN_SKILLS_GROUP.LABEL')}
+        </legend>
+
         {draft.suggestedKnownSkillClaims.length > 0 ? (
           <>
             <p className="text-body-sm text-muted-foreground">
-              Keep only the skills you recognize. These claims do not mark lessons complete or
-              increase measured mastery.
+              {t('ONBOARDING:ASSESSMENT_REVIEW.KNOWN_SKILLS_GROUP.HELP_TEXT')}
             </p>
+
             {draft.suggestedKnownSkillClaims.map((claim) => (
               <label
                 key={claim.skillCode}
@@ -57,8 +88,8 @@ export const AssessmentReview = observer(function AssessmentReview({
                   <span className="block font-medium">{claim.title}</span>
                   <span className="text-muted-foreground">
                     {claim.source === 'ai_note'
-                      ? 'Suggested from your note'
-                      : 'Suggested from your assessment'}
+                      ? t('ONBOARDING:ASSESSMENT_REVIEW.KNOWN_SKILL_SOURCE.NOTE_LABEL')
+                      : t('ONBOARDING:ASSESSMENT_REVIEW.KNOWN_SKILL_SOURCE.ASSESSMENT_LABEL')}
                   </span>
                 </span>
               </label>
@@ -66,23 +97,25 @@ export const AssessmentReview = observer(function AssessmentReview({
           </>
         ) : (
           <p className="text-body-sm text-muted-foreground">
-            No known skills were suggested. You can confirm your preferences as they are.
+            {t('ONBOARDING:ASSESSMENT_REVIEW.EMPTY_KNOWN_SKILLS.DESCRIPTION')}
           </p>
         )}
       </fieldset>
 
       <div className="flex flex-col gap-3 sm:flex-row-reverse">
         <Button onClick={onConfirm} disabled={store.isConfirming}>
-          {store.isConfirming ? 'Saving profile…' : 'Confirm study plan'}
+          {store.isConfirming
+            ? t('ONBOARDING:ASSESSMENT_REVIEW.CONFIRM_STUDY_PLAN_BUTTON.LOADING_LABEL')
+            : t('ONBOARDING:ASSESSMENT_REVIEW.CONFIRM_STUDY_PLAN_BUTTON.LABEL')}
         </Button>
         <Button variant="secondary" onClick={store.editAssessment} disabled={store.isConfirming}>
-          Edit assessment
+          {t('ONBOARDING:ASSESSMENT_REVIEW.EDIT_ASSESSMENT_BUTTON.LABEL')}
         </Button>
       </div>
 
       {store.isConfirming && (
         <p role="status" className="text-body-sm text-muted-foreground">
-          Saving your confirmed learning preferences…
+          {t('ONBOARDING:ASSESSMENT_REVIEW.CONFIRMATION_STATUS.DESCRIPTION')}
         </p>
       )}
     </div>

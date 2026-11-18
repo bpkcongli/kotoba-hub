@@ -16,8 +16,11 @@ import { setMockSession } from '@/mocks/states/session';
 
 const baseUrl = 'http://localhost:3000/api/v1';
 const mockPush = jest.fn();
+const mockRefresh = jest.fn();
 
-jest.mock('next/navigation', () => ({ useRouter: () => ({ push: mockPush }) }));
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({ push: mockPush, refresh: mockRefresh }),
+}));
 
 function failure(code: number, message: string, httpStatus: number) {
   return HttpResponse.json(
@@ -69,6 +72,7 @@ async function startSession(family: keyof typeof FLASHCARD_DECK_IDS = 'kana') {
 
 beforeEach(() => {
   mockPush.mockReset();
+  mockRefresh.mockReset();
   setMockSession(appReadySessionFixture());
 });
 
@@ -76,7 +80,8 @@ test('shows valid setup modes, then a locked kana session with keyboard-operable
   const { user } = await startSession();
 
   expect(screen.getByText('Scripts locked: Kana → Romaji')).toBeInTheDocument();
-  expect(screen.queryByRole('combobox')).not.toBeInTheDocument();
+  expect(screen.queryByRole('combobox', { name: 'Question script' })).not.toBeInTheDocument();
+  expect(screen.queryByRole('combobox', { name: 'Answer script' })).not.toBeInTheDocument();
   expect(screen.getByRole('heading', { name: 'あ' })).toHaveAttribute('lang', 'ja');
   expect(screen.getByRole('heading', { name: 'あ' })).toHaveFocus();
 
@@ -309,4 +314,55 @@ test('direct session and summary visits show a recovery path when no session is 
     'href',
     '/flashcards',
   );
+});
+
+test('UI language changes preserve the locked answer payload and session across retry', async () => {
+  const { user, sessionId } = await startSession();
+  const requests: { body: unknown; locale: string | null; path: string }[] = [];
+  const capture = async ({ request }: { request: Request }) => {
+    if (
+      request.method === 'POST' &&
+      request.url === `${baseUrl}/flashcards/sessions/${sessionId}/answer`
+    ) {
+      requests.push({
+        body: await request.clone().json(),
+        locale: request.headers.get('X-UI-Locale'),
+        path: request.url,
+      });
+    }
+  };
+
+  server.events.on('request:start', capture);
+
+  try {
+    server.use(
+      http.post(
+        `${baseUrl}/flashcards/sessions/:sessionId/answer`,
+        () => failure(150005999, 'Progress could not be saved.', 500),
+        { once: true },
+      ),
+    );
+
+    await user.click(screen.getByRole('radio', { name: 'a' }));
+    await user.click(screen.getByRole('button', { name: 'Check answer' }));
+    await screen.findByRole('alert');
+    await user.selectOptions(screen.getByRole('combobox', { name: 'Interface language' }), 'id');
+    await screen.findByRole('combobox', { name: 'Bahasa antarmuka' });
+
+    expect(mockRefresh).toHaveBeenCalledTimes(1);
+    expect(screen.getByRole('radio', { name: 'a' })).toBeChecked();
+    expect(screen.getByRole('radio', { name: 'a' })).toBeDisabled();
+    expect(screen.getByRole('heading', { name: 'あ' })).toHaveAttribute('lang', 'ja');
+
+    await user.click(screen.getByRole('button', { name: 'Coba kirim jawaban lagi' }));
+    await screen.findByRole('region', { name: 'Benar' });
+
+    expect(requests).toHaveLength(2);
+    expect(requests[1].path).toBe(requests[0].path);
+    expect(requests[1].body).toEqual(requests[0].body);
+    expect(requests.map((request) => request.locale)).toEqual(['en', 'id']);
+  } finally {
+    server.events.removeListener('request:start', capture);
+    document.cookie = 'kotobahub-ui-locale=; Max-Age=0; Path=/';
+  }
 });

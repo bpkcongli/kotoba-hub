@@ -1,5 +1,5 @@
 export {
-  SOURCE_LABELS,
+  SOURCE_MESSAGE_KEYS,
   difficultyLabel,
   progressNumber,
   progressTime,

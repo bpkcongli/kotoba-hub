@@ -15,6 +15,7 @@ import { useProgressStore, useProgressRefresh } from '@/frontend/progress/hooks'
 import type { ProgressSourceType } from '@/frontend/progress/interfaces/entities';
 import { Button } from '@/frontend/shared/components/atoms';
 import { EmptyStatePanel, LoadingPanel } from '@/frontend/shared/components/organisms';
+import { useLocaleStore, useUiTranslations } from '@/frontend/shared/hooks';
 
 const selectClass =
   'min-h-11 w-full rounded-sm border border-input bg-card px-3 py-2 text-body text-foreground focus-visible:focus-ring';
@@ -24,7 +25,10 @@ export const ProgressDashboard = observer(function ProgressDashboard({
 }: {
   mode?: 'progress' | 'dashboard';
 }) {
+  const t = useUiTranslations();
+
   const store = useProgressStore();
+  const uiLocale = useLocaleStore().preferences.uiLocale;
 
   useProgressRefresh(store);
 
@@ -41,11 +45,13 @@ export const ProgressDashboard = observer(function ProgressDashboard({
       <header className="flex flex-wrap items-start justify-between gap-4">
         <div className="space-y-2">
           <h1 className="text-h2 font-bold tracking-tight md:text-h1">
-            {mode === 'dashboard' ? 'Your next study step' : 'Learning progress'}
+            {mode === 'dashboard'
+              ? t('PROGRESS:PROGRESS_DASHBOARD.PAGE.DASHBOARD_TITLE')
+              : t('PROGRESS:PROGRESS_DASHBOARD.PAGE.PROGRESS_TITLE')}
           </h1>
 
           <p className="text-muted-foreground">
-            Review your skill mastery, lesson understanding, and recorded activity.
+            {t('PROGRESS:PROGRESS_DASHBOARD.PAGE.DESCRIPTION')}
           </p>
         </div>
 
@@ -58,7 +64,7 @@ export const ProgressDashboard = observer(function ProgressDashboard({
             store.lessonsLoading
           }
           onClick={() => void store.refresh()}>
-          Refresh progress
+          {t('PROGRESS:PROGRESS_DASHBOARD.REFRESH_BUTTON.LABEL')}
         </Button>
       </header>
 
@@ -67,18 +73,22 @@ export const ProgressDashboard = observer(function ProgressDashboard({
           className="space-y-3 rounded-md border bg-card p-5 sm:p-8"
           aria-labelledby="next-step-title">
           <h2 id="next-step-title" className="text-h3 font-semibold">
-            Continue learning
+            {t('PROGRESS:PROGRESS_DASHBOARD.CONTINUE_LEARNING_SECTION.TITLE')}
           </h2>
 
-          <p>Read a lesson, then answer its required post-study quiz to complete it.</p>
+          <p>{t('PROGRESS:PROGRESS_DASHBOARD.CONTINUE_LEARNING_SECTION.DESCRIPTION')}</p>
 
           <div className="flex flex-wrap gap-3">
             <Button asChild>
-              <Link href="/syllabus">View syllabus</Link>
+              <Link href="/syllabus">
+                {t('PROGRESS:PROGRESS_DASHBOARD.VIEW_SYLLABUS_BUTTON.LABEL')}
+              </Link>
             </Button>
 
             <Button asChild variant="secondary">
-              <Link href="/progress">View progress</Link>
+              <Link href="/progress">
+                {t('SHARED:LEARNING_ACTIONS.VIEW_PROGRESS_BUTTON.LABEL')}
+              </Link>
             </Button>
           </div>
         </section>
@@ -86,19 +96,25 @@ export const ProgressDashboard = observer(function ProgressDashboard({
 
       <div className="grid items-end gap-4 sm:grid-cols-2">
         <label className="space-y-2 text-body-sm font-medium">
-          <span className="block">Track</span>
+          <span className="block">{t('PROGRESS:PROGRESS_DASHBOARD.TRACK_SELECT.LABEL')}</span>
 
           <select
             className={selectClass}
             value={store.selectedTrackSlug}
             onChange={(event) => void store.selectTrack(event.target.value)}>
-            <option value="">All tracks</option>
+            <option value="">
+              {t('PROGRESS:PROGRESS_DASHBOARD.TRACK_SELECT.ALL_OPTION_LABEL')}
+            </option>
 
             {store.selectedTrackSlug &&
               !store.tracks.some((track) => track.slug === store.selectedTrackSlug) &&
               !store.overview?.trackSummaries.some(
                 (track) => track.trackSlug === store.selectedTrackSlug,
-              ) && <option value={store.selectedTrackSlug}>Selected track (history)</option>}
+              ) && (
+                <option value={store.selectedTrackSlug}>
+                  {t('PROGRESS:PROGRESS_DASHBOARD.TRACK_SELECT.SELECTED_HISTORY_OPTION_LABEL')}
+                </option>
+              )}
 
             {store.tracks.map((track) => (
               <option key={track.slug} value={track.slug}>
@@ -110,14 +126,16 @@ export const ProgressDashboard = observer(function ProgressDashboard({
               .filter((summary) => !store.tracks.some((track) => track.slug === summary.trackSlug))
               .map((summary) => (
                 <option key={summary.trackSlug} value={summary.trackSlug}>
-                  {summary.trackTitle} (history)
+                  {summary.trackTitle} {t('PROGRESS:PROGRESS_DASHBOARD.HISTORICAL_TRACK.SUFFIX')}
                 </option>
               ))}
           </select>
         </label>
 
         <label className="space-y-2 text-body-sm font-medium">
-          <span className="block">Activity type</span>
+          <span className="block">
+            {t('PROGRESS:PROGRESS_DASHBOARD.ACTIVITY_TYPE_SELECT.LABEL')}
+          </span>
 
           <select
             className={selectClass}
@@ -125,10 +143,14 @@ export const ProgressDashboard = observer(function ProgressDashboard({
             onChange={(event) =>
               void store.setSourceType(event.target.value as ProgressSourceType | '')
             }>
-            <option value="">All activities</option>
-            <option value="FLASHCARD">Flashcards</option>
-            <option value="PRACTICE">Practice</option>
-            <option value="LESSON_POST_STUDY">Lesson quiz</option>
+            <option value="">
+              {t('PROGRESS:PROGRESS_DASHBOARD.ACTIVITY_TYPE_SELECT.ALL_OPTION_LABEL')}
+            </option>
+            <option value="FLASHCARD">{t('SHARED:APP_NAVIGATION.FLASHCARDS_LINK.LABEL')}</option>
+            <option value="PRACTICE">{t('SHARED:APP_NAVIGATION.PRACTICE_LINK.LABEL')}</option>
+            <option value="LESSON_POST_STUDY">
+              {t('PROGRESS:PROGRESS_DASHBOARD.ACTIVITY_TYPE_SELECT.LESSON_QUIZ_OPTION_LABEL')}
+            </option>
           </select>
         </label>
       </div>
@@ -144,19 +166,19 @@ export const ProgressDashboard = observer(function ProgressDashboard({
       {store.catalogError && (
         <ProgressError
           previousData={store.tracks.length > 0}
-          title="Could not load the lesson catalog"
+          title={t('PROGRESS:PROGRESS_DASHBOARD.CATALOG_ERROR.TITLE')}
           error={store.catalogError}
           retry={() => void store.refresh()}
         />
       )}
 
       {(store.isLoading || (!store.isLoaded && !store.error)) && !store.overview && (
-        <LoadingPanel label="Loading learning progress…" />
+        <LoadingPanel label={t('PROGRESS:PROGRESS_DASHBOARD.OVERVIEW.LOADING_LABEL')} />
       )}
 
       {store.isLoading && store.overview && (
         <p role="status" className="text-body-sm text-muted-foreground">
-          Refreshing progress…
+          {t('PROGRESS:PROGRESS_DASHBOARD.OVERVIEW.REFRESHING_LABEL')}
         </p>
       )}
 
@@ -164,17 +186,19 @@ export const ProgressDashboard = observer(function ProgressDashboard({
         <>
           {store.overview.trackedSkillsCount === 0 && (
             <EmptyStatePanel
-              title="No tracked progress yet"
-              description="Read a lesson and answer its quiz, or practice a syllabus skill, to begin recording progress."
+              title={t('PROGRESS:PROGRESS_DASHBOARD.EMPTY_OVERVIEW.TITLE')}
+              description={t('PROGRESS:PROGRESS_DASHBOARD.EMPTY_OVERVIEW.DESCRIPTION')}
               action={
                 <Button asChild>
-                  <Link href="/syllabus">View syllabus</Link>
+                  <Link href="/syllabus">
+                    {t('PROGRESS:PROGRESS_DASHBOARD.VIEW_SYLLABUS_BUTTON.LABEL')}
+                  </Link>
                 </Button>
               }
             />
           )}
 
-          <ProgressOverview overview={store.overview} />
+          <ProgressOverview overview={store.overview} locale={uiLocale} />
 
           <WeakSkillAction overview={store.overview} />
         </>
@@ -184,23 +208,22 @@ export const ProgressDashboard = observer(function ProgressDashboard({
         <section aria-labelledby="lesson-understanding-title" className="space-y-5">
           <div className="space-y-2">
             <h2 id="lesson-understanding-title" className="text-h3 font-semibold">
-              Lesson understanding
+              {t('PROGRESS:PROGRESS_DASHBOARD.LESSON_UNDERSTANDING_SECTION.TITLE')}
             </h2>
 
             <p className="text-body-sm text-muted-foreground">
-              Completion starts at understanding level 1. Select a unit to check its current quiz
-              status.
+              {t('PROGRESS:PROGRESS_DASHBOARD.LESSON_UNDERSTANDING_SECTION.DESCRIPTION')}
             </p>
           </div>
 
           <label className="block max-w-lg space-y-2 text-body-sm font-medium">
-            <span className="block">Unit</span>
+            <span className="block">{t('SHARED:CATALOG_ENTITIES.UNIT.LABEL')}</span>
 
             <select
               className={selectClass}
               value={store.selectedUnitSlug}
               onChange={(event) => void store.selectUnit(event.target.value)}>
-              <option value="">Choose a unit</option>
+              <option value="">{t('PROGRESS:PROGRESS_DASHBOARD.UNIT_SELECT.PLACEHOLDER')}</option>
 
               {tracks.map((track) => (
                 <optgroup key={track.slug} label={track.title}>
@@ -217,7 +240,7 @@ export const ProgressDashboard = observer(function ProgressDashboard({
           {store.lessonsError && (
             <ProgressError
               previousData={store.lessonStatuses.length > 0}
-              title="Could not refresh lesson understanding"
+              title={t('PROGRESS:PROGRESS_DASHBOARD.LESSON_UNDERSTANDING_ERROR.TITLE')}
               error={store.lessonsError}
               retry={() => void store.selectUnit(store.selectedUnitSlug)}
             />
@@ -225,7 +248,7 @@ export const ProgressDashboard = observer(function ProgressDashboard({
 
           {store.lessonsLoading && (
             <p role="status" className="text-body-sm text-muted-foreground">
-              Loading lesson understanding…
+              {t('PROGRESS:PROGRESS_DASHBOARD.LESSON_UNDERSTANDING.LOADING_LABEL')}
             </p>
           )}
 
@@ -240,19 +263,20 @@ export const ProgressDashboard = observer(function ProgressDashboard({
       <div className={mode === 'progress' ? 'grid items-start gap-8 lg:grid-cols-2' : 'space-y-8'}>
         <section aria-labelledby="recent-sessions-title" className="space-y-5">
           <h2 id="recent-sessions-title" className="text-h3 font-semibold">
-            Recent sessions
+            {t('PROGRESS:PROGRESS_DASHBOARD.RECENT_SESSIONS_SECTION.TITLE')}
           </h2>
 
           {store.sessionsError && (
             <ProgressError
               previousData={store.sessions.length > 0}
-              title="Could not load recent sessions"
+              title={t('PROGRESS:PROGRESS_DASHBOARD.RECENT_SESSIONS_ERROR.TITLE')}
               error={store.sessionsError}
               retry={() => void store.loadSessions(store.sessionsOffset)}
             />
           )}
 
           <RecentSessions
+            locale={uiLocale}
             failed={!!store.sessionsError}
             items={store.sessions}
             pagination={store.sessionsPagination}
@@ -266,24 +290,25 @@ export const ProgressDashboard = observer(function ProgressDashboard({
           <section aria-labelledby="answer-history-title" className="space-y-5">
             <div className="space-y-2">
               <h2 id="answer-history-title" className="text-h3 font-semibold">
-                Answer history
+                {t('PROGRESS:PROGRESS_DASHBOARD.ANSWER_HISTORY_SECTION.TITLE')}
               </h2>
 
               <p className="text-body-sm text-muted-foreground">
-                Scores describe each answer. They are separate from your current skill mastery.
+                {t('PROGRESS:PROGRESS_DASHBOARD.ANSWER_HISTORY_SECTION.DESCRIPTION')}
               </p>
             </div>
 
             {store.timelineError && (
               <ProgressError
                 previousData={store.timeline.length > 0}
-                title="Could not load answer history"
+                title={t('PROGRESS:PROGRESS_DASHBOARD.ANSWER_HISTORY_ERROR.TITLE')}
                 error={store.timelineError}
                 retry={() => void store.loadTimeline(store.timelineOffset)}
               />
             )}
 
             <AnswerHistory
+              locale={uiLocale}
               failed={!!store.timelineError}
               items={store.timeline}
               pagination={store.timelinePagination}

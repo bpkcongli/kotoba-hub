@@ -221,26 +221,28 @@ test('localized quiz keeps its delivery and identical answer/key when locale cha
 
 test('renders neutral translations, safe HTML and separate Japanese language annotations', () => {
   render(
-    <LessonContent
-      blocks={[
-        {
-          id: crypto.randomUUID(),
-          blockType: 'EXAMPLE_SENTENCE',
-          sortOrder: 1,
-          localization: {
-            requestedLocale: 'id',
-            resolvedLocale: 'id',
-            isFallback: false,
-            contentRevision: 1,
-            translationRevision: 1,
+    <FrontendContainerProvider bootstrap={bootstrap}>
+      <LessonContent
+        blocks={[
+          {
+            id: crypto.randomUUID(),
+            blockType: 'EXAMPLE_SENTENCE',
+            sortOrder: 1,
+            localization: {
+              requestedLocale: 'id',
+              resolvedLocale: 'id',
+              isFallback: false,
+              contentRevision: 1,
+              translationRevision: 1,
+            },
+            content: {
+              japaneseSentence: '<p>こんにちは。</p>',
+              translation: '<p>Selamat siang.<script>alert(1)</script></p>',
+            },
           },
-          content: {
-            japaneseSentence: '<p>こんにちは。</p>',
-            translation: '<p>Selamat siang.<script>alert(1)</script></p>',
-          },
-        },
-      ]}
-    />,
+        ]}
+      />
+    </FrontendContainerProvider>,
   );
 
   expect(screen.getByText('こんにちは。').closest('[lang]')).toHaveAttribute('lang', 'ja');

@@ -1,38 +1,50 @@
+import { createFormatter } from 'next-intl';
 import type { ProgressSourceType } from '@/frontend/progress/interfaces/entities';
+import { uiTranslator, type UiMessageKey } from '@/shared/i18n';
+import type { Locale } from '@/shared/locale';
 
-export const SOURCE_LABELS: Record<ProgressSourceType, string> = {
-  FLASHCARD: 'Flashcards',
-  PRACTICE: 'Practice',
-  LESSON_POST_STUDY: 'Lesson quiz',
+export const SOURCE_MESSAGE_KEYS: Record<ProgressSourceType, UiMessageKey> = {
+  FLASHCARD: 'SHARED:APP_NAVIGATION.FLASHCARDS_LINK.LABEL',
+  PRACTICE: 'SHARED:APP_NAVIGATION.PRACTICE_LINK.LABEL',
+  LESSON_POST_STUDY: 'PROGRESS:PROGRESS_DASHBOARD.ACTIVITY_TYPE_SELECT.LESSON_QUIZ_OPTION_LABEL',
 };
 
-export function difficultyLabel(band: string) {
-  return (
-    ({ REMEDIAL: 'Review', STANDARD: 'Standard', STRETCH: 'Stretch' } as Record<string, string>)[
-      band
-    ] ?? 'Not available'
-  );
-}
+export function difficultyLabel(band: string, locale: Locale = 'en') {
+  const t = uiTranslator(locale);
 
-export function sessionStatusLabel(status: string) {
-  return (
+  return t(
     (
       {
-        GENERATED: 'Ready',
-        ACTIVE: 'In progress',
-        IN_PROGRESS: 'In progress',
-        COMPLETED: 'Completed',
-        ABANDONED: 'Ended',
-        UNKNOWN: 'Status unavailable',
-      } as Record<string, string>
-    )[status] ?? 'Status unavailable'
+        REMEDIAL: 'SHARED:DIFFICULTY_OPTIONS.REVIEW.LABEL',
+        STANDARD: 'SHARED:DIFFICULTY_OPTIONS.STANDARD.LABEL',
+        STRETCH: 'SHARED:DIFFICULTY_OPTIONS.STRETCH.LABEL',
+      } as Record<string, UiMessageKey>
+    )[band] ?? 'SHARED:VALUE_FORMATTING.UNAVAILABLE_VALUE.LABEL',
   );
 }
 
-export function progressTime(value: string | null) {
-  if (!value) return 'Not available';
+export function sessionStatusLabel(status: string, locale: Locale = 'en') {
+  const t = uiTranslator(locale);
 
-  return new Intl.DateTimeFormat('en-US', {
+  return t(
+    (
+      {
+        GENERATED: 'PROGRESS:SESSION_STATUS.READY.LABEL',
+        ACTIVE: 'PROGRESS:SESSION_STATUS.IN_PROGRESS.LABEL',
+        IN_PROGRESS: 'PROGRESS:SESSION_STATUS.IN_PROGRESS.LABEL',
+        COMPLETED: 'SHARED:LEARNING_STATUS.COMPLETED.LABEL',
+        ABANDONED: 'PROGRESS:SESSION_STATUS.ENDED.LABEL',
+        UNKNOWN: 'PROGRESS:SESSION_STATUS.UNKNOWN.LABEL',
+      } as Record<string, UiMessageKey>
+    )[status] ?? 'PROGRESS:SESSION_STATUS.UNKNOWN.LABEL',
+  );
+}
+
+export function progressTime(value: string | null, locale: Locale = 'en') {
+  if (!value || !Number.isFinite(Date.parse(value)))
+    return uiTranslator(locale)('SHARED:VALUE_FORMATTING.UNAVAILABLE_VALUE.LABEL');
+
+  return createFormatter({ locale, timeZone: 'UTC' }).dateTime(new Date(value), {
     month: 'short',
     day: 'numeric',
     year: 'numeric',
@@ -40,9 +52,11 @@ export function progressTime(value: string | null) {
     minute: '2-digit',
     timeZone: 'UTC',
     timeZoneName: 'short',
-  }).format(new Date(value));
+  });
 }
 
-export function progressNumber(value: number) {
-  return new Intl.NumberFormat('en-US', { maximumFractionDigits: 1 }).format(value);
+export function progressNumber(value: number, locale: Locale = 'en') {
+  return createFormatter({ locale }).number(value, {
+    maximumFractionDigits: 1,
+  });
 }

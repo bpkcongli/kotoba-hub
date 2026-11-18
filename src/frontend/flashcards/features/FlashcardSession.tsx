@@ -5,17 +5,20 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import { FlashcardError, FlashcardFeedback } from '@/frontend/flashcards/components/organisms';
-import { isJapanese, SCRIPT_LABELS } from '@/frontend/flashcards/helpers';
+import { isJapanese, SCRIPT_MESSAGE_KEYS } from '@/frontend/flashcards/helpers';
 import { useFlashcardStore } from '@/frontend/flashcards/hooks';
 import { Button, Progress } from '@/frontend/shared/components/atoms';
 import { FocusModeShell } from '@/frontend/shared/components/layouts';
 import { EmptyStatePanel } from '@/frontend/shared/components/organisms';
+import { useUiTranslations } from '@/frontend/shared/hooks';
 
 export const FlashcardSessionScreen = observer(function FlashcardSessionScreen({
   sessionId,
 }: {
   sessionId: string;
 }) {
+  const t = useUiTranslations();
+
   const store = useFlashcardStore();
   const router = useRouter();
 
@@ -39,45 +42,52 @@ export const FlashcardSessionScreen = observer(function FlashcardSessionScreen({
 
   return (
     <FocusModeShell
-      title="Flashcard session"
+      title={t('FLASHCARDS:FLASHCARD_SESSION.PAGE.TITLE')}
       exitAction={
         <Button asChild variant="ghost">
-          <Link href="/flashcards">Back to decks</Link>
+          <Link href="/flashcards">
+            {t('FLASHCARDS:FLASHCARD_SESSION.BACK_TO_DECKS_BUTTON.LABEL')}
+          </Link>
         </Button>
       }
       progress={
         session ? (
           <div className="space-y-3">
             <p className="text-body-sm">
-              {session.sessionProgress.totalAnswered} of {session.sessionProgress.totalItems}{' '}
-              answered
+              {session.sessionProgress.totalAnswered}{' '}
+              {t('SHARED:LEARNING_STATUS.ANSWER_PROGRESS.CONNECTOR')}{' '}
+              {session.sessionProgress.totalItems} {t('SHARED:LEARNING_STATUS.ANSWERED.UNIT_LABEL')}
             </p>
 
             <Progress
               value={session.sessionProgress.totalAnswered}
               max={session.sessionProgress.totalItems}
-              label="Cards answered"
+              label={t('FLASHCARDS:FLASHCARD_SESSION.ANSWER_PROGRESS.ARIA_LABEL')}
             />
           </div>
         ) : undefined
       }>
       {!session || !item ? (
         <EmptyStatePanel
-          title="This session is not open here"
-          description="Choose a deck and start a new session. Any answers already saved remain in your learning history."
+          title={t('SHARED:SESSION_STATUS.UNAVAILABLE_SESSION.TITLE')}
+          description={t('FLASHCARDS:FLASHCARD_SESSION.UNAVAILABLE_SESSION_STATE.DESCRIPTION')}
           action={
             <Button asChild>
-              <Link href="/flashcards">Choose a deck</Link>
+              <Link href="/flashcards">
+                {t('FLASHCARDS:FLASHCARD_SESSION.CHOOSE_DECK_BUTTON.LABEL')}
+              </Link>
             </Button>
           }
         />
       ) : store.stage === 'completed' ? (
         <EmptyStatePanel
-          title="Session complete"
-          description="All cards in this session have been answered."
+          title={t('SHARED:SESSION_STATUS.COMPLETED.LABEL')}
+          description={t('FLASHCARDS:FLASHCARD_SESSION.COMPLETED_SESSION_STATE.DESCRIPTION')}
           action={
             <Button asChild>
-              <Link href={`/flashcards/sessions/${sessionId}/summary`}>View summary</Link>
+              <Link href={`/flashcards/sessions/${sessionId}/summary`}>
+                {t('SHARED:LEARNING_ACTIONS.VIEW_SUMMARY_BUTTON.LABEL')}
+              </Link>
             </Button>
           }
         />
@@ -89,24 +99,33 @@ export const FlashcardSessionScreen = observer(function FlashcardSessionScreen({
             </h1>
 
             <p className="text-body-sm text-muted-foreground">
-              Scripts locked: {SCRIPT_LABELS[session.sessionConfig.questionScriptMode]} →{' '}
-              {SCRIPT_LABELS[session.sessionConfig.answerScriptMode]}
+              {t('FLASHCARDS:FLASHCARD_SESSION.LOCKED_SCRIPTS.LABEL')}{' '}
+              {t(SCRIPT_MESSAGE_KEYS[session.sessionConfig.questionScriptMode])} →{' '}
+              {t(SCRIPT_MESSAGE_KEYS[session.sessionConfig.answerScriptMode])}
             </p>
           </header>
 
           {item.localization?.isFallback && (
             <p role="status">
-              This card uses English because an Indonesian translation is unavailable.
+              {t('FLASHCARDS:FLASHCARD_SESSION.TRANSLATION_FALLBACK_NOTICE.DESCRIPTION')}
             </p>
           )}
 
           <section
-            aria-label="Current flashcard"
+            aria-label={t('FLASHCARDS:FLASHCARD_SESSION.CURRENT_CARD.ARIA_LABEL')}
             className="space-y-6 rounded-md border border-border-subtle bg-card p-5 sm:p-8">
             <p className="text-body-sm text-muted-foreground">
               {session.sessionConfig.answerScriptMode === 'MEANING'
-                ? `Choose the ${item.localization?.resolvedLocale === 'id' ? 'Indonesian' : 'English'} meaning.`
-                : `Choose the ${SCRIPT_LABELS[session.sessionConfig.answerScriptMode]} answer.`}
+                ? t('FLASHCARDS:FLASHCARD_SESSION.MEANING_QUESTION.DESCRIPTION', {
+                    language: t(
+                      item.localization?.resolvedLocale === 'id'
+                        ? 'SHARED:LANGUAGE_OPTIONS.INDONESIAN.LABEL'
+                        : 'SHARED:SCRIPT_OPTIONS.ENGLISH.LABEL',
+                    ),
+                  })
+                : t('FLASHCARDS:FLASHCARD_SESSION.SCRIPT_QUESTION.DESCRIPTION', {
+                    script: t(SCRIPT_MESSAGE_KEYS[session.sessionConfig.answerScriptMode]),
+                  })}
             </p>
 
             <h2
@@ -124,7 +143,9 @@ export const FlashcardSessionScreen = observer(function FlashcardSessionScreen({
               }}
               className="space-y-5">
               <fieldset disabled={store.answerLocked || store.isSubmitting} className="space-y-3">
-                <legend className="sr-only">Answer options</legend>
+                <legend className="sr-only">
+                  {t('SHARED:ANSWER_INPUT.ANSWER_OPTIONS.ARIA_LABEL')}
+                </legend>
 
                 {item.answerOptions.map((option) => {
                   const correct = result?.correctOptionId === option.id;
@@ -154,13 +175,13 @@ export const FlashcardSessionScreen = observer(function FlashcardSessionScreen({
 
                       {correct && (
                         <span className="basis-full pl-7 text-body-sm font-semibold">
-                          Correct answer
+                          {t('FLASHCARDS:FLASHCARD_SESSION.CORRECT_OPTION.LABEL')}
                         </span>
                       )}
 
                       {incorrect && (
                         <span className="basis-full pl-7 text-body-sm font-semibold">
-                          Your answer · incorrect
+                          {t('FLASHCARDS:FLASHCARD_SESSION.INCORRECT_OPTION.LABEL')}
                         </span>
                       )}
                     </label>
@@ -173,10 +194,10 @@ export const FlashcardSessionScreen = observer(function FlashcardSessionScreen({
                   type="submit"
                   disabled={!store.selectedOptionId || store.isSubmitting || !!store.accessIssue}>
                   {store.isSubmitting
-                    ? 'Checking answer…'
+                    ? t('SHARED:ANSWER_ACTIONS.CHECK_ANSWER_BUTTON.LOADING_LABEL')
                     : store.answerLocked
-                      ? 'Retry answer'
-                      : 'Check answer'}
+                      ? t('SHARED:ANSWER_ACTIONS.RETRY_ANSWER_BUTTON.LABEL')
+                      : t('SHARED:ANSWER_ACTIONS.CHECK_ANSWER_BUTTON.LABEL')}
                 </Button>
               )}
             </form>
@@ -184,12 +205,11 @@ export const FlashcardSessionScreen = observer(function FlashcardSessionScreen({
 
           {store.error && (
             <>
-              <FlashcardError title="Your answer could not be confirmed" />
+              <FlashcardError title={t('SHARED:ANSWER_STATUS.UNCONFIRMED_ANSWER.TITLE')} />
 
               {store.answerLocked && !store.accessIssue && (
                 <p className="text-body-sm text-muted-foreground">
-                  Your choice is kept. Use Retry answer to confirm it without answering the card
-                  twice.
+                  {t('FLASHCARDS:FLASHCARD_SESSION.UNCONFIRMED_ANSWER_ERROR.DESCRIPTION')}
                 </p>
               )}
             </>
@@ -200,7 +220,9 @@ export const FlashcardSessionScreen = observer(function FlashcardSessionScreen({
               <FlashcardFeedback ref={feedbackRef} result={result} />
 
               <Button onClick={next}>
-                {result.sessionProgress.isCompleted ? 'View summary' : 'Next card'}
+                {result.sessionProgress.isCompleted
+                  ? t('SHARED:LEARNING_ACTIONS.VIEW_SUMMARY_BUTTON.LABEL')
+                  : t('FLASHCARDS:FLASHCARD_SESSION.NEXT_CARD_BUTTON.LABEL')}
               </Button>
             </>
           )}

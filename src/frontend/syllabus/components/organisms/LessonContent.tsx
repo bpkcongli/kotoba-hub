@@ -1,4 +1,8 @@
+'use client';
+
+import { useLocale } from 'next-intl';
 import sanitizeHtml from 'sanitize-html';
+import { useUiTranslations } from '@/frontend/shared/hooks';
 import type { LessonContentBlock } from '@/frontend/syllabus/interfaces/entities';
 
 export function LessonRichText({
@@ -61,6 +65,9 @@ export function LessonRichText({
 }
 
 export function LessonContent({ blocks }: { blocks: LessonContentBlock[] }) {
+  const t = useUiTranslations();
+  const uiLocale = useLocale();
+
   return (
     <div className="min-w-0 space-y-8 wrap-anywhere">
       {[...blocks]
@@ -71,8 +78,8 @@ export function LessonContent({ blocks }: { blocks: LessonContentBlock[] }) {
             key={block.id}
             className="min-w-0 space-y-3">
             {block.localization?.isFallback && (
-              <p lang="en" className="text-body-sm text-muted-foreground">
-                English translation shown
+              <p lang={uiLocale} className="text-body-sm text-muted-foreground">
+                {t('SYLLABUS:LESSON_CONTENT.TRANSLATION_FALLBACK_NOTICE.LABEL')}
               </p>
             )}
 
@@ -86,7 +93,9 @@ export function LessonContent({ blocks }: { blocks: LessonContentBlock[] }) {
               </>
             ) : block.blockType === 'EXAMPLE_SENTENCE' ? (
               <div className="space-y-3 border-l-4 border-brand-secondary bg-secondary p-5">
-                <h2 className="text-body-sm font-semibold">Example</h2>
+                <h2 lang={uiLocale} className="text-body-sm font-semibold">
+                  {t('SYLLABUS:LESSON_CONTENT.EXAMPLE_BLOCK.LABEL')}
+                </h2>
 
                 <LessonRichText html={block.content.japaneseSentence} japanese />
 
@@ -100,14 +109,18 @@ export function LessonContent({ blocks }: { blocks: LessonContentBlock[] }) {
               </div>
             ) : (
               <>
-                <h2 className="text-h3 font-semibold">Grammar structure</h2>
+                <h2 lang={uiLocale} className="text-h3 font-semibold">
+                  {t('SYLLABUS:LESSON_CONTENT.GRAMMAR_STRUCTURE_BLOCK.LABEL')}
+                </h2>
 
                 {(['ALL', 'STANDARD', 'POLITE'] as const).map((variant) =>
                   block.content[variant] ? (
                     <div key={variant} className="space-y-2">
                       {variant !== 'ALL' && (
-                        <h3 className="text-body-sm font-semibold">
-                          {variant === 'STANDARD' ? 'Standard form' : 'Polite form'}
+                        <h3 lang={uiLocale} className="text-body-sm font-semibold">
+                          {variant === 'STANDARD'
+                            ? t('SYLLABUS:LESSON_CONTENT.FORM_COMPARISON.STANDARD_LABEL')
+                            : t('SYLLABUS:LESSON_CONTENT.FORM_COMPARISON.POLITE_LABEL')}
                         </h3>
                       )}
 

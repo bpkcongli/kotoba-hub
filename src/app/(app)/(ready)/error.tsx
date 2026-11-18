@@ -2,13 +2,16 @@
 
 import { Button } from '@/frontend/shared/components/atoms';
 import { ErrorStatePanel } from '@/frontend/shared/components/organisms';
+import { useUiTranslations } from '@/frontend/shared/hooks';
 
 export default function AppError({ reset }: { reset: () => void }) {
+  const t = useUiTranslations();
+
   return (
     <ErrorStatePanel
-      title="Your study space could not be loaded"
-      description="Please try again to load this page."
-      action={<Button onClick={reset}>Try again</Button>}
+      title={t('SHARED:PAGE_ERROR.LOAD_ERROR.TITLE')}
+      description={t('SHARED:PAGE_ERROR.LOAD_ERROR.DESCRIPTION')}
+      action={<Button onClick={reset}>{t('SHARED:RECOVERY_ACTIONS.RETRY_BUTTON.LABEL')}</Button>}
     />
   );
 }

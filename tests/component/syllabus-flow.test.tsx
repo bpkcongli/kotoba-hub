@@ -14,6 +14,8 @@ import {
 } from '@/mocks/fixtures/syllabus';
 import { server } from '@/mocks/msw.node';
 
+jest.mock('next/navigation', () => ({ useRouter: () => ({ refresh: jest.fn() }) }));
+
 const baseUrl = 'http://localhost:3000/api/v1';
 
 function envelope(data: unknown, code = 120004000) {

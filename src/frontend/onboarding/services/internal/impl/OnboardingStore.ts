@@ -300,12 +300,11 @@ export class OnboardingStore implements IOnboardingStore {
     return assessmentFormDataSchema.extend({
       currentLevel: assessmentFormDataSchema.shape.currentLevel.refine(
         (level) => level === 'BEGINNER' || publishedLevels.has(level),
-        { message: 'Choose an available current level or New to Japanese.' },
+        { message: 'ONBOARDING:ASSESSMENT_FORM.CURRENT_LEVEL_SELECT.VALIDATION_MESSAGE' },
       ),
-
       targetLevel: assessmentFormDataSchema.shape.targetLevel.refine(
         (level) => publishedLevels.has(level),
-        { message: 'Choose an available target level.' },
+        { message: 'ONBOARDING:ASSESSMENT_FORM.TARGET_LEVEL_SELECT.VALIDATION_MESSAGE' },
       ),
     });
   }

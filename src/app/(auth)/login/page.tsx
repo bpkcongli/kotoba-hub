@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { pageMetadata } from '@/app/page-metadata';
 import { RedirectPath } from '@/backend/auth/domain/value-objects/redirect-path';
 import { readAuthOrigin } from '@/backend/auth/infrastructure/config/auth-origin';
 import { getSessionSnapshot } from '@/backend/auth/infrastructure/di';
@@ -8,7 +9,9 @@ import { toSessionResponseDto } from '@/backend/auth/interface/primary/rest/dto/
 import { Login } from '@/frontend/auth/features';
 import { AppSessionBootstrap } from '@/frontend/shared/providers';
 
-export const metadata: Metadata = { title: 'Sign in | KotobaHub' };
+export function generateMetadata(): Promise<Metadata> {
+  return pageMetadata('SHARED:APP_WORKSPACE.SIGN_IN_BUTTON.LABEL');
+}
 
 export default async function LoginPage({
   searchParams,

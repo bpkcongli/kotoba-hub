@@ -2,6 +2,7 @@
 
 import { observer } from 'mobx-react-lite';
 import { useRouter } from 'next/navigation';
+import { useLocale } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 import { AssessmentForm, AssessmentReview } from '@/frontend/onboarding/components/organisms';
 import { levelLabel } from '@/frontend/onboarding/helpers';
@@ -13,9 +14,13 @@ import {
   ErrorStatePanel,
   LoadingPanel,
 } from '@/frontend/shared/components/organisms';
-import { useAppSessionStore } from '@/frontend/shared/hooks';
+import { errorMessage } from '@/frontend/shared/helpers/error-message';
+import { useAppSessionStore, useUiTranslations } from '@/frontend/shared/hooks';
 
 export const OnboardingWizard = observer(function OnboardingWizard() {
+  const t = useUiTranslations();
+  const uiLocale = useLocale() === 'id' ? 'id' : 'en';
+
   const store = useOnboardingStore();
   const session = useAppSessionStore();
   const router = useRouter();
@@ -66,58 +71,66 @@ export const OnboardingWizard = observer(function OnboardingWizard() {
   }
 
   if (store.isLoading || (!store.isLoaded && !store.error))
-    return <LoadingPanel label="Loading available study levels…" />;
+    return <LoadingPanel label={t('ONBOARDING:ONBOARDING_SCREEN.CATALOG.LOADING_LABEL')} />;
 
   if ((!store.isLoaded || store.tracks.length === 0) && store.error)
     return (
       <ErrorStatePanel
-        title="Your assessment could not load"
-        description={store.error.message}
-        action={<Button onClick={() => void store.load()}>Try again</Button>}
+        title={t('ONBOARDING:ONBOARDING_SCREEN.CATALOG_ERROR.TITLE')}
+        description={errorMessage(store.error, t)}
+        action={
+          <Button onClick={() => void store.load()}>
+            {t('SHARED:RECOVERY_ACTIONS.RETRY_BUTTON.LABEL')}
+          </Button>
+        }
       />
     );
 
   if (store.tracks.length === 0)
     return (
       <EmptyStatePanel
-        title="No study levels are available yet"
-        description="Your assessment needs a published syllabus. Try again after lessons have been added."
-        action={<Button onClick={() => void store.load()}>Reload available levels</Button>}
+        title={t('ONBOARDING:ONBOARDING_SCREEN.EMPTY_CATALOG.TITLE')}
+        description={t('ONBOARDING:ONBOARDING_SCREEN.EMPTY_CATALOG.DESCRIPTION')}
+        action={
+          <Button onClick={() => void store.load()}>
+            {t('ONBOARDING:ONBOARDING_SCREEN.RELOAD_CATALOG_BUTTON.LABEL')}
+          </Button>
+        }
       />
     );
 
   return (
     <div className="space-y-8">
       <ol
-        aria-label="Onboarding steps"
+        aria-label={t('ONBOARDING:ONBOARDING_SCREEN.STEP_LIST.ARIA_LABEL')}
         className="flex flex-wrap gap-x-6 gap-y-2 border-b border-border-subtle pb-4 text-body-sm">
         <li
           aria-current={store.step === 'assessment' ? 'step' : undefined}
           className={store.step === 'assessment' ? 'font-semibold' : 'text-muted-foreground'}>
-          1. Learning preferences
+          {t('ONBOARDING:ONBOARDING_SCREEN.STEP_LIST.ASSESSMENT_LABEL')}
         </li>
         <li
           aria-current={store.step === 'review' ? 'step' : undefined}
           className={store.step === 'review' ? 'font-semibold' : 'text-muted-foreground'}>
-          2. Review and confirm
+          {t('ONBOARDING:ONBOARDING_SCREEN.STEP_LIST.REVIEW_LABEL')}
         </li>
       </ol>
 
       <div className="space-y-3">
         <h1 ref={heading} tabIndex={-1} className="text-h2 font-semibold outline-none sm:text-h1">
           {store.step === 'complete'
-            ? 'Your study plan is saved'
+            ? t('ONBOARDING:ONBOARDING_SCREEN.PAGE.COMPLETED_TITLE')
             : store.step === 'review'
-              ? 'Review your study plan'
-              : 'Set up your study plan'}
+              ? t('ONBOARDING:ONBOARDING_SCREEN.PAGE.REVIEW_TITLE')
+              : t('ONBOARDING:ONBOARDING_SCREEN.PAGE.ASSESSMENT_TITLE')}
         </h1>
 
         <p className="text-muted-foreground">
           {store.step === 'complete'
-            ? 'Your learning preferences have been confirmed.'
+            ? t('ONBOARDING:ONBOARDING_SCREEN.PAGE.COMPLETED_DESCRIPTION')
             : store.step === 'review'
-              ? 'Check your preferences and suggested skills before saving your profile.'
-              : 'Tell us where you are starting and what you want to work on.'}
+              ? t('ONBOARDING:ONBOARDING_SCREEN.PAGE.REVIEW_DESCRIPTION')
+              : t('ONBOARDING:ONBOARDING_SCREEN.PAGE.ASSESSMENT_DESCRIPTION')}
         </p>
       </div>
 
@@ -127,39 +140,50 @@ export const OnboardingWizard = observer(function OnboardingWizard() {
           className="space-y-2 rounded-md border border-destructive bg-error-bg p-4 text-body-sm">
           <p>
             {store.sessionExpired
-              ? 'Your session expired. Sign in again to continue.'
-              : store.error.message}
+              ? t('ONBOARDING:ONBOARDING_SCREEN.EXPIRED_SESSION_NOTICE.DESCRIPTION')
+              : errorMessage(store.error, t)}
           </p>
+
           {store.error.fieldErrors
             .filter((detail) => !Object.hasOwn(store.formData, detail.field))
             .map((detail, index) => (
               <p key={`${detail.field}-${index}`}>{detail.message}</p>
             ))}
+
           {store.error.traceId && (
-            <p className="text-caption break-all">Reference: {store.error.traceId}</p>
+            <p className="text-caption break-all">
+              {t('SHARED:ERROR_DETAILS.TRACE_REFERENCE.LABEL')} {store.error.traceId}
+            </p>
           )}
 
           {store.step === 'assessment' && store.formData.note.trim() && (
-            <p>You can remove your optional note and try again without AI.</p>
+            <p>{t('ONBOARDING:ONBOARDING_SCREEN.ASSESSMENT_ERROR.NOTE_RETRY_HINT')}</p>
           )}
         </div>
       )}
 
       <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.65fr)]">
         <section
-          aria-label={store.step === 'review' ? 'Draft review' : 'Learning preferences'}
+          aria-label={
+            store.step === 'review'
+              ? t('ONBOARDING:ONBOARDING_SCREEN.REVIEW_STEP.LABEL')
+              : t('ONBOARDING:ONBOARDING_SCREEN.ASSESSMENT_STEP.LABEL')
+          }
           className="min-w-0">
           {store.step === 'complete' ? (
             <div className="space-y-4" aria-live="polite">
               <p>
                 {syncingSession
-                  ? 'Updating your session…'
+                  ? t('ONBOARDING:ONBOARDING_SCREEN.SESSION_SYNC.LOADING_LABEL')
                   : session.error
-                    ? 'Your profile is saved, but your session could not refresh. Try continuing again.'
-                    : 'Continue to your study workspace.'}
+                    ? t('ONBOARDING:ONBOARDING_SCREEN.SESSION_SYNC.ERROR_MESSAGE')
+                    : t('ONBOARDING:ONBOARDING_SCREEN.COMPLETED_PROFILE.DESCRIPTION')}
               </p>
+
               <Button onClick={() => void continueToDashboard()} disabled={syncingSession}>
-                {syncingSession ? 'Continuing…' : 'Continue to dashboard'}
+                {syncingSession
+                  ? t('ONBOARDING:ONBOARDING_SCREEN.CONTINUE_TO_DASHBOARD_BUTTON.LOADING_LABEL')
+                  : t('ONBOARDING:ONBOARDING_SCREEN.CONTINUE_TO_DASHBOARD_BUTTON.LABEL')}
               </Button>
             </div>
           ) : store.step === 'review' ? (
@@ -170,30 +194,30 @@ export const OnboardingWizard = observer(function OnboardingWizard() {
         </section>
 
         <aside
-          aria-label="About your study plan"
+          aria-label={t('ONBOARDING:ONBOARDING_SCREEN.STUDY_PLAN_SECTION.TITLE')}
           className="min-w-0 space-y-3 self-start rounded-md bg-secondary p-5 text-body-sm">
           <h2 className="font-semibold">
-            {store.result ? 'Your starting point' : 'Before you confirm'}
+            {store.result
+              ? t('ONBOARDING:ONBOARDING_SCREEN.STARTING_POINT_SECTION.TITLE')
+              : t('ONBOARDING:ONBOARDING_SCREEN.CONFIRMATION_NOTICE.TITLE')}
           </h2>
 
           {store.result ? (
             <p className="text-muted-foreground">
-              Your starting track is{' '}
+              {t('ONBOARDING:ONBOARDING_SCREEN.STARTING_TRACK.PREFIX')}{' '}
               {store.tracks.find(
                 (track) => track.slug === store.result?.recommendation.recommendedTrackSlug,
-              )?.title ?? levelLabel(store.result.draftProfile.targetLevel)}
-              . Lesson recommendations use your confirmed preferences and measured progress.
+              )?.title ?? levelLabel(store.result.draftProfile.targetLevel, uiLocale)}
+              {t('ONBOARDING:ONBOARDING_SCREEN.STARTING_TRACK.DESCRIPTION')}
             </p>
           ) : (
             <p className="text-muted-foreground">
-              You will review a draft before anything is saved. An optional note can suggest known
-              skills for you to keep or remove.
+              {t('ONBOARDING:ONBOARDING_SCREEN.DRAFT_NOTICE.DESCRIPTION')}
             </p>
           )}
 
           <p className="text-muted-foreground">
-            Your daily goal is a preference. Your progress changes when you complete learning
-            activities.
+            {t('ONBOARDING:ONBOARDING_SCREEN.DAILY_GOAL_NOTICE.DESCRIPTION')}
           </p>
         </aside>
       </div>

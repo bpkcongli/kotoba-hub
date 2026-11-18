@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { usePracticeStore } from '@/frontend/practice/hooks';
 import { Button } from '@/frontend/shared/components/atoms';
 import { LessonRichText } from '@/frontend/syllabus/components/organisms';
+import { uiTranslator } from '@/shared/i18n';
 
 const fieldClass =
   'min-h-11 w-full rounded-md border border-border-strong bg-background px-3 py-3 font-japanese text-body outline-none focus-visible:focus-ring disabled:opacity-70';
@@ -12,6 +13,7 @@ const fieldClass =
 export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
   const store = usePracticeStore();
   const q = store.currentQuestion;
+
   const promptRef = useRef<HTMLHeadingElement>(null);
   const [composing, setComposing] = useState(false);
 
@@ -34,7 +36,7 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
       ? (store.lessonQuiz?.question.localization?.resolvedLocale ?? 'en')
       : (store.session?.language?.instructionLocale ?? 'en');
 
-  const t = (en: string, id: string) => (locale === 'id' ? id : en);
+  const t = uiTranslator(locale);
 
   const sourceLocale = japanese ? 'ja' : q.promptPayload.promptLanguage === 'ID' ? 'id' : 'en';
   const answerLocale =
@@ -47,29 +49,42 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
       : 'ja';
 
   const title = short
-    ? t('Fill in the missing kana', 'Isi kana yang kosong')
+    ? t('PRACTICE:QUESTION_PANEL.SHORT_ANSWER.TITLE')
     : slot
-      ? t('Choose the missing word', 'Pilih kata yang tepat')
+      ? t('PRACTICE:QUESTION_PANEL.SLOT_FILL.TITLE')
       : arrange
-        ? t('Arrange the sentence', 'Susun kalimat')
-        : t('Write the sentence in Japanese', 'Tulis kalimat dalam bahasa Jepang');
+        ? t('PRACTICE:QUESTION_PANEL.ARRANGE_TOKEN.TITLE')
+        : t('PRACTICE:QUESTION_PANEL.FREE_RESPONSE.TITLE');
 
   return (
     <section
       lang={locale}
       aria-label={
         store.mode === 'lesson'
-          ? t('Lesson question', 'Soal materi')
-          : t('Practice question', 'Soal latihan')
+          ? t('PRACTICE:QUESTION_PANEL.LESSON_QUESTION.ARIA_LABEL')
+          : t('PRACTICE:QUESTION_PANEL.PRACTICE_QUESTION.ARIA_LABEL')
       }
       className="min-w-0 space-y-6 rounded-md border border-border-subtle bg-card p-5 wrap-anywhere sm:p-8">
       <h2 className="text-h3 font-semibold">{title}</h2>
 
       {(arrange || free) && (
         <p className="text-body-sm text-muted-foreground">
-          {locale === 'id'
-            ? `Terjemahkan dari bahasa ${sourceLocale === 'ja' ? 'Jepang' : sourceLocale === 'id' ? 'Indonesia' : 'Inggris'} ke bahasa ${answerLocale === 'ja' ? 'Jepang' : answerLocale === 'id' ? 'Indonesia' : 'Inggris'}.`
-            : `Translate from ${sourceLocale === 'ja' ? 'Japanese' : sourceLocale === 'id' ? 'Indonesian' : 'English'} to ${answerLocale === 'ja' ? 'Japanese' : answerLocale === 'id' ? 'Indonesian' : 'English'}.`}
+          {t('PRACTICE:QUESTION_PANEL.TRANSLATION_DIRECTION.DESCRIPTION', {
+            source: t(
+              sourceLocale === 'ja'
+                ? 'SHARED:LANGUAGE_OPTIONS.JAPANESE.LABEL'
+                : sourceLocale === 'id'
+                  ? 'SHARED:LANGUAGE_OPTIONS.INDONESIAN.LABEL'
+                  : 'SHARED:SCRIPT_OPTIONS.ENGLISH.LABEL',
+            ),
+            answer: t(
+              answerLocale === 'ja'
+                ? 'SHARED:LANGUAGE_OPTIONS.JAPANESE.LABEL'
+                : answerLocale === 'id'
+                  ? 'SHARED:LANGUAGE_OPTIONS.INDONESIAN.LABEL'
+                  : 'SHARED:SCRIPT_OPTIONS.ENGLISH.LABEL',
+            ),
+          })}
         </p>
       )}
 
@@ -93,10 +108,7 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
 
       {free && (
         <p className="text-body-sm text-muted-foreground">
-          {t(
-            'AI checks your Japanese response and provides feedback.',
-            'AI memeriksa jawaban bahasa Jepangmu dan memberikan umpan balik.',
-          )}
+          {t('PRACTICE:QUESTION_PANEL.FREE_RESPONSE.HELP_TEXT')}
         </p>
       )}
 
@@ -108,11 +120,13 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
           if (!composing) void store.submitAnswer();
         }}>
         <fieldset disabled={store.answerLocked || store.isSubmitting} className="min-w-0 space-y-4">
-          <legend className="sr-only">{t('Your answer', 'Jawabanmu')}</legend>
+          <legend className="sr-only">{t('PRACTICE:QUESTION_PANEL.ANSWER_FIELD.LABEL')}</legend>
 
           {slot && (
             <fieldset className="space-y-3">
-              <legend className="sr-only">{t('Answer options', 'Pilihan jawaban')}</legend>
+              <legend className="sr-only">
+                {t('SHARED:ANSWER_INPUT.ANSWER_OPTIONS.ARIA_LABEL')}
+              </legend>
 
               {q.promptPayload.options.map((option) => (
                 <label
@@ -139,18 +153,22 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
             <div className="space-y-5">
               <div>
                 <p className="mb-3 text-body-sm font-semibold">
-                  {t('Answer order', 'Urutan jawaban')}
+                  {t('PRACTICE:QUESTION_PANEL.ARRANGED_ANSWER.LABEL')}
                 </p>
 
                 <ol
-                  aria-label={t('Answer order', 'Urutan jawaban')}
+                  aria-label={t('PRACTICE:QUESTION_PANEL.ARRANGED_ANSWER.LABEL')}
                   className="flex min-h-16 flex-wrap gap-2 rounded-md border border-border-strong bg-secondary p-3">
                   {store.arrangedTokenIds.map((id, index) => (
                     <li key={id}>
                       <Button
                         type="button"
                         variant="secondary"
-                        aria-label={`${t('Remove token', 'Hapus token')} ${index + 1}: ${q.promptPayload.arrangeTokens.find((t) => t.id === id)?.label}`}
+                        aria-label={t('PRACTICE:QUESTION_PANEL.REMOVE_TOKEN_BUTTON.ARIA_LABEL', {
+                          number: index + 1,
+                          token:
+                            q.promptPayload.arrangeTokens.find((t) => t.id === id)?.label ?? '',
+                        })}
                         onClick={() => store.toggleToken(id)}
                         lang={answerLocale}
                         className={`h-auto min-h-11 whitespace-normal ${answerLocale === 'ja' ? 'font-japanese' : ''}`}>
@@ -161,16 +179,13 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
                 </ol>
 
                 <p className="mt-2 text-body-sm text-muted-foreground">
-                  {t(
-                    'Select a token to add it. Select it in the answer to remove it.',
-                    'Pilih token untuk menambahkannya. Pilih token dalam jawaban untuk menghapusnya.',
-                  )}
+                  {t('PRACTICE:QUESTION_PANEL.TOKEN_SELECTION.HELP_TEXT')}
                 </p>
               </div>
 
               <div
                 role="group"
-                aria-label={t('Available tokens', 'Token tersedia')}
+                aria-label={t('PRACTICE:QUESTION_PANEL.AVAILABLE_TOKENS.LABEL')}
                 className="flex flex-wrap gap-2">
                 {q.promptPayload.arrangeTokens
                   .filter((t) => !store.arrangedTokenIds.includes(t.id))
@@ -188,13 +203,15 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
               </div>
 
               <p className="text-body-sm text-muted-foreground">
-                {t('Answer in ', 'Jawab dalam bahasa ')}
-                {answerLocale === 'ja'
-                  ? t('Japanese', 'Jepang')
-                  : answerLocale === 'id'
-                    ? t('Indonesian', 'Indonesia')
-                    : t('English', 'Inggris')}
-                .
+                {t('PRACTICE:QUESTION_PANEL.ANSWER_LANGUAGE.DESCRIPTION', {
+                  language: t(
+                    answerLocale === 'ja'
+                      ? 'SHARED:LANGUAGE_OPTIONS.JAPANESE.LABEL'
+                      : answerLocale === 'id'
+                        ? 'SHARED:LANGUAGE_OPTIONS.INDONESIAN.LABEL'
+                        : 'SHARED:SCRIPT_OPTIONS.ENGLISH.LABEL',
+                  ),
+                })}
               </p>
             </div>
           )}
@@ -203,7 +220,7 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
             <>
               <label className="block space-y-2">
                 <span className="text-body-sm font-semibold">
-                  {t('Romaji or Japanese answer', 'Jawaban romaji atau Jepang')}
+                  {t('PRACTICE:QUESTION_PANEL.ROMAJI_FIELD.LABEL')}
                 </span>
 
                 {free ? (
@@ -237,15 +254,12 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
               </label>
 
               <p id="practice-input-hint" className="text-body-sm text-muted-foreground">
-                {t(
-                  'Romaji is converted to kana below. Use uppercase romaji for katakana. Check the Japanese answer before submitting; you can edit it with your Japanese keyboard.',
-                  'Romaji diubah menjadi kana di bawah. Gunakan huruf besar untuk katakana. Periksa jawaban Jepang sebelum mengirim; kamu dapat mengeditnya dengan papan ketik Jepang.',
-                )}
+                {t('PRACTICE:QUESTION_PANEL.ROMAJI_FIELD.HELP_TEXT')}
               </p>
 
               <label className="block space-y-2">
                 <span className="text-body-sm font-semibold">
-                  {t('Japanese answer to submit', 'Jawaban Jepang yang akan dikirim')}
+                  {t('PRACTICE:QUESTION_PANEL.JAPANESE_ANSWER_FIELD.LABEL')}
                 </span>
 
                 <input
@@ -263,10 +277,7 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
 
               {/[a-z]/i.test(store.japaneseAnswer) && (
                 <p className="text-body-sm">
-                  {t(
-                    'Finish converting the remaining romaji before submitting.',
-                    'Ubah sisa romaji sebelum mengirim jawaban.',
-                  )}
+                  {t('PRACTICE:QUESTION_PANEL.ROMAJI_FIELD.VALIDATION_MESSAGE')}
                 </p>
               )}
             </>
@@ -277,10 +288,10 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
           !(store.mode === 'lesson' && store.error?.code === 142206002) && (
             <Button type="submit" disabled={!store.canSubmit || composing}>
               {store.isSubmitting
-                ? t('Checking answer…', 'Memeriksa jawaban…')
+                ? t('SHARED:ANSWER_ACTIONS.CHECK_ANSWER_BUTTON.LOADING_LABEL')
                 : store.answerLocked
-                  ? t('Retry answer', 'Kirim ulang jawaban')
-                  : t('Check answer', 'Periksa jawaban')}
+                  ? t('SHARED:ANSWER_ACTIONS.RETRY_ANSWER_BUTTON.LABEL')
+                  : t('SHARED:ANSWER_ACTIONS.CHECK_ANSWER_BUTTON.LABEL')}
             </Button>
           )}
       </form>
@@ -290,10 +301,7 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
         !store.accessIssue &&
         !(store.mode === 'lesson' && store.error.code === 142206002) && (
           <p className="text-body-sm text-muted-foreground">
-            {t(
-              'Your answer is kept. Retry the same answer to confirm the saved result.',
-              'Jawabanmu disimpan. Kirim ulang jawaban yang sama untuk memastikan hasilnya.',
-            )}
+            {t('PRACTICE:QUESTION_PANEL.PENDING_ANSWER_NOTICE.DESCRIPTION')}
           </p>
         )}
     </section>

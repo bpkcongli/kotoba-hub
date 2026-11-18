@@ -1,15 +1,20 @@
+'use client';
+
 import Link from 'next/link';
 import { cn } from '@/frontend/shared/helpers/cn';
+import { useUiTranslations } from '@/frontend/shared/hooks';
 import type { AppNavigationProps } from './AppSidebar';
 import { APP_NAVIGATION, isNavigationActive } from './navigation';
 
 export function AppBottomNav({ pathname, items = APP_NAVIGATION }: AppNavigationProps) {
+  const t = useUiTranslations();
+
   return (
     <nav
-      aria-label="Mobile navigation"
+      aria-label={t('SHARED:APP_NAVIGATION.MOBILE_NAVIGATION.ARIA_LABEL')}
       className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-card px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] lg:hidden">
       <ul className="mx-auto grid max-w-2xl grid-cols-5 gap-1">
-        {items.map(({ href, label, icon: Icon, available }) => {
+        {items.map(({ href, label, messageKey, icon: Icon, available }) => {
           const active = available && isNavigationActive(pathname, href);
 
           const className = cn(
@@ -22,8 +27,13 @@ export function AppBottomNav({ pathname, items = APP_NAVIGATION }: AppNavigation
           const content = (
             <>
               <Icon aria-hidden="true" className="size-5 shrink-0" />
-              <span className="max-w-full wrap-anywhere">{label}</span>
-              {!available && <span className="text-caption">Soon</span>}
+              <span className="max-w-full wrap-anywhere">{messageKey ? t(messageKey) : label}</span>
+
+              {!available && (
+                <span className="text-caption">
+                  {t('SHARED:APP_NAVIGATION.UNAVAILABLE_LINK.BADGE_LABEL')}
+                </span>
+              )}
             </>
           );
 
@@ -42,7 +52,9 @@ export function AppBottomNav({ pathname, items = APP_NAVIGATION }: AppNavigation
               ) : (
                 <span aria-disabled="true" className={className}>
                   {content}
-                  <span className="sr-only">Not available yet</span>
+                  <span className="sr-only">
+                    {t('SHARED:APP_NAVIGATION.UNAVAILABLE_LINK.STATUS_LABEL')}
+                  </span>
                 </span>
               )}
             </li>

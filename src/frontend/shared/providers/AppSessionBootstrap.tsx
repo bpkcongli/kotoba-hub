@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useSyncExternalStore, type ReactNode } from 'react';
-import { useAppSessionStore } from '@/frontend/shared/hooks';
+import { useAppSessionStore, useUiTranslations } from '@/frontend/shared/hooks';
 import type { AppSession } from '@/frontend/shared/interfaces/entities';
 
 function createBootstrapState() {
@@ -32,9 +32,11 @@ export function AppSessionBootstrap({
   session: AppSession;
   children: ReactNode;
 }) {
-  const store = useAppSessionStore();
+  const t = useUiTranslations();
 
   const [bootstrapState] = useState(createBootstrapState);
+  const store = useAppSessionStore();
+
   const appliedSession = useSyncExternalStore(
     bootstrapState.subscribe,
     bootstrapState.read,
@@ -49,7 +51,7 @@ export function AppSessionBootstrap({
   if (appliedSession !== session) {
     return (
       <div className="grid min-h-svh place-items-center p-6" role="status">
-        Loading your workspace…
+        {t('SHARED:SESSION_BOOTSTRAP.WORKSPACE.LOADING_LABEL')}
       </div>
     );
   }

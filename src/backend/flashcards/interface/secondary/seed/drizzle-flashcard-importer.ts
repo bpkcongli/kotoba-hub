@@ -1,4 +1,8 @@
 import { and, eq, inArray } from 'drizzle-orm';
+import {
+  assertFlashcardRevision,
+  validateFlashcardSeedPlan,
+} from '@/backend/flashcards/application/helpers/flashcard-import-validation';
 import type { FlashcardSeedPlan } from '@/backend/flashcards/application/services/prepare-flashcard-seed.service';
 import {
   flashcardDeckItems,
@@ -9,8 +13,30 @@ import { getDatabase } from '@/backend/shared/infrastructure/database/connection
 
 export class DrizzleFlashcardImporter {
   async import(plan: FlashcardSeedPlan): Promise<void> {
+    validateFlashcardSeedPlan(plan);
+
     await getDatabase().transaction(async (tx) => {
-      const storedDecks = await tx.select().from(flashcardDecks);
+      const storedDecks = await tx.select().from(flashcardDecks).for('update');
+      const storedItems = await tx.select().from(flashcardItems).for('update');
+
+      for (const incoming of plan.items) {
+        const stored = storedItems.find((item) => item.id === incoming.id);
+        if (stored) {
+          if (stored.skillId !== incoming.skillId || stored.itemType !== incoming.itemType)
+            throw new Error(`Flashcard item identity conflict: ${incoming.id}.`);
+          assertFlashcardRevision(stored, { ...incoming }, [
+            'surfaceFormText',
+            'kanaDisplayText',
+            'romajiText',
+            'englishMeaning',
+            'onyomiReadings',
+            'kunyomiReadings',
+            'exampleWords',
+            'answerOptionPayload',
+            'explanationText',
+          ]);
+        }
+      }
 
       for (const deck of plan.decks) {
         const existing = storedDecks.find((row) => row.id === deck.id || row.slug === deck.slug);
@@ -19,8 +45,18 @@ export class DrizzleFlashcardImporter {
           (existing.id !== deck.id ||
             existing.deckSource !== 'SYSTEM' ||
             existing.ownerUserId !== null)
-        )
+        ) {
           throw new Error(`System flashcard deck identity conflict for ${deck.slug}.`);
+        }
+
+        if (existing)
+          assertFlashcardRevision(existing, { ...deck }, [
+            'title',
+            'description',
+            'unitId',
+            'contentType',
+            'deckType',
+          ]);
       }
 
       const systemDeckIds = storedDecks

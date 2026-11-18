@@ -1,15 +1,24 @@
 import { z } from 'zod';
 import { paginationRequestSchema } from '@/backend/shared/interface/primary/rest/dto/pagination.request.dto';
+import { localeSchema } from '@/shared/locale';
 
 const slug = z
   .string()
   .max(100)
   .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
 
+const representationFields = {
+  contentFormat: z.literal('localized').optional(),
+  contentLocale: localeSchema.optional(),
+};
+const validRepresentation = (value: { contentFormat?: string; contentLocale?: string }) =>
+  !value.contentLocale || value.contentFormat === 'localized';
+
 const contentType = z.enum(['KANJI', 'KANA', 'VOCABULARY']);
 
 export const listFlashcardDecksRequestSchema = paginationRequestSchema
   .extend({
+    ...representationFields,
     deckSource: z.enum(['SYSTEM', 'CUSTOM', 'ALL']).default('ALL'),
     contentType: z.enum(['KANJI', 'KANA', 'VOCABULARY', 'ALL']).default('ALL'),
     unitSlug: slug.optional(),
@@ -27,7 +36,11 @@ export const listFlashcardDecksRequestSchema = paginationRequestSchema
       .transform((value) => [...new Set(value.split(','))])
       .optional(),
   })
-  .strict();
+  .strict()
+  .refine(validRepresentation, {
+    path: ['contentLocale'],
+    message: 'contentLocale requires contentFormat=localized.',
+  });
 
 export const createFlashcardDeckRequestSchema = z.strictObject({
   title: z.string().trim().min(1).max(255),
@@ -38,11 +51,17 @@ export const createFlashcardDeckRequestSchema = z.strictObject({
   items: z.array(z.uuid()).default([]),
 });
 
-export const createFlashcardSessionRequestSchema = z.strictObject({
-  deckId: z.uuid(),
-  questionScriptMode: z.string().min(1).max(50),
-  answerScriptMode: z.string().min(1).max(50),
-});
+export const createFlashcardSessionRequestSchema = z
+  .strictObject({
+    ...representationFields,
+    deckId: z.uuid(),
+    questionScriptMode: z.string().min(1).max(50),
+    answerScriptMode: z.string().min(1).max(50),
+  })
+  .refine(validRepresentation, {
+    path: ['contentLocale'],
+    message: 'contentLocale requires contentFormat=localized.',
+  });
 
 export const submitFlashcardAnswerRequestSchema = z.strictObject({
   itemId: z.uuid(),

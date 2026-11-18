@@ -8,6 +8,7 @@ import type {
 } from '@/backend/flashcards/domain/repositories/flashcard.repository';
 import { OptionSnapshotBuilder } from '@/backend/flashcards/domain/services/option-snapshot-builder';
 import { deck, ids, item } from './fixtures';
+import { translation } from './localized-fixtures';
 
 function setup() {
   const items = [item(), item({ id: ids.nextItem, surfaceFormText: '月' })];
@@ -361,5 +362,161 @@ describe('flashcard session and answer use cases', () => {
       service.createDeck(ids.user, { ...base, items: [ids.item] }),
     ).rejects.toMatchObject({ code: 142205003 });
     expect(repository.createDeck).not.toHaveBeenCalled();
+  });
+});
+
+describe('localized flashcard snapshot compatibility', () => {
+  function bilingual() {
+    const context = setup();
+
+    Object.assign(context.currentDeck, {
+      contentRevision: 1,
+      localizations: {
+        en: {
+          sourceRevision: 1,
+          translationRevision: 1,
+          isPublished: true,
+          sourceRefs: ['test'],
+          title: 'N5 Kanji',
+          description: null,
+        },
+        id: {
+          sourceRevision: 1,
+          translationRevision: 1,
+          isPublished: true,
+          sourceRefs: ['test'],
+          title: 'Kanji Dasar',
+          description: null,
+        },
+      },
+    });
+
+    for (const value of context.items) {
+      value.contentRevision = 1;
+      value.localizations = { en: translation(value, 'day / sun'), id: translation(value) };
+    }
+
+    const localizedStart = () =>
+      context.service.createSession(ids.user, {
+        deckId: ids.deck,
+        questionScriptMode: 'KANJI',
+        answerScriptMode: 'MEANING',
+        contentFormat: 'localized',
+        contentLocale: 'id',
+      });
+
+    return { ...context, localizedStart };
+  }
+
+  it('freezes Indonesian keys, metadata, examples and feedback across content changes and exact retry', async () => {
+    const context = bilingual();
+    const session = await context.localizedStart();
+
+    expect(session.deck.title).toBe('Kanji Dasar');
+    expect(session.turns[0].localization).toMatchObject({
+      requestedLocale: 'id',
+      resolvedLocale: 'id',
+      isFallback: false,
+    });
+
+    context.items[0].localizations!.id!.meaning = 'edited';
+    context.items[0].localizations!.id!.exampleWords = [];
+    const payload = {
+      itemId: ids.item,
+      selectedOptionId: session.turns[0].correctOptionId,
+      responseTimeMs: 1000,
+    };
+
+    const result = await context.service.submitAnswer(ids.user, session.id, payload);
+
+    expect(result.feedback.kanjiDetails).toMatchObject({
+      meaning: 'hari / matahari',
+      exampleWords: [{ word: '日本', kana: 'にほん', meaning: 'Jepang' }],
+    });
+    expect(result.feedback.kanjiDetails).not.toHaveProperty('englishMeaning');
+    expect(result.feedback.explanationText).toBe('Arti karakter ini dalam bahasa Indonesia.');
+
+    expect(await context.service.submitAnswer(ids.user, session.id, payload)).toEqual(result);
+    expect(context.progress.recordAnswer).toHaveBeenCalledTimes(1);
+    expect(context.states[`${ids.user}:${ids.item}`].consecutiveCorrectCount).toBe(1);
+
+    expect(result.nextItem).not.toHaveProperty('correctOptionId');
+    expect(result.nextItem).not.toHaveProperty('localizedContent');
+    expect(result.nextItem).toHaveProperty('localization.resolvedLocale', 'id');
+  });
+
+  it.each(['draft', 'stale', 'collision'] as const)(
+    'falls back as an entire turn for %s Indonesian content',
+    async (reason) => {
+      const context = bilingual();
+      const id = context.items[0].localizations!.id!;
+
+      if (reason === 'draft') id.isPublished = false;
+      if (reason === 'stale') id.sourceRevision = 2;
+      if (reason === 'collision') id.meaningOptions!.distractors = [' HARI ', 'hari / matahari'];
+
+      const session = await context.localizedStart();
+
+      expect(session.turns[0].localization).toMatchObject({
+        resolvedLocale: 'en',
+        isFallback: true,
+      });
+      expect(session.turns[0].localizedContent!.meaning).toBe('day / sun');
+      expect(session.turns[0].answerOptions.map((option) => option.value)).not.toContain(
+        'hari / matahari',
+      );
+    },
+  );
+
+  it('rejects unavailable English before persistence while legacy remains usable', async () => {
+    const context = bilingual();
+    context.items[0].localizations = null;
+
+    await expect(context.localizedStart()).rejects.toMatchObject({ code: 142205001 });
+    expect(context.repository.createSession).not.toHaveBeenCalled();
+
+    const old = await context.start();
+
+    expect(old.turns[0]).not.toHaveProperty('localization');
+
+    const result = await context.service.submitAnswer(ids.user, old.id, {
+      itemId: ids.item,
+      selectedOptionId: old.turns[0].correctOptionId,
+    });
+
+    expect(result).not.toHaveProperty('localization');
+    expect(result.feedback).not.toHaveProperty('explanationText');
+    expect(result.feedback.kanjiDetails).toHaveProperty('englishMeaning', 'day / sun');
+  });
+
+  it('uses the same per-user item state across legacy and localized sessions', async () => {
+    const context = bilingual();
+    const first = await context.start();
+
+    await context.service.submitAnswer(ids.user, first.id, {
+      itemId: ids.item,
+      selectedOptionId: first.turns[0].correctOptionId,
+    });
+
+    const next = await context.localizedStart();
+    const turn = next.turns.find((value) => value.id === ids.item)!;
+
+    // The other new item is ordered first now; answer it before the previously reviewed item.
+    if (next.turns[0].id !== ids.item)
+      await context.service.submitAnswer(ids.user, next.id, {
+        itemId: next.turns[0].id,
+        selectedOptionId: next.turns[0].correctOptionId,
+      });
+
+    const result = await context.service.submitAnswer(ids.user, next.id, {
+      itemId: ids.item,
+      selectedOptionId: turn.correctOptionId,
+    });
+
+    expect(result.bucketUpdate).toMatchObject({
+      previousBucket: 'LEARNING',
+      currentBucket: 'MASTERED',
+      consecutiveCorrectCount: 2,
+    });
   });
 });

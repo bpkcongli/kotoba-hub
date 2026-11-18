@@ -1,6 +1,12 @@
+import type {
+  DeckLocalizations,
+  ItemLocalizations,
+} from '@/backend/flashcards/domain/value-objects/localized-content';
 export type SeedScriptMode = 'KANJI' | 'KANA' | 'ROMAJI' | 'ENGLISH' | 'JAPANESE';
 
 export interface FlashcardSeedItem {
+  contentRevision?: number;
+  localizations?: ItemLocalizations | null;
   id: string;
   skillId: string | null;
   itemType: 'KANJI_CHARACTER' | 'HIRAGANA_CHARACTER' | 'KATAKANA_CHARACTER' | 'VOCABULARY';
@@ -20,6 +26,8 @@ export interface FlashcardSeedItem {
 
 export interface FlashcardSeedPlan {
   decks: {
+    contentRevision?: number;
+    localizations?: DeckLocalizations | null;
     id: string;
     slug: string;
     unitId: string | null;

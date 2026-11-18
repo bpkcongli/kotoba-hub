@@ -14,6 +14,7 @@ jest.mock('@/backend/auth/infrastructure/di', () => ({
   ).AuthorizationServiceImpl)(),
   getSessionSnapshot: jest.fn(),
 }));
+
 jest.mock('@/backend/flashcards/infrastructure/di', () => ({
   flashcardService: {
     listDecks: jest.fn(),
@@ -73,6 +74,7 @@ describe('protected flashcard routes', () => {
 
   it.each(endpoints)('requires authentication for $name', async ({ path, method, invoke }) => {
     jest.mocked(getSessionSnapshot).mockResolvedValue(anonymousSession);
+
     const response = await invoke(request(path, method));
 
     expect(response.status).toBe(401);
@@ -87,6 +89,7 @@ describe('protected flashcard routes', () => {
         ...readySession,
         authorization: { appAccess: 'ONBOARDING_REQUIRED', onboardingCompleted: false },
       });
+
       const response = await invoke(request(path, method));
 
       expect(response.status).toBe(403);
@@ -164,6 +167,7 @@ describe('protected flashcard routes', () => {
       startedAt: '2026-10-19T00:00:00.000Z',
       completedAt: null,
     });
+
     const body = { deckId: ids.deck, questionScriptMode: 'KANJI', answerScriptMode: 'ENGLISH' };
     const response = await createSession(request('sessions', 'POST', body));
     const result = await response.json();
@@ -189,6 +193,7 @@ describe('protected flashcard routes', () => {
 
   it('returns contract pagination and ignores a query that tries to choose another owner', async () => {
     jest.mocked(flashcardService.listDecks).mockResolvedValue({ items: [], totalRecords: 7 });
+
     const response = await listDecks(
       request('decks?offset=2&limit=2&deckSource=CUSTOM&userId=other', 'GET'),
     );
@@ -207,6 +212,7 @@ describe('protected flashcard routes', () => {
     jest
       .mocked(flashcardService.submitAnswer)
       .mockRejectedValue(new FlashcardError(142205006, 'Invalid option.', 'selectedOptionId'));
+
     const response = await submitAnswer(
       request(`sessions/${sessionId}/answer`, 'POST', {
         itemId: ids.item,
@@ -221,5 +227,55 @@ describe('protected flashcard routes', () => {
       itemId: ids.item,
       selectedOptionId: 'forged',
     });
+  });
+});
+
+describe('flashcard localized request boundary', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.mocked(getSessionSnapshot).mockResolvedValue(readySession);
+  });
+
+  it.each([
+    'contentLocale=id',
+    'contentFormat=other',
+    'contentFormat=localized&contentLocale=ja',
+    'contentFormat=localized&contentLocale=',
+    'contentFormat=localized&contentLocale=id&contentLocale=en',
+    'contentFormat=localized&contentFormat=localized',
+  ])('rejects invalid representation query %s', async (query) => {
+    const response = await listDecks(request(`decks?${query}`, 'GET'));
+
+    expect(response.status).toBe(422);
+    expect(flashcardService.listDecks).not.toHaveBeenCalled();
+  });
+
+  it('passes explicit locale to use case and keeps private response headers', async () => {
+    jest.mocked(flashcardService.listDecks).mockResolvedValue({ items: [], totalRecords: 0 });
+
+    const response = await listDecks(
+      request('decks?contentFormat=localized&contentLocale=id', 'GET'),
+    );
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('cache-control')).toBe('private, no-store');
+    expect(flashcardService.listDecks).toHaveBeenCalledWith(
+      ids.user,
+      expect.objectContaining({ contentFormat: 'localized', contentLocale: 'id' }),
+    );
+  });
+
+  it('refuses a new locale on answer', async () => {
+    const response = await submitAnswer(
+      request(`sessions/${sessionId}/answer`, 'POST', {
+        itemId: ids.item,
+        selectedOptionId: 'opt_1',
+        contentLocale: 'en',
+      }),
+      { params: Promise.resolve({ sessionId }) },
+    );
+
+    expect(response.status).toBe(422);
+    expect(flashcardService.submitAnswer).not.toHaveBeenCalled();
   });
 });

@@ -1,6 +1,8 @@
 import { randomUUID } from 'node:crypto';
+import type { FlashcardContentLocalePort } from '@/backend/flashcards/application/ports/content-locale.port';
 import type { FlashcardCatalogPort } from '@/backend/flashcards/application/ports/flashcard-catalog.port';
 import type { FlashcardProgressPort } from '@/backend/flashcards/application/ports/flashcard-progress.port';
+import type { FlashcardRepresentation } from '@/backend/flashcards/application/services/flashcard.service';
 import type {
   FlashcardService,
   CreateDeckRequest,
@@ -23,7 +25,9 @@ import type {
 } from '@/backend/flashcards/domain/repositories/flashcard.repository';
 import { LeitnerScheduler } from '@/backend/flashcards/domain/services/leitner-scheduler';
 import { OptionSnapshotBuilder } from '@/backend/flashcards/domain/services/option-snapshot-builder';
+import { LocalizedFlashcardContent } from '@/backend/flashcards/domain/value-objects/localized-content';
 import { ScriptPair } from '@/backend/flashcards/domain/value-objects/script-pair';
+import { resolveLocale } from '@/shared/locale';
 
 export class FlashcardServiceImpl implements FlashcardService {
   constructor(
@@ -33,13 +37,18 @@ export class FlashcardServiceImpl implements FlashcardService {
     private readonly scheduler = new LeitnerScheduler(),
     private readonly builder = new OptionSnapshotBuilder(),
     private readonly now: () => Date = () => new Date(),
+    private readonly preferences?: FlashcardContentLocalePort,
   ) {}
 
-  async listDecks(userId: string, filter: Omit<DeckFilter, 'unitId'> & { unitSlug?: string }) {
+  async listDecks(
+    userId: string,
+    filter: Omit<DeckFilter, 'unitId'> & { unitSlug?: string } & FlashcardRepresentation,
+  ) {
     const catalog = await this.catalog.getPublishedCatalog();
     const unit = filter.unitSlug
       ? catalog.units.find((unit) => unit.slug === filter.unitSlug)
       : undefined;
+
     if (filter.unitSlug && !unit) return { items: [], totalRecords: 0 };
 
     const result = await this.repository.listDecks(userId, {
@@ -47,10 +56,18 @@ export class FlashcardServiceImpl implements FlashcardService {
       ...(unit ? { unitId: unit.id } : {}),
     });
 
+    const locale =
+      filter.contentFormat === 'localized'
+        ? resolveLocale(
+            filter.contentLocale,
+            filter.contentLocale ? undefined : await this.preferences?.getContentLocale(userId),
+          )
+        : undefined;
+
     return {
       ...result,
       items: result.items.map((deck) => ({
-        ...deck,
+        ...(locale ? LocalizedFlashcardContent.deck(deck, locale) : deck),
         unitSlug: catalog.units.find((unit) => unit.id === deck.unitId)?.slug ?? null,
       })),
     };
@@ -61,6 +78,7 @@ export class FlashcardServiceImpl implements FlashcardService {
     const unit = request.unitSlug
       ? catalog.units.find((unit) => unit.slug === request.unitSlug)
       : null;
+
     if (request.unitSlug && !unit)
       throw new FlashcardError(
         142205001,
@@ -73,6 +91,7 @@ export class FlashcardServiceImpl implements FlashcardService {
       throw new FlashcardError(142205002, 'Item references must be distinct.', 'items');
 
     const items = await this.repository.findItems(ids);
+
     if (
       items.length !== ids.length ||
       items.some(
@@ -82,6 +101,7 @@ export class FlashcardServiceImpl implements FlashcardService {
       )
     )
       throw new FlashcardError(142205002, 'One or more item references are unavailable.', 'items');
+
     if (items.some((item) => family(item) !== request.contentType))
       throw new FlashcardError(142205003, 'Items must match the deck content type.', 'items');
 
@@ -106,16 +126,27 @@ export class FlashcardServiceImpl implements FlashcardService {
   }
 
   async createSession(userId: string, request: CreateSessionRequest): Promise<SessionSnapshot> {
-    const deck = await this.repository.findDeck(userId, request.deckId);
+    let deck = await this.repository.findDeck(userId, request.deckId);
     if (!deck) throw new FlashcardError(140405001, 'Flashcard deck not found.', 'deckId');
 
     const pair = ScriptPair.create(
       deck.contentType,
       request.questionScriptMode,
       request.answerScriptMode,
+      request.contentFormat === 'localized',
     );
 
+    const locale =
+      request.contentFormat === 'localized'
+        ? resolveLocale(
+            request.contentLocale,
+            request.contentLocale ? undefined : await this.preferences?.getContentLocale(userId),
+          )
+        : undefined;
+    if (locale) deck = LocalizedFlashcardContent.deck(deck, locale);
+
     const catalog = await this.catalog.getPublishedCatalog();
+
     if (deck.unitId && !catalog.units.some((unit) => unit.id === deck.unitId))
       throw new FlashcardError(140405001, 'Flashcard deck not found.', 'deckId');
 
@@ -124,23 +155,28 @@ export class FlashcardServiceImpl implements FlashcardService {
         item.isActive &&
         (!item.skillId || catalog.skills.some((skill) => skill.id === item.skillId)),
     );
+
     if (items.length === 0)
       throw new FlashcardError(142205001, 'Deck has no active eligible items.', 'deckId');
+
     if (items.some((item) => family(item) !== deck.contentType))
       throw new FlashcardError(142205003, 'Deck items must match its content type.', 'deckId');
 
     const now = this.now();
+
     const states = await this.repository.getItemStates(
       userId,
       items.map((item) => item.id),
     );
+
     const due = (item: FlashcardItem) =>
       !states[item.id]?.nextDueAt ||
       new Date(states[item.id]!.nextDueAt!).getTime() <= now.getTime();
+
     const ordered = [...items.filter(due), ...items.filter((item) => !due(item))];
 
     const turns = ordered.map((item) => ({
-      ...this.builder.build(item, pair.questionScriptMode, pair.answerScriptMode),
+      ...this.builder.build(item, pair.questionScriptMode, pair.answerScriptMode, locale),
       skillCode: catalog.skills.find((skill) => skill.id === item.skillId)?.code ?? null,
     }));
 
@@ -172,6 +208,7 @@ export class FlashcardServiceImpl implements FlashcardService {
     const answer = await this.repository.withSessionLock(userId, sessionId, async (transaction) => {
       const session = transaction.session;
       const existing = await transaction.findAnswer(request.itemId);
+
       if (existing) {
         if (
           existing.selectedOptionId !== request.selectedOptionId ||
@@ -188,8 +225,10 @@ export class FlashcardServiceImpl implements FlashcardService {
 
       const aggregate = new FlashcardSession(session);
       const turn = aggregate.currentTurn(request.itemId, request.selectedOptionId);
+
       if (session.totalAnswered > 0) {
         const previous = await transaction.findAnswer(session.turns[session.totalAnswered - 1]!.id);
+
         if (previous && !previous.progressRecorded)
           throw new FlashcardError(
             142205005,
@@ -200,12 +239,14 @@ export class FlashcardServiceImpl implements FlashcardService {
 
       const state = await transaction.lockItemState(turn.id);
       const answeredAt = this.now();
+
       const isCorrect = request.selectedOptionId === turn.correctOptionId;
       const bucket = this.scheduler.evaluate(state, isCorrect, answeredAt);
 
       aggregate.recordOutcome(isCorrect, answeredAt);
 
       const correct = turn.answerOptions.find((option) => option.id === turn.correctOptionId)!;
+
       const result: AnswerResult = {
         sessionId: session.id,
         itemId: turn.id,
@@ -213,6 +254,7 @@ export class FlashcardServiceImpl implements FlashcardService {
         correctOptionId: turn.correctOptionId,
         isCorrect,
         correctAnswer: { scriptMode: correct.scriptMode, value: correct.value },
+        ...(turn.localization ? { localization: { ...turn.localization } } : {}),
         feedback: this.feedback(turn, bucket.currentBucket, correct.value),
         bucketUpdate: bucket,
         sessionProgress: {
@@ -252,6 +294,7 @@ export class FlashcardServiceImpl implements FlashcardService {
     });
 
     if (answer.progressRecorded || !answer.skillId) return answer.result;
+
     if (!answer.skillCode) throw new Error('Mapped flashcard turn has no skill-code snapshot.');
 
     const impact = await this.progress.recordAnswer(userId, answer, answer.skillCode);
@@ -277,16 +320,23 @@ export class FlashcardServiceImpl implements FlashcardService {
         : 'No syllabus skill is mapped to this item.',
     };
 
+    const meaning = turn.localizedContent
+      ? { meaning: turn.localizedContent.meaning ?? '' }
+      : { englishMeaning: item.englishMeaning ?? '' };
+
+    if (turn.localizedContent)
+      Object.assign(base, { explanationText: turn.localizedContent.explanationText });
+
     if (item.itemType === 'KANJI_CHARACTER')
       return {
         ...base,
         variant: 'KANJI_EXPLANATION',
         kanjiDetails: {
           character: item.surfaceFormText,
-          englishMeaning: item.englishMeaning ?? '',
+          ...meaning,
           onyomi: item.onyomiReadings ?? [],
           kunyomi: item.kunyomiReadings ?? [],
-          exampleWords: item.exampleWords ?? [],
+          exampleWords: turn.localizedContent?.exampleWords ?? item.exampleWords ?? [],
         },
       };
 
@@ -297,7 +347,7 @@ export class FlashcardServiceImpl implements FlashcardService {
         vocabularyDetails: {
           term: item.surfaceFormText,
           kana: item.kanaDisplayText,
-          englishMeaning: item.englishMeaning ?? '',
+          ...meaning,
         },
       };
 
@@ -316,6 +366,7 @@ function family(item: FlashcardItem): ContentType {
 function publicItem(turn: TurnSnapshot | undefined): ItemPrompt | null {
   return turn
     ? {
+        ...(turn.localization ? { localization: { ...turn.localization } } : {}),
         id: turn.id,
         itemType: turn.itemType,
         prompt: { ...turn.prompt },

@@ -31,7 +31,16 @@ export class FlashcardController {
   listDecks(request: Request): Promise<Response> {
     return this.handle(request, async (userId) => {
       const url = new URL(request.url);
-      const names = ['offset', 'limit', 'deckSource', 'deckTypes', 'unitSlug', 'contentType'];
+      const names = [
+        'offset',
+        'limit',
+        'deckSource',
+        'deckTypes',
+        'unitSlug',
+        'contentType',
+        'contentFormat',
+        'contentLocale',
+      ];
       const parsed = listFlashcardDecksRequestSchema.safeParse(
         Object.fromEntries(names.map((name) => [name, queryValue(url, name)])),
       );
@@ -124,7 +133,10 @@ export class FlashcardController {
             : ApplicationStatusCode.FLASHCARDS_UNAUTHORIZED,
         );
 
-      return await work(session.user.id);
+      const response = await work(session.user.id);
+      response.headers.set('Cache-Control', 'private, no-store');
+
+      return response;
     } catch (error) {
       if (error instanceof FlashcardError)
         return apiResponse(error.code as ApplicationStatusCode, undefined, [

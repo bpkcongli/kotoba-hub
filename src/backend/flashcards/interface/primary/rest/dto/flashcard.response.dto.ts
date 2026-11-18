@@ -7,8 +7,10 @@ import type {
   ScriptMode,
   SessionSnapshot,
 } from '@/backend/flashcards/domain/repositories/flashcard.repository';
+import type { Locale, Localization } from '@/shared/locale';
 
 export interface FlashcardDeckResponseDto {
+  localization?: Localization;
   id: string;
   slug: string | null;
   title: string;
@@ -23,6 +25,7 @@ export interface FlashcardDeckResponseDto {
 }
 
 export interface FlashcardItemResponseDto {
+  localization?: Localization;
   id: string;
   itemType: ItemType;
   prompt: { scriptMode: ScriptMode; value: string };
@@ -35,9 +38,15 @@ export interface FlashcardSessionResponseDto {
   startedAt: string;
   deck: Pick<
     FlashcardDeckResponseDto,
-    'id' | 'slug' | 'title' | 'deckSource' | 'deckType' | 'contentType'
+    'id' | 'slug' | 'title' | 'deckSource' | 'deckType' | 'contentType' | 'localization'
   >;
-  sessionConfig: { questionScriptMode: ScriptMode; answerScriptMode: ScriptMode; isLocked: true };
+  sessionConfig: {
+    questionScriptMode: ScriptMode;
+    answerScriptMode: ScriptMode;
+    isLocked: true;
+    contentFormat?: 'localized';
+    contentLocale?: Locale;
+  };
   sessionProgress: {
     totalItems: number;
     totalAnswered: number;
@@ -48,6 +57,7 @@ export interface FlashcardSessionResponseDto {
 }
 
 export interface FlashcardAnswerResponseDto {
+  localization?: Localization;
   sessionId: string;
   itemId: string;
   selectedOptionId: string;
@@ -63,6 +73,7 @@ export interface FlashcardAnswerResponseDto {
 
 export function toFlashcardDeckDto(deck: DeckReadModel): FlashcardDeckResponseDto {
   return {
+    ...(deck.localization ? { localization: { ...deck.localization } } : {}),
     id: deck.id,
     slug: deck.slug,
     title: deck.title,
@@ -82,6 +93,7 @@ export function toFlashcardItemDto(
 ): FlashcardItemResponseDto | null {
   return item
     ? {
+        ...(item.localization ? { localization: { ...item.localization } } : {}),
         id: item.id,
         itemType: item.itemType,
         prompt: { scriptMode: item.prompt.scriptMode, value: item.prompt.value },
@@ -103,6 +115,7 @@ export function toFlashcardSessionDto(session: SessionSnapshot): FlashcardSessio
       id: session.deck.id,
       slug: session.deck.slug,
       title: session.deck.title,
+      ...(session.deck.localization ? { localization: { ...session.deck.localization } } : {}),
       deckSource: session.deck.deckSource,
       deckType: session.deck.deckType,
       contentType: session.deck.contentType,
@@ -111,6 +124,9 @@ export function toFlashcardSessionDto(session: SessionSnapshot): FlashcardSessio
       questionScriptMode: session.questionScriptMode,
       answerScriptMode: session.answerScriptMode,
       isLocked: true,
+      ...(session.deck.contentFormat
+        ? { contentFormat: session.deck.contentFormat, contentLocale: session.deck.contentLocale }
+        : {}),
     },
     sessionProgress: {
       totalItems: session.turns.length,
@@ -128,6 +144,7 @@ export function toFlashcardAnswerDto(answer: AnswerResult): FlashcardAnswerRespo
     headline: answer.feedback.headline,
     bucketMessage: answer.feedback.bucketMessage,
     progressMessage: answer.feedback.progressMessage,
+    ...(answer.localization ? { explanationText: answer.feedback.explanationText ?? null } : {}),
   };
 
   const kanji = answer.feedback.kanjiDetails;
@@ -136,7 +153,9 @@ export function toFlashcardAnswerDto(answer: AnswerResult): FlashcardAnswerRespo
   if (kanji)
     feedback.kanjiDetails = {
       character: kanji.character,
-      englishMeaning: kanji.englishMeaning,
+      ...(answer.localization
+        ? { meaning: kanji.meaning ?? '' }
+        : { englishMeaning: kanji.englishMeaning ?? '' }),
       onyomi: [...kanji.onyomi],
       kunyomi: [...kanji.kunyomi],
       exampleWords: kanji.exampleWords.map((word) => ({
@@ -150,10 +169,13 @@ export function toFlashcardAnswerDto(answer: AnswerResult): FlashcardAnswerRespo
     feedback.vocabularyDetails = {
       term: vocabulary.term,
       kana: vocabulary.kana,
-      englishMeaning: vocabulary.englishMeaning,
+      ...(answer.localization
+        ? { meaning: vocabulary.meaning ?? '' }
+        : { englishMeaning: vocabulary.englishMeaning ?? '' }),
     };
 
   return {
+    ...(answer.localization ? { localization: { ...answer.localization } } : {}),
     sessionId: answer.sessionId,
     itemId: answer.itemId,
     selectedOptionId: answer.selectedOptionId,

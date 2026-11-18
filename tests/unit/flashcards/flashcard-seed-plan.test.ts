@@ -21,6 +21,7 @@ function setup() {
       },
     ],
   };
+
   const mapped: FlashcardArtifact['items'][number] = {
     id: ids.item,
     skillId: ids.skill,
@@ -46,6 +47,7 @@ function setup() {
     explanationText: null,
     isActive: true,
   };
+
   const pending: FlashcardArtifact['items'][number] = {
     ...structuredClone(mapped),
     id: ids.nextItem,
@@ -63,6 +65,7 @@ function setup() {
       distractorPoolItemIds: [ids.item],
     },
   };
+
   const artifact: FlashcardArtifact = {
     schemaVersion: '1.0.0',
     deckSource: 'SYSTEM',
@@ -96,6 +99,7 @@ function setup() {
       { deckId: ids.otherDeck, itemId: ids.nextItem, sortOrder: 1 },
     ],
   };
+
   const source: CanonicalFlashcardSource = {
     readArtifacts: async () => [artifact],
     readKanjiSkills: async () => [],
@@ -185,4 +189,34 @@ describe('canonical flashcard seed planning', () => {
     expect(pending.answerOptionPayload.JAPANESE?.distractors).not.toContain('学校');
     expect(pending.answerOptionPayload.KANA?.distractors).not.toContain('がっこう');
   });
+});
+
+it('excludes Japanese distractors when translated prompt meanings collide', async () => {
+  const { catalog, artifact } = setup();
+
+  const service = new PrepareFlashcardSeedServiceImpl(
+    { getPublishedCatalog: async () => catalog },
+    {
+      readArtifacts: async () => [artifact],
+      readKanjiSkills: async () => [],
+      readLocalizationOverlay: async () => ({
+        schemaVersion: '2.0.0',
+        contentRevision: 1,
+        sourceRefs: ['test'],
+        decks: {},
+        unitTitles: {},
+        items: {
+          [ids.item]: { surfaceFormText: '学校', en: 'school', id: 'tempat' },
+          [ids.nextItem]: { surfaceFormText: '駅', en: 'station', id: 'tempat' },
+        },
+      }),
+    },
+  );
+  const plan = await service.prepare();
+
+  for (const value of plan.items) {
+    expect(value.localizations?.id?.scriptOptions.JAPANESE?.distractors).toEqual([]);
+    expect(value.localizations?.id?.meaningOptions?.distractors).toEqual([]);
+    expect(value.localizations?.en?.scriptOptions.JAPANESE?.distractors).toHaveLength(1);
+  }
 });

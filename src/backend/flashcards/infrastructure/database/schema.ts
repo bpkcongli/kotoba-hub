@@ -17,6 +17,10 @@ import type {
   StoredAnswer,
   TurnSnapshot,
 } from '@/backend/flashcards/domain/repositories/flashcard.repository';
+import type {
+  DeckLocalizations,
+  ItemLocalizations,
+} from '@/backend/flashcards/domain/value-objects/localized-content';
 import { skills, units } from '@/backend/syllabus/infrastructure/database/schema';
 import { users } from '@/backend/users/infrastructure/database/schema';
 
@@ -32,6 +36,8 @@ export const flashcardDecks = mysqlTable(
     ownerUserId: char('owner_user_id', { length: 36 }).references(() => users.id),
     slug: varchar('slug', { length: 100 }),
     unitId: char('unit_id', { length: 36 }).references(() => units.id),
+    contentRevision: int('content_revision').notNull().default(1),
+    localizations: json('localizations').$type<DeckLocalizations>(),
     title: varchar('title', { length: 255 }).notNull(),
     description: text('description'),
     deckSource: varchar('deck_source', { length: 50 }).notNull(),
@@ -54,6 +60,8 @@ export const flashcardItems = mysqlTable(
     id: char('id', { length: 36 }).primaryKey(),
     skillId: char('skill_id', { length: 36 }).references(() => skills.id),
     itemType: varchar('item_type', { length: 50 }).notNull(),
+    contentRevision: int('content_revision').notNull().default(1),
+    localizations: json('localizations').$type<ItemLocalizations>(),
     surfaceFormText: varchar('surface_form_text', { length: 255 }).notNull(),
     kanaDisplayText: text('kana_display_text'),
     romajiText: varchar('romaji_text', { length: 255 }),

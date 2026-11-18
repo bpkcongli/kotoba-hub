@@ -6,6 +6,7 @@ import type {
   SessionSnapshot,
   ScriptMode,
 } from '@/backend/flashcards/domain/repositories/flashcard.repository';
+import type { Locale } from '@/shared/locale';
 
 export interface CreateDeckRequest {
   title: string;
@@ -16,7 +17,12 @@ export interface CreateDeckRequest {
   items?: string[];
 }
 
-export interface CreateSessionRequest {
+export interface FlashcardRepresentation {
+  contentFormat?: 'localized';
+  contentLocale?: Locale;
+}
+
+export interface CreateSessionRequest extends FlashcardRepresentation {
   deckId: string;
   questionScriptMode: ScriptMode;
   answerScriptMode: ScriptMode;
@@ -33,7 +39,7 @@ export type DeckReadModel = FlashcardDeck & { unitSlug: string | null };
 export interface FlashcardService {
   listDecks(
     userId: string,
-    filter: Omit<DeckFilter, 'unitId'> & { unitSlug?: string },
+    filter: Omit<DeckFilter, 'unitId'> & { unitSlug?: string } & FlashcardRepresentation,
   ): Promise<{ items: DeckReadModel[]; totalRecords: number }>;
 
   createDeck(userId: string, request: CreateDeckRequest): Promise<DeckReadModel>;

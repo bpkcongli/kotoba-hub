@@ -7,13 +7,19 @@ import { FlashcardProgressAdapter } from '@/backend/flashcards/interface/seconda
 import { FileCanonicalFlashcardSource } from '@/backend/flashcards/interface/secondary/seed/canonical-flashcard-source';
 import { FlashcardCatalogAdapter } from '@/backend/flashcards/interface/secondary/syllabus/flashcard-catalog.adapter';
 import { FlashcardSeedCatalogAdapter } from '@/backend/flashcards/interface/secondary/syllabus/flashcard-seed-catalog.adapter';
+import { FlashcardContentLocaleAdapter } from '@/backend/flashcards/interface/secondary/users/content-locale.adapter';
 import { progressService } from '@/backend/progress/infrastructure/di';
 import { syllabusCatalogService } from '@/backend/syllabus/infrastructure/di';
+import { userPreferencesService } from '@/backend/users/infrastructure/di';
 
 export const flashcardService: FlashcardService = new FlashcardServiceImpl(
   flashcardRepository,
   new FlashcardCatalogAdapter(syllabusCatalogService),
   new FlashcardProgressAdapter(progressService),
+  undefined,
+  undefined,
+  undefined,
+  new FlashcardContentLocaleAdapter(userPreferencesService),
 );
 
 export const prepareFlashcardSeedService: PrepareFlashcardSeedService =

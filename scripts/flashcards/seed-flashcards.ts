@@ -5,14 +5,28 @@ import { closeDatabase } from '@/backend/shared/infrastructure/database/connecti
 async function main() {
   try {
     const plan = await prepareFlashcardSeedService.prepare();
+    const localizationCoverage = Object.fromEntries(
+      (['en', 'id'] as const).map((locale) => [
+        locale,
+        {
+          decks: plan.decks.filter((row) => row.localizations?.[locale]?.isPublished).length,
+          items: plan.items.filter((row) => row.localizations?.[locale]?.isPublished).length,
+        },
+      ]),
+    );
+
     if (process.argv.includes('--dry-run')) {
-      process.stdout.write(`${JSON.stringify(plan.counts, null, 2)}\n`);
+      process.stdout.write(
+        `${JSON.stringify({ ...plan.counts, localizationCoverage }, null, 2)}\n`,
+      );
 
       return;
     }
 
     await new DrizzleFlashcardImporter().import(plan);
-    process.stdout.write(`${JSON.stringify({ ...plan.counts, imported: true }, null, 2)}\n`);
+    process.stdout.write(
+      `${JSON.stringify({ ...plan.counts, localizationCoverage, imported: true }, null, 2)}\n`,
+    );
   } finally {
     await closeDatabase();
   }

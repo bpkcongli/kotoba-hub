@@ -1,5 +1,11 @@
+import type {
+  DeckLocalizations,
+  ItemLocalizations,
+} from '@/backend/flashcards/domain/value-objects/localized-content';
+import type { Locale, Localization } from '@/shared/locale';
+
 export type ContentType = 'KANJI' | 'KANA' | 'VOCABULARY';
-export type ScriptMode = 'KANJI' | 'KANA' | 'ENGLISH' | 'ROMAJI' | 'JAPANESE';
+export type ScriptMode = 'KANJI' | 'KANA' | 'ENGLISH' | 'ROMAJI' | 'JAPANESE' | 'MEANING';
 
 export type ItemType =
   'KANJI_CHARACTER' | 'HIRAGANA_CHARACTER' | 'KATAKANA_CHARACTER' | 'VOCABULARY';
@@ -11,6 +17,9 @@ export type AnswerOptionPayload = Partial<
 >;
 
 export interface FlashcardItem {
+  contentRevision?: number;
+  localizations?: ItemLocalizations | null;
+  explanationText?: string | null;
   id: string;
   skillId: string | null;
   itemType: ItemType;
@@ -26,6 +35,11 @@ export interface FlashcardItem {
 }
 
 export interface FlashcardDeck {
+  contentRevision?: number;
+  localizations?: DeckLocalizations | null;
+  localization?: Localization;
+  contentFormat?: 'localized';
+  contentLocale?: Locale;
   id: string;
   ownerUserId: string | null;
   slug: string | null;
@@ -41,6 +55,7 @@ export interface FlashcardDeck {
 }
 
 export interface ItemPrompt {
+  localization?: Localization;
   id: string;
   itemType: ItemType;
   prompt: { scriptMode: ScriptMode; value: string };
@@ -48,6 +63,11 @@ export interface ItemPrompt {
 }
 
 export interface TurnSnapshot extends ItemPrompt {
+  localizedContent?: {
+    meaning: string | null;
+    explanationText: string | null;
+    exampleWords: { word: string; kana: string; meaning: string }[];
+  };
   skillCode?: string | null;
   item: FlashcardItem;
   correctOptionId: string;
@@ -90,6 +110,7 @@ export interface BucketUpdate {
 }
 
 export interface AnswerResult {
+  localization?: Localization;
   sessionId: string;
   itemId: string;
   selectedOptionId: string;
@@ -97,18 +118,25 @@ export interface AnswerResult {
   isCorrect: boolean;
   correctAnswer: { scriptMode: ScriptMode; value: string };
   feedback: {
+    explanationText?: string | null;
     variant: 'KANJI_EXPLANATION' | 'VOCABULARY_EXPLANATION' | 'KANA_DEFAULT';
     headline: string;
     bucketMessage: string;
     progressMessage: string;
     kanjiDetails?: {
       character: string;
-      englishMeaning: string;
+      englishMeaning?: string;
+      meaning?: string;
       onyomi: string[];
       kunyomi: string[];
       exampleWords: { word: string; kana: string; meaning: string }[];
     };
-    vocabularyDetails?: { term: string; kana: string | null; englishMeaning: string };
+    vocabularyDetails?: {
+      term: string;
+      kana: string | null;
+      englishMeaning?: string;
+      meaning?: string;
+    };
   };
   bucketUpdate: BucketUpdate;
   sessionProgress: {

@@ -132,3 +132,14 @@ concurrent submissions, owner isolation, answer replay, progress/receipt recover
 canonical quiz selection, understanding level limits, and fresh recommendation.
 It never migrates the regular application database. Provision a fresh test database
 for each run. See [practice engine](../docs/practice-engine.md).
+
+BIL-05 adds migration `0007` with additive revision/localizations columns for
+flashcard deck/item. After migration, run the existing flashcard dry-run and seed
+commands to populate audited packages. The v1 files remain immutable; the
+additive `content/flashcards/system-decks/localizations.v2.json` supplies curated
+Indonesian content. Never down-migrate or reseed old binaries as rollback.
+Localized creation requires current English packages; legacy creation remains
+available before seeding. Revision conflicts abort the complete seed transaction.
+`test:flashcards` also verifies bilingual snapshot/replay and shared Leitner state.
+Add `--bilingual-syllabus` to exercise the BIL-03 v2 merge before flashcard seeding.
+See [BIL-05 coverage and operations](../docs/syllabus/bilingual/bilingual-flashcards-implementation.md).

@@ -9,6 +9,34 @@ const uuid = z.uuid();
 export class FileCanonicalFlashcardSource implements CanonicalFlashcardSource {
   constructor(private readonly root = process.cwd()) {}
 
+  async readLocalizationOverlay() {
+    return z
+      .strictObject({
+        schemaVersion: z.literal('2.0.0'),
+        contentRevision: z.number().int().positive(),
+        translationRevision: z.number().int().positive(),
+        sourceRefs: z.array(z.string().min(1)).min(1),
+        items: z.record(
+          z.uuid(),
+          z.strictObject({
+            surfaceFormText: z.string().min(1),
+            en: z.string().min(1),
+            id: z.string().min(1),
+          }),
+        ),
+        decks: z.record(z.uuid(), z.strictObject({ en: z.string().min(1), id: z.string().min(1) })),
+        unitTitles: z.record(z.string(), z.string().min(1)),
+      })
+      .parse(
+        JSON.parse(
+          await readFile(
+            `${this.root}/content/flashcards/system-decks/localizations.v2.json`,
+            'utf8',
+          ),
+        ),
+      );
+  }
+
   async readArtifacts(): Promise<FlashcardArtifact[]> {
     return Promise.all(
       ['kana-foundation.json', 'vocabulary-foundation.json'].map(async (name) =>

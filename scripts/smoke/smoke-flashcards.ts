@@ -113,6 +113,21 @@ async function main() {
 
   await new DrizzleSyllabusImporter().import(syllabusPlan);
 
+  if (process.argv.includes('--bilingual-syllabus')) {
+    const { PrepareBilingualSeedServiceImpl } =
+      await import('@/backend/syllabus/application/services/impl/prepare-bilingual-seed.service.impl');
+    const { DrizzleBilingualImporter } =
+      await import('@/backend/syllabus/interface/secondary/persistence/drizzle-bilingual-importer');
+    const baseline = new SeedSyllabusCatalogRepository();
+
+    await new DrizzleBilingualImporter().import(
+      await new PrepareBilingualSeedServiceImpl(baseline).prepare(
+        'content/syllabus/v2/manifest.json',
+      ),
+      await baseline.getTracks(),
+    );
+  }
+
   const seedService = new PrepareFlashcardSeedServiceImpl(
     new FlashcardSeedCatalogAdapter(syllabus),
     new FileCanonicalFlashcardSource(),
@@ -413,8 +428,112 @@ async function main() {
       5,
     );
 
+    const metadata = {
+      sourceRevision: 1,
+      translationRevision: 1,
+      isPublished: true,
+      sourceRefs: ['KOTOBAHUB_INTERNAL:BIL-05-smoke'],
+    };
+    const localizedContent = (meaning: string) => ({
+      ...metadata,
+      meaning,
+      explanationText: null,
+      exampleWords: [],
+      scriptOptions: {
+        KANJI: { canonicalAnswer: '日', aliases: ['日'], distractors: ['月', '火'] },
+        KANA: { canonicalAnswer: 'にち', aliases: ['にち'], distractors: ['つき', 'き'] },
+      },
+      meaningOptions: {
+        canonicalAnswer: meaning,
+        aliases: [meaning],
+        distractors: meaning === 'day' ? ['moon', 'tree'] : ['bulan', 'pohon'],
+      },
+    });
+
+    await db
+      .update(flashcardSchema.flashcardItems)
+      .set({
+        contentRevision: 1,
+        localizations: { en: localizedContent('day'), id: localizedContent('hari') },
+      })
+      .where(eq(flashcardSchema.flashcardItems.id, mappedItemId));
+
+    let preferred = 'id' as 'id' | 'en';
+    const bilingualService = new FlashcardServiceImpl(
+      repository,
+      catalog,
+      handoff,
+      undefined,
+      undefined,
+      undefined,
+      { getContentLocale: async () => preferred },
+    );
+    const bilingualSession = await bilingualService.createSession(userId, {
+      deckId: concurrentDeck.id,
+      questionScriptMode: 'KANJI',
+      answerScriptMode: 'MEANING',
+      contentFormat: 'localized',
+    });
+
+    assert.equal(bilingualSession.deck.contentLocale, 'id');
+    assert.equal(bilingualSession.turns[0].localization?.resolvedLocale, 'id');
+
+    const bilingualAnswer = {
+      itemId: mappedItemId,
+      selectedOptionId: bilingualSession.turns[0].correctOptionId,
+      responseTimeMs: 1510,
+    };
+    preferred = 'en';
+
+    await db
+      .update(flashcardSchema.flashcardItems)
+      .set({ localizations: null })
+      .where(eq(flashcardSchema.flashcardItems.id, mappedItemId));
+
+    const bilingualResults = await Promise.all([
+      bilingualService.submitAnswer(userId, bilingualSession.id, bilingualAnswer),
+      bilingualService.submitAnswer(userId, bilingualSession.id, bilingualAnswer),
+    ]);
+
+    assert.deepEqual(bilingualResults[0], bilingualResults[1]);
+    assert.equal(bilingualResults[0].feedback.kanjiDetails?.meaning, 'hari');
+    assert.equal(bilingualResults[0].feedback.kanjiDetails?.englishMeaning, undefined);
+    assert.equal(bilingualResults[0].localization?.resolvedLocale, 'id');
+    assert.equal(
+      (await repository.getItemStates(userId, [mappedItemId]))[mappedItemId]
+        .consecutiveCorrectCount,
+      6,
+    );
+    assert.equal((await progressRepository.readState(userId)).events.length, 6);
+    await assert.rejects(() =>
+      bilingualService.createSession(userId, {
+        deckId: concurrentDeck.id,
+        questionScriptMode: 'KANJI',
+        answerScriptMode: 'MEANING',
+        contentFormat: 'localized',
+      }),
+    );
+
+    const conflict = structuredClone(plan);
+    conflict.decks[0].title = 'Changed without revision';
+
+    await assert.rejects(() => importer.import(conflict), /without a new revision/);
+    assert.equal((await repository.findDeck(userId, plan.decks[0].id))?.title, plan.decks[0].title);
+
+    await importer.import(plan);
+    assert(await repository.findDeck(userId, concurrentDeck.id));
+    assert.equal(
+      (await repository.getItemStates(userId, [mappedItemId]))[mappedItemId]
+        .consecutiveCorrectCount,
+      6,
+    );
+    assert.deepEqual(
+      await bilingualService.submitAnswer(userId, bilingualSession.id, bilingualAnswer),
+      bilingualResults[0],
+    );
+
     console.log(
-      'Flashcards MySQL smoke passed: repeatable import, published attribution, private decks, snapshot grading, producer commit/retry, progress acknowledgement retry, unmapped local answers, owner isolation, concurrent duplicate/session writes and transactional rollback.',
+      'Flashcards MySQL smoke passed: repeatable import, published attribution, private decks, snapshot grading, producer commit/retry, progress acknowledgement retry, unmapped local answers, owner isolation, concurrent duplicate/session writes transactional rollback, localized snapshots/replay across preference/content changes, shared Leitner state and revision-conflict rollback.',
     );
   } finally {
     const owners = [userId, otherUserId];

@@ -126,7 +126,8 @@ docker run --rm --network none "$ops_image" -e '
   const source = new FileCanonicalFlashcardSource();
   const artifacts = await source.readArtifacts();
   const kanji = await source.readKanjiSkills();
-  if (artifacts.length !== 2 || kanji.length === 0) {
+  const overlay = await source.readLocalizationOverlay();
+  if (artifacts.length !== 2 || kanji.length === 0 || Object.keys(overlay.items).length === 0 || Object.keys(overlay.decks).length === 0) {
     throw new Error("Canonical flashcard artifacts are incomplete.");
   }
   console.log("Flashcard artifacts parsed; kanji skills:", kanji.length);

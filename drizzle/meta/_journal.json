@@ -50,6 +50,13 @@
       "when": 1794913117904,
       "tag": "0006_bilingual_content",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1794932641071,
+      "tag": "0007_bilingual_flashcards",
+      "breakpoints": true
     }
   ]
 }

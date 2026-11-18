@@ -1,4 +1,5 @@
-import { createHash } from 'node:crypto';
+import { attachFlashcardLocalizations } from '@/backend/flashcards/application/helpers/flashcard-localized-seed';
+import { stableFlashcardSeedId } from '@/backend/flashcards/application/helpers/stable-flashcard-seed-id';
 import type { CanonicalFlashcardSource } from '@/backend/flashcards/application/ports/canonical-flashcard-source.port';
 import type { FlashcardSeedCatalogPort } from '@/backend/flashcards/application/ports/flashcard-seed-catalog.port';
 import type {
@@ -7,18 +8,6 @@ import type {
   PrepareFlashcardSeedService,
   SeedScriptMode,
 } from '@/backend/flashcards/application/services/prepare-flashcard-seed.service';
-
-export function stableFlashcardSeedId(key: string): string {
-  const bytes = createHash('sha256')
-    .update(`kotobahub/flashcards/v1/${key}`)
-    .digest()
-    .subarray(0, 16);
-  bytes[6] = (bytes[6] & 0x0f) | 0x50;
-  bytes[8] = (bytes[8] & 0x3f) | 0x80;
-  const hex = bytes.toString('hex');
-
-  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
-}
 
 export class PrepareFlashcardSeedServiceImpl implements PrepareFlashcardSeedService {
   constructor(
@@ -324,6 +313,13 @@ export class PrepareFlashcardSeedServiceImpl implements PrepareFlashcardSeedServ
       mappedItems: plan.items.filter((item) => item.skillId !== null).length,
       pendingItems: plan.items.filter((item) => item.skillId === null).length,
     };
+
+    attachFlashcardLocalizations(
+      plan,
+      artifacts,
+      kanjiSkills,
+      await this.source.readLocalizationOverlay?.(),
+    );
 
     return plan;
   }

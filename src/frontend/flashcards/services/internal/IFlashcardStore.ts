@@ -7,8 +7,13 @@ import type {
 } from '@/frontend/flashcards/interfaces/entities';
 import type { StoreError } from '@/frontend/shared/interfaces';
 import type { IDisposableStore } from '@/frontend/shared/interfaces/stores';
+import type { Locale } from '@/shared/locale';
 
 export interface IFlashcardStore extends IDisposableStore {
+  contentLocale: Locale | undefined;
+
+  setContentLocale(locale: Locale): void;
+
   decks: FlashcardDeck[];
 
   selectedDeckId: string;

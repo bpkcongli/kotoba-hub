@@ -4,7 +4,9 @@ import { answerModes, questionModes } from '@/frontend/flashcards/helpers';
 import { scriptModeSchema } from '@/frontend/flashcards/interfaces/responses';
 import { flashcardDecksFixture } from '@/mocks/fixtures/flashcards';
 import { createMockFlashcardSession, answerMockFlashcardSession } from '@/mocks/states/flashcards';
+import { getMockPreferences } from '@/mocks/states/locale';
 import { getMockSession } from '@/mocks/states/session';
+import { localeSchema } from '@/shared/locale';
 
 function status(code = 120005000, message = 'Success!') {
   return { traceId: crypto.randomUUID(), code, message, errorDetails: [] };
@@ -26,13 +28,19 @@ function guard() {
   return null;
 }
 
+const validRepresentation = (value: { contentFormat?: string; contentLocale?: string }) =>
+  !value.contentLocale || value.contentFormat === 'localized';
+
 const createSchema = z
   .object({
+    contentFormat: z.literal('localized').optional(),
+    contentLocale: localeSchema.optional(),
     deckId: z.uuid(),
     questionScriptMode: scriptModeSchema,
     answerScriptMode: scriptModeSchema,
   })
-  .strict();
+  .strict()
+  .refine(validRepresentation);
 
 const answerSchema = z
   .object({
@@ -50,6 +58,8 @@ const answerSchema = z
 
 const querySchema = z
   .object({
+    contentFormat: z.literal('localized').optional(),
+    contentLocale: localeSchema.optional(),
     offset: z.coerce.number().int().nonnegative().default(0),
     limit: z.coerce.number().int().min(1).max(100).default(10),
     deckSource: z.enum(['SYSTEM', 'CUSTOM', 'ALL']).default('ALL'),
@@ -57,18 +67,25 @@ const querySchema = z
     deckTypes: z.string().min(1).optional(),
     unitSlug: z.string().min(1).optional(),
   })
-  .strict();
+  .strict()
+  .refine(validRepresentation);
 
 export const flashcardHandlers = [
   http.get('*/api/v1/flashcards/decks', ({ request }) => {
     const denied = guard();
     if (denied) return denied;
 
-    const parsed = querySchema.safeParse(Object.fromEntries(new URL(request.url).searchParams));
+    const url = new URL(request.url);
+    if (['contentFormat', 'contentLocale'].some((name) => url.searchParams.getAll(name).length > 1))
+      return failure(142205001, 'Choose valid content language.');
+
+    const parsed = querySchema.safeParse(Object.fromEntries(url.searchParams));
     if (!parsed.success) return failure(142205001, 'Choose valid deck filters.');
 
     const query = parsed.data;
-    const decks = flashcardDecksFixture().filter(
+    const decks = flashcardDecksFixture(
+      query.contentFormat ? (query.contentLocale ?? getMockPreferences().contentLocale) : undefined,
+    ).filter(
       (deck) =>
         (query.deckSource === 'ALL' || deck.deckSource === query.deckSource) &&
         (query.contentType === 'ALL' || deck.contentType === query.contentType) &&
@@ -88,6 +105,7 @@ export const flashcardHandlers = [
       data: { flashcardDecks: decks.slice(query.offset, query.offset + query.limit) },
     });
   }),
+
   http.post('*/api/v1/flashcards/sessions', async ({ request }) => {
     const denied = guard();
     if (denied) return denied;
@@ -95,14 +113,25 @@ export const flashcardHandlers = [
     const parsed = createSchema.safeParse(await request.json().catch(() => null));
     if (!parsed.success) return failure(142205001, 'Choose a deck and script pair.');
 
-    const config = parsed.data;
-    const deck = flashcardDecksFixture().find((entry) => entry.id === config.deckId);
+    const config = {
+      ...parsed.data,
+      ...(parsed.data.contentFormat
+        ? { contentLocale: parsed.data.contentLocale ?? getMockPreferences().contentLocale }
+        : {}),
+    };
 
+    const deck = flashcardDecksFixture().find((entry) => entry.id === config.deckId);
     if (!deck) return failure(140405001, 'This deck is unavailable.', 404);
 
     if (
-      !questionModes(deck.contentType).includes(config.questionScriptMode) ||
-      !answerModes(deck.contentType, config.questionScriptMode).includes(config.answerScriptMode)
+      !questionModes(deck.contentType, config.contentFormat === 'localized').includes(
+        config.questionScriptMode,
+      ) ||
+      !answerModes(
+        deck.contentType,
+        config.questionScriptMode,
+        config.contentFormat === 'localized',
+      ).includes(config.answerScriptMode)
     )
       return failure(142205004, 'Choose a valid script pair for this deck.');
 
@@ -111,6 +140,7 @@ export const flashcardHandlers = [
       data: createMockFlashcardSession(getMockSession().user!.id, config),
     });
   }),
+
   http.post('*/api/v1/flashcards/sessions/:sessionId/answer', async ({ request, params }) => {
     const denied = guard();
     if (denied) return denied;

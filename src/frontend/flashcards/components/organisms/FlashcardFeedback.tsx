@@ -22,7 +22,11 @@ export const FlashcardFeedback = forwardRef<HTMLElement, { result: FlashcardAnsw
           <p>
             Correct answer:{' '}
             <span
-              lang={isJapanese(result.correctAnswer.scriptMode) ? 'ja' : undefined}
+              lang={
+                isJapanese(result.correctAnswer.scriptMode)
+                  ? 'ja'
+                  : result.localization?.resolvedLocale
+              }
               className={
                 isJapanese(result.correctAnswer.scriptMode)
                   ? 'font-japanese font-semibold'
@@ -50,13 +54,20 @@ export const FlashcardFeedback = forwardRef<HTMLElement, { result: FlashcardAnsw
           </p>
         )}
 
+        {feedback.explanationText && (
+          <p lang={result.localization?.resolvedLocale}>{feedback.explanationText}</p>
+        )}
+
         {feedback.variant === 'KANJI_EXPLANATION' && (
           <div className="space-y-4 border-t pt-4">
             <p className="flex flex-wrap items-baseline gap-3">
               <span lang="ja" className="font-japanese text-h1">
                 {feedback.kanjiDetails.character}
               </span>
-              <span>{feedback.kanjiDetails.englishMeaning}</span>
+
+              <span lang={result.localization?.resolvedLocale}>
+                {feedback.kanjiDetails.meaning ?? feedback.kanjiDetails.englishMeaning}
+              </span>
             </p>
 
             <dl className="grid gap-3 sm:grid-cols-2">
@@ -87,7 +98,8 @@ export const FlashcardFeedback = forwardRef<HTMLElement, { result: FlashcardAnsw
                       <span lang="ja" className="font-japanese">
                         {word.word} · {word.kana}
                       </span>
-                      <span> — {word.meaning}</span>
+
+                      <span lang={result.localization?.resolvedLocale}> — {word.meaning}</span>
                     </li>
                   ))}
                 </ul>
@@ -108,7 +120,9 @@ export const FlashcardFeedback = forwardRef<HTMLElement, { result: FlashcardAnsw
               </p>
             )}
 
-            <p>{feedback.vocabularyDetails.englishMeaning}</p>
+            <p lang={result.localization?.resolvedLocale}>
+              {feedback.vocabularyDetails.meaning ?? feedback.vocabularyDetails.englishMeaning}
+            </p>
           </div>
         )}
       </section>

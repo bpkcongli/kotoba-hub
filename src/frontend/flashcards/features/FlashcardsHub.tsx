@@ -28,6 +28,7 @@ export const FlashcardsHub = observer(function FlashcardsHub() {
   }, [store]);
 
   const deck = store.selectedDeck;
+
   async function start() {
     await store.startSession();
 
@@ -50,7 +51,7 @@ export const FlashcardsHub = observer(function FlashcardsHub() {
             {store.stage === 'completed' ? 'Your session result' : 'Your current session'}
           </h2>
 
-          <p>{store.session.deck.title}</p>
+          <p lang={store.session.deck.localization?.resolvedLocale}>{store.session.deck.title}</p>
 
           <p className="text-body-sm text-muted-foreground">
             {store.session.sessionProgress.totalAnswered} of{' '}
@@ -161,7 +162,7 @@ export const FlashcardsHub = observer(function FlashcardsHub() {
                     onChange={(event) =>
                       store.setQuestionScriptMode(event.target.value as ScriptMode)
                     }>
-                    {questionModes(deck.contentType).map((mode) => (
+                    {questionModes(deck.contentType, !!store.contentLocale).map((mode) => (
                       <option key={mode} value={mode}>
                         {SCRIPT_LABELS[mode]}
                       </option>
@@ -182,7 +183,11 @@ export const FlashcardsHub = observer(function FlashcardsHub() {
                     onChange={(event) =>
                       store.setAnswerScriptMode(event.target.value as ScriptMode)
                     }>
-                    {answerModes(deck.contentType, store.questionScriptMode).map((mode) => (
+                    {answerModes(
+                      deck.contentType,
+                      store.questionScriptMode,
+                      !!store.contentLocale,
+                    ).map((mode) => (
                       <option key={mode} value={mode}>
                         {SCRIPT_LABELS[mode]}
                       </option>
@@ -190,6 +195,21 @@ export const FlashcardsHub = observer(function FlashcardsHub() {
                   </select>
                 </div>
               </div>
+
+              {deck.localization?.isFallback && (
+                <p role="status">
+                  Deck information is shown in English because an Indonesian translation is
+                  unavailable.
+                </p>
+              )}
+
+              {store.contentLocale && (
+                <p className="text-body-sm text-muted-foreground">
+                  Content language: {store.contentLocale === 'id' ? 'Indonesian' : 'English'}. Cards
+                  without an Indonesian translation use English. The language stays locked for this
+                  session.
+                </p>
+              )}
 
               <p className="text-body-sm text-muted-foreground">
                 Scripts stay locked during the session. To change them, end the session and start

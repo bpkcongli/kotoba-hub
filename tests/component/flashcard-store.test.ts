@@ -1,3 +1,4 @@
+import { waitFor } from '@testing-library/react';
 import { http, HttpResponse } from 'msw';
 import type { FlashcardAnswerRequest } from '@/frontend/flashcards/interfaces/requests';
 import { createFlashcardContainer, FLASHCARD_TYPES } from '@/frontend/flashcards/services';
@@ -49,6 +50,7 @@ beforeEach(() => setMockSession(appReadySessionFixture()));
 test('reads all catalog pages through the actual service and isolates feature stores', async () => {
   const decks = flashcardDecksFixture();
   const offsets: number[] = [];
+
   server.use(
     http.get(`${baseUrl}/flashcards/decks`, ({ request }) => {
       const offset = Number(new URL(request.url).searchParams.get('offset'));
@@ -97,6 +99,7 @@ test.each([
     store.selectDeck(FLASHCARD_DECK_IDS[family]);
     store.setQuestionScriptMode(question);
     store.setAnswerScriptMode(answer);
+
     await store.startSession();
 
     expect(store.error).toBeNull();
@@ -130,6 +133,7 @@ test('retries the exact submitted choice and response time after an ambiguous fa
       bodies.push((await request.clone().json()) as FlashcardAnswerRequest);
     }
   };
+
   server.events.on('request:start', capture);
   server.use(
     http.post(
@@ -164,6 +168,7 @@ test('retries the exact submitted choice and response time after an ambiguous fa
   try {
     await store.loadDecks();
     await store.startSession();
+
     now = 11700;
     store.selectOption('opt_1');
     await store.submitAnswer();
@@ -199,7 +204,9 @@ test('keeps the last answer feedback until continuation and uses authoritative c
 
   await store.loadDecks();
   store.selectDeck(FLASHCARD_DECK_IDS.vocabulary);
+
   await store.startSession();
+
   store.selectOption('opt_1');
   await store.submitAnswer();
 
@@ -237,11 +244,13 @@ test('rejects another session snapshot without exposing its prompt', async () =>
   const store = createStore();
 
   await store.loadDecks();
+
   server.use(
     http.post(`${baseUrl}/flashcards/sessions`, () =>
       HttpResponse.json(envelope(flashcardSessionFixture({ deckId: FLASHCARD_DECK_IDS.kanji }))),
     ),
   );
+
   await store.startSession();
 
   expect(store.error?.code).toBe('contract');
@@ -254,6 +263,7 @@ test('disposal suppresses an in-flight session response', async () => {
   const started = deferred();
   const released = deferred();
   const finished = deferred();
+
   server.use(
     http.post(`${baseUrl}/flashcards/sessions`, async () => {
       started.resolve();
@@ -267,8 +277,10 @@ test('disposal suppresses an in-flight session response', async () => {
   const store = createStore();
 
   await store.loadDecks();
+
   const pending = store.startSession();
   await started.promise;
+
   store.dispose();
   released.resolve();
   await pending;
@@ -278,4 +290,156 @@ test('disposal suppresses an in-flight session response', async () => {
   expect(store.currentItem).toBeNull();
   expect(store.error).toBeNull();
   expect(store.isStarting).toBe(false);
+});
+
+test('localized session and exact pending answer survive a preference change, then the next session uses the new locale', async () => {
+  const store = createStore();
+
+  store.setContentLocale('id');
+  await store.loadDecks();
+  store.selectDeck(FLASHCARD_DECK_IDS.vocabulary);
+
+  await store.startSession();
+
+  expect(store.session?.sessionConfig).toMatchObject({
+    contentFormat: 'localized',
+    contentLocale: 'id',
+    answerScriptMode: 'MEANING',
+  });
+  expect(store.currentItem?.answerOptions.map((value) => value.value)).toContain('Jepang');
+
+  const payloads: FlashcardAnswerRequest[] = [];
+  let fail = true;
+
+  server.use(
+    http.post(`${baseUrl}/flashcards/sessions/:sessionId/answer`, async ({ request, params }) => {
+      const payload = (await request.json()) as FlashcardAnswerRequest;
+      payloads.push(payload);
+
+      const result = answerMockFlashcardSession(
+        appReadySessionFixture().user!.id,
+        String(params.sessionId),
+        payload,
+      );
+
+      if (fail) {
+        fail = false;
+
+        return HttpResponse.error();
+      }
+
+      if (!('result' in result)) throw new Error('Missing stored answer');
+
+      return HttpResponse.json(envelope(result.result));
+    }),
+  );
+
+  store.selectOption('opt_1');
+  await store.submitAnswer();
+
+  expect(store.answerLocked).toBe(true);
+
+  store.setContentLocale('en');
+  await store.submitAnswer();
+
+  expect(payloads).toHaveLength(2);
+  expect(payloads[1]).toEqual(payloads[0]);
+  expect(store.answerResult?.feedback.vocabularyDetails).toMatchObject({ meaning: 'Jepang' });
+  expect(store.session?.sessionConfig.contentLocale).toBe('id');
+
+  store.resetSession();
+  await store.loadDecks();
+  store.selectDeck(FLASHCARD_DECK_IDS.vocabulary);
+
+  await store.startSession();
+
+  expect(store.session?.sessionConfig.contentLocale).toBe('en');
+  expect(store.currentItem?.answerOptions.map((value) => value.value)).toContain('Japan');
+});
+
+test('discards an obsolete locale catalog response and starts pending creation in its captured language', async () => {
+  const store = createStore();
+  const old = deferred();
+
+  server.use(
+    http.get(`${baseUrl}/flashcards/decks`, async ({ request }) => {
+      const locale = new URL(request.url).searchParams.get('contentLocale') === 'id' ? 'id' : 'en';
+
+      if (locale === 'id') await old.promise;
+
+      return HttpResponse.json({
+        ...envelope({ flashcardDecks: flashcardDecksFixture(locale) }),
+        metadata: { pagination: { pageNumber: 1, pageSize: 100, totalRecords: 3 } },
+      });
+    }),
+  );
+
+  store.setContentLocale('id');
+
+  const pending = store.loadDecks();
+
+  store.setContentLocale('en');
+  await store.loadDecks();
+
+  old.resolve();
+  await pending;
+
+  expect(store.decks[0].title).toBe('Kana foundations');
+
+  const gate = deferred();
+  let body: unknown;
+
+  server.use(
+    http.post(`${baseUrl}/flashcards/sessions`, async ({ request }) => {
+      body = await request.json();
+      await gate.promise;
+
+      return HttpResponse.json(
+        envelope(flashcardSessionFixture(body as Parameters<typeof flashcardSessionFixture>[0])),
+      );
+    }),
+  );
+
+  const starting = store.startSession();
+
+  store.setContentLocale('id');
+  gate.resolve();
+  await starting;
+
+  expect(body).toMatchObject({ contentLocale: 'en' });
+  expect(store.session?.sessionConfig.contentLocale).toBe('en');
+  expect(store.contentLocale).toBe('id');
+});
+
+test('refreshes setup in the latest locale when a pending create fails after preferences change', async () => {
+  const store = createStore();
+
+  store.setContentLocale('en');
+  await store.loadDecks();
+
+  const gate = deferred();
+
+  server.use(
+    http.post(`${baseUrl}/flashcards/sessions`, async () => {
+      await gate.promise;
+
+      return HttpResponse.error();
+    }),
+  );
+
+  const starting = store.startSession();
+
+  store.setContentLocale('id');
+  gate.resolve();
+  await starting;
+
+  await waitFor(() => {
+    expect(store.isLoading).toBe(false);
+    expect(store.decks[0]?.title).toBe('Dasar Kana');
+  });
+
+  expect(store.stage).toBe('setup');
+  expect(store.errorOperation).toBe('start');
+  expect(store.error).not.toBeNull();
+  expect(store.selectedDeck?.id).toBe(FLASHCARD_DECK_IDS.kana);
 });

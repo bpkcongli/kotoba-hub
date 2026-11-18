@@ -20,8 +20,10 @@ import type { IFlashcardStore } from '@/frontend/flashcards/services/internal/IF
 import { ApiException, ClientException } from '@/frontend/shared/exceptions';
 import { presentError } from '@/frontend/shared/helpers';
 import type { StoreError } from '@/frontend/shared/interfaces';
+import type { Locale } from '@/shared/locale';
 
 export class FlashcardStore implements IFlashcardStore {
+  contentLocale: Locale | undefined = undefined;
   decks: FlashcardDeck[] = [];
   selectedDeckId = '';
   questionScriptMode: ScriptMode = 'KANA';
@@ -48,6 +50,8 @@ export class FlashcardStore implements IFlashcardStore {
   constructor(private readonly service: IFlashcardService) {
     makeObservable<this, 'pendingAnswer'>(this, {
       pendingAnswer: observableRef,
+      contentLocale: observable,
+      setContentLocale: actionBound,
       decks: observableRef,
       selectedDeckId: observable,
       questionScriptMode: observable,
@@ -87,25 +91,50 @@ export class FlashcardStore implements IFlashcardStore {
     return this.pendingAnswer !== null || this.stage !== 'question';
   }
 
-  async loadDecks() {
+  setContentLocale(locale: Locale) {
+    if (this.contentLocale === locale) return;
+
+    this.contentLocale = locale;
+
+    if (this.stage !== 'setup' || this.isStarting) return;
+
+    const reload = this.isLoaded || this.isLoading;
+
+    this.loadController?.abort();
+    this.decks = [];
+    this.selectedDeckId = '';
+    this.isLoaded = false;
+
+    if (reload) void this.loadDecks();
+  }
+
+  async loadDecks(preserveError = false) {
     this.loadController?.abort();
 
     const controller = new AbortController();
     this.loadController = controller;
     this.isLoading = true;
-    this.errorOperation = null;
-    this.error = null;
+
+    if (!preserveError) {
+      this.errorOperation = null;
+      this.error = null;
+    }
+
     this.accessIssue = null;
 
     try {
-      const decks = await this.service.getDecks(controller.signal);
+      const decks = await this.service.getDecks(controller.signal, this.contentLocale);
 
       runInAction(() => {
         if (this.loadController === controller && !controller.signal.aborted) {
           this.decks = decks;
           this.isLoaded = true;
 
+          const preservedError = this.error;
+
           if (!this.selectedDeck) this.selectDeck(decks[0]?.id ?? '');
+
+          if (preserveError) this.error = preservedError;
         }
       });
     } catch (error) {
@@ -130,8 +159,13 @@ export class FlashcardStore implements IFlashcardStore {
     if (!deck) return;
 
     this.selectedDeckId = id;
-    this.questionScriptMode = questionModes(deck.contentType)[0];
-    this.answerScriptMode = answerModes(deck.contentType, this.questionScriptMode)[0];
+    this.questionScriptMode = questionModes(deck.contentType, !!this.contentLocale)[0];
+    this.answerScriptMode = answerModes(
+      deck.contentType,
+      this.questionScriptMode,
+      !!this.contentLocale,
+    )[0];
+
     this.error = null;
   }
 
@@ -142,13 +176,13 @@ export class FlashcardStore implements IFlashcardStore {
       this.stage !== 'setup' ||
       this.isStarting ||
       !deck ||
-      !questionModes(deck.contentType).includes(mode)
+      !questionModes(deck.contentType, !!this.contentLocale).includes(mode)
     )
       return;
 
     this.questionScriptMode = mode;
 
-    const options = answerModes(deck.contentType, mode);
+    const options = answerModes(deck.contentType, mode, !!this.contentLocale);
     if (!options.includes(this.answerScriptMode)) this.answerScriptMode = options[0];
   }
 
@@ -159,7 +193,7 @@ export class FlashcardStore implements IFlashcardStore {
       this.stage === 'setup' &&
       !this.isStarting &&
       deck &&
-      answerModes(deck.contentType, this.questionScriptMode).includes(mode)
+      answerModes(deck.contentType, this.questionScriptMode, !!this.contentLocale).includes(mode)
     )
       this.answerScriptMode = mode;
   }
@@ -168,6 +202,8 @@ export class FlashcardStore implements IFlashcardStore {
     const deck = this.selectedDeck;
 
     if (this.stage !== 'setup' || this.isStarting || !deck || !deck.itemCount) return;
+
+    const locale = this.contentLocale;
 
     const controller = new AbortController();
     this.writeController = controller;
@@ -179,6 +215,7 @@ export class FlashcardStore implements IFlashcardStore {
     try {
       const session = await this.service.createSession(
         {
+          ...(locale ? ({ contentFormat: 'localized', contentLocale: locale } as const) : {}),
           deckId: deck.id,
           questionScriptMode: this.questionScriptMode,
           answerScriptMode: this.answerScriptMode,
@@ -207,6 +244,19 @@ export class FlashcardStore implements IFlashcardStore {
         if (this.writeController === controller) {
           this.writeController = null;
           this.isStarting = false;
+
+          if (
+            this.stage === 'setup' &&
+            !this.session &&
+            locale !== this.contentLocale &&
+            !this.accessIssue
+          ) {
+            this.decks = [];
+            this.selectedDeckId = '';
+            this.isLoaded = false;
+
+            void this.loadDecks(true);
+          }
         }
       });
     }
@@ -243,8 +293,10 @@ export class FlashcardStore implements IFlashcardStore {
 
     const request = this.pendingAnswer;
     const sessionId = this.session.id;
+
     const controller = new AbortController();
     this.writeController = controller;
+
     this.isSubmitting = true;
     this.errorOperation = null;
     this.error = null;
@@ -310,6 +362,9 @@ export class FlashcardStore implements IFlashcardStore {
     this.selectedOptionId = null;
     this.pendingAnswer = null;
     this.stage = 'setup';
+
+    if (this.selectedDeck) this.selectDeck(this.selectedDeck.id);
+
     this.isStarting = false;
     this.error = null;
     this.accessIssue = null;
@@ -324,6 +379,17 @@ export class FlashcardStore implements IFlashcardStore {
 
     if (
       !item ||
+      (item.localization &&
+        (!result.localization ||
+          (
+            [
+              'requestedLocale',
+              'resolvedLocale',
+              'isFallback',
+              'contentRevision',
+              'translationRevision',
+            ] as const
+          ).some((key) => result.localization![key] !== item.localization![key]))) ||
       !this.matchesSubmittedAnswer(result, request, item, session.sessionConfig.answerScriptMode) ||
       !this.matchesExpectedProgress(
         result.sessionProgress,
@@ -375,6 +441,8 @@ export class FlashcardStore implements IFlashcardStore {
     return (
       nextItem === null ||
       (nextItem.id !== currentItem.id &&
+        (sessionConfig.contentFormat !== 'localized' ||
+          nextItem.localization?.requestedLocale === sessionConfig.contentLocale) &&
         nextItem.prompt.scriptMode === sessionConfig.questionScriptMode &&
         nextItem.answerOptions.every(
           (option) => option.scriptMode === sessionConfig.answerScriptMode,
@@ -399,8 +467,10 @@ export class FlashcardStore implements IFlashcardStore {
   dispose() {
     this.loadController?.abort();
     this.writeController?.abort();
+
     this.loadController = null;
     this.writeController = null;
+
     this.isLoading = false;
     this.isStarting = false;
     this.isSubmitting = false;

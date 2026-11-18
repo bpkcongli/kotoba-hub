@@ -84,7 +84,9 @@ export const FlashcardSessionScreen = observer(function FlashcardSessionScreen({
       ) : (
         <div className="min-w-0 space-y-6 wrap-anywhere">
           <header className="space-y-2">
-            <h1 className="text-h3 font-semibold">{session.deck.title}</h1>
+            <h1 lang={session.deck.localization?.resolvedLocale} className="text-h3 font-semibold">
+              {session.deck.title}
+            </h1>
 
             <p className="text-body-sm text-muted-foreground">
               Scripts locked: {SCRIPT_LABELS[session.sessionConfig.questionScriptMode]} →{' '}
@@ -92,17 +94,25 @@ export const FlashcardSessionScreen = observer(function FlashcardSessionScreen({
             </p>
           </header>
 
+          {item.localization?.isFallback && (
+            <p role="status">
+              This card uses English because an Indonesian translation is unavailable.
+            </p>
+          )}
+
           <section
             aria-label="Current flashcard"
             className="space-y-6 rounded-md border border-border-subtle bg-card p-5 sm:p-8">
             <p className="text-body-sm text-muted-foreground">
-              Choose the {SCRIPT_LABELS[session.sessionConfig.answerScriptMode]} answer.
+              {session.sessionConfig.answerScriptMode === 'MEANING'
+                ? `Choose the ${item.localization?.resolvedLocale === 'id' ? 'Indonesian' : 'English'} meaning.`
+                : `Choose the ${SCRIPT_LABELS[session.sessionConfig.answerScriptMode]} answer.`}
             </p>
 
             <h2
               ref={promptRef}
               tabIndex={-1}
-              lang={isJapanese(item.prompt.scriptMode) ? 'ja' : undefined}
+              lang={isJapanese(item.prompt.scriptMode) ? 'ja' : item.localization?.resolvedLocale}
               className={`py-6 text-center text-4xl leading-relaxed font-semibold outline-none focus-visible:focus-ring sm:text-5xl ${isJapanese(item.prompt.scriptMode) ? 'font-japanese' : ''}`}>
               {item.prompt.value}
             </h2>
@@ -133,16 +143,21 @@ export const FlashcardSessionScreen = observer(function FlashcardSessionScreen({
                         onChange={() => store.selectOption(option.id)}
                         className="size-4 shrink-0 accent-primary"
                       />
+
                       <span
-                        lang={isJapanese(option.scriptMode) ? 'ja' : undefined}
+                        lang={
+                          isJapanese(option.scriptMode) ? 'ja' : item.localization?.resolvedLocale
+                        }
                         className={`min-w-0 flex-1 ${isJapanese(option.scriptMode) ? 'font-japanese' : ''}`}>
                         {option.value}
                       </span>
+
                       {correct && (
                         <span className="basis-full pl-7 text-body-sm font-semibold">
                           Correct answer
                         </span>
                       )}
+
                       {incorrect && (
                         <span className="basis-full pl-7 text-body-sm font-semibold">
                           Your answer · incorrect

@@ -6,6 +6,7 @@ import type {
   ScriptMode,
 } from '@/frontend/flashcards/interfaces/entities';
 import type { CreateFlashcardSessionRequest } from '@/frontend/flashcards/interfaces/requests';
+import type { Locale } from '@/shared/locale';
 
 export const FLASHCARD_DECK_IDS = {
   kana: 'a0000000-0000-4000-8000-000000000001',
@@ -13,7 +14,7 @@ export const FLASHCARD_DECK_IDS = {
   vocabulary: 'a0000000-0000-4000-8000-000000000003',
 } as const;
 
-export function flashcardDecksFixture(): FlashcardDeck[] {
+export function flashcardDecksFixture(locale?: Locale): FlashcardDeck[] {
   return [
     {
       id: FLASHCARD_DECK_IDS.kana,
@@ -38,6 +39,19 @@ export function flashcardDecksFixture(): FlashcardDeck[] {
     },
   ].map((deck, index) => ({
     ...deck,
+    ...(locale
+      ? {
+          localization: {
+            requestedLocale: locale,
+            resolvedLocale: locale,
+            isFallback: false,
+            contentRevision: 1,
+            translationRevision: 1,
+          },
+          title:
+            locale === 'id' ? ['Dasar Kana', 'Dasar Kanji', 'Dasar Kosakata'][index] : deck.title,
+        }
+      : {}),
     contentType: deck.contentType as FlashcardDeck['contentType'],
     deckSource: 'SYSTEM',
     deckType: 'FOUNDATION',
@@ -92,6 +106,7 @@ export function flashcardTurnsFixture(config: CreateFlashcardSessionRequest): Mo
     KANJI: ['火', '水', '木'],
     KANA: ['い', 'う', 'え'],
     ENGLISH: ['fire', 'water', 'tree'],
+    MEANING: config.contentLocale === 'id' ? ['api', 'air', 'pohon'] : ['fire', 'water', 'tree'],
     ROMAJI: ['i', 'u', 'e'],
     JAPANESE: ['先生', '学生', '友達'],
   };
@@ -99,7 +114,15 @@ export function flashcardTurnsFixture(config: CreateFlashcardSessionRequest): Mo
   return [0, 1].map((index) => {
     const values =
       family === 'KANA' ? kana[index] : family === 'KANJI' ? kanji[index] : vocabulary[index];
-    const scriptValues = values as Partial<Record<ScriptMode, string>>;
+
+    const scriptValues = { ...values } as Partial<Record<ScriptMode, string>>;
+    scriptValues.MEANING =
+      config.contentLocale === 'id'
+        ? family === 'KANJI'
+          ? ['hari / matahari', 'bulan'][index]
+          : ['Jepang', 'sekolah'][index]
+        : scriptValues.ENGLISH;
+
     const correctValue = scriptValues[config.answerScriptMode]!;
     const base = {
       headline: `Correct answer: ${correctValue}`,
@@ -137,8 +160,39 @@ export function flashcardTurnsFixture(config: CreateFlashcardSessionRequest): Mo
       };
     }
 
+    if (config.contentFormat === 'localized') {
+      feedback.explanationText = null;
+
+      if (feedback.kanjiDetails) {
+        feedback.kanjiDetails.meaning = scriptValues.MEANING!;
+        delete feedback.kanjiDetails.englishMeaning;
+
+        if (config.contentLocale === 'id')
+          feedback.kanjiDetails.exampleWords = feedback.kanjiDetails.exampleWords.map((word) => ({
+            ...word,
+            meaning: index === 0 ? 'Jepang' : 'Senin',
+          }));
+      }
+
+      if (feedback.vocabularyDetails) {
+        feedback.vocabularyDetails.meaning = scriptValues.MEANING!;
+        delete feedback.vocabularyDetails.englishMeaning;
+      }
+    }
+
     return {
       item: {
+        ...(config.contentFormat === 'localized'
+          ? {
+              localization: {
+                requestedLocale: config.contentLocale ?? 'en',
+                resolvedLocale: config.contentLocale ?? 'en',
+                isFallback: false,
+                contentRevision: 1,
+                translationRevision: 1,
+              },
+            }
+          : {}),
         id: `b0000000-0000-4000-8000-0000000000${family === 'KANA' ? '1' : family === 'KANJI' ? '2' : '3'}${index + 1}`,
         itemType:
           family === 'KANA'
@@ -170,9 +224,13 @@ export function flashcardSessionFixture(
   options: Partial<CreateFlashcardSessionRequest> & { id?: string } = {},
 ): FlashcardSession {
   const deck =
-    flashcardDecksFixture().find((entry) => entry.id === options.deckId) ??
+    flashcardDecksFixture(options.contentLocale).find((entry) => entry.id === options.deckId) ??
     flashcardDecksFixture()[0];
+
   const config: CreateFlashcardSessionRequest = {
+    ...(options.contentFormat
+      ? { contentFormat: options.contentFormat, contentLocale: options.contentLocale }
+      : {}),
     deckId: deck.id,
     questionScriptMode:
       options.questionScriptMode ??
@@ -189,6 +247,7 @@ export function flashcardSessionFixture(
       id: deck.id,
       slug: deck.slug,
       title: deck.title,
+      ...(deck.localization ? { localization: deck.localization } : {}),
       deckSource: deck.deckSource,
       deckType: deck.deckType,
       contentType: deck.contentType,
@@ -197,6 +256,9 @@ export function flashcardSessionFixture(
       questionScriptMode: config.questionScriptMode,
       answerScriptMode: config.answerScriptMode,
       isLocked: true,
+      ...(config.contentFormat
+        ? { contentFormat: config.contentFormat, contentLocale: config.contentLocale }
+        : {}),
     },
     sessionProgress: { totalItems: 2, totalAnswered: 0, correctCount: 0, incorrectCount: 0 },
     currentItem: flashcardTurnsFixture(config)[0].item,

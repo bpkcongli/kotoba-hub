@@ -84,6 +84,7 @@ export function answerMockFlashcardSession(
   };
   const nextItem = state.turns[progress.totalAnswered]?.item ?? null;
   const result: FlashcardAnswerResult = {
+    ...(turn.item.localization ? { localization: { ...turn.item.localization } } : {}),
     sessionId,
     itemId: payload.itemId,
     selectedOptionId: payload.selectedOptionId,

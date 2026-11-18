@@ -12,11 +12,12 @@ import type { IFlashcardService } from '@/frontend/flashcards/services/external/
 import type { HttpClient } from '@/frontend/shared/adapters/http-client';
 import { readHttpResponse } from '@/frontend/shared/adapters/http-client/helpers';
 import { ClientException } from '@/frontend/shared/exceptions';
+import type { Locale } from '@/shared/locale';
 
 export class FlashcardService implements IFlashcardService {
   constructor(private readonly http: HttpClient) {}
 
-  async getDecks(signal?: AbortSignal) {
+  async getDecks(signal?: AbortSignal, contentLocale?: Locale) {
     const decks: FlashcardDeck[] = [];
     let total = 0;
 
@@ -25,15 +26,32 @@ export class FlashcardService implements IFlashcardService {
         await this.http.request({
           method: 'GET',
           path: '/flashcards/decks',
-          query: { offset: decks.length, limit: 100 },
+          query: {
+            offset: decks.length,
+            limit: 100,
+            ...(contentLocale ? { contentFormat: 'localized', contentLocale } : {}),
+          },
           signal,
         }),
         decksResponseSchema,
       );
+
       total = response.metadata.pagination.totalRecords;
 
       if (!response.data.flashcardDecks.length && decks.length < total)
         throw new ClientException('contract', 'The deck list could not be read. Please try again.');
+
+      if (
+        contentLocale &&
+        response.data.flashcardDecks.some(
+          (deck) =>
+            deck.deckSource === 'SYSTEM' && deck.localization?.requestedLocale !== contentLocale,
+        )
+      )
+        throw new ClientException(
+          'contract',
+          'The deck language could not be confirmed. Please try again.',
+        );
 
       decks.push(...response.data.flashcardDecks);
     } while (decks.length < total);
@@ -52,7 +70,14 @@ export class FlashcardService implements IFlashcardService {
       sessionResponseSchema,
     ).data;
 
+    const requestedLocale = request.contentLocale ?? data.sessionConfig.contentLocale;
+
     if (
+      (request.contentFormat === 'localized' &&
+        (data.sessionConfig.contentFormat !== 'localized' ||
+          data.sessionConfig.contentLocale !== requestedLocale ||
+          !data.currentItem?.localization ||
+          data.currentItem.localization.requestedLocale !== requestedLocale)) ||
       data.deck.id !== request.deckId ||
       data.sessionConfig.questionScriptMode !== request.questionScriptMode ||
       data.sessionConfig.answerScriptMode !== request.answerScriptMode ||

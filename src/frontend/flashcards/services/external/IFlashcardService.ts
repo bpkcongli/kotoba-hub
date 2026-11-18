@@ -7,9 +7,10 @@ import type {
   CreateFlashcardSessionRequest,
   FlashcardAnswerRequest,
 } from '@/frontend/flashcards/interfaces/requests';
+import type { Locale } from '@/shared/locale';
 
 export interface IFlashcardService {
-  getDecks(signal?: AbortSignal): Promise<FlashcardDeck[]>;
+  getDecks(signal?: AbortSignal, contentLocale?: Locale): Promise<FlashcardDeck[]>;
 
   createSession(
     request: CreateFlashcardSessionRequest,

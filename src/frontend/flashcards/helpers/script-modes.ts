@@ -4,6 +4,7 @@ export const SCRIPT_LABELS: Record<ScriptMode, string> = {
   KANJI: 'Kanji',
   KANA: 'Kana',
   ENGLISH: 'English',
+  MEANING: 'Meaning',
   ROMAJI: 'Romaji',
   JAPANESE: 'Japanese',
 };
@@ -14,20 +15,25 @@ export const CONTENT_LABELS: Record<ContentType, string> = {
   VOCABULARY: 'Vocabulary',
 };
 
-export function questionModes(content: ContentType): ScriptMode[] {
+export function questionModes(content: ContentType, localized = false): ScriptMode[] {
   return content === 'KANJI'
-    ? ['KANJI', 'KANA', 'ENGLISH']
+    ? ['KANJI', 'KANA', localized ? 'MEANING' : 'ENGLISH']
     : content === 'KANA'
       ? ['KANA', 'ROMAJI']
-      : ['JAPANESE', 'ENGLISH'];
+      : ['JAPANESE', localized ? 'MEANING' : 'ENGLISH'];
 }
 
-export function answerModes(content: ContentType, question: ScriptMode): ScriptMode[] {
-  if (content === 'KANJI') return questionModes(content).filter((mode) => mode !== question);
+export function answerModes(
+  content: ContentType,
+  question: ScriptMode,
+  localized = false,
+): ScriptMode[] {
+  if (content === 'KANJI')
+    return questionModes(content, localized).filter((mode) => mode !== question);
 
   if (content === 'KANA') return question === 'KANA' ? ['ROMAJI'] : ['KANA'];
 
-  return question === 'JAPANESE' ? ['ENGLISH'] : ['JAPANESE', 'KANA'];
+  return question === 'JAPANESE' ? [localized ? 'MEANING' : 'ENGLISH'] : ['JAPANESE', 'KANA'];
 }
 
 export function isJapanese(mode: ScriptMode) {

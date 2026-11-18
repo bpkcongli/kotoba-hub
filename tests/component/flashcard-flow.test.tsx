@@ -34,6 +34,7 @@ function renderFeature(feature: ReactNode) {
       <FlashcardContainerProvider>{screen}</FlashcardContainerProvider>
     </FrontendContainerProvider>
   );
+
   const result = render(workspace(feature));
 
   return { ...result, show: (screen: ReactNode) => result.rerender(workspace(screen)) };
@@ -42,6 +43,7 @@ function renderFeature(feature: ReactNode) {
 async function startSession(family: keyof typeof FLASHCARD_DECK_IDS = 'kana') {
   const user = userEvent.setup();
   const rendered = renderFeature(<FlashcardsHub />);
+
   await screen.findByRole('combobox', { name: 'Deck' });
   await user.selectOptions(
     screen.getByRole('combobox', { name: 'Deck' }),
@@ -49,7 +51,7 @@ async function startSession(family: keyof typeof FLASHCARD_DECK_IDS = 'kana') {
   );
 
   if (family === 'kanji')
-    await user.selectOptions(screen.getByRole('combobox', { name: 'Answer script' }), 'ENGLISH');
+    await user.selectOptions(screen.getByRole('combobox', { name: 'Answer script' }), 'MEANING');
 
   await user.click(screen.getByRole('button', { name: 'Start session' }));
   await waitFor(() => expect(mockPush).toHaveBeenCalled());
@@ -164,6 +166,7 @@ test('preserves vocabulary feedback for the final card before showing the author
 
 test('a failed answer retains and locks the choice, then recovers via Retry answer', async () => {
   const { user } = await startSession();
+
   server.use(
     http.post(
       `${baseUrl}/flashcards/sessions/:sessionId/answer`,
@@ -191,6 +194,7 @@ test('a failed answer retains and locks the choice, then recovers via Retry answ
 
 test('handles an empty catalog, reload failure, and recovery without a dead start action', async () => {
   const user = userEvent.setup();
+
   server.use(
     http.get(
       `${baseUrl}/flashcards/decks`,
@@ -208,6 +212,7 @@ test('handles an empty catalog, reload failure, and recovery without a dead star
       { once: true },
     ),
   );
+
   renderFeature(<FlashcardsHub />);
 
   await screen.findByRole('heading', { name: 'No flashcard decks available' });
@@ -221,6 +226,7 @@ test('handles an empty catalog, reload failure, and recovery without a dead star
       { once: true },
     ),
   );
+
   await user.click(screen.getByRole('button', { name: 'Reload decks' }));
 
   expect(await screen.findByRole('alert')).toHaveTextContent('Decks could not load.');
@@ -233,6 +239,7 @@ test('handles an empty catalog, reload failure, and recovery without a dead star
 
 test('offers sign-in when the catalog session expires and revalidates identity', async () => {
   setMockSession(anonymousSessionFixture());
+
   renderFeature(<FlashcardsHub />);
 
   expect(await screen.findByRole('link', { name: 'Sign in' })).toHaveAttribute('href', '/login');
@@ -242,12 +249,13 @@ test('offers sign-in when the catalog session expires and revalidates identity',
 test('retains the chosen valid script pair when session creation fails and retries that setup', async () => {
   const user = userEvent.setup();
   const { show } = renderFeature(<FlashcardsHub />);
+
   await screen.findByRole('combobox', { name: 'Deck' });
   await user.selectOptions(
     screen.getByRole('combobox', { name: 'Deck' }),
     FLASHCARD_DECK_IDS.kanji,
   );
-  await user.selectOptions(screen.getByRole('combobox', { name: 'Question script' }), 'ENGLISH');
+  await user.selectOptions(screen.getByRole('combobox', { name: 'Question script' }), 'MEANING');
   await user.selectOptions(screen.getByRole('combobox', { name: 'Answer script' }), 'KANA');
 
   expect(
@@ -263,20 +271,22 @@ test('retains the chosen valid script pair when session creation fails and retri
       { once: true },
     ),
   );
+
   await user.click(screen.getByRole('button', { name: 'Start session' }));
 
   expect(await screen.findByRole('alert')).toHaveTextContent('Session could not start.');
   expect(mockPush).not.toHaveBeenCalled();
-  expect(screen.getByRole('combobox', { name: 'Question script' })).toHaveValue('ENGLISH');
+  expect(screen.getByRole('combobox', { name: 'Question script' })).toHaveValue('MEANING');
   expect(screen.getByRole('combobox', { name: 'Answer script' })).toHaveValue('KANA');
 
   await user.click(screen.getByRole('button', { name: 'Try again' }));
   await waitFor(() => expect(mockPush).toHaveBeenCalled());
 
   const sessionId = (mockPush.mock.lastCall![0] as string).split('/').at(-1)!;
+
   show(<FlashcardSessionScreen sessionId={sessionId} />);
 
-  expect(screen.getByText('Scripts locked: English → Kana')).toBeInTheDocument();
+  expect(screen.getByText('Scripts locked: Meaning → Kana')).toBeInTheDocument();
 });
 
 test('direct session and summary visits show a recovery path when no session is held in memory', () => {

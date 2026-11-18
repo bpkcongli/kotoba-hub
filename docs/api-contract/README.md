@@ -119,6 +119,24 @@ Rules:
 - Untuk HTTP `422`, gunakan code generic domain `...001` bila error hanya berupa validasi payload/schema, misalnya field wajib hilang, tipe data salah, atau format dasar request tidak cocok.
 - Gunakan code `422` spesifik domain `...002` dan seterusnya hanya bila payload secara bentuk sudah valid tetapi gagal pada aturan bisnis/domain, misalnya referensi katalog tidak ditemukan atau entity yang direferensikan tidak sah untuk operasi tersebut.
 
+## Bahasa pesan API — BIL-07
+
+Seluruh endpoint REST v1 menerima header opsional `X-UI-Locale: en|id` untuk
+`status.message` dan `errorDetails.message`. Prioritas: pilihan eksplisit valid,
+preferensi akun, cookie pengunjung tervalidasi, lalu English. Nilai header yang
+unsupported memakai fallback; `Accept-Language` tidak memilih bahasa akun.
+
+Jalur `401`/penolakan origin tidak membaca session/preferensi tambahan, dan
+menggunakan header valid atau cookie/default. Response envelope JSON memakai
+`Content-Language` untuk bahasa pesan serta `Cache-Control: private, no-store`.
+Field data dan locale snapshot konten tetap mengikuti kontrak fitur.
+
+HTTP/application code, field validasi, trace ID, enum, pagination, dan payload
+idempotensi tetap stabil. Client tidak memakai teks pesan untuk keputusan dan
+tidak menerjemahkan ulang pesan BE. Definisi reusable ada pada
+`UiLocaleHeader`/`UiContentLanguage` di OpenAPI base. Lihat
+[implementasi dan verifikasi](../syllabus/bilingual/bilingual-ui-api-implementation.md).
+
 ## Error Code Convention
 - `status.code` adalah application-specific code 9 digit dengan format:
 

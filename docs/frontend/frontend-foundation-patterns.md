@@ -99,3 +99,22 @@ Gunakan fungsi murni bernama dengan input/output typed. `cn` yang sudah ada dipe
 Prioritas MVP: `formatDate`, `formatDateTime`, `formatNumber`, `formatPercent`, dan `formatDuration` bila ada consumer. Date-only `YYYY-MM-DD` adalah tanggal kalender tanpa pergeseran zona waktu; timestamp mengikuti offset/UTC kontrak dan timezone display eksplisit. Nilai invalid/missing memakai fallback konsisten; angka `0` tetap valid. Unit persen/durasi jelas pada signature. Helper tidak menghitung mastery, completion, atau normalisasi jawaban.
 
 String helper harus aman untuk teks Jepang; jangan menghapus non-ASCII atau mengubah jawaban user demi tampilan. Gunakan CSS untuk truncation visual. Currency belum diperlukan MVP; tambahkan `formatCurrency(value, { locale, currency })` hanya bila ada consumer nyata, dengan ISO currency eksplisit tanpa default IDR. Contoh: [shell dan helpers](../../.agents/skills/kotoba-frontend-foundations/references/shell-and-helpers.md).
+
+## Locale dan pesan aplikasi — BIL-07
+
+`next-intl` 4.15.1 berada di bawah provider DI root dengan `uiLocale` bootstrap
+SSR yang sama untuk client. `LocaleStore.setUiLocale` menyimpan PATCH partial
+untuk akun atau cookie untuk pengunjung; `contentLocale` tetap terpisah. Header
+menyediakan pemilih UI dan refresh metadata tanpa mengganti key provider fitur.
+Katalog UI berada pada `src/shared/i18n`; materi tersimpan tetap milik seed/DB.
+
+React memakai `useUiTranslations` dari shared hooks, helper murni menerima locale eksplisit melalui
+`uiTranslator`/formatter. Map enum domain yang berisi key memakai nama
+`*_MESSAGE_KEYS` dengan tipe `UiMessageKey` atau literal `as const`. Key UI memakai
+`<CONTEXT>:<FEATURE>.<ELEMENT>.<PROPERTY>` dengan katalog nested dan adapter
+separator bersama untuk React/helper; lihat [panduan key frontend](i18n-message-keys.md).
+Validasi onboarding lokal memakai key `ONBOARDING:ASSESSMENT_FORM.<FIELD>.VALIDATION_MESSAGE`, sementara `errorMessage`
+merender ClientException berdasarkan kind stabil dan meneruskan pesan API tanpa
+terjemahan ulang. Axios membaca `X-UI-Locale` dari container setiap request,
+bukan dari singleton locale global. Lihat [cakupan, ownership dan verifikasi
+BIL-07](../syllabus/bilingual/bilingual-ui-api-implementation.md).

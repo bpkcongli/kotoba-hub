@@ -616,9 +616,6 @@ paths:
         - cookieAuth: []
       requestBody:
         required: true
-        headers:
-          Content-Language:
-            $ref: '#/components/headers/UiContentLanguage'
         content:
           application/json:
             schema:
@@ -761,9 +758,6 @@ paths:
             format: uuid
       requestBody:
         required: true
-        headers:
-          Content-Language:
-            $ref: '#/components/headers/UiContentLanguage'
         content:
           application/json:
             schema:
@@ -1015,9 +1009,6 @@ paths:
                       message: contentLocale must be en or id.
       requestBody:
         required: true
-        headers:
-          Content-Language:
-            $ref: '#/components/headers/UiContentLanguage'
         content:
           application/json:
             schema:

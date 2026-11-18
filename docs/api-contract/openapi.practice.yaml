@@ -32,9 +32,6 @@ paths:
         - cookieAuth: []
       requestBody:
         required: false
-        headers:
-          Content-Language:
-            $ref: '#/components/headers/UiContentLanguage'
         content:
           application/json:
             schema:
@@ -148,9 +145,6 @@ paths:
         - cookieAuth: []
       requestBody:
         required: true
-        headers:
-          Content-Language:
-            $ref: '#/components/headers/UiContentLanguage'
         content:
           application/json:
             schema:
@@ -265,9 +259,6 @@ paths:
             format: uuid
       requestBody:
         required: true
-        headers:
-          Content-Language:
-            $ref: '#/components/headers/UiContentLanguage'
         content:
           application/json:
             schema:
@@ -380,9 +371,6 @@ paths:
             format: uuid
       requestBody:
         required: true
-        headers:
-          Content-Language:
-            $ref: '#/components/headers/UiContentLanguage'
         content:
           application/json:
             schema:

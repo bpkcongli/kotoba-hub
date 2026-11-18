@@ -18,7 +18,7 @@ Gunakan `[ ]` untuk belum selesai dan `[x]` untuk selesai. Perbarui status bersa
 - [ ] `BIL-04` Seed lesson lain (tooling authoring/review tersedia; pengisian seluruh N5/N4 dan integrasi seed belum dilakukan).
 - [x] `BIL-05` Runtime/seed awal flashcard bilingual; [cakupan, fallback dan verifikasi](./bilingual-flashcards-implementation.md). Seluruh bank Indonesia belum dikurasi.
 - [x] `BIL-06` Random practice dan AI bilingual; [runtime, snapshot dan verifikasi](./bilingual-practice-implementation.md). Model live dan rollout tetap BIL-08.
-- [ ] `BIL-07` Internationalization backend dan frontend.
+- [x] `BIL-07` Internationalization UI/API memakai `next-intl`, pemilih bahasa, validasi, formatter dan SSR/hydration. Lihat [implementasi dan verifikasi](./bilingual-ui-api-implementation.md).
 - [ ] `BIL-08` Verifikasi dan rollout.
 
 ### BIL-01 — Finalisasi schema dan kebijakan bahasa
@@ -82,10 +82,17 @@ Lihat [hasil implementasi dan batas verifikasi](./bilingual-practice-implementat
 
 ### BIL-07 — Internationalization backend dan frontend
 
-- Fondasi locale dimulai di `BIL-01`/`BIL-03`; tahap ini memperluas katalog pesan ke seluruh aplikasi. Pilih library i18n saat implementasi setelah memeriksa kompatibilitas App Router/SSR/client.
+- Fondasi locale dimulai di `BIL-01`/`BIL-03`; tahap ini memperluas katalog pesan ke seluruh aplikasi. Implementasi memakai `next-intl` 4.15.1 dengan provider locale eksplisit pada App Router/SSR/client.
 - FE: shell, auth/onboarding, settings/pemilih bahasa, syllabus, flashcard/practice, progress, validasi, empty/error state, dan format angka/tanggal. Sinkronkan locale SSR/hydration, atribut `lang`, serta teks Jepang; locale tidak otomatis menentukan timezone.
 - BE: lokalisasi pesan API/validasi pada lapisan presentasi dengan key/parameter stabil. Pertahankan status/code/error field, trace ID, enum, dan log operasional; client tidak bergantung pada teks pesan.
 - Dokumentasikan pemilik pesan BE/FE agar tidak diterjemahkan dua kali. Terjemahan konten tersimpan di seed/DB; kamus i18n aplikasi menyimpan pesan UI/API.
+
+Hasil 18 November 2026: katalog UI/API, pemilih bahasa dengan cookie/preferensi,
+metadata dan formatter tersedia. Seluruh 766 tes Jest, 4 suite release offline,
+quality checks, validasi kontrak dan build production lulus; Chrome memeriksa
+landing/login/404, SSR dan pergantian bahasa pada desktop/tablet/mobile. Flow
+protected memakai MSW; rollout production tetap BIL-08. Lihat [ownership pesan,
+aturan snapshot dan batas verifikasi](./bilingual-ui-api-implementation.md).
 
 ### BIL-08 — Verifikasi dan rollout
 

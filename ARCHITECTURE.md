@@ -342,3 +342,19 @@ Unit tests mencakup domain BE serta store FE dengan implementasi API service dan
 - Scope produk: [PRD](PRD.md) dan [MVP plan](docs/mvp-plan.md).
 - Visual dan komponen: [DESIGN_SYSTEM](DESIGN_SYSTEM.md) dan [component inventory](docs/system-design/shadcn-component-inventory.md).
 - Urutan kerja serta dependency: [task breakdown](docs/task-breakdown.md).
+
+### Pesan aplikasi BIL-07
+
+`next-intl` memakai provider client di bawah container frontend existing, dengan
+locale SSR serializable dari preferensi akun/cookie. Katalog pesan UI dan helper
+translator murni berada di `src/shared/i18n`; tidak memuat terjemahan konten
+syllabus/aktivitas. Server metadata memakai bootstrap yang sama per request.
+Consumer React memakai `useUiTranslations` pada shared hooks; key bertipe
+`UiMessageKey` mengikuti `<CONTEXT>:<FEATURE>.<ELEMENT>.<PROPERTY>` dan katalog
+nested domain/fitur. Adapter separator serta fallback leaf dipakai bersama
+helper murni. Lihat [panduan key frontend](docs/frontend/i18n-message-keys.md).
+Setiap exported handler REST v1 memakai `withLocalizedResponse` pada adapter
+App Router; wrapper menjalankan handler lalu merangkai resolusi locale melalui
+facade auth/users. Adapter REST shared memetakan pesan envelope. Domain, log, enum
+dan snapshot aktivitas tetap canonical. Detail ownership, fallback dan verifikasi ada pada
+[implementasi BIL-07](docs/syllabus/bilingual/bilingual-ui-api-implementation.md).

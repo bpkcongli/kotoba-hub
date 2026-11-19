@@ -18,6 +18,9 @@
     "typecheck": "next typegen && tsc --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "check": "bun run lint && bun run typecheck && bun run format:check && bun run test:release && bun run test:ci",
+    "prepare": "husky",
+    "mocks:init": "msw init public --save",
     "test": "jest",
     "test:changed": "jest --onlyChanged --passWithNoTests",
     "test:ci": "jest --ci --runInBand",
@@ -29,16 +32,15 @@
     "test:ai": "bun scripts/smoke/smoke-ai.ts",
     "test:practice": "bun scripts/smoke/smoke-practice.ts",
     "test:bilingual": "bun scripts/smoke/smoke-bilingual.ts",
-    "check": "bun run lint && bun run typecheck && bun run format:check && bun run test:release && bun run test:ci",
-    "prepare": "husky",
-    "mocks:init": "msw init public --save",
+    "test:vocabulary-groups": "bun scripts/smoke/smoke-vocabulary-groups.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:seed:syllabus": "bun scripts/syllabus/seed-syllabus.ts",
     "db:seed:syllabus:dry-run": "bun scripts/syllabus/seed-syllabus.ts --dry-run",
     "db:check:bilingual-cutover": "bun scripts/syllabus/check-bilingual-cutover.ts",
     "db:seed:flashcards": "bun scripts/flashcards/seed-flashcards.ts",
-    "db:seed:flashcards:dry-run": "bun scripts/flashcards/seed-flashcards.ts --dry-run"
+    "db:seed:flashcards:dry-run": "bun scripts/flashcards/seed-flashcards.ts --dry-run",
+    "db:seed:vocabulary-groups": "bun scripts/syllabus/seed-vocabulary-groups.ts"
   },
   "msw": {
     "workerDirectory": [

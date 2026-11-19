@@ -2,7 +2,7 @@ import { POST as confirm } from '@/app/api/v1/personalization/assessment/confirm
 import { GET as getProfile } from '@/app/api/v1/user-profile/me/route';
 import { getSessionSnapshot } from '@/backend/auth/infrastructure/di';
 import { confirmAssessmentService } from '@/backend/personalization/infrastructure/di';
-import { learnerProfileService } from '@/backend/users/infrastructure/di';
+import { learnerProfileService, userPreferencesService } from '@/backend/users/infrastructure/di';
 
 jest.mock('@/backend/auth/infrastructure/di', () => ({
   authorizationService: new (jest.requireActual(
@@ -15,6 +15,7 @@ jest.mock('@/backend/personalization/infrastructure/di', () => ({
 }));
 jest.mock('@/backend/users/infrastructure/di', () => ({
   learnerProfileService: { get: jest.fn() },
+  userPreferencesService: { get: jest.fn() },
 }));
 
 const session = {
@@ -52,6 +53,10 @@ describe('profile and confirmation routes', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.mocked(getSessionSnapshot).mockResolvedValue(session);
+    jest.mocked(userPreferencesService.get).mockResolvedValue({
+      uiLocale: 'en',
+      contentLocale: 'en',
+    });
   });
 
   it('reads an authenticated user without a confirmed learner profile', async () => {
@@ -116,30 +121,39 @@ describe('profile and confirmation routes', () => {
     expect(getSessionSnapshot).not.toHaveBeenCalled();
   });
 
-  it('maps the confirmed profile and recommendation to the public envelope', async () => {
-    jest.mocked(confirmAssessmentService.confirm).mockResolvedValueOnce({
-      userProfile: {
-        userId: 'user-id',
-        email: 'learner@example.com',
-        displayName: 'Learner',
-        avatarUrl: null,
-        onboardingCompleted: true,
-        appAccess: 'APP_READY',
-        learnerProfile: { ...body, onboardingCompletedAt: '2026-10-08T00:00:00.000Z' },
-      },
-      recommendation: {
-        recommendedTrackSlug: 'jlpt-n5-foundation',
-        recommendedUnitSlug: 'n5-kana-basics',
-        nextLessonSlug: 'hiragana-vowels-and-k-row',
-      },
-    });
-    const response = await confirm(confirmRequest(body));
-    const result = await response.json();
+  it.each(['en', 'id'] as const)(
+    'maps the confirmed profile and recommendation using the stored %s UI locale',
+    async (uiLocale) => {
+      jest.mocked(userPreferencesService.get).mockResolvedValueOnce({
+        uiLocale,
+        contentLocale: 'en',
+      });
+      jest.mocked(confirmAssessmentService.confirm).mockResolvedValueOnce({
+        userProfile: {
+          userId: 'user-id',
+          email: 'learner@example.com',
+          displayName: 'Learner',
+          avatarUrl: null,
+          onboardingCompleted: true,
+          appAccess: 'APP_READY',
+          learnerProfile: { ...body, onboardingCompletedAt: '2026-10-08T00:00:00.000Z' },
+        },
+        recommendation: {
+          recommendedTrackSlug: 'jlpt-n5-foundation',
+          recommendedUnitSlug: 'n5-kana-basics',
+          nextLessonSlug: 'hiragana-vowels-and-k-row',
+        },
+      });
+      const response = await confirm(confirmRequest(body));
+      const result = await response.json();
 
-    expect(response.status).toBe(200);
-    expect(result.status.code).toBe(120003000);
-    expect(result.data.userProfile.appAccess).toBe('APP_READY');
-    expect(result.data.recommendation.nextLessonSlug).toBe('hiragana-vowels-and-k-row');
-    expect(confirmAssessmentService.confirm).toHaveBeenCalledWith({ ...body, userId: 'user-id' });
-  });
+      expect(response.status).toBe(200);
+      expect(response.headers.get('Content-Language')).toBe(uiLocale);
+      expect(result.status.code).toBe(120003000);
+      expect(result.data.userProfile.appAccess).toBe('APP_READY');
+      expect(result.data.recommendation.nextLessonSlug).toBe('hiragana-vowels-and-k-row');
+      expect(confirmAssessmentService.confirm).toHaveBeenCalledWith({ ...body, userId: 'user-id' });
+      expect(userPreferencesService.get).toHaveBeenCalledWith('user-id');
+    },
+  );
 });

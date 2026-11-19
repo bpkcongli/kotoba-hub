@@ -3,6 +3,7 @@ import {
   assertFlashcardRevision,
   validateFlashcardSeedPlan,
 } from '@/backend/flashcards/application/helpers/flashcard-import-validation';
+import type { FlashcardSeedCatalogPort } from '@/backend/flashcards/application/ports/flashcard-seed-catalog.port';
 import type { FlashcardSeedPlan } from '@/backend/flashcards/application/services/prepare-flashcard-seed.service';
 import {
   flashcardDeckItems,
@@ -12,8 +13,31 @@ import {
 import { getDatabase } from '@/backend/shared/infrastructure/database/connection';
 
 export class DrizzleFlashcardImporter {
+  constructor(private readonly catalog?: FlashcardSeedCatalogPort) {}
+
   async import(plan: FlashcardSeedPlan): Promise<void> {
     validateFlashcardSeedPlan(plan);
+
+    const promotions = plan.vocabularyPromotions ?? [];
+
+    if (new Set(promotions.map((entry) => entry.itemId)).size !== promotions.length)
+      throw new Error('Duplicate vocabulary promotion.');
+
+    const eligible = promotions.length ? await this.catalog?.getPublishedCatalog() : undefined;
+
+    for (const promotion of promotions) {
+      const target = eligible?.skills.find((entry) => entry.id === promotion.targetSkillId);
+      const item = plan.items.find((entry) => entry.id === promotion.itemId);
+
+      if (
+        !target?.vocabularyItemIds?.includes(promotion.itemId) ||
+        target.vocabularyPendingSkillCodes?.[promotion.itemId] !== promotion.pendingSkillCode ||
+        !item ||
+        item.skillId !== promotion.targetSkillId ||
+        item.itemType !== 'VOCABULARY'
+      )
+        throw new Error(`Invalid promotion target: ${promotion.itemId}.`);
+    }
 
     await getDatabase().transaction(async (tx) => {
       const storedDecks = await tx.select().from(flashcardDecks).for('update');
@@ -21,9 +45,21 @@ export class DrizzleFlashcardImporter {
 
       for (const incoming of plan.items) {
         const stored = storedItems.find((item) => item.id === incoming.id);
+        const promotion = promotions.find((entry) => entry.itemId === incoming.id);
+
+        if (promotion && !stored)
+          throw new Error(`Promotion requires existing pending item: ${incoming.id}.`);
+
         if (stored) {
-          if (stored.skillId !== incoming.skillId || stored.itemType !== incoming.itemType)
+          const promoting =
+            promotion && stored.skillId === null && incoming.skillId === promotion.targetSkillId;
+
+          if (
+            (!promoting && stored.skillId !== incoming.skillId) ||
+            stored.itemType !== incoming.itemType
+          )
             throw new Error(`Flashcard item identity conflict: ${incoming.id}.`);
+
           assertFlashcardRevision(stored, { ...incoming }, [
             'surfaceFormText',
             'kanaDisplayText',
@@ -108,6 +144,7 @@ export class DrizzleFlashcardImporter {
         .select({ id: flashcardDecks.id })
         .from(flashcardDecks)
         .where(and(eq(flashcardDecks.deckSource, 'SYSTEM'), eq(flashcardDecks.isPublished, true)));
+
       if (published.length !== plan.counts.decks)
         throw new Error('Flashcard import deck count mismatch.');
     });

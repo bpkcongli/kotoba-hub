@@ -272,7 +272,12 @@ async function main() {
 
     const attributions = await new ProgressCatalogAdapter(syllabus).getPublishedAttributions();
     const lessonSlug = attributions[0].lessonSlug;
+
+    assert(lessonSlug);
+
     const lessonId = attributions[0].lessonId;
+
+    assert(lessonId);
 
     const countsBefore = {
       sessions: (await db.select().from(practiceSchema.practiceSessions)).length,

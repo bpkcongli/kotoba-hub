@@ -220,3 +220,35 @@ it('excludes Japanese distractors when translated prompt meanings collide', asyn
     expect(value.localizations?.en?.scriptOptions.JAPANESE?.distractors).toHaveLength(1);
   }
 });
+
+it('promotes only explicit pending identities to their eligible group, preserving item IDs', async () => {
+  const { catalog, service } = setup();
+  const target = '40000000-0000-4000-8000-000000000099';
+
+  catalog.skills.push({
+    id: target,
+    code: 'standalone',
+    lessonSlug: null,
+    unitSlug: null,
+    trackSlug: 'n5',
+    skillType: 'VOCABULARY',
+    vocabularyItemIds: [ids.nextItem],
+    vocabularyPendingSkillCodes: { [ids.nextItem]: 'unmapped' },
+  });
+
+  const plan = await service.prepare([
+    { itemId: ids.nextItem, pendingSkillCode: 'unmapped', targetSkillId: target },
+  ]);
+
+  expect(plan.items.find((row) => row.id === ids.nextItem)?.skillId).toBe(target);
+  expect(plan.counts).toMatchObject({ mappedItems: 2, pendingItems: 0 });
+  expect(plan.deckItems.map((row) => row.itemId)).toEqual([ids.item, ids.nextItem]);
+
+  await expect(
+    service.prepare([{ itemId: ids.nextItem, pendingSkillCode: 'wrong', targetSkillId: target }]),
+  ).rejects.toThrow(/promotion/);
+
+  await expect(
+    service.prepare([{ itemId: ids.item, pendingSkillCode: 'school', targetSkillId: target }]),
+  ).rejects.toThrow(/promotion/);
+});

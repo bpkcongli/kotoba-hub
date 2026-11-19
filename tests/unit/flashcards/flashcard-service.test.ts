@@ -520,3 +520,35 @@ describe('localized flashcard snapshot compatibility', () => {
     });
   });
 });
+
+it('keeps pending turns and retries unattributed after the item is promoted', async () => {
+  const { items, start, service, progress, sessions } = setup();
+
+  items.forEach((value) => {
+    value.skillId = null;
+  });
+
+  const old = await start();
+
+  items.forEach((value) => {
+    value.skillId = ids.skill;
+  });
+
+  const before = structuredClone(sessions.get(old.id));
+  const payload = { itemId: old.turns[0].id, selectedOptionId: old.turns[0].correctOptionId };
+
+  const result = await service.submitAnswer(ids.user, old.id, payload);
+
+  expect(result.progressImpact).toBeNull();
+  expect(progress.recordAnswer).not.toHaveBeenCalled();
+  expect(await service.submitAnswer(ids.user, old.id, payload)).toEqual(result);
+  expect(sessions.get(old.id)?.turns).toEqual(before?.turns);
+
+  const fresh = await start();
+  await service.submitAnswer(ids.user, fresh.id, {
+    itemId: fresh.turns[0].id,
+    selectedOptionId: fresh.turns[0].correctOptionId,
+  });
+
+  expect(progress.recordAnswer).toHaveBeenCalledTimes(1);
+});

@@ -101,7 +101,9 @@ async function main() {
   const attribution = attributions.find((item) =>
     item.postStudyQuestions.some((question) => question.difficultyLevel === 1),
   )!;
+
   assert(attribution);
+  assert(attribution.lessonId);
 
   let sequence = 0;
   const sessionId = randomUUID();
@@ -169,7 +171,7 @@ async function main() {
     await Promise.all(
       siblingSkills.map((item) =>
         repository.withSkillLock(raceUserId, item.skillId, async (tx) => {
-          const previous = await tx.lockLesson(raceUserId, item.lessonId);
+          const previous = await tx.lockLesson(raceUserId, item.lessonId!);
 
           await tx.saveLesson({
             ...previous,

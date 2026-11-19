@@ -13,8 +13,8 @@ export interface ProgressEventSnapshot {
   id: string;
   userId: string;
   skillId: string;
-  lessonId: string;
-  unitId: string;
+  lessonId: string | null;
+  unitId: string | null;
   trackId: string;
   sourceType: ProgressSourceType;
   sourceSessionId: string | null;

@@ -66,6 +66,21 @@ export class DrizzleSyllabusCatalogRepository implements SyllabusCatalogReposito
           description: track.description,
           sortOrder: track.sortOrder,
           isPublished: track.isPublished,
+          standaloneVocabularySkills: skillRows
+            .filter(
+              (skill) =>
+                skill.ownerType === 'FLASHCARD_VOCABULARY_GROUP' && skill.groupTrackId === track.id,
+            )
+            .map((skill) => ({
+              ...skill,
+              ...this.bilingualOwner(
+                skill,
+                skillTexts.filter((text) => text.skillId === skill.id),
+                false,
+              ),
+              content: skill.content as Record<string, unknown>,
+              prerequisiteSkillCodes: [],
+            })),
           units: unitRows
             .filter((unit) => unit.trackId === track.id)
             .map((unit) => ({

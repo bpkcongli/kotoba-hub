@@ -9,18 +9,14 @@ export class FlashcardCatalogAdapter implements FlashcardCatalogPort {
 
   async getPublishedCatalog(): Promise<FlashcardCatalog> {
     const tracks = await this.syllabus.getPublishedTracks();
-    const units = tracks.flatMap((track) => this.syllabus.publishedUnits(track));
 
     return {
-      units: units.map((unit) => ({ id: unit.id, slug: unit.slug })),
-      skills: units.flatMap((unit) =>
-        this.syllabus.publishedLessons(unit).flatMap((lesson) =>
-          this.syllabus
-            .publishedSkills(lesson)
-            .filter((skill) => skill.supportsFlashcards)
-            .map((skill) => ({ id: skill.id, code: skill.code })),
-        ),
-      ),
+      units: tracks
+        .flatMap((track) => this.syllabus.publishedUnits(track))
+        .map(({ id, slug }) => ({ id, slug })),
+      skills: (await this.syllabus.getActivitySkills())
+        .filter(({ skill }) => skill.supportsFlashcards)
+        .map(({ skill }) => ({ id: skill.id, code: skill.code })),
     };
   }
 }

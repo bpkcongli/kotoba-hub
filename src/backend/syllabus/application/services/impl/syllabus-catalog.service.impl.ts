@@ -1,5 +1,6 @@
 import { localizeSyllabus } from '@/backend/syllabus/application/helpers/localize-syllabus';
 import type {
+  ActivitySkill,
   CanonicalQuestionReadModel,
   PublishedOnboardingTrack,
   SyllabusCatalogService,
@@ -25,6 +26,31 @@ export class SyllabusCatalogServiceImpl implements SyllabusCatalogService {
     return (locale ? localizeSyllabus(tracks, locale) : tracks)
       .filter((track) => track.isPublished)
       .sort((a, b) => a.sortOrder - b.sortOrder);
+  }
+
+  async getActivitySkills(): Promise<ActivitySkill[]> {
+    return (await this.getPublishedTracks()).flatMap((track) => [
+      ...this.publishedUnits(track).flatMap((unit) =>
+        this.publishedLessons(unit).flatMap((lesson) =>
+          this.publishedSkills(lesson).map((skill) => ({ skill, track, unit, lesson })),
+        ),
+      ),
+      ...(track.standaloneVocabularySkills ?? [])
+        .filter((skill) => {
+          const en = skill.localizations?.en;
+
+          return (
+            skill.isPublished &&
+            skill.skillType === 'VOCABULARY' &&
+            skill.supportsFlashcards &&
+            !skill.supportsPracticeObjective &&
+            !skill.supportsPracticeFreeResponse &&
+            en?.isPublished === true &&
+            en.sourceRevision === skill.contentRevision
+          );
+        })
+        .map((skill) => ({ skill, track, unit: null, lesson: null })),
+    ]);
   }
 
   async getPublishedOnboardingTracks(locale?: Locale): Promise<PublishedOnboardingTrack[]> {

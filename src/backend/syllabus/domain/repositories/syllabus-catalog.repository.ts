@@ -69,6 +69,7 @@ export interface SyllabusTrackSnapshot extends BilingualOwner {
   description: string | null;
   sortOrder: number;
   isPublished: boolean;
+  standaloneVocabularySkills?: SyllabusSkillSnapshot[];
   units: SyllabusUnitSnapshot[];
 }
 

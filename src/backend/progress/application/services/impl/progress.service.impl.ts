@@ -46,7 +46,7 @@ export class ProgressServiceImpl implements ProgressService {
       return this.repository.withSkillLock(saved.userId, saved.skillId, async (transaction) => {
         const lessonUnderstanding =
           saved.sourceType === 'LESSON_POST_STUDY'
-            ? await transaction.lockLesson(saved.userId, saved.lessonId)
+            ? await transaction.lockLesson(saved.userId, saved.lessonId!)
             : null;
 
         return {
@@ -65,6 +65,13 @@ export class ProgressServiceImpl implements ProgressService {
     );
     if (!attribution)
       throw new InvalidProgressEvent('Skill attribution must reference the published syllabus.');
+
+    if (
+      attribution.vocabularyItemIds &&
+      (request.sourceType !== 'FLASHCARD' ||
+        !attribution.vocabularyItemIds.includes(String(request.gradingMetadata?.flashcardItemId)))
+    )
+      throw new InvalidProgressEvent('Vocabulary group evidence requires a member flashcard item.');
 
     const event = this.createEvent(request, attribution);
     this.validateSessionMetadata(request.producerSession);
@@ -101,7 +108,7 @@ export class ProgressServiceImpl implements ProgressService {
 
         const lessonUnderstanding =
           request.sourceType === 'LESSON_POST_STUDY'
-            ? await transaction.lockLesson(request.userId, existing.lessonId)
+            ? await transaction.lockLesson(request.userId, existing.lessonId!)
             : null;
 
         return {
@@ -118,7 +125,7 @@ export class ProgressServiceImpl implements ProgressService {
       let lessonTransition: { before: number; after: number } | undefined;
 
       if (question) {
-        const previousLesson = await transaction.lockLesson(request.userId, attribution.lessonId);
+        const previousLesson = await transaction.lockLesson(request.userId, attribution.lessonId!);
         lessonUnderstanding = this.understanding.advance(
           previousLesson,
           event,
@@ -135,6 +142,7 @@ export class ProgressServiceImpl implements ProgressService {
         [...history, event],
         previous.recommendedDifficultyBand,
         event.id,
+        attribution.vocabularyItemIds,
       );
 
       event.gradingMetadata = {
@@ -181,11 +189,13 @@ export class ProgressServiceImpl implements ProgressService {
       (entry) => !filter.trackSlug || entry.trackSlug === filter.trackSlug,
     );
     const bySkill = new Map(attributions.map((entry) => [entry.skillId, entry]));
-    const byLesson = new Map(catalog.map((entry) => [entry.lessonId, entry]));
+    const byLesson = new Map(
+      catalog.filter((entry) => entry.lessonId !== null).map((entry) => [entry.lessonId, entry]),
+    );
 
     for (const event of history) {
       const historical = this.eventAttribution(event);
-      if (historical && !byLesson.has(historical.lessonId))
+      if (historical?.lessonId && !byLesson.has(historical.lessonId))
         byLesson.set(historical.lessonId, historical);
     }
 
@@ -302,7 +312,7 @@ export class ProgressServiceImpl implements ProgressService {
         sourceSessionId: event.sourceSessionId,
         sessionStatus: postStudy ? 'COMPLETED' : (metadata?.status ?? 'UNKNOWN'),
         sessionTitle: postStudy
-          ? attribution.lessonTitle
+          ? attribution.lessonTitle!
           : (metadata?.title ??
             (event.sourceType === 'FLASHCARD' ? 'Flashcard session' : 'Practice session')),
         trackSlug: tracks.size === 1 ? attribution.trackSlug : null,
@@ -414,7 +424,7 @@ export class ProgressServiceImpl implements ProgressService {
       confidenceWeight: request.confidenceWeight ?? null,
       responseTimeMs: request.responseTimeMs ?? null,
       answeredAt: request.answeredAt,
-      gradingMetadata: null,
+      gradingMetadata: request.gradingMetadata ?? null,
     }).snapshot;
 
     event.answeredAt = new Date(event.answeredAt).toISOString();
@@ -453,7 +463,12 @@ export class ProgressServiceImpl implements ProgressService {
           request.postStudy?.difficultyLevel !== metadata?.difficultyLevel
         : request.postStudy !== undefined;
 
-    if (keys.some((key) => saved[key] !== incoming[key]) || postStudyMismatch)
+    if (
+      keys.some((key) => saved[key] !== incoming[key]) ||
+      postStudyMismatch ||
+      (saved.gradingMetadata?.flashcardItemId !== undefined &&
+        saved.gradingMetadata.flashcardItemId !== request.gradingMetadata?.flashcardItemId)
+    )
       throw new InvalidProgressEvent(
         'Event id has already been used for a different learning interaction.',
       );

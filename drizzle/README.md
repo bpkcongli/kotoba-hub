@@ -1,5 +1,154 @@
 # Database migrations
 
+## IMP: Core implementation
+
+### IMP-02: Database foundation
+
+#### Schema registry and database configuration
+
+Drizzle writes generated SQL and migration metadata here. The registry at
+`src/backend/shared/infrastructure/database/schema.ts` re-exports schemas from
+their owning backend contexts. Migration `0000_auth_user_foundation.sql` creates the
+IMP-02 auth/user tables.
+
+Set `DATABASE_URL` to a MySQL connection string with host, user, password, and
+database. `bun run db:generate` can run offline, but validates `DATABASE_URL` if
+one is set. `bun run db:migrate` requires and validates it before connecting.
+Next.js validates it during Node.js server startup; an invalid value prevents
+successful requests. The backend connection validates it again when database
+access is first requested.
+Errors do not include the URL or credentials.
+
+#### Database jobs in Docker
+
+The Dockerfile `ops` target packages Drizzle Kit, this migration directory, source,
+config, and canonical seed files. Its entrypoint is `bun`, so pass `run db:migrate`
+or the seed script name explicitly when running a database job. Supply
+`DATABASE_URL` at runtime and use the database container's network; the app image
+does not provide these tools. The default `ops` command only displays help.
+See the [deployment runbook](../docs/cicd/deployment-plan.md#6-migration-dan-seed-sebagai-job-terpisah)
+for operation order and `bash scripts/deployment/verify-docker-artifacts.sh` for offline
+artifact checks. Those checks do not apply migrations or seed a database.
+
+#### Schema change workflow
+
+For each schema change, run `bun run db:generate`, review the generated SQL and
+snapshot against the ERD, then run `bun run db:migrate` against the intended
+database. Application startup does not run migrations automatically.
+
+### IMP-03: Authentication adapter
+
+IMP-03 uses a Drizzle-backed Auth.js adapter that maps this ERD explicitly. The
+adapter generates internal UUIDs for users, accounts, and sessions and maps
+Google's verified email to `users.email_verified` after a successful sign-in.
+OAuth access, refresh, and ID tokens are not persisted because IMP-03 only needs
+the verified identity and provider account link. No schema migration is needed.
+
+### IMP-05: Syllabus catalog and v1 seeding
+
+Migration `0001_syllabus_catalog.sql` adds the seven syllabus tables. After
+`bun run db:migrate`, run `bun run db:seed:syllabus:dry-run` to inspect the
+validated catalog and rejected lessons, then `bun run db:seed:syllabus` to
+import it. The importer is transactional and can be rerun after curating
+`content/syllabus/v1` without duplicating rows. It deactivates rows that no longer
+belong to a complete published lesson subtree, preserving IDs for future
+progress references. API and onboarding reads use MySQL; repository JSON is
+the canonical import input.
+
+#### MySQL verification
+
+Verify migrations and syllabus reseeding against real MySQL with
+`bun run test:syllabus-importer --allow-test-db-write`. Set `DATABASE_URL` to
+the regular database and `SYLLABUS_TEST_DATABASE_URL` to a separately provisioned,
+empty database whose name ends in `_test` and differs from `DATABASE_URL`.
+The explicit flag authorizes migrations and fixture writes in that test database.
+The script rejects a test database that already contains syllabus rows, checks
+stable IDs and duplicate-free reseeding, ordering changes, skill moves, newly
+curated lessons, unpublished/empty catalogs, and transaction rollback. It restores
+the published canonical catalog in `finally`; unpublished fixture rows remain
+in the isolated test database. Drop and recreate that database before another run.
+
+### IMP-06: Progress engine
+
+IMP-06 adds migration `0002_progress_engine.sql` for `progress_events`, `skill_mastery_snapshots`,
+and `lesson_understanding_snapshots`, including attribution foreign keys,
+unique user/skill and user/lesson snapshots, and score/level/window constraints.
+The progress use case commits the event and its snapshots in one transaction.
+
+#### MySQL verification
+
+Run `bun run test:progress --allow-test-db-write` against an empty, isolated
+MySQL database. Set `PROGRESS_TEST_DATABASE_URL` to a separately provisioned
+database ending in `_test`; its name must differ from `DATABASE_URL`. The script
+applies migrations and writes fixtures only to that test database. It verifies
+retry idempotency, canonical question validation, rollback, concurrent writes,
+lesson completion, mastery windows, user isolation, and progress reads. Provision
+a fresh empty test database before another run. It does not migrate the regular
+application database.
+
+### IMP-07: Flashcard engine
+
+IMP-07 adds migration `0003_flashcard_engine.sql` for the flashcard deck/item,
+membership, session, answer log, and per-user Leitner state tables. Session JSON
+snapshots lock prompts/options/feedback; stable event IDs in the answer log allow
+progress handoff recovery after a failed request.
+
+After migrating and seeding syllabus, run `bun run db:seed:flashcards:dry-run`
+against that database to inspect eligible counts, then `bun run db:seed:flashcards`.
+The dry run reads the published MySQL syllabus catalog and writes nothing. The
+importer preserves canonical artifact IDs, derives stable KANJI IDs, and reconciles
+system memberships transactionally without deleting historical answers or custom
+decks. Rerun flashcard seeding after syllabus publication changes. Mapped items
+from unpublished lesson subtrees are excluded; pending N5 vocabulary remains
+unmapped and produces no official progress events.
+
+#### MySQL verification
+
+Run `bun run test:flashcards --allow-test-db-write` with `DATABASE_URL` set and
+`FLASHCARDS_TEST_DATABASE_URL` pointing to a separate, empty MySQL database whose
+name ends in `_test` and differs from the regular database. The smoke test applies
+migrations and creates isolated fixtures, then verifies persistence, atomic
+concurrent submissions, ownership, replay and progress recovery. Use a fresh test
+database for each run. It never migrates the regular application database.
+
+### IMP-08: AI observability
+
+IMP-08 adds migration `0004_ai_observability.sql` for shared `ai_request_logs`
+and `ai_request_attempts`. Apply it before invoking the AI service. Imports and
+unrelated features do not require an OpenAI key or open an AI connection.
+
+#### MySQL verification
+
+Run `bun run test:ai --allow-test-db-write` with `AI_TEST_DATABASE_URL` pointing
+to a separate, empty database whose name ends in `_test` and differs from
+`DATABASE_URL`. The script applies migrations only there and checks real request/
+attempt persistence, retry accounting, failure logs, duplicate request keys, and
+payload privacy with an injected fake provider. It makes no OpenAI calls and
+needs no API credits. Use a fresh isolated database for another run; migration
+history remains after fixture cleanup. See [OpenAI setup](../docs/ai-integration.md).
+
+### IMP-09: Practice engine
+
+IMP-09 adds migration `0005_practice_engine.sql` for `practice_sessions`,
+`practice_questions`, `practice_answers`, and internal `practice_post_study_receipts`.
+Questions snapshot prompts and expected answers; answers and receipts retain
+stable progress event IDs for retry recovery. Direct lesson quizzes use receipts
+without creating practice sessions/questions/answers.
+
+#### MySQL verification
+
+Run `bun run test:practice --allow-test-db-write` with `PRACTICE_TEST_DATABASE_URL`
+pointing to a separate empty MySQL database ending in `_test`, different from
+`DATABASE_URL`. The script applies migrations and uses AI test doubles to verify
+concurrent submissions, owner isolation, answer replay, progress/receipt recovery,
+canonical quiz selection, understanding level limits, and fresh recommendation.
+It never migrates the regular application database. Provision a fresh test database
+for each run. See [practice engine](../docs/practice-engine.md).
+
+## BIL: Bilingual support
+
+### BIL-03: Syllabus translations, v2 merge, and cutover
+
 Migration `0006_bilingual_content.sql` implements BIL-03: six syllabus translation
 tables, canonical/translation revision fingerprints, skill content, soft question
 publication, user preferences and localized quiz deliveries. Audited backfill and
@@ -20,118 +169,7 @@ preserved. The read-only cutover check exits 1 with blocker slugs if published
 lessons cannot all be read as valid v2. Never use v1 reseed or a down migration
 as rollback after v2 merge.
 
-Drizzle writes generated SQL and migration metadata here. The registry at
-`src/backend/shared/infrastructure/database/schema.ts` re-exports schemas from
-their owning backend contexts. Migration `0000_auth_user_foundation.sql` creates the
-IMP-02 auth/user tables.
-
-Set `DATABASE_URL` to a MySQL connection string with host, user, password, and
-database. `bun run db:generate` can run offline, but validates `DATABASE_URL` if
-one is set. `bun run db:migrate` requires and validates it before connecting.
-Next.js validates it during Node.js server startup; an invalid value prevents
-successful requests. The backend connection validates it again when database
-access is first requested.
-Errors do not include the URL or credentials.
-
-The Dockerfile `ops` target packages Drizzle Kit, this migration directory, source,
-config, and canonical seed files. Its entrypoint is `bun`, so pass `run db:migrate`
-or the seed script name explicitly when running a database job. Supply
-`DATABASE_URL` at runtime and use the database container's network; the app image
-does not provide these tools. The default `ops` command only displays help.
-See the [deployment runbook](../docs/cicd/deployment-plan.md#6-migration-dan-seed-sebagai-job-terpisah)
-for operation order and `bash scripts/deployment/verify-docker-artifacts.sh` for offline
-artifact checks. Those checks do not apply migrations or seed a database.
-
-For each schema change, run `bun run db:generate`, review the generated SQL and
-snapshot against the ERD, then run `bun run db:migrate` against the intended
-database. Application startup does not run migrations automatically.
-
-IMP-03 uses a Drizzle-backed Auth.js adapter that maps this ERD explicitly. The
-adapter generates internal UUIDs for users, accounts, and sessions and maps
-Google's verified email to `users.email_verified` after a successful sign-in.
-OAuth access, refresh, and ID tokens are not persisted because IMP-03 only needs
-the verified identity and provider account link. No schema migration is needed.
-
-Migration `0001_syllabus_catalog.sql` adds the seven syllabus tables. After
-`bun run db:migrate`, run `bun run db:seed:syllabus:dry-run` to inspect the
-validated catalog and rejected lessons, then `bun run db:seed:syllabus` to
-import it. The importer is transactional and can be rerun after curating
-`content/syllabus/v1` without duplicating rows. It deactivates rows that no longer
-belong to a complete published lesson subtree, preserving IDs for future
-progress references. API and onboarding reads use MySQL; repository JSON is
-the canonical import input.
-
-Verify migrations and syllabus reseeding against real MySQL with
-`bun run test:syllabus-importer --allow-test-db-write`. Set `DATABASE_URL` to
-the regular database and `SYLLABUS_TEST_DATABASE_URL` to a separately provisioned,
-empty database whose name ends in `_test` and differs from `DATABASE_URL`.
-The explicit flag authorizes migrations and fixture writes in that test database.
-The script rejects a test database that already contains syllabus rows, checks
-stable IDs and duplicate-free reseeding, ordering changes, skill moves, newly
-curated lessons, unpublished/empty catalogs, and transaction rollback. It restores
-the published canonical catalog in `finally`; unpublished fixture rows remain
-in the isolated test database. Drop and recreate that database before another run.
-
-IMP-06 adds migration `0002_progress_engine.sql` for `progress_events`, `skill_mastery_snapshots`,
-and `lesson_understanding_snapshots`, including attribution foreign keys,
-unique user/skill and user/lesson snapshots, and score/level/window constraints.
-The progress use case commits the event and its snapshots in one transaction.
-
-Run `bun run test:progress --allow-test-db-write` against an empty, isolated
-MySQL database. Set `PROGRESS_TEST_DATABASE_URL` to a separately provisioned
-database ending in `_test`; its name must differ from `DATABASE_URL`. The script
-applies migrations and writes fixtures only to that test database. It verifies
-retry idempotency, canonical question validation, rollback, concurrent writes,
-lesson completion, mastery windows, user isolation, and progress reads. Provision
-a fresh empty test database before another run. It does not migrate the regular
-application database.
-
-IMP-07 adds migration `0003_flashcard_engine.sql` for the flashcard deck/item,
-membership, session, answer log, and per-user Leitner state tables. Session JSON
-snapshots lock prompts/options/feedback; stable event IDs in the answer log allow
-progress handoff recovery after a failed request.
-
-After migrating and seeding syllabus, run `bun run db:seed:flashcards:dry-run`
-against that database to inspect eligible counts, then `bun run db:seed:flashcards`.
-The dry run reads the published MySQL syllabus catalog and writes nothing. The
-importer preserves canonical artifact IDs, derives stable KANJI IDs, and reconciles
-system memberships transactionally without deleting historical answers or custom
-decks. Rerun flashcard seeding after syllabus publication changes. Mapped items
-from unpublished lesson subtrees are excluded; pending N5 vocabulary remains
-unmapped and produces no official progress events.
-
-Run `bun run test:flashcards --allow-test-db-write` with `DATABASE_URL` set and
-`FLASHCARDS_TEST_DATABASE_URL` pointing to a separate, empty MySQL database whose
-name ends in `_test` and differs from the regular database. The smoke test applies
-migrations and creates isolated fixtures, then verifies persistence, atomic
-concurrent submissions, ownership, replay and progress recovery. Use a fresh test
-database for each run. It never migrates the regular application database.
-
-IMP-08 adds migration `0004_ai_observability.sql` for shared `ai_request_logs`
-and `ai_request_attempts`. Apply it before invoking the AI service. Imports and
-unrelated features do not require an OpenAI key or open an AI connection.
-
-Run `bun run test:ai --allow-test-db-write` with `AI_TEST_DATABASE_URL` pointing
-to a separate, empty database whose name ends in `_test` and differs from
-`DATABASE_URL`. The script applies migrations only there and checks real request/
-attempt persistence, retry accounting, failure logs, duplicate request keys, and
-payload privacy with an injected fake provider. It makes no OpenAI calls and
-needs no API credits. Use a fresh isolated database for another run; migration
-history remains after fixture cleanup. See [OpenAI setup](../docs/ai-integration.md).
-
-IMP-09 adds migration `0005_practice_engine.sql` for `practice_sessions`,
-`practice_questions`, `practice_answers`, and internal `practice_post_study_receipts`.
-Questions snapshot prompts and expected answers; answers and receipts retain
-stable progress event IDs for retry recovery. Direct lesson quizzes use receipts
-without creating practice sessions/questions/answers.
-
-Run `bun run test:practice --allow-test-db-write` with `PRACTICE_TEST_DATABASE_URL`
-pointing to a separate empty MySQL database ending in `_test`, different from
-`DATABASE_URL`. The script applies migrations and uses AI test doubles to verify
-concurrent submissions, owner isolation, answer replay, progress/receipt recovery,
-canonical quiz selection, understanding level limits, and fresh recommendation.
-It never migrates the regular application database. Provision a fresh test database
-for each run. See [practice engine](../docs/practice-engine.md).
+### BIL-05: Localized flashcards
 
 BIL-05 adds migration `0007` with additive revision/localizations columns for
 flashcard deck/item. After migration, run the existing flashcard dry-run and seed
@@ -144,8 +182,61 @@ available before seeding. Revision conflicts abort the complete seed transaction
 Add `--bilingual-syllabus` to exercise the BIL-03 v2 merge before flashcard seeding.
 See [BIL-05 coverage and operations](../docs/syllabus/bilingual/bilingual-flashcards-implementation.md).
 
-BIL-06 tidak menambah migration: bahasa random practice disimpan di JSON
-`recommendation_spec`, sedangkan bahasa/feedback hasil disimpan pada result JSON.
-Smoke practice juga memeriksa roundtrip kedua bahasa dan replay sesi selesai;
-smoke AI memeriksa metadata locale/versi template tanpa provider live. Lihat
-[implementasi BIL-06](../docs/syllabus/bilingual/bilingual-practice-implementation.md).
+### BIL-06: Localized practice
+
+BIL-06 does not add a migration: the random practice language is stored in
+`recommendation_spec` JSON, while the result language and feedback are stored in
+result JSON. The practice smoke test also checks round trips in both languages
+and replay of completed sessions; the AI smoke test checks locale metadata and
+template versions without a live provider. See the
+[BIL-06 implementation](../docs/syllabus/bilingual/bilingual-practice-implementation.md).
+
+## VOC: Vocabulary support
+
+### VOC-02: Standalone vocabulary groups
+
+#### Migration
+
+Apply migration `0008` before running the new app. Existing lesson-owned rows receive
+`owner_type = LESSON`; the migration allows null lesson/unit attribution for standalone
+flashcard events. Production backups and rollout follow the existing deployment
+procedures.
+
+#### Manifest validation and seeding
+
+The reviewed runtime manifest follows the
+[contract](../docs/syllabus/flashcards/standalone-vocabulary-contract.md) and
+[v2 schema](../docs/syllabus/schema/standalone-vocabulary-groups.v2.schema.json).
+The group dry run validates the manifest against canonical artifacts offline;
+it does not check for conflicts in the target database. The actual import validates
+tracks, identities, revisions, and membership transactionally. Flashcard seeding reads
+the database catalog.
+
+```sh
+bun scripts/syllabus/seed-vocabulary-groups.ts --manifest <reviewed-manifest.json> --dry-run
+bun scripts/syllabus/seed-vocabulary-groups.ts --manifest <reviewed-manifest.json>
+bun run db:seed:flashcards:dry-run --vocabulary-groups <reviewed-manifest.json>
+bun run db:seed:flashcards --vocabulary-groups <reviewed-manifest.json>
+```
+
+#### Promotion and reseeding
+
+Flashcard seeding requires the complete manifest of all previously promoted groups.
+Omitting a group from the manifest or running the old seed is rejected if it would
+demote an item's owner. Do not run the v1 generator for promotion. VOC-02 does not
+include a manifest as active content; batch curation and publication remain part of
+VOC-03. Keep the reviewed manifest with the release and backup so that reseeding can
+use identical input.
+
+#### MySQL smoke test
+
+The smoke test requires an empty MySQL database whose name ends in `_test` and differs
+from `DATABASE_URL`. The script applies migrations `0000`–`0007`, inserts legacy
+fixtures, then applies migration `0008` and tests promotion, conflict rollback,
+custom decks, Leitner state, turn snapshots, submission of old pending turns, and
+recovery from a lost response after unpublication. Data remains only in that
+disposable database.
+
+```sh
+VOCABULARY_TEST_DATABASE_URL='mysql://.../kotoba_vocabulary_test' bun scripts/smoke/smoke-vocabulary-groups.ts --allow-test-db-write
+```

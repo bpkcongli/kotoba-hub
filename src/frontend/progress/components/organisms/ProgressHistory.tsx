@@ -195,11 +195,13 @@ export function AnswerHistory({
                 {progressTime(item.answeredAt, locale)}
               </p>
 
-              <Button asChild variant="ghost">
-                <Link href={`/syllabus/lessons/${encodeURIComponent(item.lessonSlug)}`}>
-                  {t('SHARED:LEARNING_ACTIONS.REVIEW_LESSON_LINK.LABEL')}
-                </Link>
-              </Button>
+              {item.lessonSlug && (
+                <Button asChild variant="ghost">
+                  <Link href={`/syllabus/lessons/${encodeURIComponent(item.lessonSlug)}`}>
+                    {t('SHARED:LEARNING_ACTIONS.REVIEW_LESSON_LINK.LABEL')}
+                  </Link>
+                </Button>
+              )}
             </li>
           ))}
         </ol>

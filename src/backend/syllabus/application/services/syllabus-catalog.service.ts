@@ -31,7 +31,16 @@ export interface CanonicalQuestionReadModel extends SyllabusLessonReadModel {
   question: CanonicalPostStudyQuestion;
 }
 
+export interface ActivitySkill {
+  skill: SyllabusSkillSnapshot;
+  track: SyllabusTrackSnapshot;
+  unit: SyllabusUnitSnapshot | null;
+  lesson: SyllabusLessonSnapshot | null;
+}
+
 export interface SyllabusCatalogService {
+  getActivitySkills(): Promise<ActivitySkill[]>;
+
   getPublishedTracks(locale?: Locale): Promise<SyllabusTrackSnapshot[]>;
 
   getPublishedOnboardingTracks(locale?: Locale): Promise<PublishedOnboardingTrack[]>;

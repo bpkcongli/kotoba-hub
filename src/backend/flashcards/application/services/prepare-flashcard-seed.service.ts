@@ -2,6 +2,7 @@ import type {
   DeckLocalizations,
   ItemLocalizations,
 } from '@/backend/flashcards/domain/value-objects/localized-content';
+
 export type SeedScriptMode = 'KANJI' | 'KANA' | 'ROMAJI' | 'ENGLISH' | 'JAPANESE';
 
 export interface FlashcardSeedItem {
@@ -24,7 +25,14 @@ export interface FlashcardSeedItem {
   isActive: boolean;
 }
 
+export interface VocabularyPromotion {
+  itemId: string;
+  pendingSkillCode: string;
+  targetSkillId: string;
+}
+
 export interface FlashcardSeedPlan {
+  vocabularyPromotions?: VocabularyPromotion[];
   decks: {
     contentRevision?: number;
     localizations?: DeckLocalizations | null;
@@ -51,5 +59,5 @@ export interface FlashcardSeedPlan {
 }
 
 export interface PrepareFlashcardSeedService {
-  prepare(): Promise<FlashcardSeedPlan>;
+  prepare(promotions?: VocabularyPromotion[]): Promise<FlashcardSeedPlan>;
 }

@@ -12,6 +12,14 @@ export class LearningEvent {
     )
       throw new InvalidProgressEvent('Learning event identifiers must be UUIDs.');
 
+    if (
+      (snapshot.lessonId === null) !== (snapshot.unitId === null) ||
+      (snapshot.lessonId === null && snapshot.sourceType !== 'FLASHCARD')
+    )
+      throw new InvalidProgressEvent(
+        'Only standalone flashcards may omit lesson and unit attribution.',
+      );
+
     if (!['FLASHCARD', 'PRACTICE', 'LESSON_POST_STUDY'].includes(snapshot.sourceType))
       throw new InvalidProgressEvent('Unsupported progress source type.');
 

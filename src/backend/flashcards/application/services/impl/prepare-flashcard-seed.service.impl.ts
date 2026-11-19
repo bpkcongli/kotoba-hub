@@ -7,6 +7,7 @@ import type {
   FlashcardSeedPlan,
   PrepareFlashcardSeedService,
   SeedScriptMode,
+  VocabularyPromotion,
 } from '@/backend/flashcards/application/services/prepare-flashcard-seed.service';
 
 export class PrepareFlashcardSeedServiceImpl implements PrepareFlashcardSeedService {
@@ -15,14 +16,36 @@ export class PrepareFlashcardSeedServiceImpl implements PrepareFlashcardSeedServ
     private readonly source: CanonicalFlashcardSource,
   ) {}
 
-  async prepare(): Promise<FlashcardSeedPlan> {
+  async prepare(promotions: VocabularyPromotion[] = []): Promise<FlashcardSeedPlan> {
     const [catalog, artifacts, kanjiSkills] = await Promise.all([
       this.catalog.getPublishedCatalog(),
       this.source.readArtifacts(),
       this.source.readKanjiSkills(),
     ]);
 
+    if (new Set(promotions.map((entry) => entry.itemId)).size !== promotions.length)
+      throw new Error('Duplicate vocabulary promotion.');
+
+    const baselineItems = artifacts.flatMap((artifact) => artifact.items);
+
+    for (const promotion of promotions) {
+      const item = baselineItems.find((entry) => entry.id === promotion.itemId);
+      const target = catalog.skills.find((entry) => entry.id === promotion.targetSkillId);
+
+      if (
+        !item ||
+        item.itemType !== 'VOCABULARY' ||
+        item.skillId !== null ||
+        item.mappingStatus !== 'PENDING_LESSON_MAPPING' ||
+        item.skillCode !== promotion.pendingSkillCode ||
+        !target?.vocabularyItemIds?.includes(item.id) ||
+        target.trackSlug !== item.trackSlug
+      )
+        throw new Error(`Invalid vocabulary promotion: ${promotion.itemId}.`);
+    }
+
     const plan: FlashcardSeedPlan = {
+      vocabularyPromotions: promotions,
       decks: [],
       items: [],
       deckItems: [],
@@ -106,7 +129,9 @@ export class PrepareFlashcardSeedServiceImpl implements PrepareFlashcardSeedServ
 
         plan.items.push({
           id: item.id,
-          skillId: pending ? null : skill!.id,
+          skillId:
+            promotions.find((entry) => entry.itemId === item.id)?.targetSkillId ??
+            (pending ? null : skill!.id),
           itemType: item.itemType,
           surfaceFormText: item.surfaceFormText,
           kanaDisplayText: item.kanaDisplayText,
@@ -167,6 +192,7 @@ export class PrepareFlashcardSeedServiceImpl implements PrepareFlashcardSeedServ
     for (const raw of kanjiSkills) {
       const skill = publishedSkill.get(raw.code);
       if (!skill) continue;
+
       if (
         skill.id !== raw.id ||
         skill.trackSlug !== raw.trackSlug ||
@@ -196,6 +222,7 @@ export class PrepareFlashcardSeedServiceImpl implements PrepareFlashcardSeedServ
 
       const id = stableFlashcardSeedId(`item/${skill.id}/KANJI`);
       const kana = [...raw.onyomi, ...raw.kunyomi].join(' / ');
+
       if (!kana) throw new Error(`Kanji ${raw.code} has no canonical reading.`);
 
       plan.items.push({

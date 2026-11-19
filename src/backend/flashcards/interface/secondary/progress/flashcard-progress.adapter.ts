@@ -28,6 +28,7 @@ export class FlashcardProgressAdapter implements FlashcardProgressPort {
       responseTimeMs: answer.responseTimeMs,
       answeredAt: answer.answeredAt,
       gradingMetadata: {
+        flashcardItemId: answer.itemId,
         selectedOptionId: answer.selectedOptionId,
         correctOptionId: answer.result.correctOptionId,
       },

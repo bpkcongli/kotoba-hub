@@ -1,0 +1,8 @@
+ALTER TABLE `progress_events` MODIFY COLUMN `lesson_id` char(36);--> statement-breakpoint
+ALTER TABLE `progress_events` MODIFY COLUMN `unit_id` char(36);--> statement-breakpoint
+ALTER TABLE `skills` MODIFY COLUMN `lesson_id` char(36);--> statement-breakpoint
+ALTER TABLE `skills` ADD `owner_type` varchar(50) DEFAULT 'LESSON' NOT NULL;--> statement-breakpoint
+ALTER TABLE `skills` ADD `group_track_id` char(36);--> statement-breakpoint
+ALTER TABLE `progress_events` ADD CONSTRAINT `progress_events_attribution_ck` CHECK ((`progress_events`.`lesson_id` is not null and `progress_events`.`unit_id` is not null) or (`progress_events`.`lesson_id` is null and `progress_events`.`unit_id` is null and `progress_events`.`source_type` = 'FLASHCARD'));--> statement-breakpoint
+ALTER TABLE `skills` ADD CONSTRAINT `skills_owner_ck` CHECK ((`skills`.`owner_type` = 'LESSON' and `skills`.`lesson_id` is not null and `skills`.`group_track_id` is null) or (`skills`.`owner_type` = 'FLASHCARD_VOCABULARY_GROUP' and `skills`.`lesson_id` is null and `skills`.`group_track_id` is not null and `skills`.`skill_type` = 'VOCABULARY' and `skills`.`supports_flashcards` = true and `skills`.`supports_practice_objective` = false and `skills`.`supports_practice_free_response` = false));--> statement-breakpoint
+ALTER TABLE `skills` ADD CONSTRAINT `skills_group_track_id_tracks_id_fk` FOREIGN KEY (`group_track_id`) REFERENCES `tracks`(`id`) ON DELETE no action ON UPDATE no action;

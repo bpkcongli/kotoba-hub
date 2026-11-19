@@ -124,9 +124,9 @@ export const skills = mysqlTable(
   'skills',
   {
     id: char('id', { length: 36 }).primaryKey(),
-    lessonId: char('lesson_id', { length: 36 })
-      .notNull()
-      .references(() => lessons.id),
+    lessonId: char('lesson_id', { length: 36 }).references(() => lessons.id),
+    ownerType: varchar('owner_type', { length: 50 }).notNull().default('LESSON'),
+    groupTrackId: char('group_track_id', { length: 36 }).references(() => tracks.id),
     code: varchar('code', { length: 100 }).notNull(),
     slug: varchar('slug', { length: 100 }).notNull(),
     curriculumLevel: varchar('curriculum_level', { length: 50 }).notNull(),
@@ -149,6 +149,10 @@ export const skills = mysqlTable(
     updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
   },
   (table) => [
+    check(
+      'skills_owner_ck',
+      sql`(${table.ownerType} = 'LESSON' and ${table.lessonId} is not null and ${table.groupTrackId} is null) or (${table.ownerType} = 'FLASHCARD_VOCABULARY_GROUP' and ${table.lessonId} is null and ${table.groupTrackId} is not null and ${table.skillType} = 'VOCABULARY' and ${table.supportsFlashcards} = true and ${table.supportsPracticeObjective} = false and ${table.supportsPracticeFreeResponse} = false)`,
+    ),
     check('skills_content_revision_ck', sql`${table.contentRevision} > 0`),
     uniqueIndex('skills_code_uk').on(table.code),
     uniqueIndex('skills_slug_uk').on(table.slug),

@@ -4,8 +4,10 @@ export interface FlashcardSeedCatalog {
   skills: {
     id: string;
     code: string;
-    lessonSlug: string;
-    unitSlug: string;
+    lessonSlug: string | null;
+    unitSlug: string | null;
+    vocabularyItemIds?: string[];
+    vocabularyPendingSkillCodes?: Record<string, string>;
     trackSlug: string;
     skillType: string;
   }[];

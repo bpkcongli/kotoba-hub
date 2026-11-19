@@ -35,6 +35,23 @@ export class FlashcardSeedCatalogAdapter implements FlashcardSeedCatalogPort {
       }
     }
 
+    for (const { skill, track, lesson } of await this.syllabus.getActivitySkills()) {
+      if (lesson || !['N5', 'N4'].includes(track.curriculumLevel)) continue;
+
+      result.skills.push({
+        id: skill.id,
+        code: skill.code,
+        lessonSlug: null,
+        unitSlug: null,
+        trackSlug: track.slug,
+        skillType: skill.skillType,
+        vocabularyItemIds: (skill.content?.vocabularyGroup as { itemIds: string[] }).itemIds,
+        vocabularyPendingSkillCodes: (
+          skill.content?.vocabularyGroup as { pendingSkillCodes: Record<string, string> }
+        ).pendingSkillCodes,
+      });
+    }
+
     return result;
   }
 }

@@ -25,6 +25,7 @@ scripts/*
 !scripts/syllabus/
 scripts/syllabus/*
 !scripts/syllabus/seed-syllabus.ts
+!scripts/syllabus/seed-vocabulary-groups.ts
 !scripts/syllabus/check-bilingual-cutover.ts
 
 # Flashcard seed CLI for the ops image.

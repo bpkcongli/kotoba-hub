@@ -278,7 +278,7 @@ export class DrizzleBilingualImporter {
       );
       await stage(
         s.skills,
-        skillRows.filter((r) => plan.lessonIds.includes(r.lessonId)),
+        skillRows.filter((r) => r.lessonId !== null && plan.lessonIds.includes(r.lessonId)),
         skillRows,
       );
       await stage(

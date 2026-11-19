@@ -40,12 +40,8 @@ export const progressEvents = mysqlTable(
     numericScore: decimal('numeric_score', { precision: 5, scale: 2, mode: 'number' }).notNull(),
     confidenceWeight: decimal('confidence_weight', { precision: 5, scale: 2, mode: 'number' }),
     responseTimeMs: int('response_time_ms'),
-    lessonId: char('lesson_id', { length: 36 })
-      .notNull()
-      .references(() => lessons.id),
-    unitId: char('unit_id', { length: 36 })
-      .notNull()
-      .references(() => units.id),
+    lessonId: char('lesson_id', { length: 36 }).references(() => lessons.id),
+    unitId: char('unit_id', { length: 36 }).references(() => units.id),
     trackId: char('track_id', { length: 36 })
       .notNull()
       .references(() => tracks.id),
@@ -55,6 +51,10 @@ export const progressEvents = mysqlTable(
     updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
   },
   (table) => [
+    check(
+      'progress_events_attribution_ck',
+      sql`(${table.lessonId} is not null and ${table.unitId} is not null) or (${table.lessonId} is null and ${table.unitId} is null and ${table.sourceType} = 'FLASHCARD')`,
+    ),
     index('progress_events_user_skill_answered_idx').on(
       table.userId,
       table.skillId,

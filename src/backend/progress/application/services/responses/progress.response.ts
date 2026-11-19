@@ -38,8 +38,8 @@ export interface ProgressTimelineItem {
   skillCode: string;
   skillTitle: string;
   trackSlug: string;
-  unitSlug: string;
-  lessonSlug: string;
+  unitSlug: string | null;
+  lessonSlug: string | null;
   isCorrect: boolean;
   numericScore: number;
   confidenceWeight: number | null;

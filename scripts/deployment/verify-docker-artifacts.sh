@@ -19,7 +19,7 @@ allowed_files=(
   content/syllabus/v1/manifest.json content/syllabus/v1/tracks/example.json
   content/flashcards/system-decks/example.json
   content/syllabus/v2/manifest.json content/syllabus/v2/tracks/example.json
-  scripts/syllabus/check-bilingual-cutover.ts
+  scripts/syllabus/check-bilingual-cutover.ts scripts/syllabus/seed-vocabulary-groups.ts
   docs/syllabus/schema/seed-manifest.v2.schema.json docs/syllabus/schema/track-seed.v2.schema.json
   docs/syllabus/bilingual/batch-01/bilingual-batch-01.json
 )
@@ -56,6 +56,7 @@ docker build --target ops --tag "$ops_image" .
 docker build --target runner --tag "$app_image" .
 
 docker image inspect "$app_image" "$ops_image" > "$verify_dir/images.json"
+
 bun -e '
   const images = await Bun.file(process.argv[1]).json();
   for (const { Config: config } of images) {
@@ -70,8 +71,9 @@ bun -e '
 ' "$verify_dir/images.json"
 
 mapfile -d '' source_files < <(find src -type f -print0 | LC_ALL=C sort -z)
+
 sha256sum "${source_files[@]}" package.json bun.lock tsconfig.json drizzle.config.ts \
-  scripts/syllabus/seed-syllabus.ts scripts/syllabus/check-bilingual-cutover.ts scripts/flashcards/seed-flashcards.ts drizzle/*.sql drizzle/meta/*.json \
+  scripts/syllabus/seed-syllabus.ts scripts/syllabus/check-bilingual-cutover.ts scripts/syllabus/seed-vocabulary-groups.ts scripts/flashcards/seed-flashcards.ts drizzle/*.sql drizzle/meta/*.json \
   content/syllabus/v1/manifest.json content/syllabus/v1/tracks/*.json \
   content/syllabus/v2/manifest.json content/syllabus/v2/tracks/*.json \
   docs/syllabus/schema/seed-manifest.v2.schema.json docs/syllabus/schema/track-seed.v2.schema.json \
@@ -104,6 +106,7 @@ docker run --rm --network none --entrypoint sh "$app_image" -eu -c '
   '
 
 docker run --rm --network none "$ops_image" run db:seed:syllabus:dry-run > "$verify_dir/syllabus.json"
+
 bun -e '
   const report = await Bun.file(process.argv[1]).json();
   if (!report.counts || !Array.isArray(report.rejectedLessons)) {
@@ -113,6 +116,7 @@ bun -e '
 ' "$verify_dir/syllabus.json"
 
 docker run --rm --network none "$ops_image" run db:seed:syllabus:dry-run --manifest content/syllabus/v2/manifest.json > "$verify_dir/bilingual.json"
+
 bun -e '
   const report = await Bun.file(process.argv[1]).json();
   if (report.schemaVersion !== "2.0.0" || report.lessonCount !== 16 || report.questionCount !== 160 || report.imported !== false) {

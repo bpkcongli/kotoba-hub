@@ -6,6 +6,7 @@ import {
   assessmentService,
   confirmAssessmentService,
 } from '@/backend/personalization/infrastructure/di';
+import { userPreferencesService } from '@/backend/users/infrastructure/di';
 
 jest.mock('@/backend/auth/infrastructure/di', () => ({
   authorizationService: new (jest.requireActual(
@@ -17,6 +18,10 @@ jest.mock('@/backend/auth/infrastructure/di', () => ({
 jest.mock('@/backend/personalization/infrastructure/di', () => ({
   assessmentService: { assess: jest.fn() },
   confirmAssessmentService: { confirm: jest.fn() },
+}));
+
+jest.mock('@/backend/users/infrastructure/di', () => ({
+  userPreferencesService: { get: jest.fn() },
 }));
 
 const session: SessionSnapshot = {
@@ -76,6 +81,10 @@ describe('POST personalization assessment', () => {
 
     jest.mocked(getSessionSnapshot).mockResolvedValue(session);
     jest.mocked(assessmentService.assess).mockResolvedValue(draft);
+    jest.mocked(userPreferencesService.get).mockResolvedValue({
+      uiLocale: 'en',
+      contentLocale: 'en',
+    });
   });
 
   it.each(['ONBOARDING_REQUIRED', 'APP_READY'] as const)(
@@ -90,6 +99,7 @@ describe('POST personalization assessment', () => {
       const result = await response.json();
 
       expect(response.status).toBe(200);
+      expect(response.headers.get('Content-Language')).toBe('en');
       expect(result.status.code).toBe(120003000);
       expect(result.status.traceId).toBe(
         jest.mocked(assessmentService.assess).mock.calls[0][0].requestId,
@@ -104,9 +114,24 @@ describe('POST personalization assessment', () => {
         }),
       );
       expect(getSessionSnapshot).toHaveBeenCalledWith('authjs.session-token=test');
+      expect(userPreferencesService.get).toHaveBeenCalledWith('learner-owner');
       expect(confirmAssessmentService.confirm).not.toHaveBeenCalled();
     },
   );
+
+  it('localizes the response using the stored UI locale', async () => {
+    jest.mocked(userPreferencesService.get).mockResolvedValueOnce({
+      uiLocale: 'id',
+      contentLocale: 'en',
+    });
+
+    const response = await POST(request(body));
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('Content-Language')).toBe('id');
+    expect((await response.json()).data).toEqual(draft);
+    expect(userPreferencesService.get).toHaveBeenCalledWith('learner-owner');
+  });
 
   it('rejects an anonymous session before invoking assessment', async () => {
     jest.mocked(getSessionSnapshot).mockResolvedValueOnce({

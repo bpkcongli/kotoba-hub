@@ -208,3 +208,41 @@ test('retains a historical track selection on failure without offering unrelated
     screen.queryByRole('option', { name: syllabusUnitFixture().title }),
   ).not.toBeInTheDocument();
 });
+
+test('renders standalone vocabulary history without a lesson link', async () => {
+  server.use(
+    http.get(`${baseUrl}/progress/timeline`, () =>
+      HttpResponse.json({
+        status: status(),
+        metadata: { pagination: { pageNumber: 1, pageSize: 10, totalRecords: 1 } },
+        data: {
+          progressEvents: [
+            {
+              id: '550e8400-e29b-41d4-a716-446655440011',
+              sourceType: 'FLASHCARD',
+              sourceSessionId: '550e8400-e29b-41d4-a716-446655440012',
+              sourceEntityId: '550e8400-e29b-41d4-a716-446655440013',
+              questionType: 'MULTIPLE_CHOICE',
+              skillCode: 'n5_supplies',
+              skillTitle: 'Writing supplies',
+              trackSlug: 'jlpt-n5-foundation',
+              unitSlug: null,
+              lessonSlug: null,
+              isCorrect: true,
+              numericScore: 100,
+              confidenceWeight: null,
+              responseTimeMs: null,
+              answeredAt: '2026-11-19T00:00:00Z',
+            },
+          ],
+        },
+      }),
+    ),
+  );
+
+  renderProgress();
+
+  expect(await screen.findByText('Writing supplies')).toBeInTheDocument();
+  expect(screen.queryByRole('link', { name: 'Review lesson' })).not.toBeInTheDocument();
+  expect(screen.queryByText(/\/lessons\/null/)).not.toBeInTheDocument();
+});

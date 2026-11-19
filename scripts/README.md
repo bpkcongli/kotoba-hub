@@ -44,4 +44,12 @@ bun run test:release
 
 GitHub Actions memanggil helper rilis dari `deployment/`. Script production dan backup tetap dipasang ke lokasi operasional VPS sesuai [runbook deployment](../docs/cicd/deployment-workflow.md); pemindahan folder repository tidak mengubah lokasi pemasangan tersebut.
 
-Image `ops` hanya menyertakan `syllabus/seed-syllabus.ts` dan `flashcards/seed-flashcards.ts` dari folder ini. Allowlist `.dockerignore` dan path `COPY` pada `Dockerfile` harus mengikuti lokasi kedua entry point tersebut.
+Image `ops` menyertakan `syllabus/seed-syllabus.ts`, `syllabus/check-bilingual-cutover.ts`,
+`syllabus/seed-vocabulary-groups.ts` dan `flashcards/seed-flashcards.ts`. Allowlist
+`.dockerignore`, `Dockerfile` dan verifier mengikuti entry point tersebut.
+
+Untuk VOC-02, `bun run db:seed:vocabulary-groups --manifest <path> --dry-run`
+memvalidasi manifest kelompok terhadap inventory pending canonical tanpa menulis DB.
+Import kelompok lalu jalankan seed flashcard dengan `--vocabulary-groups <path>` yang
+sama. `bun run test:vocabulary-groups --allow-test-db-write` memakai
+VOCABULARY_TEST_DATABASE_URL yang terisolasi. Lihat [operasi VOC-02](../drizzle/README.md#vocabulary-mandiri-voc-02).

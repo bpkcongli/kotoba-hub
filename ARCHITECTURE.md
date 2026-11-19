@@ -358,3 +358,12 @@ App Router; wrapper menjalankan handler lalu merangkai resolusi locale melalui
 facade auth/users. Adapter REST shared memetakan pesan envelope. Domain, log, enum
 dan snapshot aktivitas tetap canonical. Detail ownership, fallback dan verifikasi ada pada
 [implementasi BIL-07](docs/syllabus/bilingual/bilingual-ui-api-implementation.md).
+
+### Skill vocabulary mandiri VOC-02
+
+Syllabus menyediakan facade aktivitas `getActivitySkills()` terpisah dari navigasi
+lesson. Owner `FLASHCARD_VOCABULARY_GROUP` dimiliki langsung oleh track; lesson/unit
+attribution null, capability practice false. Progress tetap melalui port consumer dan
+menghitung evidence per item atas membership immutable. Import manifest v2 kelompok dan
+promosi eksplisit menjaga ID serta snapshot existing. Lihat
+[kontrak VOC-02](docs/syllabus/flashcards/standalone-vocabulary-contract.md).

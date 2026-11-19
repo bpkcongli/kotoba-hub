@@ -1,5 +1,14 @@
 # Vocabulary Flashcard Seeder Schema
 
+## Perluasan VOC-02
+
+Bagian berikut mendeskripsikan artifact baseline v1. Jalur tambahan
+[skill vocabulary mandiri](standalone-vocabulary-contract.md) memakai manifest v2
+terpisah dengan ID pending existing. Import kelompok dahulu, lalu jalankan seed flashcard
+memakai `--vocabulary-groups <manifest>`. Generator v1 tidak dipakai untuk promosi.
+Unit/lesson null sah untuk owner kelompok; aturan wajib lesson di bawah tetap berlaku
+untuk item mapped melalui jalur lesson. Draft authoring tetap terpisah dari manifest runtime.
+
 ## Scope
 - Dokumen ini mendefinisikan kontrak planning untuk seeder system flashcard deck `VOCABULARY`.
 - Fokusnya adalah menutup gap antara syllabus seed final yang sudah canonical dan artifact flashcard seed yang nanti dipakai implementasi `IMP-07`.

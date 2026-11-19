@@ -1,6 +1,13 @@
 # Kurasi dan authoring vocabulary flashcard
 
-Panduan `VOC-01` menyiapkan kurasi, authoring Inggris/Indonesia, dan review vocabulary system deck. Preferensi produk adalah **satu skill vocabulary mandiri dapat menaungi beberapa item tanpa memerlukan lesson atau tampil sebagai lesson di UI**. Tooling ini menyiapkan kandidat untuk model tersebut; aktivasi schema/runtime dilanjutkan pada `VOC-02`.
+Panduan `VOC-01` menyiapkan kurasi, authoring Inggris/Indonesia, dan review vocabulary system deck. Preferensi produk adalah **satu skill vocabulary mandiri dapat menaungi beberapa item tanpa memerlukan lesson atau tampil sebagai lesson di UI**. Tooling ini menyiapkan kandidat untuk model tersebut; schema/runtime `VOC-02` memakai manifest integrasi terpisah.
+
+## Runtime VOC-02
+
+Jalur skill mandiri dan promosi eksplisit ditetapkan pada
+[kontrak vocabulary mandiri](standalone-vocabulary-contract.md). Tabel berikut
+mencatat baseline VOC-01; draft curator/maker tetap bukan input importer. Integrasi
+VOC-03 harus mengompilasi draft reviewed ke manifest v2 dan memakai ID pending existing.
 
 ## Batas antara kandidat dan runtime
 
@@ -14,7 +21,7 @@ Panduan `VOC-01` menyiapkan kurasi, authoring Inggris/Indonesia, dan review voca
 
 Keputusan ini tidak mengubah [kontrak seed existing](vocabulary-flashcard-seeder-schema.md), [mapping deck](flashcard-deck-mapping.md), atau [runtime BIL-05](../bilingual/bilingual-flashcards-implementation.md). Tidak membuat lesson dummy untuk melewati gate publikasi. Skill kelompok kandidat juga belum menjadi row `skills` atau bukti official mastery.
 
-Rujukan implementasi: [schema skills](../../../src/backend/syllabus/infrastructure/database/schema.ts), [katalog published](../../../src/backend/syllabus/interface/secondary/persistence/drizzle-syllabus-catalog.repository.ts), [facade flashcards](../../../src/backend/flashcards/interface/secondary/syllabus/flashcard-catalog.adapter.ts), [attribution progress](../../../src/backend/progress/application/ports/progress-catalog.port.ts), [schema progress](../../../src/backend/progress/infrastructure/database/schema.ts), dan [importer flashcard](../../../src/backend/flashcards/interface/secondary/seed/drizzle-flashcard-importer.ts). Selain `skills.lesson_id`, event progress saat ini juga mewajibkan lesson/unit/track; perubahan skill mandiri harus menyelaraskan keduanya.
+Rujukan implementasi: [schema skills](../../../src/backend/syllabus/infrastructure/database/schema.ts), [katalog published](../../../src/backend/syllabus/interface/secondary/persistence/drizzle-syllabus-catalog.repository.ts), [facade flashcards](../../../src/backend/flashcards/interface/secondary/syllabus/flashcard-catalog.adapter.ts), [attribution progress](../../../src/backend/progress/application/ports/progress-catalog.port.ts), [schema progress](../../../src/backend/progress/infrastructure/database/schema.ts), dan [importer flashcard](../../../src/backend/flashcards/interface/secondary/seed/drizzle-flashcard-importer.ts). Pada baseline VOC-01, skills dan event progress mewajibkan lesson/unit. VOC-02 menyelaraskan keduanya melalui owner kelompok dan attribution track dengan lesson/unit null.
 
 ## Peran dan ownership
 
@@ -126,11 +133,18 @@ Periksa pula semua item scope muncul tepat sekali dalam accepted/held, semua ref
 
 ## Dependency aktivasi `VOC-02`
 
-Sebelum kelompok mandiri menjadi official skill, finalkan owner model dan kontrak publikasi/visibilitas terpisah, lalu selaraskan ERD, seed v2, facade syllabus/flashcards/progress/practice, dan validasi attribution. Menyembunyikan lesson dengan `isPublished: false` saja tidak menyelesaikan dependency ini.
+Jalur aktivasi ditetapkan pada [kontrak VOC-02](standalone-vocabulary-contract.md)
+dan [operasi seed](../../../drizzle/README.md#vocabulary-mandiri-voc-02). Kelompok menjadi
+skill resmi setelah manifest reviewed diimport; promosi flashcard harus eksplisit dengan
+ID pending existing. Draft authoring tidak otomatis mengaktifkan kelompok atau progress.
 
-Generator mapped saat ini menurunkan ID item dari skill code, sedangkan pending dari `ent_seq`. Promosi harus mempertahankan ID item pending lewat manifest identitas; perubahan null menjadi `skillId` kini ditolak importer. Jalur promosi eksplisit harus mempertahankan state user+item, custom deck, session/answer snapshot, dan retry. Event lama tidak diberi attribution baru secara retroaktif.
+Generator mapped v1 menurunkan ID dari skill code sedangkan pending dari ent_seq; jangan
+menjalankan generator tersebut untuk promosi. Importer VOC-02 menjaga ID, state user+item,
+custom deck dan session/answer snapshots. Event lama tidak diberi attribution retroaktif.
 
-Mastery saat ini memakai maksimal 20 attempt terakhir per skill tanpa cakupan vocabulary unik. Kelompok mandiri memerlukan aturan cakupan/evidence per item agar pengulangan satu kata tidak dianggap penguasaan seluruh kelompok. Leitner per item tetap terpisah dari mastery kelompok. Sampai pekerjaan tersebut selesai, draft tidak mengubah eligibility, official progress atau angka coverage seed aktif.
+Kelompok memakai evidence maksimal 20 attempt per item dengan seluruh anggota sebagai
+denominator, termasuk anggota yang belum dijawab. Leitner tetap terpisah per item.
+Menyembunyikan lesson dengan isPublished false tetap bukan jalur aktivasi kelompok.
 
 ## Verifikasi tooling `VOC-01`
 

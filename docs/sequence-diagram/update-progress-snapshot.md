@@ -1,5 +1,15 @@
 # Update Progress Snapshot Sequence Diagram
 
+## Perluasan VOC-02
+
+Pada lookup attribution, facade syllabus juga menerima owner vocabulary mandiri yang
+eligible. Untuk owner ini attribution berakhir pada track (lesson/unit null), dan
+progress memvalidasi flashcardItemId terhadap membership immutable. Recompute memakai
+20 attempt per item dan seluruh anggota sebagai denominator. Cabang lesson post-study
+tetap hanya untuk owner lesson. Pending turn lama berhenti di flashcards walaupun item
+kemudian dipromosikan; retry event existing memakai attribution snapshot tersimpan.
+Lihat [kontrak](../syllabus/flashcards/standalone-vocabulary-contract.md).
+
 ## Scope
 - Diagram ini memodelkan handoff setelah hasil jawaban sudah tersimpan di module producer, baik dari `flashcards` maupun `practice`.
 - Fokus utamanya adalah proses `record learning event -> validate attribution -> recompute skill mastery -> upsert skill/lesson snapshot`.

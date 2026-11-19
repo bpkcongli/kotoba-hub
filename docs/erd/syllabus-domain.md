@@ -1,5 +1,17 @@
 # ERD Syllabus Domain
 
+## Perluasan VOC-02
+
+[Kontrak skill vocabulary mandiri](../syllabus/flashcards/standalone-vocabulary-contract.md)
+menambahkan owner skill `FLASHCARD_VOCABULARY_GROUP`: `skills.lesson_id` nullable,
+`owner_type varchar(50) not null default LESSON`, `group_track_id char(36)` FK ke
+tracks. CHECK `skills_owner_ck` mewajibkan tepat satu bentuk ownership dan membatasi
+kelompok ke vocabulary/flashcards, tanpa capability practice. Membership item ID
+immutable disimpan dalam `skills.content.vocabularyGroup` bersama pendingSkillCodes;
+metadata bilingual memakai skill_translations existing. Diagram berikut adalah
+baseline lesson; kelompok menambah relasi langsung `tracks 1 -> N skills`.
+Migration: `0008_standalone_vocabulary.sql`.
+
 ## Perluasan bilingual BIL-03
 
 Diagram dan definisi existing di bawah mempertahankan baseline v1. Migration `0006_bilingual_content.sql` mengimplementasikan relasi bilingual berikut; detail field, tipe, revision gate, backfill, dan proyeksi kompatibilitas ditetapkan pada [kontrak konten bilingual](../syllabus/bilingual/bilingual-content-contract.md#4-schema-database-target).

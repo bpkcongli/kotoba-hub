@@ -1,5 +1,12 @@
 # API Contract Syllabus
 
+## Perluasan VOC-02
+
+Facade internal `getActivitySkills()` menggabungkan skill lesson published dan skill
+vocabulary mandiri yang lolos gate-nya sendiri. Endpoint navigasi, onboarding dan quiz
+lesson tetap memakai subtree lesson. Tidak ada lesson dummy atau endpoint lesson baru.
+Lihat [kontrak kelompok](../syllabus/flashcards/standalone-vocabulary-contract.md).
+
 ## Perluasan BIL-01
 - Kontrak legacy di bawah tetap berlaku. Representasi opt-in `contentFormat=localized`, locale/fallback, metadata resolusi per object, dan field `translation` difinalkan untuk `BIL-03` pada [kontrak bilingual](./bilingual.md) serta [OpenAPI target](./openapi.bilingual.yaml). Seed v2 tidak otomatis mengubah response API aktif.
 

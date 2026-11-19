@@ -1,5 +1,13 @@
 # API Contract Progress
 
+## Perluasan VOC-02
+
+Timeline `unitSlug` dan `lessonSlug` sekarang nullable untuk skill vocabulary mandiri.
+Track dan skill tetap tersedia. Overview memasukkan mastery kelompok sebagai satu
+skill tanpa menambah lesson completion. Feed sesi memakai unitSlug null untuk kelompok.
+[Kontrak dan formula coverage](../syllabus/flashcards/standalone-vocabulary-contract.md)
+berlaku untuk event baru; attribution historis tetap memakai snapshot event.
+
 ## Scope
 - Dokumen ini menyelesaikan bagian `progress` dari task `ARCH-15`.
 - Fokusnya adalah API read model untuk dashboard overview, feed aktivitas belajar per session, dan timeline aktivitas belajar.

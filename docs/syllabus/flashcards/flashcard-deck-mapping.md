@@ -1,5 +1,12 @@
 # Flashcard Deck Mapping
 
+## Perluasan VOC-02
+
+[Skill vocabulary mandiri](standalone-vocabulary-contract.md) dapat memiliki banyak
+item dengan unit/lesson null, menggunakan track published dan gate kelompok sendiri.
+Promosi mempertahankan ID dan membership deck existing; ukuran kelompok tidak mengikuti
+ukuran segment deck. Aturan mapping lesson di bawah tetap berlaku untuk owner LESSON.
+
 ## Scope
 - Dokumen ini menyelesaikan task `SYL-06A`.
 - Fokusnya adalah mengunci bagaimana syllabus KotobaHub menurunkan skill yang mendukung flashcard menjadi `flashcard_item` dan `flashcard_deck` bawaan sistem.

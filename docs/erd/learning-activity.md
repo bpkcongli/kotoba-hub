@@ -1,5 +1,16 @@
 # ERD Learning Activity
 
+## Perluasan VOC-02
+
+[Kontrak vocabulary mandiri](../syllabus/flashcards/standalone-vocabulary-contract.md)
+menambahkan attribution event kelompok pada track, dengan lesson_id/unit_id null.
+CHECK `progress_events_attribution_ck` mengizinkan pasangan null hanya untuk FLASHCARD;
+validasi aplikasi memastikan item anggota kelompok resmi. Formula baseline 20 attempt
+per skill tetap berlaku untuk owner lesson. Kelompok memakai maksimal 20 event per
+item dan rata-rata seluruh anggota termasuk anggota tanpa evidence bernilai nol.
+Leitner, custom deck dan snapshot sesi existing tidak berubah. Migration `0008` tidak
+mengubah tabel user state atau event lama.
+
 ## Perluasan final BIL-01 (implementasi BIL-03)
 
 Direct quiz localized membutuhkan snapshot delivery agar locale, revisi soal dan kunci yang dinilai sama dengan saat soal diberikan. Kontrak v1/engine di bawah tetap baseline; tambahan pada migration `0006_bilingual_content.sql`:

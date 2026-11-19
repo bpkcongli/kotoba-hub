@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "2.0.0",
+  "kind": "STANDALONE_VOCABULARY_GROUPS",
+  "groups": [
+    {
+      "id": "55f5bff8-d114-4549-a135-c455642556ea",
+      "code": "n5_vocab_group_example",
+      "slug": "n5-vocab-group-example",
+      "trackSlug": "jlpt-n5-foundation",
+      "curriculumLevel": "N5",
+      "sortOrder": 1,
+      "contentRevision": 1,
+      "isPublished": false,
+      "sourceRefs": [
+        "VOC-02 schema example; not an approved curriculum grouping"
+      ],
+      "items": [
+        {
+          "itemId": "c0353f55-b7e8-5fad-9ce7-bebc1170fa69",
+          "pendingSkillCode": "n5_vocab_jmdict_1198180"
+        },
+        {
+          "itemId": "14144ec5-86c3-5ead-a15f-863646f00cfd",
+          "pendingSkillCode": "n5_vocab_jmdict_1381380"
+        }
+      ],
+      "localizations": {
+        "en": {
+          "title": "Vocabulary group example",
+          "description": null,
+          "sourceRevision": 1,
+          "translationRevision": 1,
+          "isPublished": false,
+          "sourceRefs": [
+            "VOC-02 schema example; editorial review required before publication"
+          ]
+        },
+        "id": {
+          "title": "Contoh kelompok kosakata",
+          "description": null,
+          "sourceRevision": 1,
+          "translationRevision": 1,
+          "isPublished": false,
+          "sourceRefs": [
+            "VOC-02 schema example; editorial review required before publication"
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,5 +1,13 @@
 # API Contract Flashcards
 
+## Perluasan VOC-02
+
+Item pending dapat dipromosikan secara eksplisit ke skill vocabulary kelompok tanpa
+lesson. Sesi baru memakai owner tersebut; sesi/answer existing mempertahankan snapshot
+attribution. progressImpact tetap null untuk turn pending lama. Script modes, Leitner
+user+item dan kontrak response lainnya tetap sama. Lihat
+[kontrak kelompok dan promosi](../syllabus/flashcards/standalone-vocabulary-contract.md).
+
 ## Scope
 - Dokumen ini menyelesaikan bagian `flashcards` dari task `ARCH-15`.
 - Fokusnya adalah katalog deck, pembuatan custom deck, pembuatan session, dan submit answer flashcard sampai hasil progress terbaru siap dipakai UI.

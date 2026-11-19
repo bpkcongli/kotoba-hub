@@ -710,8 +710,10 @@ components:
           type: string
         unitSlug:
           type: string
+          nullable: true
         lessonSlug:
           type: string
+          nullable: true
         isCorrect:
           type: boolean
         numericScore:

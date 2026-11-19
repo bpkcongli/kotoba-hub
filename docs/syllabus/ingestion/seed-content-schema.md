@@ -1,5 +1,13 @@
 # Seed Content Schema
 
+## Perluasan vocabulary VOC-02
+
+Kelompok vocabulary tanpa lesson diimport melalui manifest v2 terpisah, bukan disisipkan
+ke `lesson.skills`. [Kontrak](../flashcards/standalone-vocabulary-contract.md) dan
+[JSON Schema](../schema/standalone-vocabulary-groups.v2.schema.json) menetapkan identitas,
+membership immutable, terjemahan serta promosi. Importer lesson existing mempertahankan
+skill kelompok di luar scope lesson. Manifest draft authoring bukan manifest runtime.
+
 ## Versi kontrak
 - Isi dokumen di bawah dan schema tanpa suffix tetap baseline **v1** untuk seed/runtime aktif.
 - **BIL-01** memfinalkan v2 `2.0.0` pada [kontrak konten bilingual](../bilingual/bilingual-content-contract.md), [schema manifest v2](../schema/seed-manifest.v2.schema.json), dan [schema track v2](../schema/track-seed.v2.schema.json). Contoh serta [allowlist 16 lesson](../bilingual/batch-01/bilingual-batch-01.json) dirujuk oleh kontrak tersebut.

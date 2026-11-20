@@ -79,3 +79,40 @@
   - Artifact utama kini ada di `content/flashcards/system-decks/vocabulary-foundation.json`.
   - Candidate `N5` dari `JMdict + yomitan-jlpt-vocab` yang belum punya mapping lesson resmi kini dicatat terpisah di `content/flashcards/system-decks/vocabulary-foundation-pending-n5-skill-codes.json`.
   - Deck vocabulary system kini di-segment per `10` item, dengan segment terakhir boleh menjadi remainder.
+
+### `TD-006` Vocabulary Flashcard Distractor Diversity And Curated Pool Expansion
+- Status: `OPEN`
+- Created at: `2026-11-20`
+- Related tasks: `IMP-07`, `BIL-05`, `VOC-03`; verifikasi rollout mengikuti `BIL-08`/`DEP-05`.
+- Trigger:
+  - Banyak item vocabulary hasil kurasi memakai `answerOptionPayload.reviewedDistractorPoolItemIds` yang hanya berisi tiga peer: 紙 (paper/kertas), 切手 (postage stamp/prangko), dan 封筒 (envelope/amplop).
+  - Engine memilih maksimal tiga distractor dari pool, lalu mengacak opsi final. Bila seluruh tiga kandidat lolos filter, ketiganya selalu tampil; pengacakan hanya mengubah posisi. Pada arah jawaban Jepang/kana, repetisi yang sama muncul sebagai bentuk Jepang/reading peer tersebut.
+  - Pembatasan awal mencegah sinonim atau arti tumpang tindih ikut dinilai salah, tetapi membuat jawaban mudah ditebak dari pola opsi dan mengurangi kualitas latihan.
+- Affected artifacts:
+  - [Kontrak seed vocabulary dan reviewed distractor pools](./syllabus/flashcards/vocabulary-flashcard-seeder-schema.md#reviewed-distractor-pools-voc-03)
+  - [Panduan authoring dan pemeriksaan ambiguitas](./syllabus/flashcards/vocabulary-authoring-guide.md)
+  - [Artifact vocabulary aktif](../content/flashcards/system-decks/vocabulary-foundation.json) dan [overlay bilingual](../content/flashcards/system-decks/localizations.v2.json)
+  - [Planner seed canonical](../src/backend/flashcards/application/services/impl/prepare-flashcard-seed.service.impl.ts), [planner localized](../src/backend/flashcards/application/helpers/flashcard-localized-seed.ts), serta generator/compiler dan validator vocabulary terkait.
+  - [Session option builder](../src/backend/flashcards/domain/services/option-snapshot-builder.ts), [aturan engine/ERD](./erd/learning-activity.md), dan [aturan revisi/reseed bilingual](./syllabus/bilingual/bilingual-flashcards-implementation.md).
+- Debt summary:
+  - Perbaikan harus **memperluas dan memvariasikan pool distractor terkurasi per item**, kemudian memperbarui seed. Mengacak ulang urutan saja tidak menyelesaikan sumber repetisi.
+  - Menghapus strict allowlist agar semua item menjadi kandidat global juga belum memadai: normalisasi alias dapat menemukan collision teks, tetapi tidak membuktikan dua arti berbeda secara semantik.
+  - Kertas, prangko, dan amplop tetap vocab yang sah serta boleh dipakai bila cocok; ketiganya tidak perlu menjadi distractor tetap lintas item.
+- Proposed direction (belum menjadi keputusan schema):
+  - Pertimbangkan tag semantik per item/sense, misalnya 鉛筆 (pensil) dan ホチキス (stapler) bertag `stationery`. Tag dapat dipakai untuk mengusulkan kombinasi kandidat bertag sama dan kandidat lintas tag yang tetap masuk akal, dengan kelas kata dan level sebagai pertimbangan tambahan.
+  - Rekomendasi awal: gunakan tag untuk membantu authoring/compiler menghasilkan usulan, lalu review menjadi allowlist eksplisit per item. Runtime tetap mengambil opsi dari bank terkurasi yang sudah di-seed. Alternatif tanpa tag adalah memperluas allowlist existing secara editorial; keduanya harus menghasilkan pool yang beragam.
+  - Tag sama bukan bukti bahwa kandidat aman. Periksa sinonim, sense yang tumpang tindih, homograf, reading yang juga sah, alias dan terjemahan setara untuk setiap pasangan soal yang didukung dalam `en`/`id` serta mode legacy. Simpan alasan pengecualian kandidat ambigu agar tidak terpilih lagi saat regenerasi.
+  - Usulan target awal: sedikitnya enam distractor unik yang lolos kurasi per bank item/locale/script, sehingga pemilihan tiga dapat menghasilkan kombinasi berbeda. Finalisasi target saat desain; item yang belum cukup kandidat aman harus dilaporkan sebagai pengecualian/hold, bukan diisi kandidat ambigu atau fallback global diam-diam.
+- Expected follow-up:
+  - Audit ukuran pool efektif setelah filter, pemakaian peer lintas item, dan coverage tiap locale/pasangan soal; gunakan hasilnya untuk menentukan prioritas kurasi dan mengukur pengurangan repetisi.
+  - Kunci strategi pool dan, bila dipilih, taxonomy tag serta aturan kombinasi tag. Perbarui kontrak seed, panduan authoring, validator, generator/compiler, dan planner yang terdampak sebelum meregenerasi artifact aktif. Pertahankan strict allowlist dan pemeriksaan collision.
+  - Bila tag ditambahkan ke artifact, perbarui schema/tipe/parser seed dan data tag item terkait. Jika tag hanya metadata authoring yang dikompilasi menjadi allowlist existing, perubahan schema DB tidak diperlukan. Jika tag disimpan/dibaca runtime, selaraskan ERD dan schema Drizzle serta buat migration additive; perubahan API diperlukan hanya bila tag diekspos lewat kontrak API.
+  - Perbarui seed vocabulary dan paket bilingual dengan pool baru; naikkan `contentRevision` dan `translationRevision`/`sourceRevision` sesuai aturan revisi. Perubahan harus dapat diregenerasi dan ditelusuri ke hasil kurasi, bukan hanya edit manual pada output.
+  - Jalankan validasi artifact, seed dry-run dan reseed pada DB uji, lalu verifikasi rollout seed. Pertahankan ID item/deck, membership, progress, key Leitner, custom deck, serta snapshot opsi/jawaban dan retry sesi existing; bank baru berlaku untuk sesi baru.
+- Acceptance criteria:
+  - Pool efektif tiap item/locale/script yang diperbaiki memiliki lebih dari tiga distractor unik; target kurasi dan pengecualian yang disepakati tercatat dalam laporan coverage.
+  - Uji dengan sumber acak terkontrol membuktikan item yang sama dapat memperoleh kombinasi distractor berbeda dari pool yang diperluas, bukan hanya urutan berbeda; setiap opsi tetap berasal dari pool yang direview dan memiliki tepat satu jawaban sah.
+  - Review konten dan validasi menutup sinonim/arti tumpang tindih, collision lintas script, duplikat, referensi invalid serta konsistensi bahasa; statistik distribusi peer menunjukkan berkurangnya dominasi tiga kandidat lama.
+  - Regenerasi/reseed repeatable dengan revisi valid; sesi baru memakai bank baru, sementara grading/retry sesi lama serta histori belajar tetap terjaga. Debt selesai setelah seed yang diperbarui dan verifikasi tersebut tersedia.
+- Scope note:
+  - Entri ini mencatat pekerjaan lanjutan. Pemilihan desain tag, perubahan schema, kurasi pool, dan pembaruan seed/runtime belum dilakukan melalui perubahan dokumentasi ini.

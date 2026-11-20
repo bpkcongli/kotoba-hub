@@ -1,0 +1,11 @@
+{
+  "groupingAgent": "curate_part_03",
+  "makerAgent": "author_part_03",
+  "method": "text-only; parent filesystem extraction and serialization",
+  "curationSha256": "211ce823200ebabab244a69aac8d6b5db74848a152110865132ab1b72345c85c",
+  "contentSha256": "e48cfe03e04233dfd36a22a7b9d4a36d66b8f9e5523cfb917042cd4d5f018c47",
+  "authoredRows": 187,
+  "heldRows": 6,
+  "corrections": "corrections.json",
+  "correctionWriter": "parent; same-entry orthography and group-copy corrections following independent review"
+}

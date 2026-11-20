@@ -1,0 +1,111 @@
+{
+  "taskId": "VOC-03",
+  "batchId": "voc-03-batch-03-held-resolution",
+  "assignedHolds": 7,
+  "resolvedHolds": 7,
+  "heldItems": [],
+  "retiredItemIds": [
+    "2ecdf560-9943-5db0-9c4d-39c2a0e72f70",
+    "740f0018-2f61-570a-8e1f-a1fe5411302c",
+    "ca3cf376-b0f2-57bf-b3ad-21c69a5c62e0",
+    "4799b76c-8c17-5aa9-bbb7-c96f734634b3",
+    "4d47d291-c9fd-524f-aaa2-7ff3a469b697",
+    "e007da8f-ebfc-5d41-9b8a-11373171bbd3",
+    "c6dc96d7-9ce0-5396-bee2-383b700687ca"
+  ],
+  "reusedLessonItemIds": [
+    "27325d16-74f5-5880-a722-55eed6a2cd8c",
+    "74d37e86-1fc6-5849-b977-49f0a77a1529",
+    "9cf31de1-b02e-5113-ad7d-b479fe765564"
+  ],
+  "newPromotedItemIds": [
+    "f8f66c61-9a6a-5e5a-80bd-258f9b50fb95",
+    "f9201c78-fb57-522d-95a3-cc1002e530d5",
+    "ae1a0796-b925-53e9-8644-4d9bac2c2f9c",
+    "ee286451-4bc0-5092-a3aa-fe4d470f313b"
+  ],
+  "newGroupCodes": [
+    "n5_vocab_b03_drinking_glasses",
+    "n5_vocab_b03_gradual_change",
+    "n5_vocab_b03_clothing_buttons",
+    "n5_vocab_b03_fire_lighting_matches"
+  ],
+  "runtimeGroups": 151,
+  "runtimePromotedMembers": 583,
+  "eligibleMappedItems": 636,
+  "eligiblePendingItems": 0,
+  "contentRevision": 4,
+  "translationRevision": 4,
+  "reviewStatus": "READY_FOR_INTEGRATION",
+  "curationSha256": "d9fa36b2f78782e7a53da59014091ad673fca7b4fc72bdc881b14e12a996f0f4",
+  "contentSha256": "de86a9b284efc85b6c31017cd1e52279bd5a631e63478f872a723302de161946",
+  "reviewSha256": "7f98254d675a842fb0f7b4720741f7655ed257dd8b2830c67c07d51f4d34119c",
+  "artifactSha256": {
+    "content/flashcards/system-decks/vocabulary-foundation.json": "ce4824b2cd6cee7307cfb8ab3126f40d5bf5a16475ea1b5cd0fe867a91480ea7",
+    "content/flashcards/system-decks/vocabulary-foundation-pending-n5-skill-codes.json": "ba0c937ec0942aaddbed06e2e793f285405d98a06d9faa44f91c0a484ea16612",
+    "content/flashcards/system-decks/localizations.v2.json": "d89c29231b7b907967c84e3a6d1b4a1e71a593359c1da7a1072109ab48a25bce",
+    "content/flashcards/vocabulary-groups/manifest.v2.json": "c3f9b4672f8b1fc1214b9fbf4d4a8f64777c41c9f624d474277904645bb02e1f"
+  },
+  "historyPolicy": "No history/state transfer. Retired IDs and lexical payloads retained; system memberships removed. Three existing lesson targets preserve ownership.",
+  "productionImportPerformed": false,
+  "productionRolloutTaskIds": [
+    "BIL-08",
+    "DEP-05"
+  ],
+  "integrationReview": {
+    "path": "content/flashcards/drafts/voc-03-batch-03/integration-review.md",
+    "sha256": "0db1761cd92fa1415d567d0c6cd2ff5d629546570b2d83fdc420a3460d0aa19b",
+    "status": "READY_FOR_INTEGRATION"
+  },
+  "verification": {
+    "unitIntegration": {
+      "suites": 74,
+      "passedTests": 823
+    },
+    "releaseChecks": 4,
+    "lint": "PASSED",
+    "typecheck": "PASSED",
+    "formatCheck": "PASSED",
+    "sourceValidators": [
+      "batch-02 historical integration",
+      "batch-03 source/identity/options/current integration"
+    ],
+    "mysqlSmoke": {
+      "engine": "MySQL 8.4.11",
+      "database": "kotoba_voc03_identity_test",
+      "disposable": true,
+      "status": "PASSED",
+      "upgradeRevisions": [
+        2,
+        3,
+        4
+      ],
+      "oldHistoryPreserved": true,
+      "replacementHistoryTransferred": false,
+      "localizedTargetOptionPairs": 42
+    },
+    "cliDryRun": {
+      "groups": 151,
+      "groupMembers": 583,
+      "decks": 66,
+      "items": 636,
+      "mappedItems": 636,
+      "pendingItems": 0,
+      "localizationCoverage": {
+        "en": 636,
+        "id": 608
+      }
+    }
+  },
+  "fallback": {
+    "resolvedTargetItems": {
+      "en": 0,
+      "id": 0
+    },
+    "allEligibleItems": {
+      "en": 0,
+      "id": 28
+    },
+    "notes": "The remaining 28 Indonesian fallbacks belong to pre-existing lesson-owned items outside the seven-item resolution scope. No batch-03 target falls back."
+  }
+}

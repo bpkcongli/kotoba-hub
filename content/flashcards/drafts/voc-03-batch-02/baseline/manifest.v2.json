@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "2.0.0",
+  "kind": "STANDALONE_VOCABULARY_GROUPS",
+  "groups": [
+    {
+      "id": "f4bce066-e07c-58b0-8b7e-1097b7515f08",
+      "code": "n5_vocab_letter_writing_supplies",
+      "slug": "n5-vocab-letter-writing-supplies",
+      "trackSlug": "jlpt-n5-foundation",
+      "curriculumLevel": "N5",
+      "sortOrder": 1,
+      "contentRevision": 1,
+      "isPublished": true,
+      "sourceRefs": [
+        "content/flashcards/drafts/voc-03-batch-01/curation.json",
+        "content/flashcards/drafts/voc-03-batch-01/content.json",
+        "content/flashcards/drafts/voc-03-batch-01/review.md"
+      ],
+      "items": [
+        {
+          "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+          "pendingSkillCode": "n5_vocab_jmdict_1178590"
+        },
+        {
+          "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+          "pendingSkillCode": "n5_vocab_jmdict_1311530"
+        },
+        {
+          "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+          "pendingSkillCode": "n5_vocab_jmdict_1385070"
+        },
+        {
+          "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+          "pendingSkillCode": "n5_vocab_jmdict_1327720"
+        },
+        {
+          "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+          "pendingSkillCode": "n5_vocab_jmdict_1499690"
+        }
+      ],
+      "localizations": {
+        "en": {
+          "title": "Letter-writing supplies",
+          "description": "Recognize the Japanese words for a pencil, paper, a postage stamp, a letter and an envelope.",
+          "sourceRevision": 1,
+          "translationRevision": 1,
+          "isPublished": true,
+          "sourceRefs": [
+            "content/flashcards/drafts/voc-03-batch-01/curation.json",
+            "content/flashcards/drafts/voc-03-batch-01/content.json",
+            "content/flashcards/drafts/voc-03-batch-01/review.md"
+          ]
+        },
+        "id": {
+          "title": "Perlengkapan menulis surat",
+          "description": "Kenali kata bahasa Jepang untuk pensil, kertas, prangko, surat, dan amplop.",
+          "sourceRevision": 1,
+          "translationRevision": 1,
+          "isPublished": true,
+          "sourceRefs": [
+            "content/flashcards/drafts/voc-03-batch-01/curation.json",
+            "content/flashcards/drafts/voc-03-batch-01/content.json",
+            "content/flashcards/drafts/voc-03-batch-01/review.md"
+          ]
+        }
+      }
+    }
+  ]
+}

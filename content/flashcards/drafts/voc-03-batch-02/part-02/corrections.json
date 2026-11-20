@@ -1,0 +1,194 @@
+{
+  "taskId": "VOC-03",
+  "part": "part-02",
+  "initialReviewSha256": "062c2d8fca9ee94e779b69e577a44e9b82d751eee5d27761f69f435d39630966",
+  "beforeArtifactSha256": {
+    "curation.json": "97d149281d7a66e76a56734b727d4ec5ba294ef243a8216328db417e8ba3fcbd",
+    "content.json": "724c39812b0479a280836e5cf4e0ff12309cb69616c392d7400e577c8013b303"
+  },
+  "afterArtifactSha256": {
+    "curation.json": "e736dc9c981d1a43f70fe8d32eb97c0fb034736122fc89e15afe140b9b9cc026",
+    "content.json": "f698e4a0342a258d0072d594e81f2771aca2740c869976a5fea189f8d7c57d2d"
+  },
+  "orthographyCorrections": [
+    {
+      "itemId": "640ede58-0ad7-54ea-9d5c-1196ead3c06a",
+      "entSeq": "1293660",
+      "from": "さ来年",
+      "to": "再来年",
+      "sourceTags": [
+        "sK"
+      ]
+    },
+    {
+      "itemId": "ef8478c2-82b4-599a-97f7-1126a4641a53",
+      "entSeq": "1406050",
+      "from": "其れでは",
+      "to": "それでは",
+      "sourceTags": [
+        "sK"
+      ]
+    }
+  ],
+  "changes": {
+    "curation.json": [
+      {
+        "path": "/groups/26/localizations/en/objective",
+        "before": "Recognize the Japanese words for stopping, climbing and crossing.",
+        "after": "Recognize Japanese words for running, stopping, climbing, crossing and carrying something across."
+      },
+      {
+        "path": "/groups/26/localizations/en/title",
+        "before": "Stopping, climbing and crossing",
+        "after": "Running, stopping, climbing and crossing"
+      },
+      {
+        "path": "/groups/26/localizations/id/objective",
+        "before": "Kenali kata bahasa Jepang tentang berhenti, mendaki, dan menyeberang.",
+        "after": "Kenali kata bahasa Jepang untuk berlari, berhenti, mendaki, menyeberang, dan membawa sesuatu menyeberang."
+      },
+      {
+        "path": "/groups/26/localizations/id/title",
+        "before": "Berhenti, mendaki, dan menyeberang",
+        "after": "Berlari, berhenti, mendaki, dan menyeberang"
+      },
+      {
+        "path": "/items/28/canonicalProposal",
+        "before": null,
+        "after": {
+          "changeType": "PREFERRED_ORTHOGRAPHY_SAME_ENTRY",
+          "from": "さ来年",
+          "to": "再来年",
+          "reason": "The baseline representative form is marked sK in the pinned JMdict entry. Prefer an ordinary unmarked spelling, or the verified kana form when all kanji forms are marked. Keep the same lexical entry, selected sense, reading and existing item ID."
+        }
+      },
+      {
+        "path": "/items/28/senseEvidence/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/28/surfaceFormText",
+        "before": "さ来年",
+        "after": "再来年"
+      },
+      {
+        "path": "/items/134/canonicalProposal",
+        "before": null,
+        "after": {
+          "changeType": "PREFERRED_ORTHOGRAPHY_SAME_ENTRY",
+          "from": "其れでは",
+          "to": "それでは",
+          "reason": "The baseline representative form is marked sK in the pinned JMdict entry. Prefer an ordinary unmarked spelling, or the verified kana form when all kanji forms are marked. Keep the same lexical entry, selected sense, reading and existing item ID."
+        }
+      },
+      {
+        "path": "/items/134/senseEvidence/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/134/surfaceFormText",
+        "before": "其れでは",
+        "after": "それでは"
+      }
+    ],
+    "content.json": [
+      {
+        "path": "/curation/sha256",
+        "before": "97d149281d7a66e76a56734b727d4ec5ba294ef243a8216328db417e8ba3fcbd",
+        "after": "e736dc9c981d1a43f70fe8d32eb97c0fb034736122fc89e15afe140b9b9cc026"
+      },
+      {
+        "path": "/items/28/japanese/acceptedAnswers/JAPANESE/0",
+        "before": "さ来年",
+        "after": "再来年"
+      },
+      {
+        "path": "/items/28/japanese/surfaceFormText",
+        "before": "さ来年",
+        "after": "再来年"
+      },
+      {
+        "path": "/items/28/optionChecks/en/0/prompt",
+        "before": "さ来年",
+        "after": "再来年"
+      },
+      {
+        "path": "/items/28/optionChecks/en/1/acceptedAnswers/0",
+        "before": "さ来年",
+        "after": "再来年"
+      },
+      {
+        "path": "/items/28/optionChecks/en/1/correctAnswer",
+        "before": "さ来年",
+        "after": "再来年"
+      },
+      {
+        "path": "/items/28/optionChecks/id/0/prompt",
+        "before": "さ来年",
+        "after": "再来年"
+      },
+      {
+        "path": "/items/28/optionChecks/id/1/acceptedAnswers/0",
+        "before": "さ来年",
+        "after": "再来年"
+      },
+      {
+        "path": "/items/28/optionChecks/id/1/correctAnswer",
+        "before": "さ来年",
+        "after": "再来年"
+      },
+      {
+        "path": "/items/28/sourceRefs/0/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/134/japanese/acceptedAnswers/JAPANESE/0",
+        "before": "其れでは",
+        "after": "それでは"
+      },
+      {
+        "path": "/items/134/japanese/surfaceFormText",
+        "before": "其れでは",
+        "after": "それでは"
+      },
+      {
+        "path": "/items/134/optionChecks/en/0/prompt",
+        "before": "其れでは",
+        "after": "それでは"
+      },
+      {
+        "path": "/items/134/optionChecks/en/1/acceptedAnswers/0",
+        "before": "其れでは",
+        "after": "それでは"
+      },
+      {
+        "path": "/items/134/optionChecks/en/1/correctAnswer",
+        "before": "其れでは",
+        "after": "それでは"
+      },
+      {
+        "path": "/items/134/optionChecks/id/0/prompt",
+        "before": "其れでは",
+        "after": "それでは"
+      },
+      {
+        "path": "/items/134/optionChecks/id/1/acceptedAnswers/0",
+        "before": "其れでは",
+        "after": "それでは"
+      },
+      {
+        "path": "/items/134/optionChecks/id/1/correctAnswer",
+        "before": "其れでは",
+        "after": "それでは"
+      },
+      {
+        "path": "/items/134/sourceRefs/0/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      }
+    ]
+  }
+}

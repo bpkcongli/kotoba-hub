@@ -1,0 +1,863 @@
+{
+  "taskId": "VOC-03",
+  "batchId": "voc-03-batch-03-held-resolution",
+  "isPublished": false,
+  "baselines": [
+    {
+      "path": "content/flashcards/system-decks/vocabulary-foundation.json",
+      "sha256": "c6f20151598dd6313ddb4b11551ea25a1027a921c01e0aaa3ecc3d68a434e2c1"
+    },
+    {
+      "path": "content/flashcards/system-decks/vocabulary-foundation-pending-n5-skill-codes.json",
+      "sha256": "0514ee860f6689047a414c4474d827d4fe04fba95f3c837b3066e63c1a5448c4"
+    },
+    {
+      "path": "content/flashcards/system-decks/localizations.v2.json",
+      "sha256": "8ba27e7dd6145f5514944c7c71a3e51af61ee40d977ccc5430ae620962ea397e"
+    },
+    {
+      "path": "content/flashcards/vocabulary-groups/manifest.v2.json",
+      "sha256": "549f66621d679c2c7332669a40a95b3528bb18df64df23f0948adb1cb3eca21a"
+    },
+    {
+      "path": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+      "sha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb"
+    },
+    {
+      "path": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+      "sha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560"
+    }
+  ],
+  "assignedItemIds": [
+    "2ecdf560-9943-5db0-9c4d-39c2a0e72f70",
+    "4799b76c-8c17-5aa9-bbb7-c96f734634b3",
+    "740f0018-2f61-570a-8e1f-a1fe5411302c",
+    "ca3cf376-b0f2-57bf-b3ad-21c69a5c62e0",
+    "4d47d291-c9fd-524f-aaa2-7ff3a469b697",
+    "e007da8f-ebfc-5d41-9b8a-11373171bbd3",
+    "c6dc96d7-9ce0-5396-bee2-383b700687ca"
+  ],
+  "items": [
+    {
+      "id": "2ecdf560-9943-5db0-9c4d-39c2a0e72f70",
+      "skillId": null,
+      "skillCode": "n5_vocab_jmdict_2847612",
+      "trackSlug": "jlpt-n5-foundation",
+      "unitSlug": null,
+      "lessonSlug": null,
+      "itemType": "VOCABULARY",
+      "surfaceFormText": "あれ",
+      "kanaDisplayText": "あれ",
+      "romajiText": null,
+      "englishMeaning": "huh?",
+      "alternateSpellings": [],
+      "readings": [
+        "あれ",
+        "あれっ",
+        "あれえ",
+        "あれー",
+        "あり"
+      ],
+      "glossesEn": [
+        "huh?",
+        "eh?",
+        "what?",
+        "that"
+      ],
+      "partsOfSpeech": [
+        "interjection (kandoushi)"
+      ],
+      "priorityTags": [],
+      "fields": [],
+      "commonnessRankBucket": null,
+      "curriculumSignals": {
+        "jlpt": {
+          "resolvedLevel": "N5",
+          "candidates": [
+            {
+              "provider": "YOMITAN_JLPT_VOCAB",
+              "level": "N5",
+              "scope": "VOCABULARY",
+              "confidence": "HEURISTIC",
+              "mappedBy": "JMdict ent_seq"
+            }
+          ],
+          "resolutionNotes": "Candidate comes from the N5 Yomitan overlay mapped to JMdict and still awaits lesson mapping in the syllabus."
+        }
+      },
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "2847612",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "category": "JLPT_SIGNAL",
+          "externalId": "2847612",
+          "sourceUrl": "https://github.com/stephenmk/yomitan-jlpt-vocab",
+          "retrievedFrom": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "notes": "Derived from the Yomitan N5 CSV mapped to JMdict ent_seq."
+        }
+      ],
+      "answerOptionPayload": {
+        "schemaVersion": 1,
+        "canonicalAnswers": {
+          "JAPANESE": [
+            "あれ"
+          ],
+          "KANA": [
+            "あれ",
+            "あれっ",
+            "あれえ",
+            "あれー",
+            "あり"
+          ],
+          "ENGLISH": [
+            "huh?",
+            "eh?",
+            "what?",
+            "that"
+          ]
+        },
+        "distractorPoolItemIds": []
+      },
+      "mappingStatus": "PENDING_LESSON_MAPPING",
+      "explanationText": null,
+      "isActive": true
+    },
+    {
+      "id": "4799b76c-8c17-5aa9-bbb7-c96f734634b3",
+      "skillId": null,
+      "skillCode": "n5_vocab_jmdict_2846389",
+      "trackSlug": "jlpt-n5-foundation",
+      "unitSlug": null,
+      "lessonSlug": null,
+      "itemType": "VOCABULARY",
+      "surfaceFormText": "コップ",
+      "kanaDisplayText": "コップ",
+      "romajiText": null,
+      "englishMeaning": "cop",
+      "alternateSpellings": [],
+      "readings": [
+        "コップ"
+      ],
+      "glossesEn": [
+        "cop",
+        "police officer",
+        "a glass"
+      ],
+      "partsOfSpeech": [
+        "noun (common) (futsuumeishi)"
+      ],
+      "priorityTags": [],
+      "fields": [],
+      "commonnessRankBucket": null,
+      "curriculumSignals": {
+        "jlpt": {
+          "resolvedLevel": "N5",
+          "candidates": [
+            {
+              "provider": "YOMITAN_JLPT_VOCAB",
+              "level": "N5",
+              "scope": "VOCABULARY",
+              "confidence": "HEURISTIC",
+              "mappedBy": "JMdict ent_seq"
+            }
+          ],
+          "resolutionNotes": "Candidate comes from the N5 Yomitan overlay mapped to JMdict and still awaits lesson mapping in the syllabus."
+        }
+      },
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "2846389",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "category": "JLPT_SIGNAL",
+          "externalId": "2846389",
+          "sourceUrl": "https://github.com/stephenmk/yomitan-jlpt-vocab",
+          "retrievedFrom": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "notes": "Derived from the Yomitan N5 CSV mapped to JMdict ent_seq."
+        }
+      ],
+      "answerOptionPayload": {
+        "schemaVersion": 1,
+        "canonicalAnswers": {
+          "JAPANESE": [
+            "コップ"
+          ],
+          "KANA": [
+            "コップ"
+          ],
+          "ENGLISH": [
+            "cop",
+            "police officer",
+            "a glass"
+          ]
+        },
+        "distractorPoolItemIds": []
+      },
+      "mappingStatus": "PENDING_LESSON_MAPPING",
+      "explanationText": null,
+      "isActive": true
+    },
+    {
+      "id": "740f0018-2f61-570a-8e1f-a1fe5411302c",
+      "skillId": null,
+      "skillCode": "n5_vocab_jmdict_2216120",
+      "trackSlug": "jlpt-n5-foundation",
+      "unitSlug": null,
+      "lessonSlug": null,
+      "itemType": "VOCABULARY",
+      "surfaceFormText": "これ",
+      "kanaDisplayText": "これ",
+      "romajiText": null,
+      "englishMeaning": "hey",
+      "alternateSpellings": [],
+      "readings": [
+        "これ"
+      ],
+      "glossesEn": [
+        "hey",
+        "oi",
+        "come on",
+        "This"
+      ],
+      "partsOfSpeech": [
+        "interjection (kandoushi)"
+      ],
+      "priorityTags": [],
+      "fields": [],
+      "commonnessRankBucket": null,
+      "curriculumSignals": {
+        "jlpt": {
+          "resolvedLevel": "N5",
+          "candidates": [
+            {
+              "provider": "YOMITAN_JLPT_VOCAB",
+              "level": "N5",
+              "scope": "VOCABULARY",
+              "confidence": "HEURISTIC",
+              "mappedBy": "JMdict ent_seq"
+            }
+          ],
+          "resolutionNotes": "Candidate comes from the N5 Yomitan overlay mapped to JMdict and still awaits lesson mapping in the syllabus."
+        }
+      },
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "2216120",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "category": "JLPT_SIGNAL",
+          "externalId": "2216120",
+          "sourceUrl": "https://github.com/stephenmk/yomitan-jlpt-vocab",
+          "retrievedFrom": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "notes": "Derived from the Yomitan N5 CSV mapped to JMdict ent_seq."
+        }
+      ],
+      "answerOptionPayload": {
+        "schemaVersion": 1,
+        "canonicalAnswers": {
+          "JAPANESE": [
+            "これ"
+          ],
+          "KANA": [
+            "これ"
+          ],
+          "ENGLISH": [
+            "hey",
+            "oi",
+            "come on",
+            "This"
+          ]
+        },
+        "distractorPoolItemIds": []
+      },
+      "mappingStatus": "PENDING_LESSON_MAPPING",
+      "explanationText": null,
+      "isActive": true
+    },
+    {
+      "id": "ca3cf376-b0f2-57bf-b3ad-21c69a5c62e0",
+      "skillId": null,
+      "skillCode": "n5_vocab_jmdict_2216210",
+      "trackSlug": "jlpt-n5-foundation",
+      "unitSlug": null,
+      "lessonSlug": null,
+      "itemType": "VOCABULARY",
+      "surfaceFormText": "それ",
+      "kanaDisplayText": "それ",
+      "romajiText": null,
+      "englishMeaning": "there!",
+      "alternateSpellings": [],
+      "readings": [
+        "それ",
+        "それっ"
+      ],
+      "glossesEn": [
+        "there!",
+        "look!",
+        "go on!",
+        "that"
+      ],
+      "partsOfSpeech": [
+        "interjection (kandoushi)"
+      ],
+      "priorityTags": [],
+      "fields": [],
+      "commonnessRankBucket": null,
+      "curriculumSignals": {
+        "jlpt": {
+          "resolvedLevel": "N5",
+          "candidates": [
+            {
+              "provider": "YOMITAN_JLPT_VOCAB",
+              "level": "N5",
+              "scope": "VOCABULARY",
+              "confidence": "HEURISTIC",
+              "mappedBy": "JMdict ent_seq"
+            }
+          ],
+          "resolutionNotes": "Candidate comes from the N5 Yomitan overlay mapped to JMdict and still awaits lesson mapping in the syllabus."
+        }
+      },
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "2216210",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "category": "JLPT_SIGNAL",
+          "externalId": "2216210",
+          "sourceUrl": "https://github.com/stephenmk/yomitan-jlpt-vocab",
+          "retrievedFrom": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "notes": "Derived from the Yomitan N5 CSV mapped to JMdict ent_seq."
+        }
+      ],
+      "answerOptionPayload": {
+        "schemaVersion": 1,
+        "canonicalAnswers": {
+          "JAPANESE": [
+            "それ"
+          ],
+          "KANA": [
+            "それ",
+            "それっ"
+          ],
+          "ENGLISH": [
+            "there!",
+            "look!",
+            "go on!",
+            "that"
+          ]
+        },
+        "distractorPoolItemIds": []
+      },
+      "mappingStatus": "PENDING_LESSON_MAPPING",
+      "explanationText": null,
+      "isActive": true
+    },
+    {
+      "id": "4d47d291-c9fd-524f-aaa2-7ff3a469b697",
+      "skillId": null,
+      "skillCode": "n5_vocab_jmdict_2546180",
+      "trackSlug": "jlpt-n5-foundation",
+      "unitSlug": null,
+      "lessonSlug": null,
+      "itemType": "VOCABULARY",
+      "surfaceFormText": "だんだん",
+      "kanaDisplayText": "だんだん",
+      "romajiText": null,
+      "englishMeaning": "thank you",
+      "alternateSpellings": [],
+      "readings": [
+        "だんだん"
+      ],
+      "glossesEn": [
+        "thank you",
+        "gradually"
+      ],
+      "partsOfSpeech": [
+        "interjection (kandoushi)"
+      ],
+      "priorityTags": [],
+      "fields": [],
+      "commonnessRankBucket": null,
+      "curriculumSignals": {
+        "jlpt": {
+          "resolvedLevel": "N5",
+          "candidates": [
+            {
+              "provider": "YOMITAN_JLPT_VOCAB",
+              "level": "N5",
+              "scope": "VOCABULARY",
+              "confidence": "HEURISTIC",
+              "mappedBy": "JMdict ent_seq"
+            }
+          ],
+          "resolutionNotes": "Candidate comes from the N5 Yomitan overlay mapped to JMdict and still awaits lesson mapping in the syllabus."
+        }
+      },
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "2546180",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "category": "JLPT_SIGNAL",
+          "externalId": "2546180",
+          "sourceUrl": "https://github.com/stephenmk/yomitan-jlpt-vocab",
+          "retrievedFrom": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "notes": "Derived from the Yomitan N5 CSV mapped to JMdict ent_seq."
+        }
+      ],
+      "answerOptionPayload": {
+        "schemaVersion": 1,
+        "canonicalAnswers": {
+          "JAPANESE": [
+            "だんだん"
+          ],
+          "KANA": [
+            "だんだん"
+          ],
+          "ENGLISH": [
+            "thank you",
+            "gradually"
+          ]
+        },
+        "distractorPoolItemIds": []
+      },
+      "mappingStatus": "PENDING_LESSON_MAPPING",
+      "explanationText": null,
+      "isActive": true
+    },
+    {
+      "id": "e007da8f-ebfc-5d41-9b8a-11373171bbd3",
+      "skillId": null,
+      "skillCode": "n5_vocab_jmdict_1182880",
+      "trackSlug": "jlpt-n5-foundation",
+      "unitSlug": null,
+      "lessonSlug": null,
+      "itemType": "VOCABULARY",
+      "surfaceFormText": "牡丹",
+      "kanaDisplayText": "ボタン",
+      "romajiText": null,
+      "englishMeaning": "tree peony (Paeonia suffruticosa)",
+      "alternateSpellings": [],
+      "readings": [
+        "ボタン",
+        "ぼたん",
+        "ぼうたん"
+      ],
+      "glossesEn": [
+        "tree peony (Paeonia suffruticosa)",
+        "moutan",
+        "wild boar (meat)",
+        "button"
+      ],
+      "partsOfSpeech": [
+        "noun (common) (futsuumeishi)"
+      ],
+      "priorityTags": [
+        "news2",
+        "nf30"
+      ],
+      "fields": [],
+      "commonnessRankBucket": "COMMON",
+      "curriculumSignals": {
+        "jlpt": {
+          "resolvedLevel": "N5",
+          "candidates": [
+            {
+              "provider": "YOMITAN_JLPT_VOCAB",
+              "level": "N5",
+              "scope": "VOCABULARY",
+              "confidence": "HEURISTIC",
+              "mappedBy": "JMdict ent_seq"
+            }
+          ],
+          "resolutionNotes": "Candidate comes from the N5 Yomitan overlay mapped to JMdict and still awaits lesson mapping in the syllabus."
+        }
+      },
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "1182880",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "category": "JLPT_SIGNAL",
+          "externalId": "1182880",
+          "sourceUrl": "https://github.com/stephenmk/yomitan-jlpt-vocab",
+          "retrievedFrom": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "notes": "Derived from the Yomitan N5 CSV mapped to JMdict ent_seq."
+        }
+      ],
+      "answerOptionPayload": {
+        "schemaVersion": 1,
+        "canonicalAnswers": {
+          "JAPANESE": [
+            "牡丹"
+          ],
+          "KANA": [
+            "ボタン",
+            "ぼたん",
+            "ぼうたん"
+          ],
+          "ENGLISH": [
+            "tree peony (Paeonia suffruticosa)",
+            "moutan",
+            "wild boar (meat)",
+            "button"
+          ]
+        },
+        "distractorPoolItemIds": []
+      },
+      "mappingStatus": "PENDING_LESSON_MAPPING",
+      "explanationText": null,
+      "isActive": true
+    },
+    {
+      "id": "c6dc96d7-9ce0-5396-bee2-383b700687ca",
+      "skillId": null,
+      "skillCode": "n5_vocab_jmdict_2784220",
+      "trackSlug": "jlpt-n5-foundation",
+      "unitSlug": null,
+      "lessonSlug": null,
+      "itemType": "VOCABULARY",
+      "surfaceFormText": "マッチ",
+      "kanaDisplayText": "マッチ",
+      "romajiText": null,
+      "englishMeaning": "match (contest)",
+      "alternateSpellings": [],
+      "readings": [
+        "マッチ"
+      ],
+      "glossesEn": [
+        "match (contest)",
+        "matching (with)",
+        "going well (with)",
+        "match"
+      ],
+      "partsOfSpeech": [
+        "noun (common) (futsuumeishi)",
+        "noun or participle which takes the aux. verb suru",
+        "intransitive verb"
+      ],
+      "priorityTags": [],
+      "fields": [],
+      "commonnessRankBucket": null,
+      "curriculumSignals": {
+        "jlpt": {
+          "resolvedLevel": "N5",
+          "candidates": [
+            {
+              "provider": "YOMITAN_JLPT_VOCAB",
+              "level": "N5",
+              "scope": "VOCABULARY",
+              "confidence": "HEURISTIC",
+              "mappedBy": "JMdict ent_seq"
+            }
+          ],
+          "resolutionNotes": "Candidate comes from the N5 Yomitan overlay mapped to JMdict and still awaits lesson mapping in the syllabus."
+        }
+      },
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "2784220",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "category": "JLPT_SIGNAL",
+          "externalId": "2784220",
+          "sourceUrl": "https://github.com/stephenmk/yomitan-jlpt-vocab",
+          "retrievedFrom": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "notes": "Derived from the Yomitan N5 CSV mapped to JMdict ent_seq."
+        }
+      ],
+      "answerOptionPayload": {
+        "schemaVersion": 1,
+        "canonicalAnswers": {
+          "JAPANESE": [
+            "マッチ"
+          ],
+          "KANA": [
+            "マッチ"
+          ],
+          "ENGLISH": [
+            "match (contest)",
+            "matching (with)",
+            "going well (with)",
+            "match"
+          ]
+        },
+        "distractorPoolItemIds": []
+      },
+      "mappingStatus": "PENDING_LESSON_MAPPING",
+      "explanationText": null,
+      "isActive": true
+    }
+  ],
+  "previousHolds": [
+    {
+      "itemId": "e007da8f-ebfc-5d41-9b8a-11373171bbd3",
+      "entSeq": "1182880",
+      "reason": "peony/button overlay mismatch",
+      "evidenceNeeded": "A separately reviewed correction to the entry/sense identity and N5 evidence; do not silently remap this existing item ID.",
+      "senseEvidence": {
+        "ordinal": 1,
+        "pos": [
+          "n"
+        ],
+        "misc": [
+          "uk"
+        ],
+        "gloss": [
+          "tree peony (Paeonia suffruticosa)",
+          "moutan"
+        ]
+      },
+      "jlptRows": [
+        {
+          "lineNumberOneBased": 571,
+          "rawCsvRow": "1182880,ボタン,,button",
+          "values": [
+            "1182880",
+            "ボタン",
+            "",
+            "button"
+          ]
+        }
+      ]
+    },
+    {
+      "itemId": "740f0018-2f61-570a-8e1f-a1fe5411302c",
+      "entSeq": "2216120",
+      "reason": "interjection hey, not demonstrative",
+      "evidenceNeeded": "A separately reviewed correction to the entry/sense identity and N5 evidence; do not silently remap this existing item ID.",
+      "senseEvidence": {
+        "ordinal": 1,
+        "pos": [
+          "int"
+        ],
+        "s_inf": [
+          "used to get the attention of one's equals or inferiors"
+        ],
+        "gloss": [
+          "hey",
+          "oi",
+          "come on",
+          "look",
+          "listen"
+        ]
+      },
+      "jlptRows": [
+        {
+          "lineNumberOneBased": 254,
+          "rawCsvRow": "2216120,これ,,This",
+          "values": [
+            "2216120",
+            "これ",
+            "",
+            "This"
+          ]
+        }
+      ]
+    },
+    {
+      "itemId": "ca3cf376-b0f2-57bf-b3ad-21c69a5c62e0",
+      "entSeq": "2216210",
+      "reason": "interjection look, not demonstrative",
+      "evidenceNeeded": "A separately reviewed correction to the entry/sense identity and N5 evidence; do not silently remap this existing item ID.",
+      "senseEvidence": {
+        "ordinal": 1,
+        "stagr": [
+          "それ"
+        ],
+        "pos": [
+          "int"
+        ],
+        "s_inf": [
+          "used to call someone's attention to something"
+        ],
+        "gloss": [
+          "there!",
+          "look!"
+        ]
+      },
+      "jlptRows": [
+        {
+          "lineNumberOneBased": 348,
+          "rawCsvRow": "2216210,それ,,that",
+          "values": [
+            "2216210",
+            "それ",
+            "",
+            "that"
+          ]
+        }
+      ]
+    },
+    {
+      "itemId": "4d47d291-c9fd-524f-aaa2-7ff3a469b697",
+      "entSeq": "2546180",
+      "reason": "Izumo thanks, not gradually",
+      "evidenceNeeded": "A separately reviewed correction to the entry/sense identity and N5 evidence; do not silently remap this existing item ID.",
+      "senseEvidence": {
+        "ordinal": 1,
+        "pos": [
+          "int"
+        ],
+        "s_inf": [
+          "Izumo dialect"
+        ],
+        "gloss": [
+          "thank you"
+        ]
+      },
+      "jlptRows": [
+        {
+          "lineNumberOneBased": 375,
+          "rawCsvRow": "2546180,だんだん,,gradually",
+          "values": [
+            "2546180",
+            "だんだん",
+            "",
+            "gradually"
+          ]
+        }
+      ]
+    },
+    {
+      "itemId": "c6dc96d7-9ce0-5396-bee2-383b700687ca",
+      "entSeq": "2784220",
+      "reason": "contest match, not ignition match",
+      "evidenceNeeded": "A separately reviewed correction to the entry/sense identity and N5 evidence; do not silently remap this existing item ID.",
+      "senseEvidence": {
+        "ordinal": 1,
+        "pos": [
+          "n"
+        ],
+        "gloss": [
+          "match (contest)"
+        ]
+      },
+      "jlptRows": [
+        {
+          "lineNumberOneBased": 592,
+          "rawCsvRow": "2784220,マッチ,,match",
+          "values": [
+            "2784220",
+            "マッチ",
+            "",
+            "match"
+          ]
+        }
+      ]
+    },
+    {
+      "itemId": "4799b76c-8c17-5aa9-bbb7-c96f734634b3",
+      "entSeq": "2846389",
+      "reason": "slang cop, not drinking cup",
+      "evidenceNeeded": "A separately reviewed correction to the entry/sense identity and N5 evidence; do not silently remap this existing item ID.",
+      "senseEvidence": {
+        "ordinal": 1,
+        "pos": [
+          "n"
+        ],
+        "misc": [
+          "sl",
+          "rare"
+        ],
+        "gloss": [
+          "cop",
+          "police officer"
+        ]
+      },
+      "jlptRows": [
+        {
+          "lineNumberOneBased": 246,
+          "rawCsvRow": "2846389,コップ,,a glass",
+          "values": [
+            "2846389",
+            "コップ",
+            "",
+            "a glass"
+          ]
+        }
+      ]
+    },
+    {
+      "itemId": "2ecdf560-9943-5db0-9c4d-39c2a0e72f70",
+      "entSeq": "2847612",
+      "reason": "interjection huh, not demonstrative",
+      "evidenceNeeded": "A separately reviewed correction to the entry/sense identity and N5 evidence; do not silently remap this existing item ID.",
+      "senseEvidence": {
+        "ordinal": 1,
+        "pos": [
+          "int"
+        ],
+        "s_inf": [
+          "indicates surprise, suspicion, etc."
+        ],
+        "gloss": [
+          "huh?",
+          "eh?",
+          "what?",
+          "oh",
+          "hey!",
+          "look!",
+          "listen!"
+        ]
+      },
+      "jlptRows": [
+        {
+          "lineNumberOneBased": 42,
+          "rawCsvRow": "2847612,あれ,,that",
+          "values": [
+            "2847612",
+            "あれ",
+            "",
+            "that"
+          ]
+        }
+      ]
+    }
+  ],
+  "intent": "Resolve seven source identity/sense holds with explicit source evidence and preservation of historical identities and frozen sessions. Final correction policy is owned by parent; no silent semantic reassignment."
+}

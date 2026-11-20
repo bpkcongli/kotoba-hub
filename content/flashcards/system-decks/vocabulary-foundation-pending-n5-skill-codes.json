@@ -36260,6 +36260,265 @@
         }
       ],
       "mappingStatus": "PENDING_LESSON_MAPPING"
+    },
+    {
+      "skillCode": "n5_vocab_jmdict_1050390",
+      "trackSlug": "jlpt-n5-foundation",
+      "kanaDisplayText": "コップ",
+      "englishMeaning": "glass (drinking vessel)",
+      "alternateSpellings": [],
+      "readings": [
+        "コップ"
+      ],
+      "glossesEn": [
+        "glass (drinking vessel)",
+        "tumbler"
+      ],
+      "partsOfSpeech": [
+        "noun (common) (futsuumeishi)"
+      ],
+      "priorityTags": [
+        "gai1",
+        "ichi1"
+      ],
+      "fields": [],
+      "commonnessRankBucket": "VERY_COMMON",
+      "curriculumSignals": {
+        "jlpt": {
+          "resolvedLevel": "N5",
+          "candidates": [
+            {
+              "provider": "YOMITAN_JLPT_VOCAB",
+              "level": "N5",
+              "scope": "VOCABULARY",
+              "confidence": "HEURISTIC",
+              "mappedBy": "Editorial correction of overlay surface/gloss; raw ent_seq mismatch"
+            }
+          ],
+          "resolutionNotes": "Editorial correction: surface and intended gloss support this N5 word, but the raw overlay points to a different homographic entry. JMdict determines the corrected lexical identity."
+        }
+      },
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "1050390",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "category": "JLPT_SIGNAL",
+          "externalId": "2846389",
+          "sourceUrl": "https://github.com/stephenmk/yomitan-jlpt-vocab",
+          "retrievedFrom": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "notes": "Editorial N5 correction of raw row 246; raw ent_seq 2846389 is a different homograph. Correct lexical ent_seq 1050390; see content/flashcards/drafts/voc-03-batch-03/curation.json."
+        },
+        {
+          "provider": "KOTOBAHUB_INTERNAL",
+          "category": "EDITORIAL_REVIEW",
+          "retrievedFrom": "content/flashcards/drafts/voc-03-batch-03/review.md",
+          "notes": "VOC-03 held resolution: JMdict 1050390 sense 1, kana preferred, bilingual package and bounded options. Existing identity/history remains unchanged; see content/flashcards/drafts/voc-03-batch-03/curation.json."
+        }
+      ],
+      "mappingStatus": "PENDING_LESSON_MAPPING",
+      "primarySpelling": "コップ"
+    },
+    {
+      "skillCode": "n5_vocab_jmdict_1597350",
+      "trackSlug": "jlpt-n5-foundation",
+      "kanaDisplayText": "だんだん",
+      "englishMeaning": "gradually",
+      "alternateSpellings": [],
+      "readings": [
+        "だんだん"
+      ],
+      "glossesEn": [
+        "gradually",
+        "by degrees",
+        "little by little",
+        "more and more",
+        "increasingly"
+      ],
+      "partsOfSpeech": [
+        "adverb (fukushi)",
+        "adverb taking the 'to' particle"
+      ],
+      "priorityTags": [
+        "ichi1",
+        "news2",
+        "nf38"
+      ],
+      "fields": [],
+      "commonnessRankBucket": "VERY_COMMON",
+      "curriculumSignals": {
+        "jlpt": {
+          "resolvedLevel": "N5",
+          "candidates": [
+            {
+              "provider": "YOMITAN_JLPT_VOCAB",
+              "level": "N5",
+              "scope": "VOCABULARY",
+              "confidence": "HEURISTIC",
+              "mappedBy": "Editorial correction of overlay surface/gloss; raw ent_seq mismatch"
+            }
+          ],
+          "resolutionNotes": "Editorial correction: surface and intended gloss support this N5 word, but the raw overlay points to a different homographic entry. JMdict determines the corrected lexical identity."
+        }
+      },
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "1597350",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "category": "JLPT_SIGNAL",
+          "externalId": "2546180",
+          "sourceUrl": "https://github.com/stephenmk/yomitan-jlpt-vocab",
+          "retrievedFrom": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "notes": "Editorial N5 correction of raw row 375; raw ent_seq 2546180 is a different homograph. Correct lexical ent_seq 1597350; see content/flashcards/drafts/voc-03-batch-03/curation.json."
+        },
+        {
+          "provider": "KOTOBAHUB_INTERNAL",
+          "category": "EDITORIAL_REVIEW",
+          "retrievedFrom": "content/flashcards/drafts/voc-03-batch-03/review.md",
+          "notes": "VOC-03 held resolution: JMdict 1597350 sense 1, kana preferred, bilingual package and bounded options. Existing identity/history remains unchanged; see content/flashcards/drafts/voc-03-batch-03/curation.json."
+        }
+      ],
+      "mappingStatus": "PENDING_LESSON_MAPPING",
+      "primarySpelling": "だんだん"
+    },
+    {
+      "skillCode": "n5_vocab_jmdict_1123880",
+      "trackSlug": "jlpt-n5-foundation",
+      "kanaDisplayText": "ボタン",
+      "englishMeaning": "button (clothing)",
+      "alternateSpellings": [],
+      "readings": [
+        "ボタン"
+      ],
+      "glossesEn": [
+        "button (clothing)"
+      ],
+      "partsOfSpeech": [
+        "noun (common) (futsuumeishi)"
+      ],
+      "priorityTags": [
+        "gai1",
+        "ichi1"
+      ],
+      "fields": [],
+      "commonnessRankBucket": "VERY_COMMON",
+      "curriculumSignals": {
+        "jlpt": {
+          "resolvedLevel": "N5",
+          "candidates": [
+            {
+              "provider": "YOMITAN_JLPT_VOCAB",
+              "level": "N5",
+              "scope": "VOCABULARY",
+              "confidence": "HEURISTIC",
+              "mappedBy": "Editorial correction of overlay surface/gloss; raw ent_seq mismatch"
+            }
+          ],
+          "resolutionNotes": "Editorial correction: surface and intended gloss support this N5 word, but the raw overlay points to a different homographic entry. JMdict determines the corrected lexical identity."
+        }
+      },
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "1123880",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "category": "JLPT_SIGNAL",
+          "externalId": "1182880",
+          "sourceUrl": "https://github.com/stephenmk/yomitan-jlpt-vocab",
+          "retrievedFrom": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "notes": "Editorial N5 correction of raw row 571; raw ent_seq 1182880 is a different homograph. Correct lexical ent_seq 1123880; see content/flashcards/drafts/voc-03-batch-03/curation.json."
+        },
+        {
+          "provider": "KOTOBAHUB_INTERNAL",
+          "category": "EDITORIAL_REVIEW",
+          "retrievedFrom": "content/flashcards/drafts/voc-03-batch-03/review.md",
+          "notes": "VOC-03 held resolution: JMdict 1123880 sense 1, kana preferred, bilingual package and bounded options. Existing identity/history remains unchanged; see content/flashcards/drafts/voc-03-batch-03/curation.json."
+        }
+      ],
+      "mappingStatus": "PENDING_LESSON_MAPPING",
+      "primarySpelling": "ボタン"
+    },
+    {
+      "skillCode": "n5_vocab_jmdict_1128430",
+      "trackSlug": "jlpt-n5-foundation",
+      "kanaDisplayText": "マッチ",
+      "englishMeaning": "match (for lighting a fire)",
+      "alternateSpellings": [],
+      "readings": [
+        "マッチ"
+      ],
+      "glossesEn": [
+        "match (for lighting a fire)"
+      ],
+      "partsOfSpeech": [
+        "noun (common) (futsuumeishi)"
+      ],
+      "priorityTags": [
+        "gai1",
+        "ichi1"
+      ],
+      "fields": [],
+      "commonnessRankBucket": "VERY_COMMON",
+      "curriculumSignals": {
+        "jlpt": {
+          "resolvedLevel": "N5",
+          "candidates": [
+            {
+              "provider": "YOMITAN_JLPT_VOCAB",
+              "level": "N5",
+              "scope": "VOCABULARY",
+              "confidence": "HEURISTIC",
+              "mappedBy": "Editorial correction of overlay surface/gloss; raw ent_seq mismatch"
+            }
+          ],
+          "resolutionNotes": "Editorial correction: surface and intended gloss support this N5 word, but the raw overlay points to a different homographic entry. JMdict determines the corrected lexical identity."
+        }
+      },
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "externalId": "1128430",
+          "sourceUrl": "https://www.edrdg.org/jmdict/j_jmdict.html",
+          "retrievedFrom": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "licenseNote": "See the EDRDG licence snapshot stored with the raw JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "category": "JLPT_SIGNAL",
+          "externalId": "2784220",
+          "sourceUrl": "https://github.com/stephenmk/yomitan-jlpt-vocab",
+          "retrievedFrom": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "notes": "Editorial N5 correction of raw row 592; raw ent_seq 2784220 is a different homograph. Correct lexical ent_seq 1128430; see content/flashcards/drafts/voc-03-batch-03/curation.json."
+        },
+        {
+          "provider": "KOTOBAHUB_INTERNAL",
+          "category": "EDITORIAL_REVIEW",
+          "retrievedFrom": "content/flashcards/drafts/voc-03-batch-03/review.md",
+          "notes": "VOC-03 held resolution: JMdict 1128430 sense 1, kana preferred, bilingual package and bounded options. Existing identity/history remains unchanged; see content/flashcards/drafts/voc-03-batch-03/curation.json."
+        }
+      ],
+      "mappingStatus": "PENDING_LESSON_MAPPING",
+      "primarySpelling": "マッチ"
     }
   ]
 }

@@ -1,0 +1,742 @@
+{
+  "draftFormat": "kotoba-vocabulary-curation-v1",
+  "batchId": "voc-03-batch-01-n5-letter-writing",
+  "scope": {
+    "taskId": "VOC-03",
+    "mode": "CURATION",
+    "assignedItemIds": [
+      "0d5bab28-12d4-5428-b233-0378dce40357",
+      "e0eea2d8-307b-5d95-882c-bf42f6169801",
+      "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+      "734bc421-0075-5336-9773-0e89276749ad",
+      "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+      "506c5576-24cf-5e3f-ae16-77826bf0c8d1"
+    ],
+    "assignedEntSeqs": [
+      "1178590",
+      "1311530",
+      "1385070",
+      "1327720",
+      "1499690",
+      "1123590"
+    ],
+    "scopeType": "EXPLICIT_PENDING_SUBSET",
+    "acceptedCount": 6,
+    "heldCount": 0,
+    "remainingPendingInventory": "Outside this assigned subset; not reviewed by this draft."
+  },
+  "isPublished": false,
+  "baselines": [
+    {
+      "path": "content/flashcards/system-decks/vocabulary-foundation.json",
+      "sha256": "1a5688126dd602817d6767e27432499b56efeb54b3853b830017c50f3835337b"
+    },
+    {
+      "path": "content/flashcards/system-decks/vocabulary-foundation-pending-n5-skill-codes.json",
+      "sha256": "0514ee860f6689047a414c4474d827d4fe04fba95f3c837b3066e63c1a5448c4"
+    },
+    {
+      "path": "content/flashcards/system-decks/localizations.v2.json",
+      "sha256": "0fa75e280f2c354ad27f0e31996e24979b8391ec21213a3dbf26c25038230b4c"
+    },
+    {
+      "path": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+      "sha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb"
+    },
+    {
+      "path": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+      "sha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560"
+    }
+  ],
+  "groups": [
+    {
+      "proposedSkillCode": "n5_vocab_letter_writing_supplies",
+      "ownerType": "FLASHCARD_VOCABULARY_GROUP",
+      "trackSlug": "jlpt-n5-foundation",
+      "lessonSlug": null,
+      "skillId": null,
+      "curriculumLevel": "N5",
+      "isPublished": false,
+      "localizations": {
+        "en": {
+          "title": "Letter-writing supplies",
+          "objective": "Recognize the Japanese words for a pencil, paper, a postage stamp, a letter, an envelope and a ballpoint pen used when writing or mailing a letter.",
+          "isPublished": false
+        },
+        "id": {
+          "title": "Perlengkapan menulis surat",
+          "objective": "Kenali kata bahasa Jepang untuk pensil, kertas, prangko, surat, amplop, dan bolpoin yang digunakan saat menulis atau mengirim surat.",
+          "isPublished": false
+        }
+      },
+      "itemIds": [
+        "0d5bab28-12d4-5428-b233-0378dce40357",
+        "e0eea2d8-307b-5d95-882c-bf42f6169801",
+        "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+        "734bc421-0075-5336-9773-0e89276749ad",
+        "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+        "506c5576-24cf-5e3f-ae16-77826bf0c8d1"
+      ],
+      "levelRationale": "All six entries have an exact ent_seq match in the pinned Yomitan N5 CSV. JMdict establishes lexical forms and senses, not JLPT level. N5 placement is an editorial decision for common concrete objects; priority tags support commonness without proving JLPT status. The narrow theme is identifying the objects involved in writing and posting a physical letter, including the letter itself. It does not test writing a letter, postal procedures, grammar, or general office vocabulary.",
+      "prerequisiteRationale": "Basic kana recognition supports the display readings; no lesson ownership or grammar prerequisite is imposed by this draft.",
+      "masteryScopeNote": "Coverage concerns all six member items. Repetition of one item does not establish breadth; VOC-02 group evidence uses a per-item window and includes unanswered members in the denominator."
+    }
+  ],
+  "items": [
+    {
+      "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+      "entSeq": "1178590",
+      "proposedSkillCode": "n5_vocab_letter_writing_supplies",
+      "surfaceFormText": "鉛筆",
+      "kanaDisplayText": "えんぴつ",
+      "isPublished": false,
+      "senseEvidence": {
+        "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+        "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+        "senseOrdinals": [
+          1
+        ],
+        "selectedGlossesEn": [
+          "(wooden) pencil"
+        ],
+        "partsOfSpeech": [
+          {
+            "code": "n",
+            "label": "noun (common) (futsuumeishi)",
+            "senseOrdinal": 1,
+            "inheritedFromSenseOrdinal": null
+          }
+        ],
+        "restrictions": {
+          "stagk": [],
+          "stagr": [],
+          "re_restr": [],
+          "readingForms": [
+            {
+              "text": "えんぴつ",
+              "re_restr": [],
+              "re_nokanji": false,
+              "re_inf": []
+            },
+            {
+              "text": "エンピツ",
+              "re_restr": [],
+              "re_nokanji": false,
+              "re_inf": [
+                {
+                  "code": "sk",
+                  "label": "search-only kana form"
+                }
+              ]
+            }
+          ]
+        },
+        "spellingForms": [
+          "鉛筆"
+        ],
+        "registerTags": [],
+        "crossReferences": [],
+        "excludedSenses": [],
+        "notes": [
+          "Sense ordinal 1 is local to this pinned snapshot. POS n is explicit in the selected sense; no POS inheritance is needed. No stagk, stagr or re_restr restrictions occur in this entry.",
+          "Primary surface and display reading preserve the existing item. Alternative spellings/readings were inspected individually; empty restrictions do not imply unrestricted forms from another entry.",
+          "Both えんぴつ and エンピツ occur as readings for the only sense. エンピツ has re_inf sk (search-only kana form); preserve baseline KANA acceptance, but keep えんぴつ as the display reading. The simpler English alias pencil is an editorial simplification of (wooden) pencil, also present in the overlay; do not extend it to mechanical pencil."
+        ]
+      },
+      "jlptEvidence": {
+        "provider": "YOMITAN_JLPT_VOCAB",
+        "category": "JLPT_SIGNAL",
+        "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+        "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+        "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+        "lineNumberOneBased": 93,
+        "rawCsvRow": "1178590,えんぴつ,鉛筆,pencil",
+        "entryId": "1178590",
+        "reading": "えんぴつ",
+        "spelling": "鉛筆",
+        "glossEn": "pencil",
+        "candidateLevel": "N5",
+        "confidence": "HEURISTIC",
+        "placementDecision": "Editorial N5 placement for concrete everyday letter-writing/mailing nouns; not an official JLPT lexical claim."
+      },
+      "runtimeMapping": {
+        "mappingStatus": "PENDING_LESSON_MAPPING",
+        "skillId": null,
+        "unitSlug": null,
+        "lessonSlug": null
+      },
+      "baselineIdentity": {
+        "skillCode": "n5_vocab_jmdict_1178590",
+        "trackSlug": "jlpt-n5-foundation",
+        "canonicalAnswers": {
+          "JAPANESE": [
+            "鉛筆"
+          ],
+          "KANA": [
+            "えんぴつ",
+            "エンピツ"
+          ],
+          "ENGLISH": [
+            "(wooden) pencil",
+            "pencil"
+          ]
+        },
+        "hasLocalizedOverlayEntry": false
+      },
+      "duplicateCheck": {
+        "canonicalInventoryItemsScanned": 749,
+        "sameEntryItemIds": [
+          "0d5bab28-12d4-5428-b233-0378dce40357"
+        ],
+        "otherSpellingOrReadingOverlaps": [],
+        "pendingRegistryMatchCount": 1,
+        "decision": "Reuse this single existing pending item; create no additional lexical item."
+      }
+    },
+    {
+      "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+      "entSeq": "1311530",
+      "proposedSkillCode": "n5_vocab_letter_writing_supplies",
+      "surfaceFormText": "紙",
+      "kanaDisplayText": "かみ",
+      "isPublished": false,
+      "senseEvidence": {
+        "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+        "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+        "senseOrdinals": [
+          1
+        ],
+        "selectedGlossesEn": [
+          "paper"
+        ],
+        "partsOfSpeech": [
+          {
+            "code": "n",
+            "label": "noun (common) (futsuumeishi)",
+            "senseOrdinal": 1,
+            "inheritedFromSenseOrdinal": null
+          }
+        ],
+        "restrictions": {
+          "stagk": [],
+          "stagr": [],
+          "re_restr": [],
+          "readingForms": [
+            {
+              "text": "かみ",
+              "re_restr": [],
+              "re_nokanji": false,
+              "re_inf": []
+            }
+          ]
+        },
+        "spellingForms": [
+          "紙"
+        ],
+        "registerTags": [],
+        "crossReferences": [],
+        "excludedSenses": [],
+        "notes": [
+          "Sense ordinal 1 is local to this pinned snapshot. POS n is explicit in the selected sense; no POS inheritance is needed. No stagk, stagr or re_restr restrictions occur in this entry.",
+          "Primary surface and display reading preserve the existing item. Alternative spellings/readings were inspected individually; empty restrictions do not imply unrestricted forms from another entry."
+        ]
+      },
+      "jlptEvidence": {
+        "provider": "YOMITAN_JLPT_VOCAB",
+        "category": "JLPT_SIGNAL",
+        "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+        "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+        "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+        "lineNumberOneBased": 164,
+        "rawCsvRow": "1311530,かみ,紙,paper",
+        "entryId": "1311530",
+        "reading": "かみ",
+        "spelling": "紙",
+        "glossEn": "paper",
+        "candidateLevel": "N5",
+        "confidence": "HEURISTIC",
+        "placementDecision": "Editorial N5 placement for concrete everyday letter-writing/mailing nouns; not an official JLPT lexical claim."
+      },
+      "runtimeMapping": {
+        "mappingStatus": "PENDING_LESSON_MAPPING",
+        "skillId": null,
+        "unitSlug": null,
+        "lessonSlug": null
+      },
+      "baselineIdentity": {
+        "skillCode": "n5_vocab_jmdict_1311530",
+        "trackSlug": "jlpt-n5-foundation",
+        "canonicalAnswers": {
+          "JAPANESE": [
+            "紙"
+          ],
+          "KANA": [
+            "かみ"
+          ],
+          "ENGLISH": [
+            "paper"
+          ]
+        },
+        "hasLocalizedOverlayEntry": false
+      },
+      "duplicateCheck": {
+        "canonicalInventoryItemsScanned": 749,
+        "sameEntryItemIds": [
+          "e0eea2d8-307b-5d95-882c-bf42f6169801"
+        ],
+        "otherSpellingOrReadingOverlaps": [],
+        "pendingRegistryMatchCount": 1,
+        "decision": "Reuse this single existing pending item; create no additional lexical item."
+      }
+    },
+    {
+      "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+      "entSeq": "1385070",
+      "proposedSkillCode": "n5_vocab_letter_writing_supplies",
+      "surfaceFormText": "切手",
+      "kanaDisplayText": "きって",
+      "isPublished": false,
+      "senseEvidence": {
+        "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+        "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+        "senseOrdinals": [
+          1
+        ],
+        "selectedGlossesEn": [
+          "stamp (postage)"
+        ],
+        "partsOfSpeech": [
+          {
+            "code": "n",
+            "label": "noun (common) (futsuumeishi)",
+            "senseOrdinal": 1,
+            "inheritedFromSenseOrdinal": null
+          }
+        ],
+        "restrictions": {
+          "stagk": [],
+          "stagr": [],
+          "re_restr": [],
+          "readingForms": [
+            {
+              "text": "きって",
+              "re_restr": [],
+              "re_nokanji": false,
+              "re_inf": []
+            }
+          ]
+        },
+        "spellingForms": [
+          "切手"
+        ],
+        "registerTags": [
+          {
+            "code": "abbr",
+            "label": "abbreviation"
+          }
+        ],
+        "crossReferences": [
+          "郵便切手"
+        ],
+        "excludedSenses": [
+          {
+            "senseOrdinal": 2,
+            "glossesEn": [
+              "merchandise certificate"
+            ],
+            "partsOfSpeech": [
+              "noun (common) (futsuumeishi)"
+            ],
+            "reason": "Outside the selected letter-writing/mailing object sense."
+          }
+        ],
+        "notes": [
+          "Sense ordinal 1 is local to this pinned snapshot. POS n is explicit in the selected sense; no POS inheritance is needed. No stagk, stagr or re_restr restrictions occur in this entry.",
+          "Primary surface and display reading preserve the existing item. Alternative spellings/readings were inspected individually; empty restrictions do not imply unrestricted forms from another entry.",
+          "Select sense 1, stamp (postage), cross-referenced to 郵便切手 and tagged abbr. Explicitly exclude sense 2 merchandise certificate (xref 商品切手, abbr) from this letter-mailing package. The canonical English answer list currently merges both senses; narrowing requires an explicit reviewed integration change."
+        ]
+      },
+      "jlptEvidence": {
+        "provider": "YOMITAN_JLPT_VOCAB",
+        "category": "JLPT_SIGNAL",
+        "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+        "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+        "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+        "lineNumberOneBased": 186,
+        "rawCsvRow": "1385070,きって,切手,postage stamp",
+        "entryId": "1385070",
+        "reading": "きって",
+        "spelling": "切手",
+        "glossEn": "postage stamp",
+        "candidateLevel": "N5",
+        "confidence": "HEURISTIC",
+        "placementDecision": "Editorial N5 placement for concrete everyday letter-writing/mailing nouns; not an official JLPT lexical claim."
+      },
+      "runtimeMapping": {
+        "mappingStatus": "PENDING_LESSON_MAPPING",
+        "skillId": null,
+        "unitSlug": null,
+        "lessonSlug": null
+      },
+      "baselineIdentity": {
+        "skillCode": "n5_vocab_jmdict_1385070",
+        "trackSlug": "jlpt-n5-foundation",
+        "canonicalAnswers": {
+          "JAPANESE": [
+            "切手"
+          ],
+          "KANA": [
+            "きって"
+          ],
+          "ENGLISH": [
+            "stamp (postage)",
+            "merchandise certificate",
+            "postage stamp"
+          ]
+        },
+        "hasLocalizedOverlayEntry": false
+      },
+      "duplicateCheck": {
+        "canonicalInventoryItemsScanned": 749,
+        "sameEntryItemIds": [
+          "4cf91acd-62fa-52d3-8b05-e540af15b45d"
+        ],
+        "otherSpellingOrReadingOverlaps": [],
+        "pendingRegistryMatchCount": 1,
+        "decision": "Reuse this single existing pending item; create no additional lexical item."
+      },
+      "canonicalAnswerProposal": {
+        "status": "PROPOSED_REVIEW_REQUIRED",
+        "field": "answerOptionPayload.canonicalAnswers.ENGLISH",
+        "baseline": [
+          "stamp (postage)",
+          "merchandise certificate",
+          "postage stamp"
+        ],
+        "proposed": [
+          "stamp (postage)",
+          "postage stamp"
+        ],
+        "reason": "Remove only the unrelated sense-2 merchandise certificate from this sense-1 package. Japanese/KANA answers and item identity stay the same. No active artifact is modified by this curation draft."
+      }
+    },
+    {
+      "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+      "entSeq": "1327720",
+      "proposedSkillCode": "n5_vocab_letter_writing_supplies",
+      "surfaceFormText": "手紙",
+      "kanaDisplayText": "てがみ",
+      "isPublished": false,
+      "senseEvidence": {
+        "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+        "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+        "senseOrdinals": [
+          1
+        ],
+        "selectedGlossesEn": [
+          "letter",
+          "note"
+        ],
+        "partsOfSpeech": [
+          {
+            "code": "n",
+            "label": "noun (common) (futsuumeishi)",
+            "senseOrdinal": 1,
+            "inheritedFromSenseOrdinal": null
+          }
+        ],
+        "restrictions": {
+          "stagk": [],
+          "stagr": [],
+          "re_restr": [],
+          "readingForms": [
+            {
+              "text": "てがみ",
+              "re_restr": [],
+              "re_nokanji": false,
+              "re_inf": []
+            }
+          ]
+        },
+        "spellingForms": [
+          "手紙"
+        ],
+        "registerTags": [],
+        "crossReferences": [],
+        "excludedSenses": [],
+        "notes": [
+          "Sense ordinal 1 is local to this pinned snapshot. POS n is explicit in the selected sense; no POS inheritance is needed. No stagk, stagr or re_restr restrictions occur in this entry.",
+          "Primary surface and display reading preserve the existing item. Alternative spellings/readings were inspected individually; empty restrictions do not imply unrestricted forms from another entry.",
+          "Both letter and note belong to the single selected sense. Use the written-message sense, not an alphabetic character or an arbitrary annotation."
+        ]
+      },
+      "jlptEvidence": {
+        "provider": "YOMITAN_JLPT_VOCAB",
+        "category": "JLPT_SIGNAL",
+        "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+        "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+        "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+        "lineNumberOneBased": 404,
+        "rawCsvRow": "1327720,てがみ,手紙,letter",
+        "entryId": "1327720",
+        "reading": "てがみ",
+        "spelling": "手紙",
+        "glossEn": "letter",
+        "candidateLevel": "N5",
+        "confidence": "HEURISTIC",
+        "placementDecision": "Editorial N5 placement for concrete everyday letter-writing/mailing nouns; not an official JLPT lexical claim."
+      },
+      "runtimeMapping": {
+        "mappingStatus": "PENDING_LESSON_MAPPING",
+        "skillId": null,
+        "unitSlug": null,
+        "lessonSlug": null
+      },
+      "baselineIdentity": {
+        "skillCode": "n5_vocab_jmdict_1327720",
+        "trackSlug": "jlpt-n5-foundation",
+        "canonicalAnswers": {
+          "JAPANESE": [
+            "手紙"
+          ],
+          "KANA": [
+            "てがみ"
+          ],
+          "ENGLISH": [
+            "letter",
+            "note"
+          ]
+        },
+        "hasLocalizedOverlayEntry": false
+      },
+      "duplicateCheck": {
+        "canonicalInventoryItemsScanned": 749,
+        "sameEntryItemIds": [
+          "734bc421-0075-5336-9773-0e89276749ad"
+        ],
+        "otherSpellingOrReadingOverlaps": [],
+        "pendingRegistryMatchCount": 1,
+        "decision": "Reuse this single existing pending item; create no additional lexical item."
+      }
+    },
+    {
+      "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+      "entSeq": "1499690",
+      "proposedSkillCode": "n5_vocab_letter_writing_supplies",
+      "surfaceFormText": "封筒",
+      "kanaDisplayText": "ふうとう",
+      "isPublished": false,
+      "senseEvidence": {
+        "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+        "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+        "senseOrdinals": [
+          1
+        ],
+        "selectedGlossesEn": [
+          "envelope"
+        ],
+        "partsOfSpeech": [
+          {
+            "code": "n",
+            "label": "noun (common) (futsuumeishi)",
+            "senseOrdinal": 1,
+            "inheritedFromSenseOrdinal": null
+          }
+        ],
+        "restrictions": {
+          "stagk": [],
+          "stagr": [],
+          "re_restr": [],
+          "readingForms": [
+            {
+              "text": "ふうとう",
+              "re_restr": [],
+              "re_nokanji": false,
+              "re_inf": []
+            }
+          ]
+        },
+        "spellingForms": [
+          "封筒"
+        ],
+        "registerTags": [],
+        "crossReferences": [],
+        "excludedSenses": [],
+        "notes": [
+          "Sense ordinal 1 is local to this pinned snapshot. POS n is explicit in the selected sense; no POS inheritance is needed. No stagk, stagr or re_restr restrictions occur in this entry.",
+          "Primary surface and display reading preserve the existing item. Alternative spellings/readings were inspected individually; empty restrictions do not imply unrestricted forms from another entry."
+        ]
+      },
+      "jlptEvidence": {
+        "provider": "YOMITAN_JLPT_VOCAB",
+        "category": "JLPT_SIGNAL",
+        "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+        "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+        "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+        "lineNumberOneBased": 540,
+        "rawCsvRow": "1499690,ふうとう,封筒,envelope",
+        "entryId": "1499690",
+        "reading": "ふうとう",
+        "spelling": "封筒",
+        "glossEn": "envelope",
+        "candidateLevel": "N5",
+        "confidence": "HEURISTIC",
+        "placementDecision": "Editorial N5 placement for concrete everyday letter-writing/mailing nouns; not an official JLPT lexical claim."
+      },
+      "runtimeMapping": {
+        "mappingStatus": "PENDING_LESSON_MAPPING",
+        "skillId": null,
+        "unitSlug": null,
+        "lessonSlug": null
+      },
+      "baselineIdentity": {
+        "skillCode": "n5_vocab_jmdict_1499690",
+        "trackSlug": "jlpt-n5-foundation",
+        "canonicalAnswers": {
+          "JAPANESE": [
+            "封筒"
+          ],
+          "KANA": [
+            "ふうとう"
+          ],
+          "ENGLISH": [
+            "envelope"
+          ]
+        },
+        "hasLocalizedOverlayEntry": false
+      },
+      "duplicateCheck": {
+        "canonicalInventoryItemsScanned": 749,
+        "sameEntryItemIds": [
+          "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14"
+        ],
+        "otherSpellingOrReadingOverlaps": [],
+        "pendingRegistryMatchCount": 1,
+        "decision": "Reuse this single existing pending item; create no additional lexical item."
+      }
+    },
+    {
+      "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+      "entSeq": "1123590",
+      "proposedSkillCode": "n5_vocab_letter_writing_supplies",
+      "surfaceFormText": "ボールペン",
+      "kanaDisplayText": "ボールペン",
+      "isPublished": false,
+      "senseEvidence": {
+        "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+        "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+        "senseOrdinals": [
+          1
+        ],
+        "selectedGlossesEn": [
+          "ball-point pen"
+        ],
+        "partsOfSpeech": [
+          {
+            "code": "n",
+            "label": "noun (common) (futsuumeishi)",
+            "senseOrdinal": 1,
+            "inheritedFromSenseOrdinal": null
+          }
+        ],
+        "restrictions": {
+          "stagk": [],
+          "stagr": [],
+          "re_restr": [],
+          "readingForms": [
+            {
+              "text": "ボールペン",
+              "re_restr": [],
+              "re_nokanji": false,
+              "re_inf": []
+            },
+            {
+              "text": "ボール・ペン",
+              "re_restr": [],
+              "re_nokanji": false,
+              "re_inf": []
+            }
+          ]
+        },
+        "spellingForms": [],
+        "registerTags": [],
+        "crossReferences": [],
+        "excludedSenses": [],
+        "notes": [
+          "Sense ordinal 1 is local to this pinned snapshot. POS n is explicit in the selected sense; no POS inheritance is needed. No stagk, stagr or re_restr restrictions occur in this entry.",
+          "Primary surface and display reading preserve the existing item. Alternative spellings/readings were inspected individually; empty restrictions do not imply unrestricted forms from another entry.",
+          "This entry has no k_ele. ボールペン and ボール・ペン are two r_ele forms for the only sense, with no restrictions. Preserve the baseline primary Japanese answer ボールペン and both KANA answers; expanding JAPANESE acceptance to the middle-dot variant is unnecessary. lsource ball pen has ls_wasei=y, a source etymology note, not a separate meaning."
+        ]
+      },
+      "jlptEvidence": {
+        "provider": "YOMITAN_JLPT_VOCAB",
+        "category": "JLPT_SIGNAL",
+        "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+        "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+        "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+        "lineNumberOneBased": 565,
+        "rawCsvRow": "1123590,ボールペン,,ball-point pen",
+        "entryId": "1123590",
+        "reading": "ボールペン",
+        "spelling": "",
+        "glossEn": "ball-point pen",
+        "candidateLevel": "N5",
+        "confidence": "HEURISTIC",
+        "placementDecision": "Editorial N5 placement for concrete everyday letter-writing/mailing nouns; not an official JLPT lexical claim."
+      },
+      "runtimeMapping": {
+        "mappingStatus": "PENDING_LESSON_MAPPING",
+        "skillId": null,
+        "unitSlug": null,
+        "lessonSlug": null
+      },
+      "baselineIdentity": {
+        "skillCode": "n5_vocab_jmdict_1123590",
+        "trackSlug": "jlpt-n5-foundation",
+        "canonicalAnswers": {
+          "JAPANESE": [
+            "ボールペン"
+          ],
+          "KANA": [
+            "ボールペン",
+            "ボール・ペン"
+          ],
+          "ENGLISH": [
+            "ball-point pen"
+          ]
+        },
+        "hasLocalizedOverlayEntry": false
+      },
+      "duplicateCheck": {
+        "canonicalInventoryItemsScanned": 749,
+        "sameEntryItemIds": [
+          "506c5576-24cf-5e3f-ae16-77826bf0c8d1"
+        ],
+        "otherSpellingOrReadingOverlaps": [],
+        "pendingRegistryMatchCount": 1,
+        "decision": "Reuse this single existing pending item; create no additional lexical item."
+      }
+    }
+  ],
+  "heldItems": [],
+  "integrationDependencies": [
+    "Independent bilingual authoring and read-only editorial review are required before integrating the accepted subset.",
+    "Compile reviewed drafts to an explicit VOC-02 standalone-group manifest; use existing pending item IDs and exact pendingSkillCode values. This curation file is not importer input.",
+    "Keep all official runtimeMapping values pending/null in this draft. Importing groups and promoting items are separate parent-owned integration actions; do not create dummy lessons or republish lessons.",
+    "Resolve the explicit 切手 English canonical narrowing proposal before declaring that package consistent with the selected sense. Preserve lexical IDs, existing user Leitner state, custom-deck membership, historical events and session snapshots."
+  ],
+  "provenanceNotes": [
+    "Japanese spellings/readings, selected glosses, POS and restrictions were inspected in the pinned raw English JMdict XML. Indonesian group copy is original editorial text, not a JMdict translation.",
+    "Yomitan N5 rows are heuristic signals from Jonathan Waller-derived lists. Upstream source README explicitly says official JLPT vocabulary lists do not exist.",
+    "Retain the existing JMdict EDRDG licence snapshot and Yomitan source attribution when integrating; no source snapshot is replaced."
+  ],
+  "checksPerformed": [
+    "Recomputed all five assigned SHA-256 baselines and matched the pinned values.",
+    "Inspected the full raw JMdict entries 1178590, 1311530, 1385070, 1327720, 1499690 and 1123590, including all senses and every spelling/reading restriction.",
+    "Resolved n, abbr and sk entity labels from the pinned JMdict DTD; no selected POS inheritance is needed.",
+    "Matched each entry to one exact N5 CSV row with archive member, one-based physical line and raw row recorded.",
+    "Scanned all 749 canonical mapped/pending items for duplicate JMdict entry IDs and NFKC/case/whitespace-normalized spelling/reading overlap; each assigned entry occurs once, with no other form overlap.",
+    "Matched each assigned pending skill code to one registry item and checked spelling/readings against baseline. None of the six IDs has an existing localizations.v2.json entry.",
+    "Checked assigned coverage, unique membership, stable UUIDs, pending/null attribution, source checksums and unpublished candidate flags. JSON parsing and these checks do not constitute independent editorial review."
+  ]
+}

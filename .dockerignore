@@ -49,6 +49,9 @@ content/flashcards/*
 !content/flashcards/system-decks/
 content/flashcards/system-decks/*
 !content/flashcards/system-decks/*.json
+!content/flashcards/vocabulary-groups/
+content/flashcards/vocabulary-groups/*
+!content/flashcards/vocabulary-groups/manifest.v2.json
 
 # Legacy v1 syllabus manifest and track JSON files.
 !content/syllabus/

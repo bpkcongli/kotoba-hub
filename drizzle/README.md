@@ -240,3 +240,64 @@ disposable database.
 ```sh
 VOCABULARY_TEST_DATABASE_URL='mysql://.../kotoba_vocabulary_test' bun scripts/smoke/smoke-vocabulary-groups.ts --allow-test-db-write
 ```
+
+### VOC-03: Reviewed vocabulary batch
+
+The active reviewed manifest is
+[`content/flashcards/vocabulary-groups/manifest.v2.json`](../content/flashcards/vocabulary-groups/manifest.v2.json).
+Batch 01 promotes five existing pending items into one N5 letter-writing group.
+Batch 02 adds 574 independently reviewed existing IDs in 146 standalone N5 groups.
+Batch 03 resolves the seven source-identity holds: three corrected words reuse
+published lesson items, four receive new corrected pending identities, and seven
+old identities remain inactive with their meanings/history preserved. The complete
+manifest has **151 groups and 583 promoted members**, with **zero eligible pending
+items** and content/translation revisions **4/4**. Drafts are audit/authoring inputs;
+importers read the canonical artifacts and reviewed runtime manifest. See the
+[identity-resolution report](../docs/syllabus/flashcards/vocabulary-held-identity-resolution.md).
+
+After backup, migration `0008` and the selected syllabus seed, validate offline:
+
+```sh
+python3 scripts/flashcards/validate_vocabulary_draft.py
+python3 scripts/flashcards/validate_vocabulary_holds.py
+bun run db:seed:vocabulary-groups --manifest content/flashcards/vocabulary-groups/manifest.v2.json --dry-run
+```
+
+**Upgrade from the batch-02 inventory:** the four corrected identities do not yet
+exist in the database. Preserve the importer guard requiring an existing pending
+item before promotion. First seed canonical revision 4 with the bootstrap subset
+(the existing 147 groups/579 members), then import and seed the full manifest:
+
+```sh
+python3 scripts/flashcards/validate_vocabulary_holds.py --write-bootstrap /tmp/voc03-bootstrap.json
+bun run db:seed:flashcards:dry-run --vocabulary-groups /tmp/voc03-bootstrap.json
+bun run db:seed:flashcards --vocabulary-groups /tmp/voc03-bootstrap.json
+bun run db:seed:vocabulary-groups --manifest content/flashcards/vocabulary-groups/manifest.v2.json
+bun run db:seed:flashcards:dry-run --vocabulary-groups content/flashcards/vocabulary-groups/manifest.v2.json
+bun run db:seed:flashcards --vocabulary-groups content/flashcards/vocabulary-groups/manifest.v2.json
+```
+
+The bootstrap step inserts the four correct IDs as pending and retires the seven
+old system memberships, while retaining all existing promotions. Do not run that
+subset after the four new items have been promoted: demotion is correctly rejected.
+After a partial bootstrap failure/retry, rerun bootstrap only while those four IDs
+remain pending. If the final promotion committed, retry using the complete manifest.
+
+**Fresh database:** seed canonical flashcards without `--vocabulary-groups` to
+establish pending rows, then import the complete group manifest and seed flashcards
+with that manifest. For an inventory predating batch 02, first apply its archived
+reviewed artifacts and manifest through its normal pending/promotion path, then
+follow the upgrade above. Do not reseed an already promoted database without the
+complete previously promoted manifest.
+
+Later reseeds use the same complete 151-group manifest. Existing groups remain at
+their prior revisions; four new groups start at revision 1. Session snapshots,
+custom membership and Leitner state stay on their original IDs. The ops image
+contains runtime artifacts; raw sources and drafts stay outside the image.
+Production import and rollout remain BIL-08/DEP-05 work.
+
+The real-content smoke test requires a separate empty disposable database:
+
+```sh
+VOCABULARY_TEST_DATABASE_URL='mysql://.../kotoba_vocabulary_content_test' bun run test:vocabulary-content --allow-test-db-write
+```

@@ -1,0 +1,1328 @@
+{
+  "draftFormat": "kotoba-vocabulary-curation-v1",
+  "batchId": "voc-03-batch-03-held-resolution",
+  "scope": {
+    "taskId": "VOC-03",
+    "assignedItemIds": [
+      "2ecdf560-9943-5db0-9c4d-39c2a0e72f70",
+      "4799b76c-8c17-5aa9-bbb7-c96f734634b3",
+      "740f0018-2f61-570a-8e1f-a1fe5411302c",
+      "ca3cf376-b0f2-57bf-b3ad-21c69a5c62e0",
+      "4d47d291-c9fd-524f-aaa2-7ff3a469b697",
+      "e007da8f-ebfc-5d41-9b8a-11373171bbd3",
+      "c6dc96d7-9ce0-5396-bee2-383b700687ca"
+    ],
+    "scopeType": "EXPLICIT_IDENTITY_RESOLUTION",
+    "resolvedTargetItemIds": [
+      "27325d16-74f5-5880-a722-55eed6a2cd8c",
+      "74d37e86-1fc6-5849-b977-49f0a77a1529",
+      "9cf31de1-b02e-5113-ad7d-b479fe765564",
+      "f8f66c61-9a6a-5e5a-80bd-258f9b50fb95",
+      "f9201c78-fb57-522d-95a3-cc1002e530d5",
+      "ae1a0796-b925-53e9-8644-4d9bac2c2f9c",
+      "ee286451-4bc0-5092-a3aa-fe4d470f313b"
+    ]
+  },
+  "isPublished": false,
+  "baselines": [
+    {
+      "path": "content/flashcards/system-decks/vocabulary-foundation.json",
+      "sha256": "c6f20151598dd6313ddb4b11551ea25a1027a921c01e0aaa3ecc3d68a434e2c1"
+    },
+    {
+      "path": "content/flashcards/system-decks/vocabulary-foundation-pending-n5-skill-codes.json",
+      "sha256": "0514ee860f6689047a414c4474d827d4fe04fba95f3c837b3066e63c1a5448c4"
+    },
+    {
+      "path": "content/flashcards/system-decks/localizations.v2.json",
+      "sha256": "8ba27e7dd6145f5514944c7c71a3e51af61ee40d977ccc5430ae620962ea397e"
+    },
+    {
+      "path": "content/flashcards/vocabulary-groups/manifest.v2.json",
+      "sha256": "549f66621d679c2c7332669a40a95b3528bb18df64df23f0948adb1cb3eca21a"
+    },
+    {
+      "path": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+      "sha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb"
+    },
+    {
+      "path": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+      "sha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560"
+    }
+  ],
+  "assignment": {
+    "path": "content/flashcards/drafts/voc-03-batch-03/assignment.json",
+    "sha256": "a248b1b43edeb6873c1320eac5f2767409fde5cfdc47f64dae58347a777134e6"
+  },
+  "baselineArchive": {
+    "path": "content/flashcards/drafts/voc-03-batch-03/baseline.json.gz",
+    "sha256": "29509d0a0683dea88aa234afda4858b59a96dd34d84b2f84de8a45191ecc508c"
+  },
+  "groups": [
+    {
+      "proposedSkillCode": "n5_vocab_b03_drinking_glasses",
+      "ownerType": "FLASHCARD_VOCABULARY_GROUP",
+      "trackSlug": "jlpt-n5-foundation",
+      "lessonSlug": null,
+      "skillId": null,
+      "curriculumLevel": "N5",
+      "isPublished": false,
+      "localizations": {
+        "en": {
+          "title": "Drinking glasses",
+          "objective": "Recognize コップ as a drinking glass.",
+          "isPublished": false
+        },
+        "id": {
+          "title": "Gelas minum",
+          "objective": "Kenali コップ sebagai gelas minum.",
+          "isPublished": false
+        }
+      },
+      "itemIds": [
+        "f8f66c61-9a6a-5e5a-80bd-258f9b50fb95"
+      ],
+      "levelRationale": "Singleton preserves the narrow lexical scope. Existing group memberships remain immutable. Editorial N5 placement follows corrected overlay form/meaning and verified JMdict sense."
+    },
+    {
+      "proposedSkillCode": "n5_vocab_b03_gradual_change",
+      "ownerType": "FLASHCARD_VOCABULARY_GROUP",
+      "trackSlug": "jlpt-n5-foundation",
+      "lessonSlug": null,
+      "skillId": null,
+      "curriculumLevel": "N5",
+      "isPublished": false,
+      "localizations": {
+        "en": {
+          "title": "Gradual change",
+          "objective": "Recognize だんだん as gradual change.",
+          "isPublished": false
+        },
+        "id": {
+          "title": "Perubahan bertahap",
+          "objective": "Kenali だんだん sebagai perubahan bertahap.",
+          "isPublished": false
+        }
+      },
+      "itemIds": [
+        "f9201c78-fb57-522d-95a3-cc1002e530d5"
+      ],
+      "levelRationale": "Singleton preserves the narrow lexical scope. Existing group memberships remain immutable. Editorial N5 placement follows corrected overlay form/meaning and verified JMdict sense."
+    },
+    {
+      "proposedSkillCode": "n5_vocab_b03_clothing_buttons",
+      "ownerType": "FLASHCARD_VOCABULARY_GROUP",
+      "trackSlug": "jlpt-n5-foundation",
+      "lessonSlug": null,
+      "skillId": null,
+      "curriculumLevel": "N5",
+      "isPublished": false,
+      "localizations": {
+        "en": {
+          "title": "Clothing buttons",
+          "objective": "Recognize ボタン as a clothing fastener.",
+          "isPublished": false
+        },
+        "id": {
+          "title": "Kancing pakaian",
+          "objective": "Kenali ボタン sebagai kancing pakaian.",
+          "isPublished": false
+        }
+      },
+      "itemIds": [
+        "ae1a0796-b925-53e9-8644-4d9bac2c2f9c"
+      ],
+      "levelRationale": "Singleton preserves the narrow lexical scope. Existing group memberships remain immutable. Editorial N5 placement follows corrected overlay form/meaning and verified JMdict sense."
+    },
+    {
+      "proposedSkillCode": "n5_vocab_b03_fire_lighting_matches",
+      "ownerType": "FLASHCARD_VOCABULARY_GROUP",
+      "trackSlug": "jlpt-n5-foundation",
+      "lessonSlug": null,
+      "skillId": null,
+      "curriculumLevel": "N5",
+      "isPublished": false,
+      "localizations": {
+        "en": {
+          "title": "Fire-lighting matches",
+          "objective": "Recognize マッチ as a match used to light a fire.",
+          "isPublished": false
+        },
+        "id": {
+          "title": "Korek api batang",
+          "objective": "Kenali マッチ sebagai korek api batang untuk menyalakan api.",
+          "isPublished": false
+        }
+      },
+      "itemIds": [
+        "ee286451-4bc0-5092-a3aa-fe4d470f313b"
+      ],
+      "levelRationale": "Singleton preserves the narrow lexical scope. Existing group memberships remain immutable. Editorial N5 placement follows corrected overlay form/meaning and verified JMdict sense."
+    }
+  ],
+  "items": [
+    {
+      "itemId": "27325d16-74f5-5880-a722-55eed6a2cd8c",
+      "entSeq": "1000580",
+      "proposedSkillCode": null,
+      "surfaceFormText": "あれ",
+      "kanaDisplayText": "あれ",
+      "isPublished": false,
+      "identityAction": "REUSE_EXISTING_LESSON_OWNER",
+      "senseEvidence": {
+        "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+        "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+        "senseOrdinals": [
+          1
+        ],
+        "selectedGlossesEn": [
+          "that",
+          "that thing"
+        ],
+        "partsOfSpeech": [
+          {
+            "code": "pn",
+            "label": "pronoun",
+            "senseOrdinal": 1,
+            "inheritedFromSenseOrdinal": null
+          }
+        ],
+        "restrictions": {
+          "stagk": [],
+          "stagr": [],
+          "re_restr": [],
+          "readingForms": [
+            {
+              "reb": [
+                "あれ"
+              ],
+              "re_pri": [
+                "ichi1"
+              ]
+            },
+            {
+              "reb": [
+                "アレ"
+              ],
+              "re_inf": [
+                "sk"
+              ]
+            }
+          ]
+        },
+        "spellingForms": [
+          {
+            "keb": [
+              "彼"
+            ],
+            "ke_inf": [
+              "rK"
+            ]
+          },
+          {
+            "keb": [
+              "彼れ"
+            ],
+            "ke_inf": [
+              "rK"
+            ]
+          }
+        ],
+        "registerTags": [
+          "uk"
+        ],
+        "notes": [
+          "indicating something distant from both speaker and listener (in space, time or psychologically), or something understood without naming it directly"
+        ],
+        "excludedSenseOrdinals": [
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "jlptEvidence": {
+        "provider": "YOMITAN_JLPT_VOCAB",
+        "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+        "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+        "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+        "rows": [
+          {
+            "lineNumberOneBased": 42,
+            "rawCsvRow": "2847612,あれ,,that",
+            "values": [
+              "2847612",
+              "あれ",
+              "",
+              "that"
+            ]
+          }
+        ],
+        "rawEntSeq": "2847612",
+        "correctedEntSeq": "1000580",
+        "confidence": "HEURISTIC",
+        "candidateLevel": "N5",
+        "placementDecision": "Editorial correction: surface and intended gloss support this N5 word, but the raw overlay points to a different homographic entry. JMdict determines the corrected lexical identity."
+      },
+      "runtimeMapping": {
+        "mappingStatus": "SYLLABUS_MAPPED",
+        "skillId": "9d33f850-ccf4-537a-be72-1dbe5ab986dc",
+        "unitSlug": "n5-this-that-and-place-reference",
+        "lessonSlug": "ko-so-a-do-pronouns"
+      },
+      "baselineIdentity": {
+        "skillCode": "n5_kosoado_pronouns_are",
+        "canonicalAnswers": {
+          "JAPANESE": [
+            "彼",
+            "彼れ"
+          ],
+          "KANA": [
+            "あれ",
+            "アレ"
+          ],
+          "ENGLISH": [
+            "that",
+            "that thing",
+            "that person"
+          ]
+        },
+        "isNewCanonicalIdentity": false
+      },
+      "duplicateCheck": {
+        "canonicalInventoryItemsScanned": 749,
+        "sameEntryItemIds": [
+          "27325d16-74f5-5880-a722-55eed6a2cd8c"
+        ],
+        "decision": "Keep current published lesson owner; no new item/group."
+      }
+    },
+    {
+      "itemId": "74d37e86-1fc6-5849-b977-49f0a77a1529",
+      "entSeq": "1628530",
+      "proposedSkillCode": null,
+      "surfaceFormText": "これ",
+      "kanaDisplayText": "これ",
+      "isPublished": false,
+      "identityAction": "REUSE_EXISTING_LESSON_OWNER",
+      "senseEvidence": {
+        "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+        "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+        "senseOrdinals": [
+          1
+        ],
+        "selectedGlossesEn": [
+          "this",
+          "this one"
+        ],
+        "partsOfSpeech": [
+          {
+            "code": "pn",
+            "label": "pronoun",
+            "senseOrdinal": 1,
+            "inheritedFromSenseOrdinal": null
+          }
+        ],
+        "restrictions": {
+          "stagk": [],
+          "stagr": [],
+          "re_restr": [],
+          "readingForms": [
+            {
+              "reb": [
+                "これ"
+              ],
+              "re_pri": [
+                "ichi1"
+              ]
+            }
+          ]
+        },
+        "spellingForms": [
+          {
+            "keb": [
+              "此れ"
+            ],
+            "ke_inf": [
+              "rK"
+            ]
+          },
+          {
+            "keb": [
+              "是"
+            ],
+            "ke_inf": [
+              "rK"
+            ]
+          },
+          {
+            "keb": [
+              "之"
+            ],
+            "ke_inf": [
+              "rK"
+            ]
+          },
+          {
+            "keb": [
+              "維"
+            ],
+            "ke_inf": [
+              "rK"
+            ]
+          },
+          {
+            "keb": [
+              "惟"
+            ],
+            "ke_inf": [
+              "rK"
+            ]
+          },
+          {
+            "keb": [
+              "此"
+            ],
+            "ke_inf": [
+              "sK"
+            ]
+          },
+          {
+            "keb": [
+              "是れ"
+            ],
+            "ke_inf": [
+              "sK"
+            ]
+          },
+          {
+            "keb": [
+              "之れ"
+            ],
+            "ke_inf": [
+              "sK"
+            ]
+          }
+        ],
+        "registerTags": [
+          "uk"
+        ],
+        "notes": [
+          "indicating an item near the speaker, the action of the speaker, or the current topic"
+        ],
+        "excludedSenseOrdinals": [
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "jlptEvidence": {
+        "provider": "YOMITAN_JLPT_VOCAB",
+        "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+        "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+        "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+        "rows": [
+          {
+            "lineNumberOneBased": 254,
+            "rawCsvRow": "2216120,これ,,This",
+            "values": [
+              "2216120",
+              "これ",
+              "",
+              "This"
+            ]
+          }
+        ],
+        "rawEntSeq": "2216120",
+        "correctedEntSeq": "1628530",
+        "confidence": "HEURISTIC",
+        "candidateLevel": "N5",
+        "placementDecision": "Editorial correction: surface and intended gloss support this N5 word, but the raw overlay points to a different homographic entry. JMdict determines the corrected lexical identity."
+      },
+      "runtimeMapping": {
+        "mappingStatus": "SYLLABUS_MAPPED",
+        "skillId": "35703e65-7a7c-5f23-9798-8381100fc253",
+        "unitSlug": "n5-this-that-and-place-reference",
+        "lessonSlug": "ko-so-a-do-pronouns"
+      },
+      "baselineIdentity": {
+        "skillCode": "n5_kosoado_pronouns_kore",
+        "canonicalAnswers": {
+          "JAPANESE": [
+            "此れ",
+            "是",
+            "之",
+            "維",
+            "惟",
+            "此",
+            "是れ",
+            "之れ"
+          ],
+          "KANA": [
+            "これ"
+          ],
+          "ENGLISH": [
+            "this",
+            "this one",
+            "this person"
+          ]
+        },
+        "isNewCanonicalIdentity": false
+      },
+      "duplicateCheck": {
+        "canonicalInventoryItemsScanned": 749,
+        "sameEntryItemIds": [
+          "74d37e86-1fc6-5849-b977-49f0a77a1529"
+        ],
+        "decision": "Keep current published lesson owner; no new item/group."
+      }
+    },
+    {
+      "itemId": "9cf31de1-b02e-5113-ad7d-b479fe765564",
+      "entSeq": "1006970",
+      "proposedSkillCode": null,
+      "surfaceFormText": "それ",
+      "kanaDisplayText": "それ",
+      "isPublished": false,
+      "identityAction": "REUSE_EXISTING_LESSON_OWNER",
+      "senseEvidence": {
+        "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+        "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+        "senseOrdinals": [
+          1
+        ],
+        "selectedGlossesEn": [
+          "that",
+          "it"
+        ],
+        "partsOfSpeech": [
+          {
+            "code": "pn",
+            "label": "pronoun",
+            "senseOrdinal": 1,
+            "inheritedFromSenseOrdinal": null
+          }
+        ],
+        "restrictions": {
+          "stagk": [],
+          "stagr": [],
+          "re_restr": [],
+          "readingForms": [
+            {
+              "reb": [
+                "それ"
+              ],
+              "re_pri": [
+                "ichi1"
+              ]
+            }
+          ]
+        },
+        "spellingForms": [
+          {
+            "keb": [
+              "其れ"
+            ],
+            "ke_inf": [
+              "rK"
+            ]
+          },
+          {
+            "keb": [
+              "其"
+            ],
+            "ke_inf": [
+              "sK"
+            ]
+          }
+        ],
+        "registerTags": [
+          "uk"
+        ],
+        "notes": [
+          "indicating an item or person near the listener, the action of the listener, or something on their mind"
+        ],
+        "excludedSenseOrdinals": [
+          2,
+          3,
+          4
+        ]
+      },
+      "jlptEvidence": {
+        "provider": "YOMITAN_JLPT_VOCAB",
+        "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+        "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+        "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+        "rows": [
+          {
+            "lineNumberOneBased": 348,
+            "rawCsvRow": "2216210,それ,,that",
+            "values": [
+              "2216210",
+              "それ",
+              "",
+              "that"
+            ]
+          }
+        ],
+        "rawEntSeq": "2216210",
+        "correctedEntSeq": "1006970",
+        "confidence": "HEURISTIC",
+        "candidateLevel": "N5",
+        "placementDecision": "Editorial correction: surface and intended gloss support this N5 word, but the raw overlay points to a different homographic entry. JMdict determines the corrected lexical identity."
+      },
+      "runtimeMapping": {
+        "mappingStatus": "SYLLABUS_MAPPED",
+        "skillId": "e484cd12-332e-55de-a4cd-834137de56f0",
+        "unitSlug": "n5-this-that-and-place-reference",
+        "lessonSlug": "ko-so-a-do-pronouns"
+      },
+      "baselineIdentity": {
+        "skillCode": "n5_kosoado_pronouns_sore",
+        "canonicalAnswers": {
+          "JAPANESE": [
+            "其れ",
+            "其"
+          ],
+          "KANA": [
+            "それ"
+          ],
+          "ENGLISH": [
+            "that",
+            "it",
+            "then"
+          ]
+        },
+        "isNewCanonicalIdentity": false
+      },
+      "duplicateCheck": {
+        "canonicalInventoryItemsScanned": 749,
+        "sameEntryItemIds": [
+          "9cf31de1-b02e-5113-ad7d-b479fe765564"
+        ],
+        "decision": "Keep current published lesson owner; no new item/group."
+      }
+    },
+    {
+      "itemId": "f8f66c61-9a6a-5e5a-80bd-258f9b50fb95",
+      "entSeq": "1050390",
+      "proposedSkillCode": "n5_vocab_b03_drinking_glasses",
+      "surfaceFormText": "コップ",
+      "kanaDisplayText": "コップ",
+      "isPublished": false,
+      "identityAction": "NEW_CORRECTED_PENDING_IDENTITY",
+      "senseEvidence": {
+        "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+        "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+        "senseOrdinals": [
+          1
+        ],
+        "selectedGlossesEn": [
+          "glass (drinking vessel)",
+          "tumbler"
+        ],
+        "partsOfSpeech": [
+          {
+            "code": "n",
+            "label": "noun (common) (futsuumeishi)",
+            "senseOrdinal": 1,
+            "inheritedFromSenseOrdinal": null
+          }
+        ],
+        "restrictions": {
+          "stagk": [],
+          "stagr": [],
+          "re_restr": [],
+          "readingForms": [
+            {
+              "reb": [
+                "コップ"
+              ],
+              "re_pri": [
+                "gai1",
+                "ichi1"
+              ]
+            },
+            {
+              "reb": [
+                "コツフ"
+              ],
+              "re_inf": [
+                "sk"
+              ]
+            }
+          ]
+        },
+        "spellingForms": [
+          {
+            "keb": [
+              "洋杯"
+            ],
+            "ke_inf": [
+              "rK"
+            ]
+          },
+          {
+            "keb": [
+              "洋盃"
+            ],
+            "ke_inf": [
+              "rK"
+            ]
+          },
+          {
+            "keb": [
+              "骨杯"
+            ],
+            "ke_inf": [
+              "ateji",
+              "rK"
+            ]
+          }
+        ],
+        "registerTags": [
+          "uk"
+        ],
+        "notes": [],
+        "excludedSenseOrdinals": [
+          2
+        ]
+      },
+      "jlptEvidence": {
+        "provider": "YOMITAN_JLPT_VOCAB",
+        "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+        "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+        "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+        "rows": [
+          {
+            "lineNumberOneBased": 246,
+            "rawCsvRow": "2846389,コップ,,a glass",
+            "values": [
+              "2846389",
+              "コップ",
+              "",
+              "a glass"
+            ]
+          }
+        ],
+        "rawEntSeq": "2846389",
+        "correctedEntSeq": "1050390",
+        "confidence": "HEURISTIC",
+        "candidateLevel": "N5",
+        "placementDecision": "Editorial correction: surface and intended gloss support this N5 word, but the raw overlay points to a different homographic entry. JMdict determines the corrected lexical identity."
+      },
+      "runtimeMapping": {
+        "mappingStatus": "PENDING_LESSON_MAPPING",
+        "skillId": null,
+        "unitSlug": null,
+        "lessonSlug": null
+      },
+      "baselineIdentity": {
+        "skillCode": "n5_vocab_jmdict_1050390",
+        "canonicalAnswers": null,
+        "isNewCanonicalIdentity": true
+      },
+      "duplicateCheck": {
+        "canonicalInventoryItemsScanned": 749,
+        "sameEntryItemIds": [],
+        "decision": "No existing item for corrected entry. New ID, no transfer of legacy history."
+      }
+    },
+    {
+      "itemId": "f9201c78-fb57-522d-95a3-cc1002e530d5",
+      "entSeq": "1597350",
+      "proposedSkillCode": "n5_vocab_b03_gradual_change",
+      "surfaceFormText": "だんだん",
+      "kanaDisplayText": "だんだん",
+      "isPublished": false,
+      "identityAction": "NEW_CORRECTED_PENDING_IDENTITY",
+      "senseEvidence": {
+        "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+        "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+        "senseOrdinals": [
+          1
+        ],
+        "selectedGlossesEn": [
+          "gradually",
+          "by degrees",
+          "little by little",
+          "more and more",
+          "increasingly"
+        ],
+        "partsOfSpeech": [
+          {
+            "code": "adv",
+            "label": "adverb (fukushi)",
+            "senseOrdinal": 1,
+            "inheritedFromSenseOrdinal": null
+          },
+          {
+            "code": "adv-to",
+            "label": "adverb taking the 'to' particle",
+            "senseOrdinal": 1,
+            "inheritedFromSenseOrdinal": null
+          }
+        ],
+        "restrictions": {
+          "stagk": [],
+          "stagr": [],
+          "re_restr": [],
+          "readingForms": [
+            {
+              "reb": [
+                "だんだん"
+              ],
+              "re_pri": [
+                "ichi1",
+                "news2",
+                "nf38"
+              ]
+            }
+          ]
+        },
+        "spellingForms": [
+          {
+            "keb": [
+              "段々"
+            ],
+            "ke_pri": [
+              "ichi1",
+              "news2",
+              "nf38"
+            ]
+          },
+          {
+            "keb": [
+              "段段"
+            ]
+          }
+        ],
+        "registerTags": [
+          "uk"
+        ],
+        "notes": [],
+        "excludedSenseOrdinals": [
+          2
+        ]
+      },
+      "jlptEvidence": {
+        "provider": "YOMITAN_JLPT_VOCAB",
+        "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+        "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+        "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+        "rows": [
+          {
+            "lineNumberOneBased": 375,
+            "rawCsvRow": "2546180,だんだん,,gradually",
+            "values": [
+              "2546180",
+              "だんだん",
+              "",
+              "gradually"
+            ]
+          }
+        ],
+        "rawEntSeq": "2546180",
+        "correctedEntSeq": "1597350",
+        "confidence": "HEURISTIC",
+        "candidateLevel": "N5",
+        "placementDecision": "Editorial correction: surface and intended gloss support this N5 word, but the raw overlay points to a different homographic entry. JMdict determines the corrected lexical identity."
+      },
+      "runtimeMapping": {
+        "mappingStatus": "PENDING_LESSON_MAPPING",
+        "skillId": null,
+        "unitSlug": null,
+        "lessonSlug": null
+      },
+      "baselineIdentity": {
+        "skillCode": "n5_vocab_jmdict_1597350",
+        "canonicalAnswers": null,
+        "isNewCanonicalIdentity": true
+      },
+      "duplicateCheck": {
+        "canonicalInventoryItemsScanned": 749,
+        "sameEntryItemIds": [],
+        "decision": "No existing item for corrected entry. New ID, no transfer of legacy history."
+      }
+    },
+    {
+      "itemId": "ae1a0796-b925-53e9-8644-4d9bac2c2f9c",
+      "entSeq": "1123880",
+      "proposedSkillCode": "n5_vocab_b03_clothing_buttons",
+      "surfaceFormText": "ボタン",
+      "kanaDisplayText": "ボタン",
+      "isPublished": false,
+      "identityAction": "NEW_CORRECTED_PENDING_IDENTITY",
+      "senseEvidence": {
+        "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+        "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+        "senseOrdinals": [
+          1
+        ],
+        "selectedGlossesEn": [
+          "button (clothing)"
+        ],
+        "partsOfSpeech": [
+          {
+            "code": "n",
+            "label": "noun (common) (futsuumeishi)",
+            "senseOrdinal": 1,
+            "inheritedFromSenseOrdinal": null
+          }
+        ],
+        "restrictions": {
+          "stagk": [],
+          "stagr": [],
+          "re_restr": [],
+          "readingForms": [
+            {
+              "reb": [
+                "ボタン"
+              ],
+              "re_pri": [
+                "gai1",
+                "ichi1"
+              ]
+            }
+          ]
+        },
+        "spellingForms": [
+          {
+            "keb": [
+              "釦"
+            ],
+            "ke_inf": [
+              "ateji",
+              "rK"
+            ]
+          },
+          {
+            "keb": [
+              "鈕"
+            ],
+            "ke_inf": [
+              "ateji",
+              "rK"
+            ]
+          }
+        ],
+        "registerTags": [
+          "uk"
+        ],
+        "notes": [],
+        "excludedSenseOrdinals": [
+          2
+        ]
+      },
+      "jlptEvidence": {
+        "provider": "YOMITAN_JLPT_VOCAB",
+        "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+        "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+        "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+        "rows": [
+          {
+            "lineNumberOneBased": 571,
+            "rawCsvRow": "1182880,ボタン,,button",
+            "values": [
+              "1182880",
+              "ボタン",
+              "",
+              "button"
+            ]
+          }
+        ],
+        "rawEntSeq": "1182880",
+        "correctedEntSeq": "1123880",
+        "confidence": "HEURISTIC",
+        "candidateLevel": "N5",
+        "placementDecision": "Editorial correction: surface and intended gloss support this N5 word, but the raw overlay points to a different homographic entry. JMdict determines the corrected lexical identity."
+      },
+      "runtimeMapping": {
+        "mappingStatus": "PENDING_LESSON_MAPPING",
+        "skillId": null,
+        "unitSlug": null,
+        "lessonSlug": null
+      },
+      "baselineIdentity": {
+        "skillCode": "n5_vocab_jmdict_1123880",
+        "canonicalAnswers": null,
+        "isNewCanonicalIdentity": true
+      },
+      "duplicateCheck": {
+        "canonicalInventoryItemsScanned": 749,
+        "sameEntryItemIds": [],
+        "decision": "No existing item for corrected entry. New ID, no transfer of legacy history."
+      }
+    },
+    {
+      "itemId": "ee286451-4bc0-5092-a3aa-fe4d470f313b",
+      "entSeq": "1128430",
+      "proposedSkillCode": "n5_vocab_b03_fire_lighting_matches",
+      "surfaceFormText": "マッチ",
+      "kanaDisplayText": "マッチ",
+      "isPublished": false,
+      "identityAction": "NEW_CORRECTED_PENDING_IDENTITY",
+      "senseEvidence": {
+        "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+        "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+        "senseOrdinals": [
+          1
+        ],
+        "selectedGlossesEn": [
+          "match (for lighting a fire)"
+        ],
+        "partsOfSpeech": [
+          {
+            "code": "n",
+            "label": "noun (common) (futsuumeishi)",
+            "senseOrdinal": 1,
+            "inheritedFromSenseOrdinal": null
+          }
+        ],
+        "restrictions": {
+          "stagk": [],
+          "stagr": [],
+          "re_restr": [],
+          "readingForms": [
+            {
+              "reb": [
+                "マッチ"
+              ],
+              "re_pri": [
+                "gai1",
+                "ichi1"
+              ]
+            }
+          ]
+        },
+        "spellingForms": [
+          {
+            "keb": [
+              "燐寸"
+            ],
+            "ke_inf": [
+              "ateji",
+              "rK"
+            ]
+          }
+        ],
+        "registerTags": [
+          "uk"
+        ],
+        "notes": [],
+        "excludedSenseOrdinals": []
+      },
+      "jlptEvidence": {
+        "provider": "YOMITAN_JLPT_VOCAB",
+        "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+        "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+        "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+        "rows": [
+          {
+            "lineNumberOneBased": 592,
+            "rawCsvRow": "2784220,マッチ,,match",
+            "values": [
+              "2784220",
+              "マッチ",
+              "",
+              "match"
+            ]
+          }
+        ],
+        "rawEntSeq": "2784220",
+        "correctedEntSeq": "1128430",
+        "confidence": "HEURISTIC",
+        "candidateLevel": "N5",
+        "placementDecision": "Editorial correction: surface and intended gloss support this N5 word, but the raw overlay points to a different homographic entry. JMdict determines the corrected lexical identity."
+      },
+      "runtimeMapping": {
+        "mappingStatus": "PENDING_LESSON_MAPPING",
+        "skillId": null,
+        "unitSlug": null,
+        "lessonSlug": null
+      },
+      "baselineIdentity": {
+        "skillCode": "n5_vocab_jmdict_1128430",
+        "canonicalAnswers": null,
+        "isNewCanonicalIdentity": true
+      },
+      "duplicateCheck": {
+        "canonicalInventoryItemsScanned": 749,
+        "sameEntryItemIds": [],
+        "decision": "No existing item for corrected entry. New ID, no transfer of legacy history."
+      }
+    }
+  ],
+  "heldItems": [],
+  "resolutions": [
+    {
+      "oldItemId": "2ecdf560-9943-5db0-9c4d-39c2a0e72f70",
+      "oldEntSeq": "2847612",
+      "oldSurfaceFormText": "あれ",
+      "oldEnglishMeaning": "huh?",
+      "disposition": "RETIRED_ALREADY_COVERED",
+      "targetItemId": "27325d16-74f5-5880-a722-55eed6a2cd8c",
+      "targetEntSeq": "1000580",
+      "targetSurfaceFormText": "あれ",
+      "targetSenseOrdinals": [
+        1
+      ],
+      "movesUserHistory": false,
+      "oldRuntimeMapping": {
+        "mappingStatus": "PENDING_LESSON_MAPPING",
+        "skillId": null,
+        "unitSlug": null,
+        "lessonSlug": null
+      },
+      "oldSource": {
+        "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+        "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+        "entSeq": "2847612"
+      },
+      "overlayRow": {
+        "lineNumberOneBased": 42,
+        "rawCsvRow": "2847612,あれ,,that",
+        "values": [
+          "2847612",
+          "あれ",
+          "",
+          "that"
+        ]
+      }
+    },
+    {
+      "oldItemId": "740f0018-2f61-570a-8e1f-a1fe5411302c",
+      "oldEntSeq": "2216120",
+      "oldSurfaceFormText": "これ",
+      "oldEnglishMeaning": "hey",
+      "disposition": "RETIRED_ALREADY_COVERED",
+      "targetItemId": "74d37e86-1fc6-5849-b977-49f0a77a1529",
+      "targetEntSeq": "1628530",
+      "targetSurfaceFormText": "これ",
+      "targetSenseOrdinals": [
+        1
+      ],
+      "movesUserHistory": false,
+      "oldRuntimeMapping": {
+        "mappingStatus": "PENDING_LESSON_MAPPING",
+        "skillId": null,
+        "unitSlug": null,
+        "lessonSlug": null
+      },
+      "oldSource": {
+        "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+        "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+        "entSeq": "2216120"
+      },
+      "overlayRow": {
+        "lineNumberOneBased": 254,
+        "rawCsvRow": "2216120,これ,,This",
+        "values": [
+          "2216120",
+          "これ",
+          "",
+          "This"
+        ]
+      }
+    },
+    {
+      "oldItemId": "ca3cf376-b0f2-57bf-b3ad-21c69a5c62e0",
+      "oldEntSeq": "2216210",
+      "oldSurfaceFormText": "それ",
+      "oldEnglishMeaning": "there!",
+      "disposition": "RETIRED_ALREADY_COVERED",
+      "targetItemId": "9cf31de1-b02e-5113-ad7d-b479fe765564",
+      "targetEntSeq": "1006970",
+      "targetSurfaceFormText": "それ",
+      "targetSenseOrdinals": [
+        1
+      ],
+      "movesUserHistory": false,
+      "oldRuntimeMapping": {
+        "mappingStatus": "PENDING_LESSON_MAPPING",
+        "skillId": null,
+        "unitSlug": null,
+        "lessonSlug": null
+      },
+      "oldSource": {
+        "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+        "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+        "entSeq": "2216210"
+      },
+      "overlayRow": {
+        "lineNumberOneBased": 348,
+        "rawCsvRow": "2216210,それ,,that",
+        "values": [
+          "2216210",
+          "それ",
+          "",
+          "that"
+        ]
+      }
+    },
+    {
+      "oldItemId": "4799b76c-8c17-5aa9-bbb7-c96f734634b3",
+      "oldEntSeq": "2846389",
+      "oldSurfaceFormText": "コップ",
+      "oldEnglishMeaning": "cop",
+      "disposition": "RETIRED_REPLACED",
+      "targetItemId": "f8f66c61-9a6a-5e5a-80bd-258f9b50fb95",
+      "targetEntSeq": "1050390",
+      "targetSurfaceFormText": "コップ",
+      "targetSenseOrdinals": [
+        1
+      ],
+      "movesUserHistory": false,
+      "oldRuntimeMapping": {
+        "mappingStatus": "PENDING_LESSON_MAPPING",
+        "skillId": null,
+        "unitSlug": null,
+        "lessonSlug": null
+      },
+      "oldSource": {
+        "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+        "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+        "entSeq": "2846389"
+      },
+      "overlayRow": {
+        "lineNumberOneBased": 246,
+        "rawCsvRow": "2846389,コップ,,a glass",
+        "values": [
+          "2846389",
+          "コップ",
+          "",
+          "a glass"
+        ]
+      }
+    },
+    {
+      "oldItemId": "4d47d291-c9fd-524f-aaa2-7ff3a469b697",
+      "oldEntSeq": "2546180",
+      "oldSurfaceFormText": "だんだん",
+      "oldEnglishMeaning": "thank you",
+      "disposition": "RETIRED_REPLACED",
+      "targetItemId": "f9201c78-fb57-522d-95a3-cc1002e530d5",
+      "targetEntSeq": "1597350",
+      "targetSurfaceFormText": "だんだん",
+      "targetSenseOrdinals": [
+        1
+      ],
+      "movesUserHistory": false,
+      "oldRuntimeMapping": {
+        "mappingStatus": "PENDING_LESSON_MAPPING",
+        "skillId": null,
+        "unitSlug": null,
+        "lessonSlug": null
+      },
+      "oldSource": {
+        "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+        "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+        "entSeq": "2546180"
+      },
+      "overlayRow": {
+        "lineNumberOneBased": 375,
+        "rawCsvRow": "2546180,だんだん,,gradually",
+        "values": [
+          "2546180",
+          "だんだん",
+          "",
+          "gradually"
+        ]
+      }
+    },
+    {
+      "oldItemId": "e007da8f-ebfc-5d41-9b8a-11373171bbd3",
+      "oldEntSeq": "1182880",
+      "oldSurfaceFormText": "牡丹",
+      "oldEnglishMeaning": "tree peony (Paeonia suffruticosa)",
+      "disposition": "RETIRED_REPLACED",
+      "targetItemId": "ae1a0796-b925-53e9-8644-4d9bac2c2f9c",
+      "targetEntSeq": "1123880",
+      "targetSurfaceFormText": "ボタン",
+      "targetSenseOrdinals": [
+        1
+      ],
+      "movesUserHistory": false,
+      "oldRuntimeMapping": {
+        "mappingStatus": "PENDING_LESSON_MAPPING",
+        "skillId": null,
+        "unitSlug": null,
+        "lessonSlug": null
+      },
+      "oldSource": {
+        "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+        "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+        "entSeq": "1182880"
+      },
+      "overlayRow": {
+        "lineNumberOneBased": 571,
+        "rawCsvRow": "1182880,ボタン,,button",
+        "values": [
+          "1182880",
+          "ボタン",
+          "",
+          "button"
+        ]
+      }
+    },
+    {
+      "oldItemId": "c6dc96d7-9ce0-5396-bee2-383b700687ca",
+      "oldEntSeq": "2784220",
+      "oldSurfaceFormText": "マッチ",
+      "oldEnglishMeaning": "match (contest)",
+      "disposition": "RETIRED_REPLACED",
+      "targetItemId": "ee286451-4bc0-5092-a3aa-fe4d470f313b",
+      "targetEntSeq": "1128430",
+      "targetSurfaceFormText": "マッチ",
+      "targetSenseOrdinals": [
+        1
+      ],
+      "movesUserHistory": false,
+      "oldRuntimeMapping": {
+        "mappingStatus": "PENDING_LESSON_MAPPING",
+        "skillId": null,
+        "unitSlug": null,
+        "lessonSlug": null
+      },
+      "oldSource": {
+        "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+        "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+        "entSeq": "2784220"
+      },
+      "overlayRow": {
+        "lineNumberOneBased": 592,
+        "rawCsvRow": "2784220,マッチ,,match",
+        "values": [
+          "2784220",
+          "マッチ",
+          "",
+          "match"
+        ]
+      }
+    }
+  ],
+  "sourceEntries": {
+    "2847612": "<entry>\n<ent_seq>2847612</ent_seq>\n<r_ele>\n<reb>あれ</reb>\n</r_ele>\n<r_ele>\n<reb>あれっ</reb>\n</r_ele>\n<r_ele>\n<reb>あれえ</reb>\n</r_ele>\n<r_ele>\n<reb>あれー</reb>\n</r_ele>\n<r_ele>\n<reb>あり</reb>\n<re_inf>&rk;</re_inf>\n</r_ele>\n<sense>\n<pos>&int;</pos>\n<s_inf>indicates surprise, suspicion, etc.</s_inf>\n<gloss>huh?</gloss>\n<gloss>eh?</gloss>\n<gloss>what?</gloss>\n<gloss>oh</gloss>\n<gloss>hey!</gloss>\n<gloss>look!</gloss>\n<gloss>listen!</gloss>\n</sense>\n<sense>\n<stagr>あれえ</stagr>\n<stagr>あれー</stagr>\n<pos>&int;</pos>\n<misc>&fem;</misc>\n<gloss>help!</gloss>\n</sense>\n</entry>",
+    "1000580": "<entry>\n<ent_seq>1000580</ent_seq>\n<k_ele>\n<keb>彼</keb>\n<ke_inf>&rK;</ke_inf>\n</k_ele>\n<k_ele>\n<keb>彼れ</keb>\n<ke_inf>&rK;</ke_inf>\n</k_ele>\n<r_ele>\n<reb>あれ</reb>\n<re_pri>ichi1</re_pri>\n</r_ele>\n<r_ele>\n<reb>アレ</reb>\n<re_inf>&sk;</re_inf>\n</r_ele>\n<sense>\n<pos>&pn;</pos>\n<xref>これ・1</xref>\n<xref>それ・1</xref>\n<xref>どれ・1</xref>\n<misc>&uk;</misc>\n<s_inf>indicating something distant from both speaker and listener (in space, time or psychologically), or something understood without naming it directly</s_inf>\n<gloss>that</gloss>\n<gloss>that thing</gloss>\n</sense>\n<sense>\n<pos>&pn;</pos>\n<misc>&uk;</misc>\n<s_inf>used to refer to one's equals or inferiors</s_inf>\n<gloss>that person</gloss>\n</sense>\n<sense>\n<pos>&pn;</pos>\n<misc>&uk;</misc>\n<gloss>then</gloss>\n<gloss>that time</gloss>\n</sense>\n<sense>\n<pos>&pn;</pos>\n<misc>&uk;</misc>\n<gloss>that place (over there)</gloss>\n</sense>\n<sense>\n<pos>&n;</pos>\n<misc>&col;</misc>\n<misc>&euph;</misc>\n<misc>&uk;</misc>\n<s_inf>oft. written as アレ</s_inf>\n<gloss>down there (i.e. one's genitals)</gloss>\n</sense>\n<sense>\n<pos>&n;</pos>\n<misc>&col;</misc>\n<misc>&euph;</misc>\n<misc>&uk;</misc>\n<s_inf>oft. written as アレ</s_inf>\n<gloss>period</gloss>\n<gloss>menses</gloss>\n</sense>\n</entry>",
+    "2216120": "<entry>\n<ent_seq>2216120</ent_seq>\n<r_ele>\n<reb>これ</reb>\n</r_ele>\n<sense>\n<pos>&int;</pos>\n<s_inf>used to get the attention of one's equals or inferiors</s_inf>\n<gloss>hey</gloss>\n<gloss>oi</gloss>\n<gloss>come on</gloss>\n<gloss>look</gloss>\n<gloss>listen</gloss>\n</sense>\n</entry>",
+    "1628530": "<entry>\n<ent_seq>1628530</ent_seq>\n<k_ele>\n<keb>此れ</keb>\n<ke_inf>&rK;</ke_inf>\n</k_ele>\n<k_ele>\n<keb>是</keb>\n<ke_inf>&rK;</ke_inf>\n</k_ele>\n<k_ele>\n<keb>之</keb>\n<ke_inf>&rK;</ke_inf>\n</k_ele>\n<k_ele>\n<keb>維</keb>\n<ke_inf>&rK;</ke_inf>\n</k_ele>\n<k_ele>\n<keb>惟</keb>\n<ke_inf>&rK;</ke_inf>\n</k_ele>\n<k_ele>\n<keb>此</keb>\n<ke_inf>&sK;</ke_inf>\n</k_ele>\n<k_ele>\n<keb>是れ</keb>\n<ke_inf>&sK;</ke_inf>\n</k_ele>\n<k_ele>\n<keb>之れ</keb>\n<ke_inf>&sK;</ke_inf>\n</k_ele>\n<r_ele>\n<reb>これ</reb>\n<re_pri>ichi1</re_pri>\n</r_ele>\n<sense>\n<pos>&pn;</pos>\n<xref>それ・1</xref>\n<xref>あれ・1</xref>\n<xref>どれ・1</xref>\n<misc>&uk;</misc>\n<s_inf>indicating an item near the speaker, the action of the speaker, or the current topic</s_inf>\n<gloss>this</gloss>\n<gloss>this one</gloss>\n</sense>\n<sense>\n<pos>&pn;</pos>\n<misc>&uk;</misc>\n<s_inf>usu. indicating someone in one's in-group</s_inf>\n<gloss>this person</gloss>\n</sense>\n<sense>\n<pos>&pn;</pos>\n<misc>&uk;</misc>\n<s_inf>as これから, これまで, etc.</s_inf>\n<gloss>now</gloss>\n<gloss>this point (in time)</gloss>\n</sense>\n<sense>\n<pos>&pn;</pos>\n<misc>&dated;</misc>\n<misc>&uk;</misc>\n<gloss>here</gloss>\n</sense>\n<sense>\n<pos>&adv;</pos>\n<misc>&form;</misc>\n<misc>&uk;</misc>\n<gloss>used to stress the subject of a sentence</gloss>\n</sense>\n<sense>\n<pos>&pn;</pos>\n<misc>&arch;</misc>\n<gloss>I</gloss>\n<gloss>me</gloss>\n</sense>\n</entry>",
+    "2216210": "<entry>\n<ent_seq>2216210</ent_seq>\n<r_ele>\n<reb>それ</reb>\n</r_ele>\n<r_ele>\n<reb>それっ</reb>\n</r_ele>\n<sense>\n<stagr>それ</stagr>\n<pos>&int;</pos>\n<s_inf>used to call someone's attention to something</s_inf>\n<gloss>there!</gloss>\n<gloss>look!</gloss>\n</sense>\n<sense>\n<pos>&int;</pos>\n<s_inf>used to stir someone to action or fire oneself up</s_inf>\n<gloss>go on!</gloss>\n<gloss>right!</gloss>\n<gloss>here goes!</gloss>\n</sense>\n</entry>",
+    "1006970": "<entry>\n<ent_seq>1006970</ent_seq>\n<k_ele>\n<keb>其れ</keb>\n<ke_inf>&rK;</ke_inf>\n</k_ele>\n<k_ele>\n<keb>其</keb>\n<ke_inf>&sK;</ke_inf>\n</k_ele>\n<r_ele>\n<reb>それ</reb>\n<re_pri>ichi1</re_pri>\n</r_ele>\n<sense>\n<pos>&pn;</pos>\n<xref>これ・1</xref>\n<xref>あれ・1</xref>\n<xref>どれ・1</xref>\n<misc>&uk;</misc>\n<s_inf>indicating an item or person near the listener, the action of the listener, or something on their mind</s_inf>\n<gloss>that</gloss>\n<gloss>it</gloss>\n</sense>\n<sense>\n<pos>&pn;</pos>\n<misc>&uk;</misc>\n<gloss>then</gloss>\n<gloss>that point (in time)</gloss>\n<gloss>that time</gloss>\n</sense>\n<sense>\n<pos>&pn;</pos>\n<misc>&arch;</misc>\n<s_inf>indicating a place near the listener</s_inf>\n<gloss>there</gloss>\n</sense>\n<sense>\n<pos>&pn;</pos>\n<misc>&arch;</misc>\n<gloss>you</gloss>\n</sense>\n</entry>",
+    "2846389": "<entry>\n<ent_seq>2846389</ent_seq>\n<r_ele>\n<reb>コップ</reb>\n</r_ele>\n<sense>\n<pos>&n;</pos>\n<misc>&sl;</misc>\n<misc>&rare;</misc>\n<gloss>cop</gloss>\n<gloss>police officer</gloss>\n</sense>\n</entry>",
+    "1050390": "<entry>\n<ent_seq>1050390</ent_seq>\n<k_ele>\n<keb>洋杯</keb>\n<ke_inf>&rK;</ke_inf>\n</k_ele>\n<k_ele>\n<keb>洋盃</keb>\n<ke_inf>&rK;</ke_inf>\n</k_ele>\n<k_ele>\n<keb>骨杯</keb>\n<ke_inf>&ateji;</ke_inf>\n<ke_inf>&rK;</ke_inf>\n</k_ele>\n<r_ele>\n<reb>コップ</reb>\n<re_pri>gai1</re_pri>\n<re_pri>ichi1</re_pri>\n</r_ele>\n<r_ele>\n<reb>コツフ</reb>\n<re_inf>&sk;</re_inf>\n</r_ele>\n<sense>\n<pos>&n;</pos>\n<misc>&uk;</misc>\n<lsource xml:lang=\"por\">copo</lsource>\n<lsource xml:lang=\"dut\">kop</lsource>\n<gloss>glass (drinking vessel)</gloss>\n<gloss>tumbler</gloss>\n</sense>\n<sense>\n<pos>&n;</pos>\n<field>&cards;</field>\n<misc>&uk;</misc>\n<s_inf>also written as コツフ</s_inf>\n<gloss>cups (suit)</gloss>\n</sense>\n</entry>",
+    "2546180": "<entry>\n<ent_seq>2546180</ent_seq>\n<r_ele>\n<reb>だんだん</reb>\n</r_ele>\n<sense>\n<pos>&int;</pos>\n<s_inf>Izumo dialect</s_inf>\n<gloss>thank you</gloss>\n</sense>\n</entry>",
+    "1597350": "<entry>\n<ent_seq>1597350</ent_seq>\n<k_ele>\n<keb>段々</keb>\n<ke_pri>ichi1</ke_pri>\n<ke_pri>news2</ke_pri>\n<ke_pri>nf38</ke_pri>\n</k_ele>\n<k_ele>\n<keb>段段</keb>\n</k_ele>\n<r_ele>\n<reb>だんだん</reb>\n<re_pri>ichi1</re_pri>\n<re_pri>news2</re_pri>\n<re_pri>nf38</re_pri>\n</r_ele>\n<sense>\n<pos>&adv;</pos>\n<pos>&adv-to;</pos>\n<misc>&uk;</misc>\n<gloss>gradually</gloss>\n<gloss>by degrees</gloss>\n<gloss>little by little</gloss>\n<gloss>more and more</gloss>\n<gloss>increasingly</gloss>\n</sense>\n<sense>\n<pos>&n;</pos>\n<gloss>steps</gloss>\n<gloss>stairs</gloss>\n<gloss>staircase</gloss>\n<gloss>terrace</gloss>\n</sense>\n</entry>",
+    "1182880": "<entry>\n<ent_seq>1182880</ent_seq>\n<k_ele>\n<keb>牡丹</keb>\n<ke_pri>news2</ke_pri>\n<ke_pri>nf30</ke_pri>\n</k_ele>\n<r_ele>\n<reb>ぼたん</reb>\n<re_pri>news2</re_pri>\n<re_pri>nf30</re_pri>\n</r_ele>\n<r_ele>\n<reb>ぼうたん</reb>\n</r_ele>\n<r_ele>\n<reb>ボタン</reb>\n<re_nokanji/>\n</r_ele>\n<sense>\n<pos>&n;</pos>\n<misc>&uk;</misc>\n<gloss>tree peony (Paeonia suffruticosa)</gloss>\n<gloss>moutan</gloss>\n</sense>\n<sense>\n<stagr>ぼたん</stagr>\n<pos>&n;</pos>\n<gloss>wild boar (meat)</gloss>\n</sense>\n</entry>",
+    "1123880": "<entry>\n<ent_seq>1123880</ent_seq>\n<k_ele>\n<keb>釦</keb>\n<ke_inf>&ateji;</ke_inf>\n<ke_inf>&rK;</ke_inf>\n</k_ele>\n<k_ele>\n<keb>鈕</keb>\n<ke_inf>&ateji;</ke_inf>\n<ke_inf>&rK;</ke_inf>\n</k_ele>\n<r_ele>\n<reb>ボタン</reb>\n<re_pri>gai1</re_pri>\n<re_pri>ichi1</re_pri>\n</r_ele>\n<sense>\n<pos>&n;</pos>\n<misc>&uk;</misc>\n<lsource xml:lang=\"por\">botão</lsource>\n<gloss>button (clothing)</gloss>\n</sense>\n<sense>\n<pos>&n;</pos>\n<misc>&uk;</misc>\n<gloss>push-button</gloss>\n<gloss>button</gloss>\n</sense>\n</entry>",
+    "2784220": "<entry>\n<ent_seq>2784220</ent_seq>\n<r_ele>\n<reb>マッチ</reb>\n</r_ele>\n<sense>\n<pos>&n;</pos>\n<gloss>match (contest)</gloss>\n</sense>\n<sense>\n<pos>&n;</pos>\n<pos>&vs;</pos>\n<pos>&vi;</pos>\n<gloss>matching (with)</gloss>\n<gloss>going well (with)</gloss>\n</sense>\n</entry>",
+    "1128430": "<entry>\n<ent_seq>1128430</ent_seq>\n<k_ele>\n<keb>燐寸</keb>\n<ke_inf>&ateji;</ke_inf>\n<ke_inf>&rK;</ke_inf>\n</k_ele>\n<r_ele>\n<reb>マッチ</reb>\n<re_pri>gai1</re_pri>\n<re_pri>ichi1</re_pri>\n</r_ele>\n<sense>\n<pos>&n;</pos>\n<misc>&uk;</misc>\n<gloss>match (for lighting a fire)</gloss>\n</sense>\n</entry>"
+  },
+  "provenanceNotes": [
+    "Curator inspected complete XML entries and verbatim CSV rows supplied in text because subagent filesystem tools were unavailable. Parent independently extracted the pinned archives and checked hashes, inventory duplicates, source form restrictions and published lesson ownership. No claim of subagent filesystem/hash execution.",
+    "Old identities retain their original meanings/history and become inactive. Four new dictionary identities use distinct deterministic pending IDs; three existing lesson identities are reused without owner remapping.",
+    "N5 classification is an editorial correction of misleading overlay entry links, not a claim that the raw CSV IDs match the corrected dictionary entries."
+  ]
+}

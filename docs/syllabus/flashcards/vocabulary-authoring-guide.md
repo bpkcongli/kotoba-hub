@@ -7,7 +7,24 @@ Panduan `VOC-01` menyiapkan kurasi, authoring Inggris/Indonesia, dan review voca
 Jalur skill mandiri dan promosi eksplisit ditetapkan pada
 [kontrak vocabulary mandiri](standalone-vocabulary-contract.md). Tabel berikut
 mencatat baseline VOC-01; draft curator/maker tetap bukan input importer. Integrasi
-VOC-03 harus mengompilasi draft reviewed ke manifest v2 dan memakai ID pending existing.
+VOC-03 mengompilasi draft reviewed ke manifest v2 dan mempertahankan identitas pending.
+Koreksi entry yang berbeda mengikuti jalur retirement/identitas baru yang direview,
+seperti [resolusi hold](vocabulary-held-identity-resolution.md); jangan mengganti
+makna pada ID lama atau memindahkan histori.
+
+Batch pertama VOC-03 tersedia pada [laporan integrasi](vocabulary-batch-01-implementation.md):
+enam item dikurasi dan di-author bilingual, lima diterima pada manifest runtime,
+dan satu ditahan karena collision opsi global. Draft tetap unpublished; manifest
+reviewed terpisah berada di `content/flashcards/vocabulary-groups/manifest.v2.json`.
+
+Batch kedua mencakup seluruh 581 ID yang belum dipromosikan. Review independen
+raw source/file menerima 574 paket bilingual dan 146 kelompok; hasilnya sudah
+dikompilasi ke manifest runtime. Tujuh hold identitas/entry/sense sumber tetap
+pending pada akhir batch kedua. Batch ketiga meresolusi ketujuhnya: tiga
+makna memakai item lesson existing, empat memakai identitas baru yang benar,
+dan tujuh ID salah tetap tersimpan inactive. Runtime kini 151 kelompok/583 anggota
+mandiri dengan revisi 4/4 dan nol eligible pending. Lihat [resolusi hold](vocabulary-held-identity-resolution.md), [laporan integrasi
+batch kedua](vocabulary-batch-02-implementation.md) dan [draft/arsip review](vocabulary-batch-02-draft.md).
 
 ## Batas antara kandidat dan runtime
 

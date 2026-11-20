@@ -1,0 +1,599 @@
+{
+  "schemaVersion": "2.0.0",
+  "contentRevision": 2,
+  "sourceRefs": [
+    "content/flashcards/system-decks/vocabulary-foundation.json",
+    "KOTOBAHUB_INTERNAL:BIL-05",
+    "content/flashcards/system-decks/localizations.v2.json",
+    "content/flashcards/drafts/voc-03-batch-01/curation.json",
+    "content/flashcards/drafts/voc-03-batch-01/content.json",
+    "content/flashcards/drafts/voc-03-batch-01/review.md"
+  ],
+  "items": {
+    "651b36d8-0cb6-525f-82e7-2d038cac6063": {
+      "surfaceFormText": "今日は",
+      "en": "hello",
+      "id": "halo"
+    },
+    "fc44c911-785f-569f-b538-8095b94fcebb": {
+      "surfaceFormText": "お早う",
+      "en": "good morning",
+      "id": "selamat pagi"
+    },
+    "05020293-eee5-5a2d-a572-55baeda658cc": {
+      "surfaceFormText": "今晩は",
+      "en": "good evening",
+      "id": "selamat malam"
+    },
+    "7a19e29d-e983-5e26-822f-1ff67a650932": {
+      "surfaceFormText": "有難う",
+      "en": "thank you",
+      "id": "terima kasih"
+    },
+    "3927122b-a9fa-594e-b0c6-ff932cb238bf": {
+      "surfaceFormText": "済みません",
+      "en": "excuse me",
+      "id": "permisi"
+    },
+    "f2c3eb54-7c71-5b25-ab97-7420a5771c85": {
+      "surfaceFormText": "初めまして",
+      "en": "nice to meet you",
+      "id": "salam kenal"
+    },
+    "d1e6fbf8-b917-5ac9-8f6b-8254286ff74b": {
+      "surfaceFormText": "どうぞ",
+      "en": "please",
+      "id": "silakan"
+    },
+    "a4aeb03a-f15d-5dee-8acc-a402851845b1": {
+      "surfaceFormText": "こちらこそ",
+      "en": "it is I who should say so",
+      "id": "justru saya yang seharusnya mengatakannya"
+    },
+    "3e9711b8-7c82-5d71-add2-1a59d43cd755": {
+      "surfaceFormText": "学生",
+      "en": "student (esp. a university student)",
+      "id": "pelajar (terutama mahasiswa)"
+    },
+    "7d9100ec-71be-5057-b845-b869da897175": {
+      "surfaceFormText": "先生",
+      "en": "teacher",
+      "id": "guru"
+    },
+    "df82ad74-433e-51cb-8115-0bddec1c6a3d": {
+      "surfaceFormText": "会社員",
+      "en": "company employee",
+      "id": "karyawan perusahaan"
+    },
+    "06e3392a-5592-5d89-aae4-0ef689547082": {
+      "surfaceFormText": "日本人",
+      "en": "Japanese person",
+      "id": "orang Jepang"
+    },
+    "1aa2d5a5-5830-5133-b776-73447c40fac0": {
+      "surfaceFormText": "友達",
+      "en": "friend",
+      "id": "teman"
+    },
+    "aca8df50-b49b-54be-bea0-c143fb00582e": {
+      "surfaceFormText": "本",
+      "en": "book",
+      "id": "buku"
+    },
+    "fee3e369-aa31-54c1-af7d-90fbd09ea323": {
+      "surfaceFormText": "机",
+      "en": "desk",
+      "id": "meja"
+    },
+    "8335dfa4-86e6-575b-86cc-fb65994b5552": {
+      "surfaceFormText": "椅子",
+      "en": "chair",
+      "id": "kursi"
+    },
+    "b8422c97-4509-5bab-b6f7-fd653399b73c": {
+      "surfaceFormText": "人",
+      "en": "person",
+      "id": "orang"
+    },
+    "d19c887c-8082-525e-b200-f8002073a90b": {
+      "surfaceFormText": "車",
+      "en": "car",
+      "id": "mobil"
+    },
+    "9e604941-e9ea-5db1-acbb-b942a18a3a14": {
+      "surfaceFormText": "学校",
+      "en": "school",
+      "id": "sekolah"
+    },
+    "80158f91-762e-5a40-bd9a-d1454083d8ba": {
+      "surfaceFormText": "図書館",
+      "en": "library",
+      "id": "perpustakaan"
+    },
+    "66b3725d-1dc4-5f2f-ba50-3a3c679c30ab": {
+      "surfaceFormText": "家",
+      "en": "house; home",
+      "id": "rumah"
+    },
+    "72312c48-a416-5cc7-9687-2f8a289bed64": {
+      "surfaceFormText": "私",
+      "en": "I; me",
+      "id": "saya"
+    },
+    "82d51bca-e20c-513a-b1e2-a48d8ebd347b": {
+      "surfaceFormText": "家",
+      "en": "house; home",
+      "id": "rumah"
+    },
+    "cacf415d-2232-53b0-954d-ac82e8b02459": {
+      "surfaceFormText": "学校",
+      "en": "school",
+      "id": "sekolah"
+    },
+    "5278a917-c950-59e0-ab23-5dc219744b3f": {
+      "surfaceFormText": "図書館",
+      "en": "library",
+      "id": "perpustakaan"
+    },
+    "1b310473-75a2-52ec-965c-c01808ca6c86": {
+      "surfaceFormText": "駅",
+      "en": "station",
+      "id": "stasiun"
+    },
+    "c3f1b0f8-576e-54c9-9a52-fcd414838c38": {
+      "surfaceFormText": "電車",
+      "en": "train",
+      "id": "kereta listrik"
+    },
+    "f8c48ef4-61f7-5a95-96cc-5fefff656d48": {
+      "surfaceFormText": "車",
+      "en": "car",
+      "id": "mobil"
+    },
+    "1d92846f-0d03-5a94-99b1-d8a24520e8e3": {
+      "surfaceFormText": "済みません",
+      "en": "excuse me",
+      "id": "permisi"
+    },
+    "4ee08e71-a1d8-5ed5-8cc0-b80cf510633b": {
+      "surfaceFormText": "済みません",
+      "en": "excuse me",
+      "id": "permisi"
+    },
+    "910fd4ed-6616-510f-adf9-8f88500dd85b": {
+      "surfaceFormText": "犬",
+      "en": "dog",
+      "id": "anjing"
+    },
+    "f63109d8-37f2-5732-a733-85f87c8678ee": {
+      "surfaceFormText": "銀行",
+      "en": "bank",
+      "id": "bank"
+    },
+    "d888338b-e191-571e-81f1-2ee779d48e67": {
+      "surfaceFormText": "電話",
+      "en": "telephone call",
+      "id": "panggilan telepon"
+    },
+    "2ab06117-0f42-591f-83d2-ef777362789c": {
+      "surfaceFormText": "名前",
+      "en": "name",
+      "id": "nama"
+    },
+    "ba41e481-3919-5f7f-9cee-b7369b69e1ef": {
+      "surfaceFormText": "猫",
+      "en": "cat",
+      "id": "kucing"
+    },
+    "ad16929d-4e24-5005-9116-614fed1f4575": {
+      "surfaceFormText": "病院",
+      "en": "hospital",
+      "id": "rumah sakit"
+    },
+    "f2d87a4c-a647-5c0a-86a2-77130656a98b": {
+      "surfaceFormText": "水",
+      "en": "water",
+      "id": "air"
+    },
+    "4bc58381-1598-5a1a-bf24-9811a52a3aaa": {
+      "surfaceFormText": "私",
+      "en": "I; me",
+      "id": "saya"
+    },
+    "0d5bab28-12d4-5428-b233-0378dce40357": {
+      "surfaceFormText": "鉛筆",
+      "en": "pencil",
+      "id": "pensil"
+    },
+    "e0eea2d8-307b-5d95-882c-bf42f6169801": {
+      "surfaceFormText": "紙",
+      "en": "paper",
+      "id": "kertas"
+    },
+    "4cf91acd-62fa-52d3-8b05-e540af15b45d": {
+      "surfaceFormText": "切手",
+      "en": "postage stamp",
+      "id": "prangko"
+    },
+    "734bc421-0075-5336-9773-0e89276749ad": {
+      "surfaceFormText": "手紙",
+      "en": "letter (written message)",
+      "id": "surat"
+    },
+    "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14": {
+      "surfaceFormText": "封筒",
+      "en": "envelope",
+      "id": "amplop"
+    }
+  },
+  "unitTitles": {
+    "n4-comparison-quantity-and-limits": "Perbandingan, Jumlah, dan Batas",
+    "n4-explanations-hearsay-and-uncertainty": "Penjelasan, Kabar, dan Ketidakpastian",
+    "n4-giving-receiving-and-favors": "Memberi, Menerima, dan Meminta Bantuan",
+    "n4-intention-ability-and-experience": "Niat, Kemampuan, dan Pengalaman",
+    "n4-respectful-language-and-social-context": "Bahasa Hormat dan Konteks Sosial",
+    "n4-sequencing-and-ongoing-actions": "Urutan dan Tindakan yang Sedang Berlangsung",
+    "n5-daily-verbs-and-routines": "Kata Kerja dan Rutinitas Sehari-hari",
+    "n5-descriptions-and-preferences": "Deskripsi dan Kesukaan",
+    "n5-movement-existence-and-location": "Pergerakan, Keberadaan, dan Lokasi",
+    "n5-self-introduction-and-copula": "Perkenalan Diri dan Kopula",
+    "n5-te-form-and-everyday-functions": "Bentuk Te dan Penggunaan Sehari-hari",
+    "n5-this-that-and-place-reference": "Ini, Itu, dan Rujukan Tempat",
+    "n5-time-counting-and-schedules": "Waktu, Menghitung, dan Jadwal"
+  },
+  "decks": {
+    "c9df57c2-8db4-56e0-aabc-41ef36c913de": {
+      "en": "Hiragana Vowels And K Row Kana Foundation",
+      "id": "Hiragana: Vokal dan Baris K"
+    },
+    "b44dfe60-f8ca-53c4-99e9-c340400a1f9e": {
+      "en": "Hiragana S T N Row Kana Foundation",
+      "id": "Hiragana: Baris S, T, dan N"
+    },
+    "7004fe00-498d-5e40-8850-12e9a93b9ca2": {
+      "en": "Hiragana H M Y R W Row Kana Foundation",
+      "id": "Hiragana: Baris H, M, Y, R, dan W"
+    },
+    "347fe0dc-05c3-543e-9ac5-dd654f4b7503": {
+      "en": "Hiragana Dakuten Handakuten And Small Tsu Kana Foundation",
+      "id": "Hiragana: Dakuten, Handakuten, dan Tsu Kecil"
+    },
+    "be4c83a5-8df4-5cc3-99b5-20dec1b90649": {
+      "en": "Katakana Core Rows Kana Foundation",
+      "id": "Katakana: Baris Dasar"
+    },
+    "b6275d59-1d91-549a-9711-e4baa59b5a4a": {
+      "en": "Katakana Voiced Combos And Script Switch Kana Foundation",
+      "id": "Katakana: Bunyi Bersuara, Gabungan, dan Pergantian Aksara"
+    },
+    "a3dc7ad9-79a4-5c4d-b363-dadf733063d2": {
+      "en": "N5 Self Introduction And Copula Vocabulary Part 1",
+      "id": "Kosakata N5: Perkenalan Diri dan Kopula — Bagian 1"
+    },
+    "544a9dc1-c415-5b59-b3ae-41bba083772d": {
+      "en": "N5 Self Introduction And Copula Vocabulary Part 2",
+      "id": "Kosakata N5: Perkenalan Diri dan Kopula — Bagian 2"
+    },
+    "bce75d2e-6806-5f7f-95b8-b7020fd1f728": {
+      "en": "N5 This, That, And Place Reference Vocabulary Part 1",
+      "id": "Kosakata N5: Ini, Itu, dan Rujukan Tempat — Bagian 1"
+    },
+    "47bbc96b-439e-5ab9-ae4e-36da87f75bb4": {
+      "en": "N5 This, That, And Place Reference Vocabulary Part 2",
+      "id": "Kosakata N5: Ini, Itu, dan Rujukan Tempat — Bagian 2"
+    },
+    "912131bd-0399-5418-8869-d7932c1eb9f6": {
+      "en": "N5 This, That, And Place Reference Vocabulary Part 3",
+      "id": "Kosakata N5: Ini, Itu, dan Rujukan Tempat — Bagian 3"
+    },
+    "b83798ad-5af0-55fb-9364-1c74a60b90a6": {
+      "en": "N5 This, That, And Place Reference Vocabulary Part 4",
+      "id": "Kosakata N5: Ini, Itu, dan Rujukan Tempat — Bagian 4"
+    },
+    "af81d7ff-5930-5f0d-bb55-9a04d2e20e7d": {
+      "en": "N5 Daily Verbs And Routines Vocabulary",
+      "id": "Kosakata N5: Kata Kerja dan Rutinitas Sehari-hari"
+    },
+    "64e6cfb3-0001-5cde-a394-b77ac90467b4": {
+      "en": "N5 Descriptions And Preferences Vocabulary Part 1",
+      "id": "Kosakata N5: Deskripsi dan Kesukaan — Bagian 1"
+    },
+    "03d87014-97de-5941-a8dc-89c73d5f0490": {
+      "en": "N5 Descriptions And Preferences Vocabulary Part 2",
+      "id": "Kosakata N5: Deskripsi dan Kesukaan — Bagian 2"
+    },
+    "c02e6527-5ddc-50e9-80a5-582f7fc46a71": {
+      "en": "N5 Time, Counting, And Schedules Vocabulary Part 1",
+      "id": "Kosakata N5: Waktu, Menghitung, dan Jadwal — Bagian 1"
+    },
+    "08908d11-4036-5c04-a3c6-158512123e44": {
+      "en": "N5 Time, Counting, And Schedules Vocabulary Part 2",
+      "id": "Kosakata N5: Waktu, Menghitung, dan Jadwal — Bagian 2"
+    },
+    "feaeb30b-1acd-5897-8961-58341812663c": {
+      "en": "N5 Time, Counting, And Schedules Vocabulary Part 3",
+      "id": "Kosakata N5: Waktu, Menghitung, dan Jadwal — Bagian 3"
+    },
+    "051cb7e9-dd84-570f-b4fc-e4dbb2eb8309": {
+      "en": "N5 Movement, Existence, And Location Vocabulary Part 1",
+      "id": "Kosakata N5: Pergerakan, Keberadaan, dan Lokasi — Bagian 1"
+    },
+    "2b398188-94b9-587b-be1c-6fd5ca0c2bc8": {
+      "en": "N5 Movement, Existence, And Location Vocabulary Part 2",
+      "id": "Kosakata N5: Pergerakan, Keberadaan, dan Lokasi — Bagian 2"
+    },
+    "6cec2b8a-1440-5b82-98cb-17acb93382bb": {
+      "en": "N5 Te-form And Everyday Functions Vocabulary",
+      "id": "Kosakata N5: Bentuk Te dan Penggunaan Sehari-hari"
+    },
+    "b3d0ef0d-b5a9-5430-9a9b-fe3a829e3636": {
+      "en": "N4 Intention, Ability, And Experience Vocabulary",
+      "id": "Kosakata N4: Niat, Kemampuan, dan Pengalaman"
+    },
+    "473a731c-6408-53c7-8089-e53b7f73e36a": {
+      "en": "N4 Giving, Receiving, And Favors Vocabulary Part 1",
+      "id": "Kosakata N4: Memberi, Menerima, dan Meminta Bantuan — Bagian 1"
+    },
+    "7253c1ca-6ef6-5473-8b7a-e606d8020223": {
+      "en": "N4 Giving, Receiving, And Favors Vocabulary Part 2",
+      "id": "Kosakata N4: Memberi, Menerima, dan Meminta Bantuan — Bagian 2"
+    },
+    "1f0ba7a7-6012-5b77-b0f1-359a6aabf764": {
+      "en": "N4 Sequencing And Ongoing Actions Vocabulary",
+      "id": "Kosakata N4: Urutan dan Tindakan yang Sedang Berlangsung"
+    },
+    "9721e9d4-143d-5dbb-a63f-4dea228d11e3": {
+      "en": "N4 Comparison, Quantity, And Limits Vocabulary",
+      "id": "Kosakata N4: Perbandingan, Jumlah, dan Batas"
+    },
+    "c20fd24f-ab22-5f3e-9b7a-7aa657c2d856": {
+      "en": "N4 Explanations, Hearsay, And Uncertainty Vocabulary Part 1",
+      "id": "Kosakata N4: Penjelasan, Kabar, dan Ketidakpastian — Bagian 1"
+    },
+    "d9c9ac29-650c-51da-97cf-1a4197c3bbb0": {
+      "en": "N4 Explanations, Hearsay, And Uncertainty Vocabulary Part 2",
+      "id": "Kosakata N4: Penjelasan, Kabar, dan Ketidakpastian — Bagian 2"
+    },
+    "043b28cf-49ef-54db-ba00-6d413461f3cb": {
+      "en": "N4 Respectful Language And Social Context Vocabulary",
+      "id": "Kosakata N4: Bahasa Hormat dan Konteks Sosial"
+    },
+    "10d64389-9f6b-5fdb-b521-ee5612ad62ba": {
+      "en": "N5 Candidate Vocabulary Backlog Part 1",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 1"
+    },
+    "745f0bde-84ae-58da-a572-a8036ea94600": {
+      "en": "N5 Candidate Vocabulary Backlog Part 2",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 2"
+    },
+    "4c8f0dfb-06f9-57ca-bb87-8e4320f4a79d": {
+      "en": "N5 Candidate Vocabulary Backlog Part 3",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 3"
+    },
+    "647386c9-fa38-545e-a0e8-6c37254a98ca": {
+      "en": "N5 Candidate Vocabulary Backlog Part 4",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 4"
+    },
+    "ac64177a-8d96-5655-ba4a-225b1213415d": {
+      "en": "N5 Candidate Vocabulary Backlog Part 5",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 5"
+    },
+    "6b9b764c-0097-5fb4-b46d-b8871900cd82": {
+      "en": "N5 Candidate Vocabulary Backlog Part 6",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 6"
+    },
+    "7888c423-816d-50ac-b9fd-009dec7f9b6c": {
+      "en": "N5 Candidate Vocabulary Backlog Part 7",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 7"
+    },
+    "6f5ea16b-3dda-5ad9-818c-daa1ba3bdcd3": {
+      "en": "N5 Candidate Vocabulary Backlog Part 8",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 8"
+    },
+    "501c464b-35e5-5250-bc34-23d6b9e6d1cf": {
+      "en": "N5 Candidate Vocabulary Backlog Part 9",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 9"
+    },
+    "7d64a5e3-d4ae-5e56-bf76-6dfd0840b9d7": {
+      "en": "N5 Candidate Vocabulary Backlog Part 10",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 10"
+    },
+    "d4eb03d6-9e53-5904-bc48-c7a62b7685fd": {
+      "en": "N5 Candidate Vocabulary Backlog Part 11",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 11"
+    },
+    "75883c62-0d9e-5062-be2a-20a1af49e030": {
+      "en": "N5 Candidate Vocabulary Backlog Part 12",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 12"
+    },
+    "78af4586-5f8b-5af9-ab9c-3d226a66fa3d": {
+      "en": "N5 Candidate Vocabulary Backlog Part 13",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 13"
+    },
+    "e131247b-683c-5bae-843a-27919850db39": {
+      "en": "N5 Candidate Vocabulary Backlog Part 14",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 14"
+    },
+    "10f615a2-d17a-5ecd-bd2d-e6978bdeb99b": {
+      "en": "N5 Candidate Vocabulary Backlog Part 15",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 15"
+    },
+    "7800d6c0-5286-540e-b2d0-4a62a8878045": {
+      "en": "N5 Candidate Vocabulary Backlog Part 16",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 16"
+    },
+    "669aa89a-e934-5047-b9a3-73c74a562332": {
+      "en": "N5 Candidate Vocabulary Backlog Part 17",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 17"
+    },
+    "8cd3605e-75a9-503a-ada7-91be6cc9f2b1": {
+      "en": "N5 Candidate Vocabulary Backlog Part 18",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 18"
+    },
+    "f1cf124e-752b-56b3-a0cb-b8df4e3aa5d4": {
+      "en": "N5 Candidate Vocabulary Backlog Part 19",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 19"
+    },
+    "e4bd8f06-1534-56c4-8ab8-32f5d12167e0": {
+      "en": "N5 Candidate Vocabulary Backlog Part 20",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 20"
+    },
+    "7bb25651-62e5-5462-a95a-a3ac0cadd37f": {
+      "en": "N5 Candidate Vocabulary Backlog Part 21",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 21"
+    },
+    "3785ad38-75e7-5fb1-9359-c4e3d7449981": {
+      "en": "N5 Candidate Vocabulary Backlog Part 22",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 22"
+    },
+    "298b5327-d893-562e-a3cd-18e194d6e2ee": {
+      "en": "N5 Candidate Vocabulary Backlog Part 23",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 23"
+    },
+    "8ec5c111-8a1a-51d4-8b13-176feb3a6d31": {
+      "en": "N5 Candidate Vocabulary Backlog Part 24",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 24"
+    },
+    "d2fbaac4-4724-548a-91f4-83f231f9ab7c": {
+      "en": "N5 Candidate Vocabulary Backlog Part 25",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 25"
+    },
+    "44cb3529-8500-5f11-8c66-b59b4c36a948": {
+      "en": "N5 Candidate Vocabulary Backlog Part 26",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 26"
+    },
+    "53ee1467-d106-53a7-b26c-515556b4058d": {
+      "en": "N5 Candidate Vocabulary Backlog Part 27",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 27"
+    },
+    "060cc7bc-67a0-59df-a909-41ad3ab8c641": {
+      "en": "N5 Candidate Vocabulary Backlog Part 28",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 28"
+    },
+    "546f9762-29de-5645-8d08-c09e8281306d": {
+      "en": "N5 Candidate Vocabulary Backlog Part 29",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 29"
+    },
+    "c8582917-01e3-59db-aa9e-2d6931aaa1e5": {
+      "en": "N5 Candidate Vocabulary Backlog Part 30",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 30"
+    },
+    "293819c8-f4a4-5229-a550-d29bcb33cab2": {
+      "en": "N5 Candidate Vocabulary Backlog Part 31",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 31"
+    },
+    "a69ee90a-ec81-5efa-86d7-7f721219685b": {
+      "en": "N5 Candidate Vocabulary Backlog Part 32",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 32"
+    },
+    "3726c80a-5a07-5cca-8c74-dcfd0bb73852": {
+      "en": "N5 Candidate Vocabulary Backlog Part 33",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 33"
+    },
+    "e3b8c92c-2766-588f-be7e-072c0ef8a1d2": {
+      "en": "N5 Candidate Vocabulary Backlog Part 34",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 34"
+    },
+    "28decb37-ee06-5ec6-a14d-9b57396c8cfc": {
+      "en": "N5 Candidate Vocabulary Backlog Part 35",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 35"
+    },
+    "492b44e1-66a5-59c1-8d8d-49fed0d6559a": {
+      "en": "N5 Candidate Vocabulary Backlog Part 36",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 36"
+    },
+    "59e3b20b-5ef7-5b07-929a-224bc22d16a3": {
+      "en": "N5 Candidate Vocabulary Backlog Part 37",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 37"
+    },
+    "360090fa-af93-5001-890c-b2868e000fb0": {
+      "en": "N5 Candidate Vocabulary Backlog Part 38",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 38"
+    },
+    "b1e45234-e920-5147-894b-095a5c0fe5a1": {
+      "en": "N5 Candidate Vocabulary Backlog Part 39",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 39"
+    },
+    "35e6fde5-d5ce-5fc2-9704-5221f0f6e176": {
+      "en": "N5 Candidate Vocabulary Backlog Part 40",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 40"
+    },
+    "916457b9-4662-5e62-80e8-c719cf6d5280": {
+      "en": "N5 Candidate Vocabulary Backlog Part 41",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 41"
+    },
+    "0bb0b2b0-4404-5925-933e-99668449e9c4": {
+      "en": "N5 Candidate Vocabulary Backlog Part 42",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 42"
+    },
+    "2ccf4153-5b63-55af-856a-cd4b339f5373": {
+      "en": "N5 Candidate Vocabulary Backlog Part 43",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 43"
+    },
+    "a9e5a19b-4a03-55ce-a315-0f0231c8caed": {
+      "en": "N5 Candidate Vocabulary Backlog Part 44",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 44"
+    },
+    "8ea4befb-577a-55ee-84b6-9f66f004f2c7": {
+      "en": "N5 Candidate Vocabulary Backlog Part 45",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 45"
+    },
+    "f8915ade-47db-5873-962e-688cf8f6dc0b": {
+      "en": "N5 Candidate Vocabulary Backlog Part 46",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 46"
+    },
+    "9f1fb173-cb3f-5e1d-9c6b-88c0a5e6f94a": {
+      "en": "N5 Candidate Vocabulary Backlog Part 47",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 47"
+    },
+    "ae91307c-e75a-51c0-b71f-d1ed7e28b538": {
+      "en": "N5 Candidate Vocabulary Backlog Part 48",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 48"
+    },
+    "4de04d10-fbbb-529f-8587-70b9343d0908": {
+      "en": "N5 Candidate Vocabulary Backlog Part 49",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 49"
+    },
+    "6d468294-4c33-5959-bf6c-cbb48a45e904": {
+      "en": "N5 Candidate Vocabulary Backlog Part 50",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 50"
+    },
+    "d90618da-3b85-59df-bd4a-2a2fdb54a031": {
+      "en": "N5 Candidate Vocabulary Backlog Part 51",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 51"
+    },
+    "ba607919-f76c-526d-999d-166428447ad3": {
+      "en": "N5 Candidate Vocabulary Backlog Part 52",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 52"
+    },
+    "0729a7d1-29ed-5058-9e30-c9001c5e914c": {
+      "en": "N5 Candidate Vocabulary Backlog Part 53",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 53"
+    },
+    "18076d00-1568-57ab-94a6-50a99402b64b": {
+      "en": "N5 Candidate Vocabulary Backlog Part 54",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 54"
+    },
+    "25b56734-6b0e-5dd9-b5e0-eed5d74f41db": {
+      "en": "N5 Candidate Vocabulary Backlog Part 55",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 55"
+    },
+    "b3e74aeb-3d85-5830-a425-1fa14617b19a": {
+      "en": "N5 Candidate Vocabulary Backlog Part 56",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 56"
+    },
+    "b5ce107d-5036-53d7-aea1-0969bdfaac51": {
+      "en": "N5 Candidate Vocabulary Backlog Part 57",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 57"
+    },
+    "2a81ceb5-c770-5e76-b9d4-ac33c4d8adc1": {
+      "en": "N5 Candidate Vocabulary Backlog Part 58",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 58"
+    },
+    "bb1f2de1-8c00-5b0e-9557-6fc2791eae08": {
+      "en": "N5 Candidate Vocabulary Backlog Part 59",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 59"
+    }
+  },
+  "translationRevision": 2
+}

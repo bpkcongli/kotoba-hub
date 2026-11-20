@@ -1,0 +1,1359 @@
+{
+  "taskId": "VOC-03",
+  "part": "part-01",
+  "initialReviewSha256": "74ee78622b8916d0b530ddc1d5fd0590922fe41723c6a7550cf8d01d36cc84e8",
+  "beforeArtifactSha256": {
+    "curation.json": "24e7d41f7c59c17985be23a022a498c9cc094b7aa4190e17273978e9b4865e39",
+    "content.json": "2dc343723b1ca25a97518654eb2a3729da31023a720552f9a9dbc7fdfd9ac7e5"
+  },
+  "afterArtifactSha256": {
+    "curation.json": "b620be06e61551cc32b0aeb61a257777717c398480b480f8efc0f4d8780353e7",
+    "content.json": "ae66828a663e1b7129a51d23009a300d8965ccc213e76dd740a7af58b269e7ca"
+  },
+  "orthographyCorrections": [
+    {
+      "itemId": "9147a847-ef91-5f05-b3b2-d686696ab5a5",
+      "entSeq": "1004500",
+      "from": "此方",
+      "to": "こっち",
+      "sourceTags": [
+        "rK"
+      ]
+    },
+    {
+      "itemId": "cb436a08-21f7-503a-a8fb-f2d1f2713dd5",
+      "entSeq": "1006730",
+      "from": "而して",
+      "to": "そして",
+      "sourceTags": [
+        "rK"
+      ]
+    },
+    {
+      "itemId": "6d68ca0c-3a46-5854-a4f2-ef86865c6c0d",
+      "entSeq": "1006780",
+      "from": "其方",
+      "to": "そちら",
+      "sourceTags": [
+        "rK"
+      ]
+    },
+    {
+      "itemId": "32307680-1741-5f09-9061-957765a4f8ad",
+      "entSeq": "1006980",
+      "from": "其れから",
+      "to": "それから",
+      "sourceTags": [
+        "sK"
+      ]
+    },
+    {
+      "itemId": "31e4054c-9344-55ca-af46-4a32c7d121d9",
+      "entSeq": "1008630",
+      "from": "迚も",
+      "to": "とても",
+      "sourceTags": [
+        "rK"
+      ]
+    },
+    {
+      "itemId": "f0634164-27c3-5c76-8f43-5dcd684dfb2b",
+      "entSeq": "1008910",
+      "from": "如何",
+      "to": "どう",
+      "sourceTags": [
+        "rK"
+      ]
+    },
+    {
+      "itemId": "72b76eaf-7a19-5e35-9d94-0638b13d0067",
+      "entSeq": "1012980",
+      "from": "遣る",
+      "to": "やる",
+      "sourceTags": [
+        "rK"
+      ]
+    },
+    {
+      "itemId": "ea45bccc-c1f3-5179-9ed5-a55b7e1fc8a1",
+      "entSeq": "1039140",
+      "from": "咖哩",
+      "to": "カレー",
+      "sourceTags": [
+        "sK"
+      ]
+    },
+    {
+      "itemId": "aa420d62-4064-5785-a219-7d761180f37e",
+      "entSeq": "1042620",
+      "from": "瓩",
+      "to": "キログラム",
+      "sourceTags": [
+        "rK"
+      ]
+    },
+    {
+      "itemId": "e1119ae2-7586-5894-8a3c-9d08c4ba14ff",
+      "entSeq": "1042650",
+      "from": "粁",
+      "to": "キロメートル",
+      "sourceTags": [
+        "rK"
+      ]
+    },
+    {
+      "itemId": "eaa570ea-98dd-502f-abf5-b3caf178647e",
+      "entSeq": "1046810",
+      "from": "瓦",
+      "to": "グラム",
+      "sourceTags": [
+        "rK"
+      ]
+    },
+    {
+      "itemId": "f154f72e-9638-5455-b592-073c39b74906",
+      "entSeq": "1074260",
+      "from": "洋袴",
+      "to": "ズボン",
+      "sourceTags": [
+        "rK"
+      ]
+    },
+    {
+      "itemId": "3c0136dd-23a5-5154-8437-1e69320abbb7",
+      "entSeq": "1132570",
+      "from": "米",
+      "to": "メートル",
+      "sourceTags": [
+        "ateji",
+        "rK"
+      ]
+    },
+    {
+      "itemId": "80a0668e-a5d1-59f3-809b-713a44ca421b",
+      "entSeq": "1157170",
+      "from": "為る",
+      "to": "する",
+      "sourceTags": [
+        "rK"
+      ]
+    },
+    {
+      "itemId": "92d52bef-2313-5bc2-82b4-e4724caf3053",
+      "entSeq": "1163940",
+      "from": "一寸",
+      "to": "ちょっと",
+      "sourceTags": [
+        "rK"
+      ]
+    },
+    {
+      "itemId": "8079d07d-d683-57cb-b134-27264ce0947b",
+      "entSeq": "1188760",
+      "from": "何時",
+      "to": "いつ",
+      "sourceTags": [
+        "rK"
+      ]
+    },
+    {
+      "itemId": "be0c8ea7-7089-5401-9d8e-c5c65658da2f",
+      "entSeq": "1189360",
+      "from": "何方",
+      "to": "どちら",
+      "sourceTags": [
+        "rK"
+      ]
+    },
+    {
+      "itemId": "efa21682-c256-5576-97aa-4a49f2932fbd",
+      "entSeq": "1253020",
+      "from": "とり肉",
+      "to": "鶏肉",
+      "sourceTags": [
+        "sK"
+      ]
+    }
+  ],
+  "changes": {
+    "curation.json": [
+      {
+        "path": "/items/14/canonicalProposal",
+        "before": null,
+        "after": {
+          "changeType": "PREFERRED_ORTHOGRAPHY_SAME_ENTRY",
+          "from": "此方",
+          "to": "こっち",
+          "reason": "The baseline representative form is marked rK in the pinned JMdict entry. Prefer an ordinary unmarked spelling, or the verified kana form when all kanji forms are marked. Keep the same lexical entry, selected sense, reading and existing item ID."
+        }
+      },
+      {
+        "path": "/items/14/senseEvidence/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/14/surfaceFormText",
+        "before": "此方",
+        "after": "こっち"
+      },
+      {
+        "path": "/items/18/canonicalProposal",
+        "before": null,
+        "after": {
+          "changeType": "PREFERRED_ORTHOGRAPHY_SAME_ENTRY",
+          "from": "而して",
+          "to": "そして",
+          "reason": "The baseline representative form is marked rK in the pinned JMdict entry. Prefer an ordinary unmarked spelling, or the verified kana form when all kanji forms are marked. Keep the same lexical entry, selected sense, reading and existing item ID."
+        }
+      },
+      {
+        "path": "/items/18/senseEvidence/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/18/surfaceFormText",
+        "before": "而して",
+        "after": "そして"
+      },
+      {
+        "path": "/items/19/canonicalProposal",
+        "before": null,
+        "after": {
+          "changeType": "PREFERRED_ORTHOGRAPHY_SAME_ENTRY",
+          "from": "其方",
+          "to": "そちら",
+          "reason": "The baseline representative form is marked rK in the pinned JMdict entry. Prefer an ordinary unmarked spelling, or the verified kana form when all kanji forms are marked. Keep the same lexical entry, selected sense, reading and existing item ID."
+        }
+      },
+      {
+        "path": "/items/19/senseEvidence/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/19/surfaceFormText",
+        "before": "其方",
+        "after": "そちら"
+      },
+      {
+        "path": "/items/20/canonicalProposal",
+        "before": null,
+        "after": {
+          "changeType": "PREFERRED_ORTHOGRAPHY_SAME_ENTRY",
+          "from": "其れから",
+          "to": "それから",
+          "reason": "The baseline representative form is marked sK in the pinned JMdict entry. Prefer an ordinary unmarked spelling, or the verified kana form when all kanji forms are marked. Keep the same lexical entry, selected sense, reading and existing item ID."
+        }
+      },
+      {
+        "path": "/items/20/senseEvidence/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/20/surfaceFormText",
+        "before": "其れから",
+        "after": "それから"
+      },
+      {
+        "path": "/items/24/canonicalProposal",
+        "before": null,
+        "after": {
+          "changeType": "PREFERRED_ORTHOGRAPHY_SAME_ENTRY",
+          "from": "迚も",
+          "to": "とても",
+          "reason": "The baseline representative form is marked rK in the pinned JMdict entry. Prefer an ordinary unmarked spelling, or the verified kana form when all kanji forms are marked. Keep the same lexical entry, selected sense, reading and existing item ID."
+        }
+      },
+      {
+        "path": "/items/24/senseEvidence/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/24/surfaceFormText",
+        "before": "迚も",
+        "after": "とても"
+      },
+      {
+        "path": "/items/25/canonicalProposal",
+        "before": null,
+        "after": {
+          "changeType": "PREFERRED_ORTHOGRAPHY_SAME_ENTRY",
+          "from": "如何",
+          "to": "どう",
+          "reason": "The baseline representative form is marked rK in the pinned JMdict entry. Prefer an ordinary unmarked spelling, or the verified kana form when all kanji forms are marked. Keep the same lexical entry, selected sense, reading and existing item ID."
+        }
+      },
+      {
+        "path": "/items/25/senseEvidence/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/25/surfaceFormText",
+        "before": "如何",
+        "after": "どう"
+      },
+      {
+        "path": "/items/30/canonicalProposal",
+        "before": null,
+        "after": {
+          "changeType": "PREFERRED_ORTHOGRAPHY_SAME_ENTRY",
+          "from": "遣る",
+          "to": "やる",
+          "reason": "The baseline representative form is marked rK in the pinned JMdict entry. Prefer an ordinary unmarked spelling, or the verified kana form when all kanji forms are marked. Keep the same lexical entry, selected sense, reading and existing item ID."
+        }
+      },
+      {
+        "path": "/items/30/senseEvidence/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/30/surfaceFormText",
+        "before": "遣る",
+        "after": "やる"
+      },
+      {
+        "path": "/items/37/canonicalProposal",
+        "before": null,
+        "after": {
+          "changeType": "PREFERRED_ORTHOGRAPHY_SAME_ENTRY",
+          "from": "咖哩",
+          "to": "カレー",
+          "reason": "The baseline representative form is marked sK in the pinned JMdict entry. Prefer an ordinary unmarked spelling, or the verified kana form when all kanji forms are marked. Keep the same lexical entry, selected sense, reading and existing item ID."
+        }
+      },
+      {
+        "path": "/items/37/senseEvidence/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/37/surfaceFormText",
+        "before": "咖哩",
+        "after": "カレー"
+      },
+      {
+        "path": "/items/40/canonicalProposal",
+        "before": null,
+        "after": {
+          "changeType": "PREFERRED_ORTHOGRAPHY_SAME_ENTRY",
+          "from": "瓩",
+          "to": "キログラム",
+          "reason": "The baseline representative form is marked rK in the pinned JMdict entry. Prefer an ordinary unmarked spelling, or the verified kana form when all kanji forms are marked. Keep the same lexical entry, selected sense, reading and existing item ID."
+        }
+      },
+      {
+        "path": "/items/40/senseEvidence/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/40/surfaceFormText",
+        "before": "瓩",
+        "after": "キログラム"
+      },
+      {
+        "path": "/items/41/canonicalProposal",
+        "before": null,
+        "after": {
+          "changeType": "PREFERRED_ORTHOGRAPHY_SAME_ENTRY",
+          "from": "粁",
+          "to": "キロメートル",
+          "reason": "The baseline representative form is marked rK in the pinned JMdict entry. Prefer an ordinary unmarked spelling, or the verified kana form when all kanji forms are marked. Keep the same lexical entry, selected sense, reading and existing item ID."
+        }
+      },
+      {
+        "path": "/items/41/senseEvidence/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/41/surfaceFormText",
+        "before": "粁",
+        "after": "キロメートル"
+      },
+      {
+        "path": "/items/44/canonicalProposal",
+        "before": null,
+        "after": {
+          "changeType": "PREFERRED_ORTHOGRAPHY_SAME_ENTRY",
+          "from": "瓦",
+          "to": "グラム",
+          "reason": "The baseline representative form is marked rK in the pinned JMdict entry. Prefer an ordinary unmarked spelling, or the verified kana form when all kanji forms are marked. Keep the same lexical entry, selected sense, reading and existing item ID."
+        }
+      },
+      {
+        "path": "/items/44/senseEvidence/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/44/surfaceFormText",
+        "before": "瓦",
+        "after": "グラム"
+      },
+      {
+        "path": "/items/55/canonicalProposal",
+        "before": null,
+        "after": {
+          "changeType": "PREFERRED_ORTHOGRAPHY_SAME_ENTRY",
+          "from": "洋袴",
+          "to": "ズボン",
+          "reason": "The baseline representative form is marked rK in the pinned JMdict entry. Prefer an ordinary unmarked spelling, or the verified kana form when all kanji forms are marked. Keep the same lexical entry, selected sense, reading and existing item ID."
+        }
+      },
+      {
+        "path": "/items/55/senseEvidence/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/55/surfaceFormText",
+        "before": "洋袴",
+        "after": "ズボン"
+      },
+      {
+        "path": "/items/83/canonicalProposal",
+        "before": null,
+        "after": {
+          "changeType": "PREFERRED_ORTHOGRAPHY_SAME_ENTRY",
+          "from": "米",
+          "to": "メートル",
+          "reason": "The baseline representative form is marked ateji,rK in the pinned JMdict entry. Prefer an ordinary unmarked spelling, or the verified kana form when all kanji forms are marked. Keep the same lexical entry, selected sense, reading and existing item ID."
+        }
+      },
+      {
+        "path": "/items/83/senseEvidence/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/83/surfaceFormText",
+        "before": "米",
+        "after": "メートル"
+      },
+      {
+        "path": "/items/95/canonicalProposal",
+        "before": null,
+        "after": {
+          "changeType": "PREFERRED_ORTHOGRAPHY_SAME_ENTRY",
+          "from": "為る",
+          "to": "する",
+          "reason": "The baseline representative form is marked rK in the pinned JMdict entry. Prefer an ordinary unmarked spelling, or the verified kana form when all kanji forms are marked. Keep the same lexical entry, selected sense, reading and existing item ID."
+        }
+      },
+      {
+        "path": "/items/95/senseEvidence/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/95/surfaceFormText",
+        "before": "為る",
+        "after": "する"
+      },
+      {
+        "path": "/items/100/canonicalProposal",
+        "before": null,
+        "after": {
+          "changeType": "PREFERRED_ORTHOGRAPHY_SAME_ENTRY",
+          "from": "一寸",
+          "to": "ちょっと",
+          "reason": "The baseline representative form is marked rK in the pinned JMdict entry. Prefer an ordinary unmarked spelling, or the verified kana form when all kanji forms are marked. Keep the same lexical entry, selected sense, reading and existing item ID."
+        }
+      },
+      {
+        "path": "/items/100/senseEvidence/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/100/surfaceFormText",
+        "before": "一寸",
+        "after": "ちょっと"
+      },
+      {
+        "path": "/items/120/canonicalProposal",
+        "before": null,
+        "after": {
+          "changeType": "PREFERRED_ORTHOGRAPHY_SAME_ENTRY",
+          "from": "何時",
+          "to": "いつ",
+          "reason": "The baseline representative form is marked rK in the pinned JMdict entry. Prefer an ordinary unmarked spelling, or the verified kana form when all kanji forms are marked. Keep the same lexical entry, selected sense, reading and existing item ID."
+        }
+      },
+      {
+        "path": "/items/120/senseEvidence/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/120/surfaceFormText",
+        "before": "何時",
+        "after": "いつ"
+      },
+      {
+        "path": "/items/121/canonicalProposal",
+        "before": null,
+        "after": {
+          "changeType": "PREFERRED_ORTHOGRAPHY_SAME_ENTRY",
+          "from": "何方",
+          "to": "どちら",
+          "reason": "The baseline representative form is marked rK in the pinned JMdict entry. Prefer an ordinary unmarked spelling, or the verified kana form when all kanji forms are marked. Keep the same lexical entry, selected sense, reading and existing item ID."
+        }
+      },
+      {
+        "path": "/items/121/senseEvidence/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/121/surfaceFormText",
+        "before": "何方",
+        "after": "どちら"
+      },
+      {
+        "path": "/items/183/canonicalProposal",
+        "before": null,
+        "after": {
+          "changeType": "PREFERRED_ORTHOGRAPHY_SAME_ENTRY",
+          "from": "とり肉",
+          "to": "鶏肉",
+          "reason": "The baseline representative form is marked sK in the pinned JMdict entry. Prefer an ordinary unmarked spelling, or the verified kana form when all kanji forms are marked. Keep the same lexical entry, selected sense, reading and existing item ID."
+        }
+      },
+      {
+        "path": "/items/183/senseEvidence/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/183/surfaceFormText",
+        "before": "とり肉",
+        "after": "鶏肉"
+      }
+    ],
+    "content.json": [
+      {
+        "path": "/curation/sha256",
+        "before": "24e7d41f7c59c17985be23a022a498c9cc094b7aa4190e17273978e9b4865e39",
+        "after": "b620be06e61551cc32b0aeb61a257777717c398480b480f8efc0f4d8780353e7"
+      },
+      {
+        "path": "/items/14/japanese/acceptedAnswers/JAPANESE/0",
+        "before": "此方",
+        "after": "こっち"
+      },
+      {
+        "path": "/items/14/japanese/surfaceFormText",
+        "before": "此方",
+        "after": "こっち"
+      },
+      {
+        "path": "/items/14/optionChecks/en/0/prompt",
+        "before": "此方",
+        "after": "こっち"
+      },
+      {
+        "path": "/items/14/optionChecks/en/1/acceptedAnswers/0",
+        "before": "此方",
+        "after": "こっち"
+      },
+      {
+        "path": "/items/14/optionChecks/en/1/correctAnswer",
+        "before": "此方",
+        "after": "こっち"
+      },
+      {
+        "path": "/items/14/optionChecks/id/0/prompt",
+        "before": "此方",
+        "after": "こっち"
+      },
+      {
+        "path": "/items/14/optionChecks/id/1/acceptedAnswers/0",
+        "before": "此方",
+        "after": "こっち"
+      },
+      {
+        "path": "/items/14/optionChecks/id/1/correctAnswer",
+        "before": "此方",
+        "after": "こっち"
+      },
+      {
+        "path": "/items/14/sourceRefs/0/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/18/japanese/acceptedAnswers/JAPANESE/0",
+        "before": "而して",
+        "after": "そして"
+      },
+      {
+        "path": "/items/18/japanese/surfaceFormText",
+        "before": "而して",
+        "after": "そして"
+      },
+      {
+        "path": "/items/18/optionChecks/en/0/prompt",
+        "before": "而して",
+        "after": "そして"
+      },
+      {
+        "path": "/items/18/optionChecks/en/1/acceptedAnswers/0",
+        "before": "而して",
+        "after": "そして"
+      },
+      {
+        "path": "/items/18/optionChecks/en/1/correctAnswer",
+        "before": "而して",
+        "after": "そして"
+      },
+      {
+        "path": "/items/18/optionChecks/id/0/prompt",
+        "before": "而して",
+        "after": "そして"
+      },
+      {
+        "path": "/items/18/optionChecks/id/1/acceptedAnswers/0",
+        "before": "而して",
+        "after": "そして"
+      },
+      {
+        "path": "/items/18/optionChecks/id/1/correctAnswer",
+        "before": "而して",
+        "after": "そして"
+      },
+      {
+        "path": "/items/18/sourceRefs/0/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/19/japanese/acceptedAnswers/JAPANESE/0",
+        "before": "其方",
+        "after": "そちら"
+      },
+      {
+        "path": "/items/19/japanese/surfaceFormText",
+        "before": "其方",
+        "after": "そちら"
+      },
+      {
+        "path": "/items/19/optionChecks/en/0/prompt",
+        "before": "其方",
+        "after": "そちら"
+      },
+      {
+        "path": "/items/19/optionChecks/en/1/acceptedAnswers/0",
+        "before": "其方",
+        "after": "そちら"
+      },
+      {
+        "path": "/items/19/optionChecks/en/1/correctAnswer",
+        "before": "其方",
+        "after": "そちら"
+      },
+      {
+        "path": "/items/19/optionChecks/id/0/prompt",
+        "before": "其方",
+        "after": "そちら"
+      },
+      {
+        "path": "/items/19/optionChecks/id/1/acceptedAnswers/0",
+        "before": "其方",
+        "after": "そちら"
+      },
+      {
+        "path": "/items/19/optionChecks/id/1/correctAnswer",
+        "before": "其方",
+        "after": "そちら"
+      },
+      {
+        "path": "/items/19/sourceRefs/0/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/20/japanese/acceptedAnswers/JAPANESE/0",
+        "before": "其れから",
+        "after": "それから"
+      },
+      {
+        "path": "/items/20/japanese/surfaceFormText",
+        "before": "其れから",
+        "after": "それから"
+      },
+      {
+        "path": "/items/20/optionChecks/en/0/prompt",
+        "before": "其れから",
+        "after": "それから"
+      },
+      {
+        "path": "/items/20/optionChecks/en/1/acceptedAnswers/0",
+        "before": "其れから",
+        "after": "それから"
+      },
+      {
+        "path": "/items/20/optionChecks/en/1/correctAnswer",
+        "before": "其れから",
+        "after": "それから"
+      },
+      {
+        "path": "/items/20/optionChecks/id/0/prompt",
+        "before": "其れから",
+        "after": "それから"
+      },
+      {
+        "path": "/items/20/optionChecks/id/1/acceptedAnswers/0",
+        "before": "其れから",
+        "after": "それから"
+      },
+      {
+        "path": "/items/20/optionChecks/id/1/correctAnswer",
+        "before": "其れから",
+        "after": "それから"
+      },
+      {
+        "path": "/items/20/sourceRefs/0/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/24/japanese/acceptedAnswers/JAPANESE/0",
+        "before": "迚も",
+        "after": "とても"
+      },
+      {
+        "path": "/items/24/japanese/surfaceFormText",
+        "before": "迚も",
+        "after": "とても"
+      },
+      {
+        "path": "/items/24/optionChecks/en/0/prompt",
+        "before": "迚も",
+        "after": "とても"
+      },
+      {
+        "path": "/items/24/optionChecks/en/1/acceptedAnswers/0",
+        "before": "迚も",
+        "after": "とても"
+      },
+      {
+        "path": "/items/24/optionChecks/en/1/correctAnswer",
+        "before": "迚も",
+        "after": "とても"
+      },
+      {
+        "path": "/items/24/optionChecks/id/0/prompt",
+        "before": "迚も",
+        "after": "とても"
+      },
+      {
+        "path": "/items/24/optionChecks/id/1/acceptedAnswers/0",
+        "before": "迚も",
+        "after": "とても"
+      },
+      {
+        "path": "/items/24/optionChecks/id/1/correctAnswer",
+        "before": "迚も",
+        "after": "とても"
+      },
+      {
+        "path": "/items/24/sourceRefs/0/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/25/japanese/acceptedAnswers/JAPANESE/0",
+        "before": "如何",
+        "after": "どう"
+      },
+      {
+        "path": "/items/25/japanese/surfaceFormText",
+        "before": "如何",
+        "after": "どう"
+      },
+      {
+        "path": "/items/25/optionChecks/en/0/prompt",
+        "before": "如何",
+        "after": "どう"
+      },
+      {
+        "path": "/items/25/optionChecks/en/1/acceptedAnswers/0",
+        "before": "如何",
+        "after": "どう"
+      },
+      {
+        "path": "/items/25/optionChecks/en/1/correctAnswer",
+        "before": "如何",
+        "after": "どう"
+      },
+      {
+        "path": "/items/25/optionChecks/id/0/prompt",
+        "before": "如何",
+        "after": "どう"
+      },
+      {
+        "path": "/items/25/optionChecks/id/1/acceptedAnswers/0",
+        "before": "如何",
+        "after": "どう"
+      },
+      {
+        "path": "/items/25/optionChecks/id/1/correctAnswer",
+        "before": "如何",
+        "after": "どう"
+      },
+      {
+        "path": "/items/25/sourceRefs/0/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/30/japanese/acceptedAnswers/JAPANESE/0",
+        "before": "遣る",
+        "after": "やる"
+      },
+      {
+        "path": "/items/30/japanese/surfaceFormText",
+        "before": "遣る",
+        "after": "やる"
+      },
+      {
+        "path": "/items/30/optionChecks/en/0/prompt",
+        "before": "遣る",
+        "after": "やる"
+      },
+      {
+        "path": "/items/30/optionChecks/en/1/acceptedAnswers/0",
+        "before": "遣る",
+        "after": "やる"
+      },
+      {
+        "path": "/items/30/optionChecks/en/1/correctAnswer",
+        "before": "遣る",
+        "after": "やる"
+      },
+      {
+        "path": "/items/30/optionChecks/id/0/prompt",
+        "before": "遣る",
+        "after": "やる"
+      },
+      {
+        "path": "/items/30/optionChecks/id/1/acceptedAnswers/0",
+        "before": "遣る",
+        "after": "やる"
+      },
+      {
+        "path": "/items/30/optionChecks/id/1/correctAnswer",
+        "before": "遣る",
+        "after": "やる"
+      },
+      {
+        "path": "/items/30/sourceRefs/0/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/37/japanese/acceptedAnswers/JAPANESE/0",
+        "before": "咖哩",
+        "after": "カレー"
+      },
+      {
+        "path": "/items/37/japanese/surfaceFormText",
+        "before": "咖哩",
+        "after": "カレー"
+      },
+      {
+        "path": "/items/37/optionChecks/en/0/prompt",
+        "before": "咖哩",
+        "after": "カレー"
+      },
+      {
+        "path": "/items/37/optionChecks/en/1/acceptedAnswers/0",
+        "before": "咖哩",
+        "after": "カレー"
+      },
+      {
+        "path": "/items/37/optionChecks/en/1/correctAnswer",
+        "before": "咖哩",
+        "after": "カレー"
+      },
+      {
+        "path": "/items/37/optionChecks/id/0/prompt",
+        "before": "咖哩",
+        "after": "カレー"
+      },
+      {
+        "path": "/items/37/optionChecks/id/1/acceptedAnswers/0",
+        "before": "咖哩",
+        "after": "カレー"
+      },
+      {
+        "path": "/items/37/optionChecks/id/1/correctAnswer",
+        "before": "咖哩",
+        "after": "カレー"
+      },
+      {
+        "path": "/items/37/sourceRefs/0/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/40/japanese/acceptedAnswers/JAPANESE/0",
+        "before": "瓩",
+        "after": "キログラム"
+      },
+      {
+        "path": "/items/40/japanese/surfaceFormText",
+        "before": "瓩",
+        "after": "キログラム"
+      },
+      {
+        "path": "/items/40/optionChecks/en/0/prompt",
+        "before": "瓩",
+        "after": "キログラム"
+      },
+      {
+        "path": "/items/40/optionChecks/en/1/acceptedAnswers/0",
+        "before": "瓩",
+        "after": "キログラム"
+      },
+      {
+        "path": "/items/40/optionChecks/en/1/correctAnswer",
+        "before": "瓩",
+        "after": "キログラム"
+      },
+      {
+        "path": "/items/40/optionChecks/id/0/prompt",
+        "before": "瓩",
+        "after": "キログラム"
+      },
+      {
+        "path": "/items/40/optionChecks/id/1/acceptedAnswers/0",
+        "before": "瓩",
+        "after": "キログラム"
+      },
+      {
+        "path": "/items/40/optionChecks/id/1/correctAnswer",
+        "before": "瓩",
+        "after": "キログラム"
+      },
+      {
+        "path": "/items/40/sourceRefs/0/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/41/japanese/acceptedAnswers/JAPANESE/0",
+        "before": "粁",
+        "after": "キロメートル"
+      },
+      {
+        "path": "/items/41/japanese/surfaceFormText",
+        "before": "粁",
+        "after": "キロメートル"
+      },
+      {
+        "path": "/items/41/optionChecks/en/0/prompt",
+        "before": "粁",
+        "after": "キロメートル"
+      },
+      {
+        "path": "/items/41/optionChecks/en/1/acceptedAnswers/0",
+        "before": "粁",
+        "after": "キロメートル"
+      },
+      {
+        "path": "/items/41/optionChecks/en/1/correctAnswer",
+        "before": "粁",
+        "after": "キロメートル"
+      },
+      {
+        "path": "/items/41/optionChecks/id/0/prompt",
+        "before": "粁",
+        "after": "キロメートル"
+      },
+      {
+        "path": "/items/41/optionChecks/id/1/acceptedAnswers/0",
+        "before": "粁",
+        "after": "キロメートル"
+      },
+      {
+        "path": "/items/41/optionChecks/id/1/correctAnswer",
+        "before": "粁",
+        "after": "キロメートル"
+      },
+      {
+        "path": "/items/41/sourceRefs/0/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/44/japanese/acceptedAnswers/JAPANESE/0",
+        "before": "瓦",
+        "after": "グラム"
+      },
+      {
+        "path": "/items/44/japanese/surfaceFormText",
+        "before": "瓦",
+        "after": "グラム"
+      },
+      {
+        "path": "/items/44/optionChecks/en/0/prompt",
+        "before": "瓦",
+        "after": "グラム"
+      },
+      {
+        "path": "/items/44/optionChecks/en/1/acceptedAnswers/0",
+        "before": "瓦",
+        "after": "グラム"
+      },
+      {
+        "path": "/items/44/optionChecks/en/1/correctAnswer",
+        "before": "瓦",
+        "after": "グラム"
+      },
+      {
+        "path": "/items/44/optionChecks/id/0/prompt",
+        "before": "瓦",
+        "after": "グラム"
+      },
+      {
+        "path": "/items/44/optionChecks/id/1/acceptedAnswers/0",
+        "before": "瓦",
+        "after": "グラム"
+      },
+      {
+        "path": "/items/44/optionChecks/id/1/correctAnswer",
+        "before": "瓦",
+        "after": "グラム"
+      },
+      {
+        "path": "/items/44/sourceRefs/0/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/55/japanese/acceptedAnswers/JAPANESE/0",
+        "before": "洋袴",
+        "after": "ズボン"
+      },
+      {
+        "path": "/items/55/japanese/surfaceFormText",
+        "before": "洋袴",
+        "after": "ズボン"
+      },
+      {
+        "path": "/items/55/optionChecks/en/0/prompt",
+        "before": "洋袴",
+        "after": "ズボン"
+      },
+      {
+        "path": "/items/55/optionChecks/en/1/acceptedAnswers/0",
+        "before": "洋袴",
+        "after": "ズボン"
+      },
+      {
+        "path": "/items/55/optionChecks/en/1/correctAnswer",
+        "before": "洋袴",
+        "after": "ズボン"
+      },
+      {
+        "path": "/items/55/optionChecks/id/0/prompt",
+        "before": "洋袴",
+        "after": "ズボン"
+      },
+      {
+        "path": "/items/55/optionChecks/id/1/acceptedAnswers/0",
+        "before": "洋袴",
+        "after": "ズボン"
+      },
+      {
+        "path": "/items/55/optionChecks/id/1/correctAnswer",
+        "before": "洋袴",
+        "after": "ズボン"
+      },
+      {
+        "path": "/items/55/sourceRefs/0/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/83/japanese/acceptedAnswers/JAPANESE/0",
+        "before": "米",
+        "after": "メートル"
+      },
+      {
+        "path": "/items/83/japanese/surfaceFormText",
+        "before": "米",
+        "after": "メートル"
+      },
+      {
+        "path": "/items/83/optionChecks/en/0/prompt",
+        "before": "米",
+        "after": "メートル"
+      },
+      {
+        "path": "/items/83/optionChecks/en/1/acceptedAnswers/0",
+        "before": "米",
+        "after": "メートル"
+      },
+      {
+        "path": "/items/83/optionChecks/en/1/correctAnswer",
+        "before": "米",
+        "after": "メートル"
+      },
+      {
+        "path": "/items/83/optionChecks/id/0/prompt",
+        "before": "米",
+        "after": "メートル"
+      },
+      {
+        "path": "/items/83/optionChecks/id/1/acceptedAnswers/0",
+        "before": "米",
+        "after": "メートル"
+      },
+      {
+        "path": "/items/83/optionChecks/id/1/correctAnswer",
+        "before": "米",
+        "after": "メートル"
+      },
+      {
+        "path": "/items/83/sourceRefs/0/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/95/japanese/acceptedAnswers/JAPANESE/0",
+        "before": "為る",
+        "after": "する"
+      },
+      {
+        "path": "/items/95/japanese/surfaceFormText",
+        "before": "為る",
+        "after": "する"
+      },
+      {
+        "path": "/items/95/optionChecks/en/0/prompt",
+        "before": "為る",
+        "after": "する"
+      },
+      {
+        "path": "/items/95/optionChecks/en/1/acceptedAnswers/0",
+        "before": "為る",
+        "after": "する"
+      },
+      {
+        "path": "/items/95/optionChecks/en/1/correctAnswer",
+        "before": "為る",
+        "after": "する"
+      },
+      {
+        "path": "/items/95/optionChecks/id/0/prompt",
+        "before": "為る",
+        "after": "する"
+      },
+      {
+        "path": "/items/95/optionChecks/id/1/acceptedAnswers/0",
+        "before": "為る",
+        "after": "する"
+      },
+      {
+        "path": "/items/95/optionChecks/id/1/correctAnswer",
+        "before": "為る",
+        "after": "する"
+      },
+      {
+        "path": "/items/95/sourceRefs/0/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/100/japanese/acceptedAnswers/JAPANESE/0",
+        "before": "一寸",
+        "after": "ちょっと"
+      },
+      {
+        "path": "/items/100/japanese/surfaceFormText",
+        "before": "一寸",
+        "after": "ちょっと"
+      },
+      {
+        "path": "/items/100/optionChecks/en/0/prompt",
+        "before": "一寸",
+        "after": "ちょっと"
+      },
+      {
+        "path": "/items/100/optionChecks/en/1/acceptedAnswers/0",
+        "before": "一寸",
+        "after": "ちょっと"
+      },
+      {
+        "path": "/items/100/optionChecks/en/1/correctAnswer",
+        "before": "一寸",
+        "after": "ちょっと"
+      },
+      {
+        "path": "/items/100/optionChecks/id/0/prompt",
+        "before": "一寸",
+        "after": "ちょっと"
+      },
+      {
+        "path": "/items/100/optionChecks/id/1/acceptedAnswers/0",
+        "before": "一寸",
+        "after": "ちょっと"
+      },
+      {
+        "path": "/items/100/optionChecks/id/1/correctAnswer",
+        "before": "一寸",
+        "after": "ちょっと"
+      },
+      {
+        "path": "/items/100/sourceRefs/0/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/120/japanese/acceptedAnswers/JAPANESE/0",
+        "before": "何時",
+        "after": "いつ"
+      },
+      {
+        "path": "/items/120/japanese/surfaceFormText",
+        "before": "何時",
+        "after": "いつ"
+      },
+      {
+        "path": "/items/120/optionChecks/en/0/prompt",
+        "before": "何時",
+        "after": "いつ"
+      },
+      {
+        "path": "/items/120/optionChecks/en/1/acceptedAnswers/0",
+        "before": "何時",
+        "after": "いつ"
+      },
+      {
+        "path": "/items/120/optionChecks/en/1/correctAnswer",
+        "before": "何時",
+        "after": "いつ"
+      },
+      {
+        "path": "/items/120/optionChecks/id/0/prompt",
+        "before": "何時",
+        "after": "いつ"
+      },
+      {
+        "path": "/items/120/optionChecks/id/1/acceptedAnswers/0",
+        "before": "何時",
+        "after": "いつ"
+      },
+      {
+        "path": "/items/120/optionChecks/id/1/correctAnswer",
+        "before": "何時",
+        "after": "いつ"
+      },
+      {
+        "path": "/items/120/sourceRefs/0/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/121/japanese/acceptedAnswers/JAPANESE/0",
+        "before": "何方",
+        "after": "どちら"
+      },
+      {
+        "path": "/items/121/japanese/surfaceFormText",
+        "before": "何方",
+        "after": "どちら"
+      },
+      {
+        "path": "/items/121/optionChecks/en/0/prompt",
+        "before": "何方",
+        "after": "どちら"
+      },
+      {
+        "path": "/items/121/optionChecks/en/1/acceptedAnswers/0",
+        "before": "何方",
+        "after": "どちら"
+      },
+      {
+        "path": "/items/121/optionChecks/en/1/correctAnswer",
+        "before": "何方",
+        "after": "どちら"
+      },
+      {
+        "path": "/items/121/optionChecks/id/0/prompt",
+        "before": "何方",
+        "after": "どちら"
+      },
+      {
+        "path": "/items/121/optionChecks/id/1/acceptedAnswers/0",
+        "before": "何方",
+        "after": "どちら"
+      },
+      {
+        "path": "/items/121/optionChecks/id/1/correctAnswer",
+        "before": "何方",
+        "after": "どちら"
+      },
+      {
+        "path": "/items/121/sourceRefs/0/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      },
+      {
+        "path": "/items/183/japanese/acceptedAnswers/JAPANESE/0",
+        "before": "とり肉",
+        "after": "鶏肉"
+      },
+      {
+        "path": "/items/183/japanese/surfaceFormText",
+        "before": "とり肉",
+        "after": "鶏肉"
+      },
+      {
+        "path": "/items/183/optionChecks/en/0/prompt",
+        "before": "とり肉",
+        "after": "鶏肉"
+      },
+      {
+        "path": "/items/183/optionChecks/en/1/acceptedAnswers/0",
+        "before": "とり肉",
+        "after": "鶏肉"
+      },
+      {
+        "path": "/items/183/optionChecks/en/1/correctAnswer",
+        "before": "とり肉",
+        "after": "鶏肉"
+      },
+      {
+        "path": "/items/183/optionChecks/id/0/prompt",
+        "before": "とり肉",
+        "after": "鶏肉"
+      },
+      {
+        "path": "/items/183/optionChecks/id/1/acceptedAnswers/0",
+        "before": "とり肉",
+        "after": "鶏肉"
+      },
+      {
+        "path": "/items/183/optionChecks/id/1/correctAnswer",
+        "before": "とり肉",
+        "after": "鶏肉"
+      },
+      {
+        "path": "/items/183/sourceRefs/0/notes/0",
+        "before": "Only the primary existing spelling and display reading are proposed as canonical answers. Unreviewed alternate forms/readings and glosses from other senses are excluded for new sessions. Existing frozen sessions remain unchanged.",
+        "after": "Preferred written form and display reading are verified within the same pinned lexical entry and selected sense. Rare/search-only baseline forms are not taught as the sole normal answer. Other-sense answers remain excluded; existing IDs, ownership and frozen sessions are preserved."
+      }
+    ]
+  }
+}

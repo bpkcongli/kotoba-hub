@@ -293,6 +293,29 @@ Catatan:
 - Dengan begitu, backlog candidate `N5` tetap sah sebagai artifact flashcard system walau `progressImpact` nanti harus `null` sampai mapping lesson resmi selesai.
 
 ## Validation Rules
+
+### Reviewed distractor pools (VOC-03)
+
+An item may additionally provide `answerOptionPayload.reviewedDistractorPoolItemIds`,
+a nonempty, unique list of existing peer item IDs of the same content type. This
+is a strict editorial allowlist for legacy and localized option banks. It differs
+from `distractorPoolItemIds`, which remains a preference for the historical global
+pool. Missing/self/duplicate/wrong-type reviewed references are rejected.
+
+The seed planner applies existing cross-script alias/collision exclusions inside
+the reviewed allowlist. If no reviewed peer remains usable for any generated
+script/locale bank, planning fails; it must not silently add global candidates or
+another language. Items without this optional field retain the existing global
+pool behavior. Session snapshots, grading, identity and Leitner keys are unchanged;
+new bank payloads require the normal content/translation revision increase.
+
+Batch 02 uses this mechanism for its 574 independently reviewed promotions. The
+[integration candidate](../../../content/flashcards/drafts/voc-03-batch-02/integration-candidate.json)
+remains an unpublished audit artifact; the compiled active vocabulary artifact
+carries the reviewed allowlists. Batch 03 resolves the seven source-identity holds
+through retirement/deduplication and four new corrected identities, preserving
+legacy IDs and history. See [identity-resolution policy](vocabulary-held-identity-resolution.md).
+
 - Script harus gagal bila menemukan skill `VOCABULARY` mapped yang `supportsFlashcards = true` tetapi tidak punya `content.vocabulary.primarySpelling` atau reading fallback yang layak.
 - Script harus gagal bila ada `skillCode` ganda yang menghasilkan `item` berbeda.
 - Script harus gagal bila ada deck slug duplikat.

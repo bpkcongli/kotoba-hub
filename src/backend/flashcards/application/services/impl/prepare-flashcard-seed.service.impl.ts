@@ -28,6 +28,22 @@ export class PrepareFlashcardSeedServiceImpl implements PrepareFlashcardSeedServ
 
     const baselineItems = artifacts.flatMap((artifact) => artifact.items);
 
+    for (const item of baselineItems) {
+      const reviewed = item.answerOptionPayload.reviewedDistractorPoolItemIds;
+
+      if (
+        reviewed &&
+        (!reviewed.length ||
+          new Set(reviewed).size !== reviewed.length ||
+          reviewed.some(
+            (id) =>
+              id === item.id ||
+              !baselineItems.some((peer) => peer.id === id && peer.itemType === item.itemType),
+          ))
+      )
+        throw new Error(`Invalid reviewed distractor pool: ${item.id}.`);
+    }
+
     for (const promotion of promotions) {
       const item = baselineItems.find((entry) => entry.id === promotion.itemId);
       const target = catalog.skills.find((entry) => entry.id === promotion.targetSkillId);
@@ -286,6 +302,8 @@ export class PrepareFlashcardSeedServiceImpl implements PrepareFlashcardSeedServ
     );
 
     for (const item of plan.items) {
+      const reviewed = rawItems.get(item.id)?.answerOptionPayload.reviewedDistractorPoolItemIds;
+
       for (const [mode, payload] of Object.entries(item.answerOptionPayload)) {
         if (!payload) continue;
 
@@ -298,9 +316,11 @@ export class PrepareFlashcardSeedServiceImpl implements PrepareFlashcardSeedServ
           (other) =>
             other.itemType === item.itemType &&
             other.id !== item.id &&
+            (!reviewed || reviewed.includes(other.id)) &&
             !hasSharedPrompt(item, other),
         );
         const preferred = rawItems.get(item.id)?.answerOptionPayload.distractorPoolItemIds ?? [];
+
         candidates.sort(
           (a, b) => Number(preferred.includes(b.id)) - Number(preferred.includes(a.id)),
         );
@@ -317,6 +337,9 @@ export class PrepareFlashcardSeedServiceImpl implements PrepareFlashcardSeedServ
             return [value];
           })
           .slice(0, 30);
+
+        if (reviewed && !payload.distractors.length)
+          throw new Error(`No eligible reviewed distractor: ${item.id}/${mode}.`);
       }
     }
 

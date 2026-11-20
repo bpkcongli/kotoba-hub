@@ -45,6 +45,11 @@ export const flashcardArtifactSchema = z.object({
         schemaVersion: z.literal(1),
         canonicalAnswers: z.partialRecord(scriptMode, z.array(z.string().min(1)).min(1)),
         distractorPoolItemIds: z.array(uuid),
+        reviewedDistractorPoolItemIds: z
+          .array(uuid)
+          .min(1)
+          .refine((ids) => new Set(ids).size === ids.length)
+          .optional(),
       }),
       explanationText: z.string().nullable(),
       isActive: z.boolean(),

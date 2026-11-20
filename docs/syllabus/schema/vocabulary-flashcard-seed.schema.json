@@ -306,6 +306,14 @@
           "items": {
             "$ref": "#/$defs/uuid"
           }
+        },
+        "reviewedDistractorPoolItemIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/uuid"
+          }
         }
       }
     },

@@ -53,3 +53,28 @@ memvalidasi manifest kelompok terhadap inventory pending canonical tanpa menulis
 Import kelompok lalu jalankan seed flashcard dengan `--vocabulary-groups <path>` yang
 sama. `bun run test:vocabulary-groups --allow-test-db-write` memakai
 VOCABULARY_TEST_DATABASE_URL yang terisolasi. Lihat [operasi VOC-02](../drizzle/README.md#vocabulary-mandiri-voc-02).
+
+VOC-03 memakai manifest reviewed
+`content/flashcards/vocabulary-groups/manifest.v2.json`, bukan draft curator/maker.
+`bun run test:vocabulary-content --allow-test-db-write` menguji konten batch tersebut
+pada database kosong terpisah melalui `VOCABULARY_TEST_DATABASE_URL`, termasuk
+preservasi sesi pending, promosi, locale dan progress. Lihat
+[operasi VOC-03](../drizzle/README.md#voc-03-reviewed-vocabulary-batch).
+
+`python3 scripts/flashcards/validate_vocabulary_draft.py` memeriksa batch draft
+VOC-03 kedua terhadap hash baseline, raw JMdict, baris CSV N5, coverage/identitas,
+membership, handoff maker, serta enam set opsi per item. Perintah read-only ini
+tidak membaca/menulis database, memublikasikan kelompok, atau menggantikan review
+editorial independen. Laporan JSON dapat dibandingkan dengan
+`content/flashcards/drafts/voc-03-batch-02/coverage.json`; kandidat integrasi di
+folder tersebut bukan input importer. Coverage mengikat 574 accepted IDs, tujuh
+source-held IDs, tiga laporan review, dan hash integrasi runtime. Lihat
+[laporan batch kedua](../docs/syllabus/flashcards/vocabulary-batch-02-implementation.md).
+
+`python3 scripts/flashcards/validate_vocabulary_holds.py` memvalidasi tujuh
+resolusi hold batch 03, hash review, raw XML/CSV, preservasi identitas, empat
+promosi baru dan nol active pending. Opsi `--draft-only` memeriksa handoff sebelum
+integrasi. `--write-bootstrap /tmp/voc03-bootstrap.json` membuat subset manifest
+untuk menyisipkan empat ID sebagai pending pada upgrade batch 02; gunakan hanya
+sebelum promosi empat ID tersebut. Urutan seed dan retry ada pada
+[operasi VOC-03](../drizzle/README.md#voc-03-reviewed-vocabulary-batch).

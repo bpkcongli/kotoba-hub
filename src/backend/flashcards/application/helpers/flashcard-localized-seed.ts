@@ -119,6 +119,7 @@ export function attachFlashcardLocalizations(
     for (const item of plan.items) {
       const content = item.localizations?.[locale];
       if (!content) continue;
+      const reviewed = sourceItems.get(item.id)?.answerOptionPayload.reviewedDistractorPoolItemIds;
 
       const sharedPrompt = (other: typeof item) => {
         const otherContent = other.localizations?.[locale];
@@ -153,6 +154,7 @@ export function attachFlashcardLocalizations(
 
             if (
               other.id === item.id ||
+              (reviewed && !reviewed.includes(other.id)) ||
               other.itemType !== item.itemType ||
               !candidate ||
               sharedPrompt(other) ||
@@ -171,6 +173,9 @@ export function attachFlashcardLocalizations(
           .slice(0, 30);
 
         validateOptionBank(seed, locale, item.id);
+
+        if (reviewed && !seed.distractors.length)
+          throw new Error(`No eligible reviewed distractor: ${item.id}/${locale}/${mode}.`);
       }
     }
   }

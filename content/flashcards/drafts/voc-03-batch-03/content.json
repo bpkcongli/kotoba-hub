@@ -1,0 +1,2945 @@
+{
+  "draftFormat": "kotoba-vocabulary-content-v1",
+  "batchId": "voc-03-batch-03-held-resolution",
+  "curation": {
+    "path": "content/flashcards/drafts/voc-03-batch-03/curation.json",
+    "sha256": "d9fa36b2f78782e7a53da59014091ad673fca7b4fc72bdc881b14e12a996f0f4"
+  },
+  "isPublished": false,
+  "scope": {
+    "taskId": "VOC-03",
+    "assignedItemIds": [
+      "27325d16-74f5-5880-a722-55eed6a2cd8c",
+      "74d37e86-1fc6-5849-b977-49f0a77a1529",
+      "9cf31de1-b02e-5113-ad7d-b479fe765564",
+      "f8f66c61-9a6a-5e5a-80bd-258f9b50fb95",
+      "f9201c78-fb57-522d-95a3-cc1002e530d5",
+      "ae1a0796-b925-53e9-8644-4d9bac2c2f9c",
+      "ee286451-4bc0-5092-a3aa-fe4d470f313b"
+    ],
+    "resolutionOfHeldItemIds": [
+      "2ecdf560-9943-5db0-9c4d-39c2a0e72f70",
+      "4799b76c-8c17-5aa9-bbb7-c96f734634b3",
+      "740f0018-2f61-570a-8e1f-a1fe5411302c",
+      "ca3cf376-b0f2-57bf-b3ad-21c69a5c62e0",
+      "4d47d291-c9fd-524f-aaa2-7ff3a469b697",
+      "e007da8f-ebfc-5d41-9b8a-11373171bbd3",
+      "c6dc96d7-9ce0-5396-bee2-383b700687ca"
+    ],
+    "completedItemIds": [
+      "27325d16-74f5-5880-a722-55eed6a2cd8c",
+      "74d37e86-1fc6-5849-b977-49f0a77a1529",
+      "9cf31de1-b02e-5113-ad7d-b479fe765564",
+      "f8f66c61-9a6a-5e5a-80bd-258f9b50fb95",
+      "f9201c78-fb57-522d-95a3-cc1002e530d5",
+      "ae1a0796-b925-53e9-8644-4d9bac2c2f9c",
+      "ee286451-4bc0-5092-a3aa-fe4d470f313b"
+    ],
+    "heldItemIds": []
+  },
+  "revisionProposal": {
+    "baselineContentRevision": 3,
+    "baselineTranslationRevision": 3,
+    "targetContentRevision": 4,
+    "targetTranslationRevision": 4,
+    "reason": "Corrected dictionary identities, kana display/selected-sense packages and explicit option pools change canonical content; bilingual packages are aligned to the new canonical revision."
+  },
+  "items": [
+    {
+      "itemId": "27325d16-74f5-5880-a722-55eed6a2cd8c",
+      "entSeq": "1000580",
+      "proposedSkillCode": null,
+      "contentRevision": 4,
+      "isPublished": false,
+      "identityAction": "REUSE_EXISTING_LESSON_OWNER",
+      "runtimeMapping": {
+        "mappingStatus": "SYLLABUS_MAPPED",
+        "skillId": "9d33f850-ccf4-537a-be72-1dbe5ab986dc",
+        "unitSlug": "n5-this-that-and-place-reference",
+        "lessonSlug": "ko-so-a-do-pronouns"
+      },
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "entSeq": "1000580",
+          "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+          "senseOrdinals": [
+            1
+          ],
+          "selectedGlossesEn": [
+            "that",
+            "that thing"
+          ],
+          "restrictionsChecked": {
+            "stagk": [],
+            "stagr": [],
+            "re_restr": [],
+            "readingForms": [
+              {
+                "reb": [
+                  "あれ"
+                ],
+                "re_pri": [
+                  "ichi1"
+                ]
+              },
+              {
+                "reb": [
+                  "アレ"
+                ],
+                "re_inf": [
+                  "sk"
+                ]
+              }
+            ]
+          },
+          "registerTags": [
+            "uk"
+          ],
+          "notes": [
+            "indicating something distant from both speaker and listener (in space, time or psychologically), or something understood without naming it directly"
+          ],
+          "licenseNote": "Retain the EDRDG licence snapshot bundled with the pinned JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+          "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+          "rows": [
+            {
+              "lineNumberOneBased": 42,
+              "rawCsvRow": "2847612,あれ,,that",
+              "values": [
+                "2847612",
+                "あれ",
+                "",
+                "that"
+              ]
+            }
+          ],
+          "rawEntSeq": "2847612",
+          "correctedEntSeq": "1000580",
+          "confidence": "HEURISTIC",
+          "candidateLevel": "N5",
+          "placementDecision": "Editorial correction: surface and intended gloss support this N5 word, but the raw overlay points to a different homographic entry. JMdict determines the corrected lexical identity.",
+          "category": "JLPT_SIGNAL"
+        },
+        {
+          "provider": "KOTOBAHUB_INTERNAL",
+          "category": "EDITORIAL_AUTHORING",
+          "notes": "English copy follows the selected JMdict sense; Indonesian copy is an original editorial translation of that same sense. Spatial qualifiers narrow the demonstrative prompts to their concrete item use. No example sentences or additional explanations are authored."
+        }
+      ],
+      "japanese": {
+        "surfaceFormText": "あれ",
+        "kanaDisplayText": "あれ",
+        "acceptedAnswers": {
+          "JAPANESE": [
+            "あれ"
+          ],
+          "KANA": [
+            "あれ"
+          ]
+        }
+      },
+      "localizations": {
+        "en": {
+          "sourceRevision": 4,
+          "translationRevision": 4,
+          "isPublished": false,
+          "meaning": "that (far from both speaker and listener)",
+          "aliases": [],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+              "values": {
+                "MEANING": "paper",
+                "JAPANESE": "紙",
+                "KANA": "かみ"
+              },
+              "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+              "values": {
+                "MEANING": "postage stamp",
+                "JAPANESE": "切手",
+                "KANA": "きって"
+              },
+              "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+              "values": {
+                "MEANING": "envelope",
+                "JAPANESE": "封筒",
+                "KANA": "ふうとう"
+              },
+              "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            }
+          ]
+        },
+        "id": {
+          "sourceRevision": 4,
+          "translationRevision": 4,
+          "isPublished": false,
+          "meaning": "itu (jauh dari pembicara dan lawan bicara)",
+          "aliases": [],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+              "values": {
+                "MEANING": "kertas",
+                "JAPANESE": "紙",
+                "KANA": "かみ"
+              },
+              "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+              "values": {
+                "MEANING": "prangko",
+                "JAPANESE": "切手",
+                "KANA": "きって"
+              },
+              "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+              "values": {
+                "MEANING": "amplop",
+                "JAPANESE": "封筒",
+                "KANA": "ふうとう"
+              },
+              "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            }
+          ]
+        }
+      },
+      "optionChecks": {
+        "en": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "あれ",
+            "correctAnswer": "that (far from both speaker and listener)",
+            "acceptedAnswers": [
+              "that (far from both speaker and listener)"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "paper",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "postage stamp",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "envelope",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "that (far from both speaker and listener)",
+            "correctAnswer": "あれ",
+            "acceptedAnswers": [
+              "あれ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "紙",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "切手",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "封筒",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "that (far from both speaker and listener)",
+            "correctAnswer": "あれ",
+            "acceptedAnswers": [
+              "あれ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "かみ",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "きって",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "ふうとう",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          }
+        ],
+        "id": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "あれ",
+            "correctAnswer": "itu (jauh dari pembicara dan lawan bicara)",
+            "acceptedAnswers": [
+              "itu (jauh dari pembicara dan lawan bicara)"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "kertas",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "prangko",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "amplop",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "itu (jauh dari pembicara dan lawan bicara)",
+            "correctAnswer": "あれ",
+            "acceptedAnswers": [
+              "あれ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "紙",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "切手",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "封筒",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "itu (jauh dari pembicara dan lawan bicara)",
+            "correctAnswer": "あれ",
+            "acceptedAnswers": [
+              "あれ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "かみ",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "きって",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "ふうとう",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          }
+        ]
+      },
+      "senseScopeNote": "A thing distant from both participants; exclude the person, time, place and euphemistic senses.",
+      "canonicalAnswerProposal": {
+        "status": "PROPOSED_REVIEW_REQUIRED",
+        "baseline": {
+          "JAPANESE": [
+            "彼",
+            "彼れ"
+          ],
+          "KANA": [
+            "あれ",
+            "アレ"
+          ],
+          "ENGLISH": [
+            "that",
+            "that thing",
+            "that person"
+          ]
+        },
+        "proposed": {
+          "JAPANESE": [
+            "あれ"
+          ],
+          "KANA": [
+            "あれ"
+          ],
+          "ENGLISH": [
+            "that (far from both speaker and listener)"
+          ]
+        },
+        "reason": "Use the usual kana presentation for the selected sense and one precise English meaning. Other verified forms remain source evidence, while this beginner package uses only the primary kana. Existing item IDs and lesson ownership stay unchanged; newly corrected entries receive distinct pending IDs. No active artifact is modified by this draft."
+      },
+      "reviewedDistractorPoolItemIds": [
+        "e0eea2d8-307b-5d95-882c-bf42f6169801",
+        "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+        "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14"
+      ]
+    },
+    {
+      "itemId": "74d37e86-1fc6-5849-b977-49f0a77a1529",
+      "entSeq": "1628530",
+      "proposedSkillCode": null,
+      "contentRevision": 4,
+      "isPublished": false,
+      "identityAction": "REUSE_EXISTING_LESSON_OWNER",
+      "runtimeMapping": {
+        "mappingStatus": "SYLLABUS_MAPPED",
+        "skillId": "35703e65-7a7c-5f23-9798-8381100fc253",
+        "unitSlug": "n5-this-that-and-place-reference",
+        "lessonSlug": "ko-so-a-do-pronouns"
+      },
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "entSeq": "1628530",
+          "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+          "senseOrdinals": [
+            1
+          ],
+          "selectedGlossesEn": [
+            "this",
+            "this one"
+          ],
+          "restrictionsChecked": {
+            "stagk": [],
+            "stagr": [],
+            "re_restr": [],
+            "readingForms": [
+              {
+                "reb": [
+                  "これ"
+                ],
+                "re_pri": [
+                  "ichi1"
+                ]
+              }
+            ]
+          },
+          "registerTags": [
+            "uk"
+          ],
+          "notes": [
+            "indicating an item near the speaker, the action of the speaker, or the current topic"
+          ],
+          "licenseNote": "Retain the EDRDG licence snapshot bundled with the pinned JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+          "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+          "rows": [
+            {
+              "lineNumberOneBased": 254,
+              "rawCsvRow": "2216120,これ,,This",
+              "values": [
+                "2216120",
+                "これ",
+                "",
+                "This"
+              ]
+            }
+          ],
+          "rawEntSeq": "2216120",
+          "correctedEntSeq": "1628530",
+          "confidence": "HEURISTIC",
+          "candidateLevel": "N5",
+          "placementDecision": "Editorial correction: surface and intended gloss support this N5 word, but the raw overlay points to a different homographic entry. JMdict determines the corrected lexical identity.",
+          "category": "JLPT_SIGNAL"
+        },
+        {
+          "provider": "KOTOBAHUB_INTERNAL",
+          "category": "EDITORIAL_AUTHORING",
+          "notes": "English copy follows the selected JMdict sense; Indonesian copy is an original editorial translation of that same sense. Spatial qualifiers narrow the demonstrative prompts to their concrete item use. No example sentences or additional explanations are authored."
+        }
+      ],
+      "japanese": {
+        "surfaceFormText": "これ",
+        "kanaDisplayText": "これ",
+        "acceptedAnswers": {
+          "JAPANESE": [
+            "これ"
+          ],
+          "KANA": [
+            "これ"
+          ]
+        }
+      },
+      "localizations": {
+        "en": {
+          "sourceRevision": 4,
+          "translationRevision": 4,
+          "isPublished": false,
+          "meaning": "this (near the speaker)",
+          "aliases": [],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+              "values": {
+                "MEANING": "paper",
+                "JAPANESE": "紙",
+                "KANA": "かみ"
+              },
+              "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+              "values": {
+                "MEANING": "postage stamp",
+                "JAPANESE": "切手",
+                "KANA": "きって"
+              },
+              "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+              "values": {
+                "MEANING": "envelope",
+                "JAPANESE": "封筒",
+                "KANA": "ふうとう"
+              },
+              "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            }
+          ]
+        },
+        "id": {
+          "sourceRevision": 4,
+          "translationRevision": 4,
+          "isPublished": false,
+          "meaning": "ini (dekat pembicara)",
+          "aliases": [],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+              "values": {
+                "MEANING": "kertas",
+                "JAPANESE": "紙",
+                "KANA": "かみ"
+              },
+              "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+              "values": {
+                "MEANING": "prangko",
+                "JAPANESE": "切手",
+                "KANA": "きって"
+              },
+              "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+              "values": {
+                "MEANING": "amplop",
+                "JAPANESE": "封筒",
+                "KANA": "ふうとう"
+              },
+              "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            }
+          ]
+        }
+      },
+      "optionChecks": {
+        "en": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "これ",
+            "correctAnswer": "this (near the speaker)",
+            "acceptedAnswers": [
+              "this (near the speaker)"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "paper",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "postage stamp",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "envelope",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "this (near the speaker)",
+            "correctAnswer": "これ",
+            "acceptedAnswers": [
+              "これ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "紙",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "切手",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "封筒",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "this (near the speaker)",
+            "correctAnswer": "これ",
+            "acceptedAnswers": [
+              "これ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "かみ",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "きって",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "ふうとう",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          }
+        ],
+        "id": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "これ",
+            "correctAnswer": "ini (dekat pembicara)",
+            "acceptedAnswers": [
+              "ini (dekat pembicara)"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "kertas",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "prangko",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "amplop",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "ini (dekat pembicara)",
+            "correctAnswer": "これ",
+            "acceptedAnswers": [
+              "これ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "紙",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "切手",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "封筒",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "ini (dekat pembicara)",
+            "correctAnswer": "これ",
+            "acceptedAnswers": [
+              "これ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "かみ",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "きって",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "ふうとう",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          }
+        ]
+      },
+      "senseScopeNote": "An item near the speaker; exclude the person, time, place, emphasis and archaic first-person senses.",
+      "canonicalAnswerProposal": {
+        "status": "PROPOSED_REVIEW_REQUIRED",
+        "baseline": {
+          "JAPANESE": [
+            "此れ",
+            "是",
+            "之",
+            "維",
+            "惟",
+            "此",
+            "是れ",
+            "之れ"
+          ],
+          "KANA": [
+            "これ"
+          ],
+          "ENGLISH": [
+            "this",
+            "this one",
+            "this person"
+          ]
+        },
+        "proposed": {
+          "JAPANESE": [
+            "これ"
+          ],
+          "KANA": [
+            "これ"
+          ],
+          "ENGLISH": [
+            "this (near the speaker)"
+          ]
+        },
+        "reason": "Use the usual kana presentation for the selected sense and one precise English meaning. Other verified forms remain source evidence, while this beginner package uses only the primary kana. Existing item IDs and lesson ownership stay unchanged; newly corrected entries receive distinct pending IDs. No active artifact is modified by this draft."
+      },
+      "reviewedDistractorPoolItemIds": [
+        "e0eea2d8-307b-5d95-882c-bf42f6169801",
+        "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+        "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14"
+      ]
+    },
+    {
+      "itemId": "9cf31de1-b02e-5113-ad7d-b479fe765564",
+      "entSeq": "1006970",
+      "proposedSkillCode": null,
+      "contentRevision": 4,
+      "isPublished": false,
+      "identityAction": "REUSE_EXISTING_LESSON_OWNER",
+      "runtimeMapping": {
+        "mappingStatus": "SYLLABUS_MAPPED",
+        "skillId": "e484cd12-332e-55de-a4cd-834137de56f0",
+        "unitSlug": "n5-this-that-and-place-reference",
+        "lessonSlug": "ko-so-a-do-pronouns"
+      },
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "entSeq": "1006970",
+          "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+          "senseOrdinals": [
+            1
+          ],
+          "selectedGlossesEn": [
+            "that",
+            "it"
+          ],
+          "restrictionsChecked": {
+            "stagk": [],
+            "stagr": [],
+            "re_restr": [],
+            "readingForms": [
+              {
+                "reb": [
+                  "それ"
+                ],
+                "re_pri": [
+                  "ichi1"
+                ]
+              }
+            ]
+          },
+          "registerTags": [
+            "uk"
+          ],
+          "notes": [
+            "indicating an item or person near the listener, the action of the listener, or something on their mind"
+          ],
+          "licenseNote": "Retain the EDRDG licence snapshot bundled with the pinned JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+          "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+          "rows": [
+            {
+              "lineNumberOneBased": 348,
+              "rawCsvRow": "2216210,それ,,that",
+              "values": [
+                "2216210",
+                "それ",
+                "",
+                "that"
+              ]
+            }
+          ],
+          "rawEntSeq": "2216210",
+          "correctedEntSeq": "1006970",
+          "confidence": "HEURISTIC",
+          "candidateLevel": "N5",
+          "placementDecision": "Editorial correction: surface and intended gloss support this N5 word, but the raw overlay points to a different homographic entry. JMdict determines the corrected lexical identity.",
+          "category": "JLPT_SIGNAL"
+        },
+        {
+          "provider": "KOTOBAHUB_INTERNAL",
+          "category": "EDITORIAL_AUTHORING",
+          "notes": "English copy follows the selected JMdict sense; Indonesian copy is an original editorial translation of that same sense. Spatial qualifiers narrow the demonstrative prompts to their concrete item use. No example sentences or additional explanations are authored."
+        }
+      ],
+      "japanese": {
+        "surfaceFormText": "それ",
+        "kanaDisplayText": "それ",
+        "acceptedAnswers": {
+          "JAPANESE": [
+            "それ"
+          ],
+          "KANA": [
+            "それ"
+          ]
+        }
+      },
+      "localizations": {
+        "en": {
+          "sourceRevision": 4,
+          "translationRevision": 4,
+          "isPublished": false,
+          "meaning": "that (near the listener)",
+          "aliases": [],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+              "values": {
+                "MEANING": "paper",
+                "JAPANESE": "紙",
+                "KANA": "かみ"
+              },
+              "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+              "values": {
+                "MEANING": "postage stamp",
+                "JAPANESE": "切手",
+                "KANA": "きって"
+              },
+              "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+              "values": {
+                "MEANING": "envelope",
+                "JAPANESE": "封筒",
+                "KANA": "ふうとう"
+              },
+              "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            }
+          ]
+        },
+        "id": {
+          "sourceRevision": 4,
+          "translationRevision": 4,
+          "isPublished": false,
+          "meaning": "itu (dekat lawan bicara)",
+          "aliases": [],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+              "values": {
+                "MEANING": "kertas",
+                "JAPANESE": "紙",
+                "KANA": "かみ"
+              },
+              "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+              "values": {
+                "MEANING": "prangko",
+                "JAPANESE": "切手",
+                "KANA": "きって"
+              },
+              "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+              "values": {
+                "MEANING": "amplop",
+                "JAPANESE": "封筒",
+                "KANA": "ふうとう"
+              },
+              "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            }
+          ]
+        }
+      },
+      "optionChecks": {
+        "en": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "それ",
+            "correctAnswer": "that (near the listener)",
+            "acceptedAnswers": [
+              "that (near the listener)"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "paper",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "postage stamp",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "envelope",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "that (near the listener)",
+            "correctAnswer": "それ",
+            "acceptedAnswers": [
+              "それ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "紙",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "切手",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "封筒",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "that (near the listener)",
+            "correctAnswer": "それ",
+            "acceptedAnswers": [
+              "それ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "かみ",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "きって",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "ふうとう",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          }
+        ],
+        "id": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "それ",
+            "correctAnswer": "itu (dekat lawan bicara)",
+            "acceptedAnswers": [
+              "itu (dekat lawan bicara)"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "kertas",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "prangko",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "amplop",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "itu (dekat lawan bicara)",
+            "correctAnswer": "それ",
+            "acceptedAnswers": [
+              "それ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "紙",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "切手",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "封筒",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "itu (dekat lawan bicara)",
+            "correctAnswer": "それ",
+            "acceptedAnswers": [
+              "それ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "かみ",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "きって",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "ふうとう",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          }
+        ]
+      },
+      "senseScopeNote": "An item near the listener; exclude the time, archaic place and second-person senses.",
+      "canonicalAnswerProposal": {
+        "status": "PROPOSED_REVIEW_REQUIRED",
+        "baseline": {
+          "JAPANESE": [
+            "其れ",
+            "其"
+          ],
+          "KANA": [
+            "それ"
+          ],
+          "ENGLISH": [
+            "that",
+            "it",
+            "then"
+          ]
+        },
+        "proposed": {
+          "JAPANESE": [
+            "それ"
+          ],
+          "KANA": [
+            "それ"
+          ],
+          "ENGLISH": [
+            "that (near the listener)"
+          ]
+        },
+        "reason": "Use the usual kana presentation for the selected sense and one precise English meaning. Other verified forms remain source evidence, while this beginner package uses only the primary kana. Existing item IDs and lesson ownership stay unchanged; newly corrected entries receive distinct pending IDs. No active artifact is modified by this draft."
+      },
+      "reviewedDistractorPoolItemIds": [
+        "e0eea2d8-307b-5d95-882c-bf42f6169801",
+        "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+        "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14"
+      ]
+    },
+    {
+      "itemId": "f8f66c61-9a6a-5e5a-80bd-258f9b50fb95",
+      "entSeq": "1050390",
+      "proposedSkillCode": "n5_vocab_b03_drinking_glasses",
+      "contentRevision": 4,
+      "isPublished": false,
+      "identityAction": "NEW_CORRECTED_PENDING_IDENTITY",
+      "runtimeMapping": {
+        "mappingStatus": "PENDING_LESSON_MAPPING",
+        "skillId": null,
+        "unitSlug": null,
+        "lessonSlug": null
+      },
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "entSeq": "1050390",
+          "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+          "senseOrdinals": [
+            1
+          ],
+          "selectedGlossesEn": [
+            "glass (drinking vessel)",
+            "tumbler"
+          ],
+          "restrictionsChecked": {
+            "stagk": [],
+            "stagr": [],
+            "re_restr": [],
+            "readingForms": [
+              {
+                "reb": [
+                  "コップ"
+                ],
+                "re_pri": [
+                  "gai1",
+                  "ichi1"
+                ]
+              },
+              {
+                "reb": [
+                  "コツフ"
+                ],
+                "re_inf": [
+                  "sk"
+                ]
+              }
+            ]
+          },
+          "registerTags": [
+            "uk"
+          ],
+          "notes": [],
+          "licenseNote": "Retain the EDRDG licence snapshot bundled with the pinned JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+          "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+          "rows": [
+            {
+              "lineNumberOneBased": 246,
+              "rawCsvRow": "2846389,コップ,,a glass",
+              "values": [
+                "2846389",
+                "コップ",
+                "",
+                "a glass"
+              ]
+            }
+          ],
+          "rawEntSeq": "2846389",
+          "correctedEntSeq": "1050390",
+          "confidence": "HEURISTIC",
+          "candidateLevel": "N5",
+          "placementDecision": "Editorial correction: surface and intended gloss support this N5 word, but the raw overlay points to a different homographic entry. JMdict determines the corrected lexical identity.",
+          "category": "JLPT_SIGNAL"
+        },
+        {
+          "provider": "KOTOBAHUB_INTERNAL",
+          "category": "EDITORIAL_AUTHORING",
+          "notes": "English copy follows the selected JMdict sense; Indonesian copy is an original editorial translation of that same sense. Spatial qualifiers narrow the demonstrative prompts to their concrete item use. No example sentences or additional explanations are authored."
+        }
+      ],
+      "japanese": {
+        "surfaceFormText": "コップ",
+        "kanaDisplayText": "コップ",
+        "acceptedAnswers": {
+          "JAPANESE": [
+            "コップ"
+          ],
+          "KANA": [
+            "コップ"
+          ]
+        }
+      },
+      "localizations": {
+        "en": {
+          "sourceRevision": 4,
+          "translationRevision": 4,
+          "isPublished": false,
+          "meaning": "glass (drinking vessel)",
+          "aliases": [],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+              "values": {
+                "MEANING": "paper",
+                "JAPANESE": "紙",
+                "KANA": "かみ"
+              },
+              "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+              "values": {
+                "MEANING": "postage stamp",
+                "JAPANESE": "切手",
+                "KANA": "きって"
+              },
+              "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+              "values": {
+                "MEANING": "envelope",
+                "JAPANESE": "封筒",
+                "KANA": "ふうとう"
+              },
+              "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            }
+          ]
+        },
+        "id": {
+          "sourceRevision": 4,
+          "translationRevision": 4,
+          "isPublished": false,
+          "meaning": "gelas minum",
+          "aliases": [],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+              "values": {
+                "MEANING": "kertas",
+                "JAPANESE": "紙",
+                "KANA": "かみ"
+              },
+              "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+              "values": {
+                "MEANING": "prangko",
+                "JAPANESE": "切手",
+                "KANA": "きって"
+              },
+              "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+              "values": {
+                "MEANING": "amplop",
+                "JAPANESE": "封筒",
+                "KANA": "ふうとう"
+              },
+              "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            }
+          ]
+        }
+      },
+      "optionChecks": {
+        "en": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "コップ",
+            "correctAnswer": "glass (drinking vessel)",
+            "acceptedAnswers": [
+              "glass (drinking vessel)"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "paper",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "postage stamp",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "envelope",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "glass (drinking vessel)",
+            "correctAnswer": "コップ",
+            "acceptedAnswers": [
+              "コップ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "紙",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "切手",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "封筒",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "glass (drinking vessel)",
+            "correctAnswer": "コップ",
+            "acceptedAnswers": [
+              "コップ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "かみ",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "きって",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "ふうとう",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          }
+        ],
+        "id": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "コップ",
+            "correctAnswer": "gelas minum",
+            "acceptedAnswers": [
+              "gelas minum"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "kertas",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "prangko",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "amplop",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "gelas minum",
+            "correctAnswer": "コップ",
+            "acceptedAnswers": [
+              "コップ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "紙",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "切手",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "封筒",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "gelas minum",
+            "correctAnswer": "コップ",
+            "acceptedAnswers": [
+              "コップ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "かみ",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "きって",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "ふうとう",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          }
+        ]
+      },
+      "senseScopeNote": "A drinking vessel; exclude the playing-card cups suit and the unrelated cop entry.",
+      "canonicalAnswerProposal": {
+        "status": "PROPOSED_REVIEW_REQUIRED",
+        "baseline": null,
+        "proposed": {
+          "JAPANESE": [
+            "コップ"
+          ],
+          "KANA": [
+            "コップ"
+          ],
+          "ENGLISH": [
+            "glass (drinking vessel)"
+          ]
+        },
+        "reason": "Use the usual kana presentation for the selected sense and one precise English meaning. Other verified forms remain source evidence, while this beginner package uses only the primary kana. Existing item IDs and lesson ownership stay unchanged; newly corrected entries receive distinct pending IDs. No active artifact is modified by this draft."
+      },
+      "reviewedDistractorPoolItemIds": [
+        "e0eea2d8-307b-5d95-882c-bf42f6169801",
+        "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+        "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14"
+      ]
+    },
+    {
+      "itemId": "f9201c78-fb57-522d-95a3-cc1002e530d5",
+      "entSeq": "1597350",
+      "proposedSkillCode": "n5_vocab_b03_gradual_change",
+      "contentRevision": 4,
+      "isPublished": false,
+      "identityAction": "NEW_CORRECTED_PENDING_IDENTITY",
+      "runtimeMapping": {
+        "mappingStatus": "PENDING_LESSON_MAPPING",
+        "skillId": null,
+        "unitSlug": null,
+        "lessonSlug": null
+      },
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "entSeq": "1597350",
+          "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+          "senseOrdinals": [
+            1
+          ],
+          "selectedGlossesEn": [
+            "gradually",
+            "by degrees",
+            "little by little",
+            "more and more",
+            "increasingly"
+          ],
+          "restrictionsChecked": {
+            "stagk": [],
+            "stagr": [],
+            "re_restr": [],
+            "readingForms": [
+              {
+                "reb": [
+                  "だんだん"
+                ],
+                "re_pri": [
+                  "ichi1",
+                  "news2",
+                  "nf38"
+                ]
+              }
+            ]
+          },
+          "registerTags": [
+            "uk"
+          ],
+          "notes": [],
+          "licenseNote": "Retain the EDRDG licence snapshot bundled with the pinned JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+          "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+          "rows": [
+            {
+              "lineNumberOneBased": 375,
+              "rawCsvRow": "2546180,だんだん,,gradually",
+              "values": [
+                "2546180",
+                "だんだん",
+                "",
+                "gradually"
+              ]
+            }
+          ],
+          "rawEntSeq": "2546180",
+          "correctedEntSeq": "1597350",
+          "confidence": "HEURISTIC",
+          "candidateLevel": "N5",
+          "placementDecision": "Editorial correction: surface and intended gloss support this N5 word, but the raw overlay points to a different homographic entry. JMdict determines the corrected lexical identity.",
+          "category": "JLPT_SIGNAL"
+        },
+        {
+          "provider": "KOTOBAHUB_INTERNAL",
+          "category": "EDITORIAL_AUTHORING",
+          "notes": "English copy follows the selected JMdict sense; Indonesian copy is an original editorial translation of that same sense. Spatial qualifiers narrow the demonstrative prompts to their concrete item use. No example sentences or additional explanations are authored."
+        }
+      ],
+      "japanese": {
+        "surfaceFormText": "だんだん",
+        "kanaDisplayText": "だんだん",
+        "acceptedAnswers": {
+          "JAPANESE": [
+            "だんだん"
+          ],
+          "KANA": [
+            "だんだん"
+          ]
+        }
+      },
+      "localizations": {
+        "en": {
+          "sourceRevision": 4,
+          "translationRevision": 4,
+          "isPublished": false,
+          "meaning": "gradually",
+          "aliases": [],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+              "values": {
+                "MEANING": "paper",
+                "JAPANESE": "紙",
+                "KANA": "かみ"
+              },
+              "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+              "values": {
+                "MEANING": "postage stamp",
+                "JAPANESE": "切手",
+                "KANA": "きって"
+              },
+              "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+              "values": {
+                "MEANING": "envelope",
+                "JAPANESE": "封筒",
+                "KANA": "ふうとう"
+              },
+              "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            }
+          ]
+        },
+        "id": {
+          "sourceRevision": 4,
+          "translationRevision": 4,
+          "isPublished": false,
+          "meaning": "berangsur-angsur",
+          "aliases": [],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+              "values": {
+                "MEANING": "kertas",
+                "JAPANESE": "紙",
+                "KANA": "かみ"
+              },
+              "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+              "values": {
+                "MEANING": "prangko",
+                "JAPANESE": "切手",
+                "KANA": "きって"
+              },
+              "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+              "values": {
+                "MEANING": "amplop",
+                "JAPANESE": "封筒",
+                "KANA": "ふうとう"
+              },
+              "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            }
+          ]
+        }
+      },
+      "optionChecks": {
+        "en": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "だんだん",
+            "correctAnswer": "gradually",
+            "acceptedAnswers": [
+              "gradually"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "paper",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "postage stamp",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "envelope",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "gradually",
+            "correctAnswer": "だんだん",
+            "acceptedAnswers": [
+              "だんだん"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "紙",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "切手",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "封筒",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "gradually",
+            "correctAnswer": "だんだん",
+            "acceptedAnswers": [
+              "だんだん"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "かみ",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "きって",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "ふうとう",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          }
+        ],
+        "id": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "だんだん",
+            "correctAnswer": "berangsur-angsur",
+            "acceptedAnswers": [
+              "berangsur-angsur"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "kertas",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "prangko",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "amplop",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "berangsur-angsur",
+            "correctAnswer": "だんだん",
+            "acceptedAnswers": [
+              "だんだん"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "紙",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "切手",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "封筒",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "berangsur-angsur",
+            "correctAnswer": "だんだん",
+            "acceptedAnswers": [
+              "だんだん"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "かみ",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "きって",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "ふうとう",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          }
+        ]
+      },
+      "senseScopeNote": "Gradual change; exclude the steps/stairs noun sense and the unrelated Izumo greeting.",
+      "canonicalAnswerProposal": {
+        "status": "PROPOSED_REVIEW_REQUIRED",
+        "baseline": null,
+        "proposed": {
+          "JAPANESE": [
+            "だんだん"
+          ],
+          "KANA": [
+            "だんだん"
+          ],
+          "ENGLISH": [
+            "gradually"
+          ]
+        },
+        "reason": "Use the usual kana presentation for the selected sense and one precise English meaning. Other verified forms remain source evidence, while this beginner package uses only the primary kana. Existing item IDs and lesson ownership stay unchanged; newly corrected entries receive distinct pending IDs. No active artifact is modified by this draft."
+      },
+      "reviewedDistractorPoolItemIds": [
+        "e0eea2d8-307b-5d95-882c-bf42f6169801",
+        "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+        "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14"
+      ]
+    },
+    {
+      "itemId": "ae1a0796-b925-53e9-8644-4d9bac2c2f9c",
+      "entSeq": "1123880",
+      "proposedSkillCode": "n5_vocab_b03_clothing_buttons",
+      "contentRevision": 4,
+      "isPublished": false,
+      "identityAction": "NEW_CORRECTED_PENDING_IDENTITY",
+      "runtimeMapping": {
+        "mappingStatus": "PENDING_LESSON_MAPPING",
+        "skillId": null,
+        "unitSlug": null,
+        "lessonSlug": null
+      },
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "entSeq": "1123880",
+          "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+          "senseOrdinals": [
+            1
+          ],
+          "selectedGlossesEn": [
+            "button (clothing)"
+          ],
+          "restrictionsChecked": {
+            "stagk": [],
+            "stagr": [],
+            "re_restr": [],
+            "readingForms": [
+              {
+                "reb": [
+                  "ボタン"
+                ],
+                "re_pri": [
+                  "gai1",
+                  "ichi1"
+                ]
+              }
+            ]
+          },
+          "registerTags": [
+            "uk"
+          ],
+          "notes": [],
+          "licenseNote": "Retain the EDRDG licence snapshot bundled with the pinned JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+          "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+          "rows": [
+            {
+              "lineNumberOneBased": 571,
+              "rawCsvRow": "1182880,ボタン,,button",
+              "values": [
+                "1182880",
+                "ボタン",
+                "",
+                "button"
+              ]
+            }
+          ],
+          "rawEntSeq": "1182880",
+          "correctedEntSeq": "1123880",
+          "confidence": "HEURISTIC",
+          "candidateLevel": "N5",
+          "placementDecision": "Editorial correction: surface and intended gloss support this N5 word, but the raw overlay points to a different homographic entry. JMdict determines the corrected lexical identity.",
+          "category": "JLPT_SIGNAL"
+        },
+        {
+          "provider": "KOTOBAHUB_INTERNAL",
+          "category": "EDITORIAL_AUTHORING",
+          "notes": "English copy follows the selected JMdict sense; Indonesian copy is an original editorial translation of that same sense. Spatial qualifiers narrow the demonstrative prompts to their concrete item use. No example sentences or additional explanations are authored."
+        }
+      ],
+      "japanese": {
+        "surfaceFormText": "ボタン",
+        "kanaDisplayText": "ボタン",
+        "acceptedAnswers": {
+          "JAPANESE": [
+            "ボタン"
+          ],
+          "KANA": [
+            "ボタン"
+          ]
+        }
+      },
+      "localizations": {
+        "en": {
+          "sourceRevision": 4,
+          "translationRevision": 4,
+          "isPublished": false,
+          "meaning": "button (clothing)",
+          "aliases": [],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+              "values": {
+                "MEANING": "paper",
+                "JAPANESE": "紙",
+                "KANA": "かみ"
+              },
+              "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+              "values": {
+                "MEANING": "postage stamp",
+                "JAPANESE": "切手",
+                "KANA": "きって"
+              },
+              "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+              "values": {
+                "MEANING": "envelope",
+                "JAPANESE": "封筒",
+                "KANA": "ふうとう"
+              },
+              "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            }
+          ]
+        },
+        "id": {
+          "sourceRevision": 4,
+          "translationRevision": 4,
+          "isPublished": false,
+          "meaning": "kancing pakaian",
+          "aliases": [],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+              "values": {
+                "MEANING": "kertas",
+                "JAPANESE": "紙",
+                "KANA": "かみ"
+              },
+              "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+              "values": {
+                "MEANING": "prangko",
+                "JAPANESE": "切手",
+                "KANA": "きって"
+              },
+              "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+              "values": {
+                "MEANING": "amplop",
+                "JAPANESE": "封筒",
+                "KANA": "ふうとう"
+              },
+              "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            }
+          ]
+        }
+      },
+      "optionChecks": {
+        "en": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "ボタン",
+            "correctAnswer": "button (clothing)",
+            "acceptedAnswers": [
+              "button (clothing)"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "paper",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "postage stamp",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "envelope",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "button (clothing)",
+            "correctAnswer": "ボタン",
+            "acceptedAnswers": [
+              "ボタン"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "紙",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "切手",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "封筒",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "button (clothing)",
+            "correctAnswer": "ボタン",
+            "acceptedAnswers": [
+              "ボタン"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "かみ",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "きって",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "ふうとう",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          }
+        ],
+        "id": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "ボタン",
+            "correctAnswer": "kancing pakaian",
+            "acceptedAnswers": [
+              "kancing pakaian"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "kertas",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "prangko",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "amplop",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "kancing pakaian",
+            "correctAnswer": "ボタン",
+            "acceptedAnswers": [
+              "ボタン"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "紙",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "切手",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "封筒",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "kancing pakaian",
+            "correctAnswer": "ボタン",
+            "acceptedAnswers": [
+              "ボタン"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "かみ",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "きって",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "ふうとう",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          }
+        ]
+      },
+      "senseScopeNote": "A clothing fastener; exclude the push-button sense and the unrelated peony entry.",
+      "canonicalAnswerProposal": {
+        "status": "PROPOSED_REVIEW_REQUIRED",
+        "baseline": null,
+        "proposed": {
+          "JAPANESE": [
+            "ボタン"
+          ],
+          "KANA": [
+            "ボタン"
+          ],
+          "ENGLISH": [
+            "button (clothing)"
+          ]
+        },
+        "reason": "Use the usual kana presentation for the selected sense and one precise English meaning. Other verified forms remain source evidence, while this beginner package uses only the primary kana. Existing item IDs and lesson ownership stay unchanged; newly corrected entries receive distinct pending IDs. No active artifact is modified by this draft."
+      },
+      "reviewedDistractorPoolItemIds": [
+        "e0eea2d8-307b-5d95-882c-bf42f6169801",
+        "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+        "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14"
+      ]
+    },
+    {
+      "itemId": "ee286451-4bc0-5092-a3aa-fe4d470f313b",
+      "entSeq": "1128430",
+      "proposedSkillCode": "n5_vocab_b03_fire_lighting_matches",
+      "contentRevision": 4,
+      "isPublished": false,
+      "identityAction": "NEW_CORRECTED_PENDING_IDENTITY",
+      "runtimeMapping": {
+        "mappingStatus": "PENDING_LESSON_MAPPING",
+        "skillId": null,
+        "unitSlug": null,
+        "lessonSlug": null
+      },
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "entSeq": "1128430",
+          "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+          "senseOrdinals": [
+            1
+          ],
+          "selectedGlossesEn": [
+            "match (for lighting a fire)"
+          ],
+          "restrictionsChecked": {
+            "stagk": [],
+            "stagr": [],
+            "re_restr": [],
+            "readingForms": [
+              {
+                "reb": [
+                  "マッチ"
+                ],
+                "re_pri": [
+                  "gai1",
+                  "ichi1"
+                ]
+              }
+            ]
+          },
+          "registerTags": [
+            "uk"
+          ],
+          "notes": [],
+          "licenseNote": "Retain the EDRDG licence snapshot bundled with the pinned JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+          "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+          "rows": [
+            {
+              "lineNumberOneBased": 592,
+              "rawCsvRow": "2784220,マッチ,,match",
+              "values": [
+                "2784220",
+                "マッチ",
+                "",
+                "match"
+              ]
+            }
+          ],
+          "rawEntSeq": "2784220",
+          "correctedEntSeq": "1128430",
+          "confidence": "HEURISTIC",
+          "candidateLevel": "N5",
+          "placementDecision": "Editorial correction: surface and intended gloss support this N5 word, but the raw overlay points to a different homographic entry. JMdict determines the corrected lexical identity.",
+          "category": "JLPT_SIGNAL"
+        },
+        {
+          "provider": "KOTOBAHUB_INTERNAL",
+          "category": "EDITORIAL_AUTHORING",
+          "notes": "English copy follows the selected JMdict sense; Indonesian copy is an original editorial translation of that same sense. Spatial qualifiers narrow the demonstrative prompts to their concrete item use. No example sentences or additional explanations are authored."
+        }
+      ],
+      "japanese": {
+        "surfaceFormText": "マッチ",
+        "kanaDisplayText": "マッチ",
+        "acceptedAnswers": {
+          "JAPANESE": [
+            "マッチ"
+          ],
+          "KANA": [
+            "マッチ"
+          ]
+        }
+      },
+      "localizations": {
+        "en": {
+          "sourceRevision": 4,
+          "translationRevision": 4,
+          "isPublished": false,
+          "meaning": "match (for lighting a fire)",
+          "aliases": [],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+              "values": {
+                "MEANING": "paper",
+                "JAPANESE": "紙",
+                "KANA": "かみ"
+              },
+              "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+              "values": {
+                "MEANING": "postage stamp",
+                "JAPANESE": "切手",
+                "KANA": "きって"
+              },
+              "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+              "values": {
+                "MEANING": "envelope",
+                "JAPANESE": "封筒",
+                "KANA": "ふうとう"
+              },
+              "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            }
+          ]
+        },
+        "id": {
+          "sourceRevision": 4,
+          "translationRevision": 4,
+          "isPublished": false,
+          "meaning": "korek api batang",
+          "aliases": [],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+              "values": {
+                "MEANING": "kertas",
+                "JAPANESE": "紙",
+                "KANA": "かみ"
+              },
+              "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+              "values": {
+                "MEANING": "prangko",
+                "JAPANESE": "切手",
+                "KANA": "きって"
+              },
+              "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            },
+            {
+              "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+              "values": {
+                "MEANING": "amplop",
+                "JAPANESE": "封筒",
+                "KANA": "ふうとう"
+              },
+              "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+            }
+          ]
+        }
+      },
+      "optionChecks": {
+        "en": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "マッチ",
+            "correctAnswer": "match (for lighting a fire)",
+            "acceptedAnswers": [
+              "match (for lighting a fire)"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "paper",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "postage stamp",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "envelope",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "match (for lighting a fire)",
+            "correctAnswer": "マッチ",
+            "acceptedAnswers": [
+              "マッチ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "紙",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "切手",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "封筒",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "match (for lighting a fire)",
+            "correctAnswer": "マッチ",
+            "acceptedAnswers": [
+              "マッチ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "かみ",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "きって",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "ふうとう",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          }
+        ],
+        "id": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "マッチ",
+            "correctAnswer": "korek api batang",
+            "acceptedAnswers": [
+              "korek api batang"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "kertas",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "prangko",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "amplop",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "korek api batang",
+            "correctAnswer": "マッチ",
+            "acceptedAnswers": [
+              "マッチ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "紙",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "切手",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "封筒",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "korek api batang",
+            "correctAnswer": "マッチ",
+            "acceptedAnswers": [
+              "マッチ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "かみ",
+                "reason": "The verified paper entry (1311530, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "きって",
+                "reason": "The verified postage stamp entry (1385070, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "ふうとう",
+                "reason": "The verified envelope entry (1499690, sense 1) names a separate concrete object, not this target sense. Its spelling, reading and localized meaning are not target aliases."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three named peer distractors.",
+              "Compared selected meaning and Japanese answer aliases against all three peers after NFKC, case and whitespace normalization; no collisions.",
+              "Checked both directions: paper, postage stamp and envelope are separate noun meanings and have distinct forms/readings; none is a translation or reading of the target.",
+              "Readiness covers only these explicit candidates; runtime integration and independent content review remain required."
+            ]
+          }
+        ]
+      },
+      "senseScopeNote": "A match used to light a fire; exclude the unrelated sporting contest/matching entry.",
+      "canonicalAnswerProposal": {
+        "status": "PROPOSED_REVIEW_REQUIRED",
+        "baseline": null,
+        "proposed": {
+          "JAPANESE": [
+            "マッチ"
+          ],
+          "KANA": [
+            "マッチ"
+          ],
+          "ENGLISH": [
+            "match (for lighting a fire)"
+          ]
+        },
+        "reason": "Use the usual kana presentation for the selected sense and one precise English meaning. Other verified forms remain source evidence, while this beginner package uses only the primary kana. Existing item IDs and lesson ownership stay unchanged; newly corrected entries receive distinct pending IDs. No active artifact is modified by this draft."
+      },
+      "reviewedDistractorPoolItemIds": [
+        "e0eea2d8-307b-5d95-882c-bf42f6169801",
+        "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+        "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14"
+      ]
+    }
+  ],
+  "heldItems": [],
+  "integrationConstraints": [
+    "All drafts remain unpublished; parent owns runtime compilation after independent review.",
+    "Retirement of the seven incorrect source identities does not transfer their history to these targets.",
+    "Three existing demonstrative IDs retain their current published lesson owners; only four corrected new identities have proposed vocabulary groups.",
+    "The strict distractor pool is limited to the three named source-verified anchor items; no global fallback pool is certified by this draft."
+  ],
+  "checksPerformed": {
+    "sourceEvidence": "Verified exact assigned curation SHA-256, both source archive SHA-256 values, seven target XML entries byte-for-byte, seven CSV rows and three anchor raw XML entries; compared anchor forms and translations against current canonical/overlay.",
+    "contentCoverage": 7,
+    "localePackageCount": 14,
+    "optionPairCount": 42,
+    "normalization": "NFKC, casefold, collapsed whitespace",
+    "independentReview": "Not performed by maker; parent must request an independent reviewer."
+  }
+}

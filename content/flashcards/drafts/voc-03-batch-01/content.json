@@ -1,0 +1,2259 @@
+{
+  "draftFormat": "kotoba-vocabulary-content-v1",
+  "batchId": "voc-03-batch-01-n5-letter-writing",
+  "curation": {
+    "path": "content/flashcards/drafts/voc-03-batch-01/curation.json",
+    "sha256": "6b8d884be18d85a4d249217e23c43782595227a48dcb6a4f10f29a698188f38d"
+  },
+  "isPublished": false,
+  "scope": {
+    "taskId": "VOC-03",
+    "mode": "AUTHORING",
+    "assignedItemIds": [
+      "0d5bab28-12d4-5428-b233-0378dce40357",
+      "e0eea2d8-307b-5d95-882c-bf42f6169801",
+      "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+      "734bc421-0075-5336-9773-0e89276749ad",
+      "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+      "506c5576-24cf-5e3f-ae16-77826bf0c8d1"
+    ],
+    "completedItemIds": [
+      "0d5bab28-12d4-5428-b233-0378dce40357",
+      "e0eea2d8-307b-5d95-882c-bf42f6169801",
+      "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+      "734bc421-0075-5336-9773-0e89276749ad",
+      "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+      "506c5576-24cf-5e3f-ae16-77826bf0c8d1"
+    ],
+    "heldItemIds": [],
+    "completedCount": 6,
+    "heldCount": 0,
+    "readinessMeaning": "Completed bilingual draft and explicit peer-option checks only; independent editorial review and runtime pool validation remain required."
+  },
+  "revisionProposal": {
+    "baselineOverlayContentRevision": 1,
+    "baselineOverlayTranslationRevision": 1,
+    "targetContentRevision": 2,
+    "targetTranslationRevision": 2,
+    "reason": "Adding bilingual item packages changes the compiled candidate pools; the selected 切手 English canonical set is narrowed and 手紙 receives a disambiguated English display meaning. Parent must apply monotonic global revisions through the supported compiler only after independent review. No active artifact is edited by this draft."
+  },
+  "items": [
+    {
+      "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+      "entSeq": "1178590",
+      "proposedSkillCode": "n5_vocab_letter_writing_supplies",
+      "contentRevision": 2,
+      "isPublished": false,
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "entSeq": "1178590",
+          "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+          "senseOrdinals": [
+            1
+          ],
+          "selectedGlossesEn": [
+            "(wooden) pencil"
+          ],
+          "restrictionsChecked": {
+            "stagk": [],
+            "stagr": [],
+            "re_restr": [],
+            "readingForms": [
+              {
+                "text": "えんぴつ",
+                "re_restr": [],
+                "re_nokanji": false,
+                "re_inf": []
+              },
+              {
+                "text": "エンピツ",
+                "re_restr": [],
+                "re_nokanji": false,
+                "re_inf": [
+                  {
+                    "code": "sk",
+                    "label": "search-only kana form"
+                  }
+                ]
+              }
+            ]
+          },
+          "licenseNote": "Retain the EDRDG licence snapshot bundled with the pinned JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "category": "JLPT_SIGNAL",
+          "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+          "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+          "lineNumberOneBased": 93,
+          "rawCsvRow": "1178590,えんぴつ,鉛筆,pencil",
+          "entryId": "1178590",
+          "reading": "えんぴつ",
+          "spelling": "鉛筆",
+          "glossEn": "pencil",
+          "candidateLevel": "N5",
+          "confidence": "HEURISTIC",
+          "placementDecision": "Editorial N5 placement for concrete everyday letter-writing/mailing nouns; not an official JLPT lexical claim."
+        },
+        {
+          "provider": "KOTOBAHUB_INTERNAL",
+          "category": "EDITORIAL_AUTHORING",
+          "notes": "English copy follows the selected JMdict sense; Indonesian copy is an original editorial translation of that same sense, not text from JMdict or the Yomitan CSV. No example sentences or additional explanation are authored."
+        }
+      ],
+      "japanese": {
+        "surfaceFormText": "鉛筆",
+        "kanaDisplayText": "えんぴつ",
+        "acceptedAnswers": {
+          "JAPANESE": [
+            "鉛筆"
+          ],
+          "KANA": [
+            "えんぴつ",
+            "エンピツ"
+          ]
+        },
+        "notes": [
+          "エンピツ has JMdict re_inf sk (search-only kana form). It is retained solely as a valid existing baseline KANA acceptance; えんぴつ remains the display reading. The selected pencil sense does not include mechanical pencil."
+        ]
+      },
+      "localizations": {
+        "en": {
+          "sourceRevision": 2,
+          "translationRevision": 2,
+          "isPublished": false,
+          "meaning": "pencil",
+          "aliases": [
+            "(wooden) pencil"
+          ],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+              "values": {
+                "MEANING": "paper",
+                "JAPANESE": "紙",
+                "KANA": "かみ"
+              },
+              "reason": "This is the verified paper entry (1311530), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+              "values": {
+                "MEANING": "postage stamp",
+                "JAPANESE": "切手",
+                "KANA": "きって"
+              },
+              "reason": "This is the verified postage stamp entry (1385070), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+              "values": {
+                "MEANING": "letter (written message)",
+                "JAPANESE": "手紙",
+                "KANA": "てがみ"
+              },
+              "reason": "This is the verified letter (written message) entry (1327720), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+            }
+          ]
+        },
+        "id": {
+          "sourceRevision": 2,
+          "translationRevision": 2,
+          "isPublished": false,
+          "meaning": "pensil",
+          "aliases": [],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+              "values": {
+                "MEANING": "kertas",
+                "JAPANESE": "紙",
+                "KANA": "かみ"
+              },
+              "reason": "This is the verified paper entry (1311530), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+              "values": {
+                "MEANING": "prangko",
+                "JAPANESE": "切手",
+                "KANA": "きって"
+              },
+              "reason": "This is the verified postage stamp entry (1385070), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+              "values": {
+                "MEANING": "surat",
+                "JAPANESE": "手紙",
+                "KANA": "てがみ"
+              },
+              "reason": "This is the verified letter (written message) entry (1327720), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+            }
+          ]
+        }
+      },
+      "optionChecks": {
+        "en": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "鉛筆",
+            "correctAnswer": "pencil",
+            "acceptedAnswers": [
+              "pencil",
+              "(wooden) pencil"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "paper",
+                "reason": "This is the verified paper entry (1311530), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "postage stamp",
+                "reason": "This is the verified postage stamp entry (1385070), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+                "value": "letter (written message)",
+                "reason": "This is the verified letter (written message) entry (1327720), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "pencil",
+            "correctAnswer": "鉛筆",
+            "acceptedAnswers": [
+              "鉛筆"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "紙",
+                "reason": "This is the verified paper entry (1311530), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "切手",
+                "reason": "This is the verified postage stamp entry (1385070), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+                "value": "手紙",
+                "reason": "This is the verified letter (written message) entry (1327720), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "pencil",
+            "correctAnswer": "えんぴつ",
+            "acceptedAnswers": [
+              "えんぴつ",
+              "エンピツ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "かみ",
+                "reason": "This is the verified paper entry (1311530), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "きって",
+                "reason": "This is the verified postage stamp entry (1385070), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+                "value": "てがみ",
+                "reason": "This is the verified letter (written message) entry (1327720), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          }
+        ],
+        "id": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "鉛筆",
+            "correctAnswer": "pensil",
+            "acceptedAnswers": [
+              "pensil"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "kertas",
+                "reason": "This is the verified paper entry (1311530), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "prangko",
+                "reason": "This is the verified postage stamp entry (1385070), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+                "value": "surat",
+                "reason": "This is the verified letter (written message) entry (1327720), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "pensil",
+            "correctAnswer": "鉛筆",
+            "acceptedAnswers": [
+              "鉛筆"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "紙",
+                "reason": "This is the verified paper entry (1311530), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "切手",
+                "reason": "This is the verified postage stamp entry (1385070), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+                "value": "手紙",
+                "reason": "This is the verified letter (written message) entry (1327720), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "pensil",
+            "correctAnswer": "えんぴつ",
+            "acceptedAnswers": [
+              "えんぴつ",
+              "エンピツ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "かみ",
+                "reason": "This is the verified paper entry (1311530), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "きって",
+                "reason": "This is the verified postage stamp entry (1385070), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+                "value": "てがみ",
+                "reason": "This is the verified letter (written message) entry (1327720), a different object from pencil; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          }
+        ]
+      },
+      "senseScopeNote": "a pencil used for writing, not paper, postage or a container for a letter"
+    },
+    {
+      "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+      "entSeq": "1311530",
+      "proposedSkillCode": "n5_vocab_letter_writing_supplies",
+      "contentRevision": 2,
+      "isPublished": false,
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "entSeq": "1311530",
+          "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+          "senseOrdinals": [
+            1
+          ],
+          "selectedGlossesEn": [
+            "paper"
+          ],
+          "restrictionsChecked": {
+            "stagk": [],
+            "stagr": [],
+            "re_restr": [],
+            "readingForms": [
+              {
+                "text": "かみ",
+                "re_restr": [],
+                "re_nokanji": false,
+                "re_inf": []
+              }
+            ]
+          },
+          "licenseNote": "Retain the EDRDG licence snapshot bundled with the pinned JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "category": "JLPT_SIGNAL",
+          "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+          "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+          "lineNumberOneBased": 164,
+          "rawCsvRow": "1311530,かみ,紙,paper",
+          "entryId": "1311530",
+          "reading": "かみ",
+          "spelling": "紙",
+          "glossEn": "paper",
+          "candidateLevel": "N5",
+          "confidence": "HEURISTIC",
+          "placementDecision": "Editorial N5 placement for concrete everyday letter-writing/mailing nouns; not an official JLPT lexical claim."
+        },
+        {
+          "provider": "KOTOBAHUB_INTERNAL",
+          "category": "EDITORIAL_AUTHORING",
+          "notes": "English copy follows the selected JMdict sense; Indonesian copy is an original editorial translation of that same sense, not text from JMdict or the Yomitan CSV. No example sentences or additional explanation are authored."
+        }
+      ],
+      "japanese": {
+        "surfaceFormText": "紙",
+        "kanaDisplayText": "かみ",
+        "acceptedAnswers": {
+          "JAPANESE": [
+            "紙"
+          ],
+          "KANA": [
+            "かみ"
+          ]
+        }
+      },
+      "localizations": {
+        "en": {
+          "sourceRevision": 2,
+          "translationRevision": 2,
+          "isPublished": false,
+          "meaning": "paper",
+          "aliases": [],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+              "values": {
+                "MEANING": "postage stamp",
+                "JAPANESE": "切手",
+                "KANA": "きって"
+              },
+              "reason": "This is the verified postage stamp entry (1385070), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+              "values": {
+                "MEANING": "letter (written message)",
+                "JAPANESE": "手紙",
+                "KANA": "てがみ"
+              },
+              "reason": "This is the verified letter (written message) entry (1327720), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+              "values": {
+                "MEANING": "envelope",
+                "JAPANESE": "封筒",
+                "KANA": "ふうとう"
+              },
+              "reason": "This is the verified envelope entry (1499690), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+            }
+          ]
+        },
+        "id": {
+          "sourceRevision": 2,
+          "translationRevision": 2,
+          "isPublished": false,
+          "meaning": "kertas",
+          "aliases": [],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+              "values": {
+                "MEANING": "prangko",
+                "JAPANESE": "切手",
+                "KANA": "きって"
+              },
+              "reason": "This is the verified postage stamp entry (1385070), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+              "values": {
+                "MEANING": "surat",
+                "JAPANESE": "手紙",
+                "KANA": "てがみ"
+              },
+              "reason": "This is the verified letter (written message) entry (1327720), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+              "values": {
+                "MEANING": "amplop",
+                "JAPANESE": "封筒",
+                "KANA": "ふうとう"
+              },
+              "reason": "This is the verified envelope entry (1499690), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+            }
+          ]
+        }
+      },
+      "optionChecks": {
+        "en": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "紙",
+            "correctAnswer": "paper",
+            "acceptedAnswers": [
+              "paper"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "postage stamp",
+                "reason": "This is the verified postage stamp entry (1385070), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+                "value": "letter (written message)",
+                "reason": "This is the verified letter (written message) entry (1327720), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "envelope",
+                "reason": "This is the verified envelope entry (1499690), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "paper",
+            "correctAnswer": "紙",
+            "acceptedAnswers": [
+              "紙"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "切手",
+                "reason": "This is the verified postage stamp entry (1385070), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+                "value": "手紙",
+                "reason": "This is the verified letter (written message) entry (1327720), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "封筒",
+                "reason": "This is the verified envelope entry (1499690), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "paper",
+            "correctAnswer": "かみ",
+            "acceptedAnswers": [
+              "かみ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "きって",
+                "reason": "This is the verified postage stamp entry (1385070), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+                "value": "てがみ",
+                "reason": "This is the verified letter (written message) entry (1327720), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "ふうとう",
+                "reason": "This is the verified envelope entry (1499690), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          }
+        ],
+        "id": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "紙",
+            "correctAnswer": "kertas",
+            "acceptedAnswers": [
+              "kertas"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "prangko",
+                "reason": "This is the verified postage stamp entry (1385070), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+                "value": "surat",
+                "reason": "This is the verified letter (written message) entry (1327720), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "amplop",
+                "reason": "This is the verified envelope entry (1499690), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "kertas",
+            "correctAnswer": "紙",
+            "acceptedAnswers": [
+              "紙"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "切手",
+                "reason": "This is the verified postage stamp entry (1385070), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+                "value": "手紙",
+                "reason": "This is the verified letter (written message) entry (1327720), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "封筒",
+                "reason": "This is the verified envelope entry (1499690), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "kertas",
+            "correctAnswer": "かみ",
+            "acceptedAnswers": [
+              "かみ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "きって",
+                "reason": "This is the verified postage stamp entry (1385070), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+                "value": "てがみ",
+                "reason": "This is the verified letter (written message) entry (1327720), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "ふうとう",
+                "reason": "This is the verified envelope entry (1499690), a different object from paper; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          }
+        ]
+      },
+      "senseScopeNote": "paper, the material, not a written message or an envelope"
+    },
+    {
+      "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+      "entSeq": "1385070",
+      "proposedSkillCode": "n5_vocab_letter_writing_supplies",
+      "contentRevision": 2,
+      "isPublished": false,
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "entSeq": "1385070",
+          "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+          "senseOrdinals": [
+            1
+          ],
+          "selectedGlossesEn": [
+            "stamp (postage)"
+          ],
+          "restrictionsChecked": {
+            "stagk": [],
+            "stagr": [],
+            "re_restr": [],
+            "readingForms": [
+              {
+                "text": "きって",
+                "re_restr": [],
+                "re_nokanji": false,
+                "re_inf": []
+              }
+            ]
+          },
+          "licenseNote": "Retain the EDRDG licence snapshot bundled with the pinned JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "category": "JLPT_SIGNAL",
+          "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+          "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+          "lineNumberOneBased": 186,
+          "rawCsvRow": "1385070,きって,切手,postage stamp",
+          "entryId": "1385070",
+          "reading": "きって",
+          "spelling": "切手",
+          "glossEn": "postage stamp",
+          "candidateLevel": "N5",
+          "confidence": "HEURISTIC",
+          "placementDecision": "Editorial N5 placement for concrete everyday letter-writing/mailing nouns; not an official JLPT lexical claim."
+        },
+        {
+          "provider": "KOTOBAHUB_INTERNAL",
+          "category": "EDITORIAL_AUTHORING",
+          "notes": "English copy follows the selected JMdict sense; Indonesian copy is an original editorial translation of that same sense, not text from JMdict or the Yomitan CSV. No example sentences or additional explanation are authored."
+        }
+      ],
+      "japanese": {
+        "surfaceFormText": "切手",
+        "kanaDisplayText": "きって",
+        "acceptedAnswers": {
+          "JAPANESE": [
+            "切手"
+          ],
+          "KANA": [
+            "きって"
+          ]
+        }
+      },
+      "localizations": {
+        "en": {
+          "sourceRevision": 2,
+          "translationRevision": 2,
+          "isPublished": false,
+          "meaning": "postage stamp",
+          "aliases": [
+            "stamp (postage)"
+          ],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+              "values": {
+                "MEANING": "letter (written message)",
+                "JAPANESE": "手紙",
+                "KANA": "てがみ"
+              },
+              "reason": "This is the verified letter (written message) entry (1327720), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+              "values": {
+                "MEANING": "envelope",
+                "JAPANESE": "封筒",
+                "KANA": "ふうとう"
+              },
+              "reason": "This is the verified envelope entry (1499690), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+              "values": {
+                "MEANING": "ball-point pen",
+                "JAPANESE": "ボールペン",
+                "KANA": "ボールペン"
+              },
+              "reason": "This is the verified ball-point pen entry (1123590), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+            }
+          ]
+        },
+        "id": {
+          "sourceRevision": 2,
+          "translationRevision": 2,
+          "isPublished": false,
+          "meaning": "prangko",
+          "aliases": [],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+              "values": {
+                "MEANING": "surat",
+                "JAPANESE": "手紙",
+                "KANA": "てがみ"
+              },
+              "reason": "This is the verified letter (written message) entry (1327720), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+              "values": {
+                "MEANING": "amplop",
+                "JAPANESE": "封筒",
+                "KANA": "ふうとう"
+              },
+              "reason": "This is the verified envelope entry (1499690), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+              "values": {
+                "MEANING": "bolpoin",
+                "JAPANESE": "ボールペン",
+                "KANA": "ボールペン"
+              },
+              "reason": "This is the verified ball-point pen entry (1123590), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+            }
+          ]
+        }
+      },
+      "optionChecks": {
+        "en": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "切手",
+            "correctAnswer": "postage stamp",
+            "acceptedAnswers": [
+              "postage stamp",
+              "stamp (postage)"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+                "value": "letter (written message)",
+                "reason": "This is the verified letter (written message) entry (1327720), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "envelope",
+                "reason": "This is the verified envelope entry (1499690), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+                "value": "ball-point pen",
+                "reason": "This is the verified ball-point pen entry (1123590), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "postage stamp",
+            "correctAnswer": "切手",
+            "acceptedAnswers": [
+              "切手"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+                "value": "手紙",
+                "reason": "This is the verified letter (written message) entry (1327720), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "封筒",
+                "reason": "This is the verified envelope entry (1499690), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+                "value": "ボールペン",
+                "reason": "This is the verified ball-point pen entry (1123590), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "postage stamp",
+            "correctAnswer": "きって",
+            "acceptedAnswers": [
+              "きって"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+                "value": "てがみ",
+                "reason": "This is the verified letter (written message) entry (1327720), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "ふうとう",
+                "reason": "This is the verified envelope entry (1499690), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+                "value": "ボールペン",
+                "reason": "This is the verified ball-point pen entry (1123590), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          }
+        ],
+        "id": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "切手",
+            "correctAnswer": "prangko",
+            "acceptedAnswers": [
+              "prangko"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+                "value": "surat",
+                "reason": "This is the verified letter (written message) entry (1327720), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "amplop",
+                "reason": "This is the verified envelope entry (1499690), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+                "value": "bolpoin",
+                "reason": "This is the verified ball-point pen entry (1123590), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "prangko",
+            "correctAnswer": "切手",
+            "acceptedAnswers": [
+              "切手"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+                "value": "手紙",
+                "reason": "This is the verified letter (written message) entry (1327720), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "封筒",
+                "reason": "This is the verified envelope entry (1499690), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+                "value": "ボールペン",
+                "reason": "This is the verified ball-point pen entry (1123590), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "prangko",
+            "correctAnswer": "きって",
+            "acceptedAnswers": [
+              "きって"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+                "value": "てがみ",
+                "reason": "This is the verified letter (written message) entry (1327720), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "ふうとう",
+                "reason": "This is the verified envelope entry (1499690), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+                "value": "ボールペン",
+                "reason": "This is the verified ball-point pen entry (1123590), a different object from postage stamp; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          }
+        ]
+      },
+      "senseScopeNote": "a postage stamp, not the letter or envelope it is attached to",
+      "canonicalAnswerProposal": {
+        "status": "PROPOSED_REVIEW_REQUIRED",
+        "field": "answerOptionPayload.canonicalAnswers.ENGLISH",
+        "baseline": [
+          "stamp (postage)",
+          "merchandise certificate",
+          "postage stamp"
+        ],
+        "proposed": [
+          "stamp (postage)",
+          "postage stamp"
+        ],
+        "reason": "Remove only the unrelated sense-2 merchandise certificate from this sense-1 package. Japanese/KANA answers and item identity stay the same. No active artifact is modified by this curation draft."
+      }
+    },
+    {
+      "itemId": "734bc421-0075-5336-9773-0e89276749ad",
+      "entSeq": "1327720",
+      "proposedSkillCode": "n5_vocab_letter_writing_supplies",
+      "contentRevision": 2,
+      "isPublished": false,
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "entSeq": "1327720",
+          "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+          "senseOrdinals": [
+            1
+          ],
+          "selectedGlossesEn": [
+            "letter",
+            "note"
+          ],
+          "restrictionsChecked": {
+            "stagk": [],
+            "stagr": [],
+            "re_restr": [],
+            "readingForms": [
+              {
+                "text": "てがみ",
+                "re_restr": [],
+                "re_nokanji": false,
+                "re_inf": []
+              }
+            ]
+          },
+          "licenseNote": "Retain the EDRDG licence snapshot bundled with the pinned JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "category": "JLPT_SIGNAL",
+          "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+          "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+          "lineNumberOneBased": 404,
+          "rawCsvRow": "1327720,てがみ,手紙,letter",
+          "entryId": "1327720",
+          "reading": "てがみ",
+          "spelling": "手紙",
+          "glossEn": "letter",
+          "candidateLevel": "N5",
+          "confidence": "HEURISTIC",
+          "placementDecision": "Editorial N5 placement for concrete everyday letter-writing/mailing nouns; not an official JLPT lexical claim."
+        },
+        {
+          "provider": "KOTOBAHUB_INTERNAL",
+          "category": "EDITORIAL_AUTHORING",
+          "notes": "English copy follows the selected JMdict sense; Indonesian copy is an original editorial translation of that same sense, not text from JMdict or the Yomitan CSV. No example sentences or additional explanation are authored."
+        }
+      ],
+      "japanese": {
+        "surfaceFormText": "手紙",
+        "kanaDisplayText": "てがみ",
+        "acceptedAnswers": {
+          "JAPANESE": [
+            "手紙"
+          ],
+          "KANA": [
+            "てがみ"
+          ]
+        }
+      },
+      "localizations": {
+        "en": {
+          "sourceRevision": 2,
+          "translationRevision": 2,
+          "isPublished": false,
+          "meaning": "letter (written message)",
+          "aliases": [
+            "letter",
+            "note"
+          ],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+              "values": {
+                "MEANING": "envelope",
+                "JAPANESE": "封筒",
+                "KANA": "ふうとう"
+              },
+              "reason": "This is the verified envelope entry (1499690), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+              "values": {
+                "MEANING": "ball-point pen",
+                "JAPANESE": "ボールペン",
+                "KANA": "ボールペン"
+              },
+              "reason": "This is the verified ball-point pen entry (1123590), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+              "values": {
+                "MEANING": "pencil",
+                "JAPANESE": "鉛筆",
+                "KANA": "えんぴつ"
+              },
+              "reason": "This is the verified pencil entry (1178590), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+            }
+          ]
+        },
+        "id": {
+          "sourceRevision": 2,
+          "translationRevision": 2,
+          "isPublished": false,
+          "meaning": "surat",
+          "aliases": [],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+              "values": {
+                "MEANING": "amplop",
+                "JAPANESE": "封筒",
+                "KANA": "ふうとう"
+              },
+              "reason": "This is the verified envelope entry (1499690), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+              "values": {
+                "MEANING": "bolpoin",
+                "JAPANESE": "ボールペン",
+                "KANA": "ボールペン"
+              },
+              "reason": "This is the verified ball-point pen entry (1123590), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+              "values": {
+                "MEANING": "pensil",
+                "JAPANESE": "鉛筆",
+                "KANA": "えんぴつ"
+              },
+              "reason": "This is the verified pencil entry (1178590), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+            }
+          ]
+        }
+      },
+      "optionChecks": {
+        "en": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "手紙",
+            "correctAnswer": "letter (written message)",
+            "acceptedAnswers": [
+              "letter (written message)",
+              "letter",
+              "note"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "envelope",
+                "reason": "This is the verified envelope entry (1499690), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+                "value": "ball-point pen",
+                "reason": "This is the verified ball-point pen entry (1123590), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+                "value": "pencil",
+                "reason": "This is the verified pencil entry (1178590), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "letter (written message)",
+            "correctAnswer": "手紙",
+            "acceptedAnswers": [
+              "手紙"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "封筒",
+                "reason": "This is the verified envelope entry (1499690), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+                "value": "ボールペン",
+                "reason": "This is the verified ball-point pen entry (1123590), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+                "value": "鉛筆",
+                "reason": "This is the verified pencil entry (1178590), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "letter (written message)",
+            "correctAnswer": "てがみ",
+            "acceptedAnswers": [
+              "てがみ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "ふうとう",
+                "reason": "This is the verified envelope entry (1499690), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+                "value": "ボールペン",
+                "reason": "This is the verified ball-point pen entry (1123590), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+                "value": "えんぴつ",
+                "reason": "This is the verified pencil entry (1178590), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          }
+        ],
+        "id": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "手紙",
+            "correctAnswer": "surat",
+            "acceptedAnswers": [
+              "surat"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "amplop",
+                "reason": "This is the verified envelope entry (1499690), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+                "value": "bolpoin",
+                "reason": "This is the verified ball-point pen entry (1123590), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+                "value": "pensil",
+                "reason": "This is the verified pencil entry (1178590), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "surat",
+            "correctAnswer": "手紙",
+            "acceptedAnswers": [
+              "手紙"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "封筒",
+                "reason": "This is the verified envelope entry (1499690), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+                "value": "ボールペン",
+                "reason": "This is the verified ball-point pen entry (1123590), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+                "value": "鉛筆",
+                "reason": "This is the verified pencil entry (1178590), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "surat",
+            "correctAnswer": "てがみ",
+            "acceptedAnswers": [
+              "てがみ"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+                "value": "ふうとう",
+                "reason": "This is the verified envelope entry (1499690), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+                "value": "ボールペン",
+                "reason": "This is the verified ball-point pen entry (1123590), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+                "value": "えんぴつ",
+                "reason": "This is the verified pencil entry (1178590), a different object from letter (written message); its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          }
+        ]
+      },
+      "senseScopeNote": "a written message, not an alphabetic character, a sheet of paper or an envelope"
+    },
+    {
+      "itemId": "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+      "entSeq": "1499690",
+      "proposedSkillCode": "n5_vocab_letter_writing_supplies",
+      "contentRevision": 2,
+      "isPublished": false,
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "entSeq": "1499690",
+          "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+          "senseOrdinals": [
+            1
+          ],
+          "selectedGlossesEn": [
+            "envelope"
+          ],
+          "restrictionsChecked": {
+            "stagk": [],
+            "stagr": [],
+            "re_restr": [],
+            "readingForms": [
+              {
+                "text": "ふうとう",
+                "re_restr": [],
+                "re_nokanji": false,
+                "re_inf": []
+              }
+            ]
+          },
+          "licenseNote": "Retain the EDRDG licence snapshot bundled with the pinned JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "category": "JLPT_SIGNAL",
+          "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+          "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+          "lineNumberOneBased": 540,
+          "rawCsvRow": "1499690,ふうとう,封筒,envelope",
+          "entryId": "1499690",
+          "reading": "ふうとう",
+          "spelling": "封筒",
+          "glossEn": "envelope",
+          "candidateLevel": "N5",
+          "confidence": "HEURISTIC",
+          "placementDecision": "Editorial N5 placement for concrete everyday letter-writing/mailing nouns; not an official JLPT lexical claim."
+        },
+        {
+          "provider": "KOTOBAHUB_INTERNAL",
+          "category": "EDITORIAL_AUTHORING",
+          "notes": "English copy follows the selected JMdict sense; Indonesian copy is an original editorial translation of that same sense, not text from JMdict or the Yomitan CSV. No example sentences or additional explanation are authored."
+        }
+      ],
+      "japanese": {
+        "surfaceFormText": "封筒",
+        "kanaDisplayText": "ふうとう",
+        "acceptedAnswers": {
+          "JAPANESE": [
+            "封筒"
+          ],
+          "KANA": [
+            "ふうとう"
+          ]
+        }
+      },
+      "localizations": {
+        "en": {
+          "sourceRevision": 2,
+          "translationRevision": 2,
+          "isPublished": false,
+          "meaning": "envelope",
+          "aliases": [],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+              "values": {
+                "MEANING": "ball-point pen",
+                "JAPANESE": "ボールペン",
+                "KANA": "ボールペン"
+              },
+              "reason": "This is the verified ball-point pen entry (1123590), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+              "values": {
+                "MEANING": "pencil",
+                "JAPANESE": "鉛筆",
+                "KANA": "えんぴつ"
+              },
+              "reason": "This is the verified pencil entry (1178590), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+              "values": {
+                "MEANING": "paper",
+                "JAPANESE": "紙",
+                "KANA": "かみ"
+              },
+              "reason": "This is the verified paper entry (1311530), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+            }
+          ]
+        },
+        "id": {
+          "sourceRevision": 2,
+          "translationRevision": 2,
+          "isPublished": false,
+          "meaning": "amplop",
+          "aliases": [],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+              "values": {
+                "MEANING": "bolpoin",
+                "JAPANESE": "ボールペン",
+                "KANA": "ボールペン"
+              },
+              "reason": "This is the verified ball-point pen entry (1123590), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+              "values": {
+                "MEANING": "pensil",
+                "JAPANESE": "鉛筆",
+                "KANA": "えんぴつ"
+              },
+              "reason": "This is the verified pencil entry (1178590), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+              "values": {
+                "MEANING": "kertas",
+                "JAPANESE": "紙",
+                "KANA": "かみ"
+              },
+              "reason": "This is the verified paper entry (1311530), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+            }
+          ]
+        }
+      },
+      "optionChecks": {
+        "en": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "封筒",
+            "correctAnswer": "envelope",
+            "acceptedAnswers": [
+              "envelope"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+                "value": "ball-point pen",
+                "reason": "This is the verified ball-point pen entry (1123590), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+                "value": "pencil",
+                "reason": "This is the verified pencil entry (1178590), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "paper",
+                "reason": "This is the verified paper entry (1311530), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "envelope",
+            "correctAnswer": "封筒",
+            "acceptedAnswers": [
+              "封筒"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+                "value": "ボールペン",
+                "reason": "This is the verified ball-point pen entry (1123590), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+                "value": "鉛筆",
+                "reason": "This is the verified pencil entry (1178590), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "紙",
+                "reason": "This is the verified paper entry (1311530), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "envelope",
+            "correctAnswer": "ふうとう",
+            "acceptedAnswers": [
+              "ふうとう"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+                "value": "ボールペン",
+                "reason": "This is the verified ball-point pen entry (1123590), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+                "value": "えんぴつ",
+                "reason": "This is the verified pencil entry (1178590), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "かみ",
+                "reason": "This is the verified paper entry (1311530), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          }
+        ],
+        "id": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "封筒",
+            "correctAnswer": "amplop",
+            "acceptedAnswers": [
+              "amplop"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+                "value": "bolpoin",
+                "reason": "This is the verified ball-point pen entry (1123590), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+                "value": "pensil",
+                "reason": "This is the verified pencil entry (1178590), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "kertas",
+                "reason": "This is the verified paper entry (1311530), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "amplop",
+            "correctAnswer": "封筒",
+            "acceptedAnswers": [
+              "封筒"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+                "value": "ボールペン",
+                "reason": "This is the verified ball-point pen entry (1123590), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+                "value": "鉛筆",
+                "reason": "This is the verified pencil entry (1178590), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "紙",
+                "reason": "This is the verified paper entry (1311530), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "amplop",
+            "correctAnswer": "ふうとう",
+            "acceptedAnswers": [
+              "ふうとう"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+                "value": "ボールペン",
+                "reason": "This is the verified ball-point pen entry (1123590), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+                "value": "えんぴつ",
+                "reason": "This is the verified pencil entry (1178590), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "かみ",
+                "reason": "This is the verified paper entry (1311530), a different object from envelope; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          }
+        ]
+      },
+      "senseScopeNote": "an envelope that holds a letter, not the letter or a postage stamp"
+    },
+    {
+      "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+      "entSeq": "1123590",
+      "proposedSkillCode": "n5_vocab_letter_writing_supplies",
+      "contentRevision": 2,
+      "isPublished": false,
+      "sourceRefs": [
+        {
+          "provider": "JMDICT",
+          "category": "LEXICAL_ENTRY",
+          "entSeq": "1123590",
+          "sourcePath": "content/syllabus/sources/jmdict/raw/2026-05-16/JMdict_e.gz",
+          "sourceSha256": "cb94bc83370f4adee89c8d5921c213c061bab0c6b0a018ec9edc5655bd03e4bb",
+          "senseOrdinals": [
+            1
+          ],
+          "selectedGlossesEn": [
+            "ball-point pen"
+          ],
+          "restrictionsChecked": {
+            "stagk": [],
+            "stagr": [],
+            "re_restr": [],
+            "readingForms": [
+              {
+                "text": "ボールペン",
+                "re_restr": [],
+                "re_nokanji": false,
+                "re_inf": []
+              },
+              {
+                "text": "ボール・ペン",
+                "re_restr": [],
+                "re_nokanji": false,
+                "re_inf": []
+              }
+            ]
+          },
+          "licenseNote": "Retain the EDRDG licence snapshot bundled with the pinned JMdict acquisition."
+        },
+        {
+          "provider": "YOMITAN_JLPT_VOCAB",
+          "category": "JLPT_SIGNAL",
+          "sourcePath": "content/syllabus/sources/yomitan-jlpt-vocab/raw/2026-05-16/source-main.zip",
+          "sourceSha256": "bc8b547ff23bcefddb03904327b499c327ea914867a66f60fd2e694328c44560",
+          "archiveMember": "yomitan-jlpt-vocab-main/original_data/n5.csv",
+          "lineNumberOneBased": 565,
+          "rawCsvRow": "1123590,ボールペン,,ball-point pen",
+          "entryId": "1123590",
+          "reading": "ボールペン",
+          "spelling": "",
+          "glossEn": "ball-point pen",
+          "candidateLevel": "N5",
+          "confidence": "HEURISTIC",
+          "placementDecision": "Editorial N5 placement for concrete everyday letter-writing/mailing nouns; not an official JLPT lexical claim."
+        },
+        {
+          "provider": "KOTOBAHUB_INTERNAL",
+          "category": "EDITORIAL_AUTHORING",
+          "notes": "English copy follows the selected JMdict sense; Indonesian copy is an original editorial translation of that same sense, not text from JMdict or the Yomitan CSV. No example sentences or additional explanation are authored."
+        }
+      ],
+      "japanese": {
+        "surfaceFormText": "ボールペン",
+        "kanaDisplayText": "ボールペン",
+        "acceptedAnswers": {
+          "JAPANESE": [
+            "ボールペン"
+          ],
+          "KANA": [
+            "ボールペン",
+            "ボール・ペン"
+          ]
+        }
+      },
+      "localizations": {
+        "en": {
+          "sourceRevision": 2,
+          "translationRevision": 2,
+          "isPublished": false,
+          "meaning": "ball-point pen",
+          "aliases": [],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+              "values": {
+                "MEANING": "pencil",
+                "JAPANESE": "鉛筆",
+                "KANA": "えんぴつ"
+              },
+              "reason": "This is the verified pencil entry (1178590), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+              "values": {
+                "MEANING": "paper",
+                "JAPANESE": "紙",
+                "KANA": "かみ"
+              },
+              "reason": "This is the verified paper entry (1311530), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+              "values": {
+                "MEANING": "postage stamp",
+                "JAPANESE": "切手",
+                "KANA": "きって"
+              },
+              "reason": "This is the verified postage stamp entry (1385070), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+            }
+          ]
+        },
+        "id": {
+          "sourceRevision": 2,
+          "translationRevision": 2,
+          "isPublished": false,
+          "meaning": "bolpoin",
+          "aliases": [],
+          "explanationText": null,
+          "examples": [],
+          "distractorCandidates": [
+            {
+              "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+              "values": {
+                "MEANING": "pensil",
+                "JAPANESE": "鉛筆",
+                "KANA": "えんぴつ"
+              },
+              "reason": "This is the verified pencil entry (1178590), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+              "values": {
+                "MEANING": "kertas",
+                "JAPANESE": "紙",
+                "KANA": "かみ"
+              },
+              "reason": "This is the verified paper entry (1311530), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+            },
+            {
+              "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+              "values": {
+                "MEANING": "prangko",
+                "JAPANESE": "切手",
+                "KANA": "きって"
+              },
+              "reason": "This is the verified postage stamp entry (1385070), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+            }
+          ]
+        }
+      },
+      "optionChecks": {
+        "en": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "ボールペン",
+            "correctAnswer": "ball-point pen",
+            "acceptedAnswers": [
+              "ball-point pen"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+                "value": "pencil",
+                "reason": "This is the verified pencil entry (1178590), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "paper",
+                "reason": "This is the verified paper entry (1311530), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "postage stamp",
+                "reason": "This is the verified postage stamp entry (1385070), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "ball-point pen",
+            "correctAnswer": "ボールペン",
+            "acceptedAnswers": [
+              "ボールペン"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+                "value": "鉛筆",
+                "reason": "This is the verified pencil entry (1178590), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "紙",
+                "reason": "This is the verified paper entry (1311530), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "切手",
+                "reason": "This is the verified postage stamp entry (1385070), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "ball-point pen",
+            "correctAnswer": "ボールペン",
+            "acceptedAnswers": [
+              "ボールペン",
+              "ボール・ペン"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+                "value": "えんぴつ",
+                "reason": "This is the verified pencil entry (1178590), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "かみ",
+                "reason": "This is the verified paper entry (1311530), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "きって",
+                "reason": "This is the verified postage stamp entry (1385070), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          }
+        ],
+        "id": [
+          {
+            "fromScript": "JAPANESE",
+            "toScript": "MEANING",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "ボールペン",
+            "correctAnswer": "bolpoin",
+            "acceptedAnswers": [
+              "bolpoin"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+                "value": "pensil",
+                "reason": "This is the verified pencil entry (1178590), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "kertas",
+                "reason": "This is the verified paper entry (1311530), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "prangko",
+                "reason": "This is the verified postage stamp entry (1385070), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "JAPANESE",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "bolpoin",
+            "correctAnswer": "ボールペン",
+            "acceptedAnswers": [
+              "ボールペン"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+                "value": "鉛筆",
+                "reason": "This is the verified pencil entry (1178590), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "紙",
+                "reason": "This is the verified paper entry (1311530), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "切手",
+                "reason": "This is the verified postage stamp entry (1385070), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          },
+          {
+            "fromScript": "MEANING",
+            "toScript": "KANA",
+            "status": "READY",
+            "scope": "EXPLICIT_PEER_CANDIDATES_ONLY",
+            "prompt": "bolpoin",
+            "correctAnswer": "ボールペン",
+            "acceptedAnswers": [
+              "ボールペン",
+              "ボール・ペン"
+            ],
+            "distractorCandidates": [
+              {
+                "itemId": "0d5bab28-12d4-5428-b233-0378dce40357",
+                "value": "えんぴつ",
+                "reason": "This is the verified pencil entry (1178590), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "e0eea2d8-307b-5d95-882c-bf42f6169801",
+                "value": "かみ",
+                "reason": "This is the verified paper entry (1311530), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+              },
+              {
+                "itemId": "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+                "value": "きって",
+                "reason": "This is the verified postage stamp entry (1385070), a different object from ball-point pen; its spelling, reading and localized meaning are not valid aliases for the target."
+              }
+            ],
+            "checks": [
+              "Exactly one selected-sense answer among the displayed correct answer and three distinct peer distractors.",
+              "Compared meanings and aliases in this locale and Japanese forms/readings using NFKC, case and whitespace normalization; no candidate equals a correct alias.",
+              "Checked each peer in both directions: related mailing/writing objects are not synonymous, interchangeable spellings or valid readings.",
+              "These named peer candidates do not certify the globally generated runtime pool; compiled package inspection remains an independent integration gate."
+            ]
+          }
+        ]
+      },
+      "senseScopeNote": "a ballpoint pen, not a pencil or any mailing object",
+      "integrationCaution": "Peer option sets are unambiguous, but the global runtime pool may include the overlapping English pen from mapped ペン. Parent/reviewer must inspect the compiled bank and hold activation if the overlap remains; do not replace pen with an invented meaning or call peer readiness runtime readiness."
+    }
+  ],
+  "heldItems": [],
+  "integrationConstraints": [
+    "All flags remain unpublished; proposedSkillCode is group ownership, while each itemId/entSeq retains its separate lexical identity. Baseline runtime mapping remains pending until a separately reviewed integration.",
+    "Supported active overlay contains surfaceFormText and one en/id meaning string per item. Indonesian aliases are intentionally empty; examples are [] and explanationText is null. Valid English baseline aliases are preserved except the explicitly proposed unrelated 切手 sense-2 answer.",
+    "Inspect actual generated runtime candidates independently. Explicit READY peer sets are editorial authoring evidence only, not permission to publish or proof of runtime acceptance.",
+    "Do not silently apply the 切手 canonical proposal to the baseline; parent/reviewer must approve its selected-sense scope and target revisions.",
+    "No source acquisition, active overlay/seed edit, migration, database write or publication was performed by the author."
+  ],
+  "checksPerformed": [
+    "Verified the exact assigned curation SHA-256 before authoring.",
+    "Recomputed and matched all five curation baseline SHA-256 values before writing.",
+    "Inspected all six full JMdict XML entries, all senses, spelling/reading forms and restrictions; matched selected glosses to curation.",
+    "Independently matched the six pinned Yomitan N5 physical CSV rows recorded in curation; the level signal remains heuristic.",
+    "Checked all 36 explicitly enumerated locale/script-pair option sets against real peer item IDs/values and their known aliases, with normalization and conceptual checks in both directions.",
+    "Checked scope uniqueness, unchanged Japanese accepted answers, locale equivalence, matching source provenance and unpublished flags; these author checks are not independent review."
+  ]
+}

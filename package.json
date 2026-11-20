@@ -33,6 +33,7 @@
     "test:practice": "bun scripts/smoke/smoke-practice.ts",
     "test:bilingual": "bun scripts/smoke/smoke-bilingual.ts",
     "test:vocabulary-groups": "bun scripts/smoke/smoke-vocabulary-groups.ts",
+    "test:vocabulary-content": "bun scripts/smoke/smoke-vocabulary-content.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:seed:syllabus": "bun scripts/syllabus/seed-syllabus.ts",

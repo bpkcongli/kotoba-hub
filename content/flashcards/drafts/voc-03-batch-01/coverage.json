@@ -1,0 +1,70 @@
+{
+  "batchId": "voc-03-batch-01-n5-letter-writing",
+  "taskId": "VOC-03",
+  "scope": "Explicit six-item N5 letter-writing subset; no whole-bank readiness claim",
+  "assignedItemIds": [
+    "0d5bab28-12d4-5428-b233-0378dce40357",
+    "e0eea2d8-307b-5d95-882c-bf42f6169801",
+    "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+    "734bc421-0075-5336-9773-0e89276749ad",
+    "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14",
+    "506c5576-24cf-5e3f-ae16-77826bf0c8d1"
+  ],
+  "editorialAcceptedCount": 6,
+  "editorialHeldCount": 0,
+  "acceptedItemIds": [
+    "0d5bab28-12d4-5428-b233-0378dce40357",
+    "e0eea2d8-307b-5d95-882c-bf42f6169801",
+    "4cf91acd-62fa-52d3-8b05-e540af15b45d",
+    "734bc421-0075-5336-9773-0e89276749ad",
+    "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14"
+  ],
+  "heldItems": [
+    {
+      "itemId": "506c5576-24cf-5e3f-ae16-77826bf0c8d1",
+      "reason": "Runtime English pool for ボールペン includes pen, a valid broader translation. Excluded from group promotion and Indonesian overlay; existing pending English behavior retained.",
+      "evidence": "content/flashcards/drafts/voc-03-batch-01/review.md",
+      "evidenceNeeded": "A reviewed runtime distractor pool that excludes semantic parent/child collisions for every enabled script pair."
+    }
+  ],
+  "runtimeCatalog": "Published bilingual N5 batch-01 (16 lessons); group manifest explicitly included",
+  "seedPlanCounts": {
+    "decks": 66,
+    "items": 639,
+    "memberships": 639,
+    "mappedItems": 58,
+    "pendingItems": 581
+  },
+  "localizedCoverage": {
+    "en": {
+      "decks": 66,
+      "items": 639
+    },
+    "id": {
+      "decks": 66,
+      "items": 35
+    }
+  },
+  "indonesianFallbackItemCount": 604,
+  "canonicalVocabularyCount": 749,
+  "canonicalIndonesianOverlayCount": 43,
+  "unassignedPendingItemCount": 580,
+  "draftOptionPairCount": 36,
+  "acceptedRuntimeOptionPairCount": 30,
+  "reviewedRuntimeBanks": {
+    "0d5bab28-12d4-5428-b233-0378dce40357": "a3520d0d89e63c4fbeaf73ee506f332ece7202c98e52dd98624535aa6d1002cf",
+    "e0eea2d8-307b-5d95-882c-bf42f6169801": "6f3ca7bb8edcf0d9ade555c12c189a87eccb9c661d33b5dd9325dc30f25da708",
+    "4cf91acd-62fa-52d3-8b05-e540af15b45d": "059b1cb7d72cdefbd2cb909b17007ffc456f122cb60b9ccea30c0d0abf968d17",
+    "734bc421-0075-5336-9773-0e89276749ad": "5d69e0cd4e11c878df18aa4a15ee4c306f85aad637aa073e5979e6f30cd4c41e",
+    "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14": "65c7445a3ae3012b0fe93b4f8e97f719fb3a6db9302a1fc1704db62965123cac"
+  },
+  "artifactSha256": {
+    "content/flashcards/vocabulary-groups/manifest.v2.json": "6e5f29e60464b64b436365cba08519b7b574622671c0abf0bc06d86174032a42",
+    "content/flashcards/system-decks/vocabulary-foundation.json": "120f15b6c9244caf27bd45b1542dc175e855e04b45a9ad9e43033d22d1172c58",
+    "content/flashcards/system-decks/localizations.v2.json": "19701499a5e780a134ea7adb7fbabff5d31000f900d13f8081e5169082c4fd2c",
+    "content/flashcards/drafts/voc-03-batch-01/curation.json": "6b8d884be18d85a4d249217e23c43782595227a48dcb6a4f10f29a698188f38d",
+    "content/flashcards/drafts/voc-03-batch-01/content.json": "308978cd5e804b52e9fdbb9a7232240adb2461f6d669f4903ca90c2129934675",
+    "content/flashcards/drafts/voc-03-batch-01/review.md": "07c988e10b84519c3d3592533c7e46f02425d17f07224db033cbb6e8d01d77a6"
+  },
+  "productionImported": false
+}

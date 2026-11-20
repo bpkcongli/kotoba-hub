@@ -5,6 +5,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")/../.."
 
 app_image="${1:-kotoba-hub:ci}"
 ops_image="${2:-kotoba-hub:ops-ci}"
+
 verify_dir="$(mktemp -d)"
 trap 'rm -rf "$verify_dir"' EXIT
 
@@ -18,6 +19,7 @@ allowed_files=(
   scripts/syllabus/seed-syllabus.ts scripts/flashcards/seed-flashcards.ts src/example.ts public/example.svg
   content/syllabus/v1/manifest.json content/syllabus/v1/tracks/example.json
   content/flashcards/system-decks/example.json
+  content/flashcards/vocabulary-groups/manifest.v2.json
   content/syllabus/v2/manifest.json content/syllabus/v2/tracks/example.json
   scripts/syllabus/check-bilingual-cutover.ts scripts/syllabus/seed-vocabulary-groups.ts
   docs/syllabus/schema/seed-manifest.v2.schema.json docs/syllabus/schema/track-seed.v2.schema.json
@@ -36,6 +38,10 @@ excluded_files=(
   docs/syllabus/schema/private.json docs/syllabus/bilingual/batch-01/private.json
   content/syllabus/v1/tracks/private.pem content/flashcards/system-decks/private.key
   content/flashcards/other.json
+  content/flashcards/drafts/voc-03-batch-01/content.json
+  content/flashcards/drafts/voc-03-batch-02/part-01/content.json
+  content/flashcards/drafts/voc-03-batch-02/baseline/vocabulary-foundation.json
+  content/flashcards/vocabulary-groups/private.json
 )
 
 for file in "${allowed_files[@]}" "${excluded_files[@]}"; do
@@ -59,11 +65,14 @@ docker image inspect "$app_image" "$ops_image" > "$verify_dir/images.json"
 
 bun -e '
   const images = await Bun.file(process.argv[1]).json();
+
   for (const { Config: config } of images) {
     if (config.User !== "bun" || config.WorkingDir !== "/app") {
       throw new Error("Images must run as bun in /app.");
     }
+
     const forbidden = /^(DATABASE_|AUTH_|OPENAI_|AI_|VPS_|DOCKERHUB_)/;
+
     if (config.Env.some((entry) => forbidden.test(entry.split("=", 1)[0]))) {
       throw new Error("Image contains deployment configuration.");
     }
@@ -78,15 +87,19 @@ sha256sum "${source_files[@]}" package.json bun.lock tsconfig.json drizzle.confi
   content/syllabus/v2/manifest.json content/syllabus/v2/tracks/*.json \
   docs/syllabus/schema/seed-manifest.v2.schema.json docs/syllabus/schema/track-seed.v2.schema.json \
   docs/syllabus/bilingual/batch-01/bilingual-batch-01.json \
-  content/flashcards/system-decks/*.json > "$verify_dir/ops.sha256"
+  content/flashcards/system-decks/*.json \
+  content/flashcards/vocabulary-groups/manifest.v2.json > "$verify_dir/ops.sha256"
 
 docker run --rm --network none \
   --mount "type=bind,src=$verify_dir/ops.sha256,dst=/tmp/ops.sha256,readonly" \
   --entrypoint sh "$ops_image" -eu -c '
     test "$(id -u)" -ne 0
+
     sha256sum --check --status /tmp/ops.sha256
+
     test -f node_modules/drizzle-kit/bin.cjs
     test -f node_modules/typescript/package.json
+
     test ! -e .env
     test ! -e .cert
     test ! -e content/syllabus/sources
@@ -94,9 +107,11 @@ docker run --rm --network none \
 
 docker run --rm --network none --entrypoint sh "$app_image" -eu -c '
   test "$(id -u)" -ne 0
+
   test -f server.js
   test -d .next/static
   test -d public
+
   test ! -e public/mockServiceWorker.js
   test ! -e node_modules/drizzle-kit
   test ! -e scripts/syllabus/seed-syllabus.ts
@@ -109,9 +124,11 @@ docker run --rm --network none "$ops_image" run db:seed:syllabus:dry-run > "$ver
 
 bun -e '
   const report = await Bun.file(process.argv[1]).json();
+
   if (!report.counts || !Array.isArray(report.rejectedLessons)) {
     throw new Error("Syllabus dry-run did not produce a seed report.");
   }
+
   console.log("Syllabus artifact dry-run:", report.counts);
 ' "$verify_dir/syllabus.json"
 
@@ -119,6 +136,7 @@ docker run --rm --network none "$ops_image" run db:seed:syllabus:dry-run --manif
 
 bun -e '
   const report = await Bun.file(process.argv[1]).json();
+
   if (report.schemaVersion !== "2.0.0" || report.lessonCount !== 16 || report.questionCount !== 160 || report.imported !== false) {
     throw new Error("Bilingual artifact dry-run failed.");
   }
@@ -127,15 +145,31 @@ bun -e '
 # The complete flashcard dry-run needs MySQL; exercise its file adapter offline here.
 docker run --rm --network none "$ops_image" -e '
   import { FileCanonicalFlashcardSource } from "@/backend/flashcards/interface/secondary/seed/canonical-flashcard-source";
+
   const source = new FileCanonicalFlashcardSource();
   const artifacts = await source.readArtifacts();
   const kanji = await source.readKanjiSkills();
   const overlay = await source.readLocalizationOverlay();
+
   if (artifacts.length !== 2 || kanji.length === 0 || Object.keys(overlay.items).length === 0 || Object.keys(overlay.decks).length === 0) {
     throw new Error("Canonical flashcard artifacts are incomplete.");
   }
+
   console.log("Flashcard artifacts parsed; kanji skills:", kanji.length);
 '
+
+docker run --rm --network none "$ops_image" run db:seed:vocabulary-groups \
+  --manifest content/flashcards/vocabulary-groups/manifest.v2.json --dry-run > "$verify_dir/vocabulary.json"
+
+bun -e '
+  const report = await Bun.file(process.argv[1]).json();
+  const manifest = await Bun.file("content/flashcards/vocabulary-groups/manifest.v2.json").json();
+  const itemCount = manifest.groups.reduce((count, group) => count + group.items.length, 0);
+
+  if (report.groups !== manifest.groups.length || report.items !== itemCount || report.imported !== false) {
+    throw new Error("Reviewed vocabulary manifest dry-run failed.");
+  }
+' "$verify_dir/vocabulary.json"
 
 if docker run --rm --network none "$ops_image" run db:migrate > "$verify_dir/migrate.log" 2>&1; then
   printf 'Migration unexpectedly succeeded without DATABASE_URL.\n' >&2
@@ -145,6 +179,7 @@ fi
 if ! grep -qF 'DATABASE_URL is required for database access and migrations.' "$verify_dir/migrate.log"; then
   printf 'Migration CLI failed before reaching DATABASE_URL validation.\n' >&2
   cat "$verify_dir/migrate.log" >&2
+
   exit 1
 fi
 

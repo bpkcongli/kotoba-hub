@@ -108,6 +108,7 @@ function setup() {
   return {
     artifact,
     catalog,
+    source,
     service: new PrepareFlashcardSeedServiceImpl(
       { getPublishedCatalog: async () => catalog },
       source,
@@ -189,6 +190,88 @@ describe('canonical flashcard seed planning', () => {
     expect(pending.answerOptionPayload.JAPANESE?.distractors).not.toContain('学校');
     expect(pending.answerOptionPayload.KANA?.distractors).not.toContain('がっこう');
   });
+});
+
+it('limits reviewed pools to named peers in legacy and both localized packages', async () => {
+  const { artifact, catalog, source } = setup();
+
+  const target = artifact.items[0];
+  target.surfaceFormText = 'ボールペン';
+  target.kanaDisplayText = 'ボールペン';
+  target.englishMeaning = 'ballpoint pen';
+  target.answerOptionPayload.canonicalAnswers = {
+    JAPANESE: ['ボールペン'],
+    KANA: ['ボールペン'],
+    ENGLISH: ['ballpoint pen'],
+  };
+  target.answerOptionPayload.reviewedDistractorPoolItemIds = [ids.nextItem];
+
+  const excluded = structuredClone(artifact.items[1]);
+  excluded.id = '40000000-0000-4000-8000-000000000903';
+  excluded.skillCode = 'pen';
+  excluded.surfaceFormText = 'ペン';
+  excluded.kanaDisplayText = 'ぺん';
+  excluded.englishMeaning = 'pen';
+  excluded.answerOptionPayload.canonicalAnswers = {
+    JAPANESE: ['ペン'],
+    KANA: ['ぺん'],
+    ENGLISH: ['pen'],
+  };
+
+  artifact.items.push(excluded);
+  artifact.deckItems.push({ deckId: ids.otherDeck, itemId: excluded.id, sortOrder: 2 });
+  source.readLocalizationOverlay = async () => ({
+    schemaVersion: '2.0.0',
+    contentRevision: 3,
+    translationRevision: 3,
+    sourceRefs: ['test'],
+    decks: {},
+    unitTitles: {},
+    items: {
+      [target.id]: { surfaceFormText: 'ボールペン', en: 'ballpoint pen', id: 'pulpen' },
+      [ids.nextItem]: { surfaceFormText: '駅', en: 'station', id: 'stasiun' },
+      [excluded.id]: { surfaceFormText: 'ペン', en: 'pen', id: 'pena' },
+    },
+  });
+
+  const service = new PrepareFlashcardSeedServiceImpl(
+    { getPublishedCatalog: async () => catalog },
+    source,
+  );
+  const plan = await service.prepare();
+  const item = plan.items.find((entry) => entry.id === target.id)!;
+
+  expect(item.answerOptionPayload.ENGLISH?.distractors).toEqual(['station']);
+
+  for (const locale of ['en', 'id'] as const) {
+    expect(item.localizations?.[locale]?.meaningOptions?.distractors).toEqual([
+      locale === 'en' ? 'station' : 'stasiun',
+    ]);
+    expect(item.localizations?.[locale]?.scriptOptions.JAPANESE?.distractors).toEqual(['駅']);
+    expect(item.localizations?.[locale]?.scriptOptions.KANA?.distractors).toEqual(['えき']);
+  }
+});
+
+it('rejects invalid reviewed peers and never replaces unavailable peers with global options', async () => {
+  const { artifact, catalog, service } = setup();
+
+  const pool = artifact.items[1].answerOptionPayload;
+  pool.reviewedDistractorPoolItemIds = [ids.nextItem];
+
+  await expect(service.prepare()).rejects.toThrow(/Invalid reviewed distractor pool/);
+
+  pool.reviewedDistractorPoolItemIds = [ids.item, ids.item];
+
+  await expect(service.prepare()).rejects.toThrow(/Invalid reviewed distractor pool/);
+
+  pool.reviewedDistractorPoolItemIds = ['40000000-0000-4000-8000-000000000904'];
+
+  await expect(service.prepare()).rejects.toThrow(/Invalid reviewed distractor pool/);
+
+  pool.reviewedDistractorPoolItemIds = [ids.item];
+  catalog.skills = [];
+
+  await expect(service.prepare()).rejects.toThrow(/No eligible reviewed distractor/);
 });
 
 it('excludes Japanese distractors when translated prompt meanings collide', async () => {

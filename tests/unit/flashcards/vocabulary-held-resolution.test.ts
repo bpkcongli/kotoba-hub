@@ -27,6 +27,14 @@ const snapshot = JSON.parse(
 const previous = JSON.parse(snapshot['vocabulary-foundation.json']) as FlashcardArtifact;
 const previousManifest = JSON.parse(snapshot['manifest.v2.json']) as typeof manifest;
 
+function withoutReviewedPool(item: FlashcardArtifact['items'][number]) {
+  const copy = structuredClone(item);
+
+  delete copy.answerOptionPayload.reviewedDistractorPoolItemIds;
+
+  return copy;
+}
+
 function publishedCatalog(): FlashcardSeedCatalog {
   const { track } = syllabus;
   const units = track.units.filter((unit) => unit.isPublished);
@@ -126,7 +134,13 @@ it('retires wrong identities without rewriting them, reuses three lesson owners,
   );
 
   for (const before of previous.items.filter((item) => !changedIds.has(item.id))) {
-    expect(current.items.find((item) => item.id === before.id)).toEqual(before);
+    const after = current.items.find((item) => item.id === before.id)!;
+
+    expect(withoutReviewedPool(after)).toEqual(withoutReviewedPool(before));
+
+    if (after.isActive) {
+      expect(after.answerOptionPayload.reviewedDistractorPoolItemIds).toHaveLength(6);
+    }
   }
 
   expect(current.decks.map((deck) => deck.id)).toEqual(previous.decks.map((deck) => deck.id));
@@ -185,8 +199,8 @@ it('leaves zero eligible pending items and delivers seven corrected bilingual ta
           requestedLocale: locale,
           resolvedLocale: locale,
           isFallback: false,
-          contentRevision: 4,
-          translationRevision: 4,
+          contentRevision: 5,
+          translationRevision: 5,
         });
         expect(turn.answerOptions).toHaveLength(4);
         expect(new Set(turn.answerOptions.map((option) => option.value)).size).toBe(4);

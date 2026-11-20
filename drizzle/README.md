@@ -251,7 +251,9 @@ Batch 03 resolves the seven source-identity holds: three corrected words reuse
 published lesson items, four receive new corrected pending identities, and seven
 old identities remain inactive with their meanings/history preserved. The complete
 manifest has **151 groups and 583 promoted members**, with **zero eligible pending
-items** and content/translation revisions **4/4**. Drafts are audit/authoring inputs;
+items**. TD-006 promotes the active flashcard canonical/overlay artifacts to
+content/translation revisions **5/5** with reviewed six-peer distractor pools.
+Drafts are audit/authoring inputs;
 importers read the canonical artifacts and reviewed runtime manifest. See the
 [identity-resolution report](../docs/syllabus/flashcards/vocabulary-held-identity-resolution.md).
 

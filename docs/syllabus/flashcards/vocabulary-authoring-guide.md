@@ -127,6 +127,11 @@ Setiap paket `localizations.en`/`id` memuat `sourceRevision`, `translationRevisi
 
 ## Pemeriksaan opsi dan review
 
+Untuk perluasan pool existing, [TD-006](distractor-expansion.md) menetapkan tag
+sebagai metadata kurasi saja dan sedikitnya enam kandidat aman per bank.
+Draft otomatis tetap `REVIEW_INCOMPLETE` sampai reviewer memeriksa seluruh scope;
+normalisasi atau kesamaan gloss JMdict tidak membuktikan ketiadaan sinonim.
+
 Vocabulary localized saat ini mendukung `JAPANESE → MEANING`, `MEANING → JAPANESE`, dan `MEANING → KANA`. Untuk setiap item/locale, `optionChecks` mencatat ketiga pasangan: status `READY`/`HELD`, kandidat yang diperiksa, dan alasan hold. `READY` berarti opsi yang ditinjau secara editorial mempunyai satu jawaban sah dan sedikitnya satu distractor unik; bukan bukti runtime sudah menerima draft. Pasangan dengan opsi ambigu harus ditahan tanpa diam-diam dilewati.
 
 Bandingkan arti/alias setelah normalisasi NFKC, case, dan whitespace. Periksa collision dua arah: distractor tidak boleh merupakan sinonim benar, homograf dengan prompt sama, reading yang juga sah, atau terjemahan setara. Hindari menguji batas makna yang tidak dinyatakan dalam prompt. Dua item yang diterjemahkan sama tidak menjadi distractor satu sama lain. Jangan menggabungkan bahasa dalam satu paket opsi.

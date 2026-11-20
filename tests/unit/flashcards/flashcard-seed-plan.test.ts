@@ -274,6 +274,24 @@ it('rejects invalid reviewed peers and never replaces unavailable peers with glo
   await expect(service.prepare()).rejects.toThrow(/No eligible reviewed distractor/);
 });
 
+it('rejects a revision 5 vocabulary seed when the expanded reviewed pool is missing', async () => {
+  const { source, service } = setup();
+
+  source.readLocalizationOverlay = async () => ({
+    schemaVersion: '2.0.0',
+    contentRevision: 5,
+    translationRevision: 5,
+    sourceRefs: ['test'],
+    decks: {},
+    unitTitles: {},
+    items: {},
+  });
+
+  const action = service.prepare();
+
+  await expect(action).rejects.toThrow(/six reviewed distractor peers/);
+});
+
 it('excludes Japanese distractors when translated prompt meanings collide', async () => {
   const { catalog, artifact } = setup();
 

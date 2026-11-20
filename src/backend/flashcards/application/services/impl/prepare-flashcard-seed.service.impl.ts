@@ -1,5 +1,6 @@
 import { attachFlashcardLocalizations } from '@/backend/flashcards/application/helpers/flashcard-localized-seed';
 import { stableFlashcardSeedId } from '@/backend/flashcards/application/helpers/stable-flashcard-seed-id';
+import { validateVocabularyDistractors } from '@/backend/flashcards/application/helpers/validate-vocabulary-distractors';
 import type { CanonicalFlashcardSource } from '@/backend/flashcards/application/ports/canonical-flashcard-source.port';
 import type { FlashcardSeedCatalogPort } from '@/backend/flashcards/application/ports/flashcard-seed-catalog.port';
 import type {
@@ -370,6 +371,12 @@ export class PrepareFlashcardSeedServiceImpl implements PrepareFlashcardSeedServ
       kanjiSkills,
       await this.source.readLocalizationOverlay?.(),
     );
+
+    for (const item of plan.items)
+      validateVocabularyDistractors(
+        item,
+        rawItems.get(item.id)?.answerOptionPayload.reviewedDistractorPoolItemIds,
+      );
 
     return plan;
   }

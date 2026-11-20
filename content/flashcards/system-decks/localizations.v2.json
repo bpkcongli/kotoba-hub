@@ -1,6 +1,6 @@
 {
   "schemaVersion": "2.0.0",
-  "contentRevision": 4,
+  "contentRevision": 5,
   "sourceRefs": [
     "content/flashcards/system-decks/vocabulary-foundation.json",
     "KOTOBAHUB_INTERNAL:BIL-05",
@@ -11,7 +11,12 @@
     "docs/syllabus/flashcards/vocabulary-batch-02-implementation.md",
     "content/flashcards/drafts/voc-03-batch-03/curation.json",
     "content/flashcards/drafts/voc-03-batch-03/content.json",
-    "content/flashcards/drafts/voc-03-batch-03/review.md"
+    "content/flashcards/drafts/voc-03-batch-03/review.md",
+    "docs/syllabus/flashcards/distractor-expansion.md",
+    "content/flashcards/drafts/distractor-expansion-01/curation.json",
+    "content/flashcards/drafts/distractor-expansion-01/proposals.json",
+    "content/flashcards/drafts/distractor-expansion-01/review.md",
+    "content/flashcards/drafts/distractor-expansion-01/review.json"
   ],
   "items": {
     "651b36d8-0cb6-525f-82e7-2d038cac6063": {
@@ -3464,5 +3469,5 @@
       "id": "Kosakata N5: Latihan Tambahan — Bagian 59"
     }
   },
-  "translationRevision": 4
+  "translationRevision": 5
 }

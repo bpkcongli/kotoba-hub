@@ -65,6 +65,51 @@ describe('flashcard answer option snapshots', () => {
     expect(() => builder.build(noDistractors, 'KANJI', 'ENGLISH')).toThrow();
   });
 
+  it('can select all 120 ordered triples from six distractors while keeping the correct answer', () => {
+    const source = item();
+    const pool = ['moon', 'tree', 'fire', 'water', 'gold', 'earth'];
+    source.answerOptionPayload.ENGLISH!.distractors = pool;
+    const triples = new Set<string>();
+    const combinations = new Set<string>();
+
+    const visit = (prefix: number[]) => {
+      if (prefix.length < 5) {
+        const maximum = 6 - prefix.length;
+        for (let choice = 0; choice < maximum; choice++) visit([...prefix, choice]);
+
+        return;
+      }
+
+      let offset = 0;
+      const builder = new OptionSnapshotBuilder((maximum) => {
+        const choice = prefix[offset++] ?? maximum - 1;
+
+        expect(choice).toBeLessThan(maximum);
+
+        return choice;
+      });
+
+      const snapshot = builder.build(source, 'KANJI', 'ENGLISH');
+      const distractors = snapshot.answerOptions
+        .filter((option) => option.id !== snapshot.correctOptionId)
+        .map((option) => option.value);
+      triples.add(distractors.join('|'));
+      combinations.add([...distractors].sort().join('|'));
+
+      expect(distractors).toHaveLength(3);
+      expect(new Set(distractors).size).toBe(3);
+      expect(distractors.every((value) => pool.includes(value))).toBe(true);
+      expect(
+        snapshot.answerOptions.find((option) => option.id === snapshot.correctOptionId)?.value,
+      ).toBe('day / sun');
+    };
+
+    visit([]);
+
+    expect(triples.size).toBe(120);
+    expect(combinations.size).toBe(20);
+  });
+
   it('treats width, case, and repeated whitespace variants as the same answer', () => {
     const source = item();
     source.answerOptionPayload.ENGLISH = {

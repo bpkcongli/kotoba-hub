@@ -1,0 +1,3473 @@
+{
+  "schemaVersion": "2.0.0",
+  "contentRevision": 5,
+  "sourceRefs": [
+    "content/flashcards/system-decks/vocabulary-foundation.json",
+    "KOTOBAHUB_INTERNAL:BIL-05",
+    "content/flashcards/system-decks/localizations.v2.json",
+    "content/flashcards/drafts/voc-03-batch-01/curation.json",
+    "content/flashcards/drafts/voc-03-batch-01/content.json",
+    "content/flashcards/drafts/voc-03-batch-01/review.md",
+    "docs/syllabus/flashcards/vocabulary-batch-02-implementation.md",
+    "content/flashcards/drafts/voc-03-batch-03/curation.json",
+    "content/flashcards/drafts/voc-03-batch-03/content.json",
+    "content/flashcards/drafts/voc-03-batch-03/review.md",
+    "docs/syllabus/flashcards/distractor-expansion.md",
+    "content/flashcards/drafts/distractor-expansion-01/curation.json",
+    "content/flashcards/drafts/distractor-expansion-01/proposals.json",
+    "content/flashcards/drafts/distractor-expansion-01/review.md",
+    "content/flashcards/drafts/distractor-expansion-01/review.json"
+  ],
+  "items": {
+    "651b36d8-0cb6-525f-82e7-2d038cac6063": {
+      "surfaceFormText": "今日は",
+      "en": "hello",
+      "id": "halo"
+    },
+    "fc44c911-785f-569f-b538-8095b94fcebb": {
+      "surfaceFormText": "お早う",
+      "en": "good morning",
+      "id": "selamat pagi"
+    },
+    "05020293-eee5-5a2d-a572-55baeda658cc": {
+      "surfaceFormText": "今晩は",
+      "en": "good evening",
+      "id": "selamat malam"
+    },
+    "7a19e29d-e983-5e26-822f-1ff67a650932": {
+      "surfaceFormText": "有難う",
+      "en": "thank you",
+      "id": "terima kasih"
+    },
+    "3927122b-a9fa-594e-b0c6-ff932cb238bf": {
+      "surfaceFormText": "済みません",
+      "en": "excuse me",
+      "id": "permisi"
+    },
+    "f2c3eb54-7c71-5b25-ab97-7420a5771c85": {
+      "surfaceFormText": "初めまして",
+      "en": "nice to meet you",
+      "id": "salam kenal"
+    },
+    "d1e6fbf8-b917-5ac9-8f6b-8254286ff74b": {
+      "surfaceFormText": "どうぞ",
+      "en": "please",
+      "id": "silakan"
+    },
+    "a4aeb03a-f15d-5dee-8acc-a402851845b1": {
+      "surfaceFormText": "こちらこそ",
+      "en": "it is I who should say so",
+      "id": "justru saya yang seharusnya mengatakannya"
+    },
+    "3e9711b8-7c82-5d71-add2-1a59d43cd755": {
+      "surfaceFormText": "学生",
+      "en": "student (esp. a university student)",
+      "id": "pelajar (terutama mahasiswa)"
+    },
+    "7d9100ec-71be-5057-b845-b869da897175": {
+      "surfaceFormText": "先生",
+      "en": "teacher",
+      "id": "guru"
+    },
+    "df82ad74-433e-51cb-8115-0bddec1c6a3d": {
+      "surfaceFormText": "会社員",
+      "en": "company employee",
+      "id": "karyawan perusahaan"
+    },
+    "06e3392a-5592-5d89-aae4-0ef689547082": {
+      "surfaceFormText": "日本人",
+      "en": "Japanese person",
+      "id": "orang Jepang"
+    },
+    "1aa2d5a5-5830-5133-b776-73447c40fac0": {
+      "surfaceFormText": "友達",
+      "en": "friend",
+      "id": "teman"
+    },
+    "aca8df50-b49b-54be-bea0-c143fb00582e": {
+      "surfaceFormText": "本",
+      "en": "book",
+      "id": "buku"
+    },
+    "fee3e369-aa31-54c1-af7d-90fbd09ea323": {
+      "surfaceFormText": "机",
+      "en": "desk",
+      "id": "meja"
+    },
+    "8335dfa4-86e6-575b-86cc-fb65994b5552": {
+      "surfaceFormText": "椅子",
+      "en": "chair",
+      "id": "kursi"
+    },
+    "b8422c97-4509-5bab-b6f7-fd653399b73c": {
+      "surfaceFormText": "人",
+      "en": "person",
+      "id": "orang"
+    },
+    "d19c887c-8082-525e-b200-f8002073a90b": {
+      "surfaceFormText": "車",
+      "en": "car",
+      "id": "mobil"
+    },
+    "9e604941-e9ea-5db1-acbb-b942a18a3a14": {
+      "surfaceFormText": "学校",
+      "en": "school",
+      "id": "sekolah"
+    },
+    "80158f91-762e-5a40-bd9a-d1454083d8ba": {
+      "surfaceFormText": "図書館",
+      "en": "library",
+      "id": "perpustakaan"
+    },
+    "66b3725d-1dc4-5f2f-ba50-3a3c679c30ab": {
+      "surfaceFormText": "家",
+      "en": "house; home",
+      "id": "rumah"
+    },
+    "72312c48-a416-5cc7-9687-2f8a289bed64": {
+      "surfaceFormText": "私",
+      "en": "I; me",
+      "id": "saya"
+    },
+    "82d51bca-e20c-513a-b1e2-a48d8ebd347b": {
+      "surfaceFormText": "家",
+      "en": "house; home",
+      "id": "rumah"
+    },
+    "cacf415d-2232-53b0-954d-ac82e8b02459": {
+      "surfaceFormText": "学校",
+      "en": "school",
+      "id": "sekolah"
+    },
+    "5278a917-c950-59e0-ab23-5dc219744b3f": {
+      "surfaceFormText": "図書館",
+      "en": "library",
+      "id": "perpustakaan"
+    },
+    "1b310473-75a2-52ec-965c-c01808ca6c86": {
+      "surfaceFormText": "駅",
+      "en": "station",
+      "id": "stasiun"
+    },
+    "c3f1b0f8-576e-54c9-9a52-fcd414838c38": {
+      "surfaceFormText": "電車",
+      "en": "train",
+      "id": "kereta listrik"
+    },
+    "f8c48ef4-61f7-5a95-96cc-5fefff656d48": {
+      "surfaceFormText": "車",
+      "en": "car",
+      "id": "mobil"
+    },
+    "1d92846f-0d03-5a94-99b1-d8a24520e8e3": {
+      "surfaceFormText": "済みません",
+      "en": "excuse me",
+      "id": "permisi"
+    },
+    "4ee08e71-a1d8-5ed5-8cc0-b80cf510633b": {
+      "surfaceFormText": "済みません",
+      "en": "excuse me",
+      "id": "permisi"
+    },
+    "910fd4ed-6616-510f-adf9-8f88500dd85b": {
+      "surfaceFormText": "犬",
+      "en": "dog",
+      "id": "anjing"
+    },
+    "f63109d8-37f2-5732-a733-85f87c8678ee": {
+      "surfaceFormText": "銀行",
+      "en": "bank",
+      "id": "bank"
+    },
+    "d888338b-e191-571e-81f1-2ee779d48e67": {
+      "surfaceFormText": "電話",
+      "en": "a phone call",
+      "id": "panggilan telepon"
+    },
+    "2ab06117-0f42-591f-83d2-ef777362789c": {
+      "surfaceFormText": "名前",
+      "en": "name",
+      "id": "nama"
+    },
+    "ba41e481-3919-5f7f-9cee-b7369b69e1ef": {
+      "surfaceFormText": "猫",
+      "en": "cat",
+      "id": "kucing"
+    },
+    "ad16929d-4e24-5005-9116-614fed1f4575": {
+      "surfaceFormText": "病院",
+      "en": "hospital",
+      "id": "rumah sakit"
+    },
+    "f2d87a4c-a647-5c0a-86a2-77130656a98b": {
+      "surfaceFormText": "水",
+      "en": "water",
+      "id": "air"
+    },
+    "4bc58381-1598-5a1a-bf24-9811a52a3aaa": {
+      "surfaceFormText": "私",
+      "en": "I (formal)",
+      "id": "saya (formal)"
+    },
+    "0d5bab28-12d4-5428-b233-0378dce40357": {
+      "surfaceFormText": "鉛筆",
+      "en": "pencil",
+      "id": "pensil"
+    },
+    "e0eea2d8-307b-5d95-882c-bf42f6169801": {
+      "surfaceFormText": "紙",
+      "en": "paper",
+      "id": "kertas"
+    },
+    "4cf91acd-62fa-52d3-8b05-e540af15b45d": {
+      "surfaceFormText": "切手",
+      "en": "postage stamp",
+      "id": "prangko"
+    },
+    "734bc421-0075-5336-9773-0e89276749ad": {
+      "surfaceFormText": "手紙",
+      "en": "letter (written message)",
+      "id": "surat"
+    },
+    "5f6d6fb4-bd88-5e08-a561-aeaa6bc93e14": {
+      "surfaceFormText": "封筒",
+      "en": "envelope",
+      "id": "amplop"
+    },
+    "aeafa35a-3464-57d4-8c13-be0ac7d8d724": {
+      "surfaceFormText": "あの",
+      "en": "um",
+      "id": "anu"
+    },
+    "1c120704-44b1-58a3-b7b6-aec188822827": {
+      "surfaceFormText": "ええ",
+      "en": "yes",
+      "id": "ya"
+    },
+    "dacf2a12-3c42-56d6-81d9-bd1973050e4c": {
+      "surfaceFormText": "お菓子",
+      "en": "sweets",
+      "id": "makanan manis"
+    },
+    "3ca8a5ad-8fc9-5d2e-bfcf-f8d816fc2169": {
+      "surfaceFormText": "お金",
+      "en": "money",
+      "id": "uang"
+    },
+    "2d0f40bd-ff40-5fd8-bab4-b61b5cedddd7": {
+      "surfaceFormText": "お兄さん",
+      "en": "older brother (respectful)",
+      "id": "kakak laki-laki (sapaan hormat)"
+    },
+    "60d77416-690a-5710-8405-24e3adda3da0": {
+      "surfaceFormText": "お姉さん",
+      "en": "older sister (respectful)",
+      "id": "kakak perempuan (sapaan hormat)"
+    },
+    "6eb7dba8-9161-5059-8415-4ea0ac73432a": {
+      "surfaceFormText": "お手洗い",
+      "en": "restroom",
+      "id": "toilet"
+    },
+    "07262f55-681a-5154-b264-30029d9a43f5": {
+      "surfaceFormText": "お巡りさん",
+      "en": "police officer (familiar)",
+      "id": "polisi (sapaan akrab)"
+    },
+    "b7ff1110-64b7-5b81-9dc6-81a6eb9ce695": {
+      "surfaceFormText": "お祖父さん",
+      "en": "grandfather",
+      "id": "kakek"
+    },
+    "03f9fdfd-447c-59f9-82f8-b0e4734fafa4": {
+      "surfaceFormText": "お祖母さん",
+      "en": "grandmother",
+      "id": "nenek"
+    },
+    "91aedf83-2345-5263-9215-aa3b374f41ed": {
+      "surfaceFormText": "お茶",
+      "en": "tea",
+      "id": "teh"
+    },
+    "4eb6a43e-4086-51cc-9d99-ed0d6858feab": {
+      "surfaceFormText": "お父さん",
+      "en": "father (respectful)",
+      "id": "ayah (sapaan hormat)"
+    },
+    "26eecaa5-6fa6-57c0-a361-f86ab5a91629": {
+      "surfaceFormText": "お腹",
+      "en": "belly",
+      "id": "perut"
+    },
+    "655c95c7-3ab9-5bb8-a990-8680315b06c1": {
+      "surfaceFormText": "お母さん",
+      "en": "mother (respectful)",
+      "id": "ibu (sapaan hormat)"
+    },
+    "9147a847-ef91-5f05-b3b2-d686696ab5a5": {
+      "surfaceFormText": "こっち",
+      "en": "this way",
+      "id": "arah sini"
+    },
+    "bc0bc5e6-1c27-599d-99c6-cbd2e23881a4": {
+      "surfaceFormText": "こんな",
+      "en": "this kind of",
+      "id": "yang seperti ini"
+    },
+    "83222072-69a6-5d3b-a9d0-3381f7381563": {
+      "surfaceFormText": "さあ",
+      "en": "come on (encouragement)",
+      "id": "ayo (dorongan)"
+    },
+    "642456a4-4540-5821-935f-9cd546dfaece": {
+      "surfaceFormText": "じゃあ",
+      "en": "well then",
+      "id": "kalau begitu"
+    },
+    "cb436a08-21f7-503a-a8fb-f2d1f2713dd5": {
+      "surfaceFormText": "そして",
+      "en": "and then",
+      "id": "lalu"
+    },
+    "6d68ca0c-3a46-5854-a4f2-ef86865c6c0d": {
+      "surfaceFormText": "そちら",
+      "en": "that way (toward you)",
+      "id": "arah situ (ke arah lawan bicara)"
+    },
+    "32307680-1741-5f09-9061-957765a4f8ad": {
+      "surfaceFormText": "それから",
+      "en": "after that",
+      "id": "setelah itu"
+    },
+    "25567782-b257-50f1-b56f-25c484568efe": {
+      "surfaceFormText": "詰らない",
+      "en": "boring",
+      "id": "membosankan"
+    },
+    "bde34165-51b1-5bf8-8dba-4bb603fbc851": {
+      "surfaceFormText": "では",
+      "en": "well then",
+      "id": "kalau begitu"
+    },
+    "bf026ee8-a0b4-55b7-bbb6-49f09b78929f": {
+      "surfaceFormText": "でも",
+      "en": "but",
+      "id": "tetapi"
+    },
+    "31e4054c-9344-55ca-af46-4a32c7d121d9": {
+      "surfaceFormText": "とても",
+      "en": "very",
+      "id": "sangat"
+    },
+    "f0634164-27c3-5c76-8f43-5dcd684dfb2b": {
+      "surfaceFormText": "どう",
+      "en": "how",
+      "id": "bagaimana"
+    },
+    "969ef2c6-77ef-56f7-a626-f343ec3cb9fe": {
+      "surfaceFormText": "どうも",
+      "en": "thanks",
+      "id": "terima kasih"
+    },
+    "2ef2ad12-f134-50ab-bbf0-26a10017b934": {
+      "surfaceFormText": "はい",
+      "en": "yes (polite)",
+      "id": "ya (sopan)"
+    },
+    "9c77f8d1-5950-5996-8f4b-7959489d17a0": {
+      "surfaceFormText": "もう",
+      "en": "already",
+      "id": "sudah"
+    },
+    "e4c7e616-010b-52cb-9d1d-c05c6002cea7": {
+      "surfaceFormText": "もっと",
+      "en": "more",
+      "id": "lebih banyak"
+    },
+    "72b76eaf-7a19-5e35-9d94-0638b13d0067": {
+      "surfaceFormText": "やる",
+      "en": "do (colloquial)",
+      "id": "melakukan (ragam percakapan)"
+    },
+    "893a0a6f-7f4b-5c33-9588-a29dd0a84979": {
+      "surfaceFormText": "ゆっくり",
+      "en": "slowly",
+      "id": "perlahan"
+    },
+    "8076f1f9-d337-55d4-91e1-d63cd203f05a": {
+      "surfaceFormText": "より",
+      "en": "than",
+      "id": "daripada"
+    },
+    "4fae0838-a170-55fb-afb1-99cd6ae48705": {
+      "surfaceFormText": "アパート",
+      "en": "apartment building",
+      "id": "gedung apartemen"
+    },
+    "5a2a0f98-754b-5c62-bbad-b0f8b83492d1": {
+      "surfaceFormText": "エレベーター",
+      "en": "elevator",
+      "id": "lift"
+    },
+    "fc4253be-6a13-5168-82b2-06b6a900ddce": {
+      "surfaceFormText": "カップ",
+      "en": "cup (drinking vessel)",
+      "id": "cangkir (wadah minum)"
+    },
+    "b12d5e77-3ab5-5878-9d47-72e48a588b4b": {
+      "surfaceFormText": "カメラ",
+      "en": "camera",
+      "id": "kamera"
+    },
+    "ea45bccc-c1f3-5179-9ed5-a55b7e1fc8a1": {
+      "surfaceFormText": "カレー",
+      "en": "curry",
+      "id": "kari"
+    },
+    "aa634c01-5f29-5f22-b780-d7200116c173": {
+      "surfaceFormText": "カレンダー",
+      "en": "calendar",
+      "id": "kalender"
+    },
+    "9250b5f9-c4e1-5f6b-8116-b7c2b5373d6b": {
+      "surfaceFormText": "キロ",
+      "en": "kilo- (one thousand)",
+      "id": "kilo- (seribu)"
+    },
+    "aa420d62-4064-5785-a219-7d761180f37e": {
+      "surfaceFormText": "キログラム",
+      "en": "kilogram",
+      "id": "kilogram"
+    },
+    "e1119ae2-7586-5894-8a3c-9d08c4ba14ff": {
+      "surfaceFormText": "キロメートル",
+      "en": "kilometre",
+      "id": "kilometer"
+    },
+    "92853d56-cef3-57dd-b33f-a526034bf2cf": {
+      "surfaceFormText": "ギター",
+      "en": "guitar",
+      "id": "gitar"
+    },
+    "0cf91af4-8c7d-5cae-9135-ae92367a66e0": {
+      "surfaceFormText": "クラス",
+      "en": "class",
+      "id": "kelas"
+    },
+    "eaa570ea-98dd-502f-abf5-b3caf178647e": {
+      "surfaceFormText": "グラム",
+      "en": "gram",
+      "id": "gram"
+    },
+    "15630f74-0e30-5c8e-a689-360d1fbb6f55": {
+      "surfaceFormText": "コート",
+      "en": "coat",
+      "id": "mantel"
+    },
+    "bdfff372-c8d9-59e1-9c9e-ef1c91e8c223": {
+      "surfaceFormText": "珈琲",
+      "en": "coffee",
+      "id": "kopi"
+    },
+    "32b2cb91-f32d-5c21-a0a9-3b39c1cd4705": {
+      "surfaceFormText": "コピー",
+      "en": "copy; photocopy",
+      "id": "salinan; fotokopi"
+    },
+    "7dec126e-e7c1-5a1e-8e11-be070a882cca": {
+      "surfaceFormText": "シャツ",
+      "en": "undershirt",
+      "id": "kaus dalam"
+    },
+    "840f5339-a594-55f8-8c14-b0dc2b510ebf": {
+      "surfaceFormText": "シャワー",
+      "en": "shower",
+      "id": "pancuran mandi"
+    },
+    "e783d266-45f0-59cb-9934-798a209337bc": {
+      "surfaceFormText": "スカート",
+      "en": "skirt",
+      "id": "rok"
+    },
+    "f1c2496e-f671-5b71-a246-31607064d90b": {
+      "surfaceFormText": "ストーブ",
+      "en": "room heater",
+      "id": "pemanas ruangan"
+    },
+    "abf61839-caa2-57b0-ad2c-4e6aa1acea25": {
+      "surfaceFormText": "スプーン",
+      "en": "spoon",
+      "id": "sendok"
+    },
+    "c033506e-b27c-5e03-999a-23315131dc1d": {
+      "surfaceFormText": "スポーツ",
+      "en": "sports",
+      "id": "olahraga"
+    },
+    "13e306de-1aab-5082-aef5-b3d2c4ade0a7": {
+      "surfaceFormText": "スリッパ",
+      "en": "slippers",
+      "id": "sandal rumah"
+    },
+    "f154f72e-9638-5455-b592-073c39b74906": {
+      "surfaceFormText": "ズボン",
+      "en": "trousers",
+      "id": "celana panjang"
+    },
+    "216cb05f-96c0-56f1-aea2-8b19f24f49c4": {
+      "surfaceFormText": "セーター",
+      "en": "sweater",
+      "id": "sweter"
+    },
+    "dfb5f6ba-e7ba-5dd4-9eeb-a302bd6a8162": {
+      "surfaceFormText": "タクシー",
+      "en": "taxi",
+      "id": "taksi"
+    },
+    "99cab758-6625-50cb-8245-1ec73536c2a2": {
+      "surfaceFormText": "テーブル",
+      "en": "table",
+      "id": "meja"
+    },
+    "88600151-c3a0-5cf5-8bda-5d6319f64e85": {
+      "surfaceFormText": "テープ",
+      "en": "tape",
+      "id": "pita"
+    },
+    "7a833031-e189-5b8f-b656-89b75c98c900": {
+      "surfaceFormText": "テープレコーダー",
+      "en": "tape recorder",
+      "id": "perekam pita"
+    },
+    "bd7dc745-5e9d-5ce0-9519-0cbea17d6bdd": {
+      "surfaceFormText": "テスト",
+      "en": "exam",
+      "id": "ujian"
+    },
+    "4fdb4d49-efe9-5b58-9785-aa58d5d176cd": {
+      "surfaceFormText": "テレビ",
+      "en": "television",
+      "id": "televisi"
+    },
+    "5541840f-ad00-5524-88f4-b04d51236213": {
+      "surfaceFormText": "デパート",
+      "en": "department store",
+      "id": "toserba"
+    },
+    "a10ab813-1869-577e-b0ed-f59a72d6f4fa": {
+      "surfaceFormText": "トイレ",
+      "en": "restroom",
+      "id": "toilet"
+    },
+    "9ac1e64a-30c9-5c40-ade9-96111c3fc463": {
+      "surfaceFormText": "ドア",
+      "en": "door",
+      "id": "pintu"
+    },
+    "6eb488c1-6c1a-5367-900b-ed6f7d5c8073": {
+      "surfaceFormText": "ナイフ",
+      "en": "knife",
+      "id": "pisau"
+    },
+    "03bd20be-0fd6-5a1b-bc99-9a5ac842e3b1": {
+      "surfaceFormText": "ニュース",
+      "en": "news",
+      "id": "berita"
+    },
+    "8b1b580c-d13f-5e20-a2a7-b8d6b8c0d70e": {
+      "surfaceFormText": "ネクタイ",
+      "en": "necktie",
+      "id": "dasi"
+    },
+    "7612709e-5b3e-530a-8695-60e63965678b": {
+      "surfaceFormText": "ハンカチ",
+      "en": "handkerchief",
+      "id": "saputangan"
+    },
+    "3115ece7-732b-5a0c-90f7-959784b81d76": {
+      "surfaceFormText": "バター",
+      "en": "butter",
+      "id": "mentega"
+    },
+    "55ab4a00-15d0-5f52-a166-36b9930c12fb": {
+      "surfaceFormText": "パーティー",
+      "en": "party (social gathering)",
+      "id": "pesta (pertemuan sosial)"
+    },
+    "4247795f-c11b-5374-9bdd-489d17916070": {
+      "surfaceFormText": "パン",
+      "en": "bread",
+      "id": "roti"
+    },
+    "b043b7df-d088-55eb-9f83-675ac0e0c34e": {
+      "surfaceFormText": "フィルム",
+      "en": "film",
+      "id": "film"
+    },
+    "fc2f51c7-9d8c-56d5-aa19-69c50a7b1352": {
+      "surfaceFormText": "フォーク",
+      "en": "fork",
+      "id": "garpu"
+    },
+    "e284ef22-045e-57fe-8515-8dcaa885ad07": {
+      "surfaceFormText": "プール",
+      "en": "swimming pool",
+      "id": "kolam renang"
+    },
+    "449fd6fe-ef40-5eb1-bea3-d7f1607eb8d6": {
+      "surfaceFormText": "ベッド",
+      "en": "bed",
+      "id": "tempat tidur"
+    },
+    "bcb09c04-c15c-59be-bd27-dc177f7ac994": {
+      "surfaceFormText": "頁",
+      "en": "page",
+      "id": "halaman"
+    },
+    "04828a5b-4387-5054-9d7d-ba78cbf20fe6": {
+      "surfaceFormText": "ペット",
+      "en": "pet",
+      "id": "hewan peliharaan"
+    },
+    "4ce6568f-a221-5f06-8bfb-cdaa47f9eb3b": {
+      "surfaceFormText": "ホテル",
+      "en": "hotel",
+      "id": "hotel"
+    },
+    "506c5576-24cf-5e3f-ae16-77826bf0c8d1": {
+      "surfaceFormText": "ボールペン",
+      "en": "ballpoint pen",
+      "id": "pulpen"
+    },
+    "081ba422-b267-53d5-860f-c9af4bd6fc5e": {
+      "surfaceFormText": "ポケット",
+      "en": "pocket",
+      "id": "saku"
+    },
+    "d67c5d64-1804-5535-aa94-03ad08f29e95": {
+      "surfaceFormText": "ポスト",
+      "en": "postbox",
+      "id": "kotak pos"
+    },
+    "3c0136dd-23a5-5154-8437-1e69320abbb7": {
+      "surfaceFormText": "メートル",
+      "en": "metre",
+      "id": "meter"
+    },
+    "4f7ac0c3-962f-5e35-99e5-85999094268f": {
+      "surfaceFormText": "ラジオ",
+      "en": "radio",
+      "id": "radio"
+    },
+    "81998c5b-2f00-58b8-9d63-5e37caa797b1": {
+      "surfaceFormText": "ラジオカセット",
+      "en": "radio-cassette recorder",
+      "id": "radio dengan perekam kaset"
+    },
+    "081683a5-83da-56ad-bd4b-9e5301d6ef02": {
+      "surfaceFormText": "ラジカセ",
+      "en": "radio-cassette player",
+      "id": "radio dengan pemutar kaset"
+    },
+    "1ce6da22-d996-51ca-9970-c1b0e4401774": {
+      "surfaceFormText": "レコード",
+      "en": "phonograph record",
+      "id": "piringan hitam"
+    },
+    "913b372b-0162-50d1-986c-e770927e2412": {
+      "surfaceFormText": "レストラン",
+      "en": "restaurant",
+      "id": "restoran"
+    },
+    "56afc4a2-cbb4-5c71-86b7-6116b8688be7": {
+      "surfaceFormText": "Ｙシャツ",
+      "en": "dress shirt",
+      "id": "kemeja formal"
+    },
+    "594e540d-fc60-5c52-9889-ce12976586bf": {
+      "surfaceFormText": "悪い",
+      "en": "bad",
+      "id": "buruk"
+    },
+    "0e27a475-654a-5d35-b4e9-ca4476e1875d": {
+      "surfaceFormText": "飴",
+      "en": "hard candy",
+      "id": "permen keras"
+    },
+    "1a2fe017-6999-52d7-8c72-fabb7830d263": {
+      "surfaceFormText": "暗い",
+      "en": "dark",
+      "id": "gelap"
+    },
+    "01fcffe3-8754-5d85-8f44-24801aafef79": {
+      "surfaceFormText": "意味",
+      "en": "meaning",
+      "id": "arti"
+    },
+    "3b2fb425-8809-5881-861b-b5f952a3a9f2": {
+      "surfaceFormText": "易しい",
+      "en": "easy",
+      "id": "mudah"
+    },
+    "80a0668e-a5d1-59f3-809b-713a44ca421b": {
+      "surfaceFormText": "する",
+      "en": "do",
+      "id": "melakukan"
+    },
+    "85538f96-ff91-58cc-8dd2-58c6beda03cc": {
+      "surfaceFormText": "違う",
+      "en": "differ",
+      "id": "berbeda"
+    },
+    "5fe73d29-6368-54fa-9e5f-e635aaf3f955": {
+      "surfaceFormText": "医者",
+      "en": "doctor",
+      "id": "dokter"
+    },
+    "f5577ebd-1cc5-55d7-9558-c21c3ce23610": {
+      "surfaceFormText": "一月",
+      "en": "one month",
+      "id": "satu bulan"
+    },
+    "b8d5d7ef-b8de-58de-8232-fb397f27c894": {
+      "surfaceFormText": "一緒",
+      "en": "together",
+      "id": "bersama"
+    },
+    "92d52bef-2313-5bc2-82b4-e4724caf3053": {
+      "surfaceFormText": "ちょっと",
+      "en": "a little",
+      "id": "sedikit"
+    },
+    "426a1e0c-1c35-5f71-a179-dd7b62808940": {
+      "surfaceFormText": "一番",
+      "en": "number one",
+      "id": "nomor satu"
+    },
+    "0d7a278a-6b00-5d91-9f42-f506bb97dadd": {
+      "surfaceFormText": "引く",
+      "en": "pull",
+      "id": "menarik"
+    },
+    "e5217574-4f47-54b5-8e43-1c8039bfb2a4": {
+      "surfaceFormText": "右",
+      "en": "right-hand side",
+      "id": "sebelah kanan"
+    },
+    "e2d7fc25-886b-5469-aa74-2e3b2bd604df": {
+      "surfaceFormText": "雨",
+      "en": "rain",
+      "id": "hujan"
+    },
+    "0ff4f9a5-a527-5ec3-9c2d-1024b4b79b25": {
+      "surfaceFormText": "映画",
+      "en": "movie",
+      "id": "film"
+    },
+    "def2f87a-8f6e-5582-8d2a-71d1035c9cda": {
+      "surfaceFormText": "映画館",
+      "en": "cinema",
+      "id": "bioskop"
+    },
+    "884d177f-23df-5654-bb08-996fd2e607f7": {
+      "surfaceFormText": "泳ぐ",
+      "en": "swim",
+      "id": "berenang"
+    },
+    "95ef01f9-70d3-551c-806d-c02768eef5c7": {
+      "surfaceFormText": "英語",
+      "en": "English language",
+      "id": "bahasa Inggris"
+    },
+    "7171b24e-51e3-5d56-b371-e085793e3a17": {
+      "surfaceFormText": "遠い",
+      "en": "far",
+      "id": "jauh"
+    },
+    "865467fc-3f93-5286-9592-a0021b50b6e4": {
+      "surfaceFormText": "汚い",
+      "en": "dirty",
+      "id": "kotor"
+    },
+    "c37709f2-eb1e-5cf7-a0e1-792d1fad9603": {
+      "surfaceFormText": "奥さん",
+      "en": "wife (respectful)",
+      "id": "istri (sebutan hormat)"
+    },
+    "dbf3ea69-1603-5c6c-a5c6-550875180003": {
+      "surfaceFormText": "押す",
+      "en": "push",
+      "id": "mendorong"
+    },
+    "096d4c53-6bdf-58c6-b8e0-bcc5e86a2cf2": {
+      "surfaceFormText": "横",
+      "en": "horizontal",
+      "id": "mendatar"
+    },
+    "89901604-e6c1-5b4f-ac2b-7195c572f906": {
+      "surfaceFormText": "黄色い",
+      "en": "yellow",
+      "id": "kuning"
+    },
+    "3bee4b22-dc59-5345-98ac-f63785d810a8": {
+      "surfaceFormText": "温い",
+      "en": "lukewarm",
+      "id": "suam-suam kuku"
+    },
+    "bc24b926-f338-56a5-b9b0-02f4e3c4b13b": {
+      "surfaceFormText": "音楽",
+      "en": "music",
+      "id": "musik"
+    },
+    "9eadb588-6cf1-548a-8898-ac9623c1a54f": {
+      "surfaceFormText": "下",
+      "en": "below",
+      "id": "di bawah"
+    },
+    "3bd65091-bb2e-563a-835c-f49049a8e3e1": {
+      "surfaceFormText": "下さい",
+      "en": "please give me",
+      "id": "tolong berikan kepada saya"
+    },
+    "0c096041-b1de-596f-9d9a-8b786323a373": {
+      "surfaceFormText": "下手",
+      "en": "unskillful",
+      "id": "kurang terampil"
+    },
+    "8079d07d-d683-57cb-b134-27264ce0947b": {
+      "surfaceFormText": "いつ",
+      "en": "when",
+      "id": "kapan"
+    },
+    "be0c8ea7-7089-5401-9d8e-c5c65658da2f": {
+      "surfaceFormText": "どちら",
+      "en": "which way (polite)",
+      "id": "arah mana (sopan)"
+    },
+    "14309562-354a-5f1a-bda7-2b89320c817d": {
+      "surfaceFormText": "何方",
+      "en": "who (respectful)",
+      "id": "siapa (hormat)"
+    },
+    "83c1d02f-a099-551c-9f83-22227b4ea32c": {
+      "surfaceFormText": "夏",
+      "en": "summer",
+      "id": "musim panas"
+    },
+    "10320532-ed0f-5590-b8c5-2eb86661362f": {
+      "surfaceFormText": "夏休み",
+      "en": "summer vacation",
+      "id": "liburan musim panas"
+    },
+    "cc0216e8-dd57-55c1-81e9-2df1a18dcefb": {
+      "surfaceFormText": "家族",
+      "en": "family",
+      "id": "keluarga"
+    },
+    "d5f45193-59d4-5d13-a9fc-29cac3daefe2": {
+      "surfaceFormText": "家庭",
+      "en": "household",
+      "id": "rumah tangga"
+    },
+    "549dfa69-9772-586f-afc7-17f36684e3b3": {
+      "surfaceFormText": "果物",
+      "en": "fruit",
+      "id": "buah"
+    },
+    "03535773-b74a-5eb8-96aa-3a4916ebeb95": {
+      "surfaceFormText": "歌",
+      "en": "song",
+      "id": "lagu"
+    },
+    "adc31c33-daf4-5cb6-9e79-93100ddf6305": {
+      "surfaceFormText": "花",
+      "en": "flower",
+      "id": "bunga"
+    },
+    "b57e517f-7f93-5513-bc36-4d037e92c104": {
+      "surfaceFormText": "花瓶",
+      "en": "vase",
+      "id": "vas bunga"
+    },
+    "433fb936-b799-595f-b802-74f4f0bcd57c": {
+      "surfaceFormText": "荷物",
+      "en": "luggage",
+      "id": "barang bawaan"
+    },
+    "c0353f55-b7e8-5fad-9ce7-bebc1170fa69": {
+      "surfaceFormText": "会う",
+      "en": "meet",
+      "id": "bertemu"
+    },
+    "82e815b4-6be4-5e1f-b615-520212c93d5a": {
+      "surfaceFormText": "会社",
+      "en": "company",
+      "id": "perusahaan"
+    },
+    "e8f2f8ad-9ca6-5616-9f6d-f133f537c4c3": {
+      "surfaceFormText": "海",
+      "en": "sea",
+      "id": "laut"
+    },
+    "cca796f0-8ffb-595b-9581-d7c22bc73137": {
+      "surfaceFormText": "灰皿",
+      "en": "ashtray",
+      "id": "asbak"
+    },
+    "e2060a34-cb91-54c1-bde0-92f5659a9a0f": {
+      "surfaceFormText": "皆",
+      "en": "everyone",
+      "id": "semua orang"
+    },
+    "e725e329-b876-5a17-943f-79e440a46458": {
+      "surfaceFormText": "皆さん",
+      "en": "everyone (respectful)",
+      "id": "semua orang (sapaan hormat)"
+    },
+    "edb04563-ba39-5c19-8d20-6beda4145457": {
+      "surfaceFormText": "絵",
+      "en": "picture",
+      "id": "gambar"
+    },
+    "7ccdacbf-2910-5942-9c94-3abc230a5438": {
+      "surfaceFormText": "開ける",
+      "en": "open (something)",
+      "id": "membuka (sesuatu)"
+    },
+    "5b226f89-b581-52aa-ac5e-a7874b896f66": {
+      "surfaceFormText": "階段",
+      "en": "stairs",
+      "id": "tangga"
+    },
+    "14e00b2a-9c10-5481-a82c-45a1c93af018": {
+      "surfaceFormText": "外",
+      "en": "outside",
+      "id": "di luar"
+    },
+    "9abde1be-8802-5b33-a81c-84e6a1556bec": {
+      "surfaceFormText": "他",
+      "en": "somewhere else",
+      "id": "di tempat lain"
+    },
+    "bc921b36-e6b1-5ad4-b52c-eb611be2cfb9": {
+      "surfaceFormText": "外国",
+      "en": "foreign country",
+      "id": "negara asing"
+    },
+    "a29c4157-afda-56fd-a67b-05a3043c9744": {
+      "surfaceFormText": "外国人",
+      "en": "foreigner",
+      "id": "orang asing"
+    },
+    "af43f084-52a0-5461-985b-b472c2dcb1de": {
+      "surfaceFormText": "覚える",
+      "en": "memorize",
+      "id": "menghafal"
+    },
+    "ada4bc42-5d7e-5fd2-a24b-43b210c62a41": {
+      "surfaceFormText": "角",
+      "en": "corner",
+      "id": "sudut"
+    },
+    "12470692-722f-5915-8e6b-03138f1dd8fb": {
+      "surfaceFormText": "楽しい",
+      "en": "enjoyable",
+      "id": "menyenangkan"
+    },
+    "e870588a-6ffe-557d-ab2c-78faffbaa345": {
+      "surfaceFormText": "掛かる",
+      "en": "take (time or money)",
+      "id": "memerlukan (waktu atau biaya)"
+    },
+    "3668be7b-4705-58c5-be1f-fa0d871ac113": {
+      "surfaceFormText": "掛ける",
+      "en": "hang up (an object)",
+      "id": "menggantungkan (benda)"
+    },
+    "753796a5-f3d4-5869-b93c-cb96436c66c6": {
+      "surfaceFormText": "寒い",
+      "en": "cold (weather)",
+      "id": "dingin (cuaca)"
+    },
+    "6aafb066-163f-513c-a905-be65eb919d09": {
+      "surfaceFormText": "漢字",
+      "en": "kanji",
+      "id": "kanji"
+    },
+    "e9c98a94-282a-515c-822d-c926dd896ec2": {
+      "surfaceFormText": "甘い",
+      "en": "sweet (taste)",
+      "id": "manis (rasa)"
+    },
+    "66062378-0fe7-5d28-833b-df8ddfb58b41": {
+      "surfaceFormText": "危ない",
+      "en": "dangerous",
+      "id": "berbahaya"
+    },
+    "27a75ffb-be4b-5338-8241-df97317bf26a": {
+      "surfaceFormText": "幾つ",
+      "en": "how many",
+      "id": "berapa banyak"
+    },
+    "615620e4-9532-58e9-8ae3-a1ba4f89cd10": {
+      "surfaceFormText": "幾ら",
+      "en": "how much",
+      "id": "berapa"
+    },
+    "9795cffb-8b2d-5158-82d9-f9d17c3e7acf": {
+      "surfaceFormText": "起きる",
+      "en": "get up",
+      "id": "bangun"
+    },
+    "b7feeb4a-e7f0-5712-8846-292e69fbfee9": {
+      "surfaceFormText": "喫茶店",
+      "en": "coffee shop",
+      "id": "kedai kopi"
+    },
+    "20d6d64c-79c7-5468-9b1c-e8fea4ba79ce": {
+      "surfaceFormText": "休み",
+      "en": "rest",
+      "id": "istirahat"
+    },
+    "6c4a98a5-9103-54bd-8584-814339fa0430": {
+      "surfaceFormText": "休む",
+      "en": "be absent; take a day off",
+      "id": "tidak masuk; mengambil cuti"
+    },
+    "4aba15ab-f7fe-5d54-8b87-f79506801d7a": {
+      "surfaceFormText": "吸う",
+      "en": "inhale",
+      "id": "menghirup"
+    },
+    "73c46363-6614-589c-8666-00299a6481f3": {
+      "surfaceFormText": "牛肉",
+      "en": "beef",
+      "id": "daging sapi"
+    },
+    "af9ff6b5-d210-50dd-b3eb-55ff8590e97c": {
+      "surfaceFormText": "牛乳",
+      "en": "cow's milk",
+      "id": "susu sapi"
+    },
+    "a0ca9dc4-3d82-5dc0-a4f2-1119282737b1": {
+      "surfaceFormText": "去年",
+      "en": "last year",
+      "id": "tahun lalu"
+    },
+    "69df442d-bf75-56b8-8942-ae7c89edc353": {
+      "surfaceFormText": "強い",
+      "en": "strong",
+      "id": "kuat"
+    },
+    "eb12fca8-95c8-56d8-beab-5b3a75ea3282": {
+      "surfaceFormText": "教える",
+      "en": "teach",
+      "id": "mengajar"
+    },
+    "fa872eae-052e-55df-a6d3-db4b44b46d9f": {
+      "surfaceFormText": "橋",
+      "en": "bridge",
+      "id": "jembatan"
+    },
+    "1fe124f5-62f6-5d77-8887-7a5cd60b3246": {
+      "surfaceFormText": "狭い",
+      "en": "narrow",
+      "id": "sempit"
+    },
+    "b2a285ec-0990-59e4-9798-babe3789ccae": {
+      "surfaceFormText": "曲る",
+      "en": "bend",
+      "id": "membengkok"
+    },
+    "e5076eb4-2420-58f8-ab60-cd3be48a69be": {
+      "surfaceFormText": "勤める",
+      "en": "work for; be employed at",
+      "id": "bekerja untuk; bekerja di"
+    },
+    "6d78951f-ae19-595f-89ce-824962634a59": {
+      "surfaceFormText": "近い",
+      "en": "near",
+      "id": "dekat"
+    },
+    "3d1f824a-9eba-50f6-b4e4-bea3939daf9a": {
+      "surfaceFormText": "近く",
+      "en": "vicinity",
+      "id": "daerah sekitar"
+    },
+    "7fe4355a-8143-5243-834f-79020533f2b0": {
+      "surfaceFormText": "金曜日",
+      "en": "Friday",
+      "id": "Jumat"
+    },
+    "c41fddf5-7aea-561f-afa2-8d1e160aad0d": {
+      "surfaceFormText": "九つ",
+      "en": "nine (objects)",
+      "id": "sembilan (benda)"
+    },
+    "3ab2d678-100f-5df8-8bcf-21d4693d405a": {
+      "surfaceFormText": "九日",
+      "en": "ninth day of the month",
+      "id": "tanggal sembilan"
+    },
+    "b6684455-b30e-54e4-8bdb-c233383fee5c": {
+      "surfaceFormText": "空",
+      "en": "sky",
+      "id": "langit"
+    },
+    "c5414e57-8866-5300-b603-4b0446fda62c": {
+      "surfaceFormText": "靴",
+      "en": "shoes",
+      "id": "sepatu"
+    },
+    "6d25aaf3-7b17-57b6-a265-58c38ebd9bbf": {
+      "surfaceFormText": "靴下",
+      "en": "socks",
+      "id": "kaus kaki"
+    },
+    "2c54f239-542a-58fb-9581-610af2f42474": {
+      "surfaceFormText": "兄",
+      "en": "older brother",
+      "id": "kakak laki-laki"
+    },
+    "4fe9478f-6539-52e2-bf30-c57f6db42ec9": {
+      "surfaceFormText": "兄弟",
+      "en": "siblings",
+      "id": "saudara kandung"
+    },
+    "a484c9df-824d-52b7-b315-f88858c5929e": {
+      "surfaceFormText": "警官",
+      "en": "police officer",
+      "id": "polisi"
+    },
+    "7ea93ec7-8580-5823-871c-0e1ff5512b2d": {
+      "surfaceFormText": "軽い",
+      "en": "light (weight)",
+      "id": "ringan (bobot)"
+    },
+    "efa21682-c256-5576-97aa-4a49f2932fbd": {
+      "surfaceFormText": "鶏肉",
+      "en": "chicken meat",
+      "id": "daging ayam"
+    },
+    "2b07d8a4-afc3-535f-ad2b-295df3d32629": {
+      "surfaceFormText": "結構",
+      "en": "splendid",
+      "id": "bagus sekali"
+    },
+    "47791c0b-dd7a-5984-b656-0f0690e52493": {
+      "surfaceFormText": "結婚",
+      "en": "marriage",
+      "id": "pernikahan"
+    },
+    "dc9bad4c-7c75-5b6d-87cf-9fc2d4b3cf23": {
+      "surfaceFormText": "嫌い",
+      "en": "disliked",
+      "id": "tidak disukai"
+    },
+    "805b1737-4919-5ce8-bbca-1e5fdc6eb5f0": {
+      "surfaceFormText": "建物",
+      "en": "building",
+      "id": "bangunan"
+    },
+    "aa9c19e6-e7ca-5723-880c-fbc0462e2489": {
+      "surfaceFormText": "見せる",
+      "en": "show",
+      "id": "memperlihatkan"
+    },
+    "3571e91b-e364-51bc-92bb-c4eea326888d": {
+      "surfaceFormText": "鍵",
+      "en": "key",
+      "id": "kunci"
+    },
+    "374d81ef-027a-57e8-bfbd-ffddf782a873": {
+      "surfaceFormText": "玄関",
+      "en": "entry hall",
+      "id": "ruang masuk"
+    },
+    "b824137b-2ac8-53c9-b477-e9b18d467a1c": {
+      "surfaceFormText": "言葉",
+      "en": "language",
+      "id": "bahasa"
+    },
+    "dd5e572d-be83-57db-9c5e-51d9cbe9dca0": {
+      "surfaceFormText": "古い",
+      "en": "old (of things)",
+      "id": "lama atau tua (untuk benda)"
+    },
+    "ee8880cb-1b8f-5a11-b86a-dbcbd8f3ad7b": {
+      "surfaceFormText": "呼ぶ",
+      "en": "call out to",
+      "id": "memanggil"
+    },
+    "416acc5c-9638-5e42-b65c-742dfc08be70": {
+      "surfaceFormText": "戸",
+      "en": "Japanese-style door",
+      "id": "pintu bergaya Jepang"
+    },
+    "3bb18e5b-4081-5217-8ad1-f630fc3ca9ec": {
+      "surfaceFormText": "五つ",
+      "en": "five objects",
+      "id": "lima benda"
+    },
+    "caea3af2-f38d-5b66-b83d-134689038dc1": {
+      "surfaceFormText": "五日",
+      "en": "the fifth day of the month",
+      "id": "tanggal lima"
+    },
+    "545859ea-d2ad-50e8-95f1-cfa9a5a23fee": {
+      "surfaceFormText": "午後",
+      "en": "afternoon",
+      "id": "siang hingga sore"
+    },
+    "9b8634ad-f879-59b0-a002-617db4f2adfa": {
+      "surfaceFormText": "午前",
+      "en": "morning (a.m.)",
+      "id": "sebelum tengah hari (a.m.)"
+    },
+    "2d739239-68ae-5fc9-81cc-66662b304fb5": {
+      "surfaceFormText": "後",
+      "en": "behind",
+      "id": "di belakang"
+    },
+    "4015d1a1-105b-59cd-beb4-2cd4f69254ba": {
+      "surfaceFormText": "後ろ",
+      "en": "behind",
+      "id": "di belakang"
+    },
+    "3e466cf7-bbb0-5bdd-b683-90d4306ea314": {
+      "surfaceFormText": "御飯",
+      "en": "cooked rice",
+      "id": "nasi"
+    },
+    "1b86426b-a766-5e3b-8086-e6a274dc4986": {
+      "surfaceFormText": "交番",
+      "en": "police box",
+      "id": "pos polisi"
+    },
+    "b88a55f8-ade4-587d-b71c-7f2e2d79f263": {
+      "surfaceFormText": "公園",
+      "en": "public park",
+      "id": "taman umum"
+    },
+    "6ef5abc2-5894-5b04-a6b9-7bb355a2e388": {
+      "surfaceFormText": "厚い",
+      "en": "thick (of material)",
+      "id": "tebal"
+    },
+    "a4ae23c5-066d-5166-87be-47774dde687f": {
+      "surfaceFormText": "口",
+      "en": "mouth",
+      "id": "mulut"
+    },
+    "d10d416e-815a-541f-a1ab-3b9aeefedafc": {
+      "surfaceFormText": "向こう",
+      "en": "the opposite side",
+      "id": "sisi seberang"
+    },
+    "f1d08167-c2b1-5745-a6e6-ae7c10dc4729": {
+      "surfaceFormText": "好き",
+      "en": "liking something",
+      "id": "menyukai sesuatu"
+    },
+    "3660cbad-11cb-5d04-9e34-24fa3fb9b245": {
+      "surfaceFormText": "広い",
+      "en": "spacious",
+      "id": "luas"
+    },
+    "11f23596-fdc5-5484-ad27-bc77ed427d81": {
+      "surfaceFormText": "紅茶",
+      "en": "black tea",
+      "id": "teh hitam"
+    },
+    "399875bc-93d7-561e-b678-511b336b2bb3": {
+      "surfaceFormText": "降る",
+      "en": "fall (of rain or snow)",
+      "id": "turun (untuk hujan atau salju)"
+    },
+    "8966b77b-5b25-5c8b-b27c-23f1f008e511": {
+      "surfaceFormText": "黒",
+      "en": "the color black",
+      "id": "warna hitam"
+    },
+    "58887229-9897-5195-90af-8ac03b212c75": {
+      "surfaceFormText": "黒い",
+      "en": "black (adjective)",
+      "id": "hitam (kata sifat)"
+    },
+    "862543f8-823d-5ebb-82e8-45c4bf2149f5": {
+      "surfaceFormText": "今",
+      "en": "now",
+      "id": "sekarang"
+    },
+    "680eabb7-eb37-5942-ab30-b0f9fd641a84": {
+      "surfaceFormText": "今月",
+      "en": "this month",
+      "id": "bulan ini"
+    },
+    "0d90a4c7-5f81-5fc1-9c78-a6159d6574c0": {
+      "surfaceFormText": "今晩",
+      "en": "tonight",
+      "id": "malam ini"
+    },
+    "8b303de3-1094-596b-99c4-75a531f059ca": {
+      "surfaceFormText": "困る",
+      "en": "be troubled",
+      "id": "mengalami kesulitan"
+    },
+    "905919b2-3a74-5339-8856-5a43c3f4e9c0": {
+      "surfaceFormText": "左",
+      "en": "the left-hand side",
+      "id": "sisi kiri"
+    },
+    "3b52e06c-a985-54bb-82e5-f7ffa761c5e3": {
+      "surfaceFormText": "差す",
+      "en": "shine (of light)",
+      "id": "bersinar"
+    },
+    "48a0eea4-5fb8-57b1-ba7b-530f4a231854": {
+      "surfaceFormText": "砂糖",
+      "en": "sugar",
+      "id": "gula"
+    },
+    "640ede58-0ad7-54ea-9d5c-1196ead3c06a": {
+      "surfaceFormText": "再来年",
+      "en": "the year after next",
+      "id": "dua tahun lagi"
+    },
+    "47378544-615c-5ca6-a494-d6a98bb2152c": {
+      "surfaceFormText": "細い",
+      "en": "slender",
+      "id": "ramping"
+    },
+    "20155739-19ad-52c8-b0f1-f1cd5f657f56": {
+      "surfaceFormText": "有る",
+      "en": "exist (of inanimate things)",
+      "id": "ada (untuk benda mati)"
+    },
+    "4ea6e7d2-a136-5276-aaca-43711bcdecec": {
+      "surfaceFormText": "財布",
+      "en": "wallet",
+      "id": "dompet"
+    },
+    "b1cdfb21-ea5f-5a60-b3ac-bef9a8dd3434": {
+      "surfaceFormText": "咲く",
+      "en": "bloom",
+      "id": "mekar"
+    },
+    "f632a020-f9fe-5b54-a79a-45d6d9c8c051": {
+      "surfaceFormText": "作文",
+      "en": "a written composition",
+      "id": "karangan tertulis"
+    },
+    "8fd3c8cd-e1c1-55e8-a4d9-a64a5160ec3c": {
+      "surfaceFormText": "撮る",
+      "en": "take a photograph",
+      "id": "mengambil foto"
+    },
+    "60d631f0-2558-501a-b7d9-81433183491a": {
+      "surfaceFormText": "雑誌",
+      "en": "magazine",
+      "id": "majalah"
+    },
+    "67a7ccc0-41bd-5062-8bc5-eebb1d018a6a": {
+      "surfaceFormText": "お皿",
+      "en": "plate",
+      "id": "piring"
+    },
+    "c97aab94-c2cb-5349-bdcc-8e71db08f1fd": {
+      "surfaceFormText": "三日",
+      "en": "the third day of the month",
+      "id": "tanggal tiga"
+    },
+    "aa079433-84d5-5da3-acf2-a0c6c8a19258": {
+      "surfaceFormText": "傘",
+      "en": "umbrella",
+      "id": "payung"
+    },
+    "1f36b388-974c-5f64-b2ba-22a46bfd4ebc": {
+      "surfaceFormText": "山",
+      "en": "mountain",
+      "id": "gunung"
+    },
+    "d7ec39a7-b9cf-549e-aa94-7a8c9e18addd": {
+      "surfaceFormText": "散歩",
+      "en": "a stroll",
+      "id": "jalan-jalan santai"
+    },
+    "e2738192-8599-56b0-b7cc-a4b4ab072ddf": {
+      "surfaceFormText": "仕事",
+      "en": "work; job",
+      "id": "pekerjaan"
+    },
+    "75462381-48fe-5221-b52d-5c0646ca0c30": {
+      "surfaceFormText": "使う",
+      "en": "use",
+      "id": "menggunakan"
+    },
+    "245d3453-c51c-5870-8ca8-86c7dfda48e5": {
+      "surfaceFormText": "四つ",
+      "en": "four objects",
+      "id": "empat benda"
+    },
+    "e66a8c71-6256-5be2-a870-b9d9ddec50c1": {
+      "surfaceFormText": "四日",
+      "en": "the fourth day of the month",
+      "id": "tanggal empat"
+    },
+    "5feb577a-8d7d-5f65-a12b-0b583a4b9a35": {
+      "surfaceFormText": "始まる",
+      "en": "begin",
+      "id": "dimulai"
+    },
+    "c0c0dba5-064d-538c-9953-f79a480cceac": {
+      "surfaceFormText": "姉",
+      "en": "older sister",
+      "id": "kakak perempuan"
+    },
+    "f6b24ad0-0a87-5e2b-b24b-00b7b07230a6": {
+      "surfaceFormText": "子供",
+      "en": "child",
+      "id": "anak"
+    },
+    "490cc23a-b8b1-5d25-adc6-309700a7df95": {
+      "surfaceFormText": "止まる",
+      "en": "stop moving",
+      "id": "berhenti bergerak"
+    },
+    "d7357346-f4b6-5425-9dc6-16d7c3142f10": {
+      "surfaceFormText": "死ぬ",
+      "en": "die",
+      "id": "meninggal"
+    },
+    "d32f2df1-a965-5d1b-aec1-c08ba6e8b3cc": {
+      "surfaceFormText": "歯",
+      "en": "tooth",
+      "id": "gigi"
+    },
+    "08c893f2-adfd-551f-9e5b-986baf3a38b7": {
+      "surfaceFormText": "字引",
+      "en": "dictionary",
+      "id": "kamus"
+    },
+    "74e345ae-3ad5-53d2-a7e5-bf56323d4785": {
+      "surfaceFormText": "持つ",
+      "en": "hold in one's hand",
+      "id": "memegang"
+    },
+    "fda2d9d7-6614-5cb7-b80a-66f54bd1343b": {
+      "surfaceFormText": "時計",
+      "en": "clock; watch",
+      "id": "jam"
+    },
+    "6ebd0fc6-f18e-5b40-aad3-073732d2410e": {
+      "surfaceFormText": "次",
+      "en": "next",
+      "id": "berikutnya"
+    },
+    "1f4eefbb-3d23-506b-9f21-86a4a3734c8a": {
+      "surfaceFormText": "耳",
+      "en": "ear",
+      "id": "telinga"
+    },
+    "058c8b2a-47a7-57f8-b10b-df51dfafe30e": {
+      "surfaceFormText": "自動車",
+      "en": "car",
+      "id": "mobil"
+    },
+    "7b8ce18d-f3b3-59fb-ae0d-f5b57864cb2c": {
+      "surfaceFormText": "自分",
+      "en": "oneself",
+      "id": "diri sendiri"
+    },
+    "3ab6942c-df97-5284-9801-f27cf16e9fc4": {
+      "surfaceFormText": "辞書",
+      "en": "dictionary",
+      "id": "kamus"
+    },
+    "b4f62c0b-acbf-57e8-b0c3-f57a21e58c9a": {
+      "surfaceFormText": "七",
+      "en": "seven",
+      "id": "tujuh"
+    },
+    "cafc7bcf-f09d-58f3-aa91-d2bfcb0d479d": {
+      "surfaceFormText": "七つ",
+      "en": "seven objects",
+      "id": "tujuh benda"
+    },
+    "b17a9d66-dacd-5cdf-ae28-1f01c96bb929": {
+      "surfaceFormText": "質問",
+      "en": "question; inquiry",
+      "id": "pertanyaan"
+    },
+    "69eac7cd-f99f-5c8c-9dff-c3ed40ba2d5a": {
+      "surfaceFormText": "写真",
+      "en": "photograph",
+      "id": "foto"
+    },
+    "346860df-e1c9-58f1-98a3-c168d4e673e2": {
+      "surfaceFormText": "借りる",
+      "en": "borrow",
+      "id": "meminjam"
+    },
+    "77da47fe-7228-5cdb-91ec-7c6cedc0cfd7": {
+      "surfaceFormText": "若い",
+      "en": "young",
+      "id": "muda"
+    },
+    "aac7f3fa-6f05-5e3c-9073-7c9203aaf472": {
+      "surfaceFormText": "弱い",
+      "en": "weak",
+      "id": "lemah"
+    },
+    "5152c843-648d-5f0f-9d90-93880d26f2a2": {
+      "surfaceFormText": "取る",
+      "en": "take; pick up",
+      "id": "mengambil"
+    },
+    "b8534759-4add-5387-b822-53395dc51df1": {
+      "surfaceFormText": "手",
+      "en": "hand",
+      "id": "tangan"
+    },
+    "b0e9b9fb-1c42-53c4-9a0f-8d1a4c62bb8c": {
+      "surfaceFormText": "お酒",
+      "en": "alcoholic drink",
+      "id": "minuman beralkohol"
+    },
+    "67bf4e7e-12d6-51c2-98fc-fec80eb75e44": {
+      "surfaceFormText": "授業",
+      "en": "a lesson; a class",
+      "id": "pelajaran; kelas"
+    },
+    "8f487b11-7288-54de-8b57-ebe32b12cdc6": {
+      "surfaceFormText": "秋",
+      "en": "autumn",
+      "id": "musim gugur"
+    },
+    "c79d6f20-4b33-5495-9ddc-1fa7a6eef61d": {
+      "surfaceFormText": "習う",
+      "en": "learn from a teacher",
+      "id": "belajar dari guru"
+    },
+    "0d029636-f2a8-59d9-bae1-10b70f180eaf": {
+      "surfaceFormText": "住む",
+      "en": "reside",
+      "id": "tinggal"
+    },
+    "c815e565-d17d-5468-94cf-bb46163a281f": {
+      "surfaceFormText": "十日",
+      "en": "the tenth day of the month",
+      "id": "tanggal sepuluh"
+    },
+    "1d348c6f-0ac4-566b-bcba-c94f48b2496c": {
+      "surfaceFormText": "縦",
+      "en": "vertical",
+      "id": "vertikal"
+    },
+    "047d2d5c-1db5-5519-8d6c-0470a4bac99f": {
+      "surfaceFormText": "重い",
+      "en": "heavy",
+      "id": "berat"
+    },
+    "a5f2d0f1-ed52-5282-9beb-1092b90627c3": {
+      "surfaceFormText": "宿題",
+      "en": "homework",
+      "id": "pekerjaan rumah"
+    },
+    "5578b820-f6e2-58fb-9de2-4775d4220e23": {
+      "surfaceFormText": "出す",
+      "en": "take out",
+      "id": "mengeluarkan"
+    },
+    "c192556b-5c75-5c13-a994-2fac32d20ac2": {
+      "surfaceFormText": "出口",
+      "en": "exit",
+      "id": "pintu keluar"
+    },
+    "8f1daa5c-e8f3-5df8-be4e-ad0e44b8568f": {
+      "surfaceFormText": "出来る",
+      "en": "be able to do",
+      "id": "dapat melakukan"
+    },
+    "04e7f35e-4d7c-55ea-8bb4-12d7d1665696": {
+      "surfaceFormText": "春",
+      "en": "spring",
+      "id": "musim semi"
+    },
+    "6c913244-fbdf-5ea7-9fa7-e52111dcce8c": {
+      "surfaceFormText": "始め",
+      "en": "the beginning",
+      "id": "awal"
+    },
+    "1a434947-8686-55c4-8490-eba19d498f2e": {
+      "surfaceFormText": "初めて",
+      "en": "for the first time",
+      "id": "untuk pertama kalinya"
+    },
+    "870c3824-0cd5-50cc-906b-d59e99dd41d7": {
+      "surfaceFormText": "所",
+      "en": "place",
+      "id": "tempat"
+    },
+    "6f7ea42c-ed70-58aa-969d-67ea59864567": {
+      "surfaceFormText": "暑い",
+      "en": "hot (of weather)",
+      "id": "panas (untuk cuaca)"
+    },
+    "19a534c4-e81e-5dff-b336-10c98ce4181a": {
+      "surfaceFormText": "女",
+      "en": "woman",
+      "id": "perempuan dewasa"
+    },
+    "6de3021c-eac9-5f6b-896d-f3560aadf610": {
+      "surfaceFormText": "女の子",
+      "en": "girl",
+      "id": "anak perempuan"
+    },
+    "44932bf4-146b-55a3-8e8a-e9c6149e8440": {
+      "surfaceFormText": "少し",
+      "en": "a little",
+      "id": "sedikit"
+    },
+    "12d0eba6-6daa-5b43-8d1f-4c4e1f7bbc2f": {
+      "surfaceFormText": "少ない",
+      "en": "few; scarce",
+      "id": "sedikit jumlahnya"
+    },
+    "79bb19e8-d3d3-50a8-826d-85cdfac4f0c2": {
+      "surfaceFormText": "消える",
+      "en": "disappear",
+      "id": "menghilang"
+    },
+    "8b55a269-3a7e-5056-9834-90012086976e": {
+      "surfaceFormText": "消す",
+      "en": "erase",
+      "id": "menghapus"
+    },
+    "ce54ad50-734d-5073-b91c-7235a25e48de": {
+      "surfaceFormText": "上",
+      "en": "above",
+      "id": "di atas"
+    },
+    "da7b1f7a-c4c1-5445-b47c-5285a12ed2c7": {
+      "surfaceFormText": "登る",
+      "en": "climb",
+      "id": "mendaki"
+    },
+    "a0f358da-a38e-5bde-a440-0cbbb40efb8c": {
+      "surfaceFormText": "上手",
+      "en": "skillful",
+      "id": "terampil"
+    },
+    "67ea7c5b-e42e-5f7a-9e71-562839662d45": {
+      "surfaceFormText": "乗る",
+      "en": "board a vehicle",
+      "id": "naik kendaraan"
+    },
+    "52ace667-d42d-5eac-9886-31677fa38d51": {
+      "surfaceFormText": "色",
+      "en": "color",
+      "id": "warna"
+    },
+    "257fe1c7-bbac-5597-84b9-bfc2eb58f6a3": {
+      "surfaceFormText": "食べ物",
+      "en": "food",
+      "id": "makanan"
+    },
+    "7c236f62-96cf-5546-8117-e4253e61cefb": {
+      "surfaceFormText": "食堂",
+      "en": "cafeteria",
+      "id": "kantin"
+    },
+    "9d67f4d8-1b3f-5430-a071-c6972faa649f": {
+      "surfaceFormText": "寝る",
+      "en": "sleep lying down",
+      "id": "tidur berbaring"
+    },
+    "5afbfdd2-8688-56b2-8e8d-8af80cc76045": {
+      "surfaceFormText": "新しい",
+      "en": "new",
+      "id": "baru"
+    },
+    "457bb0ea-a3d9-5c80-a510-a3d491e17b13": {
+      "surfaceFormText": "新聞",
+      "en": "newspaper",
+      "id": "surat kabar"
+    },
+    "ebf02458-eedc-5eb7-88a7-f8f95aadbe1e": {
+      "surfaceFormText": "辛い",
+      "en": "spicy",
+      "id": "pedas"
+    },
+    "c0c303bd-536c-5349-a7ac-114c100baa9e": {
+      "surfaceFormText": "吹く",
+      "en": "blow (of wind)",
+      "id": "bertiup (untuk angin)"
+    },
+    "a3da344a-760e-5240-b673-f032ce12537a": {
+      "surfaceFormText": "水曜日",
+      "en": "Wednesday",
+      "id": "Rabu"
+    },
+    "9a05189e-ef38-5ee7-8dbe-dc601ef55230": {
+      "surfaceFormText": "成る",
+      "en": "become",
+      "id": "menjadi"
+    },
+    "579d91d8-acde-5967-a7fe-f88c415f986c": {
+      "surfaceFormText": "晴れ",
+      "en": "clear weather",
+      "id": "cuaca cerah"
+    },
+    "f8ca593e-17ff-5e44-b969-98dc74f1ae04": {
+      "surfaceFormText": "晴れる",
+      "en": "clear up (of weather)",
+      "id": "menjadi cerah (untuk cuaca)"
+    },
+    "05bf5163-86a2-5033-8e58-85200d3e5ce8": {
+      "surfaceFormText": "生まれる",
+      "en": "be born",
+      "id": "lahir"
+    },
+    "83bec565-3185-5f59-953f-54023765298b": {
+      "surfaceFormText": "生徒",
+      "en": "pupil",
+      "id": "murid"
+    },
+    "3df0661b-b0a1-5cd0-88e7-a111bcb3edd5": {
+      "surfaceFormText": "声",
+      "en": "voice",
+      "id": "suara"
+    },
+    "c1397046-c8d1-5551-932d-8ae66cc83a43": {
+      "surfaceFormText": "西",
+      "en": "west",
+      "id": "barat"
+    },
+    "14144ec5-86c3-5ead-a15f-863646f00cfd": {
+      "surfaceFormText": "青",
+      "en": "the color blue",
+      "id": "warna biru"
+    },
+    "ccfcbd51-0b6e-52a8-bde6-bc7b3c81e1e9": {
+      "surfaceFormText": "青い",
+      "en": "blue (adjective)",
+      "id": "biru (kata sifat)"
+    },
+    "dd455c4a-29d1-5dc2-bf22-01cf85454d94": {
+      "surfaceFormText": "石鹸",
+      "en": "soap",
+      "id": "sabun"
+    },
+    "3e3c702f-7ff6-52f3-8262-ad310e254b49": {
+      "surfaceFormText": "赤い",
+      "en": "red (adjective)",
+      "id": "merah (kata sifat)"
+    },
+    "2be89e27-d438-5eaf-9730-6be555a0978a": {
+      "surfaceFormText": "切る",
+      "en": "cut",
+      "id": "memotong"
+    },
+    "8212d951-124d-5244-bbb0-a95c35992863": {
+      "surfaceFormText": "切符",
+      "en": "ticket",
+      "id": "tiket"
+    },
+    "645bd539-a2c8-5330-813f-a443421623d9": {
+      "surfaceFormText": "雪",
+      "en": "snow",
+      "id": "salju"
+    },
+    "ff2a6dc5-1572-5c57-8ece-733f7aa1d497": {
+      "surfaceFormText": "先",
+      "en": "point; tip",
+      "id": "ujung"
+    },
+    "3eef8ed3-3332-5725-a7d0-05fd3957bf98": {
+      "surfaceFormText": "先月",
+      "en": "last month",
+      "id": "bulan lalu"
+    },
+    "4145f8c5-0df2-5324-871c-de7f1d46a415": {
+      "surfaceFormText": "先週",
+      "en": "last week",
+      "id": "minggu lalu"
+    },
+    "5a25d30e-2803-51bd-9582-81b335dd06b9": {
+      "surfaceFormText": "千",
+      "en": "one thousand",
+      "id": "seribu"
+    },
+    "35660628-6275-59cb-8589-9fc6cfe2bf59": {
+      "surfaceFormText": "川",
+      "en": "river",
+      "id": "sungai"
+    },
+    "0c3b5c23-e703-5f5f-9abb-e9d41ca562e4": {
+      "surfaceFormText": "洗う",
+      "en": "wash",
+      "id": "mencuci"
+    },
+    "2d5f2128-249f-5050-b9b3-1a586ad69630": {
+      "surfaceFormText": "洗濯",
+      "en": "laundry",
+      "id": "kegiatan mencuci pakaian"
+    },
+    "84f2bfc5-742f-5c7f-ae3b-90445ca31767": {
+      "surfaceFormText": "前",
+      "en": "in front",
+      "id": "di depan"
+    },
+    "bb6e1bac-b924-556f-89f2-40181edeb78c": {
+      "surfaceFormText": "全部",
+      "en": "all",
+      "id": "semua"
+    },
+    "af2ddb91-5008-5c09-9f68-999485abd930": {
+      "surfaceFormText": "掃除",
+      "en": "cleaning",
+      "id": "kegiatan membersihkan"
+    },
+    "7e58b01d-3a83-5933-80ca-575a8a978a88": {
+      "surfaceFormText": "窓",
+      "en": "window",
+      "id": "jendela"
+    },
+    "8579208b-2c10-54f6-8392-2801c87dd661": {
+      "surfaceFormText": "走る",
+      "en": "run",
+      "id": "berlari"
+    },
+    "5675d2f8-9b91-54ad-9521-677c54ea510f": {
+      "surfaceFormText": "側",
+      "en": "nearby",
+      "id": "di dekat"
+    },
+    "02eb7ab4-1625-51f8-8809-1d2e0b4d6526": {
+      "surfaceFormText": "足",
+      "en": "foot",
+      "id": "kaki"
+    },
+    "4c9de509-9734-545b-923e-e4566ca67bfa": {
+      "surfaceFormText": "早い",
+      "en": "fast",
+      "id": "cepat"
+    },
+    "ef8478c2-82b4-599a-97f7-1126a4641a53": {
+      "surfaceFormText": "それでは",
+      "en": "well then",
+      "id": "kalau begitu"
+    },
+    "621bf2a4-dd78-55ab-9940-93a358ac0f9e": {
+      "surfaceFormText": "村",
+      "en": "village",
+      "id": "desa"
+    },
+    "b4846c45-6907-5c66-993b-d7f43ada749a": {
+      "surfaceFormText": "多い",
+      "en": "many",
+      "id": "banyak"
+    },
+    "98407aca-4e92-52bc-bb8d-d2f4b30ae5ae": {
+      "surfaceFormText": "多分",
+      "en": "probably",
+      "id": "mungkin"
+    },
+    "9bcb2680-6605-5f81-9ac8-c1fa4bc8fffa": {
+      "surfaceFormText": "太い",
+      "en": "thick; fat (of girth)",
+      "id": "besar diameternya; gemuk"
+    },
+    "e12340cb-34f9-57f7-a0e6-ef535fb7fdf2": {
+      "surfaceFormText": "体",
+      "en": "body",
+      "id": "tubuh"
+    },
+    "b091708b-1d77-574b-8bc9-ba3e92a3177f": {
+      "surfaceFormText": "貸す",
+      "en": "lend",
+      "id": "meminjamkan"
+    },
+    "14661e3c-7f37-56ae-8740-f14e64100380": {
+      "surfaceFormText": "大きな",
+      "en": "big",
+      "id": "besar"
+    },
+    "82b3bbaa-50aa-5312-a96d-5d5a767830e1": {
+      "surfaceFormText": "大学",
+      "en": "university",
+      "id": "universitas"
+    },
+    "e58ffcba-81c3-5433-b97a-db924bc8210c": {
+      "surfaceFormText": "大好き",
+      "en": "liking something very much",
+      "id": "sangat menyukai sesuatu"
+    },
+    "599b68dd-1db0-5933-9c71-e9337ba271e2": {
+      "surfaceFormText": "大使館",
+      "en": "embassy",
+      "id": "kedutaan besar"
+    },
+    "f58cd49a-c6de-535d-9a11-0c952fb4e836": {
+      "surfaceFormText": "大丈夫",
+      "en": "safe",
+      "id": "aman"
+    },
+    "e014e265-6842-5797-a80b-878dd139549b": {
+      "surfaceFormText": "大人",
+      "en": "adult",
+      "id": "orang dewasa"
+    },
+    "35210c38-d706-54e0-9834-ef44ebb25e60": {
+      "surfaceFormText": "大勢",
+      "en": "a crowd of people",
+      "id": "banyak orang"
+    },
+    "4d5a0253-9611-599b-8f70-718bf6cd89f8": {
+      "surfaceFormText": "大切",
+      "en": "important",
+      "id": "penting"
+    },
+    "80962798-2c21-5f1f-a99d-90f8861939b5": {
+      "surfaceFormText": "大変",
+      "en": "very",
+      "id": "sangat"
+    },
+    "4f1c1b0a-ada0-5427-95a4-2ef0c1432392": {
+      "surfaceFormText": "沢山",
+      "en": "a lot",
+      "id": "banyak"
+    },
+    "211b91e9-bfb5-51ef-9325-add167bfd0cf": {
+      "surfaceFormText": "脱ぐ",
+      "en": "take off clothing",
+      "id": "melepas pakaian"
+    },
+    "6ffee2f8-5bce-5de8-8a91-7409eef36339": {
+      "surfaceFormText": "誰か",
+      "en": "someone",
+      "id": "seseorang"
+    },
+    "f571fcbc-85fc-5c07-adcb-8686725136c5": {
+      "surfaceFormText": "短い",
+      "en": "short",
+      "id": "pendek"
+    },
+    "381e3352-968c-588a-af63-2dd3a8f53102": {
+      "surfaceFormText": "誕生日",
+      "en": "birthday",
+      "id": "ulang tahun"
+    },
+    "b61fbd69-60ed-5228-85e0-5faf2f335cfb": {
+      "surfaceFormText": "弾く",
+      "en": "play a stringed or keyboard instrument",
+      "id": "memainkan alat musik berdawai atau bertuts"
+    },
+    "6cc92f45-f51d-5e37-9d10-1843d15b7c06": {
+      "surfaceFormText": "男",
+      "en": "man",
+      "id": "laki-laki dewasa"
+    },
+    "b42165d1-5874-59cf-a4c6-4dd11fd39e96": {
+      "surfaceFormText": "男の子",
+      "en": "boy",
+      "id": "anak laki-laki"
+    },
+    "ce7a8395-e3bb-5599-af9d-fd7a9c0c6a73": {
+      "surfaceFormText": "知る",
+      "en": "know",
+      "id": "mengetahui"
+    },
+    "ddb4505e-0c6c-5a7f-a221-194a052b37a0": {
+      "surfaceFormText": "地下鉄",
+      "en": "subway",
+      "id": "kereta bawah tanah"
+    },
+    "ce84d9b2-974f-5668-ab0e-17b1ff98ce09": {
+      "surfaceFormText": "地図",
+      "en": "map",
+      "id": "peta"
+    },
+    "20b440cb-0c7a-58df-b357-8266bca0bbe4": {
+      "surfaceFormText": "池",
+      "en": "pond",
+      "id": "kolam"
+    },
+    "b11e41bb-08a5-5ceb-8caa-4bac742881ba": {
+      "surfaceFormText": "置く",
+      "en": "put; place",
+      "id": "meletakkan"
+    },
+    "42f02266-1726-5612-8797-b1d7a0387ba5": {
+      "surfaceFormText": "遅い",
+      "en": "slow",
+      "id": "lambat"
+    },
+    "6d36c3ee-d6d4-50e7-92b0-11bf44a07e0f": {
+      "surfaceFormText": "茶色",
+      "en": "the color brown",
+      "id": "warna cokelat"
+    },
+    "cca52546-8a78-540d-8c89-3df38aae3676": {
+      "surfaceFormText": "着く",
+      "en": "arrive",
+      "id": "tiba"
+    },
+    "f1daa730-165f-5b9d-b6a9-e3ac620dc48f": {
+      "surfaceFormText": "着る",
+      "en": "wear clothing on the upper body",
+      "id": "mengenakan pakaian di tubuh bagian atas"
+    },
+    "1241b3cc-e527-584c-b9b0-8cfd6f535db0": {
+      "surfaceFormText": "中",
+      "en": "inside",
+      "id": "di dalam"
+    },
+    "84841686-0571-5949-80ae-5b6bb8483e9e": {
+      "surfaceFormText": "昼",
+      "en": "noon",
+      "id": "tengah hari"
+    },
+    "77def6b8-fbb9-5e1e-a121-8fbd4e2d530b": {
+      "surfaceFormText": "丁度",
+      "en": "exactly",
+      "id": "tepat"
+    },
+    "d10b6bbe-c906-5efe-893e-299ae42c23ca": {
+      "surfaceFormText": "貼る",
+      "en": "paste; stick on",
+      "id": "menempelkan"
+    },
+    "1bb7a3f7-3085-58bb-a605-c40a6e7bbd60": {
+      "surfaceFormText": "朝",
+      "en": "morning",
+      "id": "pagi"
+    },
+    "50548458-4daa-5c66-b3f4-69b2d5210ed6": {
+      "surfaceFormText": "飛ぶ",
+      "en": "fly",
+      "id": "terbang"
+    },
+    "b645f094-8578-5b39-ac13-32666ebda3de": {
+      "surfaceFormText": "長い",
+      "en": "long (in length or distance)",
+      "id": "panjang (untuk ukuran atau jarak)"
+    },
+    "378f0b30-2d1b-5c92-92a9-5c4be13293b8": {
+      "surfaceFormText": "鳥",
+      "en": "bird",
+      "id": "burung"
+    },
+    "68bfe808-3237-59a4-a1b4-68988dcb6b45": {
+      "surfaceFormText": "直ぐに",
+      "en": "immediately",
+      "id": "segera"
+    },
+    "409a9444-8441-5ef4-bf8d-0f81e32fa2f9": {
+      "surfaceFormText": "痛い",
+      "en": "painful",
+      "id": "terasa sakit"
+    },
+    "1ba0100b-fc02-51ed-9760-b07a9c5daa51": {
+      "surfaceFormText": "低い",
+      "en": "low (in rank, degree, or value)",
+      "id": "rendah (dalam peringkat, tingkat, atau nilai)"
+    },
+    "58974e87-cf41-518b-854d-7bd80d3fbd90": {
+      "surfaceFormText": "庭",
+      "en": "garden",
+      "id": "kebun"
+    },
+    "354b3400-82d1-5747-ae1e-518bf7aaa96b": {
+      "surfaceFormText": "閉まる",
+      "en": "be shut",
+      "id": "tertutup"
+    },
+    "e0c46ff0-684e-590b-92bb-9e89eb22123b": {
+      "surfaceFormText": "締める",
+      "en": "fasten; tighten",
+      "id": "mengencangkan"
+    },
+    "cc3599e5-edcd-5b1a-88f8-0ba36feb9486": {
+      "surfaceFormText": "天気",
+      "en": "weather",
+      "id": "cuaca"
+    },
+    "15ecb37c-dde2-50b4-bf1d-c34b0e7a97e3": {
+      "surfaceFormText": "電気",
+      "en": "electricity",
+      "id": "listrik"
+    },
+    "e3c2a7d4-5300-5140-9d62-0b21e7c2904b": {
+      "surfaceFormText": "渡す",
+      "en": "carry something across",
+      "id": "membawa sesuatu menyeberang"
+    },
+    "95fabe0e-ffd7-5219-9a6f-044acea98d30": {
+      "surfaceFormText": "渡る",
+      "en": "cross over",
+      "id": "menyeberang"
+    },
+    "96511bed-5ffb-5dcb-82dc-7d0ec24416c0": {
+      "surfaceFormText": "土曜日",
+      "en": "Saturday",
+      "id": "Sabtu"
+    },
+    "42ebbd72-6e30-543e-9c38-58c8acc611db": {
+      "surfaceFormText": "冬",
+      "en": "winter",
+      "id": "musim dingin"
+    },
+    "6fe48166-e934-5c34-8bfc-57671aae9db6": {
+      "surfaceFormText": "東",
+      "en": "east",
+      "id": "timur"
+    },
+    "1fda7c01-4fa1-5dc7-9967-b41e5be91f8a": {
+      "surfaceFormText": "答える",
+      "en": "answer",
+      "id": "menjawab"
+    },
+    "2528acf3-1726-5554-a62f-a0249225664b": {
+      "surfaceFormText": "働く",
+      "en": "work",
+      "id": "bekerja"
+    },
+    "a4e3e585-80b1-5617-a844-19a204f339b7": {
+      "surfaceFormText": "動物",
+      "en": "animal",
+      "id": "hewan"
+    },
+    "286ed938-0e05-53bf-ad80-f7bd820dbc9f": {
+      "surfaceFormText": "同じ",
+      "en": "same",
+      "id": "sama"
+    },
+    "7b4f7124-87dc-5b4b-907a-ef9121ce2078": {
+      "surfaceFormText": "道",
+      "en": "road",
+      "id": "jalan"
+    },
+    "98bdd77c-5399-53a7-99c2-7c69233bbdf9": {
+      "surfaceFormText": "豚肉",
+      "en": "pork",
+      "id": "daging babi"
+    },
+    "54c8b57e-718f-5800-a0b6-12f2014622e1": {
+      "surfaceFormText": "曇る",
+      "en": "become cloudy",
+      "id": "menjadi mendung"
+    },
+    "2ae25cb4-e703-5642-b6da-1edb09e9befa": {
+      "surfaceFormText": "南",
+      "en": "south",
+      "id": "selatan"
+    },
+    "aaabd0c3-528b-5c2b-858e-f94bb8caee19": {
+      "surfaceFormText": "難しい",
+      "en": "difficult",
+      "id": "sulit"
+    },
+    "0cd1a78e-3cb4-5ada-8caa-34231e18ed42": {
+      "surfaceFormText": "二日",
+      "en": "second day of the month",
+      "id": "tanggal dua"
+    },
+    "28e1947d-a771-5845-9450-7988c7ce292e": {
+      "surfaceFormText": "賑やか",
+      "en": "bustling",
+      "id": "ramai"
+    },
+    "a16a9624-3a8d-5f20-baad-81abbe1280e1": {
+      "surfaceFormText": "肉",
+      "en": "meat",
+      "id": "daging"
+    },
+    "15d44d77-bb74-50c5-88a0-36177e995730": {
+      "surfaceFormText": "日曜日",
+      "en": "Sunday",
+      "id": "Minggu"
+    },
+    "c9cdbace-f54a-5e2e-96ce-fe214a950dca": {
+      "surfaceFormText": "入れる",
+      "en": "put in",
+      "id": "memasukkan"
+    },
+    "f81c943a-f983-5e45-a019-bb64d9aa17cc": {
+      "surfaceFormText": "どうして",
+      "en": "how; by what means",
+      "id": "bagaimana; dengan cara apa"
+    },
+    "3ab6e8af-7fd2-5635-82cd-78d4bebeff6a": {
+      "surfaceFormText": "熱い",
+      "en": "hot to the touch",
+      "id": "panas saat disentuh"
+    },
+    "7dd39dde-3c3c-5f57-b542-99b5c168441c": {
+      "surfaceFormText": "年",
+      "en": "year",
+      "id": "tahun"
+    },
+    "e84c427f-7815-5be1-85bf-336454d066bd": {
+      "surfaceFormText": "背広",
+      "en": "business suit",
+      "id": "setelan jas"
+    },
+    "02d8177e-f2e4-5af0-8661-d0f56bd2d453": {
+      "surfaceFormText": "買う",
+      "en": "buy",
+      "id": "membeli"
+    },
+    "fda94b30-8b46-555e-b035-2ea819a7e017": {
+      "surfaceFormText": "売る",
+      "en": "sell",
+      "id": "menjual"
+    },
+    "a2bf49b7-4ef9-5dae-a583-9ae1c35d12db": {
+      "surfaceFormText": "白",
+      "en": "the color white",
+      "id": "warna putih"
+    },
+    "b97ab7fd-5879-5d69-9bd2-9149d5f08c5c": {
+      "surfaceFormText": "白い",
+      "en": "white",
+      "id": "putih"
+    },
+    "7995cd75-f3ff-541f-8484-e924c78ed7ef": {
+      "surfaceFormText": "薄い",
+      "en": "thin (of an object)",
+      "id": "tipis (benda)"
+    },
+    "322d322d-7e98-53e3-9eb4-f56dc1f1d3ae": {
+      "surfaceFormText": "箸",
+      "en": "chopsticks",
+      "id": "sumpit"
+    },
+    "c5d3e814-4f5d-5df0-826d-25dc3f140406": {
+      "surfaceFormText": "八日",
+      "en": "eighth day of the month",
+      "id": "tanggal delapan"
+    },
+    "91e05f97-fce3-5a7e-95a6-1f0328c62d84": {
+      "surfaceFormText": "八百屋",
+      "en": "greengrocer",
+      "id": "penjual sayur"
+    },
+    "1049de70-95b4-568f-a41d-7db90b08a8dd": {
+      "surfaceFormText": "半",
+      "en": "half",
+      "id": "setengah"
+    },
+    "2f6b5793-e047-582f-bd69-d909735f7611": {
+      "surfaceFormText": "半分",
+      "en": "half",
+      "id": "setengah"
+    },
+    "01d144c8-a9f8-5089-bc8e-a889a75ebe8f": {
+      "surfaceFormText": "煩い",
+      "en": "noisy",
+      "id": "berisik"
+    },
+    "4e9f2ad6-24ed-5b58-9453-80f02168de68": {
+      "surfaceFormText": "晩",
+      "en": "evening; night",
+      "id": "petang; malam"
+    },
+    "2f32ce93-6786-5b3f-802a-35bc745f6b14": {
+      "surfaceFormText": "番号",
+      "en": "identification number",
+      "id": "nomor identifikasi"
+    },
+    "12f441d3-ce3b-567e-a570-31e10ba4df1a": {
+      "surfaceFormText": "あちら",
+      "en": "that way (away from both speaker and listener)",
+      "id": "arah sana (jauh dari pembicara dan lawan bicara)"
+    },
+    "46d7af6e-ec10-5498-a2a3-9a2a42e5622b": {
+      "surfaceFormText": "疲れる",
+      "en": "get tired",
+      "id": "menjadi lelah"
+    },
+    "7f1b730f-bdd8-5b66-ab00-36a690610ede": {
+      "surfaceFormText": "飛行機",
+      "en": "airplane",
+      "id": "pesawat terbang"
+    },
+    "84d82dea-0210-544f-809f-1738ada9bed5": {
+      "surfaceFormText": "鼻",
+      "en": "nose",
+      "id": "hidung"
+    },
+    "e303bb31-b938-5f40-84b7-c4ad92b65617": {
+      "surfaceFormText": "百",
+      "en": "hundred",
+      "id": "seratus"
+    },
+    "16c61a90-53c3-5849-9949-a1edf3c5c2cd": {
+      "surfaceFormText": "病気",
+      "en": "illness",
+      "id": "penyakit"
+    },
+    "3d502550-feb3-5e2e-a970-3444d2b6b70b": {
+      "surfaceFormText": "不味い",
+      "en": "bad-tasting",
+      "id": "tidak enak rasanya"
+    },
+    "d7a1d3f8-c8ae-5d23-ba69-ab59b23f7474": {
+      "surfaceFormText": "付ける",
+      "en": "attach",
+      "id": "menempelkan"
+    },
+    "11602aca-7f8d-5d04-907c-e130187da8ed": {
+      "surfaceFormText": "風",
+      "en": "wind",
+      "id": "angin"
+    },
+    "ea8a62a1-bfe5-5077-93da-2dce30be602d": {
+      "surfaceFormText": "風呂",
+      "en": "bath",
+      "id": "mandi"
+    },
+    "dfa3e287-40b2-5eef-b4e7-fe3c0e8b92b3": {
+      "surfaceFormText": "服",
+      "en": "clothes",
+      "id": "pakaian"
+    },
+    "ee169d92-83f9-5b14-abee-3f0cf8e2b14d": {
+      "surfaceFormText": "物",
+      "en": "thing",
+      "id": "benda"
+    },
+    "2fad0fbb-2d78-5b0c-8699-c58a2717ca6b": {
+      "surfaceFormText": "文章",
+      "en": "a piece of writing",
+      "id": "karangan"
+    },
+    "1c4634d3-71ab-5d91-af86-d5c8baea46c2": {
+      "surfaceFormText": "しかし",
+      "en": "however",
+      "id": "namun"
+    },
+    "1e236b5a-477e-5305-a600-e7b18c99d3fb": {
+      "surfaceFormText": "並ぶ",
+      "en": "line up",
+      "id": "berbaris"
+    },
+    "5e2ff556-1e04-5a13-bee6-bfafc7480535": {
+      "surfaceFormText": "並べる",
+      "en": "arrange in a line",
+      "id": "menyusun berjajar"
+    },
+    "197d103e-aff5-5b66-94d7-2d3eadd7e737": {
+      "surfaceFormText": "閉める",
+      "en": "close something",
+      "id": "menutup sesuatu"
+    },
+    "74fd2bbe-46df-51ee-b0d0-1a87c82a9005": {
+      "surfaceFormText": "辺",
+      "en": "vicinity",
+      "id": "sekitar"
+    },
+    "db99c782-31e6-588c-95d5-dcb9aab4084e": {
+      "surfaceFormText": "返す",
+      "en": "return something",
+      "id": "mengembalikan sesuatu"
+    },
+    "2c245cf3-f35f-58d6-af0c-ddd2bbfbc095": {
+      "surfaceFormText": "お弁当",
+      "en": "boxed lunch",
+      "id": "bekal makan siang dalam kotak"
+    },
+    "a4155c6f-21cf-5641-86c5-d016f32c3f8b": {
+      "surfaceFormText": "歩く",
+      "en": "walk",
+      "id": "berjalan kaki"
+    },
+    "c15a88ea-a5b5-52de-8cd0-44d189caf44b": {
+      "surfaceFormText": "方",
+      "en": "direction",
+      "id": "arah"
+    },
+    "5449c92f-721c-59d9-8db7-06834e1ab719": {
+      "surfaceFormText": "方",
+      "en": "direction; side",
+      "id": "arah; sisi"
+    },
+    "0d2e7018-9ff9-517b-b092-2cc414835bf3": {
+      "surfaceFormText": "帽子",
+      "en": "hat",
+      "id": "topi"
+    },
+    "3d113dce-c4d3-5727-864d-9fe8dc0ad1e6": {
+      "surfaceFormText": "忘れる",
+      "en": "forget",
+      "id": "lupa"
+    },
+    "c1551d97-98b4-50fd-999b-2e9c9c7d1902": {
+      "surfaceFormText": "忙しい",
+      "en": "busy",
+      "id": "sibuk"
+    },
+    "817b80df-4ce2-516b-97ff-5f2f7729951a": {
+      "surfaceFormText": "北",
+      "en": "north",
+      "id": "utara"
+    },
+    "db8af050-df64-5c1b-a468-a24a723e8ae8": {
+      "surfaceFormText": "本棚",
+      "en": "bookshelf",
+      "id": "rak buku"
+    },
+    "8c66dd83-d04f-56e1-aa64-8bb550aad6e8": {
+      "surfaceFormText": "本当",
+      "en": "truth",
+      "id": "kebenaran"
+    },
+    "161c2d6b-f527-5a5d-9b99-61541bc39a7d": {
+      "surfaceFormText": "磨く",
+      "en": "polish",
+      "id": "memoles"
+    },
+    "6de277fe-e9ed-5de9-b34a-cc5c7d3be3d8": {
+      "surfaceFormText": "妹",
+      "en": "younger sister",
+      "id": "adik perempuan"
+    },
+    "83eebca3-249e-54d3-a4cd-1dca34fc7637": {
+      "surfaceFormText": "毎週",
+      "en": "every week",
+      "id": "setiap minggu"
+    },
+    "56ed1402-2165-5ebf-a3b7-166073102045": {
+      "surfaceFormText": "毎朝",
+      "en": "every morning",
+      "id": "setiap pagi"
+    },
+    "0a426a23-8f63-52f7-8d92-672ea2e9ab66": {
+      "surfaceFormText": "毎晩",
+      "en": "every night",
+      "id": "setiap malam"
+    },
+    "e5e036f3-4478-53c5-a3fc-509da84f3488": {
+      "surfaceFormText": "又",
+      "en": "again",
+      "id": "lagi"
+    },
+    "bdafba7b-a00c-567c-8f8f-838d4abff570": {
+      "surfaceFormText": "万年筆",
+      "en": "fountain pen",
+      "id": "pena tinta"
+    },
+    "f5c34ad3-289d-5dac-b354-1d29bd8cd2c9": {
+      "surfaceFormText": "未だ",
+      "en": "still",
+      "id": "masih"
+    },
+    "96e79a18-aae8-5afc-8414-6c3e3ae5b72b": {
+      "surfaceFormText": "無くす",
+      "en": "lose something",
+      "id": "kehilangan sesuatu"
+    },
+    "5217c147-a110-5598-84c5-fe3807e40063": {
+      "surfaceFormText": "明るい",
+      "en": "bright; well-lit",
+      "id": "terang; cukup cahaya"
+    },
+    "4ebfb2fc-e6f8-5c4d-87c9-d57ba4580eea": {
+      "surfaceFormText": "鳴く",
+      "en": "make a sound (of an animal)",
+      "id": "bersuara (hewan)"
+    },
+    "ef8d92fd-7066-5ff2-a816-6371f51c0833": {
+      "surfaceFormText": "面白い",
+      "en": "interesting",
+      "id": "menarik"
+    },
+    "7b22c182-dff5-55d9-9d3d-66c92087fd67": {
+      "surfaceFormText": "木",
+      "en": "tree",
+      "id": "pohon"
+    },
+    "0338bc59-7193-5200-becd-48b1d2565469": {
+      "surfaceFormText": "木曜日",
+      "en": "Thursday",
+      "id": "Kamis"
+    },
+    "3de49625-8755-5bb1-b9f4-59c3d3fd201c": {
+      "surfaceFormText": "問題",
+      "en": "question; problem",
+      "id": "soal; masalah"
+    },
+    "dda77d21-204e-592f-a235-0b71fa002681": {
+      "surfaceFormText": "夜",
+      "en": "night",
+      "id": "malam"
+    },
+    "f5b8040a-6fc5-5a69-a52d-101a9de9a061": {
+      "surfaceFormText": "野菜",
+      "en": "vegetable",
+      "id": "sayuran"
+    },
+    "9902ddd4-5793-5fa1-ad71-e162c06b70c0": {
+      "surfaceFormText": "薬",
+      "en": "medicine",
+      "id": "obat"
+    },
+    "262ce994-2ab7-5415-8f87-a760be2a3d96": {
+      "surfaceFormText": "遊ぶ",
+      "en": "play (games or sports)",
+      "id": "bermain (permainan atau olahraga)"
+    },
+    "71d3162f-227a-5c13-adbb-e9e169c45142": {
+      "surfaceFormText": "郵便局",
+      "en": "post office",
+      "id": "kantor pos"
+    },
+    "fc4eb6b1-2043-515f-a96b-090a6193c72a": {
+      "surfaceFormText": "昨夜",
+      "en": "last night",
+      "id": "tadi malam"
+    },
+    "13460b0f-9c03-59fd-9b8d-a838b977ae8e": {
+      "surfaceFormText": "夕方",
+      "en": "early evening; dusk",
+      "id": "sore menjelang malam; senja"
+    },
+    "39ed0ded-329d-509c-a5f0-f19570e5e56c": {
+      "surfaceFormText": "洋服",
+      "en": "Western-style clothing",
+      "id": "pakaian bergaya Barat"
+    },
+    "67aa2669-3829-59b5-af17-95d96ac4b2eb": {
+      "surfaceFormText": "葉書",
+      "en": "postcard",
+      "id": "kartu pos"
+    },
+    "a7ddab28-ae22-5198-83e6-151c06faad76": {
+      "surfaceFormText": "要る",
+      "en": "be needed",
+      "id": "dibutuhkan"
+    },
+    "e63c37fe-d500-5158-bcc8-3f382caab213": {
+      "surfaceFormText": "欲しい",
+      "en": "want to have",
+      "id": "ingin memiliki"
+    },
+    "b639a156-d8d1-5f9c-b4f1-804f393f6df5": {
+      "surfaceFormText": "浴びる",
+      "en": "take a shower",
+      "id": "mandi dengan pancuran"
+    },
+    "0bd07e15-b76a-548f-9295-c2c12ef247bb": {
+      "surfaceFormText": "来月",
+      "en": "next month",
+      "id": "bulan depan"
+    },
+    "d7dcf770-23a7-5489-9ed6-d0f20d2d8e0c": {
+      "surfaceFormText": "来年",
+      "en": "next year",
+      "id": "tahun depan"
+    },
+    "12e119f9-ceb7-550d-863c-4a58f4155163": {
+      "surfaceFormText": "頼む",
+      "en": "request",
+      "id": "meminta"
+    },
+    "5cd8f506-77d2-599f-b901-a2387b696b0c": {
+      "surfaceFormText": "卵",
+      "en": "egg",
+      "id": "telur"
+    },
+    "597544a1-d80c-53f9-8aa4-1270ddabdd40": {
+      "surfaceFormText": "立派",
+      "en": "splendid",
+      "id": "mengagumkan"
+    },
+    "2a292fe4-0800-5b15-9752-9c4ae90a4b08": {
+      "surfaceFormText": "留学生",
+      "en": "student studying abroad",
+      "id": "pelajar yang belajar di luar negeri"
+    },
+    "c53d1613-fcaf-54e0-b58d-987a362c2f9c": {
+      "surfaceFormText": "旅行",
+      "en": "travel",
+      "id": "perjalanan"
+    },
+    "6a66ef68-058c-5292-84c5-348b07dee577": {
+      "surfaceFormText": "料理",
+      "en": "cooking",
+      "id": "memasak"
+    },
+    "0a410c1f-70c0-51fe-88d7-3ae61c390ab2": {
+      "surfaceFormText": "涼しい",
+      "en": "cool and refreshing",
+      "id": "sejuk"
+    },
+    "c2747bbb-932d-5c51-8ebf-9bcd7812f2db": {
+      "surfaceFormText": "緑",
+      "en": "green",
+      "id": "hijau"
+    },
+    "f1de5b2c-d5ee-5ecf-b1b7-3937bb0ffa7b": {
+      "surfaceFormText": "隣",
+      "en": "next to",
+      "id": "di sebelah"
+    },
+    "c40169dd-2295-526d-8a35-10dd07fcebfc": {
+      "surfaceFormText": "冷たい",
+      "en": "cold to the touch",
+      "id": "dingin saat disentuh"
+    },
+    "501969fa-3aa5-598e-9e6a-afd43d66267b": {
+      "surfaceFormText": "冷蔵庫",
+      "en": "refrigerator",
+      "id": "lemari es"
+    },
+    "3e4b76a7-4420-5cd0-b3b4-60fa7e1a8e0e": {
+      "surfaceFormText": "零",
+      "en": "zero",
+      "id": "nol"
+    },
+    "712c81b4-9f7a-5be7-888c-41759e47138b": {
+      "surfaceFormText": "練習",
+      "en": "practice",
+      "id": "latihan"
+    },
+    "637164de-c26a-5abe-9a05-909ddf5f3b50": {
+      "surfaceFormText": "廊下",
+      "en": "corridor",
+      "id": "koridor"
+    },
+    "51fca4ab-25dc-5a1a-a8c8-d5f98315d16f": {
+      "surfaceFormText": "六日",
+      "en": "sixth day of the month",
+      "id": "tanggal enam"
+    },
+    "0d8968ab-514f-5268-a839-da0839773224": {
+      "surfaceFormText": "話す",
+      "en": "speak",
+      "id": "berbicara"
+    },
+    "229c23af-75a3-5002-b87c-a7eeee9ea63a": {
+      "surfaceFormText": "一昨日",
+      "en": "the day before yesterday",
+      "id": "dua hari lalu"
+    },
+    "05c7ab7c-e2b9-5b32-ba53-a75965da9b0b": {
+      "surfaceFormText": "一昨年",
+      "en": "the year before last",
+      "id": "dua tahun lalu"
+    },
+    "8e734c83-7c81-563e-b300-984cd9a68bcb": {
+      "surfaceFormText": "一日",
+      "en": "one day",
+      "id": "satu hari"
+    },
+    "38373640-7a8a-5086-8f69-243d9cc75e02": {
+      "surfaceFormText": "塩",
+      "en": "salt",
+      "id": "garam"
+    },
+    "ad0fe846-8da8-5082-a14c-086a106bc9ec": {
+      "surfaceFormText": "黄色",
+      "en": "yellow",
+      "id": "kuning"
+    },
+    "02f7b20f-c961-5c6f-844d-4e90a3b6ae7c": {
+      "surfaceFormText": "何",
+      "en": "what",
+      "id": "apa"
+    },
+    "af9f6eaf-10dc-5dca-b3d5-633212caad8c": {
+      "surfaceFormText": "何故",
+      "en": "why",
+      "id": "mengapa"
+    },
+    "3948cc05-f13a-5a8c-85f2-b717d7d63ecc": {
+      "surfaceFormText": "可愛い",
+      "en": "cute",
+      "id": "imut"
+    },
+    "41e02ad6-eac0-5b3c-86d6-653f85a4670a": {
+      "surfaceFormText": "暇",
+      "en": "free time",
+      "id": "waktu luang"
+    },
+    "d13a3163-74e7-5d49-a205-b81f49df027e": {
+      "surfaceFormText": "眼鏡",
+      "en": "eyeglasses",
+      "id": "kacamata"
+    },
+    "ae90dfe0-7a85-53e8-86e3-b39b9ce33aa3": {
+      "surfaceFormText": "いる",
+      "en": "be present (of a person or animal)",
+      "id": "ada (orang atau hewan)"
+    },
+    "a1c6806d-86cc-5050-9c0f-0eae55baae17": {
+      "surfaceFormText": "魚",
+      "en": "fish",
+      "id": "ikan"
+    },
+    "0ed904fb-67e5-5a7f-83bf-cb738d2659cd": {
+      "surfaceFormText": "今朝",
+      "en": "this morning",
+      "id": "pagi ini"
+    },
+    "c58c5d0e-a695-51ba-864b-f0651196d85f": {
+      "surfaceFormText": "今年",
+      "en": "this year",
+      "id": "tahun ini"
+    },
+    "38cb1b0b-3ae3-5c5e-b239-4fe80cbefebe": {
+      "surfaceFormText": "七日",
+      "en": "seventh day of the month",
+      "id": "tanggal tujuh"
+    },
+    "b2464d0b-0a71-517f-ad44-01061fd33f0b": {
+      "surfaceFormText": "十",
+      "en": "ten",
+      "id": "sepuluh"
+    },
+    "55656935-63fb-5732-9759-4ac49ba527ec": {
+      "surfaceFormText": "上着",
+      "en": "outerwear; jacket",
+      "id": "pakaian luar; jaket"
+    },
+    "66aa20ec-0dc5-59e0-973e-09eed18aef21": {
+      "surfaceFormText": "丈夫",
+      "en": "healthy and robust",
+      "id": "sehat dan kuat"
+    },
+    "d98420fa-ceb3-5790-a8d1-d8512cc1b884": {
+      "surfaceFormText": "真っ直ぐ",
+      "en": "straight ahead",
+      "id": "lurus ke depan"
+    },
+    "3812bb80-dea9-531f-bf19-ca96e30cbdf2": {
+      "surfaceFormText": "弟",
+      "en": "younger brother",
+      "id": "adik laki-laki"
+    },
+    "608721a0-38a2-5707-abfd-2d44282b92f3": {
+      "surfaceFormText": "等",
+      "en": "and so on",
+      "id": "dan sebagainya"
+    },
+    "bdcc6a53-bdd6-54cf-964d-e1188f3a06f2": {
+      "surfaceFormText": "頭",
+      "en": "head",
+      "id": "kepala"
+    },
+    "6cddba43-cbab-5b62-87ea-7f7a1e16274f": {
+      "surfaceFormText": "入口",
+      "en": "entrance",
+      "id": "pintu masuk"
+    },
+    "ee704a92-b81b-5520-aab4-74c066d513f1": {
+      "surfaceFormText": "この",
+      "en": "this",
+      "id": "ini"
+    },
+    "eef9201d-e8e4-5c74-8d6f-a84ed665dc5e": {
+      "surfaceFormText": "八",
+      "en": "eight",
+      "id": "delapan"
+    },
+    "ffee1564-0972-5a45-9e6e-22c75f0af281": {
+      "surfaceFormText": "八つ",
+      "en": "eight objects",
+      "id": "delapan benda"
+    },
+    "67718879-ac73-5c1c-9410-9e09c5744826": {
+      "surfaceFormText": "いいえ",
+      "en": "no",
+      "id": "tidak"
+    },
+    "93ad9e78-bc43-5b04-8252-2b62dffef56a": {
+      "surfaceFormText": "風邪",
+      "en": "common cold",
+      "id": "selesma"
+    },
+    "500bca5b-cc78-5403-83d3-64760360471f": {
+      "surfaceFormText": "毎月",
+      "en": "every month",
+      "id": "setiap bulan"
+    },
+    "c8838c40-85de-5b86-86e0-75a64eb95ebe": {
+      "surfaceFormText": "毎年",
+      "en": "every year",
+      "id": "setiap tahun"
+    },
+    "d005dd5b-043f-5d34-b02a-05b48e9eacff": {
+      "surfaceFormText": "万",
+      "en": "ten thousand",
+      "id": "sepuluh ribu"
+    },
+    "acf5d19a-27f9-5d4e-bb75-c6644323d742": {
+      "surfaceFormText": "明後日",
+      "en": "the day after tomorrow",
+      "id": "lusa"
+    },
+    "6aa2b713-bc5f-5bdc-94f5-5fa77c2a267f": {
+      "surfaceFormText": "門",
+      "en": "gate",
+      "id": "gerbang"
+    },
+    "6b5df038-d491-5c62-b668-628c131595cf": {
+      "surfaceFormText": "夕飯",
+      "en": "dinner",
+      "id": "makan malam"
+    },
+    "792fc1bd-7f16-506b-8f6c-1649866cd386": {
+      "surfaceFormText": "余り",
+      "en": "remainder",
+      "id": "sisa"
+    },
+    "e0c82057-dda3-5f4d-a6da-4d806f80e339": {
+      "surfaceFormText": "六",
+      "en": "six",
+      "id": "enam"
+    },
+    "ab9d8452-ca43-58dd-adfd-f0da38b16832": {
+      "surfaceFormText": "六つ",
+      "en": "six objects",
+      "id": "enam benda"
+    },
+    "ea5a71d9-a31b-58d9-8ab5-dc3acf43d54d": {
+      "surfaceFormText": "箱",
+      "en": "box",
+      "id": "kotak"
+    },
+    "f09dd3c9-b1c4-52a6-957f-edcda236c3d4": {
+      "surfaceFormText": "開く",
+      "en": "open (intransitive)",
+      "id": "terbuka"
+    },
+    "c25d384a-7173-52b5-ba46-a6e57d454476": {
+      "surfaceFormText": "朝ごはん",
+      "en": "breakfast",
+      "id": "sarapan"
+    },
+    "7094d83e-ca31-546e-9c65-c1d1ae6ef42d": {
+      "surfaceFormText": "暖かい",
+      "en": "warm (of the air)",
+      "id": "hangat (udara)"
+    },
+    "0579af3c-72d8-5b38-a53e-43ef35295a62": {
+      "surfaceFormText": "言う",
+      "en": "say",
+      "id": "mengatakan"
+    },
+    "f2c04db0-60f4-5e25-bf48-2f78af2d4e2c": {
+      "surfaceFormText": "嫌",
+      "en": "unwilling; disliking",
+      "id": "enggan; tidak suka"
+    },
+    "055d3bdf-faa5-51c3-9ee1-34fe8ac6ec8d": {
+      "surfaceFormText": "色々",
+      "en": "various",
+      "id": "berbagai"
+    },
+    "674c6a2b-543e-5cd9-a7cf-ac1887de9f74": {
+      "surfaceFormText": "歌う",
+      "en": "sing",
+      "id": "bernyanyi"
+    },
+    "108e240d-549a-5bed-8cdf-1cc27f7b24b7": {
+      "surfaceFormText": "降りる",
+      "en": "descend",
+      "id": "turun"
+    },
+    "c950fbf0-65d1-5ef3-9b76-a60be97bbbd7": {
+      "surfaceFormText": "終る",
+      "en": "come to an end",
+      "id": "berakhir"
+    },
+    "22c2e666-8d05-53c8-a39f-cde0bcbb142e": {
+      "surfaceFormText": "買い物",
+      "en": "shopping",
+      "id": "belanja"
+    },
+    "f94a9085-9873-527b-9c27-58e6a4a18e89": {
+      "surfaceFormText": "国",
+      "en": "country",
+      "id": "negara"
+    },
+    "b22cedc3-af37-5bac-bd76-be2c34c874af": {
+      "surfaceFormText": "曇り",
+      "en": "cloudy weather",
+      "id": "cuaca mendung"
+    },
+    "11a66156-d91c-5091-aa1f-2c645abec8d9": {
+      "surfaceFormText": "交差点",
+      "en": "intersection",
+      "id": "persimpangan"
+    },
+    "cfe9171b-105a-5a46-ab03-7cdb329b5cc8": {
+      "surfaceFormText": "醤油",
+      "en": "soy sauce",
+      "id": "kecap asin"
+    },
+    "4e7582e3-00bf-581d-aadd-8dee754ac262": {
+      "surfaceFormText": "煙草",
+      "en": "tobacco",
+      "id": "tembakau"
+    },
+    "813d524a-bc4f-5e1c-bcf1-f06c447e3f26": {
+      "surfaceFormText": "茶碗",
+      "en": "rice bowl; teacup",
+      "id": "mangkuk nasi; cangkir teh"
+    },
+    "eb4e7156-86c3-5aba-8942-94318421ee6c": {
+      "surfaceFormText": "作る",
+      "en": "make",
+      "id": "membuat"
+    },
+    "f0f38cd0-861a-586e-97e6-34b0b7e4640e": {
+      "surfaceFormText": "出かける",
+      "en": "go out",
+      "id": "pergi keluar"
+    },
+    "cd74aa13-53c3-5b82-9759-b47b0b61354f": {
+      "surfaceFormText": "飲み物",
+      "en": "beverage",
+      "id": "minuman"
+    },
+    "c6fefc07-3fcc-51c4-8ee2-66090bec1efd": {
+      "surfaceFormText": "二十歳",
+      "en": "twenty years old",
+      "id": "berusia dua puluh tahun"
+    },
+    "24db0e15-6518-5db7-8151-ae1680ae8d52": {
+      "surfaceFormText": "二十日",
+      "en": "twentieth day of the month",
+      "id": "tanggal dua puluh"
+    },
+    "2d05ee5f-ead7-5fbb-97cb-16d89502feae": {
+      "surfaceFormText": "話",
+      "en": "talk; speech",
+      "id": "pembicaraan; tuturan"
+    },
+    "5293f5f9-6f6b-5018-8f5c-19494ccc5b82": {
+      "surfaceFormText": "晩御飯",
+      "en": "dinner",
+      "id": "makan malam"
+    },
+    "682cae00-762b-567b-b043-ad7d4ecf5fdb": {
+      "surfaceFormText": "昼御飯",
+      "en": "lunch",
+      "id": "makan siang"
+    },
+    "045987a2-8528-59ac-a581-aacf0b6dc696": {
+      "surfaceFormText": "両親",
+      "en": "parents",
+      "id": "orang tua"
+    },
+    "31f9185e-1cd2-5d67-b85d-99b13574e09f": {
+      "surfaceFormText": "町",
+      "en": "town",
+      "id": "kota kecil"
+    },
+    "726fd69d-40c2-5b98-a60e-de66ea2fe530": {
+      "surfaceFormText": "丸い",
+      "en": "round",
+      "id": "bulat"
+    },
+    "7d597fc7-758c-5af6-8c24-df40ff26d1dd": {
+      "surfaceFormText": "目",
+      "en": "eye",
+      "id": "mata"
+    },
+    "b3acd0dc-001f-54ff-adae-83d86204f1be": {
+      "surfaceFormText": "良い",
+      "en": "good",
+      "id": "baik"
+    },
+    "d9890c43-2499-5087-9e0d-b7a897ee4ef1": {
+      "surfaceFormText": "良く",
+      "en": "well",
+      "id": "dengan baik"
+    },
+    "8f4d9428-4d14-566c-8f38-0079976b15b8": {
+      "surfaceFormText": "分かる",
+      "en": "understand",
+      "id": "mengerti"
+    },
+    "64062055-b73d-583d-8558-2d5706e0e750": {
+      "surfaceFormText": "履く",
+      "en": "wear (on the lower body)",
+      "id": "mengenakan (pada bagian bawah tubuh)"
+    },
+    "f0eef524-cfae-58dc-9e22-63c74164e073": {
+      "surfaceFormText": "そうして",
+      "en": "and; in that way",
+      "id": "dan; dengan cara itu"
+    },
+    "71a15a15-7665-5315-ac99-7faeaad8f179": {
+      "surfaceFormText": "どの",
+      "en": "which",
+      "id": "yang mana"
+    },
+    "6e24412b-526c-5b64-b516-ac03b31b7464": {
+      "surfaceFormText": "もう一度",
+      "en": "once more",
+      "id": "sekali lagi"
+    },
+    "e3f8e358-3369-5e18-9703-4405ef048416": {
+      "surfaceFormText": "赤",
+      "en": "the color red",
+      "id": "warna merah"
+    },
+    "c28785e4-75b6-5ef9-afcf-09c6ee6738b6": {
+      "surfaceFormText": "小さな",
+      "en": "small",
+      "id": "kecil"
+    },
+    "2bdbc591-c56b-52e6-8b95-f6c7c7643a8d": {
+      "surfaceFormText": "背",
+      "en": "back (of the body)",
+      "id": "punggung"
+    },
+    "a044e5b3-aadc-5c44-9fea-4d9855237195": {
+      "surfaceFormText": "お風呂",
+      "en": "bath",
+      "id": "mandi"
+    },
+    "d1659563-64a7-5904-92e3-30dee1ac4e34": {
+      "surfaceFormText": "一日",
+      "en": "first day of the month",
+      "id": "tanggal satu"
+    },
+    "ea739c4e-00c2-5d28-b73f-1e6a39324d12": {
+      "surfaceFormText": "伯父さん",
+      "en": "uncle",
+      "id": "paman"
+    },
+    "e4262133-31ce-5007-a8d7-67e6a21caf74": {
+      "surfaceFormText": "伯母さん",
+      "en": "aunt",
+      "id": "bibi"
+    },
+    "9a24d2e3-c855-5811-8cfd-03d83ab15391": {
+      "surfaceFormText": "０",
+      "en": "zero",
+      "id": "nol"
+    },
+    "99cc10b4-180b-51ac-94bc-22f577e3d384": {
+      "surfaceFormText": "如何",
+      "en": "how",
+      "id": "bagaimana"
+    },
+    "68bbe495-2a8c-5e32-af6f-53bfdc318daa": {
+      "surfaceFormText": "何",
+      "en": "what",
+      "id": "apa"
+    },
+    "27325d16-74f5-5880-a722-55eed6a2cd8c": {
+      "surfaceFormText": "あれ",
+      "en": "that (far from both speaker and listener)",
+      "id": "itu (jauh dari pembicara dan lawan bicara)"
+    },
+    "74d37e86-1fc6-5849-b977-49f0a77a1529": {
+      "surfaceFormText": "これ",
+      "en": "this (near the speaker)",
+      "id": "ini (dekat pembicara)"
+    },
+    "9cf31de1-b02e-5113-ad7d-b479fe765564": {
+      "surfaceFormText": "それ",
+      "en": "that (near the listener)",
+      "id": "itu (dekat lawan bicara)"
+    },
+    "f8f66c61-9a6a-5e5a-80bd-258f9b50fb95": {
+      "surfaceFormText": "コップ",
+      "en": "glass (drinking vessel)",
+      "id": "gelas minum"
+    },
+    "f9201c78-fb57-522d-95a3-cc1002e530d5": {
+      "surfaceFormText": "だんだん",
+      "en": "gradually",
+      "id": "berangsur-angsur"
+    },
+    "ae1a0796-b925-53e9-8644-4d9bac2c2f9c": {
+      "surfaceFormText": "ボタン",
+      "en": "button (clothing)",
+      "id": "kancing pakaian"
+    },
+    "ee286451-4bc0-5092-a3aa-fe4d470f313b": {
+      "surfaceFormText": "マッチ",
+      "en": "match (for lighting a fire)",
+      "id": "korek api batang"
+    }
+  },
+  "unitTitles": {
+    "n4-comparison-quantity-and-limits": "Perbandingan, Jumlah, dan Batas",
+    "n4-explanations-hearsay-and-uncertainty": "Penjelasan, Kabar, dan Ketidakpastian",
+    "n4-giving-receiving-and-favors": "Memberi, Menerima, dan Meminta Bantuan",
+    "n4-intention-ability-and-experience": "Niat, Kemampuan, dan Pengalaman",
+    "n4-respectful-language-and-social-context": "Bahasa Hormat dan Konteks Sosial",
+    "n4-sequencing-and-ongoing-actions": "Urutan dan Tindakan yang Sedang Berlangsung",
+    "n5-daily-verbs-and-routines": "Kata Kerja dan Rutinitas Sehari-hari",
+    "n5-descriptions-and-preferences": "Deskripsi dan Kesukaan",
+    "n5-movement-existence-and-location": "Pergerakan, Keberadaan, dan Lokasi",
+    "n5-self-introduction-and-copula": "Perkenalan Diri dan Kopula",
+    "n5-te-form-and-everyday-functions": "Bentuk Te dan Penggunaan Sehari-hari",
+    "n5-this-that-and-place-reference": "Ini, Itu, dan Rujukan Tempat",
+    "n5-time-counting-and-schedules": "Waktu, Menghitung, dan Jadwal"
+  },
+  "decks": {
+    "c9df57c2-8db4-56e0-aabc-41ef36c913de": {
+      "en": "Hiragana Vowels And K Row Kana Foundation",
+      "id": "Hiragana: Vokal dan Baris K"
+    },
+    "b44dfe60-f8ca-53c4-99e9-c340400a1f9e": {
+      "en": "Hiragana S T N Row Kana Foundation",
+      "id": "Hiragana: Baris S, T, dan N"
+    },
+    "7004fe00-498d-5e40-8850-12e9a93b9ca2": {
+      "en": "Hiragana H M Y R W Row Kana Foundation",
+      "id": "Hiragana: Baris H, M, Y, R, dan W"
+    },
+    "347fe0dc-05c3-543e-9ac5-dd654f4b7503": {
+      "en": "Hiragana Dakuten Handakuten And Small Tsu Kana Foundation",
+      "id": "Hiragana: Dakuten, Handakuten, dan Tsu Kecil"
+    },
+    "be4c83a5-8df4-5cc3-99b5-20dec1b90649": {
+      "en": "Katakana Core Rows Kana Foundation",
+      "id": "Katakana: Baris Dasar"
+    },
+    "b6275d59-1d91-549a-9711-e4baa59b5a4a": {
+      "en": "Katakana Voiced Combos And Script Switch Kana Foundation",
+      "id": "Katakana: Bunyi Bersuara, Gabungan, dan Pergantian Aksara"
+    },
+    "a3dc7ad9-79a4-5c4d-b363-dadf733063d2": {
+      "en": "N5 Self Introduction And Copula Vocabulary Part 1",
+      "id": "Kosakata N5: Perkenalan Diri dan Kopula — Bagian 1"
+    },
+    "544a9dc1-c415-5b59-b3ae-41bba083772d": {
+      "en": "N5 Self Introduction And Copula Vocabulary Part 2",
+      "id": "Kosakata N5: Perkenalan Diri dan Kopula — Bagian 2"
+    },
+    "bce75d2e-6806-5f7f-95b8-b7020fd1f728": {
+      "en": "N5 This, That, And Place Reference Vocabulary Part 1",
+      "id": "Kosakata N5: Ini, Itu, dan Rujukan Tempat — Bagian 1"
+    },
+    "47bbc96b-439e-5ab9-ae4e-36da87f75bb4": {
+      "en": "N5 This, That, And Place Reference Vocabulary Part 2",
+      "id": "Kosakata N5: Ini, Itu, dan Rujukan Tempat — Bagian 2"
+    },
+    "912131bd-0399-5418-8869-d7932c1eb9f6": {
+      "en": "N5 This, That, And Place Reference Vocabulary Part 3",
+      "id": "Kosakata N5: Ini, Itu, dan Rujukan Tempat — Bagian 3"
+    },
+    "b83798ad-5af0-55fb-9364-1c74a60b90a6": {
+      "en": "N5 This, That, And Place Reference Vocabulary Part 4",
+      "id": "Kosakata N5: Ini, Itu, dan Rujukan Tempat — Bagian 4"
+    },
+    "af81d7ff-5930-5f0d-bb55-9a04d2e20e7d": {
+      "en": "N5 Daily Verbs And Routines Vocabulary",
+      "id": "Kosakata N5: Kata Kerja dan Rutinitas Sehari-hari"
+    },
+    "64e6cfb3-0001-5cde-a394-b77ac90467b4": {
+      "en": "N5 Descriptions And Preferences Vocabulary Part 1",
+      "id": "Kosakata N5: Deskripsi dan Kesukaan — Bagian 1"
+    },
+    "03d87014-97de-5941-a8dc-89c73d5f0490": {
+      "en": "N5 Descriptions And Preferences Vocabulary Part 2",
+      "id": "Kosakata N5: Deskripsi dan Kesukaan — Bagian 2"
+    },
+    "c02e6527-5ddc-50e9-80a5-582f7fc46a71": {
+      "en": "N5 Time, Counting, And Schedules Vocabulary Part 1",
+      "id": "Kosakata N5: Waktu, Menghitung, dan Jadwal — Bagian 1"
+    },
+    "08908d11-4036-5c04-a3c6-158512123e44": {
+      "en": "N5 Time, Counting, And Schedules Vocabulary Part 2",
+      "id": "Kosakata N5: Waktu, Menghitung, dan Jadwal — Bagian 2"
+    },
+    "feaeb30b-1acd-5897-8961-58341812663c": {
+      "en": "N5 Time, Counting, And Schedules Vocabulary Part 3",
+      "id": "Kosakata N5: Waktu, Menghitung, dan Jadwal — Bagian 3"
+    },
+    "051cb7e9-dd84-570f-b4fc-e4dbb2eb8309": {
+      "en": "N5 Movement, Existence, And Location Vocabulary Part 1",
+      "id": "Kosakata N5: Pergerakan, Keberadaan, dan Lokasi — Bagian 1"
+    },
+    "2b398188-94b9-587b-be1c-6fd5ca0c2bc8": {
+      "en": "N5 Movement, Existence, And Location Vocabulary Part 2",
+      "id": "Kosakata N5: Pergerakan, Keberadaan, dan Lokasi — Bagian 2"
+    },
+    "6cec2b8a-1440-5b82-98cb-17acb93382bb": {
+      "en": "N5 Te-form And Everyday Functions Vocabulary",
+      "id": "Kosakata N5: Bentuk Te dan Penggunaan Sehari-hari"
+    },
+    "b3d0ef0d-b5a9-5430-9a9b-fe3a829e3636": {
+      "en": "N4 Intention, Ability, And Experience Vocabulary",
+      "id": "Kosakata N4: Niat, Kemampuan, dan Pengalaman"
+    },
+    "473a731c-6408-53c7-8089-e53b7f73e36a": {
+      "en": "N4 Giving, Receiving, And Favors Vocabulary Part 1",
+      "id": "Kosakata N4: Memberi, Menerima, dan Meminta Bantuan — Bagian 1"
+    },
+    "7253c1ca-6ef6-5473-8b7a-e606d8020223": {
+      "en": "N4 Giving, Receiving, And Favors Vocabulary Part 2",
+      "id": "Kosakata N4: Memberi, Menerima, dan Meminta Bantuan — Bagian 2"
+    },
+    "1f0ba7a7-6012-5b77-b0f1-359a6aabf764": {
+      "en": "N4 Sequencing And Ongoing Actions Vocabulary",
+      "id": "Kosakata N4: Urutan dan Tindakan yang Sedang Berlangsung"
+    },
+    "9721e9d4-143d-5dbb-a63f-4dea228d11e3": {
+      "en": "N4 Comparison, Quantity, And Limits Vocabulary",
+      "id": "Kosakata N4: Perbandingan, Jumlah, dan Batas"
+    },
+    "c20fd24f-ab22-5f3e-9b7a-7aa657c2d856": {
+      "en": "N4 Explanations, Hearsay, And Uncertainty Vocabulary Part 1",
+      "id": "Kosakata N4: Penjelasan, Kabar, dan Ketidakpastian — Bagian 1"
+    },
+    "d9c9ac29-650c-51da-97cf-1a4197c3bbb0": {
+      "en": "N4 Explanations, Hearsay, And Uncertainty Vocabulary Part 2",
+      "id": "Kosakata N4: Penjelasan, Kabar, dan Ketidakpastian — Bagian 2"
+    },
+    "043b28cf-49ef-54db-ba00-6d413461f3cb": {
+      "en": "N4 Respectful Language And Social Context Vocabulary",
+      "id": "Kosakata N4: Bahasa Hormat dan Konteks Sosial"
+    },
+    "10d64389-9f6b-5fdb-b521-ee5612ad62ba": {
+      "en": "N5 Candidate Vocabulary Backlog Part 1",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 1"
+    },
+    "745f0bde-84ae-58da-a572-a8036ea94600": {
+      "en": "N5 Candidate Vocabulary Backlog Part 2",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 2"
+    },
+    "4c8f0dfb-06f9-57ca-bb87-8e4320f4a79d": {
+      "en": "N5 Candidate Vocabulary Backlog Part 3",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 3"
+    },
+    "647386c9-fa38-545e-a0e8-6c37254a98ca": {
+      "en": "N5 Candidate Vocabulary Backlog Part 4",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 4"
+    },
+    "ac64177a-8d96-5655-ba4a-225b1213415d": {
+      "en": "N5 Candidate Vocabulary Backlog Part 5",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 5"
+    },
+    "6b9b764c-0097-5fb4-b46d-b8871900cd82": {
+      "en": "N5 Candidate Vocabulary Backlog Part 6",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 6"
+    },
+    "7888c423-816d-50ac-b9fd-009dec7f9b6c": {
+      "en": "N5 Candidate Vocabulary Backlog Part 7",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 7"
+    },
+    "6f5ea16b-3dda-5ad9-818c-daa1ba3bdcd3": {
+      "en": "N5 Candidate Vocabulary Backlog Part 8",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 8"
+    },
+    "501c464b-35e5-5250-bc34-23d6b9e6d1cf": {
+      "en": "N5 Candidate Vocabulary Backlog Part 9",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 9"
+    },
+    "7d64a5e3-d4ae-5e56-bf76-6dfd0840b9d7": {
+      "en": "N5 Candidate Vocabulary Backlog Part 10",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 10"
+    },
+    "d4eb03d6-9e53-5904-bc48-c7a62b7685fd": {
+      "en": "N5 Candidate Vocabulary Backlog Part 11",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 11"
+    },
+    "75883c62-0d9e-5062-be2a-20a1af49e030": {
+      "en": "N5 Candidate Vocabulary Backlog Part 12",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 12"
+    },
+    "78af4586-5f8b-5af9-ab9c-3d226a66fa3d": {
+      "en": "N5 Candidate Vocabulary Backlog Part 13",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 13"
+    },
+    "e131247b-683c-5bae-843a-27919850db39": {
+      "en": "N5 Candidate Vocabulary Backlog Part 14",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 14"
+    },
+    "10f615a2-d17a-5ecd-bd2d-e6978bdeb99b": {
+      "en": "N5 Candidate Vocabulary Backlog Part 15",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 15"
+    },
+    "7800d6c0-5286-540e-b2d0-4a62a8878045": {
+      "en": "N5 Candidate Vocabulary Backlog Part 16",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 16"
+    },
+    "669aa89a-e934-5047-b9a3-73c74a562332": {
+      "en": "N5 Candidate Vocabulary Backlog Part 17",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 17"
+    },
+    "8cd3605e-75a9-503a-ada7-91be6cc9f2b1": {
+      "en": "N5 Candidate Vocabulary Backlog Part 18",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 18"
+    },
+    "f1cf124e-752b-56b3-a0cb-b8df4e3aa5d4": {
+      "en": "N5 Candidate Vocabulary Backlog Part 19",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 19"
+    },
+    "e4bd8f06-1534-56c4-8ab8-32f5d12167e0": {
+      "en": "N5 Candidate Vocabulary Backlog Part 20",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 20"
+    },
+    "7bb25651-62e5-5462-a95a-a3ac0cadd37f": {
+      "en": "N5 Candidate Vocabulary Backlog Part 21",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 21"
+    },
+    "3785ad38-75e7-5fb1-9359-c4e3d7449981": {
+      "en": "N5 Candidate Vocabulary Backlog Part 22",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 22"
+    },
+    "298b5327-d893-562e-a3cd-18e194d6e2ee": {
+      "en": "N5 Candidate Vocabulary Backlog Part 23",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 23"
+    },
+    "8ec5c111-8a1a-51d4-8b13-176feb3a6d31": {
+      "en": "N5 Candidate Vocabulary Backlog Part 24",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 24"
+    },
+    "d2fbaac4-4724-548a-91f4-83f231f9ab7c": {
+      "en": "N5 Candidate Vocabulary Backlog Part 25",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 25"
+    },
+    "44cb3529-8500-5f11-8c66-b59b4c36a948": {
+      "en": "N5 Candidate Vocabulary Backlog Part 26",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 26"
+    },
+    "53ee1467-d106-53a7-b26c-515556b4058d": {
+      "en": "N5 Candidate Vocabulary Backlog Part 27",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 27"
+    },
+    "060cc7bc-67a0-59df-a909-41ad3ab8c641": {
+      "en": "N5 Candidate Vocabulary Backlog Part 28",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 28"
+    },
+    "546f9762-29de-5645-8d08-c09e8281306d": {
+      "en": "N5 Candidate Vocabulary Backlog Part 29",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 29"
+    },
+    "c8582917-01e3-59db-aa9e-2d6931aaa1e5": {
+      "en": "N5 Candidate Vocabulary Backlog Part 30",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 30"
+    },
+    "293819c8-f4a4-5229-a550-d29bcb33cab2": {
+      "en": "N5 Candidate Vocabulary Backlog Part 31",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 31"
+    },
+    "a69ee90a-ec81-5efa-86d7-7f721219685b": {
+      "en": "N5 Candidate Vocabulary Backlog Part 32",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 32"
+    },
+    "3726c80a-5a07-5cca-8c74-dcfd0bb73852": {
+      "en": "N5 Candidate Vocabulary Backlog Part 33",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 33"
+    },
+    "e3b8c92c-2766-588f-be7e-072c0ef8a1d2": {
+      "en": "N5 Candidate Vocabulary Backlog Part 34",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 34"
+    },
+    "28decb37-ee06-5ec6-a14d-9b57396c8cfc": {
+      "en": "N5 Candidate Vocabulary Backlog Part 35",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 35"
+    },
+    "492b44e1-66a5-59c1-8d8d-49fed0d6559a": {
+      "en": "N5 Candidate Vocabulary Backlog Part 36",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 36"
+    },
+    "59e3b20b-5ef7-5b07-929a-224bc22d16a3": {
+      "en": "N5 Candidate Vocabulary Backlog Part 37",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 37"
+    },
+    "360090fa-af93-5001-890c-b2868e000fb0": {
+      "en": "N5 Candidate Vocabulary Backlog Part 38",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 38"
+    },
+    "b1e45234-e920-5147-894b-095a5c0fe5a1": {
+      "en": "N5 Candidate Vocabulary Backlog Part 39",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 39"
+    },
+    "35e6fde5-d5ce-5fc2-9704-5221f0f6e176": {
+      "en": "N5 Candidate Vocabulary Backlog Part 40",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 40"
+    },
+    "916457b9-4662-5e62-80e8-c719cf6d5280": {
+      "en": "N5 Candidate Vocabulary Backlog Part 41",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 41"
+    },
+    "0bb0b2b0-4404-5925-933e-99668449e9c4": {
+      "en": "N5 Candidate Vocabulary Backlog Part 42",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 42"
+    },
+    "2ccf4153-5b63-55af-856a-cd4b339f5373": {
+      "en": "N5 Candidate Vocabulary Backlog Part 43",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 43"
+    },
+    "a9e5a19b-4a03-55ce-a315-0f0231c8caed": {
+      "en": "N5 Candidate Vocabulary Backlog Part 44",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 44"
+    },
+    "8ea4befb-577a-55ee-84b6-9f66f004f2c7": {
+      "en": "N5 Candidate Vocabulary Backlog Part 45",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 45"
+    },
+    "f8915ade-47db-5873-962e-688cf8f6dc0b": {
+      "en": "N5 Candidate Vocabulary Backlog Part 46",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 46"
+    },
+    "9f1fb173-cb3f-5e1d-9c6b-88c0a5e6f94a": {
+      "en": "N5 Candidate Vocabulary Backlog Part 47",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 47"
+    },
+    "ae91307c-e75a-51c0-b71f-d1ed7e28b538": {
+      "en": "N5 Candidate Vocabulary Backlog Part 48",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 48"
+    },
+    "4de04d10-fbbb-529f-8587-70b9343d0908": {
+      "en": "N5 Candidate Vocabulary Backlog Part 49",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 49"
+    },
+    "6d468294-4c33-5959-bf6c-cbb48a45e904": {
+      "en": "N5 Candidate Vocabulary Backlog Part 50",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 50"
+    },
+    "d90618da-3b85-59df-bd4a-2a2fdb54a031": {
+      "en": "N5 Candidate Vocabulary Backlog Part 51",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 51"
+    },
+    "ba607919-f76c-526d-999d-166428447ad3": {
+      "en": "N5 Candidate Vocabulary Backlog Part 52",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 52"
+    },
+    "0729a7d1-29ed-5058-9e30-c9001c5e914c": {
+      "en": "N5 Candidate Vocabulary Backlog Part 53",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 53"
+    },
+    "18076d00-1568-57ab-94a6-50a99402b64b": {
+      "en": "N5 Candidate Vocabulary Backlog Part 54",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 54"
+    },
+    "25b56734-6b0e-5dd9-b5e0-eed5d74f41db": {
+      "en": "N5 Candidate Vocabulary Backlog Part 55",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 55"
+    },
+    "b3e74aeb-3d85-5830-a425-1fa14617b19a": {
+      "en": "N5 Candidate Vocabulary Backlog Part 56",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 56"
+    },
+    "b5ce107d-5036-53d7-aea1-0969bdfaac51": {
+      "en": "N5 Candidate Vocabulary Backlog Part 57",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 57"
+    },
+    "2a81ceb5-c770-5e76-b9d4-ac33c4d8adc1": {
+      "en": "N5 Candidate Vocabulary Backlog Part 58",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 58"
+    },
+    "bb1f2de1-8c00-5b0e-9557-6fc2791eae08": {
+      "en": "N5 Candidate Vocabulary Backlog Part 59",
+      "id": "Kosakata N5: Latihan Tambahan — Bagian 59"
+    }
+  },
+  "translationRevision": 5
+}

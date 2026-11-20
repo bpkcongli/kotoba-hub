@@ -309,6 +309,12 @@ another language. Items without this optional field retain the existing global
 pool behavior. Session snapshots, grading, identity and Leitner keys are unchanged;
 new bank payloads require the normal content/translation revision increase.
 
+For the planned [TD-006 expansion](distractor-expansion.md), tags remain in the
+authoring draft only. Candidate pools require independent semantic review and at
+least six distinct eligible values per vocabulary item/available bank. The active
+revision-4 seed has not yet been replaced; a revision-5 seed may only be integrated
+after the full draft passes review and coverage checks.
+
 Batch 02 uses this mechanism for its 574 independently reviewed promotions. The
 [integration candidate](../../../content/flashcards/drafts/voc-03-batch-02/integration-candidate.json)
 remains an unpublished audit artifact; the compiled active vocabulary artifact

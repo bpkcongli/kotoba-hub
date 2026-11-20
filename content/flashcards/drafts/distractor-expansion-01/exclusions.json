@@ -1,0 +1,102 @@
+{
+  "draftFormat": "kotoba-distractor-exclusions-v1",
+  "isPublished": false,
+  "pairs": [
+    {
+      "itemIds": [
+        "7a19e29d-e983-5e26-822f-1ff67a650932",
+        "3927122b-a9fa-594e-b0c6-ff932cb238bf"
+      ],
+      "reason": "Both entries can express gratitude; 済みません has a thank-you sense even though its canonical gloss is excuse me.",
+      "source": "JMdict 2026-05-16: ent_seq 1586820 and 1295060; sample-review.md"
+    },
+    {
+      "itemIds": [
+        "0e27a475-654a-5d35-b4e9-ca4476e1875d",
+        "dacf2a12-3c42-56d6-81d9-bd1973050e4c"
+      ],
+      "reason": "Hard candy is a kind of sweets; JMdict lists candy for both entries, creating ambiguity in both languages without context.",
+      "source": "JMdict 2026-05-16: ent_seq 1153520 and 1001710; sample-review-02.md"
+    },
+    {
+      "itemIds": [
+        "58887229-9897-5195-90af-8ac03b212c75",
+        "865467fc-3f93-5286-9592-a0021b50b6e4"
+      ],
+      "reason": "JMdict gives 黒い an unrestricted dirty or sooty sense that overlaps 汚い, so the bare prompt can have two valid answers.",
+      "source": "JMdict 2026-05-16: ent_seq 1287420 and 1178940; independent full and part-01 reviews"
+    },
+    {
+      "itemIds": [
+        "374d81ef-027a-57e8-bfbd-ffddf782a873",
+        "9ac1e64a-30c9-5c40-ade9-96111c3fc463"
+      ],
+      "reason": "JMdict includes front door among the senses of 玄関, overlapping the unrestricted door meaning of ドア.",
+      "source": "JMdict 2026-05-16: ent_seq 1263400 and 1087820; independent full and part-01 reviews"
+    },
+    {
+      "itemIds": [
+        "7a833031-e189-5b8f-b656-89b75c98c900",
+        "081683a5-83da-56ad-bd4b-9e5301d6ef02"
+      ],
+      "reason": "ラジカセ abbreviates ラジオカセット, whose JMdict entry includes tape recorder, overlapping テープレコーダー.",
+      "source": "JMdict 2026-05-16: ent_seq 1078810, 1138960, and cross-reference 1138900; independent full and part-02 reviews"
+    },
+    {
+      "itemIds": [
+        "c21e11dc-609c-50c0-b6fb-bed068fceae0",
+        "f0eef524-cfae-58dc-9e22-63c74164e073"
+      ],
+      "reason": "次に includes next, then, and after that, while そうして cross-references そして with an and then sense; the bare sequence prompt does not separate them.",
+      "source": "JMdict 2026-05-16: ent_seq 2600340, 1612860, and cross-reference 1006730; independent full review"
+    },
+    {
+      "itemIds": [
+        "0579af3c-72d8-5b38-a53e-43ef35295a62",
+        "0d8968ab-514f-5268-a839-da0839773224"
+      ],
+      "reason": "The say or utter senses of 言う overlap the speak, tell, and mention senses of 話す when no sentence context distinguishes their usage.",
+      "source": "JMdict 2026-05-16: ent_seq 1587040 and 1562350; all independent reviews"
+    },
+    {
+      "itemIds": [
+        "09df0655-a986-5a37-b121-c0b662d34944",
+        "f0eef524-cfae-58dc-9e22-63c74164e073"
+      ],
+      "reason": "The additive conjunction 其れに overlaps the and sense reached through そうして to そして without contextual sequencing cues.",
+      "source": "JMdict 2026-05-16: independent full review of 其れに, そうして, and cross-reference そして"
+    },
+    {
+      "itemIds": [
+        "09df0655-a986-5a37-b121-c0b662d34944",
+        "cb436a08-21f7-503a-a8fb-f2d1f2713dd5"
+      ],
+      "reason": "其れに and そして can both express an additive and relation; the bare conjunction prompt does not reliably distinguish additive from sequential use.",
+      "source": "JMdict 2026-05-16: independent full review of 其れに and そして"
+    },
+    {
+      "itemIds": [
+        "893a0a6f-7f4b-5c33-9588-a29dd0a84979",
+        "f9201c78-fb57-522d-95a3-cc1002e530d5"
+      ],
+      "reason": "Slowly or perlahan can describe gradual change, overlapping だんだん when the prompt provides no speed-versus-progression context.",
+      "source": "JMdict 2026-05-16: ent_seq 1013050 and 1597350; independent full and part-02 reviews"
+    },
+    {
+      "itemIds": [
+        "e84c427f-7815-5be1-85bf-336454d066bd",
+        "dfa3e287-40b2-5eef-b4e7-fe3c0e8b92b3"
+      ],
+      "reason": "JMdict lists business suit for 背広 and suit among the unrestricted clothing senses of 服, so the concepts overlap without context.",
+      "source": "JMdict 2026-05-16: ent_seq 1472740 and 1500940; independent part-02 review"
+    },
+    {
+      "itemIds": [
+        "3660cbad-11cb-5d04-9e34-24fa3fb9b245",
+        "14661e3c-7f37-56ae-8740-f14e64100380"
+      ],
+      "reason": "Large or big and spacious or wide overlap for rooms and areas when 大きな and 広い are presented without a noun or sentence context.",
+      "source": "JMdict 2026-05-16: ent_seq 1278410 and 1412890; independent part-01 and part-02 reviews"
+    }
+  ]
+}

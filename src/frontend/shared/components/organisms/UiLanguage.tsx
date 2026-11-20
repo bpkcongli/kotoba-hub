@@ -3,6 +3,7 @@
 import { observer } from 'mobx-react-lite';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
+import { Select } from '@/frontend/shared/components/atoms';
 import { useAppSessionStore, useLocaleStore, useUiTranslations } from '@/frontend/shared/hooks';
 
 export const UiLanguage = observer(function UiLanguage() {
@@ -21,8 +22,9 @@ export const UiLanguage = observer(function UiLanguage() {
           {t('SHARED:LANGUAGE_SWITCHER.INTERFACE_LANGUAGE_SELECT.LABEL')}
         </span>
 
-        <select
-          className="min-h-11 max-w-full rounded-md border border-muted-foreground bg-card px-3 text-foreground outline-none focus-visible:focus-ring"
+        <Select
+          containerClassName="w-auto max-w-full"
+          className="border-muted-foreground text-body-sm"
           value={locale.preferences.uiLocale}
           disabled={locale.isSaving || isRefreshing || session.snapshot === null}
           onChange={async (event) => {
@@ -41,7 +43,7 @@ export const UiLanguage = observer(function UiLanguage() {
           <option value="id" lang="id">
             Bahasa Indonesia
           </option>
-        </select>
+        </Select>
       </label>
 
       {locale.error && (

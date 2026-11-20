@@ -131,6 +131,13 @@
   transition-duration: 120ms;
 }
 
+@utility field-stack {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 2);
+}
+
 @utility focus-ring {
   outline: 2px solid var(--ring);
   outline-offset: 2px;

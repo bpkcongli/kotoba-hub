@@ -218,7 +218,7 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
 
           {(short || free) && (
             <>
-              <label className="block space-y-2">
+              <label className="field-stack">
                 <span className="text-body-sm font-semibold">
                   {t('PRACTICE:QUESTION_PANEL.ROMAJI_FIELD.LABEL')}
                 </span>
@@ -257,7 +257,7 @@ export const PracticeQuestionPanel = observer(function PracticeQuestionPanel() {
                 {t('PRACTICE:QUESTION_PANEL.ROMAJI_FIELD.HELP_TEXT')}
               </p>
 
-              <label className="block space-y-2">
+              <label className="field-stack">
                 <span className="text-body-sm font-semibold">
                   {t('PRACTICE:QUESTION_PANEL.JAPANESE_ANSWER_FIELD.LABEL')}
                 </span>

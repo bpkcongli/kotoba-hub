@@ -338,7 +338,7 @@
         "LABEL": "Lanjutkan penyiapan awal"
       },
       "CONTINUE_TO_DASHBOARD_BUTTON": {
-        "LABEL": "Lanjutkan ke dasbor",
+        "LABEL": "Lanjutkan ke dashboard",
         "LOADING_LABEL": "Melanjutkan…"
       },
       "DAILY_GOAL_NOTICE": {
@@ -903,10 +903,10 @@
     },
     "APP_NAVIGATION": {
       "DASHBOARD_LINK": {
-        "LABEL": "Dasbor"
+        "LABEL": "Dashboard"
       },
       "FLASHCARDS_LINK": {
-        "LABEL": "Kartu belajar"
+        "LABEL": "Kartu Belajar"
       },
       "MOBILE_NAVIGATION": {
         "ARIA_LABEL": "Navigasi seluler"

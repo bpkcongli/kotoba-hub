@@ -29,4 +29,12 @@ describe('progress presentation locale', () => {
     expect(progressTime(null, 'en')).toBe('Not available');
     expect(progressTime('invalid', 'id')).toBe('Tidak tersedia');
   });
+
+  it('formats UTC+7 without a zone label and rolls over to the next date', () => {
+    const instant = '2026-11-18T23:05:00Z';
+    const options = { timeZone: 'Asia/Jakarta', showTimeZone: false };
+
+    expect(progressTime(instant, 'id', options)).toBe('19 Nov 2026, 6.05');
+    expect(progressTime(instant, 'en', options)).toBe('Nov 19, 2026, 6:05 AM');
+  });
 });

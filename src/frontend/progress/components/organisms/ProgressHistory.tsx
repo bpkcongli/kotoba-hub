@@ -22,13 +22,11 @@ function Pagination({
   offset,
   loading,
   onPage,
-  kind,
 }: {
   pagination: ProgressPagination | null;
   offset: number;
   loading: boolean;
   onPage: (offset: number) => void;
-  kind: 'sessions' | 'answers';
 }) {
   const t = useUiTranslations();
 
@@ -40,19 +38,19 @@ function Pagination({
         variant="secondary"
         disabled={loading || offset === 0}
         onClick={() => onPage(Math.max(0, offset - pagination.pageSize))}>
-        {t('PROGRESS:HISTORY_PAGINATION.PREVIOUS_PAGE_BUTTON.LABEL')} {kind}
+        {t('PROGRESS:HISTORY_PAGINATION.PREVIOUS_PAGE_BUTTON.LABEL')}
       </Button>
 
       <span className="text-body-sm text-muted-foreground">
         {t('PROGRESS:HISTORY_PAGINATION.CURRENT_PAGE.LABEL')} {pagination.pageNumber} ·{' '}
-        {pagination.totalRecords} {kind}
+        {pagination.totalRecords}
       </span>
 
       <Button
         variant="secondary"
         disabled={loading || offset + pagination.pageSize >= pagination.totalRecords}
         onClick={() => onPage(offset + pagination.pageSize)}>
-        {t('PROGRESS:HISTORY_PAGINATION.NEXT_PAGE_BUTTON.LABEL')} {kind}
+        {t('PROGRESS:HISTORY_PAGINATION.NEXT_PAGE_BUTTON.LABEL')}
       </Button>
     </div>
   );
@@ -133,13 +131,7 @@ export function RecentSessions({
         </ul>
       )}
 
-      <Pagination
-        pagination={pagination}
-        offset={offset}
-        loading={loading}
-        onPage={onPage}
-        kind="sessions"
-      />
+      <Pagination pagination={pagination} offset={offset} loading={loading} onPage={onPage} />
     </div>
   );
 }
@@ -207,13 +199,7 @@ export function AnswerHistory({
         </ol>
       )}
 
-      <Pagination
-        pagination={pagination}
-        offset={offset}
-        loading={loading}
-        onPage={onPage}
-        kind="answers"
-      />
+      <Pagination pagination={pagination} offset={offset} loading={loading} onPage={onPage} />
     </div>
   );
 }

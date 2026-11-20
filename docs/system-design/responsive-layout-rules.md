@@ -51,14 +51,15 @@
 | --- | --- | --- | --- | --- |
 | Public hero/content | `space.4` | `space.6` | `space.8` | `1200px` |
 | Auth / onboarding | `space.4` | `space.6` | `space.8` | `720px` |
-| App content default | `space.4` | `space.6` | `space.8` | `1280px` |
+| App content default | `space.4` | `space.6` | `space.8` | mengikuti lebar area setelah sidebar |
 | Reading-heavy content | `space.4` | `space.6` | `space.8` | `760px` |
 | Learning session canvas | `space.4` | `space.6` | `space.8` | `960px` |
 
 ### Spacing Interpretation
 - Gunakan `space.4` sebagai padding minimum layar mobile agar content tetap lega tanpa boros ruang.
 - Gunakan `space.6` sampai `space.8` untuk section gap utama pada app shell.
-- Jangan melampaui `1280px` untuk content area utama agar dashboard dan learning pages tidak kehilangan fokus visual.
+- Halaman app reguler, termasuk dashboard/progress dan setup practice/flashcards, memakai seluruh lebar area setelah sidebar dengan padding di atas. Topbar memakai padding horizontal yang sama agar judul dan konten sejajar.
+- Batas lebar khusus tetap berlaku untuk materi baca, auth/onboarding, dan sesi belajar aktif.
 
 ## Navigation Pattern Rules
 

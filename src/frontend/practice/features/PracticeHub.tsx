@@ -37,7 +37,7 @@ export const PracticeHub = observer(function PracticeHub() {
   }
 
   return (
-    <div className="mx-auto max-w-reading min-w-0 space-y-8 wrap-anywhere">
+    <div className="min-w-0 space-y-8 wrap-anywhere">
       <header className="space-y-3">
         <h1 className="text-h1 font-semibold">{t('SHARED:APP_NAVIGATION.PRACTICE_LINK.LABEL')}</h1>
 
@@ -91,7 +91,7 @@ export const PracticeHub = observer(function PracticeHub() {
           {t('PRACTICE:PRACTICE_HUB.SESSION_SETUP.DESCRIPTION')}
         </p>
 
-        <label className="block space-y-2">
+        <label className="field-stack">
           <span className="text-body-sm font-semibold">
             {t('PRACTICE:PRACTICE_HUB.QUESTION_COUNT_FIELD.LABEL')}
           </span>

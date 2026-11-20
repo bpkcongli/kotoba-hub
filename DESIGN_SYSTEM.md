@@ -103,9 +103,11 @@ Semua kontrol keyboard perlu `focus-visible` yang jelas. Motion menjelaskan perp
 | --- | --- | --- |
 | Public | `1200px` | `16 / 24 / 32px` |
 | Auth dan onboarding | `720px` | `16 / 24 / 32px` |
-| App default | `1280px` | `16 / 24 / 32px` |
+| App default | mengikuti lebar area setelah sidebar | `16 / 24 / 32px` |
 | Materi baca | `760px` | `16 / 24 / 32px` |
 | Learning session | `960px` | `16 / 24 / 32px` |
+
+Halaman app reguler (termasuk setup practice/flashcards) dan topbar memakai seluruh lebar area setelah sidebar dengan padding horizontal yang sama. Batas lebar materi baca dan sesi aktif tetap terpisah.
 
 Satu area scroll utama per halaman adalah default. Gunakan sheet/drawer untuk secondary action mobile, popover/dropdown ringan pada desktop, dan modal untuk konfirmasi yang benar benar perlu memutus flow. Detailnya mengikuti [responsive rules](docs/system-design/responsive-layout-rules.md).
 
@@ -123,6 +125,8 @@ Basis komponen adalah `shadcn/ui` yang diberi token KotobaHub. Gunakan wrapper u
 P0 untuk `IMP-11`: button/card/badge/progress, app sidebar, bottom nav, contextual topbar, focus shell, loading dan empty state. P0 komponen per fitur tetap mengikuti daftar di [component inventory](docs/system-design/shadcn-component-inventory.md). Business rule atau repository backend tidak ditempatkan di komponen. Feature UI memakai store MobX dari `services/internal` melalui provider/container Inversify dan hook domain; komponen client yang membaca observable memakai `observer`. Lifetime store dan hydration mengikuti [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ### 4.1 Pola state lintas fitur
+
+Field dengan label di atas kontrol memakai utility shared `field-stack` (flex column, gap `space.2`/`8px`), berlaku untuk select, input, dan textarea beserta helper/error text. Label horizontal dan pilihan checkbox/radio tetap mengikuti layout masing-masing. Dropdown memakai primitive shared `Select`: native select dengan padding teks kiri `space.3`/`12px`, ikon chevron berjarak sama dari border kanan, dan ruang teks tambahan agar tidak bertabrakan dengan ikon.
 
 | State | Perlakuan UI |
 | --- | --- |

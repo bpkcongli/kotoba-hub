@@ -13,7 +13,7 @@ export interface AppHeaderProps {
 export function AppHeader({ title, breadcrumbs, actions, accountMenu }: AppHeaderProps) {
   return (
     <header className="sticky top-0 z-20 border-b border-border-subtle bg-card">
-      <div className="mx-auto flex min-h-20 max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 md:px-6 lg:px-8">
+      <div className="flex min-h-20 flex-wrap items-center justify-between gap-3 px-4 py-3 md:px-6 lg:px-8">
         <div className="min-w-0 flex-[1_1_12rem]">
           {breadcrumbs}
           <p className="text-h3 font-semibold wrap-break-word">{title}</p>

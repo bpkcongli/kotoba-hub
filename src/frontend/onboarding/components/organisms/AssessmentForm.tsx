@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { useLocale } from 'next-intl';
 import { formControlClass, levelLabel, weakFocusOptions } from '@/frontend/onboarding/helpers';
 import { useOnboardingStore } from '@/frontend/onboarding/hooks';
-import { Button } from '@/frontend/shared/components/atoms';
+import { Button, Select } from '@/frontend/shared/components/atoms';
 import { validationMessage } from '@/frontend/shared/helpers/error-message';
 import { useUiTranslations } from '@/frontend/shared/hooks';
 
@@ -36,14 +36,14 @@ export const AssessmentForm = observer(function AssessmentForm() {
       <fieldset disabled={store.isSubmitting} className="space-y-6">
         <legend className="sr-only">{t('ONBOARDING:ASSESSMENT_FORM.FORM.ARIA_LABEL')}</legend>
 
-        <div className="space-y-2">
+        <div className="field-stack">
           <label htmlFor="current-level" className="text-body-sm font-semibold">
             {t('ONBOARDING:ASSESSMENT_FORM.CURRENT_LEVEL_SELECT.LABEL')}
           </label>
 
-          <select
+          <Select
             id="current-level"
-            className={formControlClass}
+            className="rounded-sm border-muted-foreground"
             value={form.currentLevel}
             onChange={(event) => store.setFormData({ currentLevel: event.target.value })}
             aria-invalid={Boolean(currentLevelError)}
@@ -64,7 +64,7 @@ export const AssessmentForm = observer(function AssessmentForm() {
                 {levelLabel(`JLPT_${track.curriculumLevel}`, uiLocale)}
               </option>
             ))}
-          </select>
+          </Select>
 
           {currentLevelError && (
             <p id="current-level-error" className="text-body-sm text-destructive">
@@ -73,14 +73,14 @@ export const AssessmentForm = observer(function AssessmentForm() {
           )}
         </div>
 
-        <div className="space-y-2">
+        <div className="field-stack">
           <label htmlFor="target-level" className="text-body-sm font-semibold">
             {t('ONBOARDING:ASSESSMENT_FORM.TARGET_LEVEL_SELECT.LABEL')}
           </label>
 
-          <select
+          <Select
             id="target-level"
-            className={formControlClass}
+            className="rounded-sm border-muted-foreground"
             value={form.targetLevel}
             onChange={(event) => store.setFormData({ targetLevel: event.target.value })}
             aria-invalid={Boolean(errors.targetLevel)}
@@ -94,7 +94,7 @@ export const AssessmentForm = observer(function AssessmentForm() {
                 {levelLabel(`JLPT_${track.curriculumLevel}`, uiLocale)}
               </option>
             ))}
-          </select>
+          </Select>
 
           <p id="target-level-help" className="text-body-sm text-muted-foreground">
             {t('ONBOARDING:ASSESSMENT_FORM.TARGET_LEVEL_SELECT.HELP_TEXT')}
@@ -107,7 +107,7 @@ export const AssessmentForm = observer(function AssessmentForm() {
           )}
         </div>
 
-        <div className="space-y-2">
+        <div className="field-stack">
           <label htmlFor="daily-goal" className="text-body-sm font-semibold">
             {t('ONBOARDING:ASSESSMENT_FORM.DAILY_GOAL_FIELD.LABEL')}
           </label>
@@ -133,14 +133,14 @@ export const AssessmentForm = observer(function AssessmentForm() {
           )}
         </div>
 
-        <div className="space-y-2">
+        <div className="field-stack">
           <label htmlFor="preferred-script" className="text-body-sm font-semibold">
             {t('ONBOARDING:ASSESSMENT_FORM.PREFERRED_SCRIPT_SELECT.LABEL')}
           </label>
 
-          <select
+          <Select
             id="preferred-script"
-            className={formControlClass}
+            className="rounded-sm border-muted-foreground"
             value={form.preferredScript}
             onChange={(event) =>
               store.setFormData({
@@ -152,7 +152,7 @@ export const AssessmentForm = observer(function AssessmentForm() {
             <option value="ROMAJI">{t('SHARED:SCRIPT_OPTIONS.ROMAJI.LABEL')}</option>
             <option value="KANA">{t('SHARED:SCRIPT_OPTIONS.KANA.LABEL')}</option>
             <option value="MIXED">{t('SHARED:SCRIPT_OPTIONS.MIXED.LABEL')}</option>
-          </select>
+          </Select>
 
           <p id="preferred-script-help" className="text-body-sm text-muted-foreground">
             {t('ONBOARDING:ASSESSMENT_FORM.PREFERRED_SCRIPT_SELECT.HELP_TEXT')}
@@ -199,7 +199,7 @@ export const AssessmentForm = observer(function AssessmentForm() {
           )}
         </fieldset>
 
-        <div className="space-y-2">
+        <div className="field-stack">
           <label htmlFor="learning-note" className="text-body-sm font-semibold">
             {t('ONBOARDING:ASSESSMENT_FORM.LEARNING_NOTE_FIELD.LABEL')}
           </label>

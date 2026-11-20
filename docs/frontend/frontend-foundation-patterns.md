@@ -90,9 +90,13 @@ Rincian: [Axios dan exceptions](../../.agents/skills/kotoba-frontend-foundations
 
 Ikuti [responsive rules](../system-design/responsive-layout-rules.md): topbar + bottom nav pada `0–1023px`, sidebar + topbar mulai `1024px`, onboarding tanpa navigasi belajar penuh, dan focus mode yang tetap menyediakan exit. `AppFooter` opsional bila ada konten berguna. Sidebar dan bottom nav memakai konfigurasi typed yang sama; Settings adalah tujuan sekunder.
 
+App reguler, termasuk dashboard/progress dan setup practice/flashcards, mengikuti seluruh lebar area setelah sidebar dengan padding horizontal `16/24/32px` yang sejajar dengan topbar. Batas app `1280px` pada contoh skill lama digantikan aturan ini; materi baca serta sesi aktif tetap memiliki container khusus.
+
 Shell memegang chrome, slot judul/breadcrumb/action, dan landmark aksesibilitas. Soal, assessment, feedback, mastery, dan session controls dimiliki fitur. Auth guard berlangsung server-side dan di API; wrapper client hanya menyelaraskan tampilan session. Rincian: [shell dan helpers](../../.agents/skills/kotoba-frontend-foundations/references/shell-and-helpers.md).
 
 ## General helpers
+
+Field vertikal memakai utility `field-stack` dari `globals.css` agar label, kontrol, dan helper/error memiliki gap `8px`. Primitive `Select` di `shared/components/atoms` mempertahankan native select dan menerima props/ref kontrol; `containerClassName` mengatur lebar wrapper (default full width, `w-auto max-w-full` untuk pemilih bahasa horizontal). Chevron memakai `currentColor`, tidak menerima pointer/fokus, dan inset kanan `12px` sama dengan padding teks kiri. Consumer tetap memiliki label, ID, validation, value, dan handler.
 
 Gunakan fungsi murni bernama dengan input/output typed. `cn` yang sudah ada dipertahankan. Formatter menerima locale/timezone eksplisit agar SSR/hydration konsisten; English adalah default bahasa UI. Jangan menebak timezone learner dari environment build.
 

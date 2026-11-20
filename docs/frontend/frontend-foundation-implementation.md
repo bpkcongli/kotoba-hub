@@ -42,6 +42,8 @@ Untuk development, set `NEXT_PUBLIC_API_MOCKING=true` dan restart `bun run dev`.
 
 Pada `0–1023px`, shell app memakai topbar dan bottom nav dengan safe-area serta ruang konten bawah. Mulai `1024px`, sidebar dan topbar dipakai. Onboarding tidak menampilkan navigasi belajar penuh. `FocusModeShell` menerima slot exit dan progress dari pemilik flow; shell tidak menghitung nilai progress atau mengasumsikan endpoint pause tersedia.
 
+Konten app reguler memakai seluruh lebar area setelah sidebar, dengan padding horizontal `16/24/32px` sesuai breakpoint yang sama dengan topbar. Batas `720px` tidak diterapkan ke dashboard/progress atau setup practice/flashcards; wrapper setup juga tidak memakai batas materi baca. Public, onboarding, materi baca, serta focus/session tetap memakai container terpusat dengan batas lebar masing-masing.
+
 Helper `cn` tetap dipakai. Formatter date/currency/duration tidak dibuat tanpa consumer. Semua grading, mastery, lesson understanding/completion, dan recommendation tetap authoritative dari backend.
 
 ## Verifikasi

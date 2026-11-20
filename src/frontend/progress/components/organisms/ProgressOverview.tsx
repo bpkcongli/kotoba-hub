@@ -30,7 +30,10 @@ export function ProgressOverview({
         <p className="text-body-sm text-muted-foreground">
           {t('PROGRESS:PROGRESS_OVERVIEW.LAST_ACTIVITY.LABEL')}{' '}
           {overview.lastActivityAt
-            ? progressTime(overview.lastActivityAt, locale)
+            ? progressTime(overview.lastActivityAt, locale, {
+                timeZone: 'Asia/Jakarta',
+                showTimeZone: false,
+              })
             : t('PROGRESS:PROGRESS_OVERVIEW.EMPTY_ACTIVITY.LABEL')}
         </p>
       </div>

@@ -40,16 +40,16 @@ export function AppShell(props: AppShellProps) {
           id="main-content"
           tabIndex={-1}
           className={cn(
-            'mx-auto w-full min-w-0 flex-1 px-4 py-8 outline-none md:px-6 lg:px-8',
+            'w-full min-w-0 flex-1 px-4 py-8 outline-none md:px-6 lg:px-8',
             variant === 'public'
-              ? 'max-w-public'
+              ? 'mx-auto max-w-public'
               : variant === 'onboarding'
-                ? 'max-w-180'
+                ? 'mx-auto max-w-180'
                 : variant === 'focus' || contentWidth === 'session'
-                  ? 'max-w-180'
+                  ? 'mx-auto max-w-180'
                   : contentWidth === 'reading'
-                    ? 'max-w-reading'
-                    : 'max-w-180',
+                    ? 'mx-auto max-w-reading'
+                    : undefined,
             variant === 'app' && 'pb-[calc(7rem+env(safe-area-inset-bottom))] lg:pb-8',
           )}>
           {children}

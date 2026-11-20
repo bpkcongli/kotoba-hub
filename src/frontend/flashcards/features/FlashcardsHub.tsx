@@ -13,12 +13,9 @@ import {
 } from '@/frontend/flashcards/helpers';
 import { useFlashcardStore } from '@/frontend/flashcards/hooks';
 import type { ScriptMode } from '@/frontend/flashcards/interfaces/entities';
-import { Button } from '@/frontend/shared/components/atoms';
+import { Button, Select } from '@/frontend/shared/components/atoms';
 import { EmptyStatePanel, LoadingPanel } from '@/frontend/shared/components/organisms';
 import { useUiTranslations } from '@/frontend/shared/hooks';
-
-const selectClass =
-  'min-h-11 w-full rounded-md border border-border bg-card px-3 py-2 text-body focus-visible:focus-ring disabled:opacity-50';
 
 export const FlashcardsHub = observer(function FlashcardsHub() {
   const t = useUiTranslations();
@@ -39,7 +36,7 @@ export const FlashcardsHub = observer(function FlashcardsHub() {
   }
 
   return (
-    <div className="mx-auto max-w-reading min-w-0 space-y-8 wrap-anywhere">
+    <div className="min-w-0 space-y-8 wrap-anywhere">
       <header className="space-y-3">
         <h1 className="text-h2 font-semibold md:text-h1">
           {t('SHARED:APP_NAVIGATION.FLASHCARDS_LINK.LABEL')}
@@ -138,14 +135,13 @@ export const FlashcardsHub = observer(function FlashcardsHub() {
                 {t('FLASHCARDS:FLASHCARDS_HUB.SESSION_SETUP.TITLE')}
               </h2>
 
-              <div className="space-y-2">
+              <div className="field-stack">
                 <label htmlFor="flashcard-deck" className="font-semibold">
                   {t('FLASHCARDS:FLASHCARDS_HUB.DECK_SELECT.LABEL')}
                 </label>
 
-                <select
+                <Select
                   id="flashcard-deck"
-                  className={selectClass}
                   value={store.selectedDeckId}
                   disabled={store.isStarting}
                   onChange={(event) => store.selectDeck(event.target.value)}>
@@ -155,7 +151,7 @@ export const FlashcardsHub = observer(function FlashcardsHub() {
                       {t('FLASHCARDS:FLASHCARDS_HUB.DECK_SUMMARY.CARD_COUNT_UNIT')}
                     </option>
                   ))}
-                </select>
+                </Select>
 
                 <p className="text-body-sm text-muted-foreground">
                   {t(CONTENT_MESSAGE_KEYS[deck.contentType])} · {deck.itemCount}{' '}
@@ -167,14 +163,13 @@ export const FlashcardsHub = observer(function FlashcardsHub() {
               </div>
 
               <div className="grid gap-5 sm:grid-cols-2">
-                <div className="space-y-2">
+                <div className="field-stack">
                   <label htmlFor="question-script" className="font-semibold">
                     {t('FLASHCARDS:FLASHCARDS_HUB.QUESTION_SCRIPT_SELECT.LABEL')}
                   </label>
 
-                  <select
+                  <Select
                     id="question-script"
-                    className={selectClass}
                     value={store.questionScriptMode}
                     disabled={store.isStarting}
                     onChange={(event) =>
@@ -185,17 +180,16 @@ export const FlashcardsHub = observer(function FlashcardsHub() {
                         {t(SCRIPT_MESSAGE_KEYS[mode])}
                       </option>
                     ))}
-                  </select>
+                  </Select>
                 </div>
 
-                <div className="space-y-2">
+                <div className="field-stack">
                   <label htmlFor="answer-script" className="font-semibold">
                     {t('FLASHCARDS:FLASHCARDS_HUB.ANSWER_SCRIPT_SELECT.LABEL')}
                   </label>
 
-                  <select
+                  <Select
                     id="answer-script"
-                    className={selectClass}
                     value={store.answerScriptMode}
                     disabled={store.isStarting}
                     onChange={(event) =>
@@ -210,7 +204,7 @@ export const FlashcardsHub = observer(function FlashcardsHub() {
                         {t(SCRIPT_MESSAGE_KEYS[mode])}
                       </option>
                     ))}
-                  </select>
+                  </Select>
                 </div>
               </div>
 

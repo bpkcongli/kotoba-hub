@@ -13,12 +13,9 @@ import {
 } from '@/frontend/progress/components/organisms';
 import { useProgressStore, useProgressRefresh } from '@/frontend/progress/hooks';
 import type { ProgressSourceType } from '@/frontend/progress/interfaces/entities';
-import { Button } from '@/frontend/shared/components/atoms';
+import { Button, Select } from '@/frontend/shared/components/atoms';
 import { EmptyStatePanel, LoadingPanel } from '@/frontend/shared/components/organisms';
 import { useLocaleStore, useUiTranslations } from '@/frontend/shared/hooks';
-
-const selectClass =
-  'min-h-11 w-full rounded-sm border border-input bg-card px-3 py-2 text-body text-foreground focus-visible:focus-ring';
 
 export const ProgressDashboard = observer(function ProgressDashboard({
   mode = 'progress',
@@ -95,11 +92,11 @@ export const ProgressDashboard = observer(function ProgressDashboard({
       )}
 
       <div className="grid items-end gap-4 sm:grid-cols-2">
-        <label className="space-y-2 text-body-sm font-medium">
+        <label className="field-stack text-body-sm font-medium">
           <span className="block">{t('PROGRESS:PROGRESS_DASHBOARD.TRACK_SELECT.LABEL')}</span>
 
-          <select
-            className={selectClass}
+          <Select
+            className="rounded-sm"
             value={store.selectedTrackSlug}
             onChange={(event) => void store.selectTrack(event.target.value)}>
             <option value="">
@@ -129,16 +126,16 @@ export const ProgressDashboard = observer(function ProgressDashboard({
                   {summary.trackTitle} {t('PROGRESS:PROGRESS_DASHBOARD.HISTORICAL_TRACK.SUFFIX')}
                 </option>
               ))}
-          </select>
+          </Select>
         </label>
 
-        <label className="space-y-2 text-body-sm font-medium">
+        <label className="field-stack text-body-sm font-medium">
           <span className="block">
             {t('PROGRESS:PROGRESS_DASHBOARD.ACTIVITY_TYPE_SELECT.LABEL')}
           </span>
 
-          <select
-            className={selectClass}
+          <Select
+            className="rounded-sm"
             value={store.sourceType}
             onChange={(event) =>
               void store.setSourceType(event.target.value as ProgressSourceType | '')
@@ -151,7 +148,7 @@ export const ProgressDashboard = observer(function ProgressDashboard({
             <option value="LESSON_POST_STUDY">
               {t('PROGRESS:PROGRESS_DASHBOARD.ACTIVITY_TYPE_SELECT.LESSON_QUIZ_OPTION_LABEL')}
             </option>
-          </select>
+          </Select>
         </label>
       </div>
 
@@ -216,11 +213,11 @@ export const ProgressDashboard = observer(function ProgressDashboard({
             </p>
           </div>
 
-          <label className="block max-w-lg space-y-2 text-body-sm font-medium">
+          <label className="field-stack max-w-lg text-body-sm font-medium">
             <span className="block">{t('SHARED:CATALOG_ENTITIES.UNIT.LABEL')}</span>
 
-            <select
-              className={selectClass}
+            <Select
+              className="rounded-sm"
               value={store.selectedUnitSlug}
               onChange={(event) => void store.selectUnit(event.target.value)}>
               <option value="">{t('PROGRESS:PROGRESS_DASHBOARD.UNIT_SELECT.PLACEHOLDER')}</option>
@@ -234,7 +231,7 @@ export const ProgressDashboard = observer(function ProgressDashboard({
                   ))}
                 </optgroup>
               ))}
-            </select>
+            </Select>
           </label>
 
           {store.lessonsError && (

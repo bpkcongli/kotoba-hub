@@ -1,6 +1,7 @@
 'use client';
 
 import { observer } from 'mobx-react-lite';
+import { Select } from '@/frontend/shared/components/atoms';
 import { errorMessage } from '@/frontend/shared/helpers/error-message';
 import { useLocaleStore, useUiTranslations } from '@/frontend/shared/hooks';
 
@@ -14,8 +15,9 @@ export const ContentLanguage = observer(function ContentLanguage() {
     <div className="space-y-2">
       <label className="flex flex-wrap items-center gap-3 text-body-sm">
         {t('SYLLABUS:CONTENT_LANGUAGE.LANGUAGE_SELECT.LABEL')}
-        <select
-          className="min-h-11 rounded-md border border-muted-foreground bg-card px-3 text-foreground outline-none focus-visible:focus-ring"
+        <Select
+          containerClassName="w-auto max-w-full"
+          className="border-muted-foreground text-body-sm"
           value={locale.preferences.contentLocale}
           disabled={locale.isSaving}
           onChange={(event) =>
@@ -23,7 +25,7 @@ export const ContentLanguage = observer(function ContentLanguage() {
           }>
           <option value="en">{t('SHARED:LANGUAGE_OPTIONS.ENGLISH.LABEL')}</option>
           <option value="id">{t('SHARED:LANGUAGE_OPTIONS.INDONESIAN.NATIVE_LABEL')}</option>
-        </select>
+        </Select>
       </label>
 
       {locale.error && (

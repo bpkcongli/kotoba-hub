@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { http, HttpResponse } from 'msw';
 import { ProgressDashboard } from '@/frontend/progress/features';
@@ -42,8 +42,16 @@ test('keeps empty activity feeds explicit and disables pagination beyond the ava
 
   expect(screen.getByRole('heading', { name: 'Recent sessions' })).toBeInTheDocument();
   expect(screen.getByRole('heading', { name: 'Answer history' })).toBeInTheDocument();
-  expect(screen.getByRole('button', { name: 'Next sessions' })).toBeDisabled();
-  expect(screen.getByRole('button', { name: 'Next answers' })).toBeDisabled();
+  expect(
+    within(screen.getByRole('region', { name: 'Recent sessions' })).getByRole('button', {
+      name: 'Next',
+    }),
+  ).toBeDisabled();
+  expect(
+    within(screen.getByRole('region', { name: 'Answer history' })).getByRole('button', {
+      name: 'Next',
+    }),
+  ).toBeDisabled();
   expect(screen.queryByText('Completed', { exact: true })).not.toBeInTheDocument();
 });
 

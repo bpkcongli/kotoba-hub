@@ -19,6 +19,7 @@ Keputusan ini memakai endpoint yang tersedia; tidak menambah kontrak backend ata
 ## Surface dan ownership
 
 - `/dashboard` menyajikan langkah belajar berikutnya, overview mastery/understanding, weak-skill action, dan recent sessions.
+- Waktu aktivitas terakhir pada `ProgressOverview` ditampilkan dalam `Asia/Jakarta` (UTC+7), mengikuti locale UI tanpa suffix zona waktu. Formatter menerima zona waktu eksplisit agar SSR/client konsisten.
 - `/progress` menambahkan pemilihan unit untuk status quiz per lesson dan history jawaban. Filter track berlaku pada overview serta history; filter activity type berlaku pada feed aktivitas.
 - Navigasi Progress menjadi aktif pada sidebar desktop dan bottom navigation mobile. Kedua route tetap berada dalam layout server `APP_READY`; endpoint backend tetap memeriksa akses setiap request.
 - `src/frontend/progress` memiliki DTO/schema, service HTTP, kontrak dan implementasi store, child container Inversify, provider, hook, helper presentasi, dan komponen progress. Dashboard mengomposisikan fitur progress yang sama.

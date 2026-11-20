@@ -40,18 +40,22 @@ export function sessionStatusLabel(status: string, locale: Locale = 'en') {
   );
 }
 
-export function progressTime(value: string | null, locale: Locale = 'en') {
+export function progressTime(
+  value: string | null,
+  locale: Locale = 'en',
+  { timeZone = 'UTC', showTimeZone = true }: { timeZone?: string; showTimeZone?: boolean } = {},
+) {
   if (!value || !Number.isFinite(Date.parse(value)))
     return uiTranslator(locale)('SHARED:VALUE_FORMATTING.UNAVAILABLE_VALUE.LABEL');
 
-  return createFormatter({ locale, timeZone: 'UTC' }).dateTime(new Date(value), {
+  return createFormatter({ locale, timeZone }).dateTime(new Date(value), {
     month: 'short',
     day: 'numeric',
     year: 'numeric',
     hour: 'numeric',
     minute: '2-digit',
-    timeZone: 'UTC',
-    timeZoneName: 'short',
+    timeZone,
+    timeZoneName: showTimeZone ? 'short' : undefined,
   });
 }
 
